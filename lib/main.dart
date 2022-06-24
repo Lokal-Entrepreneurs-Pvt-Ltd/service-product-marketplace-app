@@ -6,6 +6,7 @@ import 'package:login/components/UikAvatar/uikAvatar.dart';
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
+import './components/UikiIcon/icon.dart';
 import 'components/UikAvatar/avatar.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      routes: {
-        "/": (context) => Avatar(),
+        "/": (context) => Icone(),
         MyRoutes.otp:((context) => Otp()),
         MyRoutes.loginRoute:(context) => LoginPage()
       },
