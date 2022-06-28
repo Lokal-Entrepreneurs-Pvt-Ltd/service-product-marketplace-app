@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/pages/otp.dart';
 import 'package:login/widgets/app_button.dart';
+import 'package:login/widgets/cell.dart';
 import 'package:login/widgets/extremeIconButton.dart';
 import 'package:login/widgets/toggleSwitch.dart';
 import '../utils/routes.dart';
@@ -87,29 +88,29 @@ class LoginPage extends StatelessWidget {
           //         Navigator.pushNamed(context, MyRoutes.otp);
           //       }),
           // ),
-          Container(
-            child: extremeIconButton(
-                textColor: Colors.black,
-                backgroundColor: Colors.white,
-                borderColor: Colors.black,
-                text: "Active",
-                trailingIcon: Icon(Icons.shopping_bag_outlined),
-                //leadingIcon: Icon(Icons.favorite_border_outlined),
-                heightSize: 64,
-                widthSize: 343),
-          ),
-          SizedBox(height: 20),
-          Container(
-            child: AppButton(
-              textColor: Colors.black,
-              backgroundColor: Colors.yellow,
-              borderColor: Colors.transparent,
-              text: "Active",
-              widthSize: 343,
-              heightSize: 64,
-              trailingIcon: Icon(Icons.shopping_bag_outlined),
-            ),
-          ),
+          // Container(
+          //   child: extremeIconButton(
+          //       textColor: Colors.black,
+          //       backgroundColor: Colors.white,
+          //       borderColor: Colors.black,
+          //       text: "Active",
+          //       trailingIcon: Icon(Icons.shopping_bag_outlined),
+          //       //leadingIcon: Icon(Icons.favorite_border_outlined),
+          //       heightSize: 64,
+          //       widthSize: 343),
+          // ),
+          // SizedBox(height: 20),
+          // Container(
+          //   child: AppButton(
+          //     textColor: Colors.black,
+          //     backgroundColor: Colors.yellow,
+          //     borderColor: Colors.transparent,
+          //     text: "Active",
+          //     widthSize: 343,
+          //     heightSize: 64,
+          //     trailingIcon: Icon(Icons.shopping_bag_outlined),
+          //   ),
+          // ),
           SizedBox(height: 10),
           Container(
             child: AppButton(
@@ -128,22 +129,43 @@ class LoginPage extends StatelessWidget {
                 backgroundColor: Color.fromRGBO(224, 224, 224, 1.0),
                 borderColor: Colors.white,
                 text: "Disabled",
-                leadingIcon: Icon(Icons.shopping_bag_outlined),
+                trailingIcon: Icon(Icons.shopping_bag_outlined),
                 heightSize: 64,
                 widthSize: 343),
           ),
+          // SizedBox(height: 10),
+          // Container(
+          //   child: Transform.scale(
+          //     scale: 1,
+          //     child: toggleSwitch(
+          //       activetopColor: Color(0xffFEE440),
+          //       activebackgroundColor: Color(0xffFFF8CF),
+          //       inactivebackgroundColor: Color(0xffEEEEEE),
+          //       inactivetopColor: Color(0xffF5F5F5),
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 10),
-          Container(
-            child: Transform.scale(
-              scale: 2,
-              child: toggleSwitch(
-                activetopColor: Color(0xffFEE440),
-                activebackgroundColor: Color(0xffFFF8CF),
-                inactivebackgroundColor: Color(0xffEEEEEE),
-                inactivetopColor: Color(0xffF5F5F5),
-              ),
-            ),
-          ),
+          // Container(
+          //   width: 343,
+          //   height: 64,
+          //   child: Cell(
+          //     leftChild: toggleSwitch(
+          //       activetopColor: Color(0xffFEE440),
+          //       activebackgroundColor: Color(0xffFFF8CF),
+          //       inactivebackgroundColor: Color(0xffEEEEEE),
+          //       inactivetopColor: Color(0xffF5F5F5),
+          //     ),
+          //     titleText: "CELL",
+          //     subtitleText: "Description",
+          //     rightChild: toggleSwitch(
+          //       activetopColor: Color(0xffFEE440),
+          //       activebackgroundColor: Color(0xffFFF8CF),
+          //       inactivebackgroundColor: Color(0xffEEEEEE),
+          //       inactivetopColor: Color(0xffF5F5F5),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
