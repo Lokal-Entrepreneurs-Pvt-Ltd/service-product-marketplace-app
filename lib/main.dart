@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
+//import './navbar.dart';
+import './widgets/navbar.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,13 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-     routes: {
+      routes: {
         "/": (context) => LoginPage(),
-        MyRoutes.otp:((context) => Otp()),
-        MyRoutes.loginRoute:(context) => LoginPage()
+        MyRoutes.otp: ((context) => Otp()),
+        MyRoutes.loginRoute: (context) => LoginPage()
       },
     );
-
-   
   }
 }
