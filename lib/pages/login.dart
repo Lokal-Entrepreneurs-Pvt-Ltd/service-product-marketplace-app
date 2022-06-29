@@ -3,10 +3,10 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/pages/otp.dart';
-import 'package:login/widgets/app_button.dart';
-import 'package:login/widgets/cell.dart';
-import 'package:login/widgets/extremeIconButton.dart';
-import 'package:login/widgets/toggleSwitch.dart';
+import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:login/widgets/UikCell.dart';
+import 'package:login/widgets/UikButton/UikXButton.dart';
+import 'package:login/widgets/UikSwitch.dart';
 import '../utils/routes.dart';
 
 class LoginPage extends StatelessWidget {
