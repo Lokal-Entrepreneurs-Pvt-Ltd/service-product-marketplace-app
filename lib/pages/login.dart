@@ -41,7 +41,7 @@ class LoginPage extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: 32,
                   ),
-                )),
+                ),),
             Container(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
               child: TextField(

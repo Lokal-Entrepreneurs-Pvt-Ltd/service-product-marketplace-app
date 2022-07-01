@@ -9,9 +9,12 @@ import './pages/login.dart';
 import './pages/otp.dart';
 import "./components/UikSnackbar/snack.dart";
 import "./components/UikChips/chips.dart";
+import 'components/UikActionSheet/ActionSheet.dart';
+import 'components/UikActionSheet/ActionSheetUtil.dart';
 import 'components/UikChips/chipsUtil.dart';
 import 'components/UikRadioButton/radio.dart';
 import "./components/test.dart";
+import 'components/UikOtp/otpui.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,9 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => RadioButton(
-              transparent: true,
-            ),
+        "/": (context) => OtpUi(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
