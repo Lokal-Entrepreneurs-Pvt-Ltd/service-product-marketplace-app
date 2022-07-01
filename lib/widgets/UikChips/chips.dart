@@ -25,21 +25,12 @@ class Chips extends StatelessWidget {
           //alignment: Alignment.topCenter,
           //margin: EdgeInsets.only(top: 20),
           child: Chip(
-            avatar: (avatar != null)
-                ? CircleAvatar(
-                    child: Icon(Icons.account_circle),
-                  )
-                : null,
+            avatar: (avatar != null) ? avatar : null,
             label: Text(text),
             elevation: 5,
             labelStyle: TextStyle(color: textColor, fontSize: 20),
             onDeleted: (iconVal != null) ? () {} : null,
-            deleteIcon: (iconVal != null)
-                ? Icon(
-                    iconVal,
-                    color: (iconColor != null) ? iconColor : Colors.white,
-                  )
-                : null,
+            deleteIcon: (iconVal != null) ? iconVal : null,
             backgroundColor:
                 (backgroundColor != null) ? backgroundColor : Colors.white,
             //shape: StadiumBorder(side: BorderSide(color: Colors.black)),
