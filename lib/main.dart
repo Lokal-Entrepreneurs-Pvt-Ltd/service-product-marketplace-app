@@ -5,8 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
-//import './navbar.dart';
-import './widgets/navbar.dart';
+import 'widgets/UikNavbar/UikNavbar.dart';
 
 void main() {
   runApp(MyApp());
