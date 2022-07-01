@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
      routes: {
-        "/": (context) => Icone(),
+        "/": (context) => LoginPage(),
         MyRoutes.otp:((context) => Otp()),
         MyRoutes.loginRoute:(context) => LoginPage()
       },

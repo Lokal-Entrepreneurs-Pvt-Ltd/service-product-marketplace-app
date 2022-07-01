@@ -6,6 +6,7 @@ import 'package:login/pages/otp.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikCell.dart';
 import 'package:login/widgets/UikButton/UikXButton.dart';
+import 'package:login/widgets/UikInput.dart';
 import 'package:login/widgets/UikSwitch.dart';
 import '../utils/routes.dart';
 
@@ -133,7 +134,12 @@ class LoginPage extends StatelessWidget {
                 heightSize: 64,
                 widthSize: 343),
           ),
-          // SizedBox(height: 10),
+          SizedBox(height: 10),
+          Container(
+            height: 64,
+            width: 343,
+            child: UikInput(),
+          )
           // Container(
           //   child: Transform.scale(
           //     scale: 1,
@@ -145,7 +151,7 @@ class LoginPage extends StatelessWidget {
           //     ),
           //   ),
           // ),
-          SizedBox(height: 10),
+          //SizedBox(height: 10),
           // Container(
           //   width: 343,
           //   height: 64,
