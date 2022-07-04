@@ -9,7 +9,7 @@ class toggleSwitch extends StatefulWidget {
   final Color inactivebackgroundColor;
   final Color inactivetopColor;
 
-  toggleSwitch({
+  const toggleSwitch({
     Key? key,
     required this.activetopColor,
     required this.activebackgroundColor,

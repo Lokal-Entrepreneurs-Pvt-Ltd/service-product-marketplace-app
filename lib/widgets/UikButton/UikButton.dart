@@ -12,53 +12,56 @@ class AppButton extends StatelessWidget {
   double heightSize;
   final trailingIcon;
   final leadingIcon;
+  final onClick;
   // final xstartIcon;
   // final xendIcon;
   // final nextIcon;
   // final beforeIcon;
 
   AppButton({
-    Key? key,
-    required this.textColor,
-    required this.backgroundColor,
-    required this.borderColor,
-    required this.text,
-    required this.widthSize,
-    required this.heightSize,
+    this.textColor = Colors.black,
+    this.backgroundColor = Colors.yellow,
+    this.borderColor = Colors.transparent,
+    this.text = "Button",
+    this.widthSize = 100,
+    this.heightSize = 50,
     this.trailingIcon,
     this.leadingIcon,
-    // this.beforeIcon,
-    // this.nextIcon,
-    // this.xendIcon,
-    // this.xstartIcon,
-  }) : super(key: key);
+    this.onClick,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widthSize,
-      height: heightSize,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(7),
-        border: Border.all(color: borderColor, width: 1.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            child: _buildLeadingIcon(leadingIcon),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onClick,
+        child: Container(
+          width: widthSize,
+          height: heightSize,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(7),
+            border: Border.all(color: borderColor, width: 1.0),
           ),
-          Center(
-            child: Text(
-              text,
-              style: GoogleFonts.poppins(color: textColor),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: _buildLeadingIcon(leadingIcon),
+              ),
+              Center(
+                child: Text(
+                  text,
+                  style: GoogleFonts.poppins(color: textColor),
+                ),
+              ),
+              Container(
+                child: _buildTrailingIcon(trailingIcon),
+              ),
+            ],
           ),
-          Container(
-            child: _buildTrailingIcon(trailingIcon),
-          ),
-        ],
+        ),
       ),
     );
   }

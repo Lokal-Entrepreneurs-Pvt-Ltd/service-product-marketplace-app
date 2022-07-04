@@ -12,55 +12,62 @@ class extremeIconButton extends StatelessWidget {
   double heightSize;
   final trailingIcon;
   final leadingIcon;
+  final onClick;
 
   extremeIconButton({
-    Key? key,
-    required this.textColor,
-    required this.backgroundColor,
-    required this.borderColor,
-    required this.text,
-    required this.widthSize,
-    required this.heightSize,
+    this.onClick,
+    this.textColor = Colors.black,
+    this.backgroundColor = Colors.yellow,
+    this.borderColor = Colors.transparent,
+    this.text = "Button",
+    this.widthSize = 100,
+    this.heightSize = 50,
     this.trailingIcon,
     this.leadingIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widthSize,
-      height: heightSize,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(7),
-        border: Border.all(color: borderColor, width: 1.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 20),
-              child: _buildLeadingIcon(leadingIcon),
-            ),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+          onTap: onClick,
+        child: Container(
+          width: widthSize,
+          height: heightSize,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(7),
+            border: Border.all(color: borderColor, width: 1.0),
           ),
-          Spacer(),
-          Expanded(
-            child: Center(
-              child: Text(
-                text,
-                style: GoogleFonts.poppins(color: textColor),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(left: 20),
+                  child: _buildLeadingIcon(leadingIcon),
+                ),
               ),
-            ),
+              Spacer(),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    text,
+                    style: GoogleFonts.poppins(color: textColor),
+                  ),
+                ),
+              ),
+              Spacer(),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: _buildTrailingIcon(trailingIcon),
+                ),
+              ),
+            ],
           ),
-          Spacer(),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(right: 20),
-              child: _buildTrailingIcon(trailingIcon),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
