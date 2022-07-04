@@ -7,28 +7,28 @@ class SnackBarPage extends StatelessWidget {
   final title;
   final description;
   final action;
-  final iconVal;
   final secondIcon;
   final buttonText;
-  SnackBarPage(
-      {required this.title,
-      this.description,
-      this.action,
-      this.iconVal,
-      this.secondIcon,
-      this.buttonText});
+  final backgroundColor;
+  final leftElement;
+  SnackBarPage({
+    required this.title,
+    this.description,
+    this.leftElement,
+    this.action,
+    this.secondIcon,
+    this.buttonText,
+    this.backgroundColor = Colors.black,
+  });
   SnackBar snackWidget() {
     final snackBar = SnackBar(
       content: Row(
         children: [
-          (iconVal != null)
-              ? Container(
-                  child: Icon(
-                    iconVal,
-                    color: Colors.white,
-                  ),
-                )
-              : Text(""),
+          Container(
+            child: (leftElement != null) ? leftElement : null,
+            height: 40,
+          ),
+
           SizedBox(width: 10),
           Container(
             height: 40,
@@ -82,8 +82,8 @@ class SnackBarPage extends StatelessWidget {
                               primary: Colors.amber,
                               onPrimary: Colors.white,
                             ),
-                            child: const Text(
-                              'Button',
+                            child: Text(
+                              buttonText,
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
@@ -91,7 +91,7 @@ class SnackBarPage extends StatelessWidget {
                       : Text(""),
         ],
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: backgroundColor,
       behavior: SnackBarBehavior.floating,
       width: 300,
       duration: Duration(milliseconds: 5000),

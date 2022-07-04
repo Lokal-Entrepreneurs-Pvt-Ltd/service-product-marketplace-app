@@ -1,6 +1,8 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import '../UikAvatar/UikAvatar.dart';
+import '../UikiIcon/uikIcon.dart';
 import "./snackbar.dart";
 
 class Snack extends StatelessWidget {
@@ -8,9 +10,20 @@ class Snack extends StatelessWidget {
     title: "Snackbar",
     //description: "yuvraj",
     //action: "Action",
-    iconVal: Icons.rounded_corner_sharp,
+    //iconVal: Icons.refresh_sharp,
+    leftElement: UikIcon(
+      valIcon: Icons.refresh,
+      iconColor: Colors.white,
+    ),
+    // leftElement: UikAvatar(
+    //   shape: UikAvatarShape.circle,
+    //   size: UikSize.SMALL,
+    //   backgroundImage: NetworkImage(
+    //       "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+    // ),
+    backgroundColor: Colors.red,
     buttonText: "Action",
-    //secondIcon: Icons.notification_add_rounded,
+    //secondIcon: Icons.notifications_none_rounded,
   );
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
   @override
