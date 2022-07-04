@@ -2,6 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikSlidder/slidder.dart';
 
 import 'package:login/widgets/UikSnackbar/snackbar.dart';
@@ -28,7 +29,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => Snack(),
+        "/": (context) => AppButton(
+              borderColor: Colors.yellow,
+              heightSize: 500,
+              backgroundColor: Colors.yellow,
+              textColor: Colors.black,
+              text: 'Button',
+              widthSize: 100,
+            ),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
