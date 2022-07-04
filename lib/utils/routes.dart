@@ -1,4 +1,4 @@
-class MyRoutes{
-  static String loginRoute='/login';
-  static String otp="/otp";
+class MyRoutes {
+  static String loginRoute = '/login';
+  static String otp = "/otp";
 }

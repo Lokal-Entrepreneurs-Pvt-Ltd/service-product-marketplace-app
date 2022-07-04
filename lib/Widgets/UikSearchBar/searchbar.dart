@@ -2,15 +2,15 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import "package:flutter/material.dart";
 
-class MyWidget extends StatefulWidget {
+class MySearchBar extends StatefulWidget {
   final iconVal;
-  MyWidget({this.iconVal});
+  MySearchBar({this.iconVal});
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<MySearchBar> createState() => _MySearchBarState();
 }
 
-class _MyWidgetState extends State<MyWidget>
+class _MySearchBarState extends State<MySearchBar>
     with SingleTickerProviderStateMixin {
   // String s = "";
   int hastype = 0;
