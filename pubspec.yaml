@@ -38,6 +38,7 @@ dependencies:
   adaptive_action_sheet: ^2.0.1
   syncfusion_flutter_sliders: ^20.2.36
   flutter_xlider: ^3.4.0
+  overlay_group_avatar: ^0.0.4
 
 dev_dependencies:
   flutter_test:

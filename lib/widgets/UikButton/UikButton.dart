@@ -12,12 +12,14 @@ class AppButton extends StatelessWidget {
   final heightSize;
   final trailingIcon;
   final leadingIcon;
+  final onClick;
   // final xstartIcon;
   // final xendIcon;
   // final nextIcon;
   // final beforeIcon;
 
   AppButton({
+    this.onClick,
     this.textColor = Colors.black,
     this.backgroundColor = Colors.yellow,
     this.borderColor = Colors.transparent,
@@ -30,9 +32,11 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onClick,
+        child: Container(
           width: widthSize,
           height: heightSize,
           decoration: BoxDecoration(

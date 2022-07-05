@@ -2,9 +2,11 @@ import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import "package:flutter/material.dart";
 import "package:flutter/cupertino.dart";
 
+import '../UikButton/UikButton.dart';
+
 class ActionSheet extends StatelessWidget {
-  final itemList;
-  ActionSheet({this.itemList});
+  final items;
+  ActionSheet({this.items});
   void showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -18,9 +20,9 @@ class ActionSheet extends StatelessWidget {
             ),
           ),
           child: Container(
-            height: (itemList.length == 1)
+            height: (items.length == 1)
                 ? 250
-                : (itemList.length == 2)
+                : (items.length == 2)
                     ? 300
                     : 400,
             decoration: BoxDecoration(
@@ -62,10 +64,10 @@ class ActionSheet extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: [
-                      for (int i = 0; i < itemList.length; i++) ...[
+                      for (int i = 0; i < items.length; i++) ...[
                         ListTile(
                           leading: Icon(Icons.star_border_outlined),
-                          title: Text(itemList[i]),
+                          title: Text(items[i]),
                           onTap: () {},
                         ),
                       ]
@@ -76,37 +78,49 @@ class ActionSheet extends StatelessWidget {
 
                 //cancel button starts
 
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
+                Container(
+                  margin: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
+                  child: AppButton(
+                    onClick: () {
                       Navigator.pop(context);
                     },
-                    child: Container(
-                      height: 70,
-                      margin: EdgeInsets.all(10),
-                      padding: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xFFF5F5F5),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xFFF5F5F5),
-                        ),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Cancel',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
+                    backgroundColor: Color(0xFFF5F5F5),
+                    widthSize: double.infinity,
+                    heightSize: 80,
                   ),
                 ),
+                // MouseRegion(
+                //   cursor: SystemMouseCursors.click,
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       Navigator.pop(context);
+                //     },
+                //     child: Container(
+                //       height: 70,
+                //       margin: EdgeInsets.all(10),
+                //       padding: EdgeInsets.all(3),
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(8),
+                //         color: Color(0xFFF5F5F5),
+                //         border: Border.all(
+                //           width: 1,
+                //           color: Color(0xFFF5F5F5),
+                //         ),
+                //       ),
+                //       child: Row(
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Text(
+                //             'Cancel',
+                //             style: TextStyle(color: Colors.black),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
 
                 //cancel buttons ends
               ],
@@ -138,10 +152,10 @@ class ActionSheet extends StatelessWidget {
       ),
       //  androidBorderRadius: 30,
       actions: <BottomSheetAction>[
-        for (int i = 0; i < itemList.length; i++) ...[
+        for (int i = 0; i < items.length; i++) ...[
           BottomSheetAction(
             leading: Icon(Icons.star_border_outlined),
-            title: Text(itemList[i]),
+            title: Text(items[i]),
             onPressed: () {},
           ),
         ],

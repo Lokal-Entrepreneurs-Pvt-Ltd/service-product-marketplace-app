@@ -11,12 +11,14 @@ class UikIcon extends StatelessWidget {
   final Color borderColor;
   final wid;
   final rad;
+  final iconSize;
   const UikIcon(
       {this.rad,
       this.valIcon,
       this.iconColor,
       this.wid,
       this.borderRadius,
+      this.iconSize,
       this.borderColor = Colors.black});
 
   @override
@@ -33,6 +35,7 @@ class UikIcon extends StatelessWidget {
       ),
       child: Icon(
         valIcon,
+        size: iconSize,
         color: iconColor,
       ),
     );
