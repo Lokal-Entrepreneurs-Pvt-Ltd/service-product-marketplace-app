@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/pages/UikDivider/UikDivider.dart';
 import 'package:login/pages/otp.dart';
 import 'package:login/widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
@@ -137,10 +138,10 @@ class LoginPage extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Container(
-            height: 64,
-            width: 343,
-            //child: UikInput(labelText: "Label"),
+            child: UikDivider(corner: "Round",dividerSize: "Large",widthSize: 555,),
           ),
+          SizedBox(height: 10,),
+          Container(child: UikDivider(dividerSize: "Medium"),)
           // Container(
           //   child: Transform.scale(
           //     scale: 1,
@@ -152,25 +153,6 @@ class LoginPage extends StatelessWidget {
           //     ),
           //   ),
           // ),
-          SizedBox(height: 10),
-          Container(
-            width: 343,
-            height: 64,
-            child: Cell(
-              leftChild: UikAvatar(
-                backgroundImage: NetworkImage(
-                    "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"),
-              ),
-              titleText: "CELL",
-              subtitleText: "Description",
-              rightChild: toggleSwitch(
-                activetopColor: Color(0xffFEE440),
-                activebackgroundColor: Color(0xffFFF8CF),
-                inactivebackgroundColor: Color(0xffEEEEEE),
-                inactivetopColor: Color(0xffF5F5F5),
-              ),
-            ),
-          ),
         ],
       ),
     );
