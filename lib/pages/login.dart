@@ -115,13 +115,14 @@ class LoginPage extends StatelessWidget {
           SizedBox(height: 10),
           Container(
             child: AppButton(
-                textColor: Colors.black,
-                backgroundColor: Colors.yellow,
-                borderColor: Colors.white,
-                text: "Active",
-                trailingIcon: Icon(Icons.favorite_border_outlined),
-                heightSize: 36,
-                widthSize: 98),
+              textColor: Colors.black,
+              backgroundColor: Colors.yellow,
+              borderColor: Colors.white,
+              text: "Active",
+              trailingIcon: Icon(Icons.favorite_border_outlined),
+              heightSize: 36,
+              widthSize: 98,
+            ),
           ),
           SizedBox(height: 10),
           Container(
