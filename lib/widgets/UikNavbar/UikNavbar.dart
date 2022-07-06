@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../UikiIcon/uikIcon.dart';
 
 class MyAppBar extends StatelessWidget {
-  final titletxt;
-  final subtitletxt;
+  final titletxt, titletxtColor, titletxtSize;
+  final subtitletxt, subtitletxtColor, subtitletxtSize;
   final lefticon;
   final size;
   final type;
   final bg;
   final transparent;
   final color;
+  final btncolor, btnheight, btnwidth, btntext, btntextColor, btntextSize;
+  final actionWidth, actionHeight, actionText, actionTextColor, actiontextSize;
 
   const MyAppBar({
     Key? key,
@@ -21,6 +24,21 @@ class MyAppBar extends StatelessWidget {
     this.bg,
     this.transparent,
     this.color = Colors.black,
+    this.btncolor,
+    this.btnheight,
+    this.btnwidth,
+    this.btntext,
+    this.btntextColor,
+    this.btntextSize,
+    this.actionWidth,
+    this.actionHeight,
+    this.actionText,
+    this.actionTextColor,
+    this.actiontextSize,
+    this.titletxtColor,
+    this.titletxtSize,
+    this.subtitletxtColor,
+    this.subtitletxtSize,
   }) : super(key: key);
 
   @override
@@ -49,27 +67,27 @@ class MyAppBar extends StatelessWidget {
                         Container(
                           child: IconButton(
                             onPressed: () {},
-                            icon: const Icon(Icons.favorite_outline),
+                            icon: UikIcon(),
                             color: color,
                           ),
                         )
                       ] else if (type == 'button') ...[
                         Container(
-                          color: const Color(0xffFEE440),
+                          color: btncolor,
                           margin: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                          width: 79,
-                          height: 36,
+                          width: btnwidth,
+                          height: btnheight,
                           child: TextButton(
                               onPressed: () {},
                               child: Center(
                                 child: Text(
-                                  'Button',
+                                  btntext,
                                   style: GoogleFonts.poppins(
                                     textStyle:
                                         Theme.of(context).textTheme.bodyMedium,
-                                    fontSize: 14,
+                                    fontSize: btntextSize,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.black,
+                                    color: btntextColor,
                                   ),
                                 ),
                               )),
@@ -77,16 +95,16 @@ class MyAppBar extends StatelessWidget {
                       ] else if (type == 'action') ...[
                         Container(
                             // color: Colors.red,
-                            width: 52,
-                            height: 24,
+                            width: actionWidth,
+                            height: actionHeight,
                             child: Text(
-                              'Action',
+                              actionText,
                               style: GoogleFonts.poppins(
                                 textStyle:
                                     Theme.of(context).textTheme.bodyMedium,
-                                fontSize: 16,
+                                fontSize: actiontextSize,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black,
+                                color: actionTextColor,
                               ),
                             ))
                       ]
@@ -106,9 +124,9 @@ class MyAppBar extends StatelessWidget {
                       titletxt!,
                       style: GoogleFonts.poppins(
                         textStyle: Theme.of(context).textTheme.bodyMedium,
-                        fontSize: 16,
+                        fontSize: titletxtSize,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                        color: titletxtColor,
                       ),
                     ),
                   ] else ...[
@@ -116,18 +134,18 @@ class MyAppBar extends StatelessWidget {
                       titletxt!,
                       style: GoogleFonts.poppins(
                         textStyle: Theme.of(context).textTheme.bodyMedium,
-                        fontSize: 16,
+                        fontSize: titletxtSize,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black,
+                        color: titletxtColor,
                       ),
                     ),
                     Text(
                       subtitletxt!,
                       style: GoogleFonts.poppins(
                         textStyle: Theme.of(context).textTheme.bodyMedium,
-                        fontSize: 12,
+                        fontSize: subtitletxtSize,
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xff9e9e9e),
+                        color: subtitletxtColor,
                         // color: Colors.black,
                       ),
                     )
@@ -144,7 +162,7 @@ class MyAppBar extends StatelessWidget {
               child: Container(
                 child: AppBar(
                   backgroundColor: bg,
-                  foregroundColor: Colors.black,
+                  foregroundColor: color,
                   // (subtitletxt==null)? (): (),
                   toolbarHeight: 122,
                   leadingWidth: 343,
@@ -159,7 +177,7 @@ class MyAppBar extends StatelessWidget {
                               onPressed: () {},
                               icon: Icon(
                                 lefticon,
-                                color: Colors.black,
+                                color: color,
                               ))),
                       Container(
                           // color: Colors.red,
@@ -176,9 +194,9 @@ class MyAppBar extends StatelessWidget {
                                     style: GoogleFonts.poppins(
                                       textStyle:
                                           Theme.of(context).textTheme.headline1,
-                                      fontSize: 32,
+                                      fontSize: titletxtSize,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.black,
+                                      color: titletxtColor,
                                     ),
                                   ),
                                 ),
@@ -189,9 +207,9 @@ class MyAppBar extends StatelessWidget {
                                     style: GoogleFonts.poppins(
                                       textStyle:
                                           Theme.of(context).textTheme.headline1,
-                                      fontSize: 32,
+                                      fontSize: titletxtSize,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.black,
+                                      color: titletxtColor,
                                     ),
                                   ),
                                 ),
@@ -201,11 +219,12 @@ class MyAppBar extends StatelessWidget {
                                   child: Text(
                                     subtitletxt!,
                                     style: GoogleFonts.poppins(
-                                      textStyle:
-                                          Theme.of(context).textTheme.bodyText1,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
+                                        fontSize: subtitletxtSize,
+                                        fontWeight: FontWeight.w400,
+                                        color: subtitletxtColor),
                                   ),
                                 )
                               ]
@@ -221,48 +240,46 @@ class MyAppBar extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           if (type == 'icon') ...[
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.favorite_outline))
+                            IconButton(onPressed: () {}, icon: UikIcon())
                           ] else if (type == 'button') ...[
                             Container(
-                                color: Colors.yellow,
+                                color: btncolor,
                                 margin: EdgeInsets.fromLTRB(0, 10, 10, 68),
                                 // padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                                width: 79,
-                                height: 36,
+                                width: btnwidth,
+                                height: btnheight,
 
                                 // padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
                                 child: TextButton(
                                     onPressed: () {},
                                     child: Center(
                                       child: Text(
-                                        'Button',
+                                        btntext,
                                         style: GoogleFonts.poppins(
                                           textStyle: Theme.of(context)
                                               .textTheme
                                               .bodyText2,
-                                          fontSize: 14,
+                                          fontSize: btntextSize,
                                           fontWeight: FontWeight.w500,
-                                          color: Colors.black,
+                                          color: btntextColor,
                                         ),
                                       ),
                                     )))
                           ] else if (type == 'action') ...[
                             Container(
-                                width: 52,
-                                height: 24,
+                                width: actionWidth,
+                                height: actionHeight,
                                 // color: Colors.black,
                                 margin: EdgeInsets.fromLTRB(0, 16, 16, 0),
                                 child: Center(
                                     child: Text(
-                                  'Action',
+                                  actionText,
                                   style: GoogleFonts.poppins(
                                     textStyle:
                                         Theme.of(context).textTheme.bodyText1,
-                                    fontSize: 16,
+                                    fontSize: actiontextSize,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.black,
+                                    color: actionTextColor,
                                   ),
                                 )))
                           ]
