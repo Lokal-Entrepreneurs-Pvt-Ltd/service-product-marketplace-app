@@ -10,38 +10,54 @@ void main() {
 class Pagination extends StatelessWidget {
   final pagecontroller = PageController();
   final List<StatelessWidget> pages;
-  Pagination({Key? key, required this.pages}) : super(key: key);
+  final boxheight;
+  final dotcolor, ActiveDotColor;
+  final DotHeight, DotWidth;
+  final spacing;
+  final DotRadius;
+  final expansionFactor;
+  Pagination(
+      {Key? key,
+      required this.pages,
+      this.boxheight,
+      this.dotcolor,
+      this.ActiveDotColor,
+      this.DotHeight,
+      this.DotWidth,
+      this.spacing,
+      this.DotRadius,
+      this.expansionFactor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // List<StatelessWidget> pages;
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           //page view
           SizedBox(
-            height: 200,
+            height: boxheight,
             child: PageView(
               controller: pagecontroller,
               children: pages,
             ),
           ),
 
-          //dot indicator
+          // dot indicator
           SmoothPageIndicator(
             controller: pagecontroller,
             count: pages.length,
-            effect: const ExpandingDotsEffect(
-                activeDotColor: Color(0xff212121),
-                dotColor: Color(0xffE0E0E0),
-                dotHeight: 5,
-                dotWidth: 5,
-                spacing: 4,
-                radius: 2.5,
-                expansionFactor: 2.2
-                // offset: 11
-                ),
+            effect: ExpandingDotsEffect(
+                activeDotColor: ActiveDotColor,
+                dotColor: dotcolor,
+                dotHeight: DotHeight,
+                dotWidth: DotWidth,
+                spacing: spacing,
+                radius: DotRadius,
+                expansionFactor: expansionFactor),
           ),
         ],
       ),
