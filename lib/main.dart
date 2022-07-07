@@ -7,6 +7,7 @@ import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikSlidder/slidder.dart';
 
 import 'package:login/widgets/UikSnackbar/snackbar.dart';
+import 'package:login/widgets/UikTabs/tabs.dart';
 import 'package:login/widgets/UikiIcon/icon.dart';
 import "./utils/routes.dart";
 import './pages/login.dart';
@@ -30,12 +31,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => GroupAvatar(
-              list: [
-                "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+        "/": (context) => Tabs(
+              ll: [
+                "Tab",
+                "Tab",
+                "Tab",
+                "Tab",
+                "Tab",
               ],
+              gapBetweenTabs: 10,
+              // isBorder: true,
+              //onlyTopBorderRadius: 25,
+              //borderRadius: 25,
             ),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()

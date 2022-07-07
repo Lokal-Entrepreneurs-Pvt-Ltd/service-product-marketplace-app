@@ -1,202 +1,72 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: deprecated_member_use
 
-class MyAppBar extends StatelessWidget {
-  final titletxt;
-  final subtitletxt;
-  final lefticon;
-  final size;
-  final type;
-  final bg;
-  final transparent;
-  final color;
-  const MyAppBar(
-      {Key? key,
-      this.titletxt,
-      this.subtitletxt,
-      this.lefticon,
-      this.size,
-      this.type,
-      this.bg,
-      this.color = Colors.black,
-      this.transparent})
-      : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
+
+class ToolTip extends StatefulWidget {
+  final List<String> ll;
+  final child;
+  final s;
+
+  final taillength;
+
+  const ToolTip(
+      {required this.ll,
+      this.s = AxisDirection.down,
+      this.child,
+      required this.taillength});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      extendBodyBehindAppBar: (transparent == true) ? true : false,
-      appBar: (size == 'small')
-          ? AppBar(
-              elevation: (transparent == true) ? 0 : null,
-              backgroundColor: (transparent == true)
-                  ? Colors.white.withOpacity(0)
-                  : Colors.white,
-              // backgroundColor: bg,
-              leading: IconButton(onPressed: () {}, icon: Icon(lefticon)),
-              actions: [
-                Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (type == 'icon') ...[
-                        Container(
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite_outline)),
-                        )
-                      ] else if (type == 'button') ...[
-                        Container(
-                            color: Color(0xffFEE440),
-                            margin: EdgeInsets.fromLTRB(0, 10, 16, 10),
-                            child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Button',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.black),
-                                  textAlign: TextAlign.center,
-                                )))
-                      ] else if (type == 'action') ...[
-                        Container(
-                            width: 52,
-                            height: 24,
-                            child: const Text(
-                              'Action',
-                              style: TextStyle(fontSize: 16),
-                            ))
-                      ]
-                    ],
-                  ),
-                )
-              ],
-              centerTitle: true,
-              title: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (titletxt == null) ...[
-                    Container()
-                  ] else if (subtitletxt == null) ...[
-                    Text(
-                      titletxt!,
-                      style:
-                          const TextStyle(fontSize: 16.0, color: Colors.black),
-                    ),
-                  ] else ...[
-                    Text(
-                      titletxt!,
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
-                    Text(
-                      subtitletxt!,
-                      style: const TextStyle(
-                          fontSize: 14.0, color: Color(0xff9E9E9E)),
-                    )
-                  ]
-                ],
-              ),
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-              // backgroundColor: bgcolor,
-            )
-          : PreferredSize(
-              preferredSize: (subtitletxt != null)
-                  ? Size.fromHeight(142.0)
-                  : Size.fromHeight(114.0),
-              child: AppBar(
-                // (subtitletxt==null)? (): (),
-                // elevation: (transparent == true) ? 0 : null,
-                // backgroundColor: (transparent == true)
-                //     ? Colors.white.withOpacity(0)
-                //     : Colors.white,
-                toolbarHeight: 114,
-                leadingWidth: 343,
-                leading: Container(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              lefticon,
-                              color: Colors.black,
-                            ))),
-                    Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (titletxt == null && subtitletxt == null) ...[
-                              Container()
-                            ] else if (subtitletxt == null) ...[
-                              Container(
-                                // color: Colors.red,
-                                child: Text(
-                                  titletxt!,
-                                  style: const TextStyle(fontSize: 32.0),
-                                ),
-                              ),
-                            ] else ...[
-                              Container(
-                                child: Text(
-                                  titletxt!,
-                                  style: const TextStyle(fontSize: 32.0),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  subtitletxt!,
-                                  style: const TextStyle(
-                                      fontSize: 16.0, color: Color(0xff9E9E9E)),
-                                ),
-                              )
-                            ]
-                          ],
-                        )),
-                  ],
-                )),
-                //second element
-                actions: [
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        if (type == 'icon') ...[
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.favorite_outline))
-                        ] else if (type == 'button') ...[
-                          Container(
-                              color: Colors.yellow,
-                              margin: EdgeInsets.fromLTRB(0, 10, 16, 68),
-                              width: 79,
-                              height: 36,
+String callForLoop(List<String> ll) {
+  String toReturn = "";
+  for (int i = 0; i < ll.length - 1; i++) {
+    String s = ll[i];
+    toReturn = toReturn + s + "\n";
+  }
+  toReturn = toReturn + ll[ll.length - 1];
 
-                              // padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-                              child: TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'Button',
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Color(0xff212121),
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  )))
-                        ] else if (type == 'action') ...[
-                          Container(
-                              width: 52,
-                              height: 24,
-                              // color: Colors.black,
-                              margin: EdgeInsets.fromLTRB(0, 16, 16, 0),
-                              child: const Text('Action'))
-                        ]
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ));
+  return toReturn;
+}
+
+class _MyHomePageState extends State<ToolTip> {
+  @override
+  Widget build(BuildContext context) {
+    String toPrint = callForLoop(widget.ll);
+    return JustTheTooltip(
+      tailLength: widget.taillength,
+
+      elevation: 0,
+      backgroundColor: Colors.yellow,
+      shadow: null,
+      // tailLength: 0,
+      // tailBaseWidth: 0,
+      preferredDirection: widget.s,
+      barrierDismissible: false,
+      // margin: EdgeInsets.all(10),
+      // curve: Curves.easeInOut,
+      // ignore: prefer_const_constructors
+      child: Container(
+        //fit: FlexFit.loose,
+        width: 100,
+        height: 100,
+        color: Colors.red,
+        child: widget.child,
+      ),
+      content: Container(
+        padding: EdgeInsets.all(10.0),
+        width: 73,
+        height: 95,
+        decoration: BoxDecoration(
+          // color: backgroundColor,
+          borderRadius: BorderRadius.circular(7),
+          border: Border.all(color: Colors.yellow, width: 1.0),
+        ),
+        child: Text(toPrint),
+      ),
+    );
+    // );
+  }
 }
