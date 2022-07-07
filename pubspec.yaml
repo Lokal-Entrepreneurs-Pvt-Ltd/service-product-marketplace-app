@@ -27,6 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  # simple_tooltip: <latest version>
+  just_the_tooltip: ^0.0.3+6
   flutter:
     sdk: flutter
 

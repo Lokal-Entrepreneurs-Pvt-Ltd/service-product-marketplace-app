@@ -8,19 +8,33 @@ class Icone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return MaterialApp(
-        home: Scaffold(
-            body: Container(
-                child: Row(
-      children: [
-       UikIcon(valIcon: Icons.arrow_back,wid:2,rad: 0,borderColor: Colors.black,),
-        UikIcon(valIcon: Icons.access_alarm,wid:2,rad: 0,borderColor: Colors.black,),
-    
-         UikIcon(valIcon: Icons.arrow_upward,wid:2,rad: 0,borderColor: Colors.black,),
-        UikIcon(valIcon: Icons.access_alarm),
-        
-
-      ],
-    ))));
+    return Container(
+      height: 100,
+      width: 100,
+      color: Colors.black,
+      child: Row(
+        children: [
+          UikIcon(
+            valIcon: Icons.arrow_back,
+            wid: 2,
+            rad: 0,
+            borderColor: Colors.black,
+          ),
+          UikIcon(
+            valIcon: Icons.access_alarm,
+            wid: 2,
+            rad: 0,
+            borderColor: Colors.black,
+          ),
+          UikIcon(
+            valIcon: Icons.arrow_upward,
+            wid: 2,
+            rad: 0,
+            borderColor: Colors.black,
+          ),
+          UikIcon(valIcon: Icons.access_alarm),
+        ],
+      ),
+    );
   }
 }

@@ -66,11 +66,10 @@ class _SlidderState extends State<Slidder> {
                       value: initialValue,
                       min: widget.minimum,
                       max: widget.maximum,
-
-                      // divisions: 10,
+                      divisions: 10,
                       activeColor: Color(0xFFFEE440),
                       inactiveColor: Color(0xFFEEEEEE),
-                      //label: 'Set volume value',
+                      label: 'Set volume value',
                       onChanged: (value) {
                         setState(() {
                           initialValue = value;

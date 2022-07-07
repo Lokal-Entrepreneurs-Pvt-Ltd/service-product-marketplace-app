@@ -1,10 +1,12 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import "package:flutter/material.dart";
+import 'package:login/Widgets/UikiIcon/uikIcon.dart';
 
 class MySearchBar extends StatefulWidget {
-  final iconVal;
-  MySearchBar({this.iconVal});
+  final rightElement;
+  final label;
+  MySearchBar({this.rightElement, this.label});
 
   @override
   State<MySearchBar> createState() => _MySearchBarState();
@@ -12,14 +14,8 @@ class MySearchBar extends StatefulWidget {
 
 class _MySearchBarState extends State<MySearchBar>
     with SingleTickerProviderStateMixin {
-  // String s = "";
   int hastype = 0;
   late AnimationController controller;
-
-  // void initState() {
-  //   controller = controller;
-  //   super.initState();
-  // }
 
   void initState() {
     super.initState();
@@ -47,10 +43,6 @@ class _MySearchBarState extends State<MySearchBar>
           child: Row(
             children: [
               if (hastype > 0)
-                // Container(
-                //   margin: const EdgeInsets.all(5),
-                //   child: Icon(Icons.arrow_back),
-                // ),
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                   child: AnimatedIcon(
@@ -71,12 +63,10 @@ class _MySearchBarState extends State<MySearchBar>
                   margin: const EdgeInsets.all(5),
                   child: TextField(
                     decoration: new InputDecoration.collapsed(
-                      hintText: 'Search',
+                      hintText: widget.label,
                     ),
                     style: TextStyle(color: Colors.black),
                     onChanged: (text) {
-                      // print('First text field: $text');
-
                       setState(() {
                         hastype = text.length;
                         controller.forward();
@@ -85,7 +75,8 @@ class _MySearchBarState extends State<MySearchBar>
                   ),
                 ),
               ),
-              if (widget.iconVal != null) Container(child: Icon(widget.iconVal))
+              if (widget.rightElement != null)
+                Container(child: UikIcon(valIcon: widget.rightElement))
             ],
           ),
         ),
