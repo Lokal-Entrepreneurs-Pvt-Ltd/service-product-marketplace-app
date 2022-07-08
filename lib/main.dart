@@ -2,6 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/Widgets/UikAvatar/uikAvatar.dart';
 import 'package:login/Widgets/UikButton/UikButton.dart';
 import 'package:login/Widgets/UikChips/chips.dart';
 import 'package:login/Widgets/UikRadioButton/radio.dart';
@@ -15,7 +16,10 @@ import './pages/login.dart';
 import './pages/otp.dart';
 import "./widgets/UikSnackbar/snack.dart";
 import "./widgets/UikChips/chips.dart";
+import 'Widgets/UikAvatar/UikAvatar.dart';
+import 'Widgets/UikAvatar/avatar.dart';
 import 'Widgets/UikSearchBar/searchbar.dart';
+import 'Widgets/UikSelect/select.dart';
 import 'Widgets/UikTabBar/tabBar.dart';
 import 'Widgets/UikToolTip/myapp.dart';
 import 'Widgets/UikToolTip/toolTip.dart';
@@ -36,18 +40,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) =>
-            // Test(),
-            ToolTip(
-              ll: ["tooltip1", "tooltip2", "tooltip3", "tooltip4"],
-              s: AxisDirection.up,
-              taillength: 0,
-              child: Container(child: MySearchBar()),
+        "/": (context) => MySelect(
+            // ContainerHeight: 26,
+            // ContainerBackgroundColor: Color(0xFFE5E5E5),
+            // ContainerColor: Color(0xFFE5E5E5),
+            // noIcon: false,
+            // ContainerRadius: 30,
+            // Heading: true,
+
+            // avtar: UikAvatar(),
             ),
 
-        //  MySearchBar(
-        //       label: "Search",
-        //     ),
+        // Test(),
+        // ToolTip(
+        //   ll: ["tooltip1", "tooltip2", "tooltip3", "tooltip4"],
+        //   s: AxisDirection.up,
+        //   taillength: 0,
+        //   child: MySearchBar(),
+        // ),
+
+        // MySearchBar(
+        //   label: "Search",
+        //   rightElement: Icons.mic,
+        // ),
         // MyTabBar(
         //   ll: [
         //     Icons.shopping_bag_outlined,

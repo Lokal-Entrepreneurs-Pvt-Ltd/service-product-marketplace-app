@@ -31,36 +31,38 @@ class _MySearchBarState extends State<MySearchBar>
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          width: 700,
-          padding: const EdgeInsets.all(16),
-          margin: const EdgeInsets.all(15),
+          width: 343,
+          height: 64,
+          padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
+          // margin: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             border: Border.all(),
             borderRadius: BorderRadius.circular(10),
-            color: Color.fromARGB(255, 237, 233, 233),
+            color: Color(0xFFF5F5F5),
           ),
           // height: 200,
           child: Row(
             children: [
-              if (hastype > 0)
+              if (hastype > 0) ...[
                 Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                  // padding: EdgeInsets.fromLTRB(19, 23, 23, 0),
                   child: AnimatedIcon(
                     icon: AnimatedIcons.menu_arrow,
                     progress: controller,
                     color: Colors.black,
                   ),
                 ),
+              ],
               if (hastype == 0)
                 Container(
-                  margin: const EdgeInsets.all(5),
+                  margin: EdgeInsets.fromLTRB(5, 0, 5, 2),
                   child: Icon(
                     Icons.search,
                   ),
                 ),
               Flexible(
                 child: Container(
-                  margin: const EdgeInsets.all(5),
+                  margin: EdgeInsets.fromLTRB(5, 0, 5, 2),
                   child: TextField(
                     decoration: new InputDecoration.collapsed(
                       hintText: widget.label,
@@ -76,7 +78,10 @@ class _MySearchBarState extends State<MySearchBar>
                 ),
               ),
               if (widget.rightElement != null)
-                Container(child: UikIcon(valIcon: widget.rightElement))
+                Container(
+                  child: UikIcon(valIcon: widget.rightElement),
+                  margin: EdgeInsets.fromLTRB(5, 0, 5, 2),
+                )
             ],
           ),
         ),

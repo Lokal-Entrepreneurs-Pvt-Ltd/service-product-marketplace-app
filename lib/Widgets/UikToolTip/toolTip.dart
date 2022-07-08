@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
 
@@ -12,7 +10,7 @@ class ToolTip extends StatefulWidget {
 
   const ToolTip(
       {required this.ll,
-      required this.s,
+      this.s = AxisDirection.down,
       this.child,
       required this.taillength});
 
@@ -49,10 +47,14 @@ class _MyHomePageState extends State<ToolTip> {
         // margin: EdgeInsets.all(10),
         // curve: Curves.easeInOut,
         // ignore: prefer_const_constructors
-        child: Flexible(
-          fit: FlexFit.loose,
+        child: Container(
+          // fit: FlexFit.loose,
+          height: 100,
+          width: 100,
+          color: Colors.blue,
           child: widget.child,
         ),
+
         content: Container(
           padding: EdgeInsets.all(10.0),
           width: 73,
