@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 //import 'package:flutter/src/widgets/framework.dart';
 
 class extremeIconButton extends StatelessWidget {
-  final textColor;
-  final backgroundColor;
-  final borderColor;
-  final text;
-  final widthSize;
-  final heightSize;
+  final Color textColor;
+  final Color backgroundColor;
+  final Color borderColor;
+  final String text;
+  double widthSize;
+  double heightSize;
   final trailingIcon;
   final leadingIcon;
   final onClick;
@@ -31,7 +31,7 @@ class extremeIconButton extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: onClick(),
+        onTap: onClick,
         child: Container(
           width: widthSize,
           height: heightSize,

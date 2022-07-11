@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 //import 'package:flutter/src/widgets/framework.dart';
 
 class AppButton extends StatelessWidget {
-  final textColor;
-  final backgroundColor;
-  final borderColor;
-  final text;
-  final widthSize;
-  final heightSize;
+  final Color textColor;
+  final Color backgroundColor;
+  final Color borderColor;
+  final String text;
+  double widthSize;
+  double heightSize;
   final trailingIcon;
   final leadingIcon;
   final onClick;
@@ -19,7 +19,6 @@ class AppButton extends StatelessWidget {
   // final beforeIcon;
 
   AppButton({
-    this.onClick,
     this.textColor = Colors.black,
     this.backgroundColor = Colors.yellow,
     this.borderColor = Colors.transparent,
@@ -28,6 +27,7 @@ class AppButton extends StatelessWidget {
     this.heightSize = 50,
     this.trailingIcon,
     this.leadingIcon,
+    this.onClick,
   });
 
   @override

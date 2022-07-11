@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/widgets/UikDivider/UikDivider.dart';
 import 'package:login/pages/otp.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 //import 'package:login/widgets/UikCell.dart';
@@ -113,63 +114,11 @@ class LoginPage extends StatelessWidget {
           //   ),
           // ),
           SizedBox(height: 10),
-          Container(
-            child: AppButton(
-                textColor: Colors.black,
-                backgroundColor: Colors.yellow,
-                borderColor: Colors.white,
-                text: "Active",
-                trailingIcon: Icon(Icons.favorite_border_outlined),
-                heightSize: 36,
-                widthSize: 98),
-          ),
-          SizedBox(height: 10),
-          Container(
-            child: extremeIconButton(
-                textColor: Color.fromARGB(255, 116, 115, 115),
-                backgroundColor: Color.fromRGBO(224, 224, 224, 1.0),
-                borderColor: Colors.white,
-                text: "Disabled",
-                trailingIcon: Icon(Icons.shopping_bag_outlined),
-                heightSize: 64,
-                widthSize: 343),
-          ),
-          SizedBox(height: 10),
-          Container(
-            child: AppButton(
-              borderColor: Colors.yellow,
-              heightSize: 50,
-              backgroundColor: Colors.yellow,
-              textColor: Colors.black,
-              text: 'Button',
-              widthSize: 100,
-            ),
-          )
+
           // Container(
           //   child: Transform.scale(
           //     scale: 1,
           //     child: toggleSwitch(
-          //       activetopColor: Color(0xffFEE440),
-          //       activebackgroundColor: Color(0xffFFF8CF),
-          //       inactivebackgroundColor: Color(0xffEEEEEE),
-          //       inactivetopColor: Color(0xffF5F5F5),
-          //     ),
-          //   ),
-          // ),
-          //SizedBox(height: 10),
-          // Container(
-          //   width: 343,
-          //   height: 64,
-          //   child: Cell(
-          //     leftChild: toggleSwitch(
-          //       activetopColor: Color(0xffFEE440),
-          //       activebackgroundColor: Color(0xffFFF8CF),
-          //       inactivebackgroundColor: Color(0xffEEEEEE),
-          //       inactivetopColor: Color(0xffF5F5F5),
-          //     ),
-          //     titleText: "CELL",
-          //     subtitleText: "Description",
-          //     rightChild: toggleSwitch(
           //       activetopColor: Color(0xffFEE440),
           //       activebackgroundColor: Color(0xffFFF8CF),
           //       inactivebackgroundColor: Color(0xffEEEEEE),

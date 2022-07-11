@@ -2,7 +2,8 @@ import "package:flutter/material.dart";
 
 class RadioButton extends StatefulWidget {
   final state;
-  RadioButton({this.state});
+  final borderRadius;
+  RadioButton({this.state, this.borderRadius = 180});
 
   @override
   State<RadioButton> createState() => _RadioButtonState();
@@ -14,8 +15,7 @@ class _RadioButtonState extends State<RadioButton> {
   //get transparent => this.transparent;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       body: GestureDetector(
         child: Container(
           width: 35,
@@ -28,7 +28,7 @@ class _RadioButtonState extends State<RadioButton> {
                     ? Colors.yellow.withOpacity(0.4)
                     : Colors.yellow)
                 : (Colors.grey[200]),
-            borderRadius: BorderRadius.circular(180),
+            borderRadius: BorderRadius.circular(widget.borderRadius),
             border: Border.all(
               color: Colors.grey[200]!,
               width: 1,
@@ -54,6 +54,6 @@ class _RadioButtonState extends State<RadioButton> {
           }),
         },
       ),
-    ));
+    );
   }
 }

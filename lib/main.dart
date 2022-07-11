@@ -22,6 +22,7 @@ import 'widgets/UikActionSheet/ActionSheetUtil.dart';
 import 'widgets/UikChips/chipsUtil.dart';
 import 'widgets/UikRadioButton/radio.dart';
 import "./widgets/test.dart";
+import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 import 'widgets/UikOtp/otpui.dart';
 import "./widgets/UikSlidder/slidder.dart";
 
@@ -34,7 +35,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => SignIn(),
+        "/": (context) => SignIn(
+              val: "signup",
+              elevation: 0,
+              //eliminateDasher: true,
+              //eliminateSubheading: true,
+            ),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
