@@ -6,6 +6,7 @@ import 'package:login/widgets/UIKGroupAvatar/groupAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikListItems/help.dart';
 import 'package:login/widgets/UikListItems/onHover.dart';
+import 'package:login/widgets/UikSignInModule/signin.dart';
 import 'package:login/widgets/UikSlidder/slidder.dart';
 
 import 'package:login/widgets/UikSnackbar/snackbar.dart';
@@ -33,27 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => Lavesh(
-              list: const [
-                {
-                  "text": "lavesh",
-                  //   "icon": Icons.abc,
-                },
-                {
-                  "text": "Dhoni",
-                  // "icon": Icons.ac_unit_sharp,
-                },
-                {
-                  "text": "Virat Kholi",
-                  //  "icon": Icons.more_vert,
-                },
-                {
-                  "text": "ABD Villiars",
-                  // "icon": Icons.access_alarm_outlined,
-                },
-              ],
-              bullet: "l",
-            ),
+        "/": (context) => SignIn(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
