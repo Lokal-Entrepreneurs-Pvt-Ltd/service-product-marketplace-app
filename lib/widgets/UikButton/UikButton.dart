@@ -93,9 +93,14 @@ class UikButton extends StatelessWidget {
                           ),
                           Spacer(),
                           Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 0),
-                              child: _buildTrailingIcon(rightElement),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 22),
+                                  child: _buildTrailingIcon(rightElement),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -159,7 +164,7 @@ class UikButton extends StatelessWidget {
                           Spacer(),
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.only(right: 20),
+                              margin: EdgeInsets.only(right: 22),
                               child: _buildTrailingIcon(rightElement),
                             ),
                           ),
@@ -222,7 +227,7 @@ class UikButton extends StatelessWidget {
                           Spacer(),
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.only(right: 20),
+                              margin: EdgeInsets.only(right: 22),
                               child: _buildTrailingIcon(rightElement),
                             ),
                           ),
@@ -286,7 +291,7 @@ class UikButton extends StatelessWidget {
                           Spacer(),
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.only(right: 20),
+                              margin: EdgeInsets.only(right: 22),
                               child: _buildTrailingIcon(rightElement),
                             ),
                           ),

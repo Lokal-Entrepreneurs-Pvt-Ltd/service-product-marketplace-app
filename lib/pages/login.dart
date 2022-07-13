@@ -7,7 +7,6 @@ import 'package:login/pages/otp.dart';
 import 'package:login/widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikCell/UikCell.dart';
-import 'package:login/widgets/UikButton/UikXButton.dart';
 import 'package:login/widgets/UikInput/UikInput.dart';
 //import 'package:login/widgets/UikInput.dart';
 import 'package:login/widgets/UikSwitch/UikSwitch.dart';
@@ -81,17 +80,10 @@ class LoginPage extends StatelessWidget {
                 disabled: false,
                 rightElement: UikIcon(valIcon: Icons.favorite_border),
                 leftElement: UikIcon(valIcon: Icons.location_on),
-                stuck: false),
-          ),
-          SizedBox(height: 20),
-          Container(
-            child: extremeIconButton(
-              rightElement: UikIcon(valIcon: Icons.favorite_border),
-              leftElement: UikIcon(valIcon: Icons.location_on),
-            ),
+                stuck: false,),
           ),
           SizedBox(height: 20,),
-          Container(child: UikButton(stuck: true,size: "small",),)
+          Container(child: UikButton(stuck: true,size: "small",widthSize: 98),)
         ],
       ),
     );
