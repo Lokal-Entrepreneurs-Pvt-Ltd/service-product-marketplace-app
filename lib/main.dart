@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/widgets/UIKGroupAvatar/groupAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:login/widgets/UikEcommerceCard/AddressCard.dart';
 import 'package:login/widgets/UikEcommerceCard/OrderSummeryCard.dart';
 import 'package:login/widgets/UikEcommerceCard/PaymentSuccesCard.dart';
 import 'package:login/widgets/UikListItems/help.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => OrderSummeryCard(),
+        "/": (context) => AddressCard(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },

@@ -2,7 +2,10 @@ import "package:flutter/material.dart";
 import 'package:login/widgets/UikButton/UikButton.dart';
 
 class OrderSummeryCard extends StatelessWidget {
-  const OrderSummeryCard({Key? key}) : super(key: key);
+  final subTotal;
+  final discount;
+  final shippingCost;
+  OrderSummeryCard(this.subTotal, this.discount, this.shippingCost);
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +59,9 @@ class OrderSummeryCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        child: const Text(
-                          "\$215",
-                          style: TextStyle(
+                        child: Text(
+                          subTotal,
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Color(0xFF212121),
@@ -91,9 +94,9 @@ class OrderSummeryCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        child: const Text(
-                          "15%",
-                          style: TextStyle(
+                        child: Text(
+                          discount,
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Color(0xFF212121),
@@ -116,9 +119,9 @@ class OrderSummeryCard extends StatelessWidget {
                         margin: const EdgeInsets.only(
                           right: 262,
                         ),
-                        child: const Text(
-                          "Shipping cost",
-                          style: TextStyle(
+                        child: Text(
+                          shippingCost,
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Color(0xFF212121),
