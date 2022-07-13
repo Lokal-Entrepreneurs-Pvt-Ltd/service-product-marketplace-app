@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/widgets/UIKGroupAvatar/groupAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:login/widgets/UikEcommerceCard/PaymentSuccesCard.dart';
 import 'package:login/widgets/UikListItems/help.dart';
 import 'package:login/widgets/UikListItems/onHover.dart';
 import 'package:login/widgets/UikSignInModule/signin.dart';
@@ -35,12 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => SignIn(
-              val: "signup",
-              elevation: 0,
-              //eliminateDasher: true,
-              //eliminateSubheading: true,
-            ),
+        "/": (context) => PaymentSuccessCard(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
