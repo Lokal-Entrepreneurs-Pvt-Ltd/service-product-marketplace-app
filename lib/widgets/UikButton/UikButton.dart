@@ -3,31 +3,29 @@ import 'package:flutter/material.dart';
 //import 'package:flutter/src/foundation/key.dart';
 //import 'package:flutter/src/widgets/framework.dart';
 
-class AppButton extends StatelessWidget {
-  final Color textColor;
-  final Color backgroundColor;
+class UikButton extends StatelessWidget {
   final Color borderColor;
   final String text;
   double widthSize;
-  double heightSize;
-  final trailingIcon;
-  final leadingIcon;
+  final rightElement;
+  final leftElement;
   final onClick;
-  // final xstartIcon;
-  // final xendIcon;
-  // final nextIcon;
-  // final beforeIcon;
+  final type;
+  bool? disabled;
+  bool? stuck;
+  final size;
 
-  AppButton({
-    this.textColor = Colors.black,
-    this.backgroundColor = Colors.yellow,
+  UikButton({
     this.borderColor = Colors.transparent,
     this.text = "Button",
-    this.widthSize = 100,
-    this.heightSize = 50,
-    this.trailingIcon,
-    this.leadingIcon,
+    this.widthSize = 343,
+    this.rightElement,
+    this.leftElement,
     this.onClick,
+    this.type = "primary",
+    this.disabled = false,
+    this.stuck = false,
+    this.size = "large",
   });
 
   @override
@@ -36,56 +34,290 @@ class AppButton extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: onClick,
-        child: Container(
-          width: widthSize,
-          height: heightSize,
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(7),
-            border: Border.all(color: borderColor, width: 1.0),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+        child: Column(
+          children: [
+            if (type == "primary") ...[
               Container(
-                child: _buildLeadingIcon(leadingIcon),
-              ),
-              Center(
-                child: Text(
-                  text,
-                  style: GoogleFonts.poppins(color: textColor),
+                width: widthSize,
+                height: (size == "large") ? 64 : 36,
+                decoration: BoxDecoration(
+                  color: (disabled == false)
+                      ? Color(0xffFEE440)
+                      : Color(0xffE0E0E0),
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(color: Colors.transparent, width: 1.0),
                 ),
+                child: (stuck == true)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: _buildLeadingIcon(leftElement),
+                          ),
+                          Center(
+                            child: Text(
+                              text,
+                              style: GoogleFonts.poppins(
+                                color: (disabled == true)
+                                    ? Color(0xff9E9E9E)
+                                    : Color(0xff212121),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: _buildTrailingIcon(rightElement),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: _buildLeadingIcon(leftElement),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                text,
+                                style: GoogleFonts.poppins(
+                                  color: (disabled == true)
+                                      ? Color(0xff9E9E9E)
+                                      : Color(0xff212121),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 0),
+                              child: _buildTrailingIcon(rightElement),
+                            ),
+                          ),
+                        ],
+                      ),
               ),
+            ] else if (type == "secondary") ...[
               Container(
-                child: _buildTrailingIcon(trailingIcon),
+                width: widthSize,
+                height: (size == "large") ? 64 : 36,
+                decoration: BoxDecoration(
+                  color: (disabled == false)
+                      ? Color(0xffF5F5F5)
+                      : Color(0xffE0E0E0),
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(color: Colors.transparent, width: 1.0),
+                ),
+                child: (stuck == true)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: _buildLeadingIcon(leftElement),
+                          ),
+                          Center(
+                            child: Text(
+                              text,
+                              style: GoogleFonts.poppins(
+                                color: (disabled == true)
+                                    ? Color(0xff9E9E9E)
+                                    : Color(0xff212121),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: _buildTrailingIcon(rightElement),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: _buildLeadingIcon(leftElement),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                text,
+                                style: GoogleFonts.poppins(
+                                  color: (disabled == true)
+                                      ? Color(0xff9E9E9E)
+                                      : Color(0xff212121),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 20),
+                              child: _buildTrailingIcon(rightElement),
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ] else if (type == "outline") ...[
+              Container(
+                width: widthSize,
+                height: (size == "large") ? 64 : 36,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(color: Colors.black, width: 1.0),
+                ),
+                child: (stuck == true)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: _buildLeadingIcon(leftElement),
+                          ),
+                          Center(
+                            child: Text(
+                              text,
+                              style: GoogleFonts.poppins(
+                                color: (disabled == true)
+                                    ? Color(0xff9E9E9E)
+                                    : Color(0xff212121),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: _buildTrailingIcon(rightElement),
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: _buildLeadingIcon(leftElement),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                text,
+                                style: GoogleFonts.poppins(
+                                  color: (disabled == true)
+                                      ? Color(0xff9E9E9E)
+                                      : Color(0xff212121),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 20),
+                              child: _buildTrailingIcon(rightElement),
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ] else ...[
+              //ghost
+              Container(
+                width: widthSize,
+                height: (size == "large") ? 64 : 36,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(color: Colors.transparent, width: 1.0),
+                ),
+                child: (stuck == true)
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: _buildLeadingIcon(leftElement),
+                          ),
+                          Center(
+                            child: Text(
+                              text,
+                              style: GoogleFonts.poppins(
+                                color: (disabled == true)
+                                    ? Color(0xff9E9E9E)
+                                    : Color(0xff212121),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            child: _buildTrailingIcon(rightElement),
+                          )
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: _buildLeadingIcon(leftElement),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Center(
+                              child: Text(
+                                text,
+                                style: GoogleFonts.poppins(
+                                  color: (disabled == true)
+                                      ? Color(0xff9E9E9E)
+                                      : Color(0xff212121),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 20),
+                              child: _buildTrailingIcon(rightElement),
+                            ),
+                          ),
+                        ],
+                      ),
               ),
             ],
-          ),
+          ],
         ),
       ),
     );
   }
 }
 
-Widget _buildTrailingIcon(final trailingIcon) {
-  if (trailingIcon != null) {
+Widget _buildTrailingIcon(final rightElement) {
+  if (rightElement != null) {
     return Row(
-      //mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SizedBox(width: 5),
-        //Spacer(),
-        trailingIcon,
+        rightElement,
       ],
     );
   }
   return Container();
 }
 
-Widget _buildLeadingIcon(final leadingIcon) {
-  if (leadingIcon != null) {
+Widget _buildLeadingIcon(final leftElement) {
+  if (leftElement != null) {
     return Row(
       children: <Widget>[
-        leadingIcon,
+        leftElement,
         SizedBox(width: 5),
       ],
     );

@@ -10,8 +10,8 @@ class extremeIconButton extends StatelessWidget {
   final String text;
   double widthSize;
   double heightSize;
-  final trailingIcon;
-  final leadingIcon;
+  final rightElement;
+  final leftElement;
   final onClick;
 
   extremeIconButton({
@@ -20,10 +20,10 @@ class extremeIconButton extends StatelessWidget {
     this.backgroundColor = Colors.yellow,
     this.borderColor = Colors.transparent,
     this.text = "Button",
-    this.widthSize = 100,
-    this.heightSize = 50,
-    this.trailingIcon,
-    this.leadingIcon,
+    this.widthSize = 343,
+    this.heightSize = 60,
+    this.rightElement,
+    this.leftElement,
   });
 
   @override
@@ -46,7 +46,7 @@ class extremeIconButton extends StatelessWidget {
               Expanded(
                 child: Container(
                   margin: EdgeInsets.only(left: 20),
-                  child: _buildLeadingIcon(leadingIcon),
+                  child: _buildLeadingIcon(leftElement),
                 ),
               ),
               Spacer(),
@@ -62,7 +62,7 @@ class extremeIconButton extends StatelessWidget {
               Expanded(
                 child: Container(
                   margin: EdgeInsets.only(right: 20),
-                  child: _buildTrailingIcon(trailingIcon),
+                  child: _buildTrailingIcon(rightElement),
                 ),
               ),
             ],
@@ -74,24 +74,24 @@ class extremeIconButton extends StatelessWidget {
 }
 
 // after text icon
-Widget _buildTrailingIcon(final trailingIcon) {
-  if (trailingIcon != null) {
+Widget _buildTrailingIcon(final rightElement) {
+  if (rightElement != null) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         SizedBox(width: 5),
-        trailingIcon,
+        rightElement,
       ],
     );
   }
   return Container();
 }
 
-Widget _buildLeadingIcon(final leadingIcon) {
-  if (leadingIcon != null) {
+Widget _buildLeadingIcon(final leftElement) {
+  if (leftElement != null) {
     return Row(
       children: <Widget>[
-        leadingIcon,
+        leftElement,
         SizedBox(width: 5),
       ],
     );

@@ -8,8 +8,10 @@ import 'package:login/widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikCell/UikCell.dart';
 import 'package:login/widgets/UikButton/UikXButton.dart';
+import 'package:login/widgets/UikInput/UikInput.dart';
 //import 'package:login/widgets/UikInput.dart';
 import 'package:login/widgets/UikSwitch/UikSwitch.dart';
+import 'package:login/widgets/UikiIcon/uikIcon.dart';
 import '../utils/routes.dart';
 
 class LoginPage extends StatelessWidget {
@@ -72,87 +74,24 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          // Container(
-          //   padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-          //   child: ElevatedButton(
-          //       style: ElevatedButton.styleFrom(
-          //           minimumSize: Size(343, 64),
-          //           primary: Color(0xffFEE440),
-          //           shape: new RoundedRectangleBorder(
-          //               borderRadius: new BorderRadius.circular(6))),
-          //       child: Text(
-          //         "Continue",
-          //         style: GoogleFonts.poppins(
-          //             fontSize: 16,
-          //             fontWeight: FontWeight.w500,
-          //             color: Color(0xff212121)),
-          //       ),
-          //       onPressed: () {
-          //         Navigator.pushNamed(context, MyRoutes.otp);
-          //       }),
-          // ),
-          // Container(
-          //   child: extremeIconButton(
-          //       textColor: Colors.black,
-          //       backgroundColor: Colors.white,
-          //       borderColor: Colors.black,
-          //       text: "Active",
-          //       trailingIcon: Icon(Icons.shopping_bag_outlined),
-          //       //leadingIcon: Icon(Icons.favorite_border_outlined),
-          //       heightSize: 64,
-          //       widthSize: 343),
-          // ),
-          // SizedBox(height: 20),
-          // Container(
-          //   child: AppButton(
-          //     textColor: Colors.black,
-          //     backgroundColor: Colors.yellow,
-          //     borderColor: Colors.transparent,
-          //     text: "Active",
-          //     widthSize: 343,
-          //     heightSize: 64,
-          //     trailingIcon: Icon(Icons.shopping_bag_outlined),
-          //   ),
-          // ),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           Container(
-            child: AppButton(
-                textColor: Colors.black,
-                backgroundColor: Colors.yellow,
-                borderColor: Colors.white,
-                text: "Active",
-                trailingIcon: Icon(Icons.favorite_border_outlined),
-                heightSize: 36,
-                widthSize: 98),
+            child: UikButton(
+                type: "primary",
+                disabled: false,
+                rightElement: UikIcon(valIcon: Icons.favorite_border),
+                leftElement: UikIcon(valIcon: Icons.location_on),
+                stuck: false),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
           Container(
             child: extremeIconButton(
-                textColor: Color.fromARGB(255, 116, 115, 115),
-                backgroundColor: Color.fromRGBO(224, 224, 224, 1.0),
-                borderColor: Colors.white,
-                text: "Disabled",
-                trailingIcon: Icon(Icons.shopping_bag_outlined),
-                heightSize: 64,
-                widthSize: 343),
+              rightElement: UikIcon(valIcon: Icons.favorite_border),
+              leftElement: UikIcon(valIcon: Icons.location_on),
+            ),
           ),
-          SizedBox(height: 10),
-          Container(
-            child: UikDivider(corner: "Round",dividerSize: "Large",widthSize: 555,),
-          ),
-          SizedBox(height: 10,),
-          Container(child: UikDivider(dividerSize: "Medium"),)
-          // Container(
-          //   child: Transform.scale(
-          //     scale: 1,
-          //     child: toggleSwitch(
-          //       activetopColor: Color(0xffFEE440),
-          //       activebackgroundColor: Color(0xffFFF8CF),
-          //       inactivebackgroundColor: Color(0xffEEEEEE),
-          //       inactivetopColor: Color(0xffF5F5F5),
-          //     ),
-          //   ),
-          // ),
+          SizedBox(height: 20,),
+          Container(child: UikButton(stuck: true,size: "small",),)
         ],
       ),
     );
