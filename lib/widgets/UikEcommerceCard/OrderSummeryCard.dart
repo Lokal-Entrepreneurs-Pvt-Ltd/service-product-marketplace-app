@@ -5,7 +5,11 @@ class OrderSummeryCard extends StatelessWidget {
   final subTotal;
   final discount;
   final shippingCost;
-  OrderSummeryCard(this.subTotal, this.discount, this.shippingCost);
+  OrderSummeryCard({
+    this.subTotal = "dummy",
+    this.discount = "dummy",
+    this.shippingCost = "dummy",
+  });
 
   @override
   Widget build(BuildContext context) {
