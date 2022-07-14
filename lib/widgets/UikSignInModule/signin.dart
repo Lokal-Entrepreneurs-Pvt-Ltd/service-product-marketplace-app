@@ -452,7 +452,7 @@ class SignIn extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      AppButton(
+                      UikButton(
                         widthSize: 420,
                         text: (val == "signin") ? "Sign In" : "Sign Up",
                       ),

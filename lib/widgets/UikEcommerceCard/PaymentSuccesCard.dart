@@ -59,9 +59,9 @@ class PaymentSuccessCard extends StatelessWidget {
                 Container(
                   width: 271,
                   height: 38,
-                  child: AppButton(
+                  child: UikButton(
                     text: "Back to order",
-                    textColor: const Color(0xFF212121),
+                    //textColor: const Color(0xFF212121),
                   ),
                 ),
               ],

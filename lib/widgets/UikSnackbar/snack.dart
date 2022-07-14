@@ -23,10 +23,10 @@ class Snack extends StatelessWidget {
     //       "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
     // ),
     backgroundColor: Colors.black,
-    Trigger: AppButton(
-      backgroundColor: Colors.black,
-      textColor: Colors.yellow,
-    ),
+    Trigger: UikButton(
+        // backgroundColor: Colors.black,
+        // textColor: Colors.yellow,
+        ),
     //secondIcon: Icons.notifications_none_rounded,
   );
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();

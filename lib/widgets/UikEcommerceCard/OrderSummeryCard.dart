@@ -198,9 +198,9 @@ class OrderSummeryCard extends StatelessWidget {
                     left: 30,
                     bottom: 42.8,
                   ),
-                  child: AppButton(
+                  child: UikButton(
                     text: "Proceed to payment",
-                    textColor: const Color(0xFF212121),
+                    // textColor: const Color(0xFF212121),
                   ),
                 ),
                 Container(
