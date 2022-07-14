@@ -8,7 +8,6 @@ import 'package:login/widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikCell/UikCell.dart';
 import 'package:login/widgets/UikInput/UikInput.dart';
-//import 'package:login/widgets/UikInput.dart';
 import 'package:login/widgets/UikSwitch/UikSwitch.dart';
 import 'package:login/widgets/UikiIcon/uikIcon.dart';
 import '../utils/routes.dart';
@@ -76,14 +75,14 @@ class LoginPage extends StatelessWidget {
           SizedBox(height: 20),
           Container(
             child: UikButton(
-                type: "primary",
+                type: "outline",
                 disabled: false,
                 rightElement: UikIcon(valIcon: Icons.favorite_border),
                 leftElement: UikIcon(valIcon: Icons.location_on),
-                stuck: false,),
+                stuck: true,backgroundColor: Colors.white,),
           ),
           SizedBox(height: 20,),
-          Container(child: UikButton(stuck: true,size: "small",widthSize: 98),)
+          Container(child: UikButton(stuck: true,widthSize: 98,textWeight: FontWeight.bold),)
         ],
       ),
     );
