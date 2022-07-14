@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import "UikAvatar.dart";
 
 class Avatar extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
-     return MaterialApp(
+    return MaterialApp(
         home: Scaffold(
             body: Container(
                 child: Row(
@@ -16,23 +14,27 @@ class Avatar extends StatelessWidget {
         UikAvatar(
           shape: UikAvatarShape.circle,
           size: UikSize.SMALL,
-          backgroundImage: NetworkImage("https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+          backgroundImage: NetworkImage(
+              "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
         ),
         SizedBox(
-                        
-                        width: 15,
+          width: 15,
         ),
         UikAvatar(
           shape: UikAvatarShape.circle,
           size: UikSize.MEDIUM,
-          backgroundImage: NetworkImage("https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+          backgroundImage: NetworkImage(
+              "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
         ),
         SizedBox(
-                        
-                        width: 15,
+          width: 15,
         ),
-        UikAvatar(shape: UikAvatarShape.circle, size: UikSize.LARGE,
-        backgroundImage: NetworkImage("https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),),
+        UikAvatar(
+          shape: UikAvatarShape.circle,
+          size: UikSize.LARGE,
+          backgroundImage: NetworkImage(
+              "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+        ),
       ],
     ))));
   }
