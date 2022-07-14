@@ -9,6 +9,7 @@ import 'package:login/widgets/UikEcommerceCard/CardDetailsCard.dart';
 import 'package:login/widgets/UikEcommerceCard/CartCard.dart';
 import 'package:login/widgets/UikEcommerceCard/OrderSummeryCard.dart';
 import 'package:login/widgets/UikEcommerceCard/PaymentSuccesCard.dart';
+import 'package:login/widgets/UikEcommerceCard/ProductCard.dart';
 import 'package:login/widgets/UikEcommerceCard/ProductDetailsCard.dart';
 import 'package:login/widgets/UikListItems/help.dart';
 import 'package:login/widgets/UikListItems/onHover.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => ProductDetailsCard(),
+        "/": (context) => ProductCard(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
