@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 class UikIcon extends StatelessWidget {
   //const UikIcon({Key? key}) : super(key: key);
   final valIcon;
-  
+  final iconColor;
   final  borderRadius;
   final Color borderColor;
   final  wid;
   final  rad;
   const UikIcon(
-      {this.rad,this.valIcon,this.wid,  this.borderRadius,this.borderColor=Colors.black});
+      {this.rad,this.valIcon,this.iconColor,this.wid,  this.borderRadius,this.borderColor=Colors.black});
   
 
   @override
@@ -24,10 +24,10 @@ class UikIcon extends StatelessWidget {
      
      decoration: BoxDecoration(
       borderRadius: (rad != null) ? BorderRadius.circular(rad):null,
-    border: (wid != null) ? Border.all(color: borderColor,width: wid,):null,
+    border: (wid != null) ? Border.all(color: borderColor,width: wid,):null,  
   ),
    
-      child: Icon(valIcon),
+      child: Icon(valIcon,color: iconColor,),
     );
   }
 }
