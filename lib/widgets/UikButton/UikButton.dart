@@ -49,7 +49,7 @@ class UikButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.transparent, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -75,11 +75,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -94,16 +92,9 @@ class UikButton extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 22),
-                                  child: _buildTrailingIcon(rightElement),
-                                ),
-                              ],
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 22),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),
@@ -115,7 +106,7 @@ class UikButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.transparent, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -141,11 +132,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -160,11 +149,9 @@ class UikButton extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 22),
-                              child: _buildTrailingIcon(rightElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 2),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),
@@ -176,7 +163,7 @@ class UikButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.black, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -202,11 +189,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -221,11 +206,9 @@ class UikButton extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 22),
-                              child: _buildTrailingIcon(rightElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 22),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),
@@ -238,7 +221,7 @@ class UikButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.transparent, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -264,11 +247,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -283,11 +264,9 @@ class UikButton extends StatelessWidget {
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 22),
-                              child: _buildTrailingIcon(rightElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 22),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),

@@ -75,11 +75,11 @@ class LoginPage extends StatelessWidget {
           SizedBox(height: 20),
           Container(
             child: UikButton(
-                type: "outline",
+                type: "primary",
                 disabled: false,
                 rightElement: UikIcon(valIcon: Icons.favorite_border),
                 leftElement: UikIcon(valIcon: Icons.location_on),
-                stuck: true,backgroundColor: Colors.white,),
+                stuck: false,backgroundColor: Colors.yellow,borderColor: Colors.blue),
           ),
           SizedBox(height: 20,),
           Container(child: UikButton(stuck: true,widthSize: 98,textWeight: FontWeight.bold),)

@@ -53,7 +53,7 @@ class UserCardHeader extends StatelessWidget {
                     child: UikButton(
                       text: "Add User",
                       widthSize: 300,
-                    )),
+                    ),),
               ],
             ),
           ),
