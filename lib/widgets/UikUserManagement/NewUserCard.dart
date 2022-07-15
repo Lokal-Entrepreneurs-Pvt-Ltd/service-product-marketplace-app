@@ -4,8 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikiIcon/uikIcon.dart';
 
-class UserCardHeader extends StatelessWidget {
-  const UserCardHeader({Key? key}) : super(key: key);
+class NewUserCard extends StatelessWidget {
+  const NewUserCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class UserCardHeader extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.fromLTRB(30, 20, 0, 0),
                         child: Text(
-                          "User Cards",
+                          "Create a new user",
                           style: TextStyle(
                             fontSize: 18,
                             color: Color(0xff3A3C40),
@@ -56,7 +56,7 @@ class UserCardHeader extends StatelessWidget {
                             ),
                             SizedBox(width: 14.33),
                             Container(
-                              child: Text("Cards",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
+                              child: Text("New User",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
                             ),
                           ],
                         ),
@@ -64,15 +64,15 @@ class UserCardHeader extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 27, 30, 28),
-                  child: UikButton(
-                    text: "Add new user",
-                    widthSize: 124,
-                    heightSize: 38,
-                    stuck: true,
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.fromLTRB(0, 27, 30, 28),
+                //   child: UikButton(
+                //     text: "Add new user",
+                //     widthSize: 124,
+                //     heightSize: 38,
+                //     stuck: true,
+                //   ),
+                // ),
               ],
             ),
           ),

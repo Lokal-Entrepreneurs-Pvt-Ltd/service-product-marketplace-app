@@ -7,6 +7,7 @@ import 'package:login/widgets/UikInput/UikInput.dart';
 
 import 'package:login/widgets/UikSnackbar/snackbar.dart';
 import 'package:login/widgets/UikUserManagement/UserCardHeader.dart';
+import 'package:login/widgets/UikUserManagement/NewUserCard.dart';
 import 'package:login/widgets/UikiIcon/icon.dart';
 import 'package:login/widgets/UikiIcon/uikIcon.dart';
 import "./utils/routes.dart";
@@ -22,6 +23,7 @@ import "./widgets/test.dart";
 import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 import 'widgets/UikOtp/otpui.dart';
 
+
 void main() {
   runApp(MyApp());
 }
@@ -31,18 +33,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => LoginPage(),
+        "/": (context) => NewUserCard(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
     );
   }
 }
-// const UikInput(
-//               leftElement: UikIcon(valIcon: Icons.location_on_outlined),
-//               rightElement: UikIcon(
-//                 valIcon: Icons.close,
-//               ),
-//               labelText: "",
-//               desText: "Description",
-//             ),
