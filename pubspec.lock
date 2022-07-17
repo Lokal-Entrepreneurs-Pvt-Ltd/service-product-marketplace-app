@@ -97,11 +97,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_rating_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_xlider:
+    dependency: "direct main"
+    description:
+      name: flutter_xlider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.4.0"
   getwidget:
     dependency: "direct main"
     description:
@@ -130,6 +144,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
+  just_the_tooltip:
+    dependency: "direct main"
+    description:
+      name: just_the_tooltip
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.11+2"
   lints:
     dependency: transitive
     description:
@@ -158,6 +186,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
+  overlay_group_avatar:
+    dependency: "direct main"
+    description:
+      name: overlay_group_avatar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   path:
     dependency: transitive
     description:
@@ -268,6 +303,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.2.36"
+  syncfusion_flutter_sliders:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_sliders
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "20.2.36"
   term_glyph:
     dependency: transitive
     description:

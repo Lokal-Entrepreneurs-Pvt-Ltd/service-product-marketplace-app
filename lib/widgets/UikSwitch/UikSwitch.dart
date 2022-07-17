@@ -41,10 +41,11 @@ class _toggleSwitchState extends State<toggleSwitch> {
   Widget build(BuildContext context) {
     return Container(
       child: Switch(
+        splashRadius: 0,
         activeColor: activetopColor,
         activeTrackColor: activebackgroundColor,
-        inactiveThumbColor: inactivetopColor,
-        inactiveTrackColor: inactivebackgroundColor,
+        inactiveThumbColor: inactivebackgroundColor,
+        inactiveTrackColor: inactivetopColor,
         value: isSwitched,
         onChanged: (value) => setState(() => isSwitched = value),
       ),

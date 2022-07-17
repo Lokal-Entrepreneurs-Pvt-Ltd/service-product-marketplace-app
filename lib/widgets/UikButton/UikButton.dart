@@ -31,7 +31,7 @@ class UikButton extends StatelessWidget {
     this.onClick,
     this.type = "primary",
     this.disabled = false,
-    this.stuck = false,
+    this.stuck = true,
   });
 
   @override

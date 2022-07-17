@@ -2,12 +2,27 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/widgets/UikCell/UikCell.dart';
+import 'package:login/widgets/UIKGroupAvatar/groupAvatar.dart';
+import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:login/widgets/UikEcommerceCard/AddressCard.dart';
+import 'package:login/widgets/UikEcommerceCard/CardDetailsCard.dart';
+import 'package:login/widgets/UikEcommerceCard/CartCard.dart';
+import 'package:login/widgets/UikEcommerceCard/OrderSummeryCard.dart';
+import 'package:login/widgets/UikEcommerceCard/PaymentSuccesCard.dart';
+import 'package:login/widgets/UikEcommerceCard/ProductCard.dart';
+import 'package:login/widgets/UikEcommerceCard/ProductDetailsCard.dart';
 import 'package:login/widgets/UikInput/UikInput.dart';
+import 'package:login/widgets/UikListItems/help.dart';
+import 'package:login/widgets/UikListItems/onHover.dart';
+import 'package:login/widgets/UikSignInModule/signin.dart';
+import 'package:login/widgets/UikSlidder/slidder.dart';
 
 import 'package:login/widgets/UikSnackbar/snackbar.dart';
+import 'package:login/widgets/UikUserManagement/NewUserInfo.dart';
+import 'package:login/widgets/UikUserManagement/UserCard.dart';
 import 'package:login/widgets/UikUserManagement/UserCardHeader.dart';
 import 'package:login/widgets/UikUserManagement/NewUserCard.dart';
+import 'package:login/widgets/UikUserManagement/UserListCard.dart';
 import 'package:login/widgets/UikiIcon/icon.dart';
 import 'package:login/widgets/UikiIcon/uikIcon.dart';
 import "./utils/routes.dart";
@@ -22,6 +37,7 @@ import 'widgets/UikRadioButton/radio.dart';
 import "./widgets/test.dart";
 import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 import 'widgets/UikOtp/otpui.dart';
+import "./widgets/UikSlidder/slidder.dart";
 
 
 void main() {
@@ -33,7 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => NewUserCard(),
+        "/": (context) => NewUserInfo(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },

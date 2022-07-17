@@ -6,29 +6,25 @@ import 'package:another_flushbar/flushbar_route.dart';
 class SnackBarPage extends StatelessWidget {
   final title;
   final description;
-  final action;
-  final iconVal;
-  final secondIcon;
-  final buttonText;
-  SnackBarPage(
-      {required this.title,
-      this.description,
-      this.action,
-      this.iconVal,
-      this.secondIcon,
-      this.buttonText});
+  final Trigger;
+  final backgroundColor;
+  final leftElement;
+  SnackBarPage({
+    required this.title,
+    this.description,
+    this.leftElement,
+    this.Trigger,
+    this.backgroundColor = Colors.black,
+  });
   SnackBar snackWidget() {
     final snackBar = SnackBar(
       content: Row(
         children: [
-          (iconVal != null)
-              ? Container(
-                  child: Icon(
-                    iconVal,
-                    color: Colors.white,
-                  ),
-                )
-              : Text(""),
+          Container(
+            child: (leftElement != null) ? leftElement : null,
+            height: 40,
+          ),
+
           SizedBox(width: 10),
           Container(
             height: 40,
@@ -54,44 +50,12 @@ class SnackBarPage extends StatelessWidget {
           ),
           // SizedBox(width: 120),
           Spacer(),
-          (secondIcon != null)
-              ? Container(
-                  child: Icon(
-                    secondIcon,
-                    color: Colors.white,
-                  ),
-                )
-              : (action != null)
-                  ? Container(
-                      child: (GestureDetector(
-                        child: Text(
-                          action,
-                          style: TextStyle(
-                            color: Colors.yellow, fontSize: 20,
-                            //decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        onTap: () {},
-                      )),
-                    )
-                  : (buttonText != null)
-                      ? Container(
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.amber,
-                              onPrimary: Colors.white,
-                            ),
-                            child: const Text(
-                              'Button',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        )
-                      : Text(""),
+          Container(
+            child: Trigger,
+          )
         ],
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: backgroundColor,
       behavior: SnackBarBehavior.floating,
       width: 300,
       duration: Duration(milliseconds: 5000),

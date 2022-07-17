@@ -4,7 +4,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/widgets/UikDivider/UikDivider.dart';
 import 'package:login/pages/otp.dart';
-import 'package:login/widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikCell/UikCell.dart';
 import 'package:login/widgets/UikInput/UikInput.dart';
@@ -82,7 +81,7 @@ class LoginPage extends StatelessWidget {
                 stuck: false,backgroundColor: Colors.yellow,borderColor: Colors.blue),
           ),
           SizedBox(height: 20,),
-          Container(child: UikButton(stuck: true,widthSize: 98,textWeight: FontWeight.bold),)
+          Container(child: UikButton(stuck: true,widthSize: 98,textWeight: FontWeight.bold),),
         ],
       ),
     );

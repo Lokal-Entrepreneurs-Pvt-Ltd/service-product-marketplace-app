@@ -10,16 +10,20 @@ class UikInput extends StatelessWidget {
   final labelText;
   final desText;
   final error;
+  final hint;
+  double widthSize;
+  double heightSize;
 
-  const UikInput({
+   UikInput({
     this.leftElement,
     this.rightElement,
     this.labelText,
     this.desText,
     this.error,
+    this.hint,
+    this.widthSize = 343,
+    this.heightSize = 64,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +34,8 @@ class UikInput extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 343,
-              height: 64,
+              width: widthSize,
+              height: heightSize,
               decoration: BoxDecoration(
                 color: Color(0xffF5F5F5),
                 border: (error == "true")
@@ -60,7 +64,8 @@ class UikInput extends StatelessWidget {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              fillColor: Colors.redAccent,
+                              hintText: hint,
+                              //fillColor: Colors.redAccent,
                               isDense: true,
                               contentPadding: (labelText == null)
                                   ? EdgeInsets.symmetric(vertical: 0)
