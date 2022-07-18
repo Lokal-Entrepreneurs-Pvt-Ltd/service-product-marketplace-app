@@ -19,6 +19,7 @@ import 'package:login/widgets/UikSlidder/slidder.dart';
 
 import 'package:login/widgets/UikSnackbar/snackbar.dart';
 import 'package:login/widgets/UikUserManagement/NewUserInfo.dart';
+import 'package:login/widgets/UikUserManagement/ProfileCard.dart';
 import 'package:login/widgets/UikUserManagement/UserCard.dart';
 import 'package:login/widgets/UikUserManagement/UserCardHeader.dart';
 import 'package:login/widgets/UikUserManagement/NewUserCard.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => NewUserInfo(),
+        "/": (context) => ProfileCard(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },

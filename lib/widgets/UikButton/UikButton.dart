@@ -11,6 +11,7 @@ class UikButton extends StatelessWidget {
   double widthSize;
   double heightSize;
   final textWeight;
+  final textSize;
   final rightElement;
   final leftElement;
   final onClick;
@@ -22,6 +23,7 @@ class UikButton extends StatelessWidget {
     this.borderColor = Colors.transparent,
     this.backgroundColor = Colors.yellow,
     this.textWeight,
+    this.textSize,
     this.textColor,
     this.text = "Button",
     this.widthSize = 343,
@@ -64,6 +66,7 @@ class UikButton extends StatelessWidget {
                               style: GoogleFonts.poppins(
                                 fontWeight: textWeight,
                                 color: textColor,
+                                fontSize: textSize,
                               ),
                             ),
                           ),

@@ -3,38 +3,38 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_switch/flutter_switch.dart';
 
-class toggleSwitch extends StatefulWidget {
-  final Color activebackgroundColor;
-  final Color activetopColor;
-  final Color inactivebackgroundColor;
-  final Color inactivetopColor;
+class UikSwitch extends StatefulWidget {
+  final Color? activebackgroundColor;
+  final Color? activetopColor;
+  final Color? inactivebackgroundColor;
+  final Color? inactivetopColor;
 
-  const toggleSwitch({
+  const UikSwitch({
     Key? key,
-    required this.activetopColor,
-    required this.activebackgroundColor,
-    required this.inactivebackgroundColor,
-    required this.inactivetopColor,
+    this.activetopColor = Colors.yellow,
+    this.activebackgroundColor = Colors.yellowAccent,
+    this.inactivebackgroundColor = Colors.yellowAccent,
+    this.inactivetopColor = Colors.white,
     //required this.isSwitched,
   }) : super(key: key);
 
   @override
-  State<toggleSwitch> createState() => _toggleSwitchState(
-        this.activetopColor,
+  State<UikSwitch> createState() => _UikSwitchState(
+        this.activetopColor ,
         this.activebackgroundColor,
         this.inactivebackgroundColor,
         this.inactivetopColor,
       );
 }
 
-class _toggleSwitchState extends State<toggleSwitch> {
-  final Color activebackgroundColor;
-  final Color activetopColor;
-  final Color inactivebackgroundColor;
-  final Color inactivetopColor;
+class _UikSwitchState extends State<UikSwitch> {
+  final Color? activebackgroundColor;
+  final Color? activetopColor;
+  final Color? inactivebackgroundColor;
+  final Color? inactivetopColor;
   bool isSwitched = true;
 
-  _toggleSwitchState(this.activetopColor, this.activebackgroundColor,
+  _UikSwitchState(this.activetopColor, this.activebackgroundColor,
       this.inactivetopColor, this.inactivebackgroundColor);
 
   @override
