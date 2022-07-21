@@ -1,8 +1,22 @@
+import 'dart:html';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import './uik_text.dart';
 
 class SDashboardCard extends StatelessWidget {
+
+  final double revenue;
+  final PercentProperty revenueChange;
+  final DateTime revenueMonth;
+
+  SDashboardCard({
+   required this.revenue,
+    required this.revenueChange,
+    required this.revenueMonth,
+});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +34,7 @@ class SDashboardCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  UikText(size: 32, text: '262,180.00', weight: FontWeight.w500, color: Color(0xFF7986CB)),
+                  UikText(size: 32, text: revenue.toString(), weight: FontWeight.w500, color: Color(0xFF7986CB)),
                   SizedBox(width: 140.0,),
                   Icon(Icons.currency_rupee_sharp, color: Color(0xFFC5CAE9)),
                 ],
@@ -28,7 +42,7 @@ class SDashboardCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  UikText(size: 18, text: 'Revenue[July, 2022]', weight: FontWeight.w500, color: Color(0xFF9E9E9E)),
+                  UikText(size: 18, text: DateTime(revenueMonth.year, revenueMonth.month).toString(), weight: FontWeight.w500, color: Color(0xFF9E9E9E)),
                 ],
               ),
                 Container(
@@ -47,7 +61,7 @@ class SDashboardCard extends StatelessWidget {
                 children: [
                   UikText(size: 12, text: 'Change from June, 2022', weight: FontWeight.w400, color: Color(0xFF9E9E9E)),
                   SizedBox(width: 150.0),
-                  UikText(size: 12, text: '-67%', weight: FontWeight.w400, color: Color(0xFFE57373)),
+                  UikText(size: 12, text: revenueChange.toString(), weight: FontWeight.w400, color: Color(0xFFE57373)),
                 ],
               ),
             ],

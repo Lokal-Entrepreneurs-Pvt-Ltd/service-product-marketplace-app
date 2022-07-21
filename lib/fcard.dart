@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import './uik_text.dart';
 
 class FDashboardCard extends StatelessWidget {
+  final int totalUsers;
+  final int activeUsers;
+
+  FDashboardCard({
+   required this.totalUsers,
+    required this.activeUsers,
+});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,9 +28,9 @@ class FDashboardCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  UikText(size: 32, text: '391531', weight: FontWeight.w500, color: Color(0xFF5C6BC0)),
+                  UikText(size: 32, text: totalUsers.toString(), weight: FontWeight.w500, color: Color(0xFF5C6BC0)),
                   SizedBox(width: 130,),
-                  UikText(size: 32, text: '38628', weight: FontWeight.w500, color: Color(0xFF81C784)),
+                  UikText(size: 32, text: activeUsers.toString(), weight: FontWeight.w500, color: Color(0xFF81C784)),
                   ],
               ),
 
@@ -52,7 +60,7 @@ class FDashboardCard extends StatelessWidget {
                 children: [
                   UikText(size: 12, text: 'Total Users', weight: FontWeight.w400, color: Color(0xFFE57373)),
                   SizedBox(width: 220.0),
-                  UikText(size: 12, text: '9229', weight: FontWeight.w400, color: Color(0xFFBDBDBD)),
+                  UikText(size: 12, text: totalUsers.toString(), weight: FontWeight.w400, color: Color(0xFFBDBDBD)),
                 ],
               ),
             ],

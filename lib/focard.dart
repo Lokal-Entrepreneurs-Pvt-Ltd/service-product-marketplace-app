@@ -3,6 +3,17 @@ import 'package:flutter/material.dart';
 import './uik_text.dart';
 
 class FoDashboardCard extends StatelessWidget {
+
+  final int tickets;
+  final int closed;
+  final int responsesAwaited;
+
+  FoDashboardCard({
+   required this.tickets,
+    required this.closed,
+    required this.responsesAwaited,
+});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,9 +31,9 @@ class FoDashboardCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  UikText(size: 32, text: '0', weight: FontWeight.w500, color: Color(0xFFE57373)),
+                  UikText(size: 32, text: tickets.toString(), weight: FontWeight.w500, color: Color(0xFFE57373)),
                   SizedBox(width: 290,),
-                  UikText(size: 32, text: '0', weight: FontWeight.w500, color: Color(0xFF81C784)),
+                  UikText(size: 32, text: closed.toString(), weight: FontWeight.w500, color: Color(0xFF81C784)),
                 ],
               ),
 
@@ -52,7 +63,7 @@ class FoDashboardCard extends StatelessWidget {
                 children: [
                   UikText(size: 12, text: 'Response Awaited', weight: FontWeight.w400, color: Color(0xFFE57373)),
                   SizedBox(width: 200.0),
-                  UikText(size: 12, text: '0', weight: FontWeight.w400, color: Color(0xFFBDBDBD)),
+                  UikText(size: 12, text: responsesAwaited.toString(), weight: FontWeight.w400, color: Color(0xFFBDBDBD)),
                 ],
               ),
             ],

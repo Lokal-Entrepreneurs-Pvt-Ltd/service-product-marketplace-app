@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 import './uik_text.dart';
 
 class TDashboardCard extends StatelessWidget {
+
+  final int sales;
+  final int newOrders;
+
+  TDashboardCard({
+   required this.sales,
+   required this.newOrders,
+});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +30,7 @@ class TDashboardCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  UikText(size: 32, text: '950', weight: FontWeight.w500, color: Color(0xFF7986CB)),
+                  UikText(size: 32, text: sales.toString(), weight: FontWeight.w500, color: Color(0xFF7986CB)),
                   SizedBox(width: 240.0,),
                   Icon(Icons.shopping_cart_sharp, color: Color(0xFF9FA8DA)),
                 ],
@@ -48,7 +57,7 @@ class TDashboardCard extends StatelessWidget {
                 children: [
                   UikText(size: 12, text: 'New orders this month', weight: FontWeight.w400, color: Color(0xFF9E9E9E)),
                   SizedBox(width: 170.0),
-                  UikText(size: 12, text: '822', weight: FontWeight.w400, color: Color(0xFF7986CB)),
+                  UikText(size: 12, text: newOrders.toString(), weight: FontWeight.w400, color: Color(0xFF7986CB)),
                 ],
               ),
             ],
