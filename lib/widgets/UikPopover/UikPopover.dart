@@ -5,14 +5,14 @@ class ListItems extends StatelessWidget {
   final desc;
   final buttons;
   final textField;
-  final image;
+  final imageBool,imgwidth,imgheight,inputimg;
 
   const ListItems({
     Key? key,
     this.desc,
     this.buttons,
     this.textField,
-    this.image,
+    this.imageBool,this.imgheight,this.imgwidth,this.inputimg,
   }) : super(key: key);
 
   @override
@@ -22,14 +22,14 @@ class ListItems extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         //FOR IMAGE
-        if (image == true) ...[
+        if (imageBool == true) ...[
           Container(
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-            width: 279,
-            height: 160,
-            decoration: const BoxDecoration(
+            width: imgwidth,
+            height: imgheight,
+            decoration:  BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/image.jpg'),
+                image: inputimg,
                 fit: BoxFit.fill,
               ),
               borderRadius: BorderRadius.all(Radius.circular(8)),
