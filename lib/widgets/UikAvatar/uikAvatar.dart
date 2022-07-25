@@ -82,7 +82,7 @@ class UikAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color? backgroundColor = this.backgroundColor;
     final Color? foregroundColor = this.foregroundColor;
-    
+
     final ThemeData theme = Theme.of(context);
     TextStyle? textStyle = theme.primaryTextTheme.subtitle1?.copyWith(
       color: foregroundColor,

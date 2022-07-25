@@ -11,18 +11,26 @@ class UikIcon extends StatelessWidget {
   final Color borderColor;
   final wid;
   final rad;
+  final iconSize;
+  final backgroundColor;
+  final padding;
   const UikIcon(
       {this.rad,
       this.valIcon,
       this.iconColor,
       this.wid,
+      this.backgroundColor,
+      this.padding,
       this.borderRadius,
+      this.iconSize,
       this.borderColor = Colors.black});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: padding,
       decoration: BoxDecoration(
+        color: backgroundColor,
         borderRadius: (rad != null) ? BorderRadius.circular(rad) : null,
         border: (wid != null)
             ? Border.all(
@@ -33,6 +41,7 @@ class UikIcon extends StatelessWidget {
       ),
       child: Icon(
         valIcon,
+        size: iconSize,
         color: iconColor,
       ),
     );

@@ -2,17 +2,15 @@ import "package:flutter/material.dart";
 
 class Chips extends StatelessWidget {
   final text;
-  final iconVal;
   final backgroundColor;
   final textColor;
-  final iconColor;
-  final avatar;
+  final rightElement;
+  final leftElement;
 
   Chips({
     required this.text,
-    this.iconVal,
-    this.iconColor,
-    this.avatar,
+    this.rightElement,
+    this.leftElement,
     required this.backgroundColor,
     required this.textColor,
   });
@@ -25,12 +23,12 @@ class Chips extends StatelessWidget {
           //alignment: Alignment.topCenter,
           //margin: EdgeInsets.only(top: 20),
           child: Chip(
-            avatar: (avatar != null) ? avatar : null,
+            avatar: leftElement,
             label: Text(text),
             elevation: 5,
             labelStyle: TextStyle(color: textColor, fontSize: 20),
-            onDeleted: (iconVal != null) ? () {} : null,
-            deleteIcon: (iconVal != null) ? iconVal : null,
+            onDeleted: (rightElement != null) ? () {} : null,
+            deleteIcon: (rightElement != null) ? rightElement : null,
             backgroundColor:
                 (backgroundColor != null) ? backgroundColor : Colors.white,
             //shape: StadiumBorder(side: BorderSide(color: Colors.black)),

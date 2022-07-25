@@ -8,17 +8,19 @@ class ActionSheetUtil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 6", "Item 7"];
-    final obj = ActionSheet(itemList: list);
+    final obj = ActionSheet(items: list);
 
     return Container(
-        child: Container(
-      height: 70,
-      color: Colors.white,
-      child: GestureDetector(
+      child: Container(
+        height: 70,
+        color: Colors.white,
+        child: GestureDetector(
           onTap: () {
             obj.showBottomSheet(context);
           },
-          child: Text("click me")),
-    ));
+          child: Text("click me"),
+        ),
+      ),
+    );
   }
 }

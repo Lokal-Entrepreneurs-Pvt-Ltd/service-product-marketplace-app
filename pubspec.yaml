@@ -28,7 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   # simple_tooltip: <latest version>
-  just_the_tooltip: ^0.0.3+6
+  # just_the_tooltip: ^0.0.3+6
   flutter:
     sdk: flutter
 
@@ -40,6 +40,9 @@ dependencies:
   adaptive_action_sheet: ^2.0.1
   syncfusion_flutter_sliders: ^20.2.36
   flutter_xlider: ^3.4.0
+  overlay_group_avatar: ^0.0.4
+  just_the_tooltip: ^0.0.3+6
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -63,9 +66,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
