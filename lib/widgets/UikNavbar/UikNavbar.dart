@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../UikiIcon/uikIcon.dart';
+import '../UikIcon/uikIcon.dart';
 
 class MyAppBar extends StatelessWidget {
   final titletxt, titletxtColor, titletxtSize;

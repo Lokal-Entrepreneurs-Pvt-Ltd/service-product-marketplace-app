@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/pages/otp.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:login/widgets/UikCell.dart';
-import 'package:login/widgets/UikButton/UikXButton.dart';
+// import 'package:login/widgets/UikButton/UikXButton.dart';
 import 'package:login/widgets/UikInput.dart';
 import 'package:login/widgets/UikSwitch.dart';
 import '../utils/routes.dart';
@@ -112,35 +112,35 @@ class LoginPage extends StatelessWidget {
           //     trailingIcon: Icon(Icons.shopping_bag_outlined),
           //   ),
           // ),
-          SizedBox(height: 10),
-          Container(
-            child: AppButton(
-              textColor: Colors.black,
-              backgroundColor: Colors.yellow,
-              borderColor: Colors.white,
-              text: "Active",
-              trailingIcon: Icon(Icons.favorite_border_outlined),
-              heightSize: 36,
-              widthSize: 98,
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            child: extremeIconButton(
-                textColor: Color.fromARGB(255, 116, 115, 115),
-                backgroundColor: Color.fromRGBO(224, 224, 224, 1.0),
-                borderColor: Colors.white,
-                text: "Disabled",
-                trailingIcon: Icon(Icons.shopping_bag_outlined),
-                heightSize: 64,
-                widthSize: 343),
-          ),
-          SizedBox(height: 10),
-          Container(
-            height: 64,
-            width: 343,
-            child: UikInput(),
-          )
+          // SizedBox(height: 10),
+          // Container(
+          //   child: AppButton(
+          //     textColor: Colors.black,
+          //     backgroundColor: Colors.yellow,
+          //     borderColor: Colors.white,
+          //     text: "Active",
+          //     trailingIcon: Icon(Icons.favorite_border_outlined),
+          //     heightSize: 36,
+          //     widthSize: 98,
+          //   ),
+          // ),
+          // SizedBox(height: 10),
+          // Container(
+          //   child: extremeIconButton(
+          //       textColor: Color.fromARGB(255, 116, 115, 115),
+          //       backgroundColor: Color.fromRGBO(224, 224, 224, 1.0),
+          //       borderColor: Colors.white,
+          //       text: "Disabled",
+          //       trailingIcon: Icon(Icons.shopping_bag_outlined),
+          //       heightSize: 64,
+          //       widthSize: 343),
+          // ),
+          // SizedBox(height: 10),
+          // Container(
+          //   height: 64,
+          //   width: 343,
+          //   child: UikInput(),
+          // )
           // Container(
           //   child: Transform.scale(
           //     scale: 1,
