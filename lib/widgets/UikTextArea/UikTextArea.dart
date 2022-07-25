@@ -28,9 +28,6 @@ class TextArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // constraints: const BoxConstraints(
-      //     maxHeight: 317, maxWidth: 205, minHeight: 163, minWidth: 148),
-      // margin: const EdgeInsets.only(left: 20, top: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,21 +35,21 @@ class TextArea extends StatelessWidget {
           // CONTAINER FOR LABEL
           if (label == true) ...[
             Container(
-                width: 37,
-                height: 16,
-                child: Text(
-                  'Label',
-                  style: GoogleFonts.montserrat(
-                      textStyle: Theme.of(context).textTheme.bodyMedium,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xff212121)),
-                )),
+              width: 37,
+              height: 16,
+              child: Text(
+                'Label',
+                style: GoogleFonts.montserrat(
+                    textStyle: Theme.of(context).textTheme.bodyMedium,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff212121)),
+              ),
+            ),
           ],
 
           //CONTAINER FOR TEXT AREA
           Container(
-            // margin: EdgeInsets.only(top: 10),
             height: heightVal,
             width: widthVal,
             child: TextField(
