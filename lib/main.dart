@@ -6,12 +6,11 @@ import 'package:login/widgets/UikAdminEcommCards/ProductCard.dart';
 import 'package:login/widgets/UikAdminEcommCards/test.dart';
 import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 import 'package:login/widgets/UikPagination/testpagination.dart';
-import 'package:login/widgets/UikTextArea/test.dart';
+
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
 import 'widgets/UikNavbar/UikNavbar.dart';
-import 'widgets/UikProductBanner/test.dart';
 
 void main() {
   runApp(MyApp());
