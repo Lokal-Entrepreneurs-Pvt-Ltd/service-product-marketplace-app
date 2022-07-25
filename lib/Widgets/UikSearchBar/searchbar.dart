@@ -6,7 +6,7 @@ import 'package:login/Widgets/UikiIcon/uikIcon.dart';
 class MySearchBar extends StatefulWidget {
   final rightElement;
   final label;
-  MySearchBar({this.rightElement, this.label});
+  MySearchBar({this.rightElement, this.label = "Search"});
 
   @override
   State<MySearchBar> createState() => _MySearchBarState();
@@ -29,6 +29,7 @@ class _MySearchBarState extends State<MySearchBar>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
           width: 343,

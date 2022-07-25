@@ -1,9 +1,7 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/Widgets/UikAvatar/uikAvatar.dart';
-import 'package:login/Widgets/UikButton/UikButton.dart';
+import 'package:login/Widgets/UikCardComponents/UikChatCard/ChatCard.dart';
+
 import 'package:login/Widgets/UikChips/chips.dart';
 import 'package:login/Widgets/UikRadioButton/radio.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
@@ -18,6 +16,9 @@ import "./widgets/UikSnackbar/snack.dart";
 import "./widgets/UikChips/chips.dart";
 import 'Widgets/UikAvatar/UikAvatar.dart';
 import 'Widgets/UikAvatar/avatar.dart';
+import 'Widgets/UikCardComponents/UikChatCard/ChatBubble.dart';
+import 'Widgets/UikCardComponents/UikMyAccountCard/MyAccountCard.dart';
+import 'Widgets/UikCardComponents/UikMyAccountCard/UikProfileCard/MyProfileCard.dart';
 import 'Widgets/UikSearchBar/searchbar.dart';
 import 'Widgets/UikSelect/select.dart';
 import 'Widgets/UikTabBar/tabBar.dart';
@@ -27,7 +28,6 @@ import 'widgets/UikActionSheet/ActionSheet.dart';
 import 'widgets/UikActionSheet/ActionSheetUtil.dart';
 import 'widgets/UikChips/chipsUtil.dart';
 import 'widgets/UikRadioButton/radio.dart';
-import "./widgets/test.dart";
 import 'widgets/UikOtp/otpui.dart';
 import "./widgets/UikSlidder/slidder.dart";
 
@@ -39,24 +39,64 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => MySelect(
-            // ContainerHeight: 26,
-            // ContainerBackgroundColor: Color(0xFFE5E5E5),
-            // ContainerColor: Color(0xFFE5E5E5),
-            // noIcon: false,
-            // ContainerRadius: 30,
-            // Heading: true,
-
-            // avtar: UikAvatar(),
+        "/": (context) => ChatCard(
+              avtar: UikAvatar(
+                backgroundColor: Colors.black,
+                // radius: 10,
+              ),
             ),
+        // ListView(
+        //       children: const [
+        //         ChatBubble(
+        //           text: 'How was the concert?',
+        //           isCurrentUser: false,
+        //         ),
+        //         ChatBubble(
+        //           text: 'Awesome! Next time you gotta come as well!',
+        //           isCurrentUser: true,
+        //         ),
+        //         ChatBubble(
+        //           text: 'Ok, when is the next date?',
+        //           isCurrentUser: false,
+        //         ),
+        //         ChatBubble(
+        //           text: 'They\'re playing on the 20th of November',
+        //           isCurrentUser: true,
+        //         ),
+        //         ChatBubble(
+        //           text: 'Let\'s do it!',
+        //           isCurrentUser: false,
+        //         ),
+        //       ],
+        //     ),
+        // MyProfileCard(),
+        // MyAccountCard(),
+        // MySelect(
+        //       // size: "Small",
+        //       Border: true,
+        //       // Disable: true,
+        //       Corner: "Rounded",
+
+        //       // noIcon: true,
+        //       Heading: true,
+
+        //       // avtar: UikAvatar(
+        //       //   backgroundColor: Colors.black,
+        //       //   radius: 10,
+        //       // ),
+        //     ),
 
         // Test(),
         // ToolTip(
         //   ll: ["tooltip1", "tooltip2", "tooltip3", "tooltip4"],
-        //   s: AxisDirection.up,
-        //   taillength: 0,
+        //   direction: AxisDirection.down,
         //   child: MySearchBar(),
+        //   childwidth: 343,
+        //   childheight: 64,
+        //   bulletPoint: true,
+        //   NoBackground: true,
         // ),
 
         // MySearchBar(

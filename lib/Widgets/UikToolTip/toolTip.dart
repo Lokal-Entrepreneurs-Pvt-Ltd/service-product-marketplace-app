@@ -4,15 +4,21 @@ import 'package:just_the_tooltip/just_the_tooltip.dart';
 class ToolTip extends StatefulWidget {
   final List<String> ll;
   final child;
-  final s;
+  final childwidth;
+  final childheight;
+  final direction;
+  final bulletPoint;
+  final NoBackground;
 
-  final taillength;
-
-  const ToolTip(
-      {required this.ll,
-      this.s = AxisDirection.down,
-      this.child,
-      required this.taillength});
+  const ToolTip({
+    required this.ll,
+    this.direction = AxisDirection.down,
+    this.child,
+    this.bulletPoint = false,
+    this.NoBackground = false,
+    required this.childwidth,
+    required this.childheight,
+  });
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -30,41 +36,113 @@ String callForLoop(List<String> ll) {
 }
 
 class _MyHomePageState extends State<ToolTip> {
+  var Cheight = 60.0;
+  var textColor;
+
   @override
   Widget build(BuildContext context) {
     String toPrint = callForLoop(widget.ll);
+    Cheight += (10 * (widget.ll.length));
+    var Elevation = 4.0;
+    if (widget.NoBackground == true) {
+      textColor = Colors.white;
+      Elevation = 0.0;
+    }
+    if (widget.NoBackground == false) textColor = Colors.yellow;
     return Scaffold(
       body: JustTheTooltip(
-        tailLength: widget.taillength,
-
-        elevation: 0,
-        backgroundColor: Colors.yellow,
-        shadow: null,
-        // tailLength: 0,
-        // tailBaseWidth: 0,
-        preferredDirection: widget.s,
-        barrierDismissible: false,
-        // margin: EdgeInsets.all(10),
-        // curve: Curves.easeInOut,
-        // ignore: prefer_const_constructors
+        tailLength: 7,
+        backgroundColor: textColor,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        tailBaseWidth: 12,
+        preferredDirection: widget.direction,
+        elevation: Elevation,
         child: Container(
-          // fit: FlexFit.loose,
-          height: 100,
-          width: 100,
-          color: Colors.blue,
+          width: widget.childwidth,
+          height: widget.childheight,
           child: widget.child,
         ),
-
         content: Container(
-          padding: EdgeInsets.all(10.0),
-          width: 73,
-          height: 95,
+          width: 84,
+          height: Cheight,
           decoration: BoxDecoration(
-            // color: backgroundColor,
             borderRadius: BorderRadius.circular(7),
-            border: Border.all(color: Colors.yellow, width: 1.0),
+            border: Border.all(color: textColor, width: 1.0),
           ),
-          child: Text(toPrint),
+          child: Column(
+            children: [
+              if (widget.bulletPoint) ...[
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "ToolTip",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: widget.NoBackground == false
+                          ? Colors.black
+                          : Color(0xFF9E9E9E),
+                    ),
+                  ),
+                ),
+                for (int i = 0; i < widget.ll.length; i++) ...[
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10.8,
+                      ),
+                      Container(
+                        height: 10.4,
+                        width: 10.4,
+                        decoration: new BoxDecoration(
+                          color: widget.NoBackground == false
+                              ? Colors.black
+                              : Color(0xFF9E9E9E),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10.8,
+                      ),
+                      Container(
+                        width: 42,
+                        height: 15,
+                        child: Text(
+                          widget.ll[i],
+                          style: TextStyle(
+                            color: widget.NoBackground == false
+                                ? Colors.black
+                                : Color(0xFF9E9E9E),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ],
+              ],
+              if (widget.bulletPoint == false) ...[
+                for (int i = 0; i < widget.ll.length; i++) ...[
+                  Container(
+                    child: Text(
+                      widget.ll[i],
+                      style: TextStyle(
+                        color: widget.NoBackground == false
+                            ? Colors.black
+                            : Color(0xFF9E9E9E),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              ],
+            ],
+          ),
         ),
       ),
     );
