@@ -2,6 +2,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/screens/EmptyAccount.dart';
+// import 'package:login/pages/emptyAccount.dart';
 import 'package:login/widgets/UikAdminEcommCards/ProductCard.dart';
 import 'package:login/widgets/UikAdminEcommCards/test.dart';
 import 'package:login/widgets/UikAvatar/uikAvatar.dart';
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => MyCard(),
+        "/": (context) => EmptyAccount(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
