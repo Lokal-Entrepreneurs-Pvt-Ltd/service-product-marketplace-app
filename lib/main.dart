@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/Widgets/UikBagScreen/BagScreen.dart';
 import 'package:login/Widgets/UikCardComponents/UikChatCard/ChatCard.dart';
 
 import 'package:login/Widgets/UikChips/chips.dart';
@@ -61,78 +62,80 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) =>
-            // ChatCard(
-            //       avtar: UikAvatar(
-            //         backgroundColor: Colors.black,
-            //         // radius: 10,
-            //       ),
-            //     ),
-            // ListView(
-            //       children: const [
-            //         ChatBubble(
-            //           text: 'How was the concert?',
-            //           isCurrentUser: false,
-            //         ),
-            //         ChatBubble(
-            //           text: 'Awesome! Next time you gotta come as well!',
-            //           isCurrentUser: true,
-            //         ),
-            //         ChatBubble(
-            //           text: 'Ok, when is the next date?',
-            //           isCurrentUser: false,
-            //         ),
-            //         ChatBubble(
-            //           text: 'They\'re playing on the 20th of November',
-            //           isCurrentUser: true,
-            //         ),
-            //         ChatBubble(
-            //           text: 'Let\'s do it!',
-            //           isCurrentUser: false,
-            //         ),
-            //       ],
-            //     ),
-            // MyProfileCard(),
-            // MyAccountCard(),
-            // MySelect(
-            //       // size: "Small",
-            //       Border: true,
-            //       // Disable: true,
-            //       Corner: "Rounded",
-
-            //       // noIcon: true,
-            //       Heading: true,
-
-            //       // avtar: UikAvatar(
-            //       //   backgroundColor: Colors.black,
-            //       //   radius: 10,
-            //       // ),
-            //     ),
-
-            // Test(),
-            // ToolTip(
-            //   ll: ["tooltip1", "tooltip2", "tooltip3", "tooltip4"],
-            //   direction: AxisDirection.down,
-            //   child: MySearchBar(),
-            //   childwidth: 343,
-            //   childheight: 64,
-            //   bulletPoint: true,
-            //   NoBackground: true,
-            // ),
-
-            // MySearchBar(
-            //   label: "Search",
-            //   rightElement: Icons.mic,
-            // ),
-            MyTabBar(
-              ll: [
-                Icons.shopping_bag_outlined,
-                Icons.favorite_border_outlined,
-                Icons.notifications_none_rounded,
-                Icons.perm_identity_rounded,
-                Icons.settings_outlined,
-              ],
+        "/": (context) => BagScreen(
+              boolean: true,
             ),
+        // ChatCard(
+        //       avtar: UikAvatar(
+        //         backgroundColor: Colors.black,
+        //         // radius: 10,
+        //       ),
+        //     ),
+        // ListView(
+        //       children: const [
+        //         ChatBubble(
+        //           text: 'How was the concert?',
+        //           isCurrentUser: false,
+        //         ),
+        //         ChatBubble(
+        //           text: 'Awesome! Next time you gotta come as well!',
+        //           isCurrentUser: true,
+        //         ),
+        //         ChatBubble(
+        //           text: 'Ok, when is the next date?',
+        //           isCurrentUser: false,
+        //         ),
+        //         ChatBubble(
+        //           text: 'They\'re playing on the 20th of November',
+        //           isCurrentUser: true,
+        //         ),
+        //         ChatBubble(
+        //           text: 'Let\'s do it!',
+        //           isCurrentUser: false,
+        //         ),
+        //       ],
+        //     ),
+        // MyProfileCard(),
+        // MyAccountCard(),
+        // MySelect(
+        //       // size: "Small",
+        //       Border: true,
+        //       // Disable: true,
+        //       Corner: "Rounded",
+
+        //       // noIcon: true,
+        //       Heading: true,
+
+        //       // avtar: UikAvatar(
+        //       //   backgroundColor: Colors.black,
+        //       //   radius: 10,
+        //       // ),
+        //     ),
+
+        // Test(),
+        // ToolTip(
+        //   ll: ["tooltip1", "tooltip2", "tooltip3", "tooltip4"],
+        //   direction: AxisDirection.down,
+        //   child: MySearchBar(),
+        //   childwidth: 343,
+        //   childheight: 64,
+        //   bulletPoint: true,
+        //   NoBackground: true,
+        // ),
+
+        // MySearchBar(
+        //   label: "Search",
+        //   rightElement: Icons.mic,
+        // ),
+        // MyTabBar(
+        //   ll: [
+        //     Icons.shopping_bag_outlined,
+        //     Icons.favorite_border_outlined,
+        //     Icons.notifications_none_rounded,
+        //     Icons.perm_identity_rounded,
+        //     Icons.settings_outlined,
+        //   ],
+        // ),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
