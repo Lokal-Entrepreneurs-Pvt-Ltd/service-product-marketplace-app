@@ -18,11 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-<<<<<<< HEAD
-  sdk: ">=2.17.0 <3.0.0"
-=======
-  sdk: ">=2.17.0-266.8.beta <3.0.0"
->>>>>>> f9de70375ee4c9ca7017149f8797a7f99d6eb2d0
+  sdk:  ">=2.17.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -33,21 +29,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-<<<<<<< HEAD
-  ui_sdk : ^1.0.0
-    
-
-=======
->>>>>>> f9de70375ee4c9ca7017149f8797a7f99d6eb2d0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   getwidget: ^2.0.4
   google_fonts: ^3.0.1
-<<<<<<< HEAD
-  number_paginator: ^0.0.2
-  syncfusion_flutter_charts: ^20.2.36
-=======
   another_flushbar: ^1.10.29
   adaptive_action_sheet: ^2.0.1
   syncfusion_flutter_sliders: ^20.2.36
@@ -55,7 +41,6 @@ dependencies:
   overlay_group_avatar: ^0.0.4
   just_the_tooltip: ^0.0.3+6
   flutter_rating_bar: ^4.0.1
->>>>>>> f9de70375ee4c9ca7017149f8797a7f99d6eb2d0
 
 dev_dependencies:
   flutter_test:
