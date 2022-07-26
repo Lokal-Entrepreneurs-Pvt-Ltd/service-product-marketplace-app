@@ -27,6 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  # simple_tooltip: <latest version>
+  # just_the_tooltip: ^0.0.3+6
   flutter:
     sdk: flutter
   smooth_page_indicator: ^1.0.0+2
@@ -86,8 +88,9 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
+  fonts:
+    - family: Schyler
+    - family: iconFont
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
