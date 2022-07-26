@@ -14,6 +14,7 @@ import 'package:login/widgets/UikEcommerceCard/ProductCard.dart';
 import 'package:login/widgets/UikEcommerceCard/ProductDetailsCard.dart';
 import 'package:login/widgets/UikListItems/help.dart';
 import 'package:login/widgets/UikListItems/onHover.dart';
+import 'package:login/widgets/UikMyOrder/MyOrder.dart';
 import 'package:login/widgets/UikSignInModule/signin.dart';
 import 'package:login/widgets/UikSlidder/slidder.dart';
 
@@ -44,114 +45,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        "/": (context) => CategoryCard(
-              list: [
-                {
-                  "categoryName": "shoe",
-                  "inStock": 8,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-                {
-                  "categoryName": "furniture",
-                  "inStock": 23,
-                },
-              ],
-              sortByList: [
-                "newest",
-                "popular",
-                "default",
-                "low price",
-                "high price",
-                //  "high price"
-              ],
-            ),
+        "/": (context) => MyOrder(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
