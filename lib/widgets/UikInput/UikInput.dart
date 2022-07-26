@@ -9,17 +9,21 @@ class UikInput extends StatelessWidget {
   final rightElement;
   final labelText;
   final desText;
-  final error;
+  bool error;
+  final hintText;
+  double widthSize;
+  double heightSize;
 
-  const UikInput({
+   UikInput({
     this.leftElement,
     this.rightElement,
     this.labelText,
     this.desText,
-    this.error,
+    this.hintText,
+    this.error = false,
+    this.widthSize = 343,
+    this.heightSize = 64,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +34,11 @@ class UikInput extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 343,
-              height: 64,
+              width: widthSize,
+              height: heightSize,
               decoration: BoxDecoration(
                 color: Color(0xffF5F5F5),
-                border: (error == "true")
+                border: (error == true)
                     ? Border.all(color: Color(0xffEF5350))
                     : Border.all(color: Color(0xffE0E0E0)),
                 borderRadius: BorderRadius.circular(8),
@@ -60,7 +64,8 @@ class UikInput extends StatelessWidget {
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              fillColor: Colors.redAccent,
+                              hintText: hintText,
+                              //fillColor: Colors.redAccent,
                               isDense: true,
                               contentPadding: (labelText == null)
                                   ? EdgeInsets.symmetric(vertical: 0)
@@ -80,7 +85,7 @@ class UikInput extends StatelessWidget {
                 child: Text(
                   (desText != null) ? desText : (""),
                   style: TextStyle(
-                    color: (error == "true")
+                    color: (error == true)
                         ? Color(0xffEF5350)
                         : Color(0xff9E9E9E),
                   ),

@@ -412,7 +412,7 @@ class SignIn extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            toggleSwitch(
+                            UikSwitch(
                               activebackgroundColor: Color(0xFFFEF2A0),
                               activetopColor: Colors.yellow,
                               inactivebackgroundColor: Colors.grey.shade400,

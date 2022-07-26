@@ -5,27 +5,35 @@ import 'package:flutter/material.dart';
 
 class UikButton extends StatelessWidget {
   final Color borderColor;
+  final Color? textColor;
+  final Color? backgroundColor;
   final String text;
   double widthSize;
+  double heightSize;
+  final textWeight;
+  final textSize;
   final rightElement;
   final leftElement;
   final onClick;
   final type;
   bool? disabled;
   bool? stuck;
-  final size;
 
   UikButton({
     this.borderColor = Colors.transparent,
+    this.backgroundColor = Colors.yellow,
+    this.textWeight,
+    this.textSize,
+    this.textColor,
     this.text = "Button",
     this.widthSize = 343,
+    this.heightSize = 64,
     this.rightElement,
     this.leftElement,
     this.onClick,
     this.type = "primary",
     this.disabled = false,
-    this.stuck = false,
-    this.size = "large",
+    this.stuck = true,
   });
 
   @override
@@ -39,13 +47,11 @@ class UikButton extends StatelessWidget {
             if (type == "primary") ...[
               Container(
                 width: widthSize,
-                height: (size == "large") ? 50 : 36,
+                height: heightSize,
                 decoration: BoxDecoration(
-                  color: (disabled == false)
-                      ? Color(0xffFEE440)
-                      : Color(0xffE0E0E0),
+                  color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.transparent, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -58,9 +64,9 @@ class UikButton extends StatelessWidget {
                             child: Text(
                               text,
                               style: GoogleFonts.poppins(
-                                color: (disabled == true)
-                                    ? Color(0xff9E9E9E)
-                                    : Color(0xff212121),
+                                fontWeight: textWeight,
+                                color: textColor,
+                                fontSize: textSize,
                               ),
                             ),
                           ),
@@ -72,11 +78,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -84,24 +88,16 @@ class UikButton extends StatelessWidget {
                               child: Text(
                                 text,
                                 style: GoogleFonts.poppins(
-                                  color: (disabled == true)
-                                      ? Color(0xff9E9E9E)
-                                      : Color(0xff212121),
+                                  fontWeight: textWeight,
+                                  color: textColor,
                                 ),
                               ),
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(right: 22),
-                                  child: _buildTrailingIcon(rightElement),
-                                ),
-                              ],
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 22),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),
@@ -109,13 +105,11 @@ class UikButton extends StatelessWidget {
             ] else if (type == "secondary") ...[
               Container(
                 width: widthSize,
-                height: (size == "large") ? 64 : 36,
+                height: heightSize,
                 decoration: BoxDecoration(
-                  color: (disabled == false)
-                      ? Color(0xffF5F5F5)
-                      : Color(0xffE0E0E0),
+                  color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.transparent, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -128,9 +122,8 @@ class UikButton extends StatelessWidget {
                             child: Text(
                               text,
                               style: GoogleFonts.poppins(
-                                color: (disabled == true)
-                                    ? Color(0xff9E9E9E)
-                                    : Color(0xff212121),
+                                fontWeight: textWeight,
+                                color: textColor,
                               ),
                             ),
                           ),
@@ -142,11 +135,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -154,19 +145,16 @@ class UikButton extends StatelessWidget {
                               child: Text(
                                 text,
                                 style: GoogleFonts.poppins(
-                                  color: (disabled == true)
-                                      ? Color(0xff9E9E9E)
-                                      : Color(0xff212121),
+                                  fontWeight: textWeight,
+                                  color: textColor,
                                 ),
                               ),
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 22),
-                              child: _buildTrailingIcon(rightElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 2),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),
@@ -174,11 +162,11 @@ class UikButton extends StatelessWidget {
             ] else if (type == "outline") ...[
               Container(
                 width: widthSize,
-                height: (size == "large") ? 64 : 36,
+                height: heightSize,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.black, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -191,9 +179,8 @@ class UikButton extends StatelessWidget {
                             child: Text(
                               text,
                               style: GoogleFonts.poppins(
-                                color: (disabled == true)
-                                    ? Color(0xff9E9E9E)
-                                    : Color(0xff212121),
+                                fontWeight: textWeight,
+                                color: textColor,
                               ),
                             ),
                           ),
@@ -205,11 +192,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -217,19 +202,16 @@ class UikButton extends StatelessWidget {
                               child: Text(
                                 text,
                                 style: GoogleFonts.poppins(
-                                  color: (disabled == true)
-                                      ? Color(0xff9E9E9E)
-                                      : Color(0xff212121),
+                                  fontWeight: textWeight,
+                                  color: textColor,
                                 ),
                               ),
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 22),
-                              child: _buildTrailingIcon(rightElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 22),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),
@@ -238,11 +220,11 @@ class UikButton extends StatelessWidget {
               //ghost
               Container(
                 width: widthSize,
-                height: (size == "large") ? 64 : 36,
+                height: heightSize,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: backgroundColor,
                   borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: Colors.transparent, width: 1.0),
+                  border: Border.all(color: borderColor, width: 1.0),
                 ),
                 child: (stuck == true)
                     ? Row(
@@ -255,9 +237,8 @@ class UikButton extends StatelessWidget {
                             child: Text(
                               text,
                               style: GoogleFonts.poppins(
-                                color: (disabled == true)
-                                    ? Color(0xff9E9E9E)
-                                    : Color(0xff212121),
+                                fontWeight: textWeight,
+                                color: textColor,
                               ),
                             ),
                           ),
@@ -269,11 +250,9 @@ class UikButton extends StatelessWidget {
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: _buildLeadingIcon(leftElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(left: 20),
+                            child: _buildLeadingIcon(leftElement),
                           ),
                           Spacer(),
                           Expanded(
@@ -281,19 +260,16 @@ class UikButton extends StatelessWidget {
                               child: Text(
                                 text,
                                 style: GoogleFonts.poppins(
-                                  color: (disabled == true)
-                                      ? Color(0xff9E9E9E)
-                                      : Color(0xff212121),
+                                  fontWeight: textWeight,
+                                  color: textColor,
                                 ),
                               ),
                             ),
                           ),
                           Spacer(),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 22),
-                              child: _buildTrailingIcon(rightElement),
-                            ),
+                          Container(
+                            margin: EdgeInsets.only(right: 22),
+                            child: _buildTrailingIcon(rightElement),
                           ),
                         ],
                       ),
