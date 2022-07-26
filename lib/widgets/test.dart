@@ -2,7 +2,7 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
-import 'package:login/widgets/UikInput.dart';
+//import 'package:login/widgets/UikInput.dart';
 
 class PricingCard extends StatefulWidget {
   final widthVal;

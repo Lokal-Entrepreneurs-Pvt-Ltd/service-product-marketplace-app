@@ -1,5 +1,3 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/screens/Order/MyOrder.dart';
@@ -43,12 +41,22 @@ import './pages/login.dart';
 import './pages/otp.dart';
 import "./widgets/UikSnackbar/snack.dart";
 import "./widgets/UikChips/chips.dart";
+import 'Widgets/UikAvatar/UikAvatar.dart';
+import 'Widgets/UikAvatar/avatar.dart';
+import 'Widgets/UikCardComponents/UikChatCard/ChatBubble.dart';
+import 'Widgets/UikCardComponents/UikMyAccountCard/MyAccountCard.dart';
+import 'Widgets/UikCardComponents/UikMyAccountCard/UikProfileCard/MyProfileCard.dart';
+import 'Widgets/UikSearchBar/searchbar.dart';
+import 'Widgets/UikSelect/select.dart';
+import 'Widgets/UikTabBar/tabBar.dart';
+import 'Widgets/UikToolTip/myapp.dart';
+import 'Widgets/UikToolTip/toolTip.dart';
 import 'widgets/UikActionSheet/ActionSheet.dart';
 import 'widgets/UikActionSheet/ActionSheetUtil.dart';
 import 'widgets/UikChips/chipsUtil.dart';
 import 'widgets/UikRadioButton/radio.dart';
 import "./widgets/test.dart";
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+// import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 import 'widgets/UikOtp/otpui.dart';
 import "./widgets/UikSlidder/slidder.dart";
 
@@ -60,6 +68,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => MyOrder(),
         MyRoutes.otp: ((context) => Otp()),
