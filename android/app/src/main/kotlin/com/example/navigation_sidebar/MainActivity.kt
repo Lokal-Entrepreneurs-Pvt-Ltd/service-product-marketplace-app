@@ -1,4 +1,4 @@
-package com.example.dashboard_cards
+package com.example.navigation_sidebar
 
 import io.flutter.embedding.android.FlutterActivity
 

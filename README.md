@@ -1,4 +1,4 @@
-# dashboard_cards
+# navigation_sidebar
 
 A new Flutter project.
 

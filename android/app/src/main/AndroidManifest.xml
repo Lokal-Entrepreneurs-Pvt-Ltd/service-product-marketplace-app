@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dashboard_cards">
+    package="com.example.navigation_sidebar">
    <application
-        android:label="dashboard_cards"
+        android:label="navigation_sidebar"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
