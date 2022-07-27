@@ -70,7 +70,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => MyOrder(),
+        "/": (context) => MyOrder(
+              listOfImages: [
+                // "assets/images/pic.png",
+                // "assets/images/pic.png",
+                // "assets/images/pic.png",
+                // "assets/images/pic.png"
+              ],
+            ),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },

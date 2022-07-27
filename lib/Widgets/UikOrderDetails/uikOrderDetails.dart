@@ -18,7 +18,7 @@ class OrderDetails extends StatelessWidget {
     @required this.rightTitle,
     this.rightSubtitle,
     @required this.leftTitle,
-    this.marginTop = 24,
+    this.marginTop = 24.0,
     @required this.listOfImages,
   });
 
@@ -37,19 +37,19 @@ class OrderDetails extends StatelessWidget {
               children: [
                 Container(
                   //width: 270,
-                  height: 24,
+                  height: 24.0,
                   // decoration: BoxDecoration(
                   //   border: Border.all(),
                   // ),
                   margin: const EdgeInsets.only(
-                    left: 16,
+                    left: 16.0,
                     // top: 24,
                     // right: 8,
                   ),
                   child: Text(
                     leftTitle,
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w400,
                       color: const Color(
                         0xFF212121,
@@ -65,13 +65,13 @@ class OrderDetails extends StatelessWidget {
                   //   border: Border.all(),
                   // ),
                   margin: const EdgeInsets.only(
-                    right: 40,
+                    right: 40.0,
                     //   top: 24,
                   ),
                   child: Text(
                     rightTitle,
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: const Color(
                         0xFF212121,
@@ -89,19 +89,19 @@ class OrderDetails extends StatelessWidget {
               children: [
                 Container(
                   //width: 270,
-                  height: 24,
+                  height: 24.0,
                   // decoration: BoxDecoration(
                   //   border: Border.all(),
                   // ),
                   margin: const EdgeInsets.only(
-                    left: 16,
-                    top: 2,
+                    left: 16.0,
+                    top: 2.0,
                     // right: 8,
                   ),
                   child: Text(
                     (leftSubtitle != null) ? leftSubtitle : "",
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.w400,
                       color: leftSubtitleColor,
                     ),
@@ -115,13 +115,13 @@ class OrderDetails extends StatelessWidget {
                   //   border: Border.all(),
                   // ),
                   margin: const EdgeInsets.only(
-                    right: 40,
-                    top: 2,
+                    right: 40.0,
+                    top: 2.0,
                   ),
                   child: Text(
                     (rightSubtitle != null) ? rightSubtitle : "",
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.w400,
                       color: const Color(
                         0xFF9E9E9E,
@@ -138,14 +138,14 @@ class OrderDetails extends StatelessWidget {
                 for (int i = 0; i < listOfImages.length; i++) ...[
                   Container(
                     margin: EdgeInsets.only(
-                      left: (i == 0) ? 16 : 0,
-                      top: 16,
-                      right: 12,
+                      left: (i == 0) ? 16.0 : 0.0,
+                      top: 16.0,
+                      right: 12.0,
                     ),
                     child: UikImage(
                       valImage: Image.asset(listOfImages[i]).image,
-                      iHeight: 73,
-                      iWidth: 60,
+                      iHeight: 73.0,
+                      iWidth: 60.0,
                     ),
                   ),
                 ]
