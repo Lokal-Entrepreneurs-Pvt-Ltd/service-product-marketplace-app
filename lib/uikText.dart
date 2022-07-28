@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class UikText extends StatelessWidget {
   final String text;
   final double size;
@@ -10,6 +11,11 @@ class UikText extends StatelessWidget {
   final Color backgroundColor;
   final Color decorationColor;
   final FontStyle fontStyle;
+  final bool delete;
+  final bool disabled;
+  final bool underlined;
+  final bool italic;
+  final bool marked;
 
  UikText({
     required this.text,
@@ -20,20 +26,55 @@ class UikText extends StatelessWidget {
    this.backgroundColor = Colors.transparent,
    this.decorationColor = Colors.transparent,
    this.fontStyle = FontStyle.normal,
- });
+   this.delete = false,
+   this.disabled = false,
+   this.underlined = false,
+   this.italic = false,
+   this.marked = false,
+  });
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Text(text,
-    style: GoogleFonts.poppins(
+      style: GoogleFonts.poppins(
         fontSize: size,
         fontWeight: weight,
-        color: color,
+        color: (() {
+          if(disabled == true) {
+return Colors.grey;
+          }
+        else {
+          return color;
+          }
+        } ()),
     wordSpacing: wordSpacing,
-    backgroundColor: backgroundColor,
+    fontStyle: (() {
+      if(italic == true) {
+        return FontStyle.italic;
+      }
+    } ()),
+    backgroundColor: (() {
+      if(marked == true) {
+        return Colors.yellow;
+      }
+      else {
+        return backgroundColor;
+      }
+    } ()),
     decorationColor: decorationColor,
-    fontStyle: fontStyle,
+        decoration: (() {
+          if(delete == true) {
+            return TextDecoration.lineThrough;
+          }
+          else if(underlined == true) {
+            return TextDecoration.underline;
+          }
+          else {
+            return TextDecoration.none;
+          }
+        } ()),
     ),
     );
   }
 }
+
