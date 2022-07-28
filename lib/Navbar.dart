@@ -12,8 +12,6 @@ import 'package:uik_text/pages/support.dart';
 import 'package:uik_text/pages/userManagement.dart';
 import 'package:uik_text/pages/vleManagement.dart';
 
-import './uikText.dart';
-
 class Navbar extends StatefulWidget {
   @override
   State<Navbar> createState() => _NavbarState();

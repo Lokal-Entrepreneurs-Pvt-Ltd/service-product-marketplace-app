@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uik_text/Navbar.dart';
-import '../uikText.dart';
 
 class RegisterVLE extends StatelessWidget {
   @override
