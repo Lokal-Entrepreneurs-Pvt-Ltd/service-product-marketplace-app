@@ -119,7 +119,7 @@ class UikAvatar extends StatelessWidget {
       ),
       duration: kThemeChangeDuration,
       decoration: BoxDecoration(
-        color: effectiveBackgroundColor,
+        color: Colors.white,
         image: backgroundImage != null
             ? DecorationImage(
                 image: backgroundImage!,
@@ -131,20 +131,20 @@ class UikAvatar extends StatelessWidget {
             ? BorderRadius.circular(10)
             : borderRadius,
       ),
-      child: child == null && textStyle != null
-          ? null
-          : Center(
-              child: MediaQuery(
-                data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-                child: IconTheme(
-                  data: theme.iconTheme.copyWith(color: textStyle?.color),
-                  child: DefaultTextStyle(
-                    style: textStyle!,
-                    child: child!,
-                  ),
-                ),
-              ),
-            ),
+      // child: child == null && textStyle != null
+      //     ? null
+      //     : Center(
+      //         child: MediaQuery(
+      //           data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      //           child: IconTheme(
+      //             data: theme.iconTheme.copyWith(color: textStyle?.color),
+      //             child: DefaultTextStyle(
+      //               style: textStyle!,
+      //               child: child!,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
     );
   }
 }

@@ -6,10 +6,8 @@ import "UikAvatar.dart";
 class Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-            body: Container(
-                child: Row(
+    return Container(
+        child: Row(
       children: [
         UikAvatar(
           shape: UikAvatarShape.circle,
@@ -36,6 +34,6 @@ class Avatar extends StatelessWidget {
               "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
         ),
       ],
-    ))));
+    ));
   }
 }

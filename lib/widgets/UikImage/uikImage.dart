@@ -56,9 +56,8 @@ class UikImage extends StatelessWidget {
         image: valImage,
         height: iHeight,
         width: iWidth,
-        fit:iFit, 
+        fit: iFit,
         opacity: iOpacity,
-
       ),
       decoration: BoxDecoration(
         borderRadius: (rad != null) ? BorderRadius.circular(rad) : null,

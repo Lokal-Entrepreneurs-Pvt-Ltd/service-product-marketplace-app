@@ -28,7 +28,7 @@ class Chips extends StatelessWidget {
             elevation: 5,
             labelStyle: TextStyle(color: textColor, fontSize: 20),
             onDeleted: (rightElement != null) ? () {} : null,
-            deleteIcon: (rightElement != null) ? rightElement : null,
+            deleteIcon: Icon(Icons.close),
             backgroundColor:
                 (backgroundColor != null) ? backgroundColor : Colors.white,
             //shape: StadiumBorder(side: BorderSide(color: Colors.black)),

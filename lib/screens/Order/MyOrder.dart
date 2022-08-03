@@ -134,7 +134,7 @@ class _MyOrderState extends State<MyOrder> {
           )
         : Scaffold(
             extendBodyBehindAppBar: false,
-            appBar: UikNavbar(
+            appBar: const UikNavbar(
               size: 'large',
               type: 'icon',
               transparent: false,
@@ -151,16 +151,16 @@ class _MyOrderState extends State<MyOrder> {
               // color: Colors.amber,
               child: ListView(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 108,
                   ),
-                  Container(
+                  SizedBox(
                     // width: 100,
                     height: 98,
                     // color: Colors.black,
                     child: Image.asset("/images/shape.png"),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 27,
                   ),
                   Container(
@@ -221,7 +221,7 @@ class _MyOrderState extends State<MyOrder> {
                       top: 16,
                       //bottom: 103,
                     ),
-                    child: Divider(
+                    child: const Divider(
                       thickness: 1.0,
                       color: Color(0XFFEEEEEE),
                     ),
@@ -248,19 +248,6 @@ class _MyOrderState extends State<MyOrder> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: 375,
-                  //   height: 104,
-                  //   child: MyTabBar(
-                  //     backgroundColor: const Color(0xffffffff),
-                  //     ll: const [
-                  //       Icons.home,
-                  //       Icons.shopping_bag,
-                  //       Icons.miscellaneous_services,
-                  //       Icons.person_rounded
-                  //     ],
-                  //   ),
-                  // )
                 ],
               ),
             ),
