@@ -3,13 +3,16 @@ import 'package:login/Widgets/UikiIcon/uikIcon.dart';
 
 class MyTabBar extends StatefulWidget {
   final List<IconData> ll;
+  // final heightsize;
   final isBorder;
   final indicatorColor;
   final backgroundColor;
   final iconSize;
-  final topMargin;
+  final bottomMargin;
+
   MyTabBar({
-    this.topMargin = 18.74,
+    // this.heightsize,
+    this.bottomMargin,
     this.iconSize = 27.0,
     this.backgroundColor = Colors.white,
     required this.ll,
@@ -33,20 +36,22 @@ class _MyTabBarState extends State<MyTabBar> with TickerProviderStateMixin {
     var ll = widget.ll;
     return Scaffold(
       body: Container(
+        margin: EdgeInsets.only(),
+        // height: widget.heightsize,
         width: double.infinity,
         //  padding: const EdgeInsets.all(16),
-        margin: EdgeInsets.only(
-          top: widget.topMargin,
-        ),
+
         decoration: BoxDecoration(
           border: (widget.isBorder != null) ? Border.all() : null,
           borderRadius: BorderRadius.circular(10),
           color: widget.backgroundColor,
         ),
         child: TabBar(
+          indicatorWeight: 0.1,
           indicatorColor: widget.indicatorColor,
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
+          labelPadding: EdgeInsets.only(top: 5),
           controller: _tabController,
           tabs: <Widget>[
             for (int i = 0; i < ll.length; i++) ...[

@@ -9,11 +9,13 @@ class Lavesh extends StatefulWidget {
   final bullet;
   final width;
   final height;
+  final backgroundcolor;
   Lavesh({
     required this.list,
     this.bullet,
     this.width = 358,
     this.height = 46,
+    this.backgroundcolor,
   });
   @override
   State<Lavesh> createState() => _LaveshState();
@@ -26,6 +28,7 @@ class _LaveshState extends State<Lavesh> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: widget.backgroundcolor,
         //color: Colors.white,
         width: widget.width,
         // decoration: BoxDecoration(border: Border.all(width: 3)),

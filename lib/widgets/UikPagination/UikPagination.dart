@@ -57,7 +57,7 @@ class Pagination extends StatelessWidget {
                 dotWidth: DotWidth,
                 spacing: spacing,
                 radius: DotRadius,
-                expansionFactor: expansionFactor),
+                expansionFactor: 2.1),
           ),
         ],
       ),
