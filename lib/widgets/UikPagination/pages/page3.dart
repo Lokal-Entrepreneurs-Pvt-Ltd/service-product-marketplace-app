@@ -9,6 +9,8 @@ class Page3 extends StatelessWidget {
       body: Padding(
           padding: const EdgeInsets.all(40),
           child: Container(
+            height: 200,
+            width: 200,
             color: Colors.red[300],
             child: const Center(
               child: Text('Page 3'),

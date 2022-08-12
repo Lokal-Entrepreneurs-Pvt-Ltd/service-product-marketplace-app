@@ -12,15 +12,16 @@ class Mypagination extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Pagination(
-        boxheight: 400,
-        pages: [Page1(), Page2(), Page3(), Page4()],
-        ActiveDotColor: Color(0xff212121),
+        // boxheight: 400,
+        pageList: [Page1(), Page2(), Page3(), Page4()],
+        activeDotColor: Color(0xff212121),
         dotcolor: Color(0xffe0e0e0),
-        DotHeight: 5,
-        DotWidth: 5,
-        DotRadius: 2.5,
+        dotHeight: 5,
+        dotWidth: 5,
+        dotRadius: 2.5,
         spacing: 4,
-        expansionFactor: 2.2,
+        bgColor: Color(0xff65ef45),
+        // expansionFactor: 2.2,
       ),
     );
   }
