@@ -39,14 +39,20 @@ class _OtpState extends State<Otp> {
                 margin: EdgeInsets.fromLTRB(0, 44, 0, 0),
                 padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
                 child: Row(
-                  
-                  mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.arrow_back,size: 20,),
-                    Text("Help",style: GoogleFonts.poppins(fontSize: 16,fontWeight: FontWeight.w500,color: Color(0xff212121)),)
+                    Icon(
+                      Icons.arrow_back,
+                      size: 20,
+                    ),
+                    Text(
+                      "Help",
+                      style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xff212121)),
+                    )
                   ],
-
-
                 ),
               ),
               Container(
@@ -79,15 +85,15 @@ class _OtpState extends State<Otp> {
                       SizedBox(
                         height: 64,
                         width: 48,
-
                         // fillColor:Color(0xffF5F5F5),
                         child: TextFormField(
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Color(0xffF5F5F5),
-                             focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 3, color:Color(0xffE0E0E0)),
-                  ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 3, color: Color(0xffE0E0E0)),
+                            ),
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0xffE0E0E0),
@@ -217,21 +223,21 @@ class _OtpState extends State<Otp> {
                 child: RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                      text: "New Code ",
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Color(0xff9E9E9E),
-                      ),),
-                      TextSpan(
-                        text:"0:$start",
-                        style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Color(0xff9E9E9E),
-                      ),
-
-                      )
+                    text: "New Code ",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Color(0xff9E9E9E),
+                    ),
+                  ),
+                  TextSpan(
+                    text: "0:$start",
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Color(0xff9E9E9E),
+                    ),
+                  )
                 ])),
               )
             ],
