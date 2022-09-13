@@ -46,6 +46,7 @@ dependencies:
   overlay_group_avatar: ^0.0.4
   just_the_tooltip: ^0.0.3+6
   flutter_rating_bar: ^4.0.1
+  ui_sdk: ^1.0.1+1
 
 dev_dependencies:
   flutter_test:

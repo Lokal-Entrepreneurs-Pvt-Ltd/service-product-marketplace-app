@@ -155,8 +155,8 @@ class ActionSheet extends StatelessWidget {
         for (int i = 0; i < items.length; i++) ...[
           BottomSheetAction(
             leading: Icon(Icons.star_border_outlined),
-            title: Text(items[i]),
-            onPressed: () {},
+            title: Text(items[i]), onPressed: (BuildContext context) {  },
+            //onPressed: () {},
           ),
         ],
       ],

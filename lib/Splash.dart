@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => Bookkeeper(),
+        builder: (context) => UikBottomNavigationBar(),
       ),
     );
   }

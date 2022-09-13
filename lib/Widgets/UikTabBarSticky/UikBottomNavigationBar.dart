@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'CartPage.dart';
+import 'UikComponentDisplayer.dart';
 import 'UikTabBarSticky.dart';
 
-class Bookkeeper extends StatelessWidget {
+class UikBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,8 +20,8 @@ class Bookkeeper extends StatelessWidget {
           body: TabBarView(
             children: [
               Container(child: Icon(Icons.abc)),
-              Container(child: Icon(Icons.directions_transit)),
-              Container(child: Icon(Icons.directions_bike)),
+              CartPage().page,
+              UikComponentDisplayer().page,
               UikTabBarSticky()
             ],
           ),
