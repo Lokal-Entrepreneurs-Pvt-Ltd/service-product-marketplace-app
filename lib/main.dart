@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/Splash.dart';
+import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 import 'package:login/screens/Order/MyOrder.dart';
 import 'package:login/widgets/UikAdminEcommCards/ProductCard.dart';
 import 'package:login/widgets/UikAdminEcommCards/test.dart';
@@ -9,6 +11,7 @@ import 'package:login/widgets/UikPagination/testpagination.dart';
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
+import 'Widgets/UikTabBarSticky/UikTabBarSticky.dart';
 import 'widgets/UikNavbar/UikNavbar.dart';
 import 'package:login/widgets/UIKGroupAvatar/groupAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
@@ -70,7 +73,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => Avatar(),
+        "/": (context) => SplashScreen(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },

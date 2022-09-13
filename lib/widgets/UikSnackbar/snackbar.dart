@@ -18,42 +18,45 @@ class SnackBarPage extends StatelessWidget {
   });
   SnackBar snackWidget() {
     final snackBar = SnackBar(
-      content: Row(
-        children: [
-          Container(
-            child: (leftElement != null) ? leftElement : null,
-            height: 40,
-          ),
+      content: Container(
+        height: 50,
+        child: Row(
+          children: [
+            Container(
+              child: (leftElement != null) ? leftElement : null,
+              height: 40,
+            ),
 
-          SizedBox(width: 10),
-          Container(
-            height: 40,
-            child: description != null
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      // if (description != null)
-                      Text(
-                        description,
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
-                      ),
-                    ],
-                  )
-                : Text(
-                    title,
-                    style: TextStyle(fontSize: 28),
-                  ),
-          ),
-          // SizedBox(width: 120),
-          Spacer(),
-          Container(
-            child: Trigger,
-          )
-        ],
+            SizedBox(width: 10),
+            Container(
+              height: 40,
+              child: description != null
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        // if (description != null)
+                        Text(
+                          description,
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      title,
+                      style: TextStyle(fontSize: 28),
+                    ),
+            ),
+            // SizedBox(width: 120),
+            Spacer(),
+            Container(
+              child: Trigger,
+            )
+          ],
+        ),
       ),
       backgroundColor: backgroundColor,
       behavior: SnackBarBehavior.floating,
