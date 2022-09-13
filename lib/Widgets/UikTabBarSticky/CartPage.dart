@@ -53,7 +53,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
     },
   );
 
-  
+
   if (response.statusCode == 200) {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {
