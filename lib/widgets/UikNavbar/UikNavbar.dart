@@ -58,7 +58,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
           // color: (transparent==true)?,
           height: 56,
           child: AppBar(
-            elevation: (transparent == true) ? 0 : null,
+            elevation: 0,
             backgroundColor:
                 (transparent == true) ? Colors.transparent : bgcolor,
             // foregroundColor: Colors.black,

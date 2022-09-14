@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/screens/Account.dart';
 import 'package:login/screens/EmptyAccount.dart';
 import 'package:login/screens/Newaccount.dart';
-import 'package:login/screens/examplePost.dart';
+
 // import 'package:login/pages/emptyAccount.dart';
 import 'package:login/widgets/UikAdminEcommCards/ProductCard.dart';
 import 'package:login/widgets/UikAdminEcommCards/test.dart';
@@ -77,12 +77,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => Mypagination(),
-        // "/": (context) => HomePage(),
-        // "/": (context) => Account(),
-        // "/": (context) => NewAccount(),
-        // "/": (context) => EmptyAccount(),
-        // "/": (context) => LoginPage(),
+        "/": (context) => LoginPage(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
