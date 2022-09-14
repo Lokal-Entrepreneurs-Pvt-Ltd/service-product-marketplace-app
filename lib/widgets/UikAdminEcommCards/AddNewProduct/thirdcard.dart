@@ -1,179 +1,19 @@
-//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
-//import 'package:login/widgets/UikInput.dart';
 
-class PricingCard extends StatefulWidget {
-  final widthVal;
-  final heightVal;
-  final depthVal;
-  final weightVal;
-  final shippingFee;
+import '../../UikButton/UikButton.dart';
 
-  const PricingCard(
-      {super.key,
-      this.depthVal,
-      this.heightVal,
-      this.shippingFee,
-      this.weightVal,
-      this.widthVal});
-
-  @override
-  State<PricingCard> createState() => _PricingCardState();
-}
-
-class _PricingCardState extends State<PricingCard> {
-  var colorOfInfo = 0xff3A3C40;
-  var colorOfPrice = 0xff3A3C40;
-  var colorOfShipping = 0xff3A3C40;
-
+class thirdCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 683,
-      height: 415,
-      padding: EdgeInsets.fromLTRB(30, 0, 25, 30),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Color(0xffBABFC5)),
-      ),
-      child: Card(
-        margin: EdgeInsets.all(0),
-        elevation: 0,
+    return ListView(shrinkWrap: true, children: [
+      Container(
+        // height: 350,
         child: Column(
           children: [
-            // top-most container (add new product, infor,price,shipping)
-            Container(
-              height: 67,
-              // color: Colors.amber,
-              child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  //add new product--------------
-                  Container(
-                    width: 210,
-                    height: 32,
-                    // margin: EdgeInsets.only(left: 30),
-                    child: Text(
-                      'Add new product',
-                      style: GoogleFonts.poppins(
-                        color: Color(0xff000000),
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        textStyle: Theme.of(context).textTheme.headline2,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 165,
-                  ),
-
-                  //for information, price and shipping-------------------
-                  Container(
-                    margin: EdgeInsets.only(top: 30),
-                    child: Row(
-                      children: [
-                        // container for information
-                        Container(
-                          margin: EdgeInsets.only(right: 30),
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(
-                                  () {
-                                    colorOfInfo = 0xffEF5350;
-                                    colorOfPrice = 0xff3A3C40;
-                                    colorOfShipping = 0xff3A3C40;
-                                  },
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Information',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        color: Color(colorOfInfo),
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  // divider(),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        //container for price
-                        Container(
-                          margin: EdgeInsets.only(right: 30),
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(
-                                  () {
-                                    colorOfPrice = 0xffEF5350;
-                                    colorOfShipping = 0xff3A3C40;
-                                    colorOfInfo = 0xff3A3C40;
-                                  },
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Price',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        color: Color(colorOfPrice),
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        //container for shipping
-                        Container(
-                          // margin: EdgeInsets.only(right: 10),
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(
-                                  () {
-                                    colorOfShipping = 0xffEF5350;
-                                    colorOfInfo = 0xff3A3C40;
-                                    colorOfPrice = 0xff3A3C40;
-                                  },
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Shipping',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 14,
-                                        color: Color(colorOfShipping),
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-
             //2nd container - width and height
             Container(
-              margin: EdgeInsets.only(top: 14),
+              margin: EdgeInsets.only(top: 14, left: 30),
               child: Row(
                 children: [
                   // WIDTH -------------
@@ -265,7 +105,7 @@ class _PricingCardState extends State<PricingCard> {
 
             //3RD CONTAINER - depth and weight
             Container(
-              margin: EdgeInsets.only(top: 22),
+              margin: EdgeInsets.only(top: 22, left: 30),
               child: Row(
                 children: [
                   // depth-------------
@@ -402,29 +242,29 @@ class _PricingCardState extends State<PricingCard> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // AppButton(
-                  //     textColor: Color(0xff9E9E9E),
-                  //     backgroundColor: Color(0xffffffff),
-                  //     borderColor: Color(0xffEEEEEE),
-                  //     text: 'Cancel',
-                  //     widthSize: 136,
-                  //     heightSize: 38),
-                  // SizedBox(
-                  //   width: 11,
-                  // ),
-                  // AppButton(
-                  //     textColor: Color(0xff212121),
-                  //     backgroundColor: Color(0xffFEE440),
-                  //     borderColor: Color(0xffFEE440),
-                  //     text: 'Save',
-                  //     widthSize: 136,
-                  //     heightSize: 38)
+                  UikButton(
+                      textColor: Color(0xff9E9E9E),
+                      backgroundColor: Color(0xffffffff),
+                      borderColor: Color(0xffEEEEEE),
+                      text: 'Cancel',
+                      widthSize: 136,
+                      heightSize: 38),
+                  SizedBox(
+                    width: 11,
+                  ),
+                  UikButton(
+                      textColor: Color(0xff212121),
+                      backgroundColor: Color(0xffFEE440),
+                      borderColor: Color(0xffFEE440),
+                      text: 'Save',
+                      widthSize: 136,
+                      heightSize: 38)
                 ],
               ),
             )
           ],
         ),
       ),
-    );
+    ]);
   }
 }

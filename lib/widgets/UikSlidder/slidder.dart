@@ -10,13 +10,14 @@ class Slidder extends StatefulWidget {
   final trackWidth;
   final minimum;
   final maximum;
-
+  final isRounded;
   //final RangeValues initialValues;
   Slidder({
     this.isRange,
-    this.trackWidth = 343,
-    this.minimum = 0,
-    this.maximum = 100,
+    this.isRounded,
+    this.trackWidth = 343.0,
+    this.minimum = 0.0,
+    this.maximum = 100.0,
   });
   //RangeValues initialValues = RangeValues(, );
   @override
@@ -29,14 +30,18 @@ class _SlidderState extends State<Slidder> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SliderTheme(
+    return Container(
+      child: SliderTheme(
         data: SliderThemeData(
           trackHeight: 2,
-          thumbShape: PolygonSliderThumb(thumbRadius: 4),
-          rangeThumbShape: DuoPolygonSliderThumb(
-            thumbRadius: 4,
-          ),
+          thumbShape: (widget.isRounded != null)
+              ? RoundSliderThumbShape()
+              : PolygonSliderThumb(thumbRadius: 4),
+          rangeThumbShape: (widget.isRounded != null)
+              ? RoundRangeSliderThumbShape()
+              : DuoPolygonSliderThumb(
+                  thumbRadius: 4,
+                ),
         ),
         child: (widget.isRange == null)
             ? Container(
@@ -66,11 +71,10 @@ class _SlidderState extends State<Slidder> {
                       value: initialValue,
                       min: widget.minimum,
                       max: widget.maximum,
-
-                      // divisions: 10,
+                      divisions: 10,
                       activeColor: Color(0xFFFEE440),
                       inactiveColor: Color(0xFFEEEEEE),
-                      //label: 'Set volume value',
+                      label: 'Set volume value',
                       onChanged: (value) {
                         setState(() {
                           initialValue = value;
@@ -85,20 +89,31 @@ class _SlidderState extends State<Slidder> {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          '${initialValues.start}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                        Container(
+                          margin: EdgeInsets.only(
+                            left: 15,
+                          ),
+                          child: Text(
+                            '${double.parse((initialValues.start).toStringAsFixed(2))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                        Text(
-                          '${initialValues.end}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                        Spacer(),
+                        Container(
+                          margin: const EdgeInsets.only(
+                            right: 15,
+                          ),
+                          child: Text(
+                            '${double.parse((initialValues.end).toStringAsFixed(2))}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ],

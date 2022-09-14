@@ -76,12 +76,37 @@ class LoginPage extends StatelessWidget {
             child: UikButton(
                 type: "primary",
                 disabled: false,
-                rightElement: UikIcon(valIcon: Icons.favorite_border),
-                leftElement: UikIcon(valIcon: Icons.location_on),
-                stuck: false,backgroundColor: Colors.yellow,borderColor: Colors.blue),
+                rightElement: UikIcon(valIcon: Icons.shopping_bag_outlined),
+                //leftElement: UikIcon(valIcon: Icons.location_on),
+                stuck: false,
+                backgroundColor: Colors.yellow,
+                borderColor: Colors.transparent),
           ),
-          SizedBox(height: 20,),
-          Container(child: UikButton(stuck: true,widthSize: 98,textWeight: FontWeight.bold),),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 343,
+            height: 64,
+            color: Colors.blue,
+            child: Cell(
+              titleText: "My Whishlist",
+              subtitleText: "bbbbbbbbbb",
+              leftChild: Icon(Icons.shopify),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            child: UikDivider(
+                dividerSize: "Large",
+                widthSize: 500,
+                dividerColor: Colors.black),
+          ),
+          SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );
