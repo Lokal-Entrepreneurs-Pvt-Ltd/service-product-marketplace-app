@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'CartPage.dart';
 import 'UikComponentDisplayer.dart';
-import 'UikTabBarSticky.dart';
 
 class UikBottomNavigationBar extends StatelessWidget {
   @override
@@ -20,9 +18,9 @@ class UikBottomNavigationBar extends StatelessWidget {
           body: TabBarView(
             children: [
               Container(child: Icon(Icons.abc)),
-              CartPage().page,
+              Container(child: Icon(Icons.abc)),
               UikComponentDisplayer().page,
-              UikTabBarSticky()
+              Container(child: Icon(Icons.abc)),
             ],
           ),
         ),
