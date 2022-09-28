@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
+import 'package:login/screens/Onboarding/OnboardingScreen.dart';
+import 'UikBottomNavigationBar.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => UikBottomNavigationBar(),
+        builder: (context) => OnboardingScreen(),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/Splash.dart';
-import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
+
+import 'package:login/pages/splash.dart';
+//import 'package:login/Splash.dart';
+//import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 import 'package:login/screens/Membership/MembershipScreen.dart';
 import 'package:login/screens/Onboarding/OnboardingScreen.dart';
 import 'package:login/screens/Order/MyOrder.dart';
@@ -15,7 +17,7 @@ import 'package:login/widgets/UikPagination/testpagination.dart';
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
-import 'Widgets/UikTabBarSticky/UikTabBarSticky.dart';
+
 import 'widgets/UikNavbar/UikNavbar.dart';
 import 'package:login/widgets/UIKGroupAvatar/groupAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
@@ -89,7 +91,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) =>OnboardingScreen(),
+        "/": (context) =>const SplashScreen(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
