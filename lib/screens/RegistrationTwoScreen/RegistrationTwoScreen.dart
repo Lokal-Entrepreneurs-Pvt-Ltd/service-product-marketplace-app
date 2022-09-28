@@ -146,7 +146,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   )
                                 ],
                               ),
-                              Icon(Icons.chevron_right)
+                              Icon(Icons.arrow_drop_down_outlined)
                             ],
                           ),
                         ),
