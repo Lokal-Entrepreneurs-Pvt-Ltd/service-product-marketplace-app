@@ -3,6 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikOrder.dart';
 
+import '../Widgets/UikAvatar/UikAvatar.dart';
+import '../Widgets/UikCell/UikCell.dart';
+import 'UikComponentDisplayer.dart';
+import 'UikMyAccountScreen.dart';
 import 'UikComponentDisplayer.dart';
 
 class UikBottomNavigationBar extends StatelessWidget {
@@ -19,10 +23,43 @@ class UikBottomNavigationBar extends StatelessWidget {
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
-              Container(child: Icon(Icons.abc)),
-              UikOrder().page,
               UikComponentDisplayer().page,
-               UikCart().page
+              MyAccount(
+                ll: [
+                  const Cell(
+                    titleText: "Nadeem Khan",
+                    subtitleText: "Beginner Partner",
+                    leftChild: UikAvatar(
+                      shape: UikAvatarShape.circle,
+                      size: UikSize.SMALL,
+                      backgroundImage: NetworkImage(
+                          "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                    ),
+                  ),
+                  const Cell(
+                    titleText: "My Details",
+                    leftChild: Icon(Icons.person),
+                  ),
+                  const Cell(
+                    titleText: "My Orders",
+                    leftChild: Icon(Icons.mic),
+                  ),
+                  const Cell(
+                    titleText: "My Wishlist",
+                    leftChild: Icon(Icons.favorite_border),
+                  ),
+                  const Cell(
+                    titleText: "Subscriptions",
+                    leftChild: Icon(Icons.abc),
+                  ),
+                  const Cell(
+                    titleText: "Sign out",
+                    leftChild: Icon(Icons.person),
+                  ),
+                ],
+              ),
+              UikOrder().page,
+              UikCart().page
             ],
           ),
         ),
