@@ -45,7 +45,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
   };
   final response = await http.get(
     Uri.parse(
-        'https://demo3348922.mockable.io/test123'),
+        'http://demo3348922.mockable.io/homePage'),
     headers: {
       "ngrok-skip-browser-warning": "value",
       //"id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",

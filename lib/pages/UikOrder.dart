@@ -45,7 +45,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
   };
   final response = await http.get(
     Uri.parse(
-        'https://service-core.herokuapp.com/getOrder'),
+        'http://demo3348922.mockable.io/getOrder'),
     headers: {
       "ngrok-skip-browser-warning": "value",
       "id" : "412121d3-6b19-4d3e-8568-f3c5d3c1ff60",
