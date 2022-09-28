@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyAccount extends StatelessWidget {
   final List<Widget> ll;
+  // final heading;
 
   MyAccount({required this.ll});
   // const MyAccount({super.key});
