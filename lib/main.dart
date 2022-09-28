@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/Splash.dart';
+// import 'package:login/Splash.dart';
 import 'package:login/Widgets/UikCell/UikCell.dart';
 import 'package:login/Widgets/UikIcon/uikIcon.dart';
-import 'package:login/Widgets/UikMyAccountScreen/UikMyAccountScreen.dart';
-import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
+import 'package:login/pages/UikMyAccountScreen.dart';
+// import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
+
+import 'package:login/pages/splash.dart';
+//import 'package:login/Splash.dart';
+//import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 import 'package:login/screens/Membership/MembershipScreen.dart';
 import 'package:login/screens/Onboarding/OnboardingScreen.dart';
 import 'package:login/screens/Order/MyOrder.dart';
@@ -18,7 +22,7 @@ import './Widgets/UikAvatar/uikAvatar.dart';
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
-import 'Widgets/UikTabBarSticky/UikTabBarSticky.dart';
+
 import 'widgets/UikNavbar/UikNavbar.dart';
 import 'package:login/widgets/UIKGroupAvatar/groupAvatar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
@@ -92,41 +96,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => MyAccount(
-              // ignore: prefer_const_literals_to_create_immutables
-              ll: [
-                const Cell(
-                  titleText: "Nadeem Khan",
-                  subtitleText: "Beginner Partner",
-                  leftChild: UikAvatar(
-                    shape: UikAvatarShape.circle,
-                    size: UikSize.SMALL,
-                    backgroundImage: NetworkImage(
-                        "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                  ),
-                ),
-                const Cell(
-                  titleText: "My Details",
-                  leftChild: Icon(Icons.person),
-                ),
-                const Cell(
-                  titleText: "My Orders",
-                  leftChild: Icon(Icons.mic),
-                ),
-                const Cell(
-                  titleText: "My Wishlist",
-                  leftChild: Icon(Icons.favorite_border),
-                ),
-                const Cell(
-                  titleText: "Subscriptions",
-                  leftChild: Icon(Icons.abc),
-                ),
-                const Cell(
-                  titleText: "Sign out",
-                  leftChild: Icon(Icons.person),
-                ),
-              ],
-            ),
+        "/": (context) => SplashScreen(),
         // OnboardingScreen(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
