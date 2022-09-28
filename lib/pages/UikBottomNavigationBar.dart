@@ -7,6 +7,7 @@ import '../Widgets/UikAvatar/UikAvatar.dart';
 import '../Widgets/UikCell/UikCell.dart';
 import 'UikComponentDisplayer.dart';
 import 'UikMyAccountScreen.dart';
+import 'UikComponentDisplayer.dart';
 
 class UikBottomNavigationBar extends StatelessWidget {
   @override
