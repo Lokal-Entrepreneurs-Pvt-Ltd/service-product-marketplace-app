@@ -35,7 +35,6 @@ dependencies:
   badges: ^2.0.3
   dotted_border: ^2.0.0+2
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   getwidget: ^2.0.4
@@ -52,7 +51,6 @@ dependencies:
   pinput: ^2.2.12
   stop_watch_timer: ^2.0.0
   country_icons: ^2.0.2
-
 
 dev_dependencies:
   flutter_test:

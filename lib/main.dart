@@ -7,6 +7,7 @@ import 'package:login/pages/UikMyAccountScreen.dart';
 // import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 
 import 'package:login/pages/splash.dart';
+import 'package:login/screens/Delivery/delivery.dart';
 //import 'package:login/Splash.dart';
 //import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 import 'package:login/screens/Membership/MembershipScreen.dart';
@@ -96,7 +97,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => SplashScreen(),
+        "/": (context) => DeliveryScreen(),
         // OnboardingScreen(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
