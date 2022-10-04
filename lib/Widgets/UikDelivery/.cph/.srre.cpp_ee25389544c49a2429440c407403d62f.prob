@@ -1,0 +1,1 @@
+{"name":"Local: srre","url":"/Users/srujan/Desktop/cf/srre.cpp","tests":[{"id":1664859224801,"input":"6\n6\n111111\n7\n1101001\n4\n0000\n4\n0010\n8\n10010101\n15\n110011100101100\n","output":"0\n11\n4\n4\n17\n60\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/srujan/Desktop/cf/srre.cpp","group":"local","local":true}

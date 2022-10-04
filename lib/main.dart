@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:login/pages/splash.dart';
+import 'package:login/screens/Delivery/delivery.dart';
 //import 'package:login/Splash.dart';
 //import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 import 'package:login/screens/Membership/MembershipScreen.dart';
@@ -91,7 +92,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) =>const SplashScreen(),
+        "/": (context) => DeliveryScreen(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
