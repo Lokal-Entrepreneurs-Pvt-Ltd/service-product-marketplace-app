@@ -461,7 +461,7 @@ packages:
       name: ui_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.6+1"
+    version: "1.0.7+1"
   universal_io:
     dependency: transitive
     description:
@@ -539,6 +539,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  video_player_platform_interface:
+    dependency: transitive
+    description:
+      name: video_player_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.4"
+  video_player_web:
+    dependency: transitive
+    description:
+      name: video_player_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.12"
   win32:
     dependency: transitive
     description:
