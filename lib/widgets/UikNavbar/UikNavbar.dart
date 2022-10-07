@@ -1,61 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../UikIcon/uikIcon.dart';
 
 class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
-  final titletxt, titletxtColor, titletxtSize;
-  final subtitletxt, subtitletxtColor, subtitletxtSize;
-  final lefticonVal, lefticonColor, leftIconSize;
-  final size;
-  final type;
-  final bgcolor;
-  final transparent;
-  final foregroundcolor;
-  final btncolor,
-      btnheight,
-      btnwidth,
-      btntext,
-      btntextColor,
-      btntextSize,
-      lWidth;
-  final actionWidth, actionHeight, actionText, actionTextColor, actiontextSize;
-  final iconVal, iconColor, iconsize, iconBgcolor;
-  // final height;
+  // final String id;
+  final String size;
+  final Color? backgroundColor;
+  final bool? transparency;
+  final String? titleText;
+  final String? subtitleText;
+  final Widget leftIcon;
+  final String? triggerElementType;
+  final Widget? triggerIcon;
+  final Widget? triggerButton;
+  final Widget? triggerAction;
 
-  const UikNavbar({
-    Key? key,
-    this.titletxt,
-    this.subtitletxt,
-    this.lefticonVal,
-    this.lefticonColor,
-    this.leftIconSize,
-    this.size,
-    this.type,
-    this.bgcolor,
-    this.transparent,
-    this.foregroundcolor = Colors.black,
-    this.btncolor,
-    this.btnheight,
-    this.btnwidth,
-    this.btntext,
-    this.lWidth,
-    this.btntextColor,
-    this.btntextSize,
-    this.actionWidth,
-    this.actionHeight,
-    this.actionText,
-    this.actionTextColor,
-    this.actiontextSize,
-    this.titletxtColor,
-    this.titletxtSize,
-    this.subtitletxtColor,
-    this.subtitletxtSize,
-    this.iconVal,
-    this.iconColor,
-    this.iconsize,
-    this.iconBgcolor,
-    // this.height,
-  }) : super(key: key);
+  UikNavbar({
+    required this.size,
+    this.transparency,
+    this.triggerIcon,
+    this.triggerButton,
+    this.triggerAction,
+    this.backgroundColor = const Color(0xfffefefe),
+    this.titleText = null,
+    this.subtitleText = null,
+    this.leftIcon = const Icon(null),
+    this.triggerElementType = null,
+  });
 
   @override
   Widget build(BuildContext context) => (size == 'small')
@@ -63,73 +33,41 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
           // color: (transparent==true)?,
           height: 56,
           child: AppBar(
-            elevation: (transparent == true) ? 0 : null,
+            leadingWidth: 30,
+            elevation: 0,
+            // elevation: (transparency == true) ? 0 : null,
             backgroundColor:
-                (transparent == true) ? Colors.transparent : bgcolor,
+                (transparency == true) ? Colors.transparent : backgroundColor,
             // foregroundColor: Colors.black,
             // backgroundColor: bg,
-            leading: IconButton(
-              onPressed: () {},
-              icon: UikIcon(
-                valIcon: lefticonVal,
-                iconColor: lefticonColor,
-                iconSize: leftIconSize,
-                backgroundColor: iconBgcolor,
+            leading: Container(
+              margin: EdgeInsets.only(left: 16, top: 16),
+              // color: Colors.amber,, required String titleText
+              child: IconButton(
+                padding: const EdgeInsets.all(0.0),
+                onPressed: () {},
+                icon: leftIcon!,
+                // iconSize: 60,
+                color: Colors.black,
               ),
             ),
             actions: [
               Container(
+                // color: Colors.amber,
+                margin: EdgeInsets.only(right: 16),
+                padding: EdgeInsets.only(right: 7),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (type == 'icon') ...[
+                    if (triggerElementType == 'icon') ...[
+                      triggerIcon!
+                    ] else if (triggerElementType == 'button') ...[
+                      Container(height: 36, child: triggerButton!),
+                    ] else if (triggerElementType == 'action') ...[
                       Container(
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: UikIcon(
-                            valIcon: iconVal,
-                            iconColor: iconColor,
-                            iconSize: iconsize,
-                            backgroundColor: iconBgcolor,
-                          ),
-                          color: foregroundcolor,
-                        ),
-                      )
-                    ] else if (type == 'button') ...[
-                      Container(
-                        color: btncolor,
-                        margin: const EdgeInsets.fromLTRB(0, 10, 10, 10),
-                        width: btnwidth,
-                        height: btnheight,
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Center(
-                              child: Text(
-                                btntext,
-                                style: GoogleFonts.poppins(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyMedium,
-                                  fontSize: btntextSize,
-                                  fontWeight: FontWeight.w500,
-                                  color: btntextColor,
-                                ),
-                              ),
-                            )),
-                      )
-                    ] else if (type == 'action') ...[
-                      Container(
-                          // color: Colors.red,
-                          width: actionWidth,
-                          height: actionHeight,
-                          child: Text(
-                            actionText,
-                            style: GoogleFonts.poppins(
-                              textStyle: Theme.of(context).textTheme.bodyMedium,
-                              fontSize: actiontextSize,
-                              fontWeight: FontWeight.w500,
-                              color: actionTextColor,
-                            ),
-                          ))
+                        child: triggerAction!,
+                        // color: Colors.black,
+                      ),
                     ]
                   ],
                 ),
@@ -140,36 +78,35 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (titletxt == null) ...[
+                if (titleText == null) ...[
                   Container()
-                ] else if (subtitletxt == null) ...[
+                ] else if (subtitleText == null) ...[
                   Text(
-                    titletxt!,
+                    titleText!,
                     style: GoogleFonts.poppins(
                       textStyle: Theme.of(context).textTheme.bodyMedium,
-                      fontSize: titletxtSize,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: titletxtColor,
+                      color: Colors.black,
                     ),
                   ),
                 ] else ...[
                   Text(
-                    titletxt!,
+                    titleText!,
                     style: GoogleFonts.poppins(
                       textStyle: Theme.of(context).textTheme.bodyMedium,
-                      fontSize: titletxtSize,
+                      fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: titletxtColor,
+                      color: Colors.black,
                     ),
                   ),
                   Text(
-                    subtitletxt!,
+                    subtitleText!,
                     style: GoogleFonts.poppins(
                       textStyle: Theme.of(context).textTheme.bodyMedium,
-                      fontSize: subtitletxtSize,
+                      fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: subtitletxtColor,
-                      // color: Colors.black,
+                      color: Color(0xff3e3e3e),
                     ),
                   )
                 ]
@@ -180,91 +117,87 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         )
       : Container(
-          height: (subtitletxt != null) ? (142) : (114),
+          height: (subtitleText != null) ? (200) : (160),
           // margin: EdgeInsets.only(top: 100),
-          color: (transparent == true) ? Colors.transparent : bgcolor,
+          color: (transparency == true) ? Colors.transparent : backgroundColor,
           child: Column(
             children: [
               AppBar(
                 // toolbarOpacity: 0,
                 elevation: 0,
-                backgroundColor:
-                    (transparent == true) ? Colors.transparent : bgcolor,
+                backgroundColor: (transparency == true)
+                    ? Colors.transparent
+                    : backgroundColor,
 
-                foregroundColor: foregroundcolor,
+                foregroundColor: Colors.black,
                 // (subtitletxt==null)? (): (),
                 toolbarHeight: 56,
-                // leadingWidth: 500,
-                leading: Container(
-                    child: IconButton(
-                  onPressed: () {},
-                  icon: UikIcon(
-                    valIcon: lefticonVal,
-                    iconColor: lefticonColor,
-                    iconSize: leftIconSize,
-                    backgroundColor: iconBgcolor,
-                  ),
-                )),
+                leadingWidth: 40,
+                automaticallyImplyLeading: false,
+
+                leading: (leftIcon == null)
+                    ? (Container(
+                        height: 56,
+                      ))
+                    : Container(
+                        padding: EdgeInsets.only(top: 10, left: 5),
+                        // color: Colors.amber,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            leftIcon!,
+                          ],
+                        ),
+                      ),
 
                 //second element
                 actions: [
                   Container(
+                    padding: EdgeInsets.only(top: 10, right: 7),
+                    // color: Colors.amber,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      // crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        if (type == 'icon') ...[
-                          IconButton(
-                            onPressed: () {},
-                            icon: UikIcon(
-                              valIcon: iconVal,
-                              iconColor: iconColor,
-                              iconSize: iconsize,
-                              backgroundColor: iconBgcolor,
-                            ),
-                          )
-                        ] else if (type == 'button') ...[
-                          Container(
-                              color: btncolor,
-                              margin: EdgeInsets.fromLTRB(0, 10, 10, 68),
-                              // padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                              width: btnwidth,
-                              height: btnheight,
-
-                              // padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
-                              child: TextButton(
-                                  onPressed: () {},
-                                  child: Center(
-                                    child: Text(
-                                      btntext,
-                                      style: GoogleFonts.poppins(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                        fontSize: btntextSize,
-                                        fontWeight: FontWeight.w500,
-                                        color: btntextColor,
-                                      ),
-                                    ),
-                                  )))
-                        ] else if (type == 'action') ...[
-                          Container(
-                              width: actionWidth,
-                              height: actionHeight,
-                              // color: Colors.black,
-                              margin: EdgeInsets.fromLTRB(0, 16, 16, 0),
-                              child: Center(
-                                  child: Text(
-                                actionText,
-                                style: GoogleFonts.poppins(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  fontSize: actiontextSize,
-                                  fontWeight: FontWeight.w500,
-                                  color: actionTextColor,
-                                ),
-                              )))
+                        if (triggerElementType == 'icon') ...[
+                          triggerIcon!
+                        ] else if (triggerElementType == 'button') ...[
+                          triggerButton!,
+                        ] else if (triggerElementType == 'action') ...[
+                          triggerAction!,
                         ]
+                        // else if (rightElementType == 'button') ...[
+                        //   Container(
+                        //     margin: EdgeInsets.fromLTRB(0, 10, 10, 68),
+                        //     // padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+                        //     width: btnwidth,
+                        //     height: btnheight,
+                        //     // padding: EdgeInsets.fromLTRB(0, 16, 0, 16),
+                        //     child: UikButton(
+                        //       backgroundColor: btncolor,
+                        //       text: btntext,
+                        //       textColor: btntextColor,
+                        //       textSize: btntextSize,
+                        //     ),
+                        //   )
+                        // ] else if (rightElementType == 'action') ...[
+                        //   Container(
+                        //       width: actionWidth,
+                        //       height: actionHeight,
+                        //       // color: Colors.black,
+                        //       margin: EdgeInsets.fromLTRB(0, 16, 16, 0),
+                        //       child: Center(
+                        //           child: Text(
+                        //         actionText,
+                        //         style: GoogleFonts.poppins(
+                        //           textStyle:
+                        //               Theme.of(context).textTheme.bodyText1,
+                        //           fontSize: actiontextSize,
+                        //           fontWeight: FontWeight.w500,
+                        //           color: actionTextColor,
+                        //         ),
+                        //       )))
+                        // ]
                       ],
                     ),
                   )
@@ -279,46 +212,47 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (subtitletxt == null) ...[
+                          if (subtitleText == null) ...[
                             Container(
                               // color: Colors.red,
                               child: Text(
                                 // overflow: TextOverflow.ellipsis,
                                 // maxLines: 1,
-                                titletxt!,
+                                titleText!,
                                 style: GoogleFonts.poppins(
                                   textStyle:
-                                      Theme.of(context).textTheme.headline1,
-                                  fontSize: titletxtSize,
+                                      Theme.of(context).textTheme.bodyMedium,
+                                  fontSize: 32,
                                   fontWeight: FontWeight.w600,
-                                  color: titletxtColor,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
                           ] else ...[
                             Container(
                               child: Text(
-                                titletxt!,
+                                titleText!,
                                 style: GoogleFonts.poppins(
                                   textStyle:
-                                      Theme.of(context).textTheme.headline1,
-                                  fontSize: titletxtSize,
+                                      Theme.of(context).textTheme.bodyMedium,
+                                  fontSize: 32,
                                   fontWeight: FontWeight.w600,
-                                  color: titletxtColor,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
                             Container(
                               // color: Colors.red,
-                              // margin: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                              margin: EdgeInsets.only(top: 4),
                               child: Text(
-                                subtitletxt!,
+                                subtitleText!,
                                 style: GoogleFonts.poppins(
-                                    textStyle:
-                                        Theme.of(context).textTheme.bodyText1,
-                                    fontSize: subtitletxtSize,
-                                    fontWeight: FontWeight.w400,
-                                    color: subtitletxtColor),
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyMedium,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xff3e3e3e),
+                                ),
                               ),
                             )
                           ]
@@ -331,7 +265,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
         );
 
   @override
-  Size get preferredSize => (subtitletxt != null)
+  Size get preferredSize => (subtitleText != null)
       ? const Size.fromHeight(142.0)
       : const Size.fromHeight(114.0);
 }
