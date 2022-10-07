@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikOrder.dart';
+import 'package:login/pages/UikFilter.dart';
 
+import '../Widgets/UikAvatar/UikAvatar.dart';
+import '../Widgets/UikCell/UikCell.dart';
+import 'UikComponentDisplayer.dart';
+import 'UikMyAccountScreen.dart';
 import 'UikComponentDisplayer.dart';
 
 class UikBottomNavigationBar extends StatelessWidget {
@@ -19,10 +24,10 @@ class UikBottomNavigationBar extends StatelessWidget {
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
-              Container(child: Icon(Icons.abc)),
-              UikOrder().page,
               UikComponentDisplayer().page,
-               UikCart().page
+             UikOrder().page,
+              UikFilter().page,
+              UikCart().page
             ],
           ),
         ),
