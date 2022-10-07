@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
+class MyTextField extends StatefulWidget {
   // const MyTextField({super.key});
 
   // late String id;
-  final String description;
+  var description;
   final String? labelText;
   final String hintText;
   final Widget? rightElement;
   final double width;
   final double height;
   final Widget? leftElement;
-  final bool error;
+  var error;
   final TextEditingController Controller;
 
   MyTextField(
@@ -24,8 +24,13 @@ class MyTextField extends StatelessWidget {
       this.leftElement = null,
       this.error = false,
       required this.Controller});
-  // late UikAction action;
 
+  @override
+  State<MyTextField> createState() => _MyTextFieldState();
+}
+
+class _MyTextFieldState extends State<MyTextField> {
+  // late UikAction action;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,11 +39,11 @@ class MyTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: width,
-            height: height,
+            width: widget.width,
+            height: widget.height,
             decoration: BoxDecoration(
               color: Color(0xffF5F5F5),
-              border: (error == true)
+              border: (widget.error == true)
                   ? Border.all(color: Color(0xffEF5350))
                   : Border.all(color: Color(0xffF5F5F5)),
               borderRadius: BorderRadius.circular(8),
@@ -46,16 +51,16 @@ class MyTextField extends StatelessWidget {
             child: Row(
               //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (leftElement != null) ...[_buildTrailingIcon(leftElement)],
+                if (widget.leftElement != null) ...[_buildTrailingIcon(widget.leftElement)],
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         margin: EdgeInsets.fromLTRB(16, 9.5, 16, 0),
-                        child: (labelText != null)
+                        child: (widget.labelText != null)
                             ? Text(
-                                labelText!,
+                                widget.labelText!,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(color: Color(0xff9E9E9E)),
                               )
@@ -64,15 +69,39 @@ class MyTextField extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.fromLTRB(16, 0, 16, 9.5),
                         child: TextField(
+                          onChanged: (text) {
+                            if (!isEmailValid(text) &&
+                                widget.labelText == "Email") {
+                              widget.error = true;
+                              widget.description = "Please Enter the valid email";
+                            }
+                            if (isEmailValid(text) &&
+                                widget.labelText == "Email") {
+                              widget.error = false;
+                              widget.description = "";
+                            }
+                            if (widget.labelText == "Password" &&
+                                text.length < 6) {
+                              widget.error = true;
+                              widget.description =
+                                  "Password must contain 6 characters";
+                            }
+                            if (widget.labelText == "Password" &&
+                                text.length >= 6) {
+                              widget.error = false;
+                              widget.description = "";
+                            }
+                            setState(() {});
+                          },
                           cursorColor: Colors.black,
-                          controller: Controller,
+                          controller: widget.Controller,
                           style: TextStyle(fontSize: 14),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: hintText,
+                            hintText: widget.hintText,
                             //fillColor: Colors.redAccent,
                             isDense: true,
-                            contentPadding: (labelText == null)
+                            contentPadding: (widget.labelText == null)
                                 ? EdgeInsets.symmetric(vertical: 10)
                                 : EdgeInsets.symmetric(vertical: 5),
                           ),
@@ -81,8 +110,8 @@ class MyTextField extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (rightElement != null) ...[
-                  _buildLeadingIcon(rightElement!),
+                if (widget.rightElement != null) ...[
+                  _buildLeadingIcon(widget.rightElement!),
                 ],
               ],
             ),
@@ -90,15 +119,21 @@ class MyTextField extends StatelessWidget {
           Container(
               margin: EdgeInsets.fromLTRB(16, 8, 0, 0),
               child: Text(
-                (description != null) ? description : (""),
+                (widget.description != null) ? widget.description : (""),
                 style: TextStyle(
                   color:
-                      (error == true) ? Color(0xffEF5350) : Color(0xff9E9E9E),
+                      (widget.error == true) ? Color(0xffEF5350) : Color(0xff9E9E9E),
                 ),
               )),
         ],
       ),
     );
+  }
+
+   bool isEmailValid(String email) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(email);
   }
 }
 

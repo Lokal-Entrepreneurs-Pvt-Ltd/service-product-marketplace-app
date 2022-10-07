@@ -42,7 +42,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
             // backgroundColor: bg,
             leading: Container(
               margin: EdgeInsets.only(left: 16, top: 16),
-              // color: Colors.amber,, required String titleText
+              // color: Colors.amber,
               child: IconButton(
                 padding: const EdgeInsets.all(0.0),
                 onPressed: () {},
