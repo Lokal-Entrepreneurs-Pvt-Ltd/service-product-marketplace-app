@@ -46,13 +46,14 @@ Future<StandardScreenResponse> fetchAlbum() async {
     "includeMerchantSpecificData": false
   };
   var body = json.encode(data);
-
+print(body.runtimeType);
   var queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   var response = await http.post(
-    Uri.parse('https://service-core.herokuapp.com/getcatalogue'),
+    Uri.parse('https://demo0360101.mockable.io/getcatalogue'),
     headers: {
+      "content-type": "application/json",
       "ngrok-skip-browser-warning": "value",
       "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
       "token":
