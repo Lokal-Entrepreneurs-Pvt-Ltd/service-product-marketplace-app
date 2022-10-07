@@ -12,12 +12,10 @@ class MyTextField extends StatefulWidget {
   final double height;
   final Widget? leftElement;
   var error;
-  var janu;
   final TextEditingController Controller;
 
   MyTextField(
       {this.description = "",
-      this.janu,
       this.labelText = null,
       this.hintText = "",
       this.rightElement = null,
@@ -33,28 +31,6 @@ class MyTextField extends StatefulWidget {
 
 class _MyTextFieldState extends State<MyTextField> {
   // late UikAction action;
-  //  FocusNode _focus = FocusNode();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _focus.addListener(_onFocusChange);
-  // }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _focus.removeListener(_onFocusChange);
-  //   _focus.dispose();
-  // }
-
-  // void _onFocusChange() {
-
-  //  widget.error = false;
-  //   widget.description = "";
-  //   setState(() {});
-  //   debugPrint("Focus: ${_focus.hasFocus.toString()}");
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,9 +51,7 @@ class _MyTextFieldState extends State<MyTextField> {
             child: Row(
               //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.leftElement != null) ...[
-                  _buildTrailingIcon(widget.leftElement)
-                ],
+                if (widget.leftElement != null) ...[_buildTrailingIcon(widget.leftElement)],
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,7 +69,6 @@ class _MyTextFieldState extends State<MyTextField> {
                       Container(
                         margin: EdgeInsets.fromLTRB(16, 0, 16, 9.5),
                         child: TextField(
-                          //    focusNode: _focus,
                           onChanged: (text) {
                             if (!isEmailValid(text) &&
                                 widget.labelText == "Email") {
@@ -144,13 +117,12 @@ class _MyTextFieldState extends State<MyTextField> {
             ),
           ),
           Container(
-              margin: EdgeInsets.fromLTRB(16, 5, 0, 10),
+              margin: EdgeInsets.fromLTRB(16, 8, 0, 0),
               child: Text(
                 (widget.description != null) ? widget.description : (""),
                 style: TextStyle(
-                  color: (widget.error == true)
-                      ? Color(0xffEF5350)
-                      : Color(0xff9E9E9E),
+                  color:
+                      (widget.error == true) ? Color(0xffEF5350) : Color(0xff9E9E9E),
                 ),
               )),
         ],
@@ -158,7 +130,7 @@ class _MyTextFieldState extends State<MyTextField> {
     );
   }
 
-  bool isEmailValid(String email) {
+   bool isEmailValid(String email) {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);
