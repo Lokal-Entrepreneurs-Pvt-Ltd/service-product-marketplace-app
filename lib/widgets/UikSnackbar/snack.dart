@@ -1,7 +1,6 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import '../UikAvatar/UikAvatar.dart';
 import '../UikButton/UikButton.dart';
 import '../UikiIcon/uikIcon.dart';
 import "./snackbar.dart";

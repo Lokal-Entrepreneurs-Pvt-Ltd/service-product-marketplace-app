@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login/Widgets/UikAvatar/UikAvatar.dart';
+
+import '../../../../widgets/UikAvatar/uikAvatar.dart';
 
 class MyProfileCard extends StatelessWidget {
   @override
