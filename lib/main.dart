@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:login/pages/UikCart.dart';
+import 'package:login/pages/UikFilter.dart';
+import 'package:login/pages/UikOrder.dart';
+import 'package:login/screens/Location/location.dart';
 import 'package:login/screens/Login/login.dart';
+import 'package:login/screens/SharedPrefs/shared_prefs.dart';
+import 'package:provider/provider.dart';
 
 //import 'package:login/screens/Login/login.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -14,6 +20,8 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
+import 'pages/UikComponentDisplayer.dart';
+
 //import 'convertorFunctions/cart.dart';
 
 void main() {
@@ -26,13 +34,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        "/": (context) =>LoginPageScreen(),
-        MyRoutes.otp: ((context) => Otp()),
-        MyRoutes.loginRoute: (context) => LoginPage()
-      },
+    return ChangeNotifierProvider<DarkThemeProvider>(
+      create: (context) => DarkThemeProvider(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          "/": (context) => const SharedPreferencesScreen(),
+          MyRoutes.otp: (context) => Otp(),
+          MyRoutes.loginRoute: (context) => LoginPage(),
+          MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
+          MyRoutes.filterRoute: (context) => UikFilter().page,
+          MyRoutes.cartRoute: (context) => UikCart().page,
+          MyRoutes.orderRoute: (context) => UikOrder().page,
+        },
+      ),
     );
   }
 }
@@ -58,6 +73,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
   };
   final response = await http.get(
     Uri.parse('https://demo3348922.mockable.io/test123'),
+    // Uri.parse('https://demo7099810.mockable.io/'),
     headers: {
       "ngrok-skip-browser-warning": "value",
       //"id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
@@ -71,3 +87,18 @@ Future<StandardScreenResponse> fetchAlbum() async {
     throw Exception('Failed to load album');
   }
 }
+
+/* 
+
+{
+  "isSuccess": true,
+  "data": {
+    "authToken": "12345"
+  },
+  "error": {
+    "code": 1001,
+    "message": "Some Internal Server Error Occurred"
+  }
+}
+
+ */

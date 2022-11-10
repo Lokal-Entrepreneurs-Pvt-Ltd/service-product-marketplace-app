@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/Widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/Widgets/UikSelect/select.dart';
+
+import '../../widgets/UikAvatar/uikAvatar.dart';
 
 class SelectUtil extends StatelessWidget {
   const SelectUtil({Key? key}) : super(key: key);

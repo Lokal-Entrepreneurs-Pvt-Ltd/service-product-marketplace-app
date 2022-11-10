@@ -1,7 +1,7 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import "UikAvatar.dart";
+import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 
 class Avatar extends StatelessWidget {
   @override

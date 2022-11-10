@@ -4,8 +4,6 @@ import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikOrder.dart';
 import 'package:login/pages/UikFilter.dart';
 
-import '../Widgets/UikAvatar/UikAvatar.dart';
-import '../Widgets/UikCell/UikCell.dart';
 import 'UikComponentDisplayer.dart';
 import 'UikMyAccountScreen.dart';
 import 'UikComponentDisplayer.dart';
@@ -25,7 +23,7 @@ class UikBottomNavigationBar extends StatelessWidget {
           body: TabBarView(
             children: [
               UikComponentDisplayer().page,
-             UikOrder().page,
+              UikOrder().page,
               UikFilter().page,
               UikCart().page
             ],
@@ -48,13 +46,8 @@ class UikBottomNavigationBar extends StatelessWidget {
           indicatorPadding: EdgeInsets.all(5.0),
           indicatorColor: Colors.white,
           tabs: [
-            InkWell(
-              splashColor: Colors.red,
-              radius: 120.0,
-              child: Tab(
-                icon: Icon(Icons.euro_symbol),
-              ),
-              onTap: () {},
+            Tab(
+              icon: Icon(Icons.euro_symbol),
             ),
             Tab(
               icon: Icon(Icons.assignment),
