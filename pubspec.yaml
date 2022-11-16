@@ -31,6 +31,7 @@ dependencies:
   another_flushbar: ^1.10.29
   badges: ^2.0.3
   country_icons: ^2.0.2
+  dio: ^4.0.6
   dotted_border: ^2.0.0+2
   flutter:
     sdk: flutter
