@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:login/pages/UikCart.dart';
+import 'package:login/pages/UikHomePage.dart';
 import 'package:login/pages/UikOrder.dart';
 import 'package:login/pages/UikFilter.dart';
 
@@ -24,8 +25,8 @@ class UikBottomNavigationBar extends StatelessWidget {
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
-              UikComponentDisplayer().page,
-             UikOrder().page,
+              UikHomePage().page,
+              UikOrder().page,
               UikFilter().page,
               UikCart().page
             ],
@@ -48,13 +49,8 @@ class UikBottomNavigationBar extends StatelessWidget {
           indicatorPadding: EdgeInsets.all(5.0),
           indicatorColor: Colors.white,
           tabs: [
-            InkWell(
-              splashColor: Colors.red,
-              radius: 120.0,
-              child: Tab(
-                icon: Icon(Icons.euro_symbol),
-              ),
-              onTap: () {},
+            Tab(
+              icon: Icon(Icons.euro_symbol),
             ),
             Tab(
               icon: Icon(Icons.assignment),
