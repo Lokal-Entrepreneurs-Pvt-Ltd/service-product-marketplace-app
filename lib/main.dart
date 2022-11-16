@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikFilter.dart';
 import 'package:login/pages/UikOrder.dart';
+import 'package:login/screens/Dio/models/product_provider.dart';
+import 'package:login/screens/Dio/view/try_dio.dart';
 import 'package:login/screens/Location/location.dart';
 import 'package:login/screens/Login/login.dart';
 import 'package:login/screens/SharedPrefs/shared_prefs.dart';
@@ -34,12 +37,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<DarkThemeProvider>(
-      create: (context) => DarkThemeProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => DarkThemeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProuctProvider(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => const SharedPreferencesScreen(),
+          "/": (context) => const TryDio(),
           MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginRoute: (context) => LoginPage(),
           MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
