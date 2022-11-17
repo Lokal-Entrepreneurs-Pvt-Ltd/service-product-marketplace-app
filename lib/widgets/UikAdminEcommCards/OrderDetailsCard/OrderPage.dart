@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../UikAvatar/UikAvatar.dart';
+// import '../../UikAvatar/UikAvatar.dart';
+import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 
 class OrderPage extends StatelessWidget {
   final orderId;

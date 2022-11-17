@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "391390004819",
+    "firebase_url": "https://lokal-app-38e9f-default-rtdb.firebaseio.com",
+    "project_id": "lokal-app-38e9f",
+    "storage_bucket": "lokal-app-38e9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391390004819:android:272bdcf1061fca8278a8a6",
+        "android_client_info": {
+          "package_name": "com.lokal.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "391390004819-kj5rk51p7nt178qrnu8v67taf2n18qnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjBJQ55gpN-6GZPijpIsO6w0yp_O3GYzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "391390004819-kj5rk51p7nt178qrnu8v67taf2n18qnl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
