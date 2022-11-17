@@ -38,7 +38,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  getwidget: ^2.0.4
+  getwidget: ^3.0.1
   google_fonts: ^3.0.1
   another_flushbar: ^1.10.29
   adaptive_action_sheet: ^2.0.1
@@ -47,7 +47,7 @@ dependencies:
   overlay_group_avatar: ^0.0.4
   just_the_tooltip: ^0.0.3+6
   flutter_rating_bar: ^4.0.1
-  ui_sdk: ^1.0.6+1
+  ui_sdk: ^1.0.7+1
   hexcolor: ^2.0.7
   pinput: ^2.2.12
   stop_watch_timer: ^2.0.0
