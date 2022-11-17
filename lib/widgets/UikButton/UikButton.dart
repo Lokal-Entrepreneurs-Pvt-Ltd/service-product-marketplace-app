@@ -43,6 +43,7 @@ class UikButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onClick,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (type == "primary") ...[
               Container(

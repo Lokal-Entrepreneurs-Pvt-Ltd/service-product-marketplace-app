@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikOrder.dart';
+import 'package:login/pages/UikFilter.dart';
 
 // import '../Widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/widgets/UikAvatar/uikAvatar.dart';
@@ -26,41 +27,8 @@ class UikBottomNavigationBar extends StatelessWidget {
           body: TabBarView(
             children: [
               UikComponentDisplayer().page,
-              MyAccount(
-                ll: [
-                  const Cell(
-                    titleText: "Nadeem Khan",
-                    subtitleText: "Beginner Partner",
-                    leftChild: UikAvatar(
-                      shape: UikAvatarShape.circle,
-                      size: UikSize.SMALL,
-                      backgroundImage: NetworkImage(
-                          "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                    ),
-                  ),
-                  const Cell(
-                    titleText: "My Details",
-                    leftChild: Icon(Icons.person),
-                  ),
-                  const Cell(
-                    titleText: "My Orders",
-                    leftChild: Icon(Icons.mic),
-                  ),
-                  const Cell(
-                    titleText: "My Wishlist",
-                    leftChild: Icon(Icons.favorite_border),
-                  ),
-                  const Cell(
-                    titleText: "Subscriptions",
-                    leftChild: Icon(Icons.abc),
-                  ),
-                  const Cell(
-                    titleText: "Sign out",
-                    leftChild: Icon(Icons.person),
-                  ),
-                ],
-              ),
-              UikOrder().page,
+             UikOrder().page,
+              UikFilter().page,
               UikCart().page
             ],
           ),
