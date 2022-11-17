@@ -3,12 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:login/widgets/UikIcon/uikIcon.dart';
 import 'package:login/widgets/UikImage/uikImage.dart';
-import 'package:login/widgets/UikOrderDetails/uikOrderDetails.dart';
-import 'package:login/widgets/UikTabBar/tabBar.dart';
+// import 'package:login/widgets/UikOrderDetails/uikOrderDetails.dart';
+// import 'package:login/widgets/UikTabBar/tabBar.dart';
 //import "../../assets/images/pic.png";
+import '../../Widgets/UikOrderDetails/uikOrderDetails.dart';
+import '../../Widgets/UikSearchBar/searchbar.dart';
+import '../../Widgets/UikTabBar/tabBar.dart';
 import '../../widgets/UikButton/UikButton.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
-import '../../widgets/UikSearchBar/searchbar.dart';
+// import '../../widgets/UikSearchBar/searchbar.dart';
 
 class MyOrder extends StatefulWidget {
   final listOfImages;

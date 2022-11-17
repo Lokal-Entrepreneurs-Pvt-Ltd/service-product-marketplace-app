@@ -1,7 +1,9 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import "package:flutter/material.dart";
-import 'package:login/Widgets/UikiIcon/uikIcon.dart';
+
+import '../../widgets/UikIcon/uikIcon.dart';
+// import 'package:login/Widgets/UikiIcon/uikIcon.dart';
 
 class MySearchBar extends StatefulWidget {
   final rightElement;
