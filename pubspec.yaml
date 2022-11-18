@@ -41,10 +41,13 @@ dependencies:
   getwidget: ^3.0.1
   google_fonts: ^3.0.1
   hexcolor: ^2.0.7
+  http: ^0.13.5
   just_the_tooltip: ^0.0.3+6
+  logger: ^1.1.0
   overlay_group_avatar: ^0.0.4
   pinput: ^2.2.12
   provider: ^6.0.4
+  retrofit: ^3.3.1
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
   stop_watch_timer: ^2.0.0
@@ -52,9 +55,12 @@ dependencies:
   ui_sdk: ^1.0.8+1
 
 dev_dependencies:
+  build_runner: ^2.3.2
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.5.4
+  retrofit_generator: ^4.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
