@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:login/pages/UikBottomNavigationBar.dart';
 import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikFilter.dart';
 import 'package:login/pages/UikOrder.dart';
@@ -24,6 +25,7 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
+import 'StandardScreenClient.dart';
 import 'pages/UikComponentDisplayer.dart';
 
 //import 'convertorFunctions/cart.dart';
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => const LoginPageScreen(),
+          "/": (context) => UikBottomNavigationBar(),
           MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginRoute: (context) => LoginPage(),
           MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
@@ -66,7 +68,8 @@ class MyApp extends StatelessWidget {
 class HomePage extends StandardPage {
   @override
   Future<StandardScreenResponse> getData() {
-    return fetchAlbum();
+    // return fetchAlbum();
+    return null!;
   }
 
   @override
@@ -78,11 +81,11 @@ class HomePage extends StandardPage {
   }
 }
 
-Future<StandardScreenResponse> fetchAlbum() async {
+/* Future<StandardScreenResponse> fetchAlbum() async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
-  final response = await http.get(
+  /* final response = await http.get(
     Uri.parse('https://demo3348922.mockable.io/test123'),
     // Uri.parse('https://demo7099810.mockable.io/'),
     headers: {
@@ -96,8 +99,16 @@ Future<StandardScreenResponse> fetchAlbum() async {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
-  }
-}
+  } */
+
+  final dio = Dio();
+
+  dio.options.headers["ngrok-skip-browser-warning"] = "value";
+
+  final client = StandardScreenClient(dio);
+
+  return client.getResponse();
+} */
 
 /* 
 

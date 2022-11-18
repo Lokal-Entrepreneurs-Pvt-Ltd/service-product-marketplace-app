@@ -1,15 +1,23 @@
-import 'package:ui_sdk/props/ResponseAlternate.dart';
+// import 'package:ui_sdk/props/ResponseAlternate.dart';
+import 'package:ui_sdk/props/StandardScreenResponse.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
+
+
 
 import 'package:dio/dio.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
 
-@RestApi(baseUrl: "https://demo3348922.mockable.io/")
+part 'StandardScreenClient.g.dart';
+
+// @RestApi(baseUrl: "https://demo3348922.mockable.io/")
+@RestApi(baseUrl: "https://demo7456524.mockable.io/")
 abstract class StandardScreenClient {
   factory StandardScreenClient(Dio dio, {String baseUrl}) = _StandardScreenClient;
 
-  @GET("/test123")
-  Future<StandardScreenResponse> getResponse();
+  @GET("/")
+  // Future<StandardScreenResponse> getResponse();
+  Future<ApiResponse> getResponse();
 }
 
 /* @JsonSerializable()

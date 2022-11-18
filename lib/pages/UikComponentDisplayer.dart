@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:login/StandardScreenClient.dart';
 import 'package:ui_sdk/StandardPage.dart';
-//import 'package:ui_sdk/props/ResponseAlternate.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
+// import 'package:ui_sdk/props/ResponseAlternate.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
 // class UikDummy extends StatelessWidget {
@@ -15,7 +19,6 @@ import 'package:http/http.dart' as http;
 //     );
 //   }
 // }
-
 
 class UikComponentDisplayer extends StandardPage {
   // @override
@@ -39,11 +42,13 @@ class UikComponentDisplayer extends StandardPage {
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {
-
   final queryParameter = {
-   "id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
+    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
-  final response = await http.get(
+
+  print("Hello World!");
+
+  /* final response = await http.get(
     Uri.parse(
         'http://demo7907509.mockable.io/screen1.9'),
     headers: {
@@ -58,5 +63,29 @@ Future<StandardScreenResponse> fetchAlbum() async {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
-  }
+  } */
+
+  final logger = Logger();
+
+  final dio = Dio();
+
+  dio.options.headers["ngrok-skip-browser-warning"] = "value";
+
+  final client = StandardScreenClient(dio);
+
+  // StandardScreenResponse standardScreenResponse = StandardScreenResponse();
+
+  // client.getResponse().then((value) => standardScreenResponse = value as StandardScreenResponse);
+
+  // client.getResponse().then((value) => logger.i(value));
+
+  // print("---- ${client.getResponse()}");
+
+  ApiResponse response = await client.getResponse();
+
+  // print(response.data);
+
+  // return client.getResponse();
+
+  return StandardScreenResponse.fromJson(response.data);
 }
