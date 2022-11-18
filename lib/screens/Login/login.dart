@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:login/Widgets/UikTextField/UikTextField.dart';
 import 'package:login/pages/UikBottomNavigationBar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
@@ -15,12 +18,31 @@ class LoginPageScreen extends StatefulWidget {
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
   final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   var errorEmail = false;
   var descEmail = "";
+
   var errorPassword = false;
   var descPassword = "";
 
-  final passwordController = TextEditingController();
+  var isAuthError = false;
+  var authErrorCode = -1;
+  var authErrorMessage = "";
+
+  @override
+  void initState() {
+    super.initState();
+
+    initialize();
+  }
+
+  void initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    emailController.text = prefs.getString("email") ?? "";
+    passwordController.text = prefs.getString("password") ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +55,9 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               size: "",
               titleText: "welcome back!\nLogin to continue",
               // subtitleText: "Shubham jacob",
-              leftIcon: Icon(Icons.arrow_back),
+              leftIcon: const Icon(Icons.arrow_back),
             ),
-            SizedBox(
+            const SizedBox(
               height: 32,
             ),
             MyTextField(
@@ -63,39 +85,70 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               ),
               child: UikButton(
                 text: "Continue",
-                backgroundColor: Color(0xffFEE440),
-                onClick: () => {
+                backgroundColor: const Color(0xffFEE440),
+                onClick: () async {
                   if (isEmailValid(emailController.text) &&
-                      passwordController.text.length >= 6)
-                    {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UikBottomNavigationBar()),
-                      ),
-                    },
-                  if (isEmailValid(emailController.text))
-                    {
-                      errorEmail = false,
-                      descEmail = '',
-                    }
-                  else
-                    {
-                      errorEmail = true,
-                      descEmail = "Please Enter the valid email",
-                    },
-                  if (passwordController.text.length >= 6)
-                    {
-                      errorPassword = false,
-                      descPassword = '',
-                    }
-                  else
-                    {
-                      errorPassword = true,
-                      descPassword = "Password must contain 6 characters",
-                    },
+                      passwordController.text.length >= 6) {
+                    // Creating a POST request with http client
+                    var client = http.Client();
 
-                  setState(() {})
+                    Uri uri = Uri.parse(
+                        "https://cc9c-122-161-68-10.in.ngrok.io/login");
+
+                    var response = await http.post(
+                      uri,
+                      body: {
+                        "email": emailController.text,
+                        "password": passwordController.text,
+                      },
+                    );
+
+                    final body =
+                        jsonDecode(response.body) as Map<String, dynamic>;
+
+                    print(body);
+
+                    // Storing the returned token, username, password in shared preferences if valid
+                    final prefs = await SharedPreferences.getInstance();
+
+                    if (body["isSuccess"]) {
+                      final String userToken = body["data"]["userToken"];
+
+                      await prefs.setString("userToken", userToken);
+                      await prefs.setString("email", emailController.text);
+                      await prefs.setString(
+                          "password", passwordController.text);
+                    } else {
+                      isAuthError = true;
+                      authErrorCode = body["error"]["code"];
+                      authErrorMessage = body["error"]["message"];
+                    }
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UikBottomNavigationBar(),
+                      ),
+                    );
+                  }
+
+                  if (isEmailValid(emailController.text)) {
+                    errorEmail = false;
+                    descEmail = '';
+                  } else {
+                    errorEmail = true;
+                    descEmail = "Please Enter the valid email";
+                  }
+
+                  if (passwordController.text.length >= 6) {
+                    errorPassword = false;
+                    descPassword = '';
+                  } else {
+                    errorPassword = true;
+                    descPassword = "Password must contain 6 characters";
+                  }
+
+                  // setState(() {})
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -104,7 +157,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
           ],

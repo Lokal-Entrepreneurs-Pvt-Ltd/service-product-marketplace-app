@@ -8,6 +8,7 @@ import 'package:login/screens/Dio/view/try_dio.dart';
 import 'package:login/screens/Location/location.dart';
 import 'package:login/screens/Login/login.dart';
 import 'package:login/screens/SharedPrefs/shared_prefs.dart';
+import 'package:login/widgets/UikSignInModule/signin.dart';
 import 'package:provider/provider.dart';
 
 //import 'package:login/screens/Login/login.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => const TryDio(),
+          "/": (context) => const LoginPageScreen(),
           MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginRoute: (context) => LoginPage(),
           MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
