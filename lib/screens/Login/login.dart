@@ -87,6 +87,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 text: "Continue",
                 backgroundColor: const Color(0xffFEE440),
                 onClick: () async {
+                  // Once the user logs in with email and password,
+                  // we use a POST API endpoint to send them to the backend
+                  // The response will have userToken
+                  // We are storing the userToken, userName and password locally using SharedPreferences
                   if (isEmailValid(emailController.text) &&
                       passwordController.text.length >= 6) {
                     // Creating a POST request with http client
