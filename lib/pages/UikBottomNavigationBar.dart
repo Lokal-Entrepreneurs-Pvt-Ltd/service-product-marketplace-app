@@ -5,6 +5,7 @@ import 'package:login/pages/UikOrder.dart';
 import 'package:login/pages/UikFilter.dart';
 
 import 'UikComponentDisplayer.dart';
+import 'UikHome.dart';
 import 'UikMyAccountScreen.dart';
 import 'UikComponentDisplayer.dart';
 
@@ -22,7 +23,8 @@ class UikBottomNavigationBar extends StatelessWidget {
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
-              UikComponentDisplayer().page,
+              // UikComponentDisplayer().page,
+              UikHome().page,
               UikOrder().page,
               UikFilter().page,
               UikCart().page

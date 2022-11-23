@@ -2,8 +2,6 @@
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
-
-
 import 'package:dio/dio.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/retrofit.dart';
@@ -18,6 +16,12 @@ abstract class StandardScreenClient {
   @GET("/")
   // Future<StandardScreenResponse> getResponse();
   Future<ApiResponse> getResponse();
+
+  @GET("/MainPageOne")
+  Future<ApiResponse> getMainPageOne();
+
+  @GET("/MainPageTwo")
+  Future<ApiResponse> getMainPageTwo();
 }
 
 /* @JsonSerializable()
