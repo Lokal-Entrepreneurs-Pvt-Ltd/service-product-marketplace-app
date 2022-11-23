@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:login/Widgets/UikTextField/UikTextField.dart';
 import 'package:login/pages/UikBottomNavigationBar.dart';
+import 'package:login/screens/Login/user_data_handler.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
@@ -38,10 +38,12 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   }
 
   void initialize() async {
-    final prefs = await SharedPreferences.getInstance();
+    // final prefs = await SharedPreferences.getInstance();
 
-    emailController.text = prefs.getString("email") ?? "";
-    passwordController.text = prefs.getString("password") ?? "";
+    // emailController.text = prefs.getString("email") ?? "";
+    emailController.text = await UserDataHandler.getUserEmail();
+    // passwordController.text = prefs.getString("password") ?? "";
+    passwordController.text = await UserDataHandler.getUserPassword();
   }
 
   @override
@@ -74,6 +76,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               height: 64,
               Controller: passwordController,
               error: errorPassword,
+              isPassword: true,
               description: descPassword,
             ),
             // SizedBox(
@@ -89,15 +92,15 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 onClick: () async {
                   // Once the user logs in with email and password,
                   // we use a POST API endpoint to send them to the backend
-                  // The response will have userToken
-                  // We are storing the userToken, userName and password locally using SharedPreferences
+                  // The response will have authToken
+                  // We are storing the authToken, userName and password locally using SharedPreferences
                   if (isEmailValid(emailController.text) &&
                       passwordController.text.length >= 6) {
                     // Creating a POST request with http client
-                    var client = http.Client();
+                    // var client = http.Client();
 
                     Uri uri = Uri.parse(
-                        "https://cc9c-122-161-68-10.in.ngrok.io/login");
+                        "https://08ea-202-89-65-238.in.ngrok.io/customer/login");
 
                     var response = await http.post(
                       uri,
@@ -110,21 +113,15 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     final body =
                         jsonDecode(response.body) as Map<String, dynamic>;
 
-                    print(body);
-
-                    // Storing the returned token, username, password in shared preferences if valid
-                    final prefs = await SharedPreferences.getInstance();
-
                     if (body["isSuccess"]) {
-                      final String userToken = body["data"]["userToken"];
+                      final String authToken = body["data"]["response"]["authToken"];
 
-                      await prefs.setString("userToken", userToken);
-                      await prefs.setString("email", emailController.text);
-                      await prefs.setString(
-                          "password", passwordController.text);
+                      UserDataHandler.saveUserToken(authToken);
+                      UserDataHandler.saveEmailPassword(
+                          emailController.text, passwordController.text);
                     } else {
                       isAuthError = true;
-                      authErrorCode = body["error"]["code"];
+                      // authErrorCode = body["error"]["code"];
                       authErrorMessage = body["error"]["message"];
                     }
 
@@ -176,3 +173,58 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
         .hasMatch(email);
   }
 }
+
+// Login Response - Success - POST
+/* 
+
+{
+    "isSuccess": true,
+    "data": {
+        "response": {
+            "authToken": "eyJraWQiOiIxIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOjMzLCJ1dHlwaWQiOjMsImlhdCI6MTY2OTE5NzcxOSwiZXhwIjoxNjY5MjAxMzE5fQ.sIX4XV_FbKjhd0SGiLfwc-RuafEjbqVqKtcckZ7euNM"
+        }
+    }
+}
+
+ */
+
+
+// Sign Up Response - Success - POST
+/* 
+
+{
+    "isSuccess": true,
+    "data": {
+        "response": {
+            "authToken": "eyJraWQiOiIxIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOjMzLCJ1dHlwaWQiOjMsImlhdCI6MTY2OTE5NzYyNiwiZXhwIjoxNjY5MjAxMjI2fQ.iaVf9Iy0QwOP8sp8NGWQPRkDr-ZSPRbSDl1clDyIfWg"
+        }
+    }
+}
+
+ */
+
+// Login/Signup Response - Failure - POST
+/* 
+
+{
+    "isSuccess": false,
+    "error": {
+        "message": "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.: {\"response\":{\"errors\":[{\"message\":\"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.\",\"extensions\":{\"category\":\"graphql-authentication\"},\"locations\":[{\"line\":3,\"column\":9}],\"path\":[\"generateCustomerToken\"]}],\"data\":{\"generateCustomerToken\":null},\"status\":200,\"headers\":{}},\"request\":{\"query\":\"\\n      mutation GenerateCustomerToken($email: String!, $password: String!) {\\n        generateCustomerToken(email: $email, password: $password) {\\n          token\\n        }\\n      }\\n    \",\"variables\":{\"email\":\"test@test.co\",\"password\":\"test@1234\"}}}"
+    }
+}
+
+ */
+
+// DoesAccountExist Response - POST
+/* 
+
+{
+    "isSuccess": true,
+    "data": {
+        "response": {
+            "accountFound": true
+        }
+    }
+}
+
+ */
