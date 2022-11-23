@@ -5,6 +5,8 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
+import '../constants.dart';
+
 class UikHome extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -65,8 +67,10 @@ Future<StandardScreenResponse> fetchAlbum() async {
 
   dio.options.headers["ngrok-skip-browser-warning"] = "value";
 
+  // final client =
+  //     StandardScreenClient(dio, baseUrl: "https://demo1773855.mockable.io/");
   final client =
-      StandardScreenClient(dio, baseUrl: "https://demo1773855.mockable.io/");
+      StandardScreenClient(dio, baseUrl: baseUrl);
 
   ApiResponse response = await client.getMainPageOne();
 

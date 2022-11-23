@@ -1,4 +1,5 @@
 // import 'package:ui_sdk/props/ResponseAlternate.dart';
+import 'package:login/constants.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
@@ -9,7 +10,8 @@ import 'package:retrofit/retrofit.dart';
 part 'StandardScreenClient.g.dart';
 
 // @RestApi(baseUrl: "https://demo3348922.mockable.io/")
-@RestApi(baseUrl: "https://demo7456524.mockable.io/")
+// @RestApi(baseUrl: "https://demo7456524.mockable.io/")
+@RestApi(baseUrl: baseUrl)
 abstract class StandardScreenClient {
   factory StandardScreenClient(Dio dio, {String baseUrl}) = _StandardScreenClient;
 
