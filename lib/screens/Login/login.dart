@@ -4,7 +4,7 @@ import 'package:login/Widgets/UikTextField/UikTextField.dart';
 import 'package:login/pages/UikBottomNavigationBar.dart';
 import 'package:login/widgets/UikButton/UikButton.dart';
 
-import '../../Widgets/UikNavbar/UikNavbar.dart';
+import '../../widgets/UikNavbar/UikNavbar.dart';
 
 class LoginPageScreen extends StatefulWidget {
   const LoginPageScreen({super.key});
