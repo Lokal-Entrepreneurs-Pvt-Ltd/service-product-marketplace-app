@@ -23,6 +23,7 @@ import 'package:login/screens/RegisterScreen/RegisterScreen.dart';
 import 'package:login/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
 import 'package:login/testing/fire.dart';
 import 'package:login/testing/notificationController.dart';
+import 'package:login/testing/pay.dart';
 import 'package:login/widgets/UikAdminEcommCards/ProductCard.dart';
 import 'package:login/widgets/UikAdminEcommCards/test.dart';
 // import 'package:login/widgets/UikAvatar/uikAvatar.dart';
@@ -39,7 +40,6 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 //import 'package:login/Splash.dart';
 //import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
-
 
 import "./utils/routes.dart";
 import './pages/login.dart';
@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) =>LoginPageScreen(),
+        "/": (context) => Pay(),
         MyRoutes.otp: ((context) => Otp()),
         MyRoutes.loginRoute: (context) => LoginPage()
       },
@@ -134,7 +134,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   final response = await http.get(
-    Uri.parse('https://demo3348922.mockable.io/test123'),
+    Uri.parse('https://demo7907509.mockable.io/firebaseTest'),
     headers: {
       "ngrok-skip-browser-warning": "value",
       //"id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
