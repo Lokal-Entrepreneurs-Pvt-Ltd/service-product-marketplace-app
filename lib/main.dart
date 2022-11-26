@@ -1,4 +1,37 @@
+import 'dart:developer';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+
+import 'package:google_fonts/google_fonts.dart';
+// import 'package:login/Splash.dart';
+// import 'package:login/Widgets/UikCell/UikCell.dartimport 'package:login/widgets/UikAvatar/uikAvatar.dart';';
+// import 'package:login/Widgets/UikIcon/uikIcon.dart';
+import 'package:login/pages/UikMyAccountScreen.dart';
+// import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
+
+import 'package:login/pages/splash.dart';
+import 'package:login/screens/Filter/FilterScreen.dart';
+//import 'package:login/Splash.dart';
+//import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
+import 'package:login/screens/Membership/MembershipScreen.dart';
+import 'package:login/screens/Onboarding/OnboardingScreen.dart';
+import 'package:login/screens/Order/MyOrder.dart';
+import 'package:login/screens/RegisterScreen/RegisterScreen.dart';
+import 'package:login/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
+import 'package:login/testing/fire.dart';
+import 'package:login/testing/notificationController.dart';
+import 'package:login/widgets/UikAdminEcommCards/ProductCard.dart';
+import 'package:login/widgets/UikAdminEcommCards/test.dart';
+// import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+import 'package:login/widgets/UikPagination/testpagination.dart';
+// import './Widgets/UikAvatar/uikAvatar.dart';
+import "./utils/routes.dart";
+import './pages/login.dart';
+import './pages/otp.dart';
+
 import 'package:login/screens/Login/login.dart';
 
 //import 'package:login/screens/Login/login.dart';
@@ -7,20 +40,64 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 //import 'package:login/Splash.dart';
 //import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 
+
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 
-//import 'convertorFunctions/cart.dart';
+void main() async {
+  AwesomeNotificationsFcm().initialize(
+      onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
+      onFcmTokenHandle: NotificationController.myFcmTokenHandle,
+      onNativeTokenHandle: NotificationController.myNativeTokenHandle);
+  AwesomeNotifications().initialize(
+      // set the icon to null if you want to use the default app icon
+      '',
+      [
+        NotificationChannel(
+            channelGroupKey: 'basic_channel_group',
+            channelKey: 'basic_channel',
+            channelName: 'Basic notifications',
+            channelDescription: 'Notification channel for basic tests',
+            defaultColor: Color(0xFF9D50DD),
+            ledColor: Colors.white)
+      ],
+      // Channel groups are only visual and are not required
+      channelGroups: [
+        NotificationChannelGroup(
+            channelGroupKey: 'basic_channel_group',
+            channelGroupName: 'Basic group')
+      ],
+      debug: true);
+  AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    if (!isAllowed) {
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    }
+  });
+  checkNotificationPermission() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+  }
 
-void main() {
-  runApp(const MyApp());
+  ;
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
