@@ -52,6 +52,11 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
+  firebase_core: ^2.1.1
+  firebase_database: ^10.0.3
+  # firebase_messaging: ^14.0.3
+  awesome_notifications: ^0.7.4+1
+  awesome_notifications_fcm: ^0.7.4+1
   ui_sdk: ^1.0.16+1
 
 dev_dependencies:
