@@ -1,31 +1,16 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:login/StandardScreenClient.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-// import 'package:ui_sdk/props/ResponseAlternate.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
-// class UikDummy extends StatelessWidget {
-//   const UikDummy({Key? key}) : super(key: key);
+import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(child: Text("Screen2")),
-//     );
-//   }
-// }
+import '../constants.dart';
 
-class UikComponentDisplayer extends StandardPage {
-  // @override
-  // Future<StandardScreenResponse> getData() {
-  //   return fetchAlbum();
-  // }
-
+class UikCatalogScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -36,21 +21,14 @@ class UikComponentDisplayer extends StandardPage {
 
   @override
   Future<StandardScreenResponse> getData() {
-    // TODO: implement getData
     return fetchAlbum();
   }
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {
-  final queryParameter = {
-    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-  };
-
-  print("Hello World!");
-
-  /* final response = await http.get(
+final response = await http.get(
     Uri.parse(
-        'http://demo7907509.mockable.io/screen1.9'),
+        'https://demo1595178.mockable.io/CatalogScreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
       //"id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
@@ -63,27 +41,18 @@ Future<StandardScreenResponse> fetchAlbum() async {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
-  } */
+  }
 
-  final dio = Dio();
+  /* final dio = Dio();
 
   dio.options.headers["ngrok-skip-browser-warning"] = "value";
 
-  final client = StandardScreenClient(dio);
+  // final client =
+  //     StandardScreenClient(dio, baseUrl: "https://demo1773855.mockable.io/");
+  final client =
+      StandardScreenClient(dio, baseUrl: "https://demo1595178.mockable.io/");
 
-  // StandardScreenResponse standardScreenResponse = StandardScreenResponse();
+  ApiResponse response = await client.getCatalogSreen();
 
-  // client.getResponse().then((value) => standardScreenResponse = value as StandardScreenResponse);
-
-  // client.getResponse().then((value) => logger.i(value));
-
-  // print("---- ${client.getResponse()}");
-
-  ApiResponse response = await client.getResponse();
-
-  // print(response.data);
-
-  // return client.getResponse();
-
-  return StandardScreenResponse.fromJson(response.data);
+  return StandardScreenResponse.fromJson(response.data); */
 }

@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          // "/": (context) => UikBottomNavigationBar(),
-          "/": (context) => const LoginPageScreen(),
+          "/": (context) => UikBottomNavigationBar(),
+          // "/": (context) => const LoginPageScreen(),
           MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginRoute: (context) => LoginPage(),
           MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
