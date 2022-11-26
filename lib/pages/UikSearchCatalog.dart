@@ -5,12 +5,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:login/StandardScreenClient.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
+import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
 import '../constants.dart';
 
-class UikHome extends StandardPage {
+class UikSearchCatalog extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -21,53 +21,13 @@ class UikHome extends StandardPage {
 
   @override
   Future<StandardScreenResponse> getData() {
-    // _printCurrentLocation();
-    _determinePosition();
-
     return fetchAlbum();
-  }
-
-  // void _printCurrentLocation() async {
-  //   Position getCurrentPosition = await _determinePosition();
-
-  //   print(getCurrentPosition.latitude);
-  //   print(getCurrentPosition.longitude);
-  // }
-
-  // Future<Position> _determinePosition() async {
-  void _determinePosition() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    LocationPermission permission = await Geolocator.checkPermission();
-
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied.');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    Position currentPosition = await Geolocator.getCurrentPosition();
-    print(currentPosition.latitude);
-    print(currentPosition.longitude);
-
-    // return await Geolocator.getCurrentPosition();
   }
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {
   final response = await http.get(
-    Uri.parse('http://demo6521867.mockable.io/newHomeScreen'),
+    Uri.parse('https://demo1595178.mockable.io/SearchCategory'),
     headers: {
       "ngrok-skip-browser-warning": "value",
       //"id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
@@ -89,9 +49,9 @@ Future<StandardScreenResponse> fetchAlbum() async {
   // final client =
   //     StandardScreenClient(dio, baseUrl: "https://demo1773855.mockable.io/");
   final client =
-      StandardScreenClient(dio, baseUrl: "http://demo6521867.mockable.io/");
+      StandardScreenClient(dio, baseUrl: "https://demo1595178.mockable.io/");
 
-  ApiResponse response = await client.getHomeScreen();
+  ApiResponse response = await client.getSearchCatalogScreen();
 
   return StandardScreenResponse.fromJson(response.data); */
 }

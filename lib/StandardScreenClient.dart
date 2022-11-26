@@ -24,6 +24,15 @@ abstract class StandardScreenClient {
 
   @GET("/MainPageTwo")
   Future<ApiResponse> getMainPageTwo();
+
+  @GET("/newHomeScreen")
+  Future<ApiResponse> getHomeScreen();
+ 
+  @GET("/CatalogScreen")
+  Future<ApiResponse> getCatalogSreen();
+  
+  @GET("/SearchCategory")
+  Future<ApiResponse> getSearchCatalogScreen();
 }
 
 /* @JsonSerializable()
