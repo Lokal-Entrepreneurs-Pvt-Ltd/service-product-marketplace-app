@@ -4,6 +4,7 @@ import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikCatalogScreen.dart';
 import 'package:login/pages/UikOrder.dart';
 import 'package:login/pages/UikFilter.dart';
+import 'package:login/pages/UikProductPage.dart';
 import 'package:login/pages/UikSearchCatalog.dart';
 
 import 'UikComponentDisplayer.dart';
@@ -16,7 +17,7 @@ class UikBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           // appBar: AppBar(
           //   backgroundColor: Color(0xFF3F5AA6),
@@ -29,6 +30,7 @@ class UikBottomNavigationBar extends StatelessWidget {
               UikHome().page,
               UikCatalogScreen().page,
               UikSearchCatalog().page,
+              UikProductPage().page,
               // UikOrder().page,
               // UikFilter().page,
               // UikCart().page
