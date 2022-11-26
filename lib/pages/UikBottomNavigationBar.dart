@@ -7,6 +7,10 @@ import 'package:login/pages/UikFilter.dart';
 import 'package:login/pages/UikProductPage.dart';
 import 'package:login/pages/UikSearchCatalog.dart';
 
+// import '../Widgets/UikAvatar/UikAvatar.dart';
+import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+// import '../Widgets/UikCell/UikCell.dart';
+import '../widgets/UikCell/UikCell.dart';
 import 'UikComponentDisplayer.dart';
 import 'UikHome.dart';
 import 'UikMyAccountScreen.dart';
