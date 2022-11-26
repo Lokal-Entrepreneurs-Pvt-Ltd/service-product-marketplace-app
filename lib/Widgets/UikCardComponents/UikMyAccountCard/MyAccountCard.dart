@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login/Widgets/UikAvatar/uikAvatar.dart';
+// import 'package:login/Widgets/UikAvatar/uikAvatar.dart';
+import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 
 class MyAccountCard extends StatelessWidget {
   @override

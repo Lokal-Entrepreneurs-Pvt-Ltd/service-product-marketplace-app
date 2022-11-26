@@ -4,8 +4,10 @@ import 'package:login/pages/UikCart.dart';
 import 'package:login/pages/UikOrder.dart';
 import 'package:login/pages/UikFilter.dart';
 
-import '../Widgets/UikAvatar/UikAvatar.dart';
-import '../Widgets/UikCell/UikCell.dart';
+// import '../Widgets/UikAvatar/UikAvatar.dart';
+import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+// import '../Widgets/UikCell/UikCell.dart';
+import '../widgets/UikCell/UikCell.dart';
 import 'UikComponentDisplayer.dart';
 import 'UikMyAccountScreen.dart';
 import 'UikComponentDisplayer.dart';

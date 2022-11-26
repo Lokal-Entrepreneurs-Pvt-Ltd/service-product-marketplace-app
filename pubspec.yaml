@@ -52,6 +52,11 @@ dependencies:
   pinput: ^2.2.12
   stop_watch_timer: ^2.0.0
   country_icons: ^2.0.2
+  firebase_core: ^2.1.1
+  firebase_database: ^10.0.3
+  # firebase_messaging: ^14.0.3
+  awesome_notifications: ^0.7.4+1
+  awesome_notifications_fcm: ^0.7.4+1
 
 
 dev_dependencies:
