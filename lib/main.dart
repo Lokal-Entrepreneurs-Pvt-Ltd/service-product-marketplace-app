@@ -4,14 +4,17 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/pages/UikComponentDisplayer.dart';
+import 'package:login/pages/UikHome.dart';
 // import 'package:login/Splash.dart';
 // import 'package:login/Widgets/UikCell/UikCell.dartimport 'package:login/widgets/UikAvatar/uikAvatar.dart';';
 // import 'package:login/Widgets/UikIcon/uikIcon.dart';
 import 'package:login/pages/UikMyAccountScreen.dart';
+import 'package:login/pages/UikProductPage.dart';
 // import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 
 import 'package:login/pages/splash.dart';
@@ -51,7 +54,6 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 //import 'package:login/Splash.dart';
 //import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
-
 
 import "./utils/routes.dart";
 import './pages/login.dart';
@@ -100,17 +102,86 @@ void main() async {
     });
   }
 
-  
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool _isCreatingLink = false;
+
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
+  @override
+  void initState() {
+    super.initState();
+
+    initDynamicLinks();
+  }
+
+  Future<void> initDynamicLinks() async {
+    dynamicLinks.onLink.listen((dynamicLinkData) {
+      final Uri uri = dynamicLinkData.link;
+      final queryParameter = uri.queryParameters;
+
+      if (queryParameter.isNotEmpty) {
+        String? username = queryParameter["username"];
+        String? password = queryParameter["password"];
+
+        Navigator.pushNamed(context, dynamicLinkData.link.path, arguments: {
+          "username": username,
+          "password": password,
+        });
+      } else {
+        Navigator.pushNamed(context, dynamicLinkData.link.path);
+      }
+    }).onError((error) {
+      print(error);
+    });
+  }
+
+  Future<void> _createDynamicLinks(bool short, String link) async {
+    setState(() {
+      _isCreatingLink = true;
+    });
+
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      link: Uri.parse("htts://localee.page.link$link"),
+      uriPrefix: "htts://localee.page.link",
+      androidParameters: const AndroidParameters(
+        packageName: "com.example.login",
+        minimumVersion: 0,
+      ),
+    );
+
+    Uri url;
+
+    if (short) {
+      final ShortDynamicLink shortLink =
+          await dynamicLinks.buildShortLink(parameters);
+
+      url = shortLink.shortUrl;
+    } else {
+      url = await dynamicLinks.buildLink(parameters);
+    }
+
+    setState(() {
+      _isCreatingLink = false;
+    });
+  }
 
   // This widget is the root of your application.
   @override
@@ -135,6 +206,8 @@ class MyApp extends StatelessWidget {
           MyRoutes.filterRoute: (context) => UikFilter().page,
           MyRoutes.cartRoute: (context) => UikCart().page,
           MyRoutes.orderRoute: (context) => UikOrder().page,
+          MyRoutes.productsCatalogue: (context) => UikProductPage().page,
+          MyRoutes.homeRoute: (context) => UikHome().page,
         },
       ),
     );
