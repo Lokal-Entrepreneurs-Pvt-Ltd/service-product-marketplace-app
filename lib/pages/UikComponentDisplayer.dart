@@ -1,30 +1,10 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:login/StandardScreenClient.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-// import 'package:ui_sdk/props/ResponseAlternate.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
-import 'package:http/http.dart' as http;
-// class UikDummy extends StatelessWidget {
-//   const UikDummy({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(child: Text("Screen2")),
-//     );
-//   }
-// }
 
 class UikComponentDisplayer extends StandardPage {
-  // @override
-  // Future<StandardScreenResponse> getData() {
-  //   return fetchAlbum();
-  // }
 
   @override
   Set<String?> getActions() {

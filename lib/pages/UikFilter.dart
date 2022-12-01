@@ -1,16 +1,12 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:ui_sdk/StandardPage.dart';
-//import 'package:ui_sdk/props/ResponseAlternate.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
 
 
 
 class UikFilter extends StandardPage {
- 
-
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -41,7 +37,6 @@ Future<StandardScreenResponse> fetchAlbum() async {
     },
   );
 
-  print(response.body);
   if (response.statusCode == 200) {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {

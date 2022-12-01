@@ -1,14 +1,8 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:login/StandardScreenClient.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
-
-import '../constants.dart';
 
 class UikCatalogScreen extends StandardPage {
   @override
@@ -36,13 +30,14 @@ final response = await http.get(
     },
   );
 
-  print(response.body);
+  // StandardScreenResponse
   if (response.statusCode == 200) {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
   }
 
+  // ApiResponse
   /* final dio = Dio();
 
   dio.options.headers["ngrok-skip-browser-warning"] = "value";

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login/screens/Onboarding/OnboardingScreen.dart';
-import 'UikBottomNavigationBar.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _navigateToHome() async {
-    await Future.delayed(Duration(milliseconds: 3000), () {});
+    await Future.delayed(const Duration(milliseconds: 3000), () {});
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -31,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xffFEEB70),
+        color: const Color(0xffFEEB70),
         child: Center(
           child: Image.asset(
             "assets/images/Launch.png",
