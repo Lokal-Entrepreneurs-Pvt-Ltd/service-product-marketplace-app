@@ -52,16 +52,6 @@ class _FireTestState extends State<FireTest> {
       body: Center(
           child: ElevatedButton(
               child: Text("data"), onPressed: getFirebaseMessagingToken
-              // () {
-              //   AwesomeNotifications().createNotification(
-              //       content: NotificationContent(
-              //           id: 10,
-              //           channelKey: 'basic_channel',
-              //           title: 'Simple Notification',
-              //           body: 'Simple body',
-              //           actionType: ActionType.Default));
-
-              // },
               )),
     );
   }
