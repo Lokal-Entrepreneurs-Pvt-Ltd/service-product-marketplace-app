@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../widgets/UikAvatar/uikAvatar.dart';
 // import 'package:login/Widgets/UikAvatar/UikAvatar.dart';
 import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 

@@ -27,52 +27,48 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  # simple_tooltip: <latest version>
-  # just_the_tooltip: ^0.0.3+6
+  adaptive_action_sheet: ^2.0.1
+  another_flushbar: ^1.10.29
+  badges: ^2.0.3
+  country_icons: ^2.0.2
+  dio: ^4.0.6
+  dotted_border: ^2.0.0+2
   flutter:
     sdk: flutter
-  smooth_page_indicator: ^1.0.0+2
-  badges: ^2.0.3
-  dotted_border: ^2.0.0+2
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  flutter_rating_bar: ^4.0.1
+  flutter_xlider: ^3.4.0
+  geolocator: ^9.0.2
   getwidget: ^3.0.1
   google_fonts: ^3.0.1
-  another_flushbar: ^1.10.29
-  adaptive_action_sheet: ^2.0.1
-  syncfusion_flutter_sliders: ^20.2.36
-  flutter_xlider: ^3.4.0
-  overlay_group_avatar: ^0.0.4
-  just_the_tooltip: ^0.0.3+6
-  flutter_rating_bar: ^4.0.1
-  ui_sdk: ^1.0.7+1
   hexcolor: ^2.0.7
+  http: ^0.13.5
+  just_the_tooltip: ^0.0.3+6
+  logger: ^1.1.0
+  overlay_group_avatar: ^0.0.4
   pinput: ^2.2.12
+  provider: ^6.0.4
+  retrofit: ^3.3.1
+  shared_preferences: ^2.0.15
+  smooth_page_indicator: ^1.0.0+2
   stop_watch_timer: ^2.0.0
-  country_icons: ^2.0.2
+  syncfusion_flutter_sliders: ^20.2.36
   firebase_core: ^2.1.1
   firebase_database: ^10.0.3
   # firebase_messaging: ^14.0.3
   awesome_notifications: ^0.7.4+1
   awesome_notifications_fcm: ^0.7.4+1
-
+  ui_sdk: ^1.0.16+1
 
 dev_dependencies:
+  build_runner: ^2.3.2
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  json_serializable: ^6.5.4
+  retrofit_generator: ^4.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
   # The following line ensures that the Material Icons font is
@@ -81,20 +77,16 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-
   assets:
     - assets/images/
 
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

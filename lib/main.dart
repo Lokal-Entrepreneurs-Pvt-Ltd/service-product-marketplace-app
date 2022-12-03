@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/pages/UikComponentDisplayer.dart';
 // import 'package:login/Splash.dart';
 // import 'package:login/Widgets/UikCell/UikCell.dartimport 'package:login/widgets/UikAvatar/uikAvatar.dart';';
 // import 'package:login/Widgets/UikIcon/uikIcon.dart';
@@ -32,7 +34,17 @@ import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
 
+import 'package:login/pages/UikBottomNavigationBar.dart';
+import 'package:login/pages/UikCart.dart';
+import 'package:login/pages/UikFilter.dart';
+import 'package:login/pages/UikOrder.dart';
+import 'package:login/screens/Dio/models/product_provider.dart';
+import 'package:login/screens/Dio/view/try_dio.dart';
+import 'package:login/screens/Location/location.dart';
 import 'package:login/screens/Login/login.dart';
+import 'package:login/screens/SharedPrefs/shared_prefs.dart';
+import 'package:login/widgets/UikSignInModule/signin.dart';
+import 'package:provider/provider.dart';
 
 //import 'package:login/screens/Login/login.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -88,9 +100,9 @@ void main() async {
     });
   }
 
-  ;
+  
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   runApp(MyApp());
 }
@@ -103,13 +115,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: {
-        "/": (context) =>LoginPageScreen(),
-        MyRoutes.otp: ((context) => Otp()),
-        MyRoutes.loginRoute: (context) => LoginPage()
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => DarkThemeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProuctProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          "/": (context) => UikBottomNavigationBar(),
+          // "/": (context) => const LoginPageScreen(),
+          MyRoutes.otp: (context) => Otp(),
+          MyRoutes.loginRoute: (context) => LoginPage(),
+          MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
+          MyRoutes.filterRoute: (context) => UikFilter().page,
+          MyRoutes.cartRoute: (context) => UikCart().page,
+          MyRoutes.orderRoute: (context) => UikOrder().page,
+        },
+      ),
     );
   }
 }
@@ -117,7 +144,8 @@ class MyApp extends StatelessWidget {
 class HomePage extends StandardPage {
   @override
   Future<StandardScreenResponse> getData() {
-    return fetchAlbum();
+    // return fetchAlbum();
+    return null!;
   }
 
   @override
@@ -129,12 +157,13 @@ class HomePage extends StandardPage {
   }
 }
 
-Future<StandardScreenResponse> fetchAlbum() async {
+/* Future<StandardScreenResponse> fetchAlbum() async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
-  final response = await http.get(
+  /* final response = await http.get(
     Uri.parse('https://demo3348922.mockable.io/test123'),
+    // Uri.parse('https://demo7099810.mockable.io/'),
     headers: {
       "ngrok-skip-browser-warning": "value",
       //"id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
@@ -146,5 +175,28 @@ Future<StandardScreenResponse> fetchAlbum() async {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
+  } */
+
+  final dio = Dio();
+
+  dio.options.headers["ngrok-skip-browser-warning"] = "value";
+
+  final client = StandardScreenClient(dio);
+
+  return client.getResponse();
+} */
+
+/* 
+
+{
+  "isSuccess": true,
+  "data": {
+    "authToken": "12345"
+  },
+  "error": {
+    "code": 1001,
+    "message": "Some Internal Server Error Occurred"
   }
 }
+
+ */
