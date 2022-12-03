@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class MyTextField extends StatefulWidget {
   // const MyTextField({super.key});
@@ -11,6 +14,7 @@ class MyTextField extends StatefulWidget {
   final double width;
   final double height;
   final Widget? leftElement;
+  final bool isPassword;
   var error;
   final TextEditingController Controller;
 
@@ -22,6 +26,7 @@ class MyTextField extends StatefulWidget {
       this.width = 0.0,
       this.height = 0.0,
       this.leftElement = null,
+      this.isPassword = false,
       this.error = false,
       required this.Controller});
 
@@ -51,7 +56,9 @@ class _MyTextFieldState extends State<MyTextField> {
             child: Row(
               //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.leftElement != null) ...[_buildTrailingIcon(widget.leftElement)],
+                if (widget.leftElement != null) ...[
+                  _buildTrailingIcon(widget.leftElement)
+                ],
                 Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +80,8 @@ class _MyTextFieldState extends State<MyTextField> {
                             if (!isEmailValid(text) &&
                                 widget.labelText == "Email") {
                               widget.error = true;
-                              widget.description = "Please Enter the valid email";
+                              widget.description =
+                                  "Please Enter the valid email";
                             }
                             if (isEmailValid(text) &&
                                 widget.labelText == "Email") {
@@ -93,6 +101,38 @@ class _MyTextFieldState extends State<MyTextField> {
                             }
                             setState(() {});
                           },
+                          onEditingComplete: () async {
+                            // https://08ea-202-89-65-238.in.ngrok.io/customer/doesAccountExist
+
+                            if (!widget.isPassword) {
+                              Uri uri = Uri.parse(
+                                  "https://08ea-202-89-65-238.in.ngrok.io/customer/doesAccountExist");
+
+                              var response = await http.post(
+                                uri,
+                                body: {
+                                  "email": widget.Controller.text,
+                                },
+                              );
+
+                              final body = jsonDecode(response.body)
+                                  as Map<String, dynamic>;
+
+                              if (body["isSuccess"]) {
+                                bool isAccountFound =
+                                    body["data"]["response"]["accountFound"];
+
+                                if (!isAccountFound) {
+                                  setState(() {
+                                    widget.error = true;
+                                    widget.description =
+                                        "Account doesn't exist";
+                                  });
+                                }
+                              }
+                            }
+                          },
+                          obscureText: widget.isPassword,
                           cursorColor: Colors.black,
                           controller: widget.Controller,
                           style: TextStyle(fontSize: 14),
@@ -121,8 +161,9 @@ class _MyTextFieldState extends State<MyTextField> {
               child: Text(
                 (widget.description != null) ? widget.description : (""),
                 style: TextStyle(
-                  color:
-                      (widget.error == true) ? Color(0xffEF5350) : Color(0xff9E9E9E),
+                  color: (widget.error == true)
+                      ? Color(0xffEF5350)
+                      : Color(0xff9E9E9E),
                 ),
               )),
         ],
@@ -130,7 +171,7 @@ class _MyTextFieldState extends State<MyTextField> {
     );
   }
 
-   bool isEmailValid(String email) {
+  bool isEmailValid(String email) {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);

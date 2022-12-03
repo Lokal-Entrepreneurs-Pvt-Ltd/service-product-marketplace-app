@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-// import '../UikAvatar/UikAvatar.dart';
+// import '../UikAvatar/uikAvatar.dart';
 import 'package:login/widgets/UikAvatar/uikAvatar.dart';
 import '../UikButton/UikButton.dart';
 import '../UikRadioButton/radio.dart';
