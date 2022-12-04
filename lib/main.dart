@@ -1,12 +1,20 @@
+import 'dart:ui';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:login/pages/UikCatalogScreen.dart';
 
 import 'package:login/pages/UikComponentDisplayer.dart';
 import 'package:login/pages/UikHome.dart';
 import 'package:login/pages/UikProductPage.dart';
+import 'package:login/pages/UikSearchCatalog.dart';
+import 'package:login/pages/crashlytics.dart';
+import 'package:login/screens/Login/login.dart';
 import 'package:login/testing/notificationController.dart';
 
 import "./utils/routes.dart";
@@ -66,9 +74,29 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
+  /* await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  ); */
+  await Firebase.initializeApp();
+
+  // FlutterError.onError = (errorDetails) {
+  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  // };
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  /* if (!kIsWeb) {
+    if (kDebugMode) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    } else {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    }
+  } */
 
   runApp(MyApp());
 }
@@ -160,16 +188,18 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => UikBottomNavigationBar(),
-          // "/": (context) => const LoginPageScreen(),
+          // "/": (context) => UikBottomNavigationBar(),
+          "/": (context) => const Crashlytics(),
           MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginRoute: (context) => LoginPage(),
-          MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
+          // MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
           MyRoutes.filterRoute: (context) => UikFilter().page,
           MyRoutes.cartRoute: (context) => UikCart().page,
           MyRoutes.orderRoute: (context) => UikOrder().page,
-          MyRoutes.productsCatalogue: (context) => UikProductPage().page,
           MyRoutes.homeRoute: (context) => UikHome().page,
+          MyRoutes.productsCatalogue: (context) => UikCatalogScreen().page,
+          MyRoutes.searchCatalogue: (context) => UikSearchCatalog().page,
+          MyRoutes.productScreen: (context) => UikProductPage().page,
         },
       ),
     );
@@ -220,18 +250,3 @@ class HomePage extends StandardPage {
 
   return client.getResponse();
 } */
-
-/* 
-
-{
-  "isSuccess": true,
-  "data": {
-    "authToken": "12345"
-  },
-  "error": {
-    "code": 1001,
-    "message": "Some Internal Server Error Occurred"
-  }
-}
-
- */

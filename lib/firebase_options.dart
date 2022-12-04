@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     projectId: 'lokal-app-38e9f',
     databaseURL: 'https://lokal-app-38e9f-default-rtdb.firebaseio.com',
     storageBucket: 'lokal-app-38e9f.appspot.com',
+    androidClientId: '391390004819-v8uga8p41t6thqo78n0m7epbc129ch3v.apps.googleusercontent.com',
     iosClientId: '391390004819-vp77gircg0hn9kcjfs5hfgmsio6r2jmo.apps.googleusercontent.com',
     iosBundleId: 'com.example.login',
   );
@@ -81,6 +82,7 @@ class DefaultFirebaseOptions {
     projectId: 'lokal-app-38e9f',
     databaseURL: 'https://lokal-app-38e9f-default-rtdb.firebaseio.com',
     storageBucket: 'lokal-app-38e9f.appspot.com',
+    androidClientId: '391390004819-v8uga8p41t6thqo78n0m7epbc129ch3v.apps.googleusercontent.com',
     iosClientId: '391390004819-vp77gircg0hn9kcjfs5hfgmsio6r2jmo.apps.googleusercontent.com',
     iosBundleId: 'com.example.login',
   );
