@@ -1,5 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:login/pages/UikComponentDisplayer.dart';
 import 'package:login/pages/UikHome.dart';
 import 'package:login/pages/UikProductPage.dart';
+import 'package:login/screens/Login/login.dart';
 import 'package:login/testing/notificationController.dart';
+import 'package:login/utils/AppInitializer.dart';
 
 import "./utils/routes.dart";
 import './pages/login.dart';
@@ -24,52 +24,9 @@ import 'package:provider/provider.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-
 void main() async {
-  AwesomeNotificationsFcm().initialize(
-      onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
-      onFcmTokenHandle: NotificationController.myFcmTokenHandle,
-      onNativeTokenHandle: NotificationController.myNativeTokenHandle);
-  AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      '',
-      [
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
-            ledColor: Colors.white)
-      ],
-      // Channel groups are only visual and are not required
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupKey: 'basic_channel_group',
-            channelGroupName: 'Basic group')
-      ],
-      debug: true);
-  AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-    if (!isAllowed) {
-      AwesomeNotifications().requestPermissionToSendNotifications();
-    }
-  });
-  checkNotificationPermission() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
-  }
-
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
+  var appInit = new AppInitializer();
+  appInit.init();
   runApp(MyApp());
 }
 
@@ -160,8 +117,8 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => UikBottomNavigationBar(),
-          // "/": (context) => const LoginPageScreen(),
+          // "/": (context) => UikBottomNavigationBar(),
+          "/": (context) => const LoginPageScreen(),
           MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginRoute: (context) => LoginPage(),
           MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
