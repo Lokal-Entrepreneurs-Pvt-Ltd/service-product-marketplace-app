@@ -1,116 +1,57 @@
-import 'dart:ui';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:login/pages/UikCatalogScreen.dart';
-
-import 'package:login/pages/UikComponentDisplayer.dart';
-import 'package:login/pages/UikHome.dart';
-import 'package:login/pages/UikProductPage.dart';
-import 'package:login/pages/UikSearchCatalog.dart';
-import 'package:login/pages/crashlytics.dart';
-import 'package:login/screens/Login/login.dart';
-import 'package:login/testing/notificationController.dart';
+import 'package:lokal/pages/UikCatalogScreen.dart';
+import 'package:lokal/pages/UikHome.dart';
+import 'package:lokal/pages/UikProductPage.dart';
+import 'package:lokal/pages/UikSearchCatalog.dart';
+import 'package:lokal/pages/crashlytics.dart';
+import 'package:lokal/utils/AppInitializer.dart';
+import 'package:ui_sdk/main.dart';
 
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
 
-import 'package:login/pages/UikBottomNavigationBar.dart';
-import 'package:login/pages/UikCart.dart';
-import 'package:login/pages/UikFilter.dart';
-import 'package:login/pages/UikOrder.dart';
-import 'package:login/screens/Dio/models/product_provider.dart';
-import 'package:login/screens/SharedPrefs/shared_prefs.dart';
+import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/pages/UikCart.dart';
+import 'package:lokal/pages/UikFilter.dart';
+import 'package:lokal/pages/UikOrder.dart';
+import 'package:lokal/screens/Dio/models/product_provider.dart';
+import 'package:lokal/screens/SharedPrefs/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  AwesomeNotificationsFcm().initialize(
-      onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
-      onFcmTokenHandle: NotificationController.myFcmTokenHandle,
-      onNativeTokenHandle: NotificationController.myNativeTokenHandle);
-  AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      '',
-      [
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
-            ledColor: Colors.white)
-      ],
-      // Channel groups are only visual and are not required
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupKey: 'basic_channel_group',
-            channelGroupName: 'Basic group')
-      ],
-      debug: true);
-  AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-    if (!isAllowed) {
-      AwesomeNotifications().requestPermissionToSendNotifications();
-    }
-  });
-  checkNotificationPermission() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
-  }
+  var appInit = new AppInitializer();
+  await appInit.init();
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  /* await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  ); */
-  await Firebase.initializeApp();
-
-  // FlutterError.onError = (errorDetails) {
-  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  // };
-
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
-
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
-
-  /* if (!kIsWeb) {
-    if (kDebugMode) {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    } else {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    }
-  } */
+  );
 
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class LokalApp extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
-  MyApp({Key? key}) : super(key: key);
+  LokalApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<LokalApp> createState() => _LokalAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _LokalAppState extends State<LokalApp> {
   bool _isCreatingLink = false;
 
   FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
@@ -119,59 +60,31 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    initDynamicLinks();
+    // initDynamicLinks();
   }
 
-  Future<void> initDynamicLinks() async {
-    dynamicLinks.onLink.listen((dynamicLinkData) {
-      final Uri uri = dynamicLinkData.link;
-      final queryParameter = uri.queryParameters;
+  // Future<void> initDynamicLinks() async {
+  //   dynamicLinks.onLink.listen((dynamicLinkData) {
+  //     final Uri uri = dynamicLinkData.link;
+  //     final queryParameter = uri.queryParameters;
+  //
+  //
+  //     if (queryParameter.isNotEmpty) {
+  //       String? username = queryParameter["username"];
+  //       String? password = queryParameter["password"];
+  //
+  //       Navigator.pushNamed(context, dynamicLinkData.link.path, arguments: {
+  //         "username": username,
+  //         "password": password,
+  //       });
+  //     } else {
+  //       Navigator.pushNamed(context, dynamicLinkData.link.path);
+  //     }
+  //   }).onError((error) {
+  //     print(error);
+  //   });
+  // }
 
-      if (queryParameter.isNotEmpty) {
-        String? username = queryParameter["username"];
-        String? password = queryParameter["password"];
-
-        Navigator.pushNamed(context, dynamicLinkData.link.path, arguments: {
-          "username": username,
-          "password": password,
-        });
-      } else {
-        Navigator.pushNamed(context, dynamicLinkData.link.path);
-      }
-    }).onError((error) {
-      print(error);
-    });
-  }
-
-  Future<void> _createDynamicLinks(bool short, String link) async {
-    setState(() {
-      _isCreatingLink = true;
-    });
-
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      link: Uri.parse("htts://localee.page.link$link"),
-      uriPrefix: "htts://localee.page.link",
-      androidParameters: const AndroidParameters(
-        packageName: "com.example.login",
-        minimumVersion: 0,
-      ),
-    );
-
-    Uri url;
-
-    if (short) {
-      final ShortDynamicLink shortLink =
-          await dynamicLinks.buildShortLink(parameters);
-
-      url = shortLink.shortUrl;
-    } else {
-      url = await dynamicLinks.buildLink(parameters);
-    }
-
-    setState(() {
-      _isCreatingLink = false;
-    });
-  }
 
   // This widget is the root of your application.
   @override
@@ -209,7 +122,6 @@ class _MyAppState extends State<MyApp> {
 class HomePage extends StandardPage {
   @override
   Future<StandardScreenResponse> getData() {
-    // return fetchAlbum();
     return null!;
   }
 
@@ -250,3 +162,18 @@ class HomePage extends StandardPage {
 
   return client.getResponse();
 } */
+
+/* 
+
+{
+  "isSuccess": true,
+  "data": {
+    "authToken": "12345"
+  },
+  "error": {
+    "code": 1001,
+    "message": "Some Internal Server Error Occurred"
+  }
+}
+
+ */

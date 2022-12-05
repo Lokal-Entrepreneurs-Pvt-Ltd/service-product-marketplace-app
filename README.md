@@ -1,6 +1,6 @@
-# login
+# Lokal
 
-A new Flutter project.
+Lokal App Project
 
 ## Getting Started
 

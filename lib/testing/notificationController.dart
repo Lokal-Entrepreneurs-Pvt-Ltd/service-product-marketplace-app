@@ -63,7 +63,7 @@ class NotificationController {
     // Your code goes here
 
     // Navigate into pages, avoiding to open the notification details page over another details page already opened
-    MyApp.navigatorKey.currentState?.pushNamedAndRemoveUntil(
+    LokalApp.navigatorKey.currentState?.pushNamedAndRemoveUntil(
         '/notification-page',
         (route) =>
             (route.settings.name != '/notification-page') || route.isFirst,

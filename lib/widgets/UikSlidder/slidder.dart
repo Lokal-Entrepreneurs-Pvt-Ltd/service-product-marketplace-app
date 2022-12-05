@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import "package:flutter/material.dart";
-import 'package:login/widgets/UikSlidder/duoPolygon.dart';
+import 'package:lokal/widgets/UikSlidder/duoPolygon.dart';
 import "./slidderUtil.dart";
 //import 'package:flutter_xlider/flutter_xlider.dart';
 

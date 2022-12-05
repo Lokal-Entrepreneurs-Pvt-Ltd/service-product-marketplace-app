@@ -1,4 +1,4 @@
-import 'package:login/constants.dart';
+import 'package:lokal/constants.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import 'package:dio/dio.dart';

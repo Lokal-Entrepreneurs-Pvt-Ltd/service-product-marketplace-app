@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class CartCard extends StatelessWidget {
   final productName;

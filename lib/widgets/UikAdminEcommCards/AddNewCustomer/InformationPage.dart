@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
 
 import '../../UikIcon/uikIcon.dart';
 

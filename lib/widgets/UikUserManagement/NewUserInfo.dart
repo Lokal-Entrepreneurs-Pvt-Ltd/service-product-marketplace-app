@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
-import 'package:login/widgets/UikInput/UikInput.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikInput/UikInput.dart';
 
 class NewUserInfo extends StatelessWidget {
   const NewUserInfo({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login/widgets/UikAdminEcommCards/OrderDetailsCard/OrderPage.dart';
-import 'package:login/widgets/UikAdminEcommCards/OrderDetailsCard/ProductPage.dart';
+import 'package:lokal/widgets/UikAdminEcommCards/OrderDetailsCard/OrderPage.dart';
+import 'package:lokal/widgets/UikAdminEcommCards/OrderDetailsCard/ProductPage.dart';
 
 import 'InvoicePage.dart';
 
