@@ -2,7 +2,9 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
@@ -30,16 +32,23 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  var appInit = new AppInitializer();
+  var appInit = AppInitializer();
+
   await appInit.init();
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
 
-  runApp(MyApp());
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  runApp(const MyApp());
 }
 
 class LokalApp extends StatefulWidget {
@@ -84,7 +93,6 @@ class _LokalAppState extends State<LokalApp> {
   //     print(error);
   //   });
   // }
-
 
   // This widget is the root of your application.
   @override
