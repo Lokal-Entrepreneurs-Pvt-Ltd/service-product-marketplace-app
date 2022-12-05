@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
 // import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:login/testing/notificationController.dart';
+import 'package:lokal/testing/notificationController.dart';
 
 class FireTest extends StatefulWidget {
   FireTest({super.key});
@@ -52,16 +52,6 @@ class _FireTestState extends State<FireTest> {
       body: Center(
           child: ElevatedButton(
               child: Text("data"), onPressed: getFirebaseMessagingToken
-              // () {
-              //   AwesomeNotifications().createNotification(
-              //       content: NotificationContent(
-              //           id: 10,
-              //           channelKey: 'basic_channel',
-              //           title: 'Simple Notification',
-              //           body: 'Simple body',
-              //           actionType: ActionType.Default));
-
-              // },
               )),
     );
   }

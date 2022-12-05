@@ -15,17 +15,12 @@ class ProuctProvider extends ChangeNotifier {
   Future<void> fetchProuct() async {
     try {
       final response = await Dio().get("https://dummyjson.com/products");
-      // final response =
-      //     await http.get(Uri.parse("https://dummyjson.com/products"));
 
       final body = json.decode(response.data) as Map<String, dynamic>;
 
-      // for (var data in body["products"]) {
-      // print(data);
       final Prouct dummy = Prouct.fromJson(body["products"][0]);
 
       _dummy.add(dummy);
-      // }
 
       isLoading = true;
 

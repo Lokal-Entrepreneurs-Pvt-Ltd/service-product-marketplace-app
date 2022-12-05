@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login/screens/Otp/OtpScreen.dart';
+import 'package:lokal/screens/Otp/OtpScreen.dart';
 
 void main() {
   runApp(RegisterScreen());

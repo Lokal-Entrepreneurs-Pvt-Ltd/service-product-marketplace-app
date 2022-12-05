@@ -1,8 +1,8 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
-import 'package:login/widgets/UikSwitch/UikSwitch.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikSwitch/UikSwitch.dart';
 
 class Cell extends StatelessWidget {
   final String titleText;

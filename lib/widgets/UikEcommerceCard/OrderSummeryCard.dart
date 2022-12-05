@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
 
 class OrderSummeryCard extends StatelessWidget {
   final subTotal;
