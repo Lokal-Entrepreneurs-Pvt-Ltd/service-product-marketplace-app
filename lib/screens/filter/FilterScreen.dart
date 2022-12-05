@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
-import 'package:login/widgets/UikListTile/UikListTile.dart';
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikListTile/UikListTile.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 import '../../widgets/UikSlidder/slidder.dart';
 
 class FilterScreen extends StatefulWidget {

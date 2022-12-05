@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:login/widgets/UikAdminEcommCards/OrderDetailsCard/ProductPage.dart';
+import 'package:lokal/widgets/UikAdminEcommCards/OrderDetailsCard/ProductPage.dart';
 
 class InvoicePage extends ProductPage {
   final img;

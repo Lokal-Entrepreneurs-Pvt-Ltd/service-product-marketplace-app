@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:login/Widgets/UikTextField/UikTextField.dart';
-import 'package:login/pages/UikBottomNavigationBar.dart';
-import 'package:login/screens/Login/user_data_handler.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
+import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
+import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/screens/Login/user_data_handler.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 
 import '../../widgets/UikNavbar/UikNavbar.dart';

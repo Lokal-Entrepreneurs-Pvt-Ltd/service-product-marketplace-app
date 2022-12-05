@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class UserListCard extends StatelessWidget {
   final userName;
