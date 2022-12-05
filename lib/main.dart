@@ -1,11 +1,10 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
