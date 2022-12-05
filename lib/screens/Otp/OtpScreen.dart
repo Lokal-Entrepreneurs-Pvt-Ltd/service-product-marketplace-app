@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
+import 'package:lokal/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
 import 'package:pinput/pinput.dart';
 import 'dart:async';
 

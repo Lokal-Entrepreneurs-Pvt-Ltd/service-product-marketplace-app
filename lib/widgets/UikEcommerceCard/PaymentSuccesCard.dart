@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 import '../UikButton/UikButton.dart';
 

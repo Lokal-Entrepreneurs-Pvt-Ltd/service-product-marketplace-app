@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/pages/UikCatalogScreen.dart';
-import 'package:login/pages/UikProductPage.dart';
-import 'package:login/pages/UikSearchCatalog.dart';
+import 'package:lokal/pages/UikCatalogScreen.dart';
+import 'package:lokal/pages/UikProductPage.dart';
+import 'package:lokal/pages/UikSearchCatalog.dart';
 
 import 'UikHome.dart';
 

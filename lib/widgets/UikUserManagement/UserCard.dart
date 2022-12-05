@@ -5,9 +5,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
-import 'package:login/widgets/UikDivider/UikDivider.dart';
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikDivider/UikDivider.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 class UserCard extends StatelessWidget {
   final userName;

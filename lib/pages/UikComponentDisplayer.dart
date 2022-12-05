@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:login/StandardScreenClient.dart';
+import 'package:lokal/StandardScreenClient.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';

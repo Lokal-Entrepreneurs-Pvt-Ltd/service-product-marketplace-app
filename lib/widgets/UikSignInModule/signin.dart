@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 // import '../UikAvatar/uikAvatar.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 import '../UikButton/UikButton.dart';
 import '../UikRadioButton/radio.dart';
 import '../UikSwitch/UikSwitch.dart';
