@@ -6,6 +6,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
 import '../firebase_options.dart';
@@ -14,20 +15,22 @@ import '../testing/notificationController.dart';
 
  class AppInitializer {
 
-    init()  {
 
+
+    init()  {
      _initNotifications();
-     // WidgetsFlutterBinding.ensureInitialized();
-     // _initFirebase();
+     WidgetsFlutterBinding.ensureInitialized();
+     _initFirebase();
+
 
    }
 
-   //  _initFirebase() async {
-   //    WidgetsFlutterBinding.ensureInitialized();
-   //   await Firebase.initializeApp(
-   //     options: DefaultFirebaseOptions.currentPlatform,
-   //   );
-   // }
+    _initFirebase() async {
+      WidgetsFlutterBinding.ensureInitialized();
+     await Firebase.initializeApp(
+       options: DefaultFirebaseOptions.currentPlatform,
+     );
+   }
    _initNotifications(){
      AwesomeNotificationsFcm().initialize(
          onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
@@ -65,5 +68,28 @@ import '../testing/notificationController.dart';
        });
      }
    }
+
+   static Future<void> initDynamicLinks(BuildContext context, FirebaseDynamicLinks _dynamicLinks) async {
+
+      _dynamicLinks.onLink.listen((dynamicLinkData) {
+        final Uri uri = dynamicLinkData.link;
+        final queryParameter = uri.queryParameters;
+
+
+        if (queryParameter.isNotEmpty) {
+          String? username = queryParameter["username"];
+          String? password = queryParameter["password"];
+
+          Navigator.pushNamed(context, dynamicLinkData.link.path, arguments: {
+            "username": username,
+            "password": password,
+          });
+        } else {
+          Navigator.pushNamed(context, dynamicLinkData.link.path);
+        }
+      }).onError((error) {
+        print(error);
+      });
+    }
  }
 
