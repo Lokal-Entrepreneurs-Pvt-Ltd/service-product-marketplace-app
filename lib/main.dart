@@ -1,13 +1,13 @@
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
 import 'package:lokal/pages/UikComponentDisplayer.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
-import 'package:lokal/screens/Login/login.dart';
-import 'package:lokal/testing/notificationController.dart';
 import 'package:lokal/utils/AppInitializer.dart';
+
 
 import "./utils/routes.dart";
 import './pages/login.dart';
@@ -24,9 +24,16 @@ import 'package:provider/provider.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
-  // var appInit = new AppInitializer();
-  // await appInit.init();
+  var appInit = new AppInitializer();
+  await appInit.init();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(LokalApp());
 }
 
@@ -42,13 +49,13 @@ class LokalApp extends StatefulWidget {
 class _LokalAppState extends State<LokalApp> {
   bool _isCreatingLink = false;
 
-  // FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
 
   @override
   void initState() {
     super.initState();
 
-    //initDynamicLinks();
+    // initDynamicLinks();
   }
 
   // Future<void> initDynamicLinks() async {

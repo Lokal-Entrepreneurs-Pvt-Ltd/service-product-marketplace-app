@@ -17,16 +17,17 @@ import '../testing/notificationController.dart';
     init()  {
 
      _initNotifications();
-     WidgetsFlutterBinding.ensureInitialized();
-     _initFirebase();
+     // WidgetsFlutterBinding.ensureInitialized();
+     // _initFirebase();
 
    }
 
-    _initFirebase() async {
-     await Firebase.initializeApp(
-       options: DefaultFirebaseOptions.currentPlatform,
-     );
-   }
+   //  _initFirebase() async {
+   //    WidgetsFlutterBinding.ensureInitialized();
+   //   await Firebase.initializeApp(
+   //     options: DefaultFirebaseOptions.currentPlatform,
+   //   );
+   // }
    _initNotifications(){
      AwesomeNotificationsFcm().initialize(
          onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
