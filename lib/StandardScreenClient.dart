@@ -13,7 +13,8 @@ part 'StandardScreenClient.g.dart';
 // @RestApi(baseUrl: "https://demo7456524.mockable.io/")
 @RestApi(baseUrl: baseUrl)
 abstract class StandardScreenClient {
-  factory StandardScreenClient(Dio dio, {String baseUrl}) = _StandardScreenClient;
+  factory StandardScreenClient(Dio dio, {String baseUrl}) =
+      _StandardScreenClient;
 
   @GET("/")
   // Future<StandardScreenResponse> getResponse();
@@ -27,12 +28,15 @@ abstract class StandardScreenClient {
 
   @GET("/newHomeScreen")
   Future<ApiResponse> getHomeScreen();
- 
+
   @GET("/CatalogScreen")
   Future<ApiResponse> getCatalogSreen();
-  
+
   @GET("/SearchCategory")
   Future<ApiResponse> getSearchCatalogScreen();
+
+  @POST("/discovery/get")
+  Future<ApiResponse> getbackendScreen();
 }
 
 /* @JsonSerializable()
