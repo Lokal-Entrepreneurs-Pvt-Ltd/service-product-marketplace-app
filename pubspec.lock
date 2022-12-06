@@ -204,6 +204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.2"
   cupertino_icons:
     dependency: transitive
     description:
@@ -450,6 +457,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.1"
   http:
     dependency: "direct main"
     description:
@@ -562,6 +576,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  navigation_history_observer:
+    dependency: transitive
+    description:
+      name: navigation_history_observer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   nested:
     dependency: transitive
     description:
@@ -847,6 +868,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.0"
+  stack:
+    dependency: transitive
+    description:
+      name: stack
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   stack_trace:
     dependency: transitive
     description:
@@ -937,7 +965,7 @@ packages:
       name: ui_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.16+1"
+    version: "1.0.19+1"
   universal_io:
     dependency: transitive
     description:
