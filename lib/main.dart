@@ -49,15 +49,11 @@ class LokalApp extends StatefulWidget {
 
 class _LokalAppState extends State<LokalApp> {
   bool _isCreatingLink = false;
-
-
-
   @override
   void initState() {
     super.initState();
     AppInitializer.initDynamicLinks( context,FirebaseDynamicLinks.instance);
   }
-
 
   // This widget is the root of your application.
   @override
@@ -102,6 +98,18 @@ class HomePage extends StandardPage {
     actionList.add("OPEN_WEB");
     actionList.add("OPEN_HALA");
     return actionList;
+  }
+
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
   }
 }
 

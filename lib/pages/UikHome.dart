@@ -48,6 +48,18 @@ class UikHome extends StandardPage {
     print(currentPosition.latitude);
     print(currentPosition.longitude);
   }
+
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
+  }
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {

@@ -15,8 +15,6 @@ import '../testing/notificationController.dart';
 
  class AppInitializer {
 
-
-
     init()  {
      _initNotifications();
      WidgetsFlutterBinding.ensureInitialized();
@@ -68,6 +66,12 @@ import '../testing/notificationController.dart';
        });
      }
    }
+
+   launchHomescreen(){
+
+   }
+
+
 
    static Future<void> initDynamicLinks(BuildContext context, FirebaseDynamicLinks _dynamicLinks) async {
 
