@@ -17,6 +17,23 @@ class UikCatalogScreen extends StandardPage {
   Future<StandardScreenResponse> getData() {
     return fetchAlbum();
   }
+  
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    // throw UnimplementedError();
+    return of();
+  }
+
+  void of() {}
+  
+  @override
+  getReference() {
+    // TODO: implement getReference
+    // throw UnimplementedError();
+    return UikCatalogScreen();
+  }
+  
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {

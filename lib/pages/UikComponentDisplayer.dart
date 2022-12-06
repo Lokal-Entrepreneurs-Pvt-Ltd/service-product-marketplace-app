@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:lokal/StandardScreenClient.dart';
+import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
@@ -18,6 +19,22 @@ class UikComponentDisplayer extends StandardPage {
   Future<StandardScreenResponse> getData() {
     // TODO: implement getData
     return fetchAlbum();
+  }
+
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    // throw UnimplementedError();
+    return of();
+  }
+
+  void of() {}
+  
+  @override
+  getReference() {
+    // TODO: implement getReference
+    // throw UnimplementedError();
+    return UikCatalogScreen();
   }
 }
 
