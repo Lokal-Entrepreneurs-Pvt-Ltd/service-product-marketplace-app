@@ -33,7 +33,6 @@ class UikCatalogScreen extends StandardPage {
     // throw UnimplementedError();
     return UikCatalogScreen();
   }
-  
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {
