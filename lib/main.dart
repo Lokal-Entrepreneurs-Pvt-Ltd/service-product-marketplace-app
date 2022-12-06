@@ -32,7 +32,7 @@ void main() async {
   await appInit.init();
 
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -74,15 +74,17 @@ class _LokalAppState extends State<LokalApp> {
         debugShowCheckedModeBanner: false,
         routes: {
           "/": (context) => UikBottomNavigationBar(),
-          // "/": (context) => const LoginPageScreen(),
           MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginScreen: (context) => LoginPage(),
           // MyRoutes.homeScreen: (context) => UikComponentDisplayer().page,
           MyRoutes.filterScreen: (context) => UikFilter().page,
           MyRoutes.cartScreen: (context) => UikCart().page,
           MyRoutes.orderScreen: (context) => UikOrder().page,
-          MyRoutes.productsCatalogueScreen: (context) => UikProductPage().page,
+          // MyRoutes.productsCatalogueScreen: (context) => UikProductPage().page,
+          MyRoutes.productsCatalogueScreen: (context) =>
+              UikCatalogScreen().page,
           MyRoutes.homeScreen: (context) => UikHome().page,
+          MyRoutes.productScreen: (context) => UikProductPage().page,
         },
       ),
     );

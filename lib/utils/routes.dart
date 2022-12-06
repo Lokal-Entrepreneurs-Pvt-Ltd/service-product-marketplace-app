@@ -1,12 +1,13 @@
 class MyRoutes {
-  static String loginScreen = '/loginscreen';
-  static String homeScreen = '/homescreen';
-  static String productsCatalogueScreen = "/productscataloguescreen";
-  static String searchCatalogueScreen = "/searchcataloguescreen";
-  static String orderScreen = '/ordescreenr';
-  static String filterScreen = '/filterscreen';
-  static String cartScreen = '/cartscreen';
-  static String otp = "/otp";
-  static String avatar = "/avatar";
-  static String icon = "/icon";
+  static const String loginScreen = '/loginscreen';
+  static const String homeScreen = '/homescreen';
+  static const String productsCatalogueScreen = "/productscataloguescreen";
+  static const String productScreen = "/productscreen";
+  static const String searchCatalogueScreen = "/searchcataloguescreen";
+  static const String orderScreen = '/ordescreenr';
+  static const String filterScreen = '/filterscreen';
+  static const String cartScreen = '/cartscreen';
+  static const String otp = "/otp";
+  static const String avatar = "/avatar";
+  static const String icon = "/icon";
 }
