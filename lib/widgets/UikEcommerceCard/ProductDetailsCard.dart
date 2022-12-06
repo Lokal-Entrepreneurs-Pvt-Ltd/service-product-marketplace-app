@@ -401,12 +401,12 @@ class _ProductDetailsCardState extends State<ProductDetailsCard> {
                                   top: 14,
                                   left: 41,
                                 ),
-                                child: const UikAvatar(
-                                  shape: UikAvatarShape.circle,
-                                  size: UikSize.SMALL,
-                                  backgroundImage: NetworkImage(
-                                      "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                                ),
+                                // child: const UikAvatar(
+                                //   shape: UikAvatarShape.circle,
+                                //   size: UikSize.SMALL,
+                                //   backgroundImage: NetworkImage(
+                                //       "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                                // ),
                               ),
                               Container(
                                 margin: const EdgeInsets.only(

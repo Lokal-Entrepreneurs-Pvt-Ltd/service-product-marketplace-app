@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:login/screens/Otp/OtpScreen.dart';
 
-
-
 void main() {
   runApp(RegisterScreen());
 }
@@ -82,68 +80,70 @@ class RegisterScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8,),
+                        SizedBox(
+                          height: 8,
+                        ),
                         Container(
-                          margin:EdgeInsets.fromLTRB(0, 16 , 0, 0),
+                          margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
                           height: 64,
                           width: 343,
-                          padding:EdgeInsets.fromLTRB(16, 0, 16, 0),
+                          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
                           decoration: BoxDecoration(
                             color: HexColor("#F5F5F5"),
-                            borderRadius:BorderRadius.all(Radius.circular(8)) ,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
                           child: TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               labelText: "Name (as Per Aadhaar)*",
-                              labelStyle:TextStyle(
+                              labelStyle: TextStyle(
                                 color: HexColor("#9E9E9E"),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                             controller: nameController,
                             keyboardType: TextInputType.text,
                           ),
                         ),
                         Container(
-                          margin:EdgeInsets.fromLTRB(0, 16 , 0, 0),
+                          margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
                           height: 64,
                           width: 343,
-                          padding:EdgeInsets.fromLTRB(16, 0, 16, 0),
+                          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
                           decoration: BoxDecoration(
                             color: HexColor("#F5F5F5"),
-                            borderRadius:BorderRadius.all(Radius.circular(8)) ,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
                           child: TextField(
                             decoration: InputDecoration(
-                              icon:Icon(Icons.flag),
+                              icon: Icon(Icons.flag),
                               border: InputBorder.none,
                               labelText: "Phone number*",
-                              labelStyle:TextStyle(
+                              labelStyle: TextStyle(
                                 color: HexColor("#9E9E9E"),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
-                            controller:mobileController,
+                            controller: mobileController,
                             keyboardType: TextInputType.phone,
                           ),
                         ),
                         Container(
-                          margin:EdgeInsets.fromLTRB(0, 16, 0, 16),
+                          margin: EdgeInsets.fromLTRB(0, 16, 0, 16),
                           height: 64,
                           width: 343,
-                          padding:EdgeInsets.fromLTRB(16, 0, 16, 0),
+                          padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
                           decoration: BoxDecoration(
                             color: HexColor("#F5F5F5"),
-                            borderRadius:BorderRadius.all(Radius.circular(8)) ,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
                           child: TextField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               labelText: "Email*",
-                              labelStyle:TextStyle(
+                              labelStyle: TextStyle(
                                 color: HexColor("#9E9E9E"),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -156,9 +156,9 @@ class RegisterScreen extends StatelessWidget {
                         Container(
                           height: 64,
                           width: 343,
-                          child:ElevatedButton(
+                          child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder:(context)=>OtpScreen(mobileController.text)));
+                              //   Navigator.push(context, MaterialPageRoute(builder:(context)=>OtpScreen(mobileController.text)));
                             },
                             child: Text(
                               "Continue",

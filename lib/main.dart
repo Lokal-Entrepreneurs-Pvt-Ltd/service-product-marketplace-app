@@ -52,7 +52,6 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 //import 'package:login/Splash.dart';
 //import 'package:login/Widgets/UikTabBarSticky/UikBottomNavigationBar.dart';
 
-
 import "./utils/routes.dart";
 import './pages/login.dart';
 import './pages/otp.dart';
@@ -62,6 +61,8 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
+
+import 'pages/UikCatalogScreen.dart';
 
 void main() async {
   AwesomeNotificationsFcm().initialize(
@@ -100,7 +101,6 @@ void main() async {
     });
   }
 
-  
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
 
@@ -127,10 +127,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => UikBottomNavigationBar(),
+          "/": (context) => UikCatalogScreen().page,
           // "/": (context) => const LoginPageScreen(),
           MyRoutes.otp: (context) => Otp(),
-          MyRoutes.loginRoute: (context) => LoginPage(),
+          MyRoutes.loginRoute: (context) => UikCatalogScreen().page,
           MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
           MyRoutes.filterRoute: (context) => UikFilter().page,
           MyRoutes.cartRoute: (context) => UikCart().page,
