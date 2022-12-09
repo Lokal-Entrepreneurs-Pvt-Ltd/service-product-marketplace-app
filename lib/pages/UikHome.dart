@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:geolocator/geolocator.dart';
+import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 //import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
@@ -23,6 +24,8 @@ class UikHome extends StandardPage {
 
     return fetchAlbum();
   }
+
+  void of() {}
 
   void _determinePosition() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -56,10 +59,6 @@ class UikHome extends StandardPage {
   getPageCallBackForAction() {
     // TODO: implement getFunction
     return of;
-  }
-
-  void of(UikAction uikAction) {
-    print("lavesh ${uikAction}");
   }
 
   @override

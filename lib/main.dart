@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/pages/UikCatalogScreen.dart';
 
 import 'package:lokal/pages/UikComponentDisplayer.dart';
 import 'package:lokal/pages/UikHome.dart';
@@ -34,14 +35,17 @@ import 'firebase_options.dart';
 import 'pages/UikCatalogScreen.dart';
 
 var appInit;
+
 void main() async {
   appInit = new AppInitializer();
   await appInit.init();
 
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(LokalApp());
 }
 
@@ -56,6 +60,7 @@ class LokalApp extends StatefulWidget {
 
 class _LokalAppState extends State<LokalApp> {
   bool _isCreatingLink = false;
+
   @override
   void initState() {
     super.initState();
@@ -77,16 +82,18 @@ class _LokalAppState extends State<LokalApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          "/": (context) => UikHome().page,
-          // "/": (context) => const LoginPageScreen(),
+          "/": (context) => UikBottomNavigationBar(),
           MyRoutes.otp: (context) => Otp(),
-          MyRoutes.loginRoute: (context) => UikCatalogScreen().page,
-          MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
-          MyRoutes.filterRoute: (context) => UikFilter().page,
-          MyRoutes.cartRoute: (context) => UikCart().page,
-          MyRoutes.orderRoute: (context) => UikOrder().page,
-          MyRoutes.productsCatalogue: (context) => UikProductPage().page,
-          MyRoutes.homeRoute: (context) => UikHome().page,
+          MyRoutes.loginScreen: (context) => LoginPage(),
+          // MyRoutes.homeScreen: (context) => UikComponentDisplayer().page,
+          MyRoutes.filterScreen: (context) => UikFilter().page,
+          MyRoutes.cartScreen: (context) => UikCart().page,
+          MyRoutes.orderScreen: (context) => UikOrder().page,
+          // MyRoutes.productsCatalogueScreen: (context) => UikProductPage().page,
+          MyRoutes.productsCatalogueScreen: (context) =>
+              UikCatalogScreen().page,
+          MyRoutes.homeScreen: (context) => UikHome().page,
+          MyRoutes.productScreen: (context) => UikProductPage().page,
         },
       ),
     );
@@ -109,13 +116,15 @@ class HomePage extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
-    throw UnimplementedError();
+    // TODO: implement getPageCallBackForAction
+    return of;
   }
+
+  void of() {}
 
   @override
   getPageContext() {
-    // TODO: implement getReference
-    throw UnimplementedError();
+    // TODO: implement getPageContext
+    return HomePage;
   }
 }
