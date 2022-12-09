@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
-import 'package:login/widgets/UikDivider/UikDivider.dart';
-import 'package:login/widgets/UikListTile/UikListTile.dart';
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
-import 'package:ui_sdk/components/UikText.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikListTile/UikListTile.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 import '../../widgets/UikSlidder/slidder.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -27,7 +25,7 @@ class _FilterScreenState extends State<FilterScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  UikIcon(
+                  const UikIcon(
                     valIcon: Icons.close,
                     iconSize: 32.0,
                   ),
@@ -58,7 +56,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF9E9E9E)),
+                      color: const Color(0xFF9E9E9E)),
                 ),
                 pdng: 12.0,
               ),
@@ -73,7 +71,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF9E9E9E)),
+                      color: const Color(0xFF9E9E9E)),
                 ),
                 pdng: 12.0,
               ),
@@ -88,7 +86,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF9E9E9E)),
+                      color: const Color(0xFF9E9E9E)),
                 ),
                 pdng: 12.0,
               ),
@@ -103,7 +101,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF9E9E9E)),
+                      color: const Color(0xFF9E9E9E)),
                 ),
                 pdng: 12.0,
               ),
@@ -118,18 +116,17 @@ class _FilterScreenState extends State<FilterScreen> {
                   style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF9E9E9E)),
+                      color: const Color(0xFF9E9E9E)),
                 ),
                 pdng: 12.0,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 80,
               ),
               UikButton(
                 text: "Show 25 Items",
                 textWeight: FontWeight.w500,
               ),
-              // UikText(_widgetType, _uikTextProps),
             ],
           ),
         ),

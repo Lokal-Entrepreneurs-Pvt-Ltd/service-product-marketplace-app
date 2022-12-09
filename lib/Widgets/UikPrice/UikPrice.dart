@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:login/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/pages/UikBottomNavigationBar.dart';
 
 class Price extends StatelessWidget {
   @override

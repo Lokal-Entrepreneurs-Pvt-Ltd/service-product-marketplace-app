@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/Widgets/UikCardComponents/UikChatCard/ChatBubble.dart';
+import 'package:lokal/Widgets/UikCardComponents/UikChatCard/ChatBubble.dart';
 
 class ChatCard extends StatelessWidget {
   final avtar;

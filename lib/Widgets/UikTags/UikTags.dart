@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/UikAvatar/uikAvatar.dart';
-// import 'package:login/Widgets/UikAvatar/UikAvatar.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+// import 'package:lokal/Widgets/UikAvatar/UikAvatar.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class UikTags extends StatelessWidget {
   const UikTags({Key? key}) : super(key: key);
