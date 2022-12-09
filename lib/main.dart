@@ -108,6 +108,19 @@ class HomePage extends StandardPage {
   @override
   getFunction() {
     // TODO: implement getFunction
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
+  }
+}
+
+  @override
+  getFunction() {
+    // TODO: implement getFunction
     // throw UnimplementedError();
     return of();
   }
