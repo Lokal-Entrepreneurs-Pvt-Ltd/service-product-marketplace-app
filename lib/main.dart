@@ -104,6 +104,19 @@ class HomePage extends StandardPage {
     actionList.add("OPEN_HALA");
     return actionList;
   }
+  
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
+  }
+}
 
   @override
   getFunction() {

@@ -33,6 +33,13 @@ class UikSearchCatalog extends StandardPage {
     // TODO: implement getReference
     // throw UnimplementedError();
     return UikCatalogScreen();
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
   }
 }
 
