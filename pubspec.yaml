@@ -56,7 +56,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
-  ui_sdk: ^1.0.22+1
+  ui_sdk: ^1.0.24+1
   pinput: ^2.2.16
 
 dev_dependencies:
