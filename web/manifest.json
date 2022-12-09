@@ -1,11 +1,11 @@
 {
-    "name": "login",
-    "short_name": "login",
+    "name": "Lokal",
+    "short_name": "Lokal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A Lokal App project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

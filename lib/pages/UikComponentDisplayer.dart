@@ -19,6 +19,18 @@ class UikComponentDisplayer extends StandardPage {
     // TODO: implement getData
     return fetchAlbum();
   }
+
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
+  }
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {
