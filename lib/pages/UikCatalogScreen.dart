@@ -32,6 +32,17 @@ class UikCatalogScreen extends StandardPage {
     // TODO: implement getReference
     // throw UnimplementedError();
     return UikCatalogScreen();
+
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
   }
 }
 
