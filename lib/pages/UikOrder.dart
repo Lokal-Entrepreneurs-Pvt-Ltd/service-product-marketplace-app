@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,17 @@ class UikOrder extends StandardPage {
   @override
   getFunction() {
     // TODO: implement getFunction
+    // throw UnimplementedError();
+    return of();
+  }
+
+  void of() {}
+  
+  @override
+  getReference() {
+    // TODO: implement getReference
+    // throw UnimplementedError();
+    return UikCatalogScreen();
     throw UnimplementedError();
   }
 

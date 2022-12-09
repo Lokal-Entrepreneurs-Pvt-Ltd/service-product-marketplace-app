@@ -1,13 +1,12 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/pages/UikCatalogScreen.dart';
 
 import 'package:lokal/pages/UikComponentDisplayer.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/utils/AppInitializer.dart';
-
 
 import "./utils/routes.dart";
 import './pages/login.dart';
@@ -27,14 +26,17 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'firebase_options.dart';
 
 var appInit;
+
 void main() async {
   appInit = new AppInitializer();
   await appInit.init();
 
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(LokalApp());
 }
 
@@ -49,10 +51,11 @@ class LokalApp extends StatefulWidget {
 
 class _LokalAppState extends State<LokalApp> {
   bool _isCreatingLink = false;
+
   @override
   void initState() {
     super.initState();
-    AppInitializer.initDynamicLinks( context,FirebaseDynamicLinks.instance);
+    AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
   }
 
   // This widget is the root of your application.
@@ -71,15 +74,17 @@ class _LokalAppState extends State<LokalApp> {
         debugShowCheckedModeBanner: false,
         routes: {
           "/": (context) => UikBottomNavigationBar(),
-          // "/": (context) => const LoginPageScreen(),
           MyRoutes.otp: (context) => Otp(),
-          MyRoutes.loginRoute: (context) => LoginPage(),
-          MyRoutes.homeRoute: (context) => UikComponentDisplayer().page,
-          MyRoutes.filterRoute: (context) => UikFilter().page,
-          MyRoutes.cartRoute: (context) => UikCart().page,
-          MyRoutes.orderRoute: (context) => UikOrder().page,
-          MyRoutes.productsCatalogue: (context) => UikProductPage().page,
-          MyRoutes.homeRoute: (context) => UikHome().page,
+          MyRoutes.loginScreen: (context) => LoginPage(),
+          // MyRoutes.homeScreen: (context) => UikComponentDisplayer().page,
+          MyRoutes.filterScreen: (context) => UikFilter().page,
+          MyRoutes.cartScreen: (context) => UikCart().page,
+          MyRoutes.orderScreen: (context) => UikOrder().page,
+          // MyRoutes.productsCatalogueScreen: (context) => UikProductPage().page,
+          MyRoutes.productsCatalogueScreen: (context) =>
+              UikCatalogScreen().page,
+          MyRoutes.homeScreen: (context) => UikHome().page,
+          MyRoutes.productScreen: (context) => UikProductPage().page,
         },
       ),
     );
@@ -99,7 +104,7 @@ class HomePage extends StandardPage {
     actionList.add("OPEN_HALA");
     return actionList;
   }
-
+  
   @override
   getFunction() {
     // TODO: implement getFunction
@@ -113,4 +118,19 @@ class HomePage extends StandardPage {
   }
 }
 
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    // throw UnimplementedError();
+    return of();
+  }
 
+  void of() {}
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    // throw UnimplementedError();
+    return UikCatalogScreen();
+  }
+}
