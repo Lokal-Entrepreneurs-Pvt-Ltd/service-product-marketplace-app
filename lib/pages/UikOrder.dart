@@ -21,7 +21,7 @@ class UikOrder extends StandardPage {
   }
 
   @override
-  getFunction() {
+  getPageCallBackForAction() {
     // TODO: implement getFunction
     // throw UnimplementedError();
     return of();
@@ -38,7 +38,7 @@ class UikOrder extends StandardPage {
   }
 
   @override
-  getReference() {
+  getPageContext() {
     // TODO: implement getReference
     throw UnimplementedError();
   }

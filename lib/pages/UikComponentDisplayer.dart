@@ -6,7 +6,6 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
 class UikComponentDisplayer extends StandardPage {
-
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -22,7 +21,7 @@ class UikComponentDisplayer extends StandardPage {
   }
 
   @override
-  getFunction() {
+  getPageCallBackForAction() {
     // TODO: implement getFunction
     // throw UnimplementedError();
     return of();
@@ -39,7 +38,7 @@ class UikComponentDisplayer extends StandardPage {
   }
 
   @override
-  getReference() {
+  getPageContext() {
     // TODO: implement getReference
     throw UnimplementedError();
   }
@@ -52,7 +51,6 @@ Future<StandardScreenResponse> fetchAlbum() async {
 
   print("Hello World!");
 
-
   final dio = Dio();
 
   dio.options.headers["ngrok-skip-browser-warning"] = "value";
@@ -60,7 +58,6 @@ Future<StandardScreenResponse> fetchAlbum() async {
   final client = StandardScreenClient(dio);
 
   ApiResponse response = await client.getResponse();
-
 
   return StandardScreenResponse.fromJson(response.data);
 }

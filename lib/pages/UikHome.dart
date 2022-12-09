@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:geolocator/geolocator.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
+//import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
+import 'package:ui_sdk/props/UikAction.dart';
 
 class UikHome extends StandardPage {
   @override
@@ -12,6 +14,7 @@ class UikHome extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add("OPEN_WEB");
     actionList.add("OPEN_HALA");
+    actionList.add("OPEN_ROUTE");
     return actionList;
   }
 
@@ -22,21 +25,7 @@ class UikHome extends StandardPage {
     return fetchAlbum();
   }
 
-  @override
-  getFunction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
-    return of();
-  }
-
   void of() {}
-  
-  @override
-  getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
-  }
 
   void _determinePosition() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -61,21 +50,20 @@ class UikHome extends StandardPage {
     }
 
     Position currentPosition = await Geolocator.getCurrentPosition();
-    
+
     print(currentPosition.latitude);
     print(currentPosition.longitude);
   }
 
   @override
-  getFunction() {
+  getPageCallBackForAction() {
     // TODO: implement getFunction
-    throw UnimplementedError();
+    return of;
   }
 
   @override
-  getReference() {
-    // TODO: implement getReference
-    throw UnimplementedError();
+  getPageContext() {
+    return UikHome;
   }
 }
 
@@ -84,7 +72,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
     Uri.parse('http://demo6521867.mockable.io/newHomeScreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
-       },
+    },
   );
 
   // StandardScreenResponse
@@ -93,5 +81,4 @@ Future<StandardScreenResponse> fetchAlbum() async {
   } else {
     throw Exception('Failed to load album');
   }
-
 }
