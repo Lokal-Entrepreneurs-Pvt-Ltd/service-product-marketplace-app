@@ -30,9 +30,9 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
 import 'firebase_options.dart';
 
+var appInit;
 void main() async {
-  var appInit = AppInitializer();
-
+  appInit = new AppInitializer();
   await appInit.init();
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,37 +61,11 @@ class LokalApp extends StatefulWidget {
 
 class _LokalAppState extends State<LokalApp> {
   bool _isCreatingLink = false;
-
-  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
-
   @override
   void initState() {
     super.initState();
-
-    // initDynamicLinks();
+    AppInitializer.initDynamicLinks( context,FirebaseDynamicLinks.instance);
   }
-
-  // Future<void> initDynamicLinks() async {
-  //   dynamicLinks.onLink.listen((dynamicLinkData) {
-  //     final Uri uri = dynamicLinkData.link;
-  //     final queryParameter = uri.queryParameters;
-  //
-  //
-  //     if (queryParameter.isNotEmpty) {
-  //       String? username = queryParameter["username"];
-  //       String? password = queryParameter["password"];
-  //
-  //       Navigator.pushNamed(context, dynamicLinkData.link.path, arguments: {
-  //         "username": username,
-  //         "password": password,
-  //       });
-  //     } else {
-  //       Navigator.pushNamed(context, dynamicLinkData.link.path);
-  //     }
-  //   }).onError((error) {
-  //     print(error);
-  //   });
-  // }
 
   // This widget is the root of your application.
   @override
@@ -138,6 +112,18 @@ class HomePage extends StandardPage {
     actionList.add("OPEN_WEB");
     actionList.add("OPEN_HALA");
     return actionList;
+  }
+
+  @override
+  getFunction() {
+    // TODO: implement getFunction
+    throw UnimplementedError();
+  }
+
+  @override
+  getReference() {
+    // TODO: implement getReference
+    throw UnimplementedError();
   }
 }
 
