@@ -141,10 +141,10 @@ class OrderPage extends StatelessWidget {
                         Container(
                           child: Row(
                             children: [
-                              UikAvatar(
-                                shape: UikAvatarShape.circle,
-                                child: Image.network(avatarImage),
-                              ),
+                              // UikAvatar(
+                              //   shape: UikAvatarShape.circle,
+                              //   child: Image.network(avatarImage),
+                              // ),
                               Container(
                                   margin: const EdgeInsets.only(left: 12),
                                   child: Column(

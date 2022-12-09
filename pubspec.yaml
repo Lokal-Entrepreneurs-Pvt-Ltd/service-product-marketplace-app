@@ -50,14 +50,14 @@ dependencies:
   just_the_tooltip: ^0.0.3+6
   logger: ^1.1.0
   overlay_group_avatar: ^0.0.4
-  pinput: ^2.2.12
   provider: ^6.0.4
   retrofit: ^3.3.1
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
-  ui_sdk: ^1.0.19+1
+  ui_sdk: ^1.0.22+1
+  pinput: ^2.2.16
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -95,6 +95,8 @@ flutter:
   fonts:
     - family: Schyler
     - family: iconFont
+  
+  
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf

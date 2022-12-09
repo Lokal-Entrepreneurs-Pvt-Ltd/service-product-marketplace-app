@@ -23,7 +23,16 @@ import 'package:provider/provider.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
+import "./utils/routes.dart";
+import './pages/login.dart';
+import './pages/otp.dart';
+import 'package:http/http.dart' as http;
+
+import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
+import 'pages/UikCatalogScreen.dart';
 
 var appInit;
 
@@ -104,46 +113,18 @@ class HomePage extends StandardPage {
     actionList.add("OPEN_HALA");
     return actionList;
   }
-  
-  @override
-  getFunction() {
-    // TODO: implement getFunction
-    throw UnimplementedError();
-  }
 
   @override
-  getReference() {
-    // TODO: implement getReference
-    throw UnimplementedError();
-  }
-}
-
-  @override
-  getFunction() {
-    // TODO: implement getFunction
-    throw UnimplementedError();
-  }
-
-  @override
-  getReference() {
-    // TODO: implement getReference
-    throw UnimplementedError();
-  }
-}
-
-  @override
-  getFunction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
-    return of();
+  getPageCallBackForAction() {
+    // TODO: implement getPageCallBackForAction
+    return of;
   }
 
   void of() {}
 
   @override
-  getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
+  getPageContext() {
+    // TODO: implement getPageContext
+    return HomePage;
   }
 }

@@ -5,8 +5,6 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
 
-
-
 class UikFilter extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -23,7 +21,7 @@ class UikFilter extends StandardPage {
   }
 
   @override
-  getFunction() {
+  getPageCallBackForAction() {
     // TODO: implement getFunction
     // throw UnimplementedError();
     return of();
@@ -40,23 +38,20 @@ class UikFilter extends StandardPage {
   }
 
   @override
-  getReference() {
+  getPageContext() {
     // TODO: implement getReference
     throw UnimplementedError();
   }
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {
-
   final queryParameter = {
-   "id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
+    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   final response = await http.get(
-    Uri.parse(
-        'http://demo3348922.mockable.io/sdkWalkthrough'),
+    Uri.parse('http://demo3348922.mockable.io/sdkWalkthrough'),
     headers: {
       "ngrok-skip-browser-warning": "value",
-
     },
   );
 

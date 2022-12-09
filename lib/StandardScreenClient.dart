@@ -28,4 +28,7 @@ abstract class StandardScreenClient {
 
   @GET("/SearchCategory")
   Future<ApiResponse> getSearchCatalogScreen();
+
+  @POST("/discovery/get")
+  Future<ApiResponse> getbackendScreen();
 }

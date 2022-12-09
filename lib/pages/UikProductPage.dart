@@ -20,26 +20,18 @@ class UikProductPage extends StandardPage {
   }
 
   @override
-  getFunction() {
+  getPageCallBackForAction() {
     // TODO: implement getFunction
     // throw UnimplementedError();
-    return of();
+    return of;
   }
 
   void of() {}
-  
-  @override
-  getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
-    throw UnimplementedError();
-  }
 
   @override
-  getReference() {
+  getPageContext() {
     // TODO: implement getReference
-    throw UnimplementedError();
+    return UikProductPage;
   }
 }
 
@@ -48,7 +40,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
     Uri.parse('http://demo7907509.mockable.io/ProductPage'),
     headers: {
       "ngrok-skip-browser-warning": "value",
-       },
+    },
   );
 
   // StandardScreenResponsee
@@ -57,5 +49,4 @@ Future<StandardScreenResponse> fetchAlbum() async {
   } else {
     throw Exception('Failed to load album');
   }
-
 }

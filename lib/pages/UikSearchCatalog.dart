@@ -20,26 +20,18 @@ class UikSearchCatalog extends StandardPage {
   }
 
   @override
-  getFunction() {
+  getPageCallBackForAction() {
     // TODO: implement getFunction
     // throw UnimplementedError();
-    return of();
+    return of;
   }
 
   void of() {}
 
   @override
-  getReference() {
+  getPageContext() {
     // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
-    throw UnimplementedError();
-  }
-
-  @override
-  getReference() {
-    // TODO: implement getReference
-    throw UnimplementedError();
+    return UikSearchCatalog;
   }
 }
 
