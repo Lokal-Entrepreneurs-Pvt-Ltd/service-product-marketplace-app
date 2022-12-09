@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
@@ -21,13 +22,16 @@ class UikSearchCatalog extends StandardPage {
   @override
   getPageCallBackForAction() {
     // TODO: implement getFunction
-    throw UnimplementedError();
+    // throw UnimplementedError();
+    return of;
   }
+
+  void of() {}
 
   @override
   getPageContext() {
     // TODO: implement getReference
-    throw UnimplementedError();
+    return UikSearchCatalog;
   }
 }
 

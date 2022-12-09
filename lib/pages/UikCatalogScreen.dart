@@ -18,17 +18,17 @@ class UikCatalogScreen extends StandardPage {
     return fetchAlbum();
   }
 
-  @override
-  getPageCallBackForAction() {
-    // TODO: implement getFunction
-    return of();
-  }
-
   void of() {}
 
   @override
+  getPageCallBackForAction() {
+    // TODO: implement getPageCallBackForAction
+    return of;
+  }
+
+  @override
   getPageContext() {
-    // TODO: implement getReference
+    // TODO: implement getPageContext
     return UikCatalogScreen;
   }
 }
