@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:login/widgets/UikDivider/UikDivider.dart';
-import 'package:login/pages/otp.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
-import 'package:login/widgets/UikCell/UikCell.dart';
-import 'package:login/widgets/UikInput/UikInput.dart';
-import 'package:login/widgets/UikSwitch/UikSwitch.dart';
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
-import '../utils/routes.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -19,12 +11,12 @@ class LoginPage extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.fromLTRB(0, 44, 0, 0),
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+            margin: const EdgeInsets.fromLTRB(0, 44, 0, 0),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
+                const Icon(
                   Icons.arrow_back,
                   size: 20,
                 ),
@@ -33,14 +25,14 @@ class LoginPage extends StatelessWidget {
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff212121)),
+                      color: const Color(0xff212121)),
                 )
               ],
             ),
           ),
           Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Text(
                 "enter your phone number",
                 style: GoogleFonts.poppins(
@@ -49,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 ),
               )),
           Container(
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
             child: TextField(
               decoration: InputDecoration(
                 // hintText: "Enter UserName",
@@ -57,32 +49,32 @@ class LoginPage extends StatelessWidget {
                 labelStyle: GoogleFonts.poppins(
                     fontWeight: FontWeight.w400,
                     fontSize: 14,
-                    color: Color(0xff9E9E9E)),
-                fillColor: Color(0xffF5F5F5),
+                    color: const Color(0xff9E9E9E)),
+                fillColor: const Color(0xffF5F5F5),
                 filled: true,
 
                 // icon: Icon.,
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(width: 3, color: Color(0xffE0E0E0)),
                 ),
                 border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffE0E0E0)),
+                    borderSide: const BorderSide(color: Color(0xffE0E0E0)),
                     borderRadius: BorderRadius.circular(6)),
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Container(
             child: UikButton(
                 type: "primary",
                 disabled: false,
-                rightElement: UikIcon(valIcon: Icons.favorite_border),
-                leftElement: UikIcon(valIcon: Icons.location_on),
+                rightElement: const UikIcon(valIcon: Icons.favorite_border),
+                leftElement: const UikIcon(valIcon: Icons.location_on),
                 stuck: false,
                 backgroundColor: Colors.yellow,
                 borderColor: Colors.blue),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../UikAvatar/uikAvatar.dart';
 // import '../../UikAvatar/UikAvatar.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class OrderPage extends StatelessWidget {
   final orderId;

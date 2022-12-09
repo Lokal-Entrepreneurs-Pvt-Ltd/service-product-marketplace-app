@@ -1,14 +1,11 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:login/StandardScreenClient.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/props/ApiResponse.dart';
+//import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
-
-import '../constants.dart';
+import 'package:ui_sdk/props/UikAction.dart';
 
 class UikHome extends StandardPage {
   @override
@@ -16,25 +13,17 @@ class UikHome extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add("OPEN_WEB");
     actionList.add("OPEN_HALA");
+    actionList.add("OPEN_ROUTE");
     return actionList;
   }
 
   @override
   Future<StandardScreenResponse> getData() {
-    // _printCurrentLocation();
     _determinePosition();
 
     return fetchAlbum();
   }
 
-  // void _printCurrentLocation() async {
-  //   Position getCurrentPosition = await _determinePosition();
-
-  //   print(getCurrentPosition.latitude);
-  //   print(getCurrentPosition.longitude);
-  // }
-
-  // Future<Position> _determinePosition() async {
   void _determinePosition() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
@@ -58,10 +47,24 @@ class UikHome extends StandardPage {
     }
 
     Position currentPosition = await Geolocator.getCurrentPosition();
+
     print(currentPosition.latitude);
     print(currentPosition.longitude);
+  }
 
-    // return await Geolocator.getCurrentPosition();
+  @override
+  getPageCallBackForAction() {
+    // TODO: implement getFunction
+    return of;
+  }
+
+  void of(UikAction uikAction) {
+    print("lavesh ${uikAction}");
+  }
+
+  @override
+  getPageContext() {
+    return UikHome;
   }
 }
 
@@ -70,28 +73,13 @@ Future<StandardScreenResponse> fetchAlbum() async {
     Uri.parse('http://demo6521867.mockable.io/newHomeScreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
-      //"id" : "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-      //"token" : "h45ngvJIR7PjW-MXpLaUWlKdrwk3CNjerz9U1QnK1AA.eyJpbnN0YW5jZUlkIjoiZGQ2YjVjMDEtNWNlNC00ZTc1LWE1MmUtOWM0YmM1Zjc4ZjI2IiwiYXBwRGVmSWQiOiIyMmJlZjM0NS0zYzViLTRjMTgtYjc4Mi03NGQ0MDg1MTEyZmYiLCJtZXRhU2l0ZUlkIjoiZGQ2YjVjMDEtNWNlNC00ZTc1LWE1MmUtOWM0YmM1Zjc4ZjI2Iiwic2lnbkRhdGUiOiIyMDIyLTA5LTE0VDExOjM0OjQ0Ljg4MloiLCJ1aWQiOiJlNmRiNzUwMC05Zjc1LTQwOTUtODllNC02MTVlY2I4OTFmNzgiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJzaXRlT3duZXJJZCI6ImU2ZGI3NTAwLTlmNzUtNDA5NS04OWU0LTYxNWVjYjg5MWY3OCIsInNpdGVNZW1iZXJJZCI6ImU2ZGI3NTAwLTlmNzUtNDA5NS04OWU0LTYxNWVjYjg5MWY3OCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMi0wOS0xNFQxNTozNDo0NC44ODJaIiwibG9naW5BY2NvdW50SWQiOiJlNmRiNzUwMC05Zjc1LTQwOTUtODllNC02MTVlY2I4OTFmNzgifQ"
     },
   );
 
-  print(response.body);
+  // StandardScreenResponse
   if (response.statusCode == 200) {
     return StandardScreenResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
   }
-
-  /* final dio = Dio();
-
-  dio.options.headers["ngrok-skip-browser-warning"] = "value";
-
-  // final client =
-  //     StandardScreenClient(dio, baseUrl: "https://demo1773855.mockable.io/");
-  final client =
-      StandardScreenClient(dio, baseUrl: "http://demo6521867.mockable.io/");
-
-  ApiResponse response = await client.getHomeScreen();
-
-  return StandardScreenResponse.fromJson(response.data); */
 }

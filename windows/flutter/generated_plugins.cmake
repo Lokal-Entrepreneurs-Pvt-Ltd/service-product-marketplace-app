@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   geolocator_windows
+  smart_auth
   url_launcher_windows
 )
 

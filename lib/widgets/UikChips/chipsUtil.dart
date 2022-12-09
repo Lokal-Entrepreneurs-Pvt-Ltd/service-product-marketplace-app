@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 import './chips.dart';
 

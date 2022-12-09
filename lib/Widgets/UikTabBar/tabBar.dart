@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/UikIcon/uikIcon.dart';
-// import 'package:login/Widgets/UikiIcon/uikIcon.dart';
+// import 'package:lokal/Widgets/UikiIcon/uikIcon.dart';
 
 class MyTabBar extends StatefulWidget {
   final List<IconData> ll;

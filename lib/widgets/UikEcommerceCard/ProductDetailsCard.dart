@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../UikAvatar/uikAvatar.dart';
 // import '../UikAvatar/UikAvatar.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 import '../UikButton/UikButton.dart';
 
 class ProductDetailsCard extends StatefulWidget {

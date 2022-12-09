@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:login/widgets/UikAvatar/uikAvatar.dart';
-import 'package:login/widgets/UikButton/UikButton.dart';
-import 'package:login/widgets/UikImage/uikImage.dart';
-import 'package:login/widgets/UikSwitch/UikSwitch.dart';
-import 'package:login/widgets/UikiIcon/uikIcon.dart';
+import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
+import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/UikImage/uikImage.dart';
+import 'package:lokal/widgets/UikSwitch/UikSwitch.dart';
+import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({Key? key}) : super(key: key);

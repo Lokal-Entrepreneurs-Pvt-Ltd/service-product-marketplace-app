@@ -3,29 +3,25 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyAccount extends StatelessWidget {
   final List<Widget> ll;
-  // final heading;
 
   MyAccount({required this.ll});
-  // const MyAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
-          Container(
+          SizedBox(
             width: 375,
             height: 114,
             child: Stack(
-              // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Positioned(
                   top: 56,
                   left: 16,
-                  child: Container(
+                  child: SizedBox(
                     width: 343,
                     height: 42,
-                    // margin: EdgeInsets.only(top: 100, left: 16),
                     child: Text(
                       "my account",
                       style: GoogleFonts.poppins(
@@ -33,13 +29,12 @@ class MyAccount extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   top: 18.28,
                   left: 337.28,
-                  child: Container(
+                  child: SizedBox(
                     width: 19.44,
                     height: 19.44,
-                    // margin: EdgeInsets.only(top: 100, left: 16),
                     child: Icon(Icons.settings),
                   ),
                 )

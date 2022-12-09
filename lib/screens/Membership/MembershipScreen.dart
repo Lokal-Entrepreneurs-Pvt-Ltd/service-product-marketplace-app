@@ -10,33 +10,33 @@ class MembershipPlan extends StatelessWidget {
       body: SafeArea(
         child:SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(16,30,16,0),
+            padding: const EdgeInsets.fromLTRB(16,30,16,0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Membership Plans',
+                const Text('Membership Plans',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 32,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(19, 27, 19, 16),
+                  margin: const EdgeInsets.fromLTRB(19, 27, 19, 16),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(6.82186)),
+                    borderRadius: const BorderRadius.all(Radius.circular(6.82186)),
                     border:Border.all(
-                      color:Color.fromRGBO(255,193,7,1),
+                      color:const Color.fromRGBO(255,193,7,1),
                     ),
                   ),
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         width: double.infinity,
-                        color:  Color.fromRGBO(255,193,7,1),
+                        color:  const Color.fromRGBO(255,193,7,1),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text("Lokal Membership",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -53,7 +53,7 @@ class MembershipPlan extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 15,),
+                      const SizedBox(height: 15,),
                       Benifits("Enable Internet Services"),
                       Benifits("Access to Members Area"),
                       Benifits("Shop Online Get"),
@@ -62,7 +62,7 @@ class MembershipPlan extends StatelessWidget {
                       Benifits("Shop Online Get"),
                       Benifits("Shop Online Get"),
                       Benifits("Shop Online Get"),
-                      SizedBox(height: 14,),
+                      const SizedBox(height: 14,),
                     ],
                   ),
                 ),

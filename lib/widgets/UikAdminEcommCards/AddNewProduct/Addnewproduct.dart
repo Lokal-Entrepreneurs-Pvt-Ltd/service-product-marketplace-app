@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/widgets/UikAdminEcommCards/AddNewProduct/firstcard.dart';
-import 'package:login/widgets/UikAdminEcommCards/AddNewProduct/secondcard.dart';
-import 'package:login/widgets/UikAdminEcommCards/AddNewProduct/thirdcard.dart';
+import 'package:lokal/widgets/UikAdminEcommCards/AddNewProduct/firstcard.dart';
+import 'package:lokal/widgets/UikAdminEcommCards/AddNewProduct/secondcard.dart';
+import 'package:lokal/widgets/UikAdminEcommCards/AddNewProduct/thirdcard.dart';
 
 class Addnewproduct extends StatefulWidget {
   @override
