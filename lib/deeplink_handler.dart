@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lokal/utils/routes.dart';
 
 abstract class DeeplinkHandler {
-  void openDepelink(BuildContext context, String url) {
+  static void openDeeplink(BuildContext context, String url) {
     String baseUrl = "";
     String route = "";
     Map<String, String> args = {};

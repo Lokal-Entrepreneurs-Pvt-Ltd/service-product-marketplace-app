@@ -4,7 +4,7 @@ class MyRoutes {
   static const String productsCatalogueScreen = "/productscataloguescreen";
   static const String productScreen = "/productscreen";
   static const String searchCatalogueScreen = "/searchcataloguescreen";
-  static const String orderScreen = '/ordescreenr';
+  static const String orderScreen = '/orderscreen';
   static const String filterScreen = '/filterscreen';
   static const String cartScreen = '/cartscreen';
   static const String otp = "/otp";
