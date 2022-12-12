@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 
 import 'package:lokal/pages/UikComponentDisplayer.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
+import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 
 import "./utils/routes.dart";
@@ -46,7 +49,20 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+
+  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+    fcmToken = fcmToken;
+    print(fcmToken);
+  }).onError((err) {
+    throw Exception(err);
+  });
+
   runApp(LokalApp());
+}
+
+class NavigationService {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
 
 class LokalApp extends StatefulWidget {
@@ -64,7 +80,34 @@ class _LokalAppState extends State<LokalApp> {
   @override
   void initState() {
     super.initState();
+
     AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
+
+    /* 
+      // Postman -> Headers
+      Authorization - key=<Server Key>
+      Content-Type - application/json
+
+      // Postman -> Body -> RAW -> JSON
+      {
+        "to" : "dRuG1cAsR6ife4qFF_rA2w:APA91bGY4qI-Pv1-DWQIRsBMou6pwL9OXtzOmKSKcbAq82Tr6Xdk5I4vyTCechYS4NqbCF8qkeb2YC-j1GhjXMXlrJaaBbwCWjup5aIQKproS4B49Zzrte4HCW1ZhwoMxeNQpqH23N7g",
+        "notification" : {
+            "title": "Login Screen",
+            "body" : "Login Screen"
+        },
+        "data": {
+            "click_action": "FLUTTER_NOTIFICATION_CLICK",
+            "link": "https://localee.page.link/loginscreen"
+        }
+      }
+     */
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      // print(message.data["link"]);
+
+      DeeplinkHandler.openDeeplink(
+          NavigationService.navigatorKey.currentContext!, message.data["link"]);
+    });
   }
 
   // This widget is the root of your application.
@@ -81,19 +124,17 @@ class _LokalAppState extends State<LokalApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorKey: NavigationService.navigatorKey,
         routes: {
           "/": (context) => UikBottomNavigationBar(),
-          MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginScreen: (context) => LoginPage(),
-          // MyRoutes.homeScreen: (context) => UikComponentDisplayer().page,
+          MyRoutes.homeScreen: (context) => UikHome().page,
+          MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
+          MyRoutes.productScreen: (context) => UikProductPage().page,
+          MyRoutes.searchCatalogueScreen: (context) => UikSearchCatalog().page,
+          MyRoutes.orderScreen: (context) => UikOrder().page,
           MyRoutes.filterScreen: (context) => UikFilter().page,
           MyRoutes.cartScreen: (context) => UikCart().page,
-          MyRoutes.orderScreen: (context) => UikOrder().page,
-          // MyRoutes.productsCatalogueScreen: (context) => UikProductPage().page,
-          MyRoutes.productsCatalogueScreen: (context) =>
-              UikCatalogScreen().page,
-          MyRoutes.homeScreen: (context) => UikHome().page,
-          MyRoutes.productScreen: (context) => UikProductPage().page,
         },
       ),
     );
