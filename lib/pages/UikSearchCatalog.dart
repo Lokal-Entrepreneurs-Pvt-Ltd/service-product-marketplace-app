@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
@@ -19,15 +20,18 @@ class UikSearchCatalog extends StandardPage {
   }
 
   @override
-  getFunction() {
+  getPageCallBackForAction() {
     // TODO: implement getFunction
-    throw UnimplementedError();
+    // throw UnimplementedError();
+    return of;
   }
 
+  void of() {}
+
   @override
-  getReference() {
+  getPageContext() {
     // TODO: implement getReference
-    throw UnimplementedError();
+    return UikSearchCatalog;
   }
 }
 
@@ -36,7 +40,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
     Uri.parse('https://demo1595178.mockable.io/SearchCategory'),
     headers: {
       "ngrok-skip-browser-warning": "value",
-       },
+    },
   );
 
   // StandardScreenResponse
@@ -45,5 +49,4 @@ Future<StandardScreenResponse> fetchAlbum() async {
   } else {
     throw Exception('Failed to load album');
   }
-
 }
