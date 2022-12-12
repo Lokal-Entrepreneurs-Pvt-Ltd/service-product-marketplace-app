@@ -47,7 +47,7 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case MyRoutes.productsCatalogueScreen:
+      case MyRoutes.catalogueScreen:
         {
           if (args["catalogueId"] != null) {
             _pushScreen(context, MyRoutes.loginScreen);

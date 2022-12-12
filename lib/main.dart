@@ -8,6 +8,7 @@ import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikComponentDisplayer.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
+import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 
 import "./utils/routes.dart";
@@ -82,6 +83,25 @@ class _LokalAppState extends State<LokalApp> {
 
     AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
 
+    /* 
+      // Postman -> Headers
+      Authorization - key=<Server Key>
+      Content-Type - application/json
+
+      // Postman -> Body -> RAW -> JSON
+      {
+        "to" : "dRuG1cAsR6ife4qFF_rA2w:APA91bGY4qI-Pv1-DWQIRsBMou6pwL9OXtzOmKSKcbAq82Tr6Xdk5I4vyTCechYS4NqbCF8qkeb2YC-j1GhjXMXlrJaaBbwCWjup5aIQKproS4B49Zzrte4HCW1ZhwoMxeNQpqH23N7g",
+        "notification" : {
+            "title": "Login Screen",
+            "body" : "Login Screen"
+        },
+        "data": {
+            "click_action": "FLUTTER_NOTIFICATION_CLICK",
+            "link": "https://localee.page.link/loginscreen"
+        }
+      }
+     */
+
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       // print(message.data["link"]);
 
@@ -107,17 +127,14 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         routes: {
           "/": (context) => UikBottomNavigationBar(),
-          MyRoutes.otp: (context) => Otp(),
           MyRoutes.loginScreen: (context) => LoginPage(),
-          // MyRoutes.homeScreen: (context) => UikComponentDisplayer().page,
+          MyRoutes.homeScreen: (context) => UikHome().page,
+          MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
+          MyRoutes.productScreen: (context) => UikProductPage().page,
+          MyRoutes.searchCatalogueScreen: (context) => UikSearchCatalog().page,
+          MyRoutes.orderScreen: (context) => UikOrder().page,
           MyRoutes.filterScreen: (context) => UikFilter().page,
           MyRoutes.cartScreen: (context) => UikCart().page,
-          MyRoutes.orderScreen: (context) => UikOrder().page,
-          // MyRoutes.productsCatalogueScreen: (context) => UikProductPage().page,
-          MyRoutes.productsCatalogueScreen: (context) =>
-              UikCatalogScreen().page,
-          MyRoutes.homeScreen: (context) => UikHome().page,
-          MyRoutes.productScreen: (context) => UikProductPage().page,
         },
       ),
     );
