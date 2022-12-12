@@ -1,14 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 
-import 'package:lokal/pages/UikComponentDisplayer.dart';
+import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
+import 'package:lokal/pages/crashlytics.dart';
+import 'package:lokal/utils/AppInitializer.dart';
+import 'package:ui_sdk/main.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 
 import "./utils/routes.dart";
@@ -45,9 +50,17 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  await Firebase.initializeApp();
+  
+  FlutterError.onError = (errorDetails) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  };
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
 
   final fcmToken = await FirebaseMessaging.instance.getToken();
 
@@ -169,3 +182,4 @@ class HomePage extends StandardPage {
     return HomePage;
   }
 }
+

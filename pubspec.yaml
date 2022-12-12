@@ -58,6 +58,8 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
+  firebase_crashlytics: ^3.0.6
+  firebase_analytics: ^10.0.6
   ui_sdk: ^1.0.25+1
 
 dev_dependencies:
