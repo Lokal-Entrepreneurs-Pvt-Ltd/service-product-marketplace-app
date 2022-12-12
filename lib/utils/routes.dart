@@ -1,4 +1,3 @@
-class MyRoutes {
   static const String loginScreen = '/loginscreen';
   static const String homeScreen = '/homescreen';
   static const String catalogueScreen = "/cataloguescreen";
