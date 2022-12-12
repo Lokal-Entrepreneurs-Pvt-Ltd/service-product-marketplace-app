@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 
 import 'package:lokal/pages/UikComponentDisplayer.dart';
@@ -46,7 +48,20 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+
+  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+    fcmToken = fcmToken;
+    print(fcmToken);
+  }).onError((err) {
+    throw Exception(err);
+  });
+
   runApp(LokalApp());
+}
+
+class NavigationService {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
 
 class LokalApp extends StatefulWidget {
@@ -64,7 +79,15 @@ class _LokalAppState extends State<LokalApp> {
   @override
   void initState() {
     super.initState();
+
     AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      // print(message.data["link"]);
+
+      DeeplinkHandler.openDeeplink(
+          NavigationService.navigatorKey.currentContext!, message.data["link"]);
+    });
   }
 
   // This widget is the root of your application.
@@ -81,6 +104,7 @@ class _LokalAppState extends State<LokalApp> {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorKey: NavigationService.navigatorKey,
         routes: {
           "/": (context) => UikBottomNavigationBar(),
           MyRoutes.otp: (context) => Otp(),
