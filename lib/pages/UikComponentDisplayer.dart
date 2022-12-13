@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:lokal/StandardScreenClient.dart';
+import 'package:lokal/utils/network/retrofit/api_client.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
+import 'package:dio/dio.dart';
 
+import '../utils/network/retrofit/api_client.dart';
 class UikComponentDisplayer extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -15,9 +17,8 @@ class UikComponentDisplayer extends StandardPage {
   }
 
   @override
-  Future<StandardScreenResponse> getData() {
-    // TODO: implement getData
-    return fetchAlbum();
+  Future<ApiResponse> getData() {
+    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
   }
 
   @override

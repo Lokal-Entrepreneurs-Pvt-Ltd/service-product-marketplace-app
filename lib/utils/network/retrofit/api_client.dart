@@ -1,34 +1,24 @@
 import 'package:lokal/constants.dart';
+import 'package:lokal/utils/network/retrofit/apis.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
-part 'StandardScreenClient.g.dart';
+import '../../storage/user_data_handler.dart';
+
+part 'api_client.g.dart';
 
 @RestApi(baseUrl: baseUrl)
 abstract class StandardScreenClient {
+
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
   @GET("/")
   Future<ApiResponse> getResponse();
 
-  @GET("/MainPageOne")
-  Future<ApiResponse> getMainPageOne();
-
-  @GET("/MainPageTwo")
-  Future<ApiResponse> getMainPageTwo();
-
-  @GET("/newHomeScreen")
+  @POST(Apis.homescreen)
   Future<ApiResponse> getHomeScreen();
 
-  @GET("/CatalogScreen")
-  Future<ApiResponse> getCatalogSreen();
-
-  @GET("/SearchCategory")
-  Future<ApiResponse> getSearchCatalogScreen();
-
-  @POST("/discovery/get")
-  Future<ApiResponse> getbackendScreen();
 }

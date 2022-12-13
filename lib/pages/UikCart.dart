@@ -2,8 +2,12 @@ import 'dart:convert';
 
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+
+import '../utils/network/retrofit/api_client.dart';
 
 class UikCart extends StandardPage {
   @override
@@ -15,9 +19,9 @@ class UikCart extends StandardPage {
   }
 
   @override
-  Future<StandardScreenResponse> getData() {
+  Future<ApiResponse> getData() {
     // TODO: implement getData
-    return fetchAlbum();
+    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
   }
 
   @override

@@ -21,9 +21,9 @@ class UikBottomNavigationBar extends StatelessWidget {
             children: [
               // UikComponentDisplayer().page,
               UikHome().page,
-              UikCatalogScreen().page,
-              UikSearchCatalog().page,
-              UikProductPage().page,
+              // UikCatalogScreen().page,
+              // UikSearchCatalog().page,
+              // UikProductPage().page,
               // UikOrder().page,
               // UikFilter().page,
               // UikCart().page
