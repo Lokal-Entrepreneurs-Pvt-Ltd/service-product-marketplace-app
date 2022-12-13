@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/utils/routes.dart';
+import 'package:lokal/routes.dart';
 
 abstract class DeeplinkHandler {
   static void openDeeplink(BuildContext context, String url) {
