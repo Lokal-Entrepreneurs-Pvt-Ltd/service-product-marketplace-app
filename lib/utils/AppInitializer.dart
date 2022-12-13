@@ -10,7 +10,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
 import '../firebase_options.dart';
-import '../testing/notificationController.dart';
+import '../notifications//notificationController.dart';
 
 
  class AppInitializer {

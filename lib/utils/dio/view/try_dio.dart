@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/screens/Dio/models/product_provider.dart';
+import 'package:lokal/utils/Dio/models/product_provider.dart';
 import 'package:provider/provider.dart';
 
 class TryDio extends StatefulWidget {

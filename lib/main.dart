@@ -11,29 +11,29 @@ import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
-import 'package:lokal/pages/crashlytics.dart';
+import 'package:lokal/utils/crashlytics.dart';
 import 'package:lokal/utils/AppInitializer.dart';
+import 'package:lokal/utils/Dio/models/product_provider.dart';
 import 'package:ui_sdk/main.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 
-import "./utils/routes.dart";
-import './pages/login.dart';
-import './pages/otp.dart';
+import 'routes.dart';
+import 'screens/login.dart';
+import 'screens/otp.dart';
 
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/pages/UikCart.dart';
 import 'package:lokal/pages/UikFilter.dart';
 import 'package:lokal/pages/UikOrder.dart';
-import 'package:lokal/screens/Dio/models/product_provider.dart';
-import 'package:lokal/screens/SharedPrefs/shared_prefs.dart';
+import 'package:lokal/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 
-import "./utils/routes.dart";
-import './pages/login.dart';
-import './pages/otp.dart';
+import 'routes.dart';
+import 'screens/login.dart';
+import 'screens/otp.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
@@ -129,10 +129,10 @@ class _LokalAppState extends State<LokalApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => DarkThemeProvider(),
+          create: (context) => ProuctProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => ProuctProvider(),
+          create: (context) => DarkThemeProvider(),
         ),
       ],
       child: MaterialApp(
