@@ -1,10 +1,10 @@
 import 'dart:convert';
-
-import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
+import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
-
+import 'package:dio/dio.dart';
+import '../utils/network/retrofit/api_client.dart';
 class UikSearchCatalog extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -15,8 +15,8 @@ class UikSearchCatalog extends StandardPage {
   }
 
   @override
-  Future<StandardScreenResponse> getData() {
-    return fetchAlbum();
+  Future<ApiResponse> getData() {
+    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
   }
 
   @override

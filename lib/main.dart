@@ -4,9 +4,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:lokal/deeplink_handler.dart';
-import 'package:lokal/pages/UikCatalogScreen.dart';
-
+import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
@@ -14,33 +12,15 @@ import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/crashlytics.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/Dio/models/product_provider.dart';
-import 'package:ui_sdk/main.dart';
-import 'package:lokal/utils/AppInitializer.dart';
-
 import 'routes.dart';
 import 'screens/login.dart';
-import 'screens/otp.dart';
 
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/pages/UikCart.dart';
 import 'package:lokal/pages/UikFilter.dart';
 import 'package:lokal/pages/UikOrder.dart';
-import 'package:lokal/storage/shared_prefs.dart';
+import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
-
-import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
-
-import 'routes.dart';
-import 'screens/login.dart';
-import 'screens/otp.dart';
-import 'package:http/http.dart' as http;
-
-import 'dart:convert';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-
-import 'pages/UikCatalogScreen.dart';
 
 var appInit;
 
@@ -88,7 +68,6 @@ class LokalApp extends StatefulWidget {
 }
 
 class _LokalAppState extends State<LokalApp> {
-  bool _isCreatingLink = false;
 
   @override
   void initState() {
@@ -151,35 +130,6 @@ class _LokalAppState extends State<LokalApp> {
         },
       ),
     );
-  }
-}
-
-class HomePage extends StandardPage {
-  @override
-  Future<StandardScreenResponse> getData() {
-    return null!;
-  }
-
-  @override
-  Set<String?> getActions() {
-    Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
-    return actionList;
-  }
-
-  @override
-  getPageCallBackForAction() {
-    // TODO: implement getPageCallBackForAction
-    return of;
-  }
-
-  void of() {}
-
-  @override
-  getPageContext() {
-    // TODO: implement getPageContext
-    return HomePage;
   }
 }
 
