@@ -1,3 +1,4 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -117,6 +118,7 @@ class _LokalAppState extends State<LokalApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
+        navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
           "/": (context) => UikBottomNavigationBar(),
           MyRoutes.loginScreen: (context) => LoginPage(),

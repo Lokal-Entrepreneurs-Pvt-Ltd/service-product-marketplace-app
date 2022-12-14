@@ -21,11 +21,8 @@ class UikHome extends StandardPage {
 
   void onHomeScreenTapAction() {}
 
-
-
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
     return onHomeScreenTapAction;
   }
 
@@ -35,18 +32,3 @@ class UikHome extends StandardPage {
   }
 }
 
-// Future<StandardScreenResponse> fetchAlbum() async {
-//   final response = await http.get(
-//     Uri.parse('http://demo6521867.mockable.io/newHomeScreen'),
-//     headers: {
-//       "ngrok-skip-browser-warning": "value",
-//     },
-//   );
-//
-//   // StandardScreenResponse
-//   if (response.statusCode == 200) {
-//     return StandardScreenResponse.fromJson(jsonDecode(response.body));
-//   } else {
-//     throw Exception('Failed to load album');
-//   }
-// }

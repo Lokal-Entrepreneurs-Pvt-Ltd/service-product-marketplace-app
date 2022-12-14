@@ -1,3 +1,4 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:lokal/utils/network/NetworkInterceptor.dart';
 import 'package:lokal/utils/network/retrofit/api_client.dart';
@@ -18,12 +19,16 @@ class ApiRepository {
         'Authorization': 'Bearer $authToken'
       };
       dio.options.headers = headers;
-     // dio.interceptors.add(NetworkInterceptor());
+      dio.interceptors.add(ChuckerDioInterceptor());
       return dio;
     }
 
    static Future<ApiResponse> getHomescreen(){
       return StandardScreenClient(getDio()).getHomeScreen();
+    }
+
+    static Future<ApiResponse> getCatalog(){
+      return StandardScreenClient(getDio()).getCatlaog();
     }
  }
 
