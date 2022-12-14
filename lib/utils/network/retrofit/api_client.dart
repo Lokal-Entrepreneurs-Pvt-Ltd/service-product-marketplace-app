@@ -21,4 +21,7 @@ abstract class StandardScreenClient {
   @POST(Apis.homescreen)
   Future<ApiResponse> getHomeScreen();
 
+  @POST(Apis.catalog)
+  Future<ApiResponse> getCatlaog();
+
 }
