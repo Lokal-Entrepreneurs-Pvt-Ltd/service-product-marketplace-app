@@ -18,10 +18,15 @@ abstract class StandardScreenClient {
   @GET("/")
   Future<ApiResponse> getResponse();
 
-  @POST(Apis.homescreen)
+  @GET(Apis.homescreen)
   Future<ApiResponse> getHomeScreen();
 
-  @POST(Apis.catalog)
-  Future<ApiResponse> getCatlaog();
-
+  @GET(Apis.catalog)
+  Future<ApiResponse> getCatlogue();
+  
+  @GET(Apis.productscreen)
+  Future<ApiResponse> getProductScreen();
+  
+  @GET(Apis.search)
+  Future<ApiResponse> getSearchScreen();
 }

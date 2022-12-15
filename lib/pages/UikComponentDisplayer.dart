@@ -23,8 +23,6 @@ class UikComponentDisplayer extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
     return of();
   }
 
@@ -32,16 +30,12 @@ class UikComponentDisplayer extends StandardPage {
   
   @override
   getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
     return UikCatalogScreen();
-    throw UnimplementedError();
   }
 
   @override
   getPageContext() {
-    // TODO: implement getReference
-    throw UnimplementedError();
+    return UikComponentDisplayer();
   }
 }
 

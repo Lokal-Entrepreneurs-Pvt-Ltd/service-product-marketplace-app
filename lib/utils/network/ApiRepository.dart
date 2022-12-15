@@ -27,8 +27,16 @@ class ApiRepository {
       return StandardScreenClient(getDio()).getHomeScreen();
     }
 
-    static Future<ApiResponse> getCatalog(){
-      return StandardScreenClient(getDio()).getCatlaog();
+    static Future<ApiResponse> getCatalogue(){
+      return StandardScreenClient(getDio()).getCatlogue();
+    }
+    
+    static Future<ApiResponse> getProductScreen() {
+      return StandardScreenClient(getDio()).getProductScreen();
+    }
+    
+    static Future<ApiResponse> getSearchScreen() {
+      return StandardScreenClient(getDio()).getSearchScreen();
     }
  }
 
