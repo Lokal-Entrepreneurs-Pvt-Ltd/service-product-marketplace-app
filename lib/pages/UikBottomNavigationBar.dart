@@ -10,7 +10,7 @@ class UikBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 4,
+        length: 1,
         child: Scaffold(
           // appBar: AppBar(
           //   backgroundColor: Color(0xFF3F5AA6),
