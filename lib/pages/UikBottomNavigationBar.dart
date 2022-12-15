@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
+import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 
@@ -15,12 +16,13 @@ class UikBottomNavigationBar extends StatelessWidget {
           // appBar: AppBar(
           //   backgroundColor: Color(0xFF3F5AA6),
           //   title: Text("Title text"),
-          // ),
+          // ), 
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
               // UikComponentDisplayer().page,
-              UikHome().page,
+              // UikHome().page,
+              UikPaymentDetailsScreen().page,
               // UikCatalogScreen().page,
               // UikSearchCatalog().page,
               // UikProductPage().page,
@@ -50,15 +52,15 @@ class UikBottomNavigationBar extends StatelessWidget {
             Tab(
               icon: Icon(Icons.euro_symbol),
             ),
-            Tab(
-              icon: Icon(Icons.assignment),
-            ),
-            Tab(
-              icon: Icon(Icons.account_balance_wallet),
-            ),
-            Tab(
-              icon: Icon(Icons.settings),
-            ),
+            // Tab(
+            //   icon: Icon(Icons.assignment),
+            // ),
+            // Tab(
+            //   icon: Icon(Icons.account_balance_wallet),
+            // ),
+            // Tab(
+            //   icon: Icon(Icons.settings),
+            // ),
           ],
         ),
       ),

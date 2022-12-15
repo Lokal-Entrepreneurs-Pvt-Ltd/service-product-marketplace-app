@@ -4,4 +4,5 @@ class Apis {
   static const String catalog = '/cataloguescreen';
   static const String search = '/searchcataloguescreen';
   static const String productscreen = '/productscreen';
+  static const String paymentdetailsscreen = '/paymentdetailsscreen';
 }

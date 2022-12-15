@@ -38,6 +38,8 @@ class ApiRepository {
     static Future<ApiResponse> getSearchScreen() {
       return StandardScreenClient(getDio()).getSearchScreen();
     }
+    
+    static Future<ApiResponse> getPaymentDetailsScreen() {
+      return StandardScreenClient(getDio(), baseUrl: "https://demo8023603.mockable.io/").getPaymentDetailsScreen();
+    }
  }
-
-
