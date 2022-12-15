@@ -29,4 +29,7 @@ abstract class StandardScreenClient {
   
   @GET(Apis.search)
   Future<ApiResponse> getSearchScreen();
+  
+  @GET(Apis.paymentdetailsscreen)
+  Future<ApiResponse> getPaymentDetailsScreen();
 }
