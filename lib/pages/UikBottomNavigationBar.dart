@@ -12,7 +12,7 @@ class UikBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: DefaultTabController(
-        length: 1,
+        length: 4,
         child: Scaffold(
           // appBar: AppBar(
           //   backgroundColor: Color(0xFF3F5AA6),
@@ -22,12 +22,12 @@ class UikBottomNavigationBar extends StatelessWidget {
           body: TabBarView(
             children: [
               // UikComponentDisplayer().page,
-              // UikHome().page,
+              UikHome().page,
               // UikPaymentDetailsScreen().page,
-              UikOrderScreen().page,
-              // UikCatalogScreen().page,
-              // UikSearchCatalog().page,
-              // UikProductPage().page,
+              // UikOrderScreen().page,
+              UikCatalogScreen().page,
+              UikSearchCatalog().page,
+              UikProductPage().page,
               // UikOrder().page,
               // UikFilter().page,
               // UikCart().page
@@ -54,15 +54,15 @@ class UikBottomNavigationBar extends StatelessWidget {
             Tab(
               icon: Icon(Icons.euro_symbol),
             ),
-            // Tab(
-            //   icon: Icon(Icons.assignment),
-            // ),
-            // Tab(
-            //   icon: Icon(Icons.account_balance_wallet),
-            // ),
-            // Tab(
-            //   icon: Icon(Icons.settings),
-            // ),
+            Tab(
+              icon: Icon(Icons.assignment),
+            ),
+            Tab(
+              icon: Icon(Icons.account_balance_wallet),
+            ),
+            Tab(
+              icon: Icon(Icons.settings),
+            ),
           ],
         ),
       ),
