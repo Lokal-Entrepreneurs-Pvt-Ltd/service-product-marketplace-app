@@ -12,7 +12,7 @@ import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/crashlytics.dart';
 import 'package:lokal/utils/AppInitializer.dart';
-import 'package:lokal/utils/Dio/models/product_provider.dart';
+import 'package:lokal/utils/dio/models/product_provider.dart';
 import 'routes.dart';
 import 'screens/login.dart';
 

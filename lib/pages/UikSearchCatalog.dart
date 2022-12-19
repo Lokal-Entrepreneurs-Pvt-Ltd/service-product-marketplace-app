@@ -21,8 +21,6 @@ class UikSearchCatalog extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
     return of;
   }
 
@@ -30,7 +28,6 @@ class UikSearchCatalog extends StandardPage {
 
   @override
   getPageContext() {
-    // TODO: implement getReference
     return UikSearchCatalog;
   }
 }
