@@ -27,9 +27,19 @@ class ApiRepository {
       return StandardScreenClient(getDio()).getHomeScreen();
     }
 
-    static Future<ApiResponse> getCatalog(){
-      return StandardScreenClient(getDio()).getCatlaog();
+    static Future<ApiResponse> getCatalogue(){
+      return StandardScreenClient(getDio()).getCatlogue();
+    }
+    
+    static Future<ApiResponse> getProductScreen() {
+      return StandardScreenClient(getDio()).getProductScreen();
+    }
+    
+    static Future<ApiResponse> getSearchScreen() {
+      return StandardScreenClient(getDio()).getSearchScreen();
+    }
+    
+    static Future<ApiResponse> getPaymentDetailsScreen() {
+      return StandardScreenClient(getDio(), baseUrl: "https://demo8023603.mockable.io/").getPaymentDetailsScreen();
     }
  }
-
-

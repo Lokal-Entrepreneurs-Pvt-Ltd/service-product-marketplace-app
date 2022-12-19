@@ -20,20 +20,18 @@ class UikCatalogScreen extends StandardPage {
   @override
   Future<ApiResponse> getData() {
 
-    return ApiRepository.getCatalog();
+    return ApiRepository.getCatalogue();
   }
 
   void of() {}
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getPageCallBackForAction
     return of;
   }
 
   @override
   getPageContext() {
-    // TODO: implement getPageContext
     return UikCatalogScreen;
   }
 }
