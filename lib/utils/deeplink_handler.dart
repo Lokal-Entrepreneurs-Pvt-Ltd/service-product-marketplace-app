@@ -55,7 +55,7 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case MyRoutes.searchCatalogueScreen:
+      case MyRoutes.search:
         {
           if (args.isEmpty) {
             _pushScreen(context, MyRoutes.loginScreen);
@@ -117,7 +117,7 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case MyRoutes.searchCatalogueScreen:
+      case MyRoutes.search:
         {
           if (args.isEmpty) {
             _pushScreen(context, MyRoutes.loginScreen);
