@@ -16,8 +16,7 @@ abstract class UserDataHandler {
 
   static Future<String> getUserToken() async {
     final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString("userToken") ?? "";
+    return prefs.getString('userToken') ?? "";
   }
 
   static Future<String> getUserEmail() async {

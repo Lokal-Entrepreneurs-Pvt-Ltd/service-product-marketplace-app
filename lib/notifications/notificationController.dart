@@ -2,8 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
 import 'package:http/http.dart' as http;
+import 'package:lokal/main.dart';
 
 class NotificationController {
   static Future<void> mySilentDataHandle(FcmSilentData silentData) async {

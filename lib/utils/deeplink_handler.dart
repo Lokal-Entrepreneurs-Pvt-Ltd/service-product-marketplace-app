@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/utils/routes.dart';
+import 'package:lokal/routes.dart';
 
 abstract class DeeplinkHandler {
-  void openDeeplink(BuildContext context, String url) {
+  static void openDeeplink(BuildContext context, String url) {
     // Url formatl -> https://localee.co.in/productscreen?categoryid=1&productid=1
     String baseUrl = "";
     String route = "";
@@ -48,7 +48,7 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case MyRoutes.productsCatalogueScreen:
+      case MyRoutes.catalogueScreen:
         {
           if (args["catalogueId"] != null) {
             _pushScreen(context, MyRoutes.loginScreen);
@@ -110,7 +110,7 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case MyRoutes.productsCatalogueScreen:
+      case MyRoutes.catalogueScreen:
         {
           if (args["catalogueId"] != null) {
             _pushScreen(context, MyRoutes.loginScreen);
