@@ -31,9 +31,8 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-
   await Firebase.initializeApp();
-  
+
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
@@ -49,6 +48,7 @@ void main() async {
     fcmToken = fcmToken;
     print(fcmToken);
   }).onError((err) {
+    print("error");
     throw Exception(err);
   });
 
@@ -69,7 +69,6 @@ class LokalApp extends StatefulWidget {
 }
 
 class _LokalAppState extends State<LokalApp> {
-
   @override
   void initState() {
     super.initState();
@@ -134,4 +133,3 @@ class _LokalAppState extends State<LokalApp> {
     );
   }
 }
-

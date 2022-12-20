@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import '../utils/network/retrofit/api_client.dart';
+
 class UikFilter extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -19,7 +20,9 @@ class UikFilter extends StandardPage {
 
   @override
   Future<ApiResponse> getData() {
-    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
+    return StandardScreenClient(
+            Dio(BaseOptions(contentType: "application/json")))
+        .getHomeScreen();
   }
 
   @override
@@ -30,19 +33,11 @@ class UikFilter extends StandardPage {
   }
 
   void of() {}
-  
-  @override
-  getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
-    throw UnimplementedError();
-  }
 
   @override
   getPageContext() {
     // TODO: implement getReference
-    throw UnimplementedError();
+    return UikFilter;
   }
 }
 
