@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import '../utils/network/retrofit/api_client.dart';
+
 class UikPrice extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -19,30 +20,23 @@ class UikPrice extends StandardPage {
 
   @override
   Future<ApiResponse> getData() {
-    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
+    return StandardScreenClient(
+            Dio(BaseOptions(contentType: "application/json")))
+        .getHomeScreen();
   }
 
   @override
   getPageCallBackForAction() {
     // TODO: implement getFunction
     // throw UnimplementedError();
-    return of();
+    return of;
   }
 
   void of() {}
-  
-  @override
-  getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
-    throw UnimplementedError();
-  }
 
   @override
   getPageContext() {
-    // TODO: implement getReference
-    throw UnimplementedError();
+    return UikPrice;
   }
 }
 

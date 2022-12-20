@@ -33,18 +33,11 @@ class UikCart extends StandardPage {
 
   void of() {}
   
-  @override
-  getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
-    throw UnimplementedError();
-  }
+  
 
   @override
   getPageContext() {
-    // TODO: implement getReference
-    throw UnimplementedError();
+    return UikCart;
   }
 }
 
