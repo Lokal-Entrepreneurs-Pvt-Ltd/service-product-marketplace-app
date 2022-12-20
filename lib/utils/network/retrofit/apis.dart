@@ -6,4 +6,6 @@ class Apis {
   static const String productscreen = '/productscreen';
   static const String paymentdetailsscreen = '/paymentdetailsscreen';
   static const String orderscreen = '/orderscreen';
+  static const String cartscreen = '/cartscreen';
+  static const String emptycartscreen = '/emptycartscreen';
 }

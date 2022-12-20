@@ -35,4 +35,10 @@ abstract class StandardScreenClient {
   
   @GET(Apis.orderscreen)
   Future<ApiResponse> getOrderScreen();
+  
+  @GET(Apis.cartscreen)
+  Future<ApiResponse> getCartScreen();
+  
+  @GET(Apis.emptycartscreen)
+  Future<ApiResponse> getEmptyCartScreen();
 }
