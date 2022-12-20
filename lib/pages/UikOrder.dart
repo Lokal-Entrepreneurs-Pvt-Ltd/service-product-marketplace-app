@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
+import '../utils/network/retrofit/api_client.dart';
 class UikOrder extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -15,15 +18,12 @@ class UikOrder extends StandardPage {
   }
 
   @override
-  Future<StandardScreenResponse> getData() {
-    // TODO: implement getData
-    return fetchAlbum();
+  Future<ApiResponse> getData() {
+    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
   }
 
   @override
-  getFunction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
+  getPageCallBackForAction() {
     return of();
   }
 
@@ -31,9 +31,12 @@ class UikOrder extends StandardPage {
   
   @override
   getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
     return UikCatalogScreen();
+  }
+
+  @override
+  getPageContext() {
+    throw UikOrder();
   }
 }
 

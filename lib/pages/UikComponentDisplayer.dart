@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:lokal/StandardScreenClient.dart';
+import 'package:lokal/utils/network/retrofit/api_client.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
+import 'package:dio/dio.dart';
 
+import '../utils/network/retrofit/api_client.dart';
 class UikComponentDisplayer extends StandardPage {
-
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -16,15 +17,12 @@ class UikComponentDisplayer extends StandardPage {
   }
 
   @override
-  Future<StandardScreenResponse> getData() {
-    // TODO: implement getData
-    return fetchAlbum();
+  Future<ApiResponse> getData() {
+    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
   }
 
   @override
-  getFunction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
+  getPageCallBackForAction() {
     return of();
   }
 
@@ -32,9 +30,12 @@ class UikComponentDisplayer extends StandardPage {
   
   @override
   getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
     return UikCatalogScreen();
+  }
+
+  @override
+  getPageContext() {
+    return UikComponentDisplayer();
   }
 }
 
@@ -45,7 +46,6 @@ Future<StandardScreenResponse> fetchAlbum() async {
 
   print("Hello World!");
 
-
   final dio = Dio();
 
   dio.options.headers["ngrok-skip-browser-warning"] = "value";
@@ -53,7 +53,6 @@ Future<StandardScreenResponse> fetchAlbum() async {
   final client = StandardScreenClient(dio);
 
   ApiResponse response = await client.getResponse();
-
 
   return StandardScreenResponse.fromJson(response.data);
 }

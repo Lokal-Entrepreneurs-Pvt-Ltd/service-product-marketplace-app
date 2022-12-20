@@ -2,9 +2,8 @@
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import '../utils/network/retrofit/api_client.dart';
 
-class UikHome extends StandardPage {
+class UikPaymentDetailsScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -16,19 +15,18 @@ class UikHome extends StandardPage {
 
   @override
   Future<ApiResponse> getData() {
-    return ApiRepository.getHomescreen();
+    return ApiRepository.getPaymentDetailsScreen();
   }
 
-  void onHomeScreenTapAction() {}
+  void onPaymentDetailsScreenTapAction() {}
 
   @override
   getPageCallBackForAction() {
-    return onHomeScreenTapAction;
+    return onPaymentDetailsScreenTapAction;
   }
 
   @override
   getPageContext() {
-    return UikHome;
+    return UikPaymentDetailsScreen;
   }
 }
-

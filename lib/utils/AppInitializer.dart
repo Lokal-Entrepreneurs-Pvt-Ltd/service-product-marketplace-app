@@ -9,13 +9,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
-import '../firebase_options.dart';
-import '../testing/notificationController.dart';
+import 'firebase/firebase_options.dart';
+import '../notifications//notificationController.dart';
 
 
  class AppInitializer {
-
-
 
     init()  {
      _initNotifications();
@@ -68,6 +66,12 @@ import '../testing/notificationController.dart';
        });
      }
    }
+
+   launchHomescreen(){
+
+   }
+
+
 
    static Future<void> initDynamicLinks(BuildContext context, FirebaseDynamicLinks _dynamicLinks) async {
 

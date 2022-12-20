@@ -2,37 +2,38 @@ import 'dart:convert';
 
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
+import '../utils/network/ApiRepository.dart';
+import '../utils/network/retrofit/api_client.dart';
 class UikProductPage extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add("OPEN_WEB");
     actionList.add("OPEN_HALA");
+    actionList.add("OPEN_ROUTE");
     return actionList;
   }
 
   @override
-  Future<StandardScreenResponse> getData() {
-    return fetchAlbum();
+  Future<ApiResponse> getData() {
+    return ApiRepository.getProductScreen();
+  }
+
+  void onProductPageTapAction() {}
+
+  @override
+  getPageCallBackForAction() {
+    return onProductPageTapAction;
   }
 
   @override
-  getFunction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
-    return of();
-  }
-
-  void of() {}
-  
-  @override
-  getReference() {
-    // TODO: implement getReference
-    // throw UnimplementedError();
-    return UikCatalogScreen();
+  getPageContext() {
+    return UikProductPage;
   }
 }
 
@@ -41,7 +42,7 @@ Future<StandardScreenResponse> fetchAlbum() async {
     Uri.parse('http://demo7907509.mockable.io/ProductPage'),
     headers: {
       "ngrok-skip-browser-warning": "value",
-       },
+    },
   );
 
   // StandardScreenResponsee
@@ -50,5 +51,4 @@ Future<StandardScreenResponse> fetchAlbum() async {
   } else {
     throw Exception('Failed to load album');
   }
-
 }
