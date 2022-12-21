@@ -5,6 +5,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
@@ -12,8 +13,9 @@ import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/crashlytics.dart';
 import 'package:lokal/utils/AppInitializer.dart';
-import 'package:lokal/utils/Dio/models/product_provider.dart';
+//import 'package:lokal/utils/dio/models/product_provider.dart';
 import 'routes.dart';
+import 'screens/Onboarding/OnboardingScreen.dart';
 import 'screens/login.dart';
 
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
@@ -108,9 +110,6 @@ class _LokalAppState extends State<LokalApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ProuctProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => DarkThemeProvider(),
         ),
       ],
@@ -119,12 +118,13 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-          "/": (context) => UikBottomNavigationBar(),
+          // "/": (context) => UikOrderScreen().page,
+          "/": (context) => OnboardingScreen(),
           MyRoutes.loginScreen: (context) => LoginPage(),
           MyRoutes.homeScreen: (context) => UikHome().page,
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
-          MyRoutes.searchCatalogueScreen: (context) => UikSearchCatalog().page,
+          MyRoutes.searchScreen: (context) => UikSearchCatalog().page,
           MyRoutes.orderScreen: (context) => UikOrder().page,
           MyRoutes.filterScreen: (context) => UikFilter().page,
           MyRoutes.cartScreen: (context) => UikCart().page,

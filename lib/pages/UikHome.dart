@@ -1,7 +1,10 @@
-
+import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
+
 import 'package:ui_sdk/props/ApiResponse.dart';
+import 'package:ui_sdk/props/UikAction.dart';
+import '../main.dart';
 import '../utils/network/retrofit/api_client.dart';
 
 class UikHome extends StandardPage {
@@ -19,7 +22,13 @@ class UikHome extends StandardPage {
     return ApiRepository.getHomescreen();
   }
 
-  void onHomeScreenTapAction() {}
+  void onHomeScreenTapAction(UikAction uikAction) {
+    print("entering");
+    print(uikAction);
+    var context = NavigationService.navigatorKey.currentContext;
+    DeeplinkHandler.openDeeplink(
+        context!, "https://localhost:3000/searchcataloguescreen");
+  }
 
   @override
   getPageCallBackForAction() {
@@ -31,4 +40,3 @@ class UikHome extends StandardPage {
     return UikHome;
   }
 }
-

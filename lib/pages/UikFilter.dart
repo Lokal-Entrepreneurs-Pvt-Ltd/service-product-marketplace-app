@@ -27,8 +27,6 @@ class UikFilter extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
     return of();
   }
 

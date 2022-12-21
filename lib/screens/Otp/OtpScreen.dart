@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
-import 'package:pinput/pinput.dart';
 import 'dart:async';
 
 class OtpScreen extends StatefulWidget {
@@ -78,21 +77,21 @@ class _OtpScreenState extends State<OtpScreen> {
               height: 16,
             ),
             Center(
-              child: Pinput(
-                length: 6,
-                defaultPinTheme: PinTheme(
-                    height: 64,
-                    width: 48,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
-                        color: HexColor("#F5F5F5")),
-                    textStyle: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
-                    )),
-              ),
-            ),
+                // child: Pinput(
+                //   length: 6,
+                //   defaultPinTheme: PinTheme(
+                //     height: 64,
+                //     width: 48,
+                //     decoration: BoxDecoration(
+                //         borderRadius: const BorderRadius.all(Radius.circular(8)),
+                //         color: HexColor("#F5F5F5")),
+                //     textStyle: const TextStyle(
+                //       fontSize: 24,
+                //       fontWeight: FontWeight.w400,
+                //     ),
+                //   ),
+                // ),
+                ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: SizedBox(

@@ -14,26 +14,24 @@ class UikCatalogScreen extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add("OPEN_WEB");
     actionList.add("OPEN_HALA");
+    actionList.add("OPEN_ROUTE");
     return actionList;
   }
 
   @override
   Future<ApiResponse> getData() {
-
-    return ApiRepository.getCatalog();
+    return ApiRepository.getCatalogue();
   }
 
-  void of() {}
+  void onCatalogScreenTapAction() {}
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getPageCallBackForAction
-    return of;
+    return onCatalogScreenTapAction;
   }
 
   @override
   getPageContext() {
-    // TODO: implement getPageContext
     return UikCatalogScreen;
   }
 }

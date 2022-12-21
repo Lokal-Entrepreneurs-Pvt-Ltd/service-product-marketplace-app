@@ -7,6 +7,7 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
+import '../utils/network/ApiRepository.dart';
 import '../utils/network/retrofit/api_client.dart';
 class UikProductPage extends StandardPage {
   @override
@@ -14,26 +15,24 @@ class UikProductPage extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add("OPEN_WEB");
     actionList.add("OPEN_HALA");
+    actionList.add("OPEN_ROUTE");
     return actionList;
   }
 
   @override
   Future<ApiResponse> getData() {
-    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
+    return ApiRepository.getProductScreen();
   }
+
+  void onProductPageTapAction() {}
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
-    return of;
+    return onProductPageTapAction;
   }
-
-  void of() {}
 
   @override
   getPageContext() {
-    // TODO: implement getReference
     return UikProductPage;
   }
 }
