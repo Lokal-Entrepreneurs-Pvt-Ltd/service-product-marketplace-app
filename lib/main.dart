@@ -123,14 +123,14 @@ class _LokalAppState extends State<LokalApp> {
         routes: {
           "/": (context) => UikCartScreen().page,
           // "/": (context) => UikBottomNavigationBar(),
+          // MyRoutes.cartScreen: (context) => UikCartScreen().page,
           MyRoutes.loginScreen: (context) => LoginPage(),
           MyRoutes.homeScreen: (context) => UikHome().page,
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
-          MyRoutes.searchCatalogueScreen: (context) => UikSearchCatalog().page,
+          MyRoutes.search: (context) => UikSearchCatalog().page,
           MyRoutes.orderScreen: (context) => UikOrder().page,
-          MyRoutes.filterScreen: (context) => UikFilter().page,
-          // MyRoutes.cartScreen: (context) => UikEmptyCart().page,
+          MyRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
         },
       ),
     );
