@@ -15,30 +15,30 @@ abstract class StandardScreenClient {
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
-  @GET("/")
+  @POST("/")
   Future<ApiResponse> getResponse();
 
-  @GET(MyRoutes.homeScreen)
+  @POST(MyRoutes.homeScreen)
   Future<ApiResponse> getHomeScreen();
 
-  @GET(MyRoutes.catalogueScreen)
+  @POST(MyRoutes.catalogueScreen)
   Future<ApiResponse> getCatlogue();
   
-  @GET(MyRoutes.productScreen)
+  @POST(MyRoutes.productScreen)
   Future<ApiResponse> getProductScreen();
   
-  @GET(MyRoutes.search)
+  @POST(MyRoutes.search)
   Future<ApiResponse> getSearchScreen();
   
-  @GET(MyRoutes.paymentDetailsScreen)
+  @POST(MyRoutes.paymentDetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen();
   
-  @GET(MyRoutes.orderScreen)
+  @POST(MyRoutes.orderScreen)
   Future<ApiResponse> getOrderScreen();
   
-  @GET(MyRoutes.cartScreen)
+  @POST(MyRoutes.cartScreen)
   Future<ApiResponse> getCartScreen();
   
-  @GET(MyRoutes.emptyCartScreen)
+  @POST(MyRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen();
 }

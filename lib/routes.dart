@@ -6,6 +6,6 @@ class MyRoutes {
   static const String search = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
   static const String orderScreen = '/orderscreen';
-  static const String cartScreen = '/cartscreen';
+  static const String cartScreen = '/cart/get';
   static const String emptyCartScreen = '/emptycartscreen';
 }
