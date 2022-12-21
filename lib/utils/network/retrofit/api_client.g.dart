@@ -126,7 +126,7 @@ class _StandardScreenClient implements StandardScreenClient {
     )
             .compose(
               _dio.options,
-              '/searchcataloguescreen',
+              '/search',
               queryParameters: queryParameters,
               data: _data,
             )
