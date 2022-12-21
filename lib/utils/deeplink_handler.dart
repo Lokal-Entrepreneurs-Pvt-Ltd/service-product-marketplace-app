@@ -28,8 +28,9 @@ abstract class DeeplinkHandler {
       route = "/";
     }
 
-    print(baseUrl);
-    print(route);
+    print(baseUrl); // lokal://search
+    //  route = "/searchcataloguescreen";
+    print("laveshRoute ${route}"); // /
     print(args);
 
     switch (route) {
@@ -54,10 +55,10 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case MyRoutes.searchCatalogueScreen:
+      case MyRoutes.searchScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.searchScreen);
           }
         }
         break;
@@ -73,6 +74,7 @@ abstract class DeeplinkHandler {
   }
 
   static void _pushScreen(BuildContext context, String route) {
+    print("pushed route ${route}");
     Navigator.pushNamed(context, route);
   }
 }

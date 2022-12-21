@@ -27,8 +27,6 @@ class UikPrice extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
     return of;
   }
 

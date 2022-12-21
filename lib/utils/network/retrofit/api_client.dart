@@ -1,5 +1,5 @@
 import 'package:lokal/constants.dart';
-import 'package:lokal/utils/network/retrofit/apis.dart';
+import 'package:lokal/routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import 'package:dio/dio.dart';
@@ -11,17 +11,27 @@ part 'api_client.g.dart';
 
 @RestApi(baseUrl: baseUrl)
 abstract class StandardScreenClient {
-
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
   @GET("/")
   Future<ApiResponse> getResponse();
 
-  @POST(Apis.homescreen)
+  @GET(MyRoutes.homeScreen)
   Future<ApiResponse> getHomeScreen();
 
-  @POST(Apis.catalog)
-  Future<ApiResponse> getCatlaog();
+  @GET(MyRoutes.catalogueScreen)
+  Future<ApiResponse> getCatlogue();
 
+  @GET(MyRoutes.productScreen)
+  Future<ApiResponse> getProductScreen();
+
+  @GET(MyRoutes.searchScreen)
+  Future<ApiResponse> getSearchScreen();
+
+  @GET(MyRoutes.paymentdetailsScreen)
+  Future<ApiResponse> getPaymentDetailsScreen();
+
+  @GET(MyRoutes.orderScreen)
+  Future<ApiResponse> getOrderScreen();
 }

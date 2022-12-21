@@ -20,20 +20,17 @@ class UikCart extends StandardPage {
 
   @override
   Future<ApiResponse> getData() {
-    // TODO: implement getData
-    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
+    return StandardScreenClient(
+            Dio(BaseOptions(contentType: "application/json")))
+        .getHomeScreen();
   }
 
   @override
   getPageCallBackForAction() {
-    // TODO: implement getFunction
-    // throw UnimplementedError();
     return of();
   }
 
   void of() {}
-  
-  
 
   @override
   getPageContext() {
