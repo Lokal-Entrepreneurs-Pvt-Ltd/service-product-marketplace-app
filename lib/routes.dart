@@ -8,4 +8,5 @@ class MyRoutes {
   static const String orderScreen = '/orderscreen';
   static const String cartScreen = '/cartscreen';
   static const String emptyCartScreen = '/emptycartscreen';
+  static const String orderHistoryScreen = "/orderhistoryscreen";
 }
