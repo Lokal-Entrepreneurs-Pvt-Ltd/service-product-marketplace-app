@@ -93,6 +93,8 @@ abstract class DeeplinkHandler {
       }
     }
 
+    route = "/products/get";
+
     print(route);
     print(args);
 
@@ -107,14 +109,14 @@ abstract class DeeplinkHandler {
       case MyRoutes.homeScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.homeScreen);
           }
         }
         break;
       case MyRoutes.catalogueScreen:
         {
           if (args["catalogueId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.catalogueScreen);
           }
         }
         break;
@@ -127,9 +129,10 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.productScreen:
         {
-          if (args["productId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
-          }
+          print ("1234");
+            _pushScreen(context, MyRoutes.productScreen);
+          // if (args["productId"] != null) {
+          // }
         }
         break;
       default:
