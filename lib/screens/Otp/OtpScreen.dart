@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:lokal/constants/colors.dart';
 import 'package:lokal/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
 import 'dart:async';
+import '../../constants/dimens.dart';
+import '../../constants/strings.dart';
 
 class OtpScreen extends StatefulWidget {
   String mobileNumber;
@@ -48,9 +51,9 @@ class _OtpScreenState extends State<OtpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Welcome!",
+                  STR_WELCOME,
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: DIMEN_32,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -114,7 +117,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
-                        color: HexColor("#212121")),
+                        color: HexColor(HEX_BLACK_21)),
                   ),
                 ),
               ),
@@ -128,7 +131,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: HexColor("#9E9E9E")),
+                    color: HexColor(HEX_GRAY)),
               ),
             ),
           ],

@@ -45,28 +45,28 @@ abstract class DeeplinkHandler {
       case MyRoutes.homeScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.homeScreen);
           }
         }
         break;
       case MyRoutes.catalogueScreen:
         {
           if (args["catalogueId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.catalogueScreen);
           }
         }
         break;
       case MyRoutes.searchScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.searchScreen);
           }
         }
         break;
       case MyRoutes.productScreen:
         {
           if (args["productId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.productScreen);
           }
         }
         break;

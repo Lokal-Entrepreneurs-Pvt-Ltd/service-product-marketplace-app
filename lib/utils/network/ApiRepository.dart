@@ -55,10 +55,10 @@ class ApiRepository {
             baseUrl: "https://demo9790512.mockable.io/")
         .getCartScreen();
   }
-
+  
   static Future<ApiResponse> getEmptyCartScreen() {
     return StandardScreenClient(getDio(),
-            baseUrl: "http://demo2913052.mockable.io/")
-        .getEmptyCartScreen();
+            baseUrl: "https://demo9790512.mockable.io/")
+        .getCartScreen();
   }
 }
