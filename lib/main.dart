@@ -5,6 +5,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
@@ -19,7 +20,6 @@ import 'screens/Onboarding/OnboardingScreen.dart';
 import 'screens/login.dart';
 
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
-import 'package:lokal/pages/UikCart.dart';
 import 'package:lokal/pages/UikFilter.dart';
 import 'package:lokal/pages/UikOrder.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
@@ -126,8 +126,7 @@ class _LokalAppState extends State<LokalApp> {
           MyRoutes.productScreen: (context) => UikProductPage().page,
           MyRoutes.searchScreen: (context) => UikSearchCatalog().page,
           MyRoutes.orderScreen: (context) => UikOrder().page,
-          MyRoutes.filterScreen: (context) => UikFilter().page,
-          MyRoutes.cartScreen: (context) => UikCart().page,
+          MyRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
         },
       ),
     );
