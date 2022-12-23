@@ -1,4 +1,4 @@
-import 'package:lokal/constants.dart';
+import 'package:lokal/constants/environment.dart';
 import 'package:lokal/routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
@@ -14,7 +14,7 @@ abstract class StandardScreenClient {
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
-  @GET("/")
+  @POST("/")
   Future<ApiResponse> getResponse();
 
   @GET(MyRoutes.homeScreen)
@@ -29,7 +29,7 @@ abstract class StandardScreenClient {
   @GET(MyRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen();
 
-  @GET(MyRoutes.paymentdetailsScreen)
+  @GET(MyRoutes.paymentDetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen();
 
   @GET(MyRoutes.orderScreen)
