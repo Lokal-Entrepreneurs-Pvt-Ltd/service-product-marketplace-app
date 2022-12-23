@@ -6,6 +6,9 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
+import '../utils/deeplink_handler.dart';
+import '../constants.dart';
+import '../main.dart';
 
 class UikHome extends StandardPage {
   @override
@@ -85,4 +88,8 @@ void addToCart(UikAction uikAction) async {
 
 void openCategory(UikAction uikAction) {
   print("opening the category");
+
+  var context = NavigationService.navigatorKey.currentContext;
+
+  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
