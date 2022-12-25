@@ -53,8 +53,8 @@ Future<ApiResponse> fetchAlbum() async {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
 
-  final response = await http.post(
-    Uri.parse('${baseUrl}/discovery/get'),
+  final response = await http.get(
+    Uri.parse('http://demo2913052.mockable.io/home'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -87,9 +87,7 @@ void addToCart(UikAction uikAction) async {
 }
 
 void openCategory(UikAction uikAction) {
-  print("opening the category");
-
+  //Navigation to the next screen through deepLink Handler
   var context = NavigationService.navigatorKey.currentContext;
-
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
