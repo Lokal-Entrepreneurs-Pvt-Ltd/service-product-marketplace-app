@@ -14,7 +14,7 @@ abstract class StandardScreenClient {
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
-  @GET("/")
+  @POST("/")
   Future<ApiResponse> getResponse();
 
   @GET(MyRoutes.homeScreen)
