@@ -11,11 +11,10 @@ part 'api_client.g.dart';
 
 @RestApi(baseUrl: baseUrl)
 abstract class StandardScreenClient {
-
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
-  @GET("/")
+  @POST("/")
   Future<ApiResponse> getResponse();
 
   @GET(MyRoutes.homeScreen)
@@ -23,22 +22,22 @@ abstract class StandardScreenClient {
 
   @GET(MyRoutes.catalogueScreen)
   Future<ApiResponse> getCatlogue();
-  
+
   @GET(MyRoutes.productScreen)
   Future<ApiResponse> getProductScreen();
-  
-  @GET(MyRoutes.search)
+
+  @GET(MyRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen();
-  
-  @GET(MyRoutes.paymentDetailsScreen)
+
+  @GET(MyRoutes.paymentdetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen();
-  
+
   @GET(MyRoutes.orderScreen)
   Future<ApiResponse> getOrderScreen();
-  
+
   @GET(MyRoutes.cartScreen)
   Future<ApiResponse> getCartScreen();
-  
+
   @GET(MyRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen();
   
