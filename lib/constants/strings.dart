@@ -1,0 +1,1 @@
+const String STR_WELCOME = "Welcome!";

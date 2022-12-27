@@ -7,6 +7,8 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
+import '../constants.dart';
+
 import '../utils/network/ApiRepository.dart';
 import '../utils/network/retrofit/api_client.dart';
 class UikProductPage extends StandardPage {
@@ -21,7 +23,8 @@ class UikProductPage extends StandardPage {
 
   @override
   Future<ApiResponse> getData() {
-    return ApiRepository.getProductScreen();
+    // return ApiRepository.getProductScreen();
+    return fetchAlbum();
   }
 
   void onProductPageTapAction() {}
@@ -37,17 +40,22 @@ class UikProductPage extends StandardPage {
   }
 }
 
-Future<StandardScreenResponse> fetchAlbum() async {
-  final response = await http.get(
-    Uri.parse('http://demo7907509.mockable.io/ProductPage'),
+Future<ApiResponse> fetchAlbum() async {
+  final queryParameter = {
+    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
+  };
+
+  final response = await http.post(
+    Uri.parse('${baseUrl}/products/get'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
   );
 
-  // StandardScreenResponsee
+  print(response.body);
+
   if (response.statusCode == 200) {
-    return StandardScreenResponse.fromJson(jsonDecode(response.body));
+    return ApiResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
   }
