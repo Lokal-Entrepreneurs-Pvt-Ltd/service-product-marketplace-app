@@ -129,10 +129,7 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.productScreen:
         {
-          print ("1234");
             _pushScreen(context, MyRoutes.productScreen);
-          // if (args["productId"] != null) {
-          // }
         }
         break;
       default:
