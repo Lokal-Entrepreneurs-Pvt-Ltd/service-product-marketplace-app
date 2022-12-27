@@ -7,6 +7,7 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:dio/dio.dart';
 
 import '../utils/network/retrofit/api_client.dart';
+
 class UikComponentDisplayer extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -18,24 +19,21 @@ class UikComponentDisplayer extends StandardPage {
 
   @override
   Future<ApiResponse> getData() {
-    return StandardScreenClient(Dio(BaseOptions(contentType: "application/json"))).getHomeScreen();
+    return StandardScreenClient(
+            Dio(BaseOptions(contentType: "application/json")))
+        .getHomeScreen();
   }
 
   @override
   getPageCallBackForAction() {
-    return of();
+    return of;
   }
 
   void of() {}
-  
-  @override
-  getReference() {
-    return UikCatalogScreen();
-  }
 
   @override
   getPageContext() {
-    return UikComponentDisplayer();
+    return UikComponentDisplayer;
   }
 }
 
