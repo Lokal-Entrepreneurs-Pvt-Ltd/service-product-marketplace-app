@@ -1,4 +1,4 @@
-import 'package:lokal/constants/environment.dart';
+import 'package:lokal/constants.dart';
 import 'package:lokal/routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
@@ -11,34 +11,33 @@ part 'api_client.g.dart';
 
 @RestApi(baseUrl: baseUrl)
 abstract class StandardScreenClient {
-
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
   @POST("/")
   Future<ApiResponse> getResponse();
 
-  @POST(MyRoutes.homeScreen)
+  @GET(MyRoutes.homeScreen)
   Future<ApiResponse> getHomeScreen();
 
-  @POST(MyRoutes.catalogueScreen)
+  @GET(MyRoutes.catalogueScreen)
   Future<ApiResponse> getCatlogue();
-  
-  @POST(MyRoutes.productScreen)
+
+  @GET(MyRoutes.productScreen)
   Future<ApiResponse> getProductScreen();
-  
-  @POST(MyRoutes.search)
+
+  @GET(MyRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen();
-  
-  @POST(MyRoutes.paymentDetailsScreen)
+
+  @GET(MyRoutes.paymentdetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen();
-  
-  @POST(MyRoutes.orderScreen)
+
+  @GET(MyRoutes.orderScreen)
   Future<ApiResponse> getOrderScreen();
-  
-  @POST(MyRoutes.cartScreen)
+
+  @GET(MyRoutes.cartScreen)
   Future<ApiResponse> getCartScreen();
-  
-  @POST(MyRoutes.emptyCartScreen)
+
+  @GET(MyRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen();
 }

@@ -29,8 +29,9 @@ abstract class DeeplinkHandler {
       route = "/";
     }
 
-    print(baseUrl);
-    print(route);
+    print(baseUrl); // lokal://search
+    //  route = "/searchcataloguescreen";
+    print("laveshRoute ${route}"); // /
     print(args);
 
     switch (route) {
@@ -55,7 +56,7 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case MyRoutes.search:
+      case MyRoutes.searchScreen:
         {
           if (args.isEmpty) {
             _pushScreen(context, MyRoutes.loginScreen);
@@ -92,6 +93,8 @@ abstract class DeeplinkHandler {
       }
     }
 
+    route = "/products/get";
+
     print(route);
     print(args);
 
@@ -106,29 +109,30 @@ abstract class DeeplinkHandler {
       case MyRoutes.homeScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.homeScreen);
           }
         }
         break;
       case MyRoutes.catalogueScreen:
         {
           if (args["catalogueId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.catalogueScreen);
           }
         }
         break;
-      case MyRoutes.search:
+      case MyRoutes.searchScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, MyRoutes.searchScreen);
           }
         }
         break;
       case MyRoutes.productScreen:
         {
-          if (args["productId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
-          }
+          print("1234");
+          _pushScreen(context, MyRoutes.productScreen);
+          // if (args["productId"] != null) {
+          // }
         }
         break;
       default:
@@ -136,6 +140,7 @@ abstract class DeeplinkHandler {
   }
 
   static void _pushScreen(BuildContext context, String route) {
+    print("pushed route ${route}");
     Navigator.pushNamed(context, route);
   }
 }

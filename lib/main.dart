@@ -14,8 +14,9 @@ import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/crashlytics.dart';
 import 'package:lokal/utils/AppInitializer.dart';
-import 'package:lokal/utils/dio/models/product_provider.dart';
+//import 'package:lokal/utils/dio/models/product_provider.dart';
 import 'routes.dart';
+import 'screens/Onboarding/OnboardingScreen.dart';
 import 'screens/login.dart';
 
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
@@ -32,9 +33,8 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-
   await Firebase.initializeApp();
-  
+
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
@@ -50,6 +50,7 @@ void main() async {
     fcmToken = fcmToken;
     print(fcmToken);
   }).onError((err) {
+    print("error");
     throw Exception(err);
   });
 
@@ -70,7 +71,6 @@ class LokalApp extends StatefulWidget {
 }
 
 class _LokalAppState extends State<LokalApp> {
-
   @override
   void initState() {
     super.initState();
@@ -110,9 +110,6 @@ class _LokalAppState extends State<LokalApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ProuctProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => DarkThemeProvider(),
         ),
       ],
@@ -128,7 +125,7 @@ class _LokalAppState extends State<LokalApp> {
           MyRoutes.homeScreen: (context) => UikHome().page,
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
-          MyRoutes.search: (context) => UikSearchCatalog().page,
+          MyRoutes.searchScreen: (context) => UikSearchCatalog().page,
           MyRoutes.orderScreen: (context) => UikOrder().page,
           MyRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
         },

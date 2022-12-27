@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import '../utils/network/retrofit/api_client.dart';
 
-class UikOrder extends StandardPage {
+class UikCart extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -27,15 +27,14 @@ class UikOrder extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return of;
+    return of();
   }
 
   void of() {}
 
   @override
   getPageContext() {
-    // TODO: implement getReference
-    return UikOrder;
+    return UikCart;
   }
 }
 
@@ -44,12 +43,12 @@ Future<StandardScreenResponse> fetchAlbum() async {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   final response = await http.get(
-    Uri.parse('http://demo3348922.mockable.io/getOrder'),
+    Uri.parse('http://demo3348922.mockable.io/getCart'),
     headers: {
       "ngrok-skip-browser-warning": "value",
-      "id": "412121d3-6b19-4d3e-8568-f3c5d3c1ff60",
+      "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
       "token":
-          "x927fARLaqJiIBlrij-aUQVD2abP2m47C2yeoeXGvkA.eyJpbnN0YW5jZUlkIjoiZGQ2YjVjMDEtNWNlNC00ZTc1LWE1MmUtOWM0YmM1Zjc4ZjI2IiwiYXBwRGVmSWQiOiIyMmJlZjM0NS0zYzViLTRjMTgtYjc4Mi03NGQ0MDg1MTEyZmYiLCJtZXRhU2l0ZUlkIjoiZGQ2YjVjMDEtNWNlNC00ZTc1LWE1MmUtOWM0YmM1Zjc4ZjI2Iiwic2lnbkRhdGUiOiIyMDIyLTA5LTI4VDE5OjM2OjI2LjE2MloiLCJ1aWQiOiJlNmRiNzUwMC05Zjc1LTQwOTUtODllNC02MTVlY2I4OTFmNzgiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJzaXRlT3duZXJJZCI6ImU2ZGI3NTAwLTlmNzUtNDA5NS04OWU0LTYxNWVjYjg5MWY3OCIsInNpdGVNZW1iZXJJZCI6ImU2ZGI3NTAwLTlmNzUtNDA5NS04OWU0LTYxNWVjYjg5MWY3OCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMi0wOS0yOFQyMzozNjoyNi4xNjJaIiwibG9naW5BY2NvdW50SWQiOiJlNmRiNzUwMC05Zjc1LTQwOTUtODllNC02MTVlY2I4OTFmNzgifQ"
+          "MCcuLmDAItWRB8YL85quqkN2JEXNaefJcZosDQYu9cE.eyJpbnN0YW5jZUlkIjoiZGQ2YjVjMDEtNWNlNC00ZTc1LWE1MmUtOWM0YmM1Zjc4ZjI2IiwiYXBwRGVmSWQiOiIyMmJlZjM0NS0zYzViLTRjMTgtYjc4Mi03NGQ0MDg1MTEyZmYiLCJtZXRhU2l0ZUlkIjoiZGQ2YjVjMDEtNWNlNC00ZTc1LWE1MmUtOWM0YmM1Zjc4ZjI2Iiwic2lnbkRhdGUiOiIyMDIyLTA5LTI4VDE5OjUwOjI0LjIyMloiLCJ1aWQiOiJlNmRiNzUwMC05Zjc1LTQwOTUtODllNC02MTVlY2I4OTFmNzgiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJzaXRlT3duZXJJZCI6ImU2ZGI3NTAwLTlmNzUtNDA5NS04OWU0LTYxNWVjYjg5MWY3OCIsInNpdGVNZW1iZXJJZCI6ImU2ZGI3NTAwLTlmNzUtNDA5NS04OWU0LTYxNWVjYjg5MWY3OCIsImV4cGlyYXRpb25EYXRlIjoiMjAyMi0wOS0yOFQyMzo1MDoyNC4yMjJaIiwibG9naW5BY2NvdW50SWQiOiJlNmRiNzUwMC05Zjc1LTQwOTUtODllNC02MTVlY2I4OTFmNzgifQ"
     },
   );
 

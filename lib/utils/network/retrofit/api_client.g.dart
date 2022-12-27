@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://3f2e-202-89-65-238.ngrok.io';
+    baseUrl ??= 'https://demo2425412.mockable.io/';
   }
 
   final Dio _dio;
@@ -189,13 +189,13 @@ class _StandardScreenClient implements StandardScreenClient {
     final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
-      method: 'POST',
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/cart/get',
+              '/cartscreen',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -212,7 +212,7 @@ class _StandardScreenClient implements StandardScreenClient {
     final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
-      method: 'POST',
+      method: 'GET',
       headers: _headers,
       extra: _extra,
     )
