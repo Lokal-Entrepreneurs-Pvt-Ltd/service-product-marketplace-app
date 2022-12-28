@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/routes.dart';
+import 'package:ui_sdk/utils/init_data.dart';
 
 abstract class DeeplinkHandler {
   static void openDeeplink(BuildContext context, String url) {
@@ -28,11 +29,6 @@ abstract class DeeplinkHandler {
       baseUrl = url;
       route = "/";
     }
-
-    print(baseUrl); // lokal://search
-    //  route = "/searchcataloguescreen";
-    print("laveshRoute ${route}"); // /
-    print(args);
 
     switch (route) {
       case MyRoutes.loginScreen:
@@ -66,7 +62,7 @@ abstract class DeeplinkHandler {
       case MyRoutes.productScreen:
         {
           if (args["productId"] != null) {
-            _pushScreen(context, MyRoutes.productScreen);
+            _pushScreen(context, MyRoutes.productScreen, args);
           }
         }
         break;
@@ -93,7 +89,7 @@ abstract class DeeplinkHandler {
       }
     }
 
-    route = "/products/get";
+    // route = "/products/get";
 
     print(route);
     print(args);
@@ -129,18 +125,15 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.productScreen:
         {
-          print ("1234");
-            _pushScreen(context, MyRoutes.productScreen);
-          // if (args["productId"] != null) {
-          // }
+          _pushScreen(context, MyRoutes.productScreen, args);
         }
         break;
       default:
     }
   }
 
-  static void _pushScreen(BuildContext context, String route) {
-    print("pushed route ${route}");
-    Navigator.pushNamed(context, route);
+  static void _pushScreen(
+      BuildContext context, String route, [Map<String, dynamic>? args]) {
+    Navigator.pushNamed(context, route, arguments: InitData(args: args ?? {}));
   }
 }

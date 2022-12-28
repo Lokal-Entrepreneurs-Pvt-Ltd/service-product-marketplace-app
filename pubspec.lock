@@ -1068,7 +1068,7 @@ packages:
       name: ui_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.56+1"
+    version: "1.0.58+1"
   universal_io:
     dependency: transitive
     description:
