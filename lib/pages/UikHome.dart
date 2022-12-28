@@ -28,8 +28,6 @@ class UikHome extends StandardPage {
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
-    print("entering lavesh");
-    print("uikAction ${uikAction}");
     switch (uikAction.tap.type) {
       case "ADD_TO_CART":
         addToCart(uikAction);
@@ -39,7 +37,9 @@ class UikHome extends StandardPage {
         break;
       default:
     }
+    
     var context = NavigationService.navigatorKey.currentContext;
+    
     DeeplinkHandler.openDeeplink(
         context!, "https://localhost:3000/searchcataloguescreen");
   }
@@ -78,9 +78,9 @@ Future<ApiResponse> fetchAlbum() async {
 }
 
 void addToCart(UikAction uikAction) async {
-  print("add to cart");
   var skuId = uikAction.tap.data.skuId;
-  //if(uikAction.tap.data)
+
+  //api call to update cart
   final response =
       await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
     "ngrok-skip-browser-warning": "value",
@@ -89,6 +89,8 @@ void addToCart(UikAction uikAction) async {
     "cartId": "",
     "action": "add"
   });
+
+  //displaying response from update cart
   print("statusCode ${response.body}");
 }
 

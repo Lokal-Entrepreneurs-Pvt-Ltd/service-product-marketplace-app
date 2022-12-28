@@ -1,4 +1,4 @@
-import 'package:lokal/constants/environment.dart';
+import 'package:lokal/constants.dart';
 import 'package:lokal/routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 

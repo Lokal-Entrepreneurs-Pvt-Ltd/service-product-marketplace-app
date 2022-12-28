@@ -89,8 +89,6 @@ abstract class DeeplinkHandler {
       }
     }
 
-    // route = "/products/get";
-
     print(route);
     print(args);
 
