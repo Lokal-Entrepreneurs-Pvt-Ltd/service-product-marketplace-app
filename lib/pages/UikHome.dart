@@ -14,6 +14,7 @@ class UikHome extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
+    
     actionList.add("OPEN_CATEGORY");
     actionList.add("OPEN_ISP");
     actionList.add("ADD_TO_CART");
@@ -59,8 +60,9 @@ Future<ApiResponse> fetchAlbum() async {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
 
-  final response = await http.post(
-    Uri.parse('${baseUrl}/discovery/get'),
+  final response = await http.get(
+    // Uri.parse('${baseUrl}/discovery/get'),
+    Uri.parse('https://demo6015657.mockable.io/homescreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },

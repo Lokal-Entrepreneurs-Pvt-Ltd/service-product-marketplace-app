@@ -45,8 +45,9 @@ Future<ApiResponse> fetchAlbum() async {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
 
-  final response = await http.post(
-    Uri.parse('${baseUrl}/products/get'),
+  final response = await http.get(
+    // Uri.parse('${baseUrl}/products/get'),
+    Uri.parse('https://demo2425412.mockable.io/productscreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
