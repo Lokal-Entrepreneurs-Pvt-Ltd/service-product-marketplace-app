@@ -21,8 +21,8 @@ class UikHome extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return fetchAlbum();
+  dynamic getData() {
+    return fetchAlbum;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
@@ -48,13 +48,13 @@ class UikHome extends StandardPage {
   }
 }
 
-Future<ApiResponse> fetchAlbum() async {
+Future<ApiResponse> fetchAlbum(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
 
-  final response = await http.get(
-    Uri.parse('http://demo2913052.mockable.io/home'),
+  final response = await http.post(
+    Uri.parse('https://bc4c-1-38-54-6.ngrok.io/discovery/get'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
