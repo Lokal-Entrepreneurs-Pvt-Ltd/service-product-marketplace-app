@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:lokal/utils/deeplink_handler.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -21,8 +22,8 @@ class UikHome extends StandardPage {
   }
 
   @override
-  dynamic getData() {
-    return fetchAlbum;
+  Future<ApiResponse> getData() {
+    return ApiRepository.getHomescreen();
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {

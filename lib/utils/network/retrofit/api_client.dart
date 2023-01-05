@@ -17,27 +17,27 @@ abstract class StandardScreenClient {
   @POST("/")
   Future<ApiResponse> getResponse();
 
-  @GET(MyRoutes.homeScreen)
+  @POST(MyRoutes.homeScreen)
   Future<ApiResponse> getHomeScreen();
 
-  @GET(MyRoutes.catalogueScreen)
+  @POST(MyRoutes.catalogueScreen)
   Future<ApiResponse> getCatlogue();
 
-  @GET(MyRoutes.productScreen)
+  @POST(MyRoutes.productScreen)
   Future<ApiResponse> getProductScreen();
 
-  @GET(MyRoutes.searchScreen)
+  @POST(MyRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen();
 
-  @GET(MyRoutes.paymentdetailsScreen)
+  @POST(MyRoutes.paymentdetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen();
 
-  @GET(MyRoutes.orderScreen)
+  @POST(MyRoutes.orderScreen)
   Future<ApiResponse> getOrderScreen();
 
-  @GET(MyRoutes.cartScreen)
+  @POST(MyRoutes.cartScreen)
   Future<ApiResponse> getCartScreen();
 
-  @GET(MyRoutes.emptyCartScreen)
+  @POST(MyRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen();
 }
