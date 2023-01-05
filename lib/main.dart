@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
-import 'package:lokal/pages/UikForgetPassword.dart';
+import 'package:lokal/screens/forgetPassword/ForgetPassword.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/screens/login/login.dart';
 import 'package:lokal/utils/deeplink_handler.dart';

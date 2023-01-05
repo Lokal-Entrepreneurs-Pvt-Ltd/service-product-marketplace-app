@@ -7,8 +7,8 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 
-import '../../utils/storage/user_data_handler.dart';
-import '../../widgets/UikNavbar/UikNavbar.dart';
+import '../../../utils/storage/user_data_handler.dart';
+import '../../../widgets/UikNavbar/UikNavbar.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
@@ -35,27 +35,33 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        child: ListView(children: [
-          UikNavbar(
-            size: "",
-            titleText: "Forget Password?",
-            subtitleText: "enter your registered email address\nbelow",
-            leftIcon: const Icon(Icons.arrow_back),
-          ),
-          MyTextField(
-            labelText: "Email",
-            width: 343,
-            height: 64,
-            Controller: emailController,
-          ),
-          Container(
+        child: ListView(
+          children: [
+            UikNavbar(
+              size: "",
+              titleText: "Forget Password?",
+              subtitleText: "enter your registered email address\nbelow",
+              leftIcon: const Icon(Icons.arrow_back),
+            ),
+            MyTextField(
+              labelText: "Email",
+              width: 323,
+              height: 64,
+              Controller: emailController,
+            ),
+            Container(
               margin: const EdgeInsets.only(
                 left: 16,
+                right: 16,
               ),
               child: UikButton(
                 text: "Continue",
-                backgroundColor: const Color(0xffFEE440),))
-        ]),
+                widthSize: 343,
+                backgroundColor: const Color(0xffFEE440),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
