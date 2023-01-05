@@ -106,7 +106,7 @@ class _MyTextFieldState extends State<MyTextField> {
 
                             if (!widget.isPassword) {
                               Uri uri = Uri.parse(
-                                  "https://08ea-202-89-65-238.in.ngrok.io/customer/doesAccountExist");
+                                  "https://dev.localee.co.in/api/customer/doesAccountExist");
 
                               var response = await http.post(
                                 uri,

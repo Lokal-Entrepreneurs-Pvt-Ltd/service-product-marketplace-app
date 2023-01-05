@@ -93,7 +93,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     // var client = http.Client();
 
                     Uri uri = Uri.parse(
-                        "https://08ea-202-89-65-238.in.ngrok.io/customer/login");
+                        "https://dev.localee.co.in/api/customer/login");
 
                     var response = await http.post(
                       uri,
