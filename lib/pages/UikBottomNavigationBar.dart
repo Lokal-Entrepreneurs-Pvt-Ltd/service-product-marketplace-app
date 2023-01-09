@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
-import 'package:lokal/pages/UikOrderScreen.dart';
-import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
+import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-import '../Widgets/UikSearchBar/searchbar.dart';
-import '../widgets/UikCell/UikCell.dart';
-import 'UikHome.dart';
 
 class UikBottomNavigationBar extends StatelessWidget {
   @override
@@ -16,29 +11,10 @@ class UikBottomNavigationBar extends StatelessWidget {
       home: DefaultTabController(
         length: 4,
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(150), // Set this height
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Cell(
-                    titleText: "Sector 14",
-                    subtitleText: "Gurugoan-Haryana-India",
-                    leftChild: Icon(Icons.location_on),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  SearchBar(),
-                ],
-              ),
-            ),
-          ),
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
-              UikHome().page,
+              const UikHomeWrapper(),
               UikCatalogScreen().page,
               UikSearchCatalog().page,
               UikProductPage().page,
@@ -60,28 +36,25 @@ class UikBottomNavigationBar extends StatelessWidget {
           children: [
             Container(
               height: 37,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               color: const Color(0xFF6247FF),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: Text(
-                        "12 items | 1200.00",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: Colors.white,
-                        ),
+                  children: const [
+                    Text(
+                      "12 items | 1200.00",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.white,
                       ),
                     ),
-                    Container(
-                      child: Text(
-                        "View Cart",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: Colors.white,
-                        ),
+                    Text(
+                      "View Cart",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.white,
                       ),
                     ),
                   ]),
@@ -93,16 +66,16 @@ class UikBottomNavigationBar extends StatelessWidget {
               indicatorColor: Colors.white,
               tabs: [
                 Tab(
-                  icon: Icon(Icons.euro_symbol),
+                  icon: Icon(Icons.home_outlined),
                 ),
                 Tab(
-                  icon: Icon(Icons.assignment),
+                  icon: Icon(Icons.shopping_bag_outlined),
                 ),
                 Tab(
-                  icon: Icon(Icons.account_balance_wallet),
+                  icon: Icon(Icons.settings_outlined),
                 ),
                 Tab(
-                  icon: Icon(Icons.settings),
+                  icon: Icon(Icons.person_outline),
                 ),
               ],
             ),

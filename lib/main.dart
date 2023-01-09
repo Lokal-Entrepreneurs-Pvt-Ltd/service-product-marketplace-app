@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
+import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/screens/forgetPassword/ForgetPassword.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/screens/login/login.dart';
@@ -120,18 +121,16 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-          // "/": (context) => UikHome().page,
           "/": (context) => UikBottomNavigationBar(),
-          // "/": (context) => ForgetPasswordScreen(),
-          // "/": (context) => UikBottomNavigationBar(),
-          // MyRoutes.cartScreen: (context) => UikCartScreen().page,
+          MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
+          MyRoutes.cartScreen: (context) => UikCartScreen().page,
           MyRoutes.loginScreen: (context) => LoginPage(),
-          MyRoutes.homeScreen: (context) => UikHome().page,
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
           MyRoutes.searchScreen: (context) => UikSearchCatalog().page,
           MyRoutes.orderScreen: (context) => UikOrder().page,
           MyRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
+          MyRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
         },
       ),
     );
