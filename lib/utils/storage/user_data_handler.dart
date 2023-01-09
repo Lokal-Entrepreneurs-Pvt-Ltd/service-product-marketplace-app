@@ -37,6 +37,18 @@ abstract class UserDataHandler {
     return prefs.getString("name") ?? "";
   }
 
+  static Future<String> getUserBirth() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString("birth") ?? "";
+  }
+
+  static Future<String> getUserGST() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString("GST") ?? "";
+  }
+
   static Future<String> getUserPassword() async {
     final prefs = await SharedPreferences.getInstance();
 
