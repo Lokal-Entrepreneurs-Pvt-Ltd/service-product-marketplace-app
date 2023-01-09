@@ -31,13 +31,6 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
                 const SizedBox(height: 16.0),
                 GestureDetector(
                   onTap: () async {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const UikLocationMap(),
-                    //   ),
-                    // );
-
                     GeoPoint? location = await showSimplePickerLocation(
                       context: context,
                       isDismissible: true,
