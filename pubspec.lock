@@ -833,6 +833,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
+  pull_to_refresh:
+    dependency: "direct main"
+    description:
+      name: pull_to_refresh
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   retrofit:
     dependency: "direct main"
     description:
@@ -1082,7 +1089,7 @@ packages:
       name: ui_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.59+1"
+    version: "1.0.60+1"
   universal_io:
     dependency: transitive
     description:
