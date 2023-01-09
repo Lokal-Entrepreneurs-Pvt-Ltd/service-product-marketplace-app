@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/Widgets/UikCell/UikCell.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
@@ -7,6 +6,7 @@ import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import '../Widgets/UikSearchBar/searchbar.dart';
+import '../widgets/UikCell/UikCell.dart';
 import 'UikHome.dart';
 
 class UikBottomNavigationBar extends StatelessWidget {
