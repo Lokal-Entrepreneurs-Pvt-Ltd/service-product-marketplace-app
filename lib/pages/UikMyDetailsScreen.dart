@@ -21,6 +21,8 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final nameController = TextEditingController();
+  final birthController = TextEditingController();
+  final GSTController = TextEditingController();
 
   @override
   void initState() {
@@ -33,6 +35,8 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     emailController.text = await UserDataHandler.getUserEmail();
     phoneController.text = await UserDataHandler.getUserPhone();
     nameController.text = await UserDataHandler.getUserName();
+    birthController.text = await UserDataHandler.getUserBirth();
+    GSTController.text = await UserDataHandler.getUserGST();
   }
 
   @override
@@ -44,17 +48,15 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         elevation: 0,
         title: const Text(
           "My Details",
-          style: TextStyle(
-            color: Colors.black,
-          ),
+          style: TextStyle(color: Colors.black, fontSize: 20),
         ),
         centerTitle: true,
         actions: [
           TextButton(
               onPressed: () {},
               child: const Text(
-                "save",
-                style: TextStyle(color: Colors.black),
+                "Save",
+                style: TextStyle(color: Colors.black, fontSize: 16),
               ))
         ],
         leading: IconButton(
@@ -67,6 +69,10 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         ),
       ),
       body: Container(
+        margin: const EdgeInsets.only(
+          right: 16,
+          top: 8,
+        ),
         color: Colors.white,
         child: ListView(
           children: [
@@ -99,22 +105,28 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               height: 64,
               Controller: phoneController,
               rightElement: Row(
-                children: [
-                  const Text("verifying"),
-                  const Icon(Icons.refresh),
+                children: const [
+                  Text(
+                    "verifying",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  Icon(
+                    Icons.refresh,
+                    size: 13,
+                  ),
                 ],
               ),
             ),
             Container(
               margin: const EdgeInsets.only(
-                left: 16,
+                left: 20,
                 bottom: 16,
               ),
               child: OtpTextField(
-                numberOfFields: 5,
+                numberOfFields: 6,
                 borderColor: const Color(0xFFF5F5F5),
                 showFieldAsBox: true,
-                fieldWidth: 48,
+                fieldWidth: 46,
                 borderRadius: const BorderRadius.all(Radius.circular(8.0)),
               ),
             ),
@@ -128,13 +140,13 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               labelText: "Date of Birth",
               width: 343,
               height: 64,
-              Controller: emailController,
+              Controller: birthController,
             ),
             MyTextField(
               labelText: "GSTIN",
               width: 343,
               height: 64,
-              Controller: emailController,
+              Controller: GSTController,
             ),
           ],
         ),
