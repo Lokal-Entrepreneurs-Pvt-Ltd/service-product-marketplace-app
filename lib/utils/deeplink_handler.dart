@@ -141,6 +141,7 @@ abstract class DeeplinkHandler {
         }
         break;
       default:
+        launchUrl(Uri.parse(url));
     }
   }
 
