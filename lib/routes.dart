@@ -13,4 +13,5 @@ class MyRoutes {
   static const String icon = "/icon";
   static const String emptyCartScreen = "/emptycartscreen";
   static const String forgetPassword = "/forgetPassword";
+  static const String addressBook = "/addressbook";
 }
