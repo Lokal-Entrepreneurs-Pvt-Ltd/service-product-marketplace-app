@@ -22,8 +22,8 @@ class UikCouponScreen extends StandardPage {
   }
 
   @override
-  dynamic getData() {
-    return fetchAlbum;
+  Future<ApiResponse> getData() {
+    return ApiRepository.getCouponScreen();
   }
 
   void onCouponScreenTapAction(UikAction uikAction) {
