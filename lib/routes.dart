@@ -11,6 +11,8 @@ class MyRoutes {
   static const String otp = "/otp";
   static const String avatar = "/avatar";
   static const String icon = "/icon";
+
+  static const String couponScreen = "/couponscreen";
   static const String emptyCartScreen = "/emptycartscreen";
   static const String forgetPassword = "/forgetPassword";
 }
