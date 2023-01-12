@@ -40,4 +40,7 @@ abstract class StandardScreenClient {
 
   @POST(MyRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen();
+
+  @GET(MyRoutes.myAccountScreen)
+  Future<ApiResponse> getMyAccountScreen();
 }
