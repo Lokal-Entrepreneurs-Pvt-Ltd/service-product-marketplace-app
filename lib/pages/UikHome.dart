@@ -22,8 +22,8 @@ class UikHome extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getHomescreen();
+  dynamic getData() {
+    return ApiRepository.getHomescreen;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
@@ -53,9 +53,9 @@ Future<ApiResponse> fetchAlbum(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
-
-  final response = await http.get(
-    Uri.parse('https://demo2425412.mockable.io/homescreen'),
+  print("entering lavesh");
+  final response = await http.post(
+    Uri.parse('https://1028-42-108-160-114.ngrok.io/discovery/get'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
