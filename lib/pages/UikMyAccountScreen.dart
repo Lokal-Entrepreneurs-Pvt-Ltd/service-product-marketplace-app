@@ -1,51 +1,55 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'dart:convert';
 
-class MyAccount extends StatelessWidget {
-  final List<Widget> ll;
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:ui_sdk/StandardPage.dart';
+import 'package:http/http.dart' as http;
+import 'package:ui_sdk/props/ApiResponse.dart';
+import 'package:ui_sdk/props/StandardScreenResponse.dart';
+import 'package:dio/dio.dart';
 
-  MyAccount({required this.ll});
+import '../utils/network/retrofit/api_client.dart';
+
+class UikMyAccountScreen extends StandardPage {
+  @override
+  Set<String?> getActions() {
+    Set<String?> actionList = Set();
+    actionList.add("OPEN_WEB");
+    actionList.add("OPEN_HALA");
+    actionList.add("OPEN_ROUTE");
+    return actionList;
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          SizedBox(
-            width: 375,
-            height: 114,
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 56,
-                  left: 16,
-                  child: SizedBox(
-                    width: 343,
-                    height: 42,
-                    child: Text(
-                      "my account",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w600, fontSize: 32),
-                    ),
-                  ),
-                ),
-                const Positioned(
-                  top: 18.28,
-                  left: 337.28,
-                  child: SizedBox(
-                    width: 19.44,
-                    height: 19.44,
-                    child: Icon(Icons.settings),
-                  ),
-                )
-              ],
-            ),
-          ),
-          for (int i = 0; i < ll.length; i++) ...[
-            ll[i],
-          ]
-        ],
-      ),
-    );
+  dynamic getData() {
+    return fetchAlbum;
+  }
+
+  void onMyAccountScreenTapAction() {}
+
+  @override
+  getPageCallBackForAction() {
+    return onMyAccountScreenTapAction;
+  }
+
+  @override
+  getPageContext() {
+    return UikMyAccountScreen;
+  }
+}
+
+Future<ApiResponse> fetchAlbum(args) async {
+  print("lavesh ${args}");
+  final response = await http.get(
+    Uri.parse('https://demo6536398.mockable.io/myAccount'),
+    headers: {
+      "ngrok-skip-browser-warning": "value",
+    },
+  );
+
+  // StandardScreenResponse
+  if (response.statusCode == 200) {
+    return ApiResponse.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load album');
   }
 }
