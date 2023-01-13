@@ -6,6 +6,7 @@ import 'package:pinput/pinput.dart';
 import 'dart:async';
 import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
+import '../../widgets/UikButton/UikButton.dart';
 
 class OtpScreen extends StatefulWidget {
   String mobileNumber;
@@ -94,26 +95,12 @@ class _OtpScreenState extends State<OtpScreen> {
               padding: const EdgeInsets.all(16),
               child: SizedBox(
                 height: 64,
-                width: 343,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegistrationScreen()));
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      HexColor("#FEE440"),
-                    ),
-                  ),
-                  child: Text(
-                    "Continue",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: HexColor(HEX_BLACK_21)),
-                  ),
+                width: 327,
+                child: UikButton(
+                  text: "Continue",
+                  widthSize: 327,
+                  backgroundColor: const Color(0xffFEE440),
+                  onClick: () {},
                 ),
               ),
             ),
