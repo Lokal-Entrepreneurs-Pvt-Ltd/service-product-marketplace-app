@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/colors.dart';
 import 'package:lokal/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
+import 'package:pinput/pinput.dart';
 import 'dart:async';
 import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
@@ -51,16 +52,9 @@ class _OtpScreenState extends State<OtpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  STR_WELCOME,
+                  "Enter OTP",
                   style: TextStyle(
                     fontSize: DIMEN_32,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const Text(
-                  "enter code from sms",
-                  style: TextStyle(
-                    fontSize: 32,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -70,9 +64,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 Text(
                   "We sent it to +91-${widget.mobileNumber}",
                   style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: HexColor("#9E9E9E")),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: HexColor("#9E9E9E"),
+                  ),
                 ),
               ],
             ),
@@ -80,21 +75,21 @@ class _OtpScreenState extends State<OtpScreen> {
               height: 16,
             ),
             Center(
-                // child: Pinput(
-                //   length: 6,
-                //   defaultPinTheme: PinTheme(
-                //     height: 64,
-                //     width: 48,
-                //     decoration: BoxDecoration(
-                //         borderRadius: const BorderRadius.all(Radius.circular(8)),
-                //         color: HexColor("#F5F5F5")),
-                //     textStyle: const TextStyle(
-                //       fontSize: 24,
-                //       fontWeight: FontWeight.w400,
-                //     ),
-                //   ),
-                // ),
+              child: Pinput(
+                length: 6,
+                defaultPinTheme: PinTheme(
+                  height: 64,
+                  width: 48,
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      color: HexColor("#F5F5F5")),
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: SizedBox(
