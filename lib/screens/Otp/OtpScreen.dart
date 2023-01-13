@@ -9,8 +9,13 @@ import '../../constants/strings.dart';
 import '../../widgets/UikButton/UikButton.dart';
 
 class OtpScreen extends StatefulWidget {
-  String mobileNumber;
-  OtpScreen(this.mobileNumber, {super.key});
+  final String mobileNumber;
+
+  const OtpScreen({
+    super.key,
+    this.mobileNumber = "",
+  });
+
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
