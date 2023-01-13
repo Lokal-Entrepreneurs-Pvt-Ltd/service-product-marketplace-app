@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
+import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/screens/forgetPassword/ForgetPassword.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/screens/login/login.dart';
@@ -122,7 +123,7 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-          "/": (context) => const SignupScreen(),
+          "/": (context) => OtpScreen("1234567890"),
           MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyRoutes.cartScreen: (context) => UikCartScreen().page,
           MyRoutes.loginScreen: (context) => LoginPage(),
