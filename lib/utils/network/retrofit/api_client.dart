@@ -27,7 +27,7 @@ abstract class StandardScreenClient {
   @POST(MyApiRoutes.productScreen)
   Future<ApiResponse> getProductScreen();
   @GET(MyRoutes.couponScreen)
-  Future<ApiResponse> getCouponScreen();
+  Future<ApiResponse> getCouponScreen(args);
 
   @POST(MyApiRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen();

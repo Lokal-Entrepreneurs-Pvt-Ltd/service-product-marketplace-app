@@ -113,11 +113,11 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getCouponScreen() async {
+  Future<ApiResponse> getCouponScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'GET',
