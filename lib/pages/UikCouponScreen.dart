@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -18,6 +19,7 @@ class UikCouponScreen extends StandardPage {
     actionList.add("OPEN_CATEGORY");
     actionList.add("OPEN_ISP");
     actionList.add("ADD_TO_CART");
+    actionList.add("APPLY_COUPON");
     return actionList;
   }
 
@@ -28,12 +30,10 @@ class UikCouponScreen extends StandardPage {
 
   void onCouponScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case "ADD_TO_CART":
-        addToCart(uikAction);
+      case "APPLY_COUPON":
+        applyCoupon(uikAction);
         break;
-      case "OPEN_CATEGORY":
-        openCategory(uikAction);
-        break;
+
       default:
     }
   }
@@ -47,6 +47,10 @@ class UikCouponScreen extends StandardPage {
   getPageContext() {
     return UikCouponScreen;
   }
+
+  void applyCoupon(UikAction uikAction) {
+    log("applyCoupon");
+  }
 }
 
 Future<ApiResponse> fetchAlbum(args) async {
@@ -55,7 +59,7 @@ Future<ApiResponse> fetchAlbum(args) async {
   };
 
   final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/couponscreen'),
+    Uri.parse('http://demo7907509.mockable.io/couponScreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -68,27 +72,4 @@ Future<ApiResponse> fetchAlbum(args) async {
   } else {
     throw Exception('Failed to load album');
   }
-}
-
-void addToCart(UikAction uikAction) async {
-  var skuId = uikAction.tap.data.skuId;
-
-  //api call to update cart
-  final response =
-      await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
-    "ngrok-skip-browser-warning": "value",
-  }, body: {
-    "skuId": skuId,
-    "cartId": "",
-    "action": "add"
-  });
-
-  //displaying response from update cart
-  print("statusCode ${response.body}");
-}
-
-void openCategory(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
