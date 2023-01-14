@@ -60,10 +60,11 @@ dependencies:
   syncfusion_flutter_sliders: ^20.2.36
   firebase_crashlytics: ^3.0.6
   firebase_analytics: ^10.0.6
-  ui_sdk: ^1.0.59+1
+  ui_sdk: ^1.0.61+1
   chucker_flutter: ^1.4.0
   pinput: ^2.2.19
   sticky_headers: ^0.3.0+2
+  fluttertoast: ^8.1.2
 
 dev_dependencies:
   build_runner: ^2.3.2
