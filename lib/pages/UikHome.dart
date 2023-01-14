@@ -7,17 +7,16 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
-import '../utils/deeplink_handler.dart';
-import '../constants.dart';
-import '../main.dart';
+import '../actions.dart';
+
 
 class UikHome extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_CATEGORY");
-    actionList.add("OPEN_ISP");
-    actionList.add("ADD_TO_CART");
+    actionList.add(UIK_ACTION.OPEN_CATEGORY);
+    actionList.add(UIK_ACTION.OPEN_ISP);
+    actionList.add(UIK_ACTION.ADD_TO_CART);
     return actionList;
   }
 
@@ -28,10 +27,10 @@ class UikHome extends StandardPage {
 
   void onHomeScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case "ADD_TO_CART":
+      case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
         break;
-      case "OPEN_CATEGORY":
+      case UIK_ACTION.OPEN_CATEGORY:
         openCategory(uikAction);
         break;
       default:
