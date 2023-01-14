@@ -14,7 +14,7 @@ class UikBottomNavigationBar extends StatelessWidget {
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
-              const UikHomeWrapper(),
+              UikHomeWrapper(),
               UikCatalogScreen().page,
               UikSearchCatalog().page,
               UikProductPage().page,
