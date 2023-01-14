@@ -51,8 +51,9 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.catalogueScreen:
         {
-          if (args["catalogueId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
+          print("Lavesh Lvaesh");
+          if (args["categoryId"] != null) {
+            _pushScreen(context, MyRoutes.catalogueScreen, args);
           }
         }
         break;
@@ -75,6 +76,10 @@ abstract class DeeplinkHandler {
   }
 
   static void openPage(BuildContext context, String url) {
+    if (url.startsWith("http")) {
+      openDeeplink(context, url);
+      return;
+    }
     // Url formatl -> lokal://productscreen?categoryid=1&productid=1
     String route = "";
     Map<String, String> args = {};
@@ -92,8 +97,6 @@ abstract class DeeplinkHandler {
         args[keyValuePair[0]] = keyValuePair[1];
       }
     }
-
-    route = "/products/get";
 
     print(route);
     print(args);
@@ -115,8 +118,9 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.catalogueScreen:
         {
-          if (args["catalogueId"] != null) {
-            _pushScreen(context, MyRoutes.catalogueScreen);
+          print("lavesh lavesh");
+          if (args["categoryId"] != null) {
+            _pushScreen(context, MyRoutes.catalogueScreen, args);
           }
         }
         break;
@@ -139,8 +143,9 @@ abstract class DeeplinkHandler {
     }
   }
 
-  static void _pushScreen(BuildContext context, String route) {
+  static void _pushScreen(BuildContext context, String route,
+      [Map<String, dynamic>? args]) {
     print("pushed route ${route}");
-    Navigator.pushNamed(context, route);
+    Navigator.pushNamed(context, route, arguments: args);
   }
 }
