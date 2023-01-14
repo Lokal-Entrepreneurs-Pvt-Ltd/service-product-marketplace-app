@@ -21,7 +21,7 @@ class UikComponentDisplayer extends StandardPage {
   Future<ApiResponse> getData() {
     return StandardScreenClient(
             Dio(BaseOptions(contentType: "application/json")))
-        .getHomeScreen();
+        .getHomeScreen("");
   }
 
   @override
