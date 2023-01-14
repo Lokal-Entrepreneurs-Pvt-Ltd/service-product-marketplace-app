@@ -15,8 +15,8 @@ class UikOrderHistoryScreen extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getOrderHistoryScreen();
+  dynamic getData() {
+    return ApiRepository.getOrderHistoryScreen;
   }
 
   void onOrderHistoryScrenTapAction() {}

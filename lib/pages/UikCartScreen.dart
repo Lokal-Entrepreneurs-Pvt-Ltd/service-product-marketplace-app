@@ -13,8 +13,8 @@ class UikEmptyCartScreen extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getEmptyCartScreen();
+  dynamic getData() {
+    return ApiRepository.getEmptyCartScreen;
   }
 
   void onEmptyCartScreenTapAction() {}
@@ -41,8 +41,8 @@ class UikCartScreen extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getCartScreen();
+  dynamic getData() {
+    return ApiRepository.getCartScreen;
   }
 
   void onCartScreenTapAction() {}

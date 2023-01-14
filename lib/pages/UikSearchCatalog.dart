@@ -18,8 +18,8 @@ class UikSearchCatalog extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getSearchScreen();
+  dynamic getData() {
+    return ApiRepository.getSearchScreen;
   }
 
   void onSearchCatalogTapAction() {}
