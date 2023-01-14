@@ -21,7 +21,7 @@ class UikCatalogScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return fetchAlbum;
+    return ApiRepository.getCatalogue;
   }
 
   void onCatalogScreenTapAction() {}
@@ -38,6 +38,7 @@ class UikCatalogScreen extends StandardPage {
 }
 
 Future<ApiResponse> fetchAlbum(args) async {
+  print("catalogue screen");
   print("lavesh ${args}");
   final response = await http.post(
     Uri.parse('https://bc4c-1-38-54-6.ngrok.io/products/get'),
@@ -51,7 +52,7 @@ Future<ApiResponse> fetchAlbum(args) async {
   if (response.statusCode == 200) {
     return ApiResponse.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed uuu to load album');
   }
 
   // final dio = Dio();
