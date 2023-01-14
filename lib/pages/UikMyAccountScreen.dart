@@ -1,20 +1,13 @@
 import 'dart:convert';
 // import 'dart:js';
 
-import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikSnackbar/snack.dart';
 import 'package:lokal/actions.dart';
-import 'package:lokal/main.dart';
-import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/uiUtils/toast1.dart';
+import 'package:lokal/utils/uiUtils/uiUtils.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
-import 'package:dio/dio.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-
-import '../utils/network/retrofit/api_client.dart';
 
 class UikMyAccountScreen extends StandardPage {
   final obj = Snack();
@@ -72,19 +65,29 @@ class UikMyAccountScreen extends StandardPage {
   }
 }
 
-void openSign(UikAction uikAction) {}
-
-void openPayment(UikAction uikAction) {}
-
-void openAddress(UikAction uikAction) {}
-
-void openWishlist(UikAction uikAction) {}
-
-void openDetails(UikAction uikAction) {
-  print("Helloo");
+void openSign(UikAction uikAction) {
+  MyStaticClass.showToast("SIGN OUT");
 }
 
-void openOrders(UikAction uikAction) {}
+void openPayment(UikAction uikAction) {
+  MyStaticClass.showToast("PAYMENTS");
+}
+
+void openAddress(UikAction uikAction) {
+  MyStaticClass.showToast("ADDRESS");
+}
+
+void openWishlist(UikAction uikAction) {
+  MyStaticClass.showToast("WISHLIST");
+}
+
+void openDetails(UikAction uikAction) {
+  MyStaticClass.showToast("DETAILS");
+}
+
+void openOrders(UikAction uikAction) {
+  MyStaticClass.showToast("ORDERS");
+}
 
 Future<ApiResponse> fetchAlbum(args) async {
   print("lavesh ${args}");
