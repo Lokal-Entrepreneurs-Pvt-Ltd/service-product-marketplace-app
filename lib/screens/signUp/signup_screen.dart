@@ -1,23 +1,26 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
+import 'package:ui_sdk/components/UikText.dart';
+import 'package:ui_sdk/components/WidgetType.dart';
 
 import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
-class LoginPageScreen extends StatefulWidget {
-  const LoginPageScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginPageScreen> createState() => _LoginPageScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginPageScreenState extends State<LoginPageScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -32,18 +35,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   var authErrorMessage = "";
 
   @override
-  void initState() {
-    super.initState();
-
-    initialize();
-  }
-
-  void initialize() async {
-    emailController.text = await UserDataHandler.getUserEmail();
-    passwordController.text = await UserDataHandler.getUserPassword();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -52,7 +43,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
           children: [
             UikNavbar(
               size: "",
-              titleText: "welcome back!\nLogin to continue",
+              titleText: "enter your email\naddress",
               leftIcon: const Icon(Icons.arrow_back),
             ),
             const SizedBox(
@@ -60,20 +51,22 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
             ),
             MyTextField(
               labelText: "Email",
-              width: 343,
+              width: 327,
               height: 64,
               Controller: emailController,
               error: errorEmail,
               description: descEmail,
+              isSignUpField: true,
             ),
             MyTextField(
               labelText: "Password",
-              width: 343,
+              width: 327,
               height: 64,
               Controller: passwordController,
               error: errorPassword,
               isPassword: true,
               description: descPassword,
+              isSignUpField: true,
             ),
             Container(
               margin: const EdgeInsets.only(
@@ -81,6 +74,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               ),
               child: UikButton(
                 text: "Continue",
+                widthSize: 327,
                 backgroundColor: const Color(0xffFEE440),
                 onClick: () async {
                   // Once the user logs in with email and password,
@@ -93,7 +87,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     // var client = http.Client();
 
                     Uri uri = Uri.parse(
-                        "https://dev.localee.co.in/api/customer/login");
+                        "https://dev.localee.co.in/api/customer/signup");
 
                     var response = await http.post(
                       uri,
@@ -146,6 +140,20 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
             ),
             const SizedBox(
               height: 16,
+            ),
+            Center(
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF9E9E9E),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

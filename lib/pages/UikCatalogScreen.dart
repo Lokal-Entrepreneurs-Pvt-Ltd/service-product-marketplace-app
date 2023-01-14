@@ -8,6 +8,7 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:dio/dio.dart';
 
 import '../utils/network/retrofit/api_client.dart';
+
 class UikCatalogScreen extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -19,8 +20,8 @@ class UikCatalogScreen extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getCatalogue();
+  dynamic getData() {
+    return ApiRepository.getCatalogue;
   }
 
   void onCatalogScreenTapAction() {}
@@ -36,19 +37,22 @@ class UikCatalogScreen extends StandardPage {
   }
 }
 
-Future<StandardScreenResponse> fetchAlbum() async {
-  final response = await http.get(
-    Uri.parse('https://demo1595178.mockable.io/CatalogScreen'),
+Future<ApiResponse> fetchAlbum(args) async {
+  print("catalogue screen");
+  print("lavesh ${args}");
+  final response = await http.post(
+    Uri.parse('https://bc4c-1-38-54-6.ngrok.io/products/get'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
+    body: args,
   );
 
   // StandardScreenResponse
   if (response.statusCode == 200) {
-    return StandardScreenResponse.fromJson(jsonDecode(response.body));
+    return ApiResponse.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed uuu to load album');
   }
 
   // final dio = Dio();
