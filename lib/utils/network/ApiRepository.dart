@@ -22,44 +22,56 @@ class ApiRepository {
     return dio;
   }
 
-  static Future<ApiResponse> getHomescreen() {
-    return StandardScreenClient(getDio()).getHomeScreen();
+  static Future<ApiResponse> getHomescreen(args) {
+    return StandardScreenClient(getDio()).getHomeScreen(args);
   }
 
-  static Future<ApiResponse> getCatalogue() {
-    return StandardScreenClient(getDio()).getCatlogue();
+  static Future<ApiResponse> getCatalogue(args) {
+    return StandardScreenClient(getDio()).getCatlogue(args);
   }
 
-  static Future<ApiResponse> getProductScreen() {
-    return StandardScreenClient(getDio()).getProductScreen();
+  static Future<ApiResponse> getProductScreen(args) {
+    return StandardScreenClient(getDio()).getProductScreen(args);
   }
 
-  static Future<ApiResponse> getSearchScreen() {
-    return StandardScreenClient(getDio()).getSearchScreen();
+  static Future<ApiResponse> getCouponScreen(args) {
+    return StandardScreenClient(getDio(),
+            baseUrl: "https://demo6536398.mockable.io/")
+        .getCouponScreen(args);
   }
 
-  static Future<ApiResponse> getPaymentDetailsScreen() {
+  static Future<ApiResponse> getSearchScreen(args) {
+    return StandardScreenClient(getDio()).getSearchScreen(args);
+  }
+
+  static Future<ApiResponse> getPaymentDetailsScreen(args) {
     return StandardScreenClient(getDio(),
             baseUrl: "https://demo8023603.mockable.io/")
-        .getPaymentDetailsScreen();
+        .getPaymentDetailsScreen(args);
   }
 
-  static Future<ApiResponse> getOrderScreen() {
+  static Future<ApiResponse> getOrderScreen(args) {
     return StandardScreenClient(getDio(),
             baseUrl: "https://demo8971456.mockable.io/")
-        .getOrderScreen();
+        .getOrderScreen(args);
   }
 
-  static Future<ApiResponse> getCartScreen() {
+  static Future<ApiResponse> getCartScreen(args) {
     return StandardScreenClient(getDio(),
             baseUrl: "https://demo9790512.mockable.io/")
-        .getCartScreen();
+        .getCartScreen(args);
   }
 
-  static Future<ApiResponse> getEmptyCartScreen() {
+  static Future<ApiResponse> getEmptyCartScreen(args) {
     return StandardScreenClient(getDio(),
             baseUrl: "http://demo2913052.mockable.io/")
-        .getEmptyCartScreen();
+        .getEmptyCartScreen(args);
+  }
+
+  static Future<ApiResponse> getOrderHistoryScreen(args) {
+    return StandardScreenClient(getDio(),
+            baseUrl: "https://demo9350314.mockable.io/")
+        .getOrderHistoryScreen(args);
   }
 
   static Future<ApiResponse> getMyAccountScreen() {

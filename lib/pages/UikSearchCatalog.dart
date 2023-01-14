@@ -6,20 +6,21 @@ import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:dio/dio.dart';
 import '../utils/network/ApiRepository.dart';
 import '../utils/network/retrofit/api_client.dart';
+import '../actions.dart';
 
 class UikSearchCatalog extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
-    actionList.add("OPEN_ROUTE");
+    actionList.add(UIK_ACTION.OPEN_WEB);
+    actionList.add(UIK_ACTION.OPEN_HALA);
+    actionList.add(UIK_ACTION.OPEN_ROUTE);
     return actionList;
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getSearchScreen();
+  dynamic getData() {
+    return ApiRepository.getSearchScreen;
   }
 
   void onSearchCatalogTapAction() {}

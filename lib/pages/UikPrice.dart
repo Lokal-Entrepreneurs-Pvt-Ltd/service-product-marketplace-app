@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:lokal/actions.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -13,8 +14,8 @@ class UikPrice extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
+    actionList.add(UIK_ACTION.OPEN_WEB);
+    actionList.add(UIK_ACTION.OPEN_HALA);
     return actionList;
   }
 
@@ -22,7 +23,7 @@ class UikPrice extends StandardPage {
   Future<ApiResponse> getData() {
     return StandardScreenClient(
             Dio(BaseOptions(contentType: "application/json")))
-        .getHomeScreen();
+        .getHomeScreen("");
   }
 
   @override

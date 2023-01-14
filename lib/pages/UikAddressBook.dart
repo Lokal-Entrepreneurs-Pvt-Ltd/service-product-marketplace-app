@@ -7,10 +7,12 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
+import '../utils/deeplink_handler.dart';
+import '../constants.dart';
+import '../main.dart';
 import '../actions.dart';
 
-
-class UikHome extends StandardPage {
+class UikAddressBook extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -22,10 +24,10 @@ class UikHome extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getHomescreen;
+    return fetchAlbum;
   }
 
-  void onHomeScreenTapAction(UikAction uikAction) {
+  void onAddressBookTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
@@ -39,12 +41,12 @@ class UikHome extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return onHomeScreenTapAction;
+    return onAddressBookTapAction;
   }
 
   @override
   getPageContext() {
-    return UikHome;
+    return UikAddressBook;
   }
 }
 
@@ -52,9 +54,9 @@ Future<ApiResponse> fetchAlbum(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
-  print("entering lavesh");
-  final response = await http.post(
-    Uri.parse('https://1028-42-108-160-114.ngrok.io/discovery/get'),
+
+  final response = await http.get(
+    Uri.parse('https://demo4695667.mockable.io/addressbook'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },

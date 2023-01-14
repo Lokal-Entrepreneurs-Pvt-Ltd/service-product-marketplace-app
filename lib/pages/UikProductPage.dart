@@ -8,16 +8,17 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 import '../constants.dart';
-
+import '../actions.dart';
 import '../utils/network/ApiRepository.dart';
 import '../utils/network/retrofit/api_client.dart';
+
 class UikProductPage extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
-    actionList.add("OPEN_ROUTE");
+    actionList.add(UIK_ACTION.OPEN_WEB);
+    actionList.add(UIK_ACTION.OPEN_HALA);
+    actionList.add(UIK_ACTION.OPEN_ROUTE);
     return actionList;
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/routes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 abstract class DeeplinkHandler {
   static void openDeeplink(BuildContext context, String url) {
@@ -51,6 +52,7 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.catalogueScreen:
         {
+          print("Lavesh Lvaesh");
           if (args["categoryId"] != null) {
             _pushScreen(context, MyRoutes.catalogueScreen, args);
           }
@@ -71,6 +73,8 @@ abstract class DeeplinkHandler {
         }
         break;
       default:
+        launchUrl(Uri.parse(url));
+
     }
   }
 
@@ -117,6 +121,7 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.catalogueScreen:
         {
+          print("lavesh lavesh");
           if (args["categoryId"] != null) {
             _pushScreen(context, MyRoutes.catalogueScreen, args);
           }
@@ -138,6 +143,7 @@ abstract class DeeplinkHandler {
         }
         break;
       default:
+        launchUrl(Uri.parse(url));
     }
   }
 

@@ -164,7 +164,7 @@ class RegisterScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        OtpScreen(mobileController.text)));
+                                        OtpScreen(mobileNumber: mobileController.text)));
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(

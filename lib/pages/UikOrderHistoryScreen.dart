@@ -1,9 +1,10 @@
+import 'package:lokal/actions.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import '../actions.dart';
+import '../utils/network/retrofit/api_client.dart';
 
-class UikOrderScreen extends StandardPage {
+class UikOrderHistoryScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -15,18 +16,18 @@ class UikOrderScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getOrderScreen;
+    return ApiRepository.getOrderHistoryScreen;
   }
 
-  void onOrderScreenTapAction() {}
+  void onOrderHistoryScrenTapAction() {}
 
   @override
   getPageCallBackForAction() {
-    return onOrderScreenTapAction;
+    return onOrderHistoryScrenTapAction;
   }
 
   @override
   getPageContext() {
-    return UikOrderScreen;
+    return UikOrderHistoryScreen;
   }
 }

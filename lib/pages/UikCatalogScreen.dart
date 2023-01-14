@@ -6,22 +6,22 @@ import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:dio/dio.dart';
-
+import '../actions.dart';
 import '../utils/network/retrofit/api_client.dart';
 
 class UikCatalogScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
-    actionList.add("OPEN_ROUTE");
+    actionList.add(UIK_ACTION.OPEN_WEB);
+    actionList.add(UIK_ACTION.OPEN_HALA);
+    actionList.add(UIK_ACTION.OPEN_ROUTE);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return fetchAlbum;
+    return ApiRepository.getCatalogue;
   }
 
   void onCatalogScreenTapAction() {}
@@ -38,6 +38,7 @@ class UikCatalogScreen extends StandardPage {
 }
 
 Future<ApiResponse> fetchAlbum(args) async {
+  print("catalogue screen");
   print("lavesh ${args}");
   final response = await http.post(
     Uri.parse('https://bc4c-1-38-54-6.ngrok.io/products/get'),
@@ -51,7 +52,7 @@ Future<ApiResponse> fetchAlbum(args) async {
   if (response.statusCode == 200) {
     return ApiResponse.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to load album');
+    throw Exception('Failed uuu to load album');
   }
 
   // final dio = Dio();
