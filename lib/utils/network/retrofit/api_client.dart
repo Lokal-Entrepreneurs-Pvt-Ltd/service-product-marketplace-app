@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../storage/user_data_handler.dart';
+import 'api_routes.dart';
 
 part 'api_client.g.dart';
 
@@ -17,29 +18,29 @@ abstract class StandardScreenClient {
   @POST("/")
   Future<ApiResponse> getResponse();
 
-  @POST(MyRoutes.homeScreen)
-  Future<ApiResponse> getHomeScreen();
+  @POST(MyApiRoutes.homeScreen)
+  Future<ApiResponse> getHomeScreen(args);
 
-  @POST(MyRoutes.catalogueScreen)
-  Future<ApiResponse> getCatlogue();
+  @POST(MyApiRoutes.catalogueScreen)
+  Future<ApiResponse> getCatlogue(args);
 
-  @POST(MyRoutes.productScreen)
+  @POST(MyApiRoutes.productScreen)
   Future<ApiResponse> getProductScreen();
   @GET(MyRoutes.couponScreen)
   Future<ApiResponse> getCouponScreen();
 
-  @POST(MyRoutes.searchScreen)
+  @POST(MyApiRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen();
 
-  @POST(MyRoutes.paymentdetailsScreen)
+  @POST(MyApiRoutes.paymentdetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen();
 
-  @POST(MyRoutes.orderScreen)
+  @POST(MyApiRoutes.orderScreen)
   Future<ApiResponse> getOrderScreen();
 
-  @POST(MyRoutes.cartScreen)
+  @POST(MyApiRoutes.cartScreen)
   Future<ApiResponse> getCartScreen();
 
-  @POST(MyRoutes.emptyCartScreen)
+  @POST(MyApiRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen();
 }
