@@ -14,6 +14,7 @@ class MyRoutes {
   static const String couponScreen = "/couponscreen";
   static const String emptyCartScreen = "/emptycartscreen";
   static const String forgetPassword = "/forgetPassword";
+  static const String addressBook = "/addressbook";
   static const String signUpScreen = "/signupscreen";
   static const String otpScreen = "/otpscreen";
   static const String setNewPasswordScreen = "/setnewpassword";
