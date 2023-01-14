@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost:3000';
+    baseUrl ??= 'https://583e-59-144-91-34.in.ngrok.io';
   }
 
   final Dio _dio;
@@ -44,11 +44,11 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getHomeScreen() async {
+  Future<ApiResponse> getHomeScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -67,34 +67,11 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getCatlogue() async {
+  Future<ApiResponse> getCatlogue(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/products',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<ApiResponse> getProductScreen() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -113,11 +90,57 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getSearchScreen() async {
+  Future<ApiResponse> getProductScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/products',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse> getCouponScreen(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/couponscreen',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse> getSearchScreen(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -136,11 +159,11 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getPaymentDetailsScreen() async {
+  Future<ApiResponse> getPaymentDetailsScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -159,11 +182,11 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getOrderScreen() async {
+  Future<ApiResponse> getOrderScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -182,11 +205,11 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getCartScreen() async {
+  Future<ApiResponse> getCartScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -205,11 +228,11 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getEmptyCartScreen() async {
+  Future<ApiResponse> getEmptyCartScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -219,6 +242,29 @@ class _StandardScreenClient implements StandardScreenClient {
             .compose(
               _dio.options,
               '/emptycartscreen',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse> getOrderHistoryScreen(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/orderhistoryscreen',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -6,23 +6,23 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
-
+import '../actions.dart';
 import '../utils/network/retrofit/api_client.dart';
 
 class UikCart extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
+    actionList.add(UIK_ACTION.OPEN_WEB);
+    actionList.add(UIK_ACTION.OPEN_HALA);
     return actionList;
   }
 
   @override
-  Future<ApiResponse> getData() {
+  dynamic getData() {
     return StandardScreenClient(
             Dio(BaseOptions(contentType: "application/json")))
-        .getHomeScreen();
+        .getHomeScreen("");
   }
 
   @override

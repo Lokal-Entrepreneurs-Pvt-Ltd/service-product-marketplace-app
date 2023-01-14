@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikSnackbar/snack.dart';
+import 'package:lokal/actions.dart';
 import 'package:lokal/main.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/uiUtils/toast1.dart';
@@ -20,12 +21,12 @@ class UikMyAccountScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_ORDERS");
-    actionList.add("OPEN_DETAILS");
-    actionList.add("OPEN_WISHLIST");
-    actionList.add("OPEN_ADDRESS");
-    actionList.add("OPEN_PAYMENT");
-    actionList.add("OPEN_SIGN_OUT");
+    actionList.add(UIK_ACTION.OPEN_ORDERS);
+    actionList.add(UIK_ACTION.OPEN_DETAILS);
+    actionList.add(UIK_ACTION.OPEN_WISHLIST);
+    actionList.add(UIK_ACTION.OPEN_ADDRESS);
+    actionList.add(UIK_ACTION.OPEN_PAYMENT);
+    actionList.add(UIK_ACTION.OPEN_SIGN_OUT);
     return actionList;
   }
 
@@ -38,22 +39,22 @@ class UikMyAccountScreen extends StandardPage {
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case "OPEN_ORDERS":
+      case UIK_ACTION.OPEN_ORDERS:
         openOrders(uikAction);
         break;
-      case "OPEN_DETAILS":
+      case UIK_ACTION.OPEN_DETAILS:
         openDetails(uikAction);
         break;
-      case "OPEN_WISHLIST":
+      case UIK_ACTION.OPEN_WISHLIST:
         openWishlist(uikAction);
         break;
-      case "OPEN_ADDRESS":
+      case UIK_ACTION.OPEN_ADDRESS:
         openAddress(uikAction);
         break;
-      case "OPEN_PAYMENT":
+      case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
         break;
-      case "OPEN_SIGN_OUT":
+      case UIK_ACTION.OPEN_SIGN_OUT:
         openSign(uikAction);
         break;
       default:
@@ -71,21 +72,7 @@ class UikMyAccountScreen extends StandardPage {
   }
 }
 
-// final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-//     GlobalKey<ScaffoldMessengerState>();
-
-void openSign(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  ScaffoldMessenger.of(context!).showSnackBar(
-    const SnackBar(
-      content: Text('Sign Out'),
-    ),
-  );
-  // const snackbar = SnackBar(
-  //   content: Text("Sign Out"),
-  // );
-  // scaffoldMessengerKey.currentState!.showSnackBar(snackbar);
-}
+void openSign(UikAction uikAction) {}
 
 void openPayment(UikAction uikAction) {}
 

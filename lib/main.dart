@@ -5,26 +5,21 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:lokal/Widgets/UikSnackbar/snack.dart';
-import 'package:lokal/Widgets/UikSnackbar/snackbar.dart';
+import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
-import 'package:lokal/pages/UikMyDetailsScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
+import 'package:lokal/pages/UikCouponScreen.dart';
+import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/screens/forgetPassword/ForgetPassword.dart';
-import 'package:lokal/pages/UikOrderScreen.dart';
-import 'package:lokal/screens/login/login.dart';
-import 'package:lokal/screens/success/success.dart';
+import 'package:lokal/screens/setNewPassword/set_new_password_screen.dart';
+import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
-import 'package:lokal/utils/crashlytics.dart';
 import 'package:lokal/utils/AppInitializer.dart';
-import 'package:lokal/utils/uiUtils/toast.dart';
-import 'package:lokal/utils/uiUtils/toast1.dart';
-import 'package:lokal/utils/uiUtils/toast2.dart';
 //import 'package:lokal/utils/dio/models/product_provider.dart';
 import 'routes.dart';
 import 'screens/Onboarding/OnboardingScreen.dart';
@@ -56,6 +51,8 @@ void main() async {
   };
 
   final fcmToken = await FirebaseMessaging.instance.getToken();
+
+  print(fcmToken);
 
   FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
     fcmToken = fcmToken;
@@ -110,7 +107,7 @@ class _LokalAppState extends State<LokalApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       // print(message.data["link"]);
 
-      DeeplinkHandler.openDeeplink(
+      DeeplinkHandler.openPage(
           NavigationService.navigatorKey.currentContext!, message.data["link"]);
     });
   }
@@ -129,9 +126,18 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-          "/": (context) => success(),
+          // "/": (context) => success(),
+
+          //   "/": (context) => UikOrderHistoryScreen().page,
           // "/": (context) => UikBottomNavigationBar(),
-          // MyRoutes.cartScreen: (context) => UikCartScreen().page,
+          //  "/": (context) => UikAddressBook().page,
+
+          "/": (context) => UikCatalogScreen().page,
+
+          // "/": (context) => const SetNewPasswordScreen(),
+
+          MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
+          MyRoutes.cartScreen: (context) => UikCartScreen().page,
           MyRoutes.loginScreen: (context) => LoginPage(),
           MyRoutes.homeScreen: (context) => UikHome().page,
           MyRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
@@ -140,6 +146,13 @@ class _LokalAppState extends State<LokalApp> {
           MyRoutes.searchScreen: (context) => UikSearchCatalog().page,
           MyRoutes.orderScreen: (context) => UikOrder().page,
           MyRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
+          MyRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
+          MyRoutes.addressBook: (context) => UikAddressBook().page,
+          MyRoutes.couponScreen: (context) => UikCouponScreen().page,
+          MyRoutes.signUpScreen: (context) => const SignupScreen(),
+          MyRoutes.otpScreen: (context) => const OtpScreen(),
+          MyRoutes.setNewPasswordScreen: (context) =>
+              const SetNewPasswordScreen(),
         },
       ),
     );
