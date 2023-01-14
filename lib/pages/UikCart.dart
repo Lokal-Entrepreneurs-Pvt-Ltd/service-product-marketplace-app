@@ -19,7 +19,7 @@ class UikCart extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
+  dynamic getData() {
     return StandardScreenClient(
             Dio(BaseOptions(contentType: "application/json")))
         .getHomeScreen("");

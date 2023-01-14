@@ -25,25 +25,25 @@ abstract class StandardScreenClient {
   Future<ApiResponse> getCatlogue(args);
 
   @POST(MyApiRoutes.productScreen)
-  Future<ApiResponse> getProductScreen();
+  Future<ApiResponse> getProductScreen(args);
   @GET(MyRoutes.couponScreen)
   Future<ApiResponse> getCouponScreen(args);
 
   @POST(MyApiRoutes.searchScreen)
-  Future<ApiResponse> getSearchScreen();
+  Future<ApiResponse> getSearchScreen(args);
 
   @POST(MyApiRoutes.paymentdetailsScreen)
-  Future<ApiResponse> getPaymentDetailsScreen();
+  Future<ApiResponse> getPaymentDetailsScreen(args);
 
   @POST(MyApiRoutes.orderScreen)
-  Future<ApiResponse> getOrderScreen();
+  Future<ApiResponse> getOrderScreen(args);
 
   @POST(MyApiRoutes.cartScreen)
-  Future<ApiResponse> getCartScreen();
+  Future<ApiResponse> getCartScreen(args);
 
   @POST(MyApiRoutes.emptyCartScreen)
-  Future<ApiResponse> getEmptyCartScreen();
+  Future<ApiResponse> getEmptyCartScreen(args);
   
   @GET(MyRoutes.orderHistoryScreen)
-  Future<ApiResponse> getOrderHistoryScreen();
+  Future<ApiResponse> getOrderHistoryScreen(args);
 }

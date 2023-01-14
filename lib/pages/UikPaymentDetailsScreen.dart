@@ -14,8 +14,8 @@ class UikPaymentDetailsScreen extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getPaymentDetailsScreen();
+  dynamic getData() {
+    return ApiRepository.getPaymentDetailsScreen;
   }
 
   void onPaymentDetailsScreenTapAction() {}

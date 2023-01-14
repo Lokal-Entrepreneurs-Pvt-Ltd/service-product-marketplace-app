@@ -14,8 +14,8 @@ class UikOrderScreen extends StandardPage {
   }
 
   @override
-  Future<ApiResponse> getData() {
-    return ApiRepository.getOrderScreen();
+  dynamic getData() {
+    return ApiRepository.getOrderScreen;
   }
 
   void onOrderScreenTapAction() {}
