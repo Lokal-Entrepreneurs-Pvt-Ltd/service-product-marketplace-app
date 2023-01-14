@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_otp_text_field: ^1.1.0+2
   adaptive_action_sheet: ^2.0.1
   another_flushbar: ^1.10.29
   awesome_notifications: ^0.7.4+1
