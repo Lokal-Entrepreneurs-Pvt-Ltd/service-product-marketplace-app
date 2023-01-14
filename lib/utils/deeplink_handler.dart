@@ -51,6 +51,7 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.catalogueScreen:
         {
+          print("Lavesh Lvaesh");
           if (args["categoryId"] != null) {
             _pushScreen(context, MyRoutes.catalogueScreen, args);
           }
@@ -117,6 +118,7 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.catalogueScreen:
         {
+          print("lavesh lavesh");
           if (args["categoryId"] != null) {
             _pushScreen(context, MyRoutes.catalogueScreen, args);
           }
