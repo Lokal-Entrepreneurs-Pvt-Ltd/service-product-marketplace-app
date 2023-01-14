@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
+import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyDetailsScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
@@ -56,6 +57,8 @@ void main() async {
   };
 
   final fcmToken = await FirebaseMessaging.instance.getToken();
+
+  print(fcmToken);
 
   FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
     fcmToken = fcmToken;
@@ -110,7 +113,7 @@ class _LokalAppState extends State<LokalApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       // print(message.data["link"]);
 
-      DeeplinkHandler.openDeeplink(
+      DeeplinkHandler.openPage(
           NavigationService.navigatorKey.currentContext!, message.data["link"]);
     });
   }
@@ -130,6 +133,7 @@ class _LokalAppState extends State<LokalApp> {
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
 
+       //   "/": (context) => UikOrderHistoryScreen().page,
           // "/": (context) => UikBottomNavigationBar(),
         //  "/": (context) => UikAddressBook().page,
 
