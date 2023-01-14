@@ -15,20 +15,23 @@ class MyTextField extends StatefulWidget {
   final double height;
   final Widget? leftElement;
   final bool isPassword;
+  final bool isSignUpField;
   var error;
   final TextEditingController Controller;
 
-  MyTextField(
-      {this.description = "",
-      this.labelText = null,
-      this.hintText = "",
-      this.rightElement = null,
-      this.width = 0.0,
-      this.height = 0.0,
-      this.leftElement = null,
-      this.isPassword = false,
-      this.error = false,
-      required this.Controller});
+  MyTextField({
+    this.description = "",
+    this.labelText = null,
+    this.hintText = "",
+    this.rightElement = null,
+    this.width = 0.0,
+    this.height = 0.0,
+    this.leftElement = null,
+    this.isPassword = false,
+    this.error = false,
+    this.isSignUpField = false,
+    required this.Controller,
+  });
 
   @override
   State<MyTextField> createState() => _MyTextFieldState();
@@ -104,30 +107,32 @@ class _MyTextFieldState extends State<MyTextField> {
                           onEditingComplete: () async {
                             // https://08ea-202-89-65-238.in.ngrok.io/customer/doesAccountExist
 
-                            if (!widget.isPassword) {
-                              Uri uri = Uri.parse(
-                                  "https://dev.localee.co.in/api/customer/doesAccountExist");
+                            if (!widget.isSignUpField) {
+                              if (!widget.isPassword) {
+                                Uri uri = Uri.parse(
+                                    "https://dev.localee.co.in/api/customer/doesAccountExist");
 
-                              var response = await http.post(
-                                uri,
-                                body: {
-                                  "email": widget.Controller.text,
-                                },
-                              );
+                                var response = await http.post(
+                                  uri,
+                                  body: {
+                                    "email": widget.Controller.text,
+                                  },
+                                );
 
-                              final body = jsonDecode(response.body)
-                                  as Map<String, dynamic>;
+                                final body = jsonDecode(response.body)
+                                    as Map<String, dynamic>;
 
-                              if (body["isSuccess"]) {
-                                bool isAccountFound =
-                                    body["data"]["response"]["accountFound"];
+                                if (body["isSuccess"]) {
+                                  bool isAccountFound =
+                                      body["data"]["response"]["accountFound"];
 
-                                if (!isAccountFound) {
-                                  setState(() {
-                                    widget.error = true;
-                                    widget.description =
-                                        "Account doesn't exist";
-                                  });
+                                  if (!isAccountFound) {
+                                    setState(() {
+                                      widget.error = true;
+                                      widget.description =
+                                          "Account doesn't exist";
+                                    });
+                                  }
                                 }
                               }
                             }
