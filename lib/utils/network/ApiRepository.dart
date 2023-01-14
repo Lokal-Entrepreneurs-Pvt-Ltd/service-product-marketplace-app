@@ -22,16 +22,22 @@ class ApiRepository {
     return dio;
   }
 
-  static Future<ApiResponse> getHomescreen() {
-    return StandardScreenClient(getDio()).getHomeScreen();
+  static Future<ApiResponse> getHomescreen(args) {
+    return StandardScreenClient(getDio()).getHomeScreen(args);
   }
 
-  static Future<ApiResponse> getCatalogue() {
-    return StandardScreenClient(getDio()).getCatlogue();
+  static Future<ApiResponse> getCatalogue(args) {
+    return StandardScreenClient(getDio()).getCatlogue(args);
   }
 
   static Future<ApiResponse> getProductScreen() {
     return StandardScreenClient(getDio()).getProductScreen();
+  }
+
+  static Future<ApiResponse> getCouponScreen() {
+    return StandardScreenClient(getDio(),
+            baseUrl: "https://demo6536398.mockable.io/")
+        .getCouponScreen();
   }
 
   static Future<ApiResponse> getSearchScreen() {
