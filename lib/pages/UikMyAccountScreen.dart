@@ -66,27 +66,27 @@ class UikMyAccountScreen extends StandardPage {
 }
 
 void openSign(UikAction uikAction) {
-  MyStaticClass.showToast("SIGN OUT");
+  uiUtils.showToast("SIGN OUT");
 }
 
 void openPayment(UikAction uikAction) {
-  MyStaticClass.showToast("PAYMENTS");
+  uiUtils.showToast("PAYMENTS");
 }
 
 void openAddress(UikAction uikAction) {
-  MyStaticClass.showToast("ADDRESS");
+  uiUtils.showToast("ADDRESS");
 }
 
 void openWishlist(UikAction uikAction) {
-  MyStaticClass.showToast("WISHLIST");
+  uiUtils.showToast("WISHLIST");
 }
 
 void openDetails(UikAction uikAction) {
-  MyStaticClass.showToast("DETAILS");
+  uiUtils.showToast("DETAILS");
 }
 
 void openOrders(UikAction uikAction) {
-  MyStaticClass.showToast("ORDERS");
+  uiUtils.showToast("ORDERS");
 }
 
 Future<ApiResponse> fetchAlbum(args) async {
