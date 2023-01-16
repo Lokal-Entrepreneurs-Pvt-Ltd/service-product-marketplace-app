@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 import '../utils/network/retrofit/api_client.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // add and remove filter
 
@@ -53,11 +53,11 @@ class UikFilter extends StandardPage {
 }
 
 void removeFilter(UikAction uikAction) {
-  uiUtils.showToast("REMOVE FILTER");
+  UiUtils.showToast("REMOVE FILTER");
 }
 
 void addFilter(UikAction uikAction) {
-  uiUtils.showToast("ADD FILTER");
+  UiUtils.showToast("ADD FILTER");
 }
 
 // Future<StandardScreenResponse> fetchAlbum() async {

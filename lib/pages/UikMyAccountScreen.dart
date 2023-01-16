@@ -2,13 +2,17 @@ import 'dart:convert';
 // import 'dart:js';
 
 // import 'package:lokal/Widgets/UikSnackbar/snack.dart';
+import 'package:flutter/material.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
+
+import '../main.dart';
+import '../utils/network/retrofit/api_routes.dart';
 
 class UikMyAccountScreen extends StandardPage {
   // final obj = Snack();
@@ -65,27 +69,35 @@ class UikMyAccountScreen extends StandardPage {
 }
 
 void openSign(UikAction uikAction) {
-  uiUtils.showToast("SIGN OUT");
+  UiUtils.showToast("SIGN OUT");
 }
 
 void openPayment(UikAction uikAction) {
-  uiUtils.showToast("PAYMENTS");
+  UiUtils.showToast("PAYMENTS");
 }
 
 void openAddress(UikAction uikAction) {
-  uiUtils.showToast("ADDRESS");
+  UiUtils.showToast("ADDRESS");
+
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.addressBookScreen);
 }
 
 void openWishlist(UikAction uikAction) {
-  uiUtils.showToast("WISHLIST");
+  UiUtils.showToast("WISHLIST");
 }
 
 void openDetails(UikAction uikAction) {
-  uiUtils.showToast("DETAILS");
+  UiUtils.showToast("DETAILS");
 }
 
 void openOrders(UikAction uikAction) {
-  uiUtils.showToast("ORDERS");
+  UiUtils.showToast("ORDERS");
+
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.orderScreen);
 }
 
 Future<ApiResponse> fetchAlbum(args) async {

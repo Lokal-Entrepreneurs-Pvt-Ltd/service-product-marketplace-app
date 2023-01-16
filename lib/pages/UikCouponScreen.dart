@@ -12,7 +12,7 @@ import '../utils/deeplink_handler.dart';
 import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // apply and rmeove coupon
 
@@ -55,11 +55,11 @@ class UikCouponScreen extends StandardPage {
 }
 
 void applyCoupon(UikAction uikAction) {
-  uiUtils.showToast("APPLY COUPON");
+  UiUtils.showToast("APPLY COUPON");
 }
 
 void removeCoupon(UikAction uikAction) {
-  uiUtils.showToast("REMOVE COUPON");
+  UiUtils.showToast("REMOVE COUPON");
 }
 
 // Future<ApiResponse> fetchAlbum(args) async {
