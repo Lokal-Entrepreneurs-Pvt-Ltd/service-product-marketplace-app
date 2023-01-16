@@ -36,9 +36,6 @@ class UikProductPage extends StandardPage {
       case UIK_ACTION.OPEN_CATEGORY:
         openCategory(uikAction);
         break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        openCategory(uikAction);
-        break;
       default:
     }
   }
@@ -79,22 +76,25 @@ void addToCart(UikAction uikAction) async {
   var skuId = uikAction.tap.data.skuId;
 
   //api call to update cart
-  final response =
-      await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
-    "ngrok-skip-browser-warning": "value",
-  }, body: {
-    "skuId": skuId,
-    "cartId": "",
-    "action": "add"
-  });
+  // final response =
+  //     await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
+  //   "ngrok-skip-browser-warning": "value",
+  // }, body: {
+  //   "skuId": skuId,
+  //   "cartId": "",
+  //   "action": "add"
+  // });
 
   //displaying response from update cart
-  print("statusCode ${response.body}");
+  // print("statusCode ${response.body}");
+
+  var context = NavigationService.navigatorKey.currentContext;
+
+  Navigator.pushNamed(context!, MyApiRoutes.cartScreen);
 }
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
-  print("Category call");
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
