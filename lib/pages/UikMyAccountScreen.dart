@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:lokal/Widgets/UikSnackbar/snack.dart';
 import 'package:lokal/actions.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/uiUtils/uiUtils.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,7 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 
 class UikMyAccountScreen extends StandardPage {
-  final obj = Snack();
+  // final obj = Snack();
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -22,8 +23,6 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_SIGN_OUT);
     return actionList;
   }
-
-  // 1)
 
   @override
   dynamic getData() {

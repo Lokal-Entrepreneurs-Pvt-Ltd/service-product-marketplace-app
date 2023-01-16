@@ -10,6 +10,8 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
+// move to screen folder
+
 class MyDetailsScreen extends StatefulWidget {
   const MyDetailsScreen({super.key});
 

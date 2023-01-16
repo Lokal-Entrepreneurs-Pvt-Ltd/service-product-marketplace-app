@@ -1,20 +1,30 @@
 import 'dart:convert';
 
 import 'package:lokal/pages/UikCatalogScreen.dart';
+import 'package:lokal/pages/UikHome.dart';
+import 'package:lokal/pages/UikProductPage.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 import '../utils/network/retrofit/api_client.dart';
+
+import 'package:lokal/utils/uiUtils/uiUtils.dart';
+
+// check for duplicacy
+
+// add to cart
+// remove from cart
 
 class UikCart extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_WEB);
-    actionList.add(UIK_ACTION.OPEN_HALA);
+    actionList.add(UIK_ACTION.ADD_TO_CART);
+    actionList.add(UIK_ACTION.REMOVE_FROM_CART);
     return actionList;
   }
 
@@ -27,15 +37,33 @@ class UikCart extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return of();
+    return onCart;
   }
 
-  void of() {}
+  void onCart(UikAction uikAction) {
+    switch (uikAction.tap.type) {
+      case UIK_ACTION.ADD_TO_CART:
+        addTOCarts(uikAction);
+        break;
+      case UIK_ACTION.REMOVE_FROM_CART:
+        removeFromCarts(uikAction);
+        break;
+      default:
+    }
+  }
 
   @override
   getPageContext() {
     return UikCart;
   }
+}
+
+void addTOCarts(UikAction uikAction) {
+  uiUtils.showToast("ADDED TO CART");
+}
+
+void removeFromCarts(UikAction uikAction) {
+  uiUtils.showToast("REMOVE FORM CART");
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {
