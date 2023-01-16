@@ -1,7 +1,7 @@
 import 'dart:convert';
 // import 'dart:js';
 
-import 'package:lokal/Widgets/UikSnackbar/snack.dart';
+// import 'package:lokal/Widgets/UikSnackbar/snack.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/uiUtils/uiUtils.dart';
