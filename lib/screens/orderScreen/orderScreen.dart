@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class success extends StatelessWidget {
+class orderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,6 +12,10 @@ class success extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const <Widget>[
+                Icon(
+                  Icons.person_outline_sharp,
+                  size: 30,
+                ),
                 SizedBox(
                   height: 32,
                   width: 343,
