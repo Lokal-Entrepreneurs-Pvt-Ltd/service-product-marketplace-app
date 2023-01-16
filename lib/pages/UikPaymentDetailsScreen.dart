@@ -3,7 +3,7 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // pay_online
 // pay_cod
@@ -47,9 +47,9 @@ class UikPaymentDetailsScreen extends StandardPage {
 }
 
 void payCOD(UikAction uikAction) {
-  uiUtils.showToast("PAY COD");
+  UiUtils.showToast("PAY COD");
 }
 
 void payOnline(UikAction uikAction) {
-  uiUtils.showToast("PAY ONLINE");
+  UiUtils.showToast("PAY ONLINE");
 }

@@ -4,7 +4,7 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../utils/network/retrofit/api_client.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // open order history
 
@@ -42,5 +42,5 @@ class UikOrderHistoryScreen extends StandardPage {
 }
 
 void openOrder(UikAction uikAction) {
-  uiUtils.showToast("OPEN ORDER");
+  UiUtils.showToast("OPEN ORDER");
 }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -146,15 +147,16 @@ class _LokalAppState extends State<LokalApp> {
           MyApiRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyApiRoutes.productScreen: (context) => UikProductPage().page,
           MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
-          MyApiRoutes.orderScreen: (context) => UikOrder().page,
+          MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
           MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
           MyApiRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
           // MyApiRoutes.addressBook: (context) => UikAddressBook().page,
           MyApiRoutes.couponScreen: (context) => UikCouponScreen().page,
+          MyApiRoutes.addressBookScreen: (context) => UikAddressBook().page,
           // MyApiRoutes.signUpScreen: (context) => const SignupScreen(),
           // MyApiRoutes.otpScreen: (context) => const OtpScreen(),
           // MyApiRoutes.setNewPasswordScreen: (context) =>
-              // const SetNewPasswordScreen(),
+          // const SetNewPasswordScreen(),
         },
       ),
     );

@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 import '../utils/network/ApiRepository.dart';
 import '../utils/network/retrofit/api_client.dart';
 import '../actions.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // search product action
 
@@ -46,7 +46,7 @@ class UikSearchCatalog extends StandardPage {
 }
 
 void openSearch(UikAction uikAction) {
-  uiUtils.showToast("OPEN SEARCH");
+  UiUtils.showToast("OPEN SEARCH");
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {

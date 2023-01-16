@@ -12,7 +12,7 @@ import '../utils/deeplink_handler.dart';
 import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // add adress
 // remove add
@@ -61,15 +61,15 @@ class UikAddressBook extends StandardPage {
 }
 
 void deleteAddress(UikAction uikAction) {
-  uiUtils.showToast("DELETE ADDRESS");
+  UiUtils.showToast("DELETE ADDRESS");
 }
 
 void removeAddress(UikAction uikAction) {
-  uiUtils.showToast("REMOVE ADDRESS");
+  UiUtils.showToast("REMOVE ADDRESS");
 }
 
 void addAddress(UikAction uikAction) {
-  uiUtils.showToast("ADD ADDRESS");
+  UiUtils.showToast("ADD ADDRESS");
 }
 
 Future<ApiResponse> fetchAlbum(args) async {
