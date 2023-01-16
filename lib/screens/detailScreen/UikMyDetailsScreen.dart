@@ -7,8 +7,8 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import '../../utils/storage/user_data_handler.dart';
-import '../../widgets/UikNavbar/UikNavbar.dart';
+import '../../../utils/storage/user_data_handler.dart';
+import '../../../widgets/UikNavbar/UikNavbar.dart';
 
 // move to screen folder
 
