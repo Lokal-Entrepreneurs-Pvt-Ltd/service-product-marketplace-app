@@ -14,7 +14,7 @@ import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/screens/forgetPassword/ForgetPassword.dart';
 import 'package:lokal/screens/setNewPassword/set_new_password_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
-import 'package:lokal/screens/orderScreen/orderScreen.dart';
+import 'package:lokal/screens/orderSuccess/orderSuccess.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
@@ -133,7 +133,7 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => UikBottomNavigationBar(),
           //  "/": (context) => UikAddressBook().page,
 
-          "/": (context) => orderScreen(),
+          "/": (context) => orderSuccessScreen(),
 
           // "/": (context) => const SetNewPasswordScreen(),
 
