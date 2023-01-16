@@ -274,20 +274,20 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
-  Future<ApiResponse> getMyAccountScreen() async {
+  Future<ApiResponse> getMyAccountScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/myAccountScreen',
+              '/myAccount',
               queryParameters: queryParameters,
               data: _data,
             )

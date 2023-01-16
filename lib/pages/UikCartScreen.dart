@@ -1,7 +1,9 @@
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
+import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
+import 'UikCart.dart';
 
 class UikEmptyCartScreen extends StandardPage {
   @override
@@ -31,6 +33,10 @@ class UikEmptyCartScreen extends StandardPage {
   }
 }
 
+// check for duplicacy first
+//  add to cart
+// remove from cart
+
 class UikCartScreen extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -46,7 +52,17 @@ class UikCartScreen extends StandardPage {
     return ApiRepository.getCartScreen;
   }
 
-  void onCartScreenTapAction() {}
+  void onCartScreenTapAction(UikAction uikAction) {
+    switch (uikAction.tap.type) {
+      case UIK_ACTION.ADD_TO_CART:
+        addTOCarts(uikAction);
+        break;
+      case UIK_ACTION.REMOVE_FROM_CART:
+        removeFromCarts(uikAction);
+        break;
+      default:
+    }
+  }
 
   @override
   getPageCallBackForAction() {
