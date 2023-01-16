@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:lokal/actions.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -9,12 +10,14 @@ import 'package:dio/dio.dart';
 
 import '../utils/network/retrofit/api_client.dart';
 
+// uik cart, cart screen and price check their is same or not
+
 class UikPrice extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
+    actionList.add(UIK_ACTION.OPEN_WEB);
+    actionList.add(UIK_ACTION.OPEN_HALA);
     return actionList;
   }
 

@@ -5,15 +5,15 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:dio/dio.dart';
-
+import '../actions.dart';
 import '../utils/network/retrofit/api_client.dart';
 
 class UikComponentDisplayer extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
+    actionList.add(UIK_ACTION.OPEN_WEB);
+    actionList.add(UIK_ACTION.OPEN_HALA);
     return actionList;
   }
 

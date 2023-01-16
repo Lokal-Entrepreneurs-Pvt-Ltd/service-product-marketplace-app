@@ -11,15 +11,17 @@ import '../main.dart';
 import '../utils/deeplink_handler.dart';
 import '../constants.dart';
 import '../main.dart';
+import '../actions.dart';
+import 'package:lokal/utils/uiUtils/uiUtils.dart';
+
+// apply and rmeove coupon
 
 class UikCouponScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_CATEGORY");
-    actionList.add("OPEN_ISP");
-    actionList.add("ADD_TO_CART");
-    actionList.add("APPLY_COUPON");
+    actionList.add(UIK_ACTION.REMOVE_COUPON);
+    actionList.add(UIK_ACTION.APPLY_COUPON);
     return actionList;
   }
 
@@ -30,8 +32,11 @@ class UikCouponScreen extends StandardPage {
 
   void onCouponScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case "APPLY_COUPON":
+      case UIK_ACTION.APPLY_COUPON:
         applyCoupon(uikAction);
+        break;
+      case UIK_ACTION.REMOVE_COUPON:
+        removeCoupon(uikAction);
         break;
 
       default:
@@ -47,29 +52,33 @@ class UikCouponScreen extends StandardPage {
   getPageContext() {
     return UikCouponScreen;
   }
-
-  void applyCoupon(UikAction uikAction) {
-    log("applyCoupon");
-  }
 }
 
-Future<ApiResponse> fetchAlbum(args) async {
-  final queryParameter = {
-    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-  };
-
-  final response = await http.get(
-    Uri.parse('http://demo7907509.mockable.io/couponScreen'),
-    headers: {
-      "ngrok-skip-browser-warning": "value",
-    },
-  );
-
-  print(response.body);
-
-  if (response.statusCode == 200) {
-    return ApiResponse.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load album');
-  }
+void applyCoupon(UikAction uikAction) {
+  uiUtils.showToast("APPLY COUPON");
 }
+
+void removeCoupon(UikAction uikAction) {
+  uiUtils.showToast("REMOVE COUPON");
+}
+
+// Future<ApiResponse> fetchAlbum(args) async {
+//   final queryParameter = {
+//     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
+//   };
+
+//   final response = await http.get(
+//     Uri.parse('http://demo7907509.mockable.io/couponScreen'),
+//     headers: {
+//       "ngrok-skip-browser-warning": "value",
+//     },
+//   );
+
+//   print(response.body);
+
+//   if (response.statusCode == 200) {
+//     return ApiResponse.fromJson(jsonDecode(response.body));
+//   } else {
+//     throw Exception('Failed to load album');
+//   }
+// }

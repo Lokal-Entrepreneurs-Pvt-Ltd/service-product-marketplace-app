@@ -1,15 +1,17 @@
-
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
+import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
+import '../actions.dart';
+import 'package:lokal/utils/uiUtils/uiUtils.dart';
+
+// view order details
 
 class UikOrderScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("OPEN_WEB");
-    actionList.add("OPEN_HALA");
-    actionList.add("OPEN_ROUTE");
+    actionList.add(UIK_ACTION.ORDER_DETAIL);
     return actionList;
   }
 
@@ -18,7 +20,14 @@ class UikOrderScreen extends StandardPage {
     return ApiRepository.getOrderScreen;
   }
 
-  void onOrderScreenTapAction() {}
+  void onOrderScreenTapAction(UikAction uikAction) {
+    switch (uikAction.tap.type) {
+      case UIK_ACTION.ORDER_DETAIL:
+        orderDetail(uikAction);
+        break;
+      default:
+    }
+  }
 
   @override
   getPageCallBackForAction() {
@@ -29,4 +38,8 @@ class UikOrderScreen extends StandardPage {
   getPageContext() {
     return UikOrderScreen;
   }
+}
+
+void orderDetail(UikAction uikAction) {
+  uiUtils.showToast("ORDER DETAILS");
 }
