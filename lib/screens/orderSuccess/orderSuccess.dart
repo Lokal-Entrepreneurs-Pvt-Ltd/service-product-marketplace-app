@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class orderScreen extends StatelessWidget {
+class orderSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
