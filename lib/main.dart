@@ -21,6 +21,7 @@ import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/AppInitializer.dart';
+import 'package:lokal/utils/network/retrofit/api_routes.dart';
 //import 'package:lokal/utils/dio/models/product_provider.dart';
 import 'routes.dart';
 import 'screens/Onboarding/OnboardingScreen.dart';
@@ -130,30 +131,30 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => success(),
 
           //   "/": (context) => UikOrderHistoryScreen().page,
-          // "/": (context) => UikBottomNavigationBar(),
+          "/": (context) => UikBottomNavigationBar(),
           //  "/": (context) => UikAddressBook().page,
 
-          "/": (context) => OrderSuccessScreen(),
+          // "/": (context) => UikHome().page,
 
           // "/": (context) => const SetNewPasswordScreen(),
 
-          MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
-          MyRoutes.cartScreen: (context) => UikCartScreen().page,
-          MyRoutes.loginScreen: (context) => LoginPage(),
-          MyRoutes.homeScreen: (context) => UikHome().page,
-          MyRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
-          MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
-          MyRoutes.productScreen: (context) => UikProductPage().page,
-          MyRoutes.searchScreen: (context) => UikSearchCatalog().page,
-          MyRoutes.orderScreen: (context) => UikOrder().page,
-          MyRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
-          MyRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
-          MyRoutes.addressBook: (context) => UikAddressBook().page,
-          MyRoutes.couponScreen: (context) => UikCouponScreen().page,
-          MyRoutes.signUpScreen: (context) => const SignupScreen(),
-          MyRoutes.otpScreen: (context) => const OtpScreen(),
-          MyRoutes.setNewPasswordScreen: (context) =>
-              const SetNewPasswordScreen(),
+          MyApiRoutes.homeScreen: (context) => const UikHomeWrapper(),
+          MyApiRoutes.cartScreen: (context) => UikCartScreen().page,
+          // MyApiRoutes.loginScreen: (context) => LoginPage(),
+          MyApiRoutes.homeScreen: (context) => UikHome().page,
+          MyApiRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
+          MyApiRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
+          MyApiRoutes.productScreen: (context) => UikProductPage().page,
+          MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
+          MyApiRoutes.orderScreen: (context) => UikOrder().page,
+          MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
+          MyApiRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
+          // MyApiRoutes.addressBook: (context) => UikAddressBook().page,
+          MyApiRoutes.couponScreen: (context) => UikCouponScreen().page,
+          // MyApiRoutes.signUpScreen: (context) => const SignupScreen(),
+          // MyApiRoutes.otpScreen: (context) => const OtpScreen(),
+          // MyApiRoutes.setNewPasswordScreen: (context) =>
+              // const SetNewPasswordScreen(),
         },
       ),
     );

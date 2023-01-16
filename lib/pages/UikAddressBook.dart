@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:lokal/Widgets/UikSnackbar/snack.dart';
+// import 'package:lokal/Widgets/UikSnackbar/snack.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -19,7 +19,7 @@ import 'package:lokal/utils/uiUtils/uiUtils.dart';
 // delete address
 
 class UikAddressBook extends StandardPage {
-  final obj = Snack();
+  // final obj = Snack();
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();

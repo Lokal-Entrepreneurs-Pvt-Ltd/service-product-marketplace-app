@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lokal/pages/UikCart.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
+import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 
@@ -14,10 +16,10 @@ class UikBottomNavigationBar extends StatelessWidget {
           bottomNavigationBar: menu(),
           body: TabBarView(
             children: [
-              UikHomeWrapper(),
-              UikCatalogScreen().page,
+              const UikHomeWrapper(),
+              UikCart().page,
               UikSearchCatalog().page,
-              UikProductPage().page,
+              UikMyAccountScreen().page,
             ],
           ),
         ),
