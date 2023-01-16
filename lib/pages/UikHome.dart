@@ -57,7 +57,7 @@ Future<ApiResponse> fetchAlbum(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/homescreen'),
+    Uri.parse('https://demo7181466.mockable.io/homescreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
