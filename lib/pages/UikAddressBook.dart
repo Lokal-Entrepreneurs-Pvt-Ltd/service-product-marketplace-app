@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:lokal/Widgets/UikSnackbar/snack.dart';
+// import 'package:lokal/Widgets/UikSnackbar/snack.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -12,14 +12,14 @@ import '../utils/deeplink_handler.dart';
 import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // add adress
 // remove add
 // delete address
 
 class UikAddressBook extends StandardPage {
-  final obj = Snack();
+  // final obj = Snack();
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
@@ -61,15 +61,15 @@ class UikAddressBook extends StandardPage {
 }
 
 void deleteAddress(UikAction uikAction) {
-  uiUtils.showToast("DELETE ADDRESS");
+  UiUtils.showToast("DELETE ADDRESS");
 }
 
 void removeAddress(UikAction uikAction) {
-  uiUtils.showToast("REMOVE ADDRESS");
+  UiUtils.showToast("REMOVE ADDRESS");
 }
 
 void addAddress(UikAction uikAction) {
-  uiUtils.showToast("ADD ADDRESS");
+  UiUtils.showToast("ADD ADDRESS");
 }
 
 Future<ApiResponse> fetchAlbum(args) async {

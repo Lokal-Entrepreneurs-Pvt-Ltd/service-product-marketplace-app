@@ -12,7 +12,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 import '../utils/network/retrofit/api_client.dart';
 
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // check for duplicacy
 
@@ -59,11 +59,11 @@ class UikCart extends StandardPage {
 }
 
 void addTOCarts(UikAction uikAction) {
-  uiUtils.showToast("ADDED TO CART");
+  UiUtils.showToast("ADDED TO CART");
 }
 
 void removeFromCarts(UikAction uikAction) {
-  uiUtils.showToast("REMOVE FORM CART");
+  UiUtils.showToast("REMOVE FORM CART");
 }
 
 Future<StandardScreenResponse> fetchAlbum() async {

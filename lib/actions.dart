@@ -8,6 +8,7 @@ class UIK_ACTION {
   static const String OPEN_WEB = 'OPEN_WEB';
   static const String OPEN_HALA = 'OPEN_HALA';
   static const String OPEN_ROUTE = 'OPEN_ROUTE';
+  static const String OPEN_COUPON = 'OPEN_COUPON';
   static const String APPLY_COUPON = 'APPLY_COUPON';
   static const String REMOVE_COUPON = 'REMOVE_COUPON';
   static const String OPEN_ORDERS = 'OPEN_ORDERS';

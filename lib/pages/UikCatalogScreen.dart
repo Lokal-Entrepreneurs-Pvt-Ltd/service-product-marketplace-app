@@ -1,33 +1,42 @@
 import 'dart:convert';
-
+import 'package:flutter/widgets.dart';
+import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
-import 'package:dio/dio.dart';
 import 'package:ui_sdk/props/UikAction.dart';
+import '../constants.dart';
+import '../main.dart';
 import '../actions.dart';
-import '../utils/network/retrofit/api_client.dart';
-import 'package:lokal/utils/uiUtils/uiUtils.dart';
 
-// open product
 
 class UikCatalogScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
+    actionList.add(UIK_ACTION.OPEN_CATEGORY);
+    actionList.add(UIK_ACTION.OPEN_ISP);
+    actionList.add(UIK_ACTION.ADD_TO_CART);
     actionList.add(UIK_ACTION.OPEN_PRODUCT);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getCatalogue;
+    // return ApiRepository.getHomescreen;
+    return fetchAlbum;
   }
 
   void onCatalogScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
+      case UIK_ACTION.ADD_TO_CART:
+        addToCart(uikAction);
+        break;
+      case UIK_ACTION.OPEN_CATEGORY:
+        openCategory(uikAction);
+        break;
       case UIK_ACTION.OPEN_PRODUCT:
         openProduct(uikAction);
         break;
@@ -46,54 +55,54 @@ class UikCatalogScreen extends StandardPage {
   }
 }
 
-void openProduct(UikAction uikAction) {
-  uiUtils.showToast("OPEN PRODUCT");
-}
-
-// remove fetch() from all screen
-
-// Future<ApiResponse> fetchAlbum(args) async {
-//   print("catalogue screen");
-//   print("lavesh ${args}");
-//   final response = await http.post(
-//     Uri.parse('https://bc4c-1-38-54-6.ngrok.io/products/get'),
-//     headers: {
-//       "ngrok-skip-browser-warning": "value",
-//     },
-//     body: args,
-//   );
-
-//   // StandardScreenResponse
-//   if (response.statusCode == 200) {
-//     return ApiResponse.fromJson(jsonDecode(response.body));
-//   } else {
-//     throw Exception('Failed uuu to load album');
-//   }
-
-  // final dio = Dio();
-
-  // dio.options.headers["ngrok-skip-browser-warning"] = "value";
-
-  // final client = StandardScreenClient(dio, baseUrl: "http://localhost:3000/");
-
-  // ApiResponse response = await client.getbackendScreen();
-  // print(response);
-
-  // return StandardScreenResponse.fromJson(response.data);
-// }
-
-/* Future<StandardScreenResponse> fetchAlbum() async {
+Future<ApiResponse> fetchAlbum(args) async {
+  final queryParameter = {
+    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
+  };
+  print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo1595178.mockable.io/CatalogScreen'),
+    Uri.parse('https://demo6536398.mockable.io/cataloguescreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
   );
 
-  // StandardScreenResponse
+  print(response.body);
+
   if (response.statusCode == 200) {
-    return StandardScreenResponse.fromJson(jsonDecode(response.body));
+    return ApiResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
   }
-} */
+}
+
+void addToCart(UikAction uikAction) async {
+  var skuId = uikAction.tap.data.skuId;
+
+  //api call to update cart
+  final response =
+      await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
+    "ngrok-skip-browser-warning": "value",
+  }, body: {
+    "skuId": skuId,
+    "cartId": "",
+    "action": "add"
+  });
+
+  //displaying response from update cart
+  print("statusCode ${response.body}");
+}
+
+void openCategory(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
+}
+
+void openProduct(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.productScreen);
+}
