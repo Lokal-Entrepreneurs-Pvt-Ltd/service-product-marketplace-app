@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/widgets.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -22,7 +24,8 @@ class UikHome extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getHomescreen;
+    // return ApiRepository.getHomescreen;
+    return fetchAlbum;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
@@ -53,8 +56,8 @@ Future<ApiResponse> fetchAlbum(args) async {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   print("entering lavesh");
-  final response = await http.post(
-    Uri.parse('https://1028-42-108-160-114.ngrok.io/discovery/get'),
+  final response = await http.get(
+    Uri.parse('https://demo7181466.mockable.io/homescreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -88,6 +91,8 @@ void addToCart(UikAction uikAction) async {
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
+  print("Category call");
   var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
 }
