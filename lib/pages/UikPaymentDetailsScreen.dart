@@ -1,12 +1,16 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/models/Action.dart';
+import 'package:ui_sdk/props/UikAction.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:http/http.dart' as http;
+
+import '../main.dart';
+import '../utils/network/retrofit/api_routes.dart';
 // pay_online
 // pay_cod
 //
@@ -17,7 +21,7 @@ class UikPaymentDetailsScreen extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.PAY_ONLINE);
     actionList.add(UIK_ACTION.PAY_COD);
-
+    actionList.add(UIK_ACTION.PAYMENT_STATUS);
     return actionList;
   }
 
@@ -33,6 +37,9 @@ class UikPaymentDetailsScreen extends StandardPage {
         break;
       case UIK_ACTION.OPEN_DETAILS:
         payCOD(uikAction);
+        break;
+      case UIK_ACTION.PAYMENT_STATUS:
+        paymentStatus(uikAction);
         break;
       default:
     }
@@ -51,6 +58,13 @@ class UikPaymentDetailsScreen extends StandardPage {
 
 void payCOD(UikAction uikAction) {
   UiUtils.showToast("PAY COD");
+}
+
+void paymentStatus(UikAction uikAction) {
+  print("...................inside status...........");
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.paymentStatusScreen);
 }
 
 void payOnline(UikAction uikAction) {

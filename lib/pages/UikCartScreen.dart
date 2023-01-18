@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
-import 'UikCart.dart';
 
 class UikEmptyCartScreen extends StandardPage {
   @override
@@ -155,7 +154,7 @@ void openCoupon(UikAction uikAction) {
 void openCheckout(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
   var context = NavigationService.navigatorKey.currentContext;
-  print("Coupon checkout");
+  print("checkout");
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.paymentDetailsScreen);
+  Navigator.pushNamed(context!, MyApiRoutes.addressBookScreen);
 }

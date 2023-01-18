@@ -30,6 +30,7 @@ class UikMyAccountScreen extends StandardPage {
 
   @override
   dynamic getData() {
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
     return fetchAlbum;
   }
 

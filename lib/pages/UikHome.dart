@@ -14,6 +14,7 @@ import '../actions.dart';
 class UikHome extends StandardPage {
   @override
   Set<String?> getActions() {
+    print("dddddddddddddddddddddddddddddddddddd");
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.OPEN_ISP);
@@ -56,7 +57,7 @@ Future<ApiResponse> fetchAlbum(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo7181466.mockable.io/homescreen'),
+    Uri.parse('http://demo2913052.mockable.io/home'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -90,7 +91,8 @@ void addToCart(UikAction uikAction) async {
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
-  print("Category call");
+  print(
+      "_____________________________Catalogue call___________________________");
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
