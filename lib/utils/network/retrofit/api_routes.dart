@@ -16,4 +16,7 @@ class MyApiRoutes {
   static const String myAccountScreen = "/myAccount";
   static const String addressBookScreen = "/addressbook";
   static const String couponScreen = "/couponscreen";
+
+  static const String loginScreen = "/customer/login";
+  static const String signUpScreen = "/customer/signup";
 }
