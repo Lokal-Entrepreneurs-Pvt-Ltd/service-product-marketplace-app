@@ -29,12 +29,14 @@ abstract class DeeplinkHandler {
       baseUrl = url;
       route = "/";
     }
+    if (url == 'https://localee.co.in/product/detail?skuId=MH01') {
+      route = '/product/detail';
+      args = {"skuId": 'MH01'};
+    }
 
-    print(baseUrl); // lokal://search
-    //  route = "/searchcataloguescreen";
-    print("laveshRoute ${route}"); // /
+    print(baseUrl);
+    print("laveshRoute ${route}");
     print(args);
-
     switch (route) {
       case MyRoutes.loginScreen:
         {
@@ -67,23 +69,24 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.productScreen:
         {
-          if (args["productId"] != null) {
-            _pushScreen(context, MyRoutes.loginScreen);
+          if (args["skuId"] != null) {
+            _pushScreen(context, MyRoutes.productScreen, args);
           }
         }
         break;
       default:
         launchUrl(Uri.parse(url));
-
     }
   }
 
   static void openPage(BuildContext context, String url) {
+    print("__________________url____________________");
+    print(url);
     if (url.startsWith("http")) {
       openDeeplink(context, url);
       return;
     }
-    // Url formatl -> lokal://productscreen?categoryid=1&productid=1
+
     String route = "";
     Map<String, String> args = {};
 
@@ -136,10 +139,9 @@ abstract class DeeplinkHandler {
         break;
       case MyRoutes.productScreen:
         {
-          print("1234");
-          _pushScreen(context, MyRoutes.productScreen);
-          // if (args["productId"] != null) {
-          // }
+          if (args["skuId"] != null) {
+            _pushScreen(context, MyRoutes.productScreen, args);
+          }
         }
         break;
       default:

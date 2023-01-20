@@ -11,7 +11,6 @@ import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
 
-
 class UikProductPage extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -24,8 +23,8 @@ class UikProductPage extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.getHomescreen;
-    return fetchAlbum;
+    return ApiRepository.getProductScreen;
+    //return fetchAlbum;
   }
 
   void onProductPageTapAction(UikAction uikAction) {
@@ -56,13 +55,15 @@ Future<ApiResponse> fetchAlbum(args) async {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   print("entering lavesh");
-  final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/productscreen'),
+  final response = await http.post(
+    Uri.parse(
+        'https://4b7c-103-70-43-12.in.ngrok.io/products/getProductDetails'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
   );
 
+  print("........................response..........................");
   print(response.body);
 
   if (response.statusCode == 200) {
