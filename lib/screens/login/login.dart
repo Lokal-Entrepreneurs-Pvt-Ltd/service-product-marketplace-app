@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
+import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
@@ -92,31 +95,49 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     // Creating a POST request with http client
                     // var client = http.Client();
 
-                    Uri uri = Uri.parse(
-                        "https://dev.localee.co.in/api/customer/login");
+                    // Uri uri = Uri.parse(
+                    //     "https://dev.localee.co.in/api/customer/login");
 
-                    var response = await http.post(
-                      uri,
-                      body: {
-                        "email": emailController.text,
-                        "password": passwordController.text,
-                      },
-                    );
+                    // var body = {
+                    //   "email": emailController.text,
+                    //   "password": passwordController.text,
+                    // };
 
-                    final body =
-                        jsonDecode(response.body) as Map<String, dynamic>;
+                    final response = await ApiRepository.getLoginScreen(
+                        ApiRequestBody.getLoginRequest(
+                            emailController.text, passwordController.text));
 
-                    if (body["isSuccess"]) {
-                      final String authToken =
-                          body["data"]["response"]["authToken"];
+                    // ApiRequestBody.getLoginRequest(emailController.text);
 
-                      UserDataHandler.saveUserToken(authToken);
-                      UserDataHandler.saveEmailPassword(
-                          emailController.text, passwordController.text);
-                    } else {
-                      isAuthError = true;
-                      authErrorMessage = body["error"]["message"];
-                    }
+                    print(
+                        "*****************************************************************************************************************************************************************************");
+                    print(response.isSuccess);
+
+                    // var response = await http.post(
+                    //   uri,
+                    //   body: {
+                    //     "email": emailController.text,
+                    //     "password": passwordController.text,
+                    //   },
+                    // );
+
+                    // final body =
+                    //     jsonDecode(response.body) as Map<String, dynamic>;
+
+                    // final body =
+                    //     jsonDecode(ApiRepository.getLoginScreen.body) as Map<String, dynamic>;
+
+                    // if (body["isSuccess"]) {
+                    //   final String authToken =
+                    //       body["data"]["response"]["authToken"];
+
+                    //   UserDataHandler.saveUserToken(authToken);
+                    //   UserDataHandler.saveEmailPassword(
+                    //       emailController.text, passwordController.text);
+                    // } else {
+                    //   isAuthError = true;
+                    //   authErrorMessage = body["error"]["message"];
+                    // }
 
                     Navigator.push(
                       context,

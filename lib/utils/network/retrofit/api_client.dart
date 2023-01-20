@@ -50,7 +50,13 @@ abstract class StandardScreenClient {
 
   @GET(MyApiRoutes.orderHistoryScreen)
   Future<ApiResponse> getOrderHistoryScreen(args);
-  
+
   @GET(MyApiRoutes.addressBookScreen)
   Future<ApiResponse> getAddressBookScreen(args);
+
+  @POST(MyApiRoutes.loginScreen)
+  Future<ApiResponse> getLoginScreen(args);
+
+  @POST(MyApiRoutes.signUpScreen)
+  Future<ApiResponse> getSignUpScreen(args);
 }
