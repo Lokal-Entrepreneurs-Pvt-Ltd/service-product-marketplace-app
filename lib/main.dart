@@ -132,22 +132,19 @@ class _LokalAppState extends State<LokalApp> {
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
           "/": (context) => UikBottomNavigationBar(),
-          MyApiRoutes.homeScreen: (context) => const UikHomeWrapper(),
-          MyApiRoutes.cartScreen: (context) => UikCartScreen().page,
-          MyApiRoutes.homeScreen: (context) => UikHome().page,
-          MyApiRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
-          MyApiRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
-          MyApiRoutes.productScreen: (context) => UikProductPage().page,
-          MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
-          MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
-          MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
-          MyApiRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
-          MyApiRoutes.couponScreen: (context) => UikCouponScreen().page,
-          MyApiRoutes.addressBookScreen: (context) => UikAddressBook().page,
-          MyApiRoutes.addAddressScreen: (context) => UikAddAddressScreen().page,
-          MyApiRoutes.paymentDetailsScreen: (context) =>
-              UikPaymentDetailsScreen().page,
-          MyApiRoutes.paymentStatusScreen: (context) => OrderSuccessScreen()
+          MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
+          MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
+          MyRoutes.productScreen: (context) => UikProductPage().page,
+          // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
+          // MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
+          // MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
+          // MyApiRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
+          // MyApiRoutes.couponScreen: (context) => UikCouponScreen().page,
+          // MyApiRoutes.addressBookScreen: (context) => UikAddressBook().page,
+          // MyApiRoutes.addAddressScreen: (context) => UikAddAddressScreen().page,
+          // MyApiRoutes.paymentDetailsScreen: (context) =>
+          //     UikPaymentDetailsScreen().page,
+          // MyApiRoutes.paymentStatusScreen: (context) => OrderSuccessScreen()
         },
       ),
     );

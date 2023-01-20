@@ -15,42 +15,42 @@ abstract class StandardScreenClient {
   factory StandardScreenClient(Dio dio, {String baseUrl}) =
       _StandardScreenClient;
 
-  @GET("/")
+  @POST("/")
   Future<ApiResponse> getResponse();
 
-  @GET(MyApiRoutes.homeScreen)
+  @POST(MyApiRoutes.homeScreen)
   Future<ApiResponse> getHomeScreen(args);
 
-  @GET(MyApiRoutes.catalogueScreen)
+  @POST(MyApiRoutes.catalogueScreen)
   Future<ApiResponse> getCatlogue(args);
 
-  @GET(MyApiRoutes.productScreen)
+  @POST(MyApiRoutes.productScreen)
   Future<ApiResponse> getProductScreen(args);
 
-  @GET(MyApiRoutes.couponScreen)
+  @POST(MyApiRoutes.couponScreen)
   Future<ApiResponse> getCouponScreen(args);
 
-  @GET(MyApiRoutes.searchScreen)
+  @POST(MyApiRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen(args);
 
-  @GET(MyApiRoutes.paymentdetailsScreen)
+  @POST(MyApiRoutes.paymentdetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen(args);
 
-  @GET(MyApiRoutes.orderScreen)
+  @POST(MyApiRoutes.orderScreen)
   Future<ApiResponse> getOrderScreen(args);
 
-  @GET(MyApiRoutes.cartScreen)
+  @POST(MyApiRoutes.cartScreen)
   Future<ApiResponse> getCartScreen(args);
 
-  @GET(MyApiRoutes.emptyCartScreen)
+  @POST(MyApiRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen(args);
 
-  @GET(MyApiRoutes.myAccountScreen)
+  @POST(MyApiRoutes.myAccountScreen)
   Future<ApiResponse> getMyAccountScreen(args);
 
-  @GET(MyApiRoutes.orderHistoryScreen)
+  @POST(MyApiRoutes.orderHistoryScreen)
   Future<ApiResponse> getOrderHistoryScreen(args);
-  
-  @GET(MyApiRoutes.addressBookScreen)
+
+  @POST(MyApiRoutes.addressBookScreen)
   Future<ApiResponse> getAddressBookScreen(args);
 }
