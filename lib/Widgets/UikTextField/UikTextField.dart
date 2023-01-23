@@ -110,7 +110,7 @@ class _MyTextFieldState extends State<MyTextField> {
                             if (!widget.isSignUpField) {
                               if (!widget.isPassword) {
                                 Uri uri = Uri.parse(
-                                    "https://dev.localee.co.in/api/customer/doesAccountExist");
+                                    "http://localhost:3000/customer/doesAccountExist");
 
                                 var response = await http.post(
                                   uri,
