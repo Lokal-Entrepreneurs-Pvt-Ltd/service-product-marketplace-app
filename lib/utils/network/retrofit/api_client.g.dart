@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://04de-103-70-43-12.in.ngrok.io';
+    baseUrl ??= 'https://8f01-202-89-65-238.ngrok.io/';
   }
 
   final Dio _dio;
@@ -113,6 +113,31 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
+  Future<ApiResponse> getCartScreen(args) async {
+    print("rashid chuchu");
+    print(args);
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/cart/get',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ApiResponse> getCouponScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -196,29 +221,6 @@ class _StandardScreenClient implements StandardScreenClient {
             .compose(
               _dio.options,
               '/orderscreen',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApiResponse.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<ApiResponse> getCartScreen(args) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/cartscreen',
               queryParameters: queryParameters,
               data: _data,
             )

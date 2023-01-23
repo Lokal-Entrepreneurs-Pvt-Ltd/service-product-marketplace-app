@@ -1,4 +1,5 @@
 class UIK_ACTION {
+  static const String OPEN_CART = 'OPEN_CART';
   static const String PAYMENT_STATUS = 'PAYMENT_STATUS';
   static const String OPEN_CHECKOUT = 'OPEN_CHECKOUT';
   static const String OPEN_CATEGORY = 'OPEN_CATEGORY';

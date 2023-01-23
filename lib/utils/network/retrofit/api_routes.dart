@@ -2,11 +2,11 @@ class MyApiRoutes {
   static const String homeScreen = '/discovery/get';
   static const String catalogueScreen = '/products/get';
   static const String productScreen = "/products/getProductDetails";
+  static const String cartScreen = '/cart/get';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
   static const String paymentStatusScreen = '/paymentstatusscreen';
   static const String orderScreen = '/orderscreen';
-  static const String cartScreen = '/cartscreen';
   static const String paymentdetailsScreen = '/paymentdetailsscreen';
   static const String orderHistoryScreen = "/orderhistoryscreen";
   static const String otp = "/otp";

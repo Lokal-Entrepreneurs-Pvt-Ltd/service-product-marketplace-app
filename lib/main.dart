@@ -135,6 +135,7 @@ class _LokalAppState extends State<LokalApp> {
           MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
+          MyRoutes.cartScreen: (context) => UikCartScreen().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
           // MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
