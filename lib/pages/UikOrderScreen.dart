@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:lokal/pages/UikCart.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/StandardPage.dart';
@@ -28,11 +27,11 @@ class UikOrderScreen extends StandardPage {
   @override
   dynamic getData() {
     // return ApiRepository.getOrderScreen;
-    return fetchAlbum;
+    return getMockedApiResponse;
   }
 
   void onOrderScreenTapAction(UikAction uikAction) {
-   switch (uikAction.tap.type) {
+    switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
         break;
@@ -58,13 +57,13 @@ void orderDetail(UikAction uikAction) {
   UiUtils.showToast("ORDER DETAILS");
 }
 
-Future<ApiResponse> fetchAlbum(args) async {
+Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo8971456.mockable.io/orderscreen'),
+    Uri.parse('https://demo6536398.mockable.io/orderscreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },

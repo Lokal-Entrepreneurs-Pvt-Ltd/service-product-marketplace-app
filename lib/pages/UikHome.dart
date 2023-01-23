@@ -11,10 +11,10 @@ import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
 
-
 class UikHome extends StandardPage {
   @override
   Set<String?> getActions() {
+    print("dddddddddddddddddddddddddddddddddddd");
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.OPEN_ISP);
@@ -25,7 +25,7 @@ class UikHome extends StandardPage {
   @override
   dynamic getData() {
     // return ApiRepository.getHomescreen;
-    return fetchAlbum;
+    return getMockedApiResponse;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
@@ -51,13 +51,13 @@ class UikHome extends StandardPage {
   }
 }
 
-Future<ApiResponse> fetchAlbum(args) async {
+Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo7181466.mockable.io/homescreen'),
+    Uri.parse('http://demo2913052.mockable.io/home'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -91,7 +91,8 @@ void addToCart(UikAction uikAction) async {
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
-  print("Category call");
+  print(
+      "_____________________________Catalogue call___________________________");
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
