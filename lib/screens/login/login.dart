@@ -95,49 +95,9 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     // Creating a POST request with http client
                     // var client = http.Client();
 
-                    // Uri uri = Uri.parse(
-                    //     "https://dev.localee.co.in/api/customer/login");
-
-                    // var body = {
-                    //   "email": emailController.text,
-                    //   "password": passwordController.text,
-                    // };
-
                     final response = await ApiRepository.getLoginScreen(
                         ApiRequestBody.getLoginRequest(
                             emailController.text, passwordController.text));
-
-                    // ApiRequestBody.getLoginRequest(emailController.text);
-
-                    print(
-                        "*****************************************************************************************************************************************************************************");
-                    print(response.isSuccess);
-
-                    // var response = await http.post(
-                    //   uri,
-                    //   body: {
-                    //     "email": emailController.text,
-                    //     "password": passwordController.text,
-                    //   },
-                    // );
-
-                    // final body =
-                    //     jsonDecode(response.body) as Map<String, dynamic>;
-
-                    // final body =
-                    //     jsonDecode(ApiRepository.getLoginScreen.body) as Map<String, dynamic>;
-
-                    // if (body["isSuccess"]) {
-                    //   final String authToken =
-                    //       body["data"]["response"]["authToken"];
-
-                    //   UserDataHandler.saveUserToken(authToken);
-                    //   UserDataHandler.saveEmailPassword(
-                    //       emailController.text, passwordController.text);
-                    // } else {
-                    //   isAuthError = true;
-                    //   authErrorMessage = body["error"]["message"];
-                    // }
 
                     Navigator.push(
                       context,
