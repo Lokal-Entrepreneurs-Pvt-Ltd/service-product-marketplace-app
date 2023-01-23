@@ -14,16 +14,13 @@ class UikEmptyCartScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_WEB);
-    actionList.add(UIK_ACTION.OPEN_HALA);
-    actionList.add(UIK_ACTION.OPEN_ROUTE);
-    actionList.add(UIK_ACTION.OPEN_COUPON);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getEmptyCartScreen;
+    print("########################################################");
+    return ApiRepository.getCartScreen;
   }
 
   void onEmptyCartScreenTapAction() {}
@@ -53,8 +50,8 @@ class UikCartScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.getHomescreen;
-    return getMockedApiResponse;
+    return ApiRepository.getCartScreen;
+    //return fetchAlbum;
   }
 
   void onCartScreenTapAction(UikAction uikAction) {
