@@ -4,6 +4,7 @@ class MyApiRoutes {
   static const String catalogueScreen = '/cataloguescreen';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
+  static const String paymentStatusScreen = '/paymentstatusscreen';
   static const String orderScreen = '/orderscreen';
   static const String cartScreen = '/cartscreen';
   static const String paymentdetailsScreen = '/paymentdetailsscreen';
@@ -15,6 +16,7 @@ class MyApiRoutes {
   static const String forgetPassword = "/forgetPassword";
   static const String myAccountScreen = "/myAccount";
   static const String addressBookScreen = "/addressbook";
+  static const String addAddressScreen = "/addaddressScreen";
   static const String couponScreen = "/couponscreen";
 
   static const String loginScreen = "/customer/login";

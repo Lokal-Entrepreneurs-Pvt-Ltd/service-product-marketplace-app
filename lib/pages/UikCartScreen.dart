@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
-import 'UikCart.dart';
 
 class UikEmptyCartScreen extends StandardPage {
   @override
@@ -48,6 +47,7 @@ class UikCartScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_ISP);
     actionList.add(UIK_ACTION.ADD_TO_CART);
     actionList.add(UIK_ACTION.OPEN_COUPON);
+    actionList.add(UIK_ACTION.OPEN_CHECKOUT);
     return actionList;
   }
 
@@ -68,6 +68,10 @@ class UikCartScreen extends StandardPage {
       case UIK_ACTION.OPEN_COUPON:
         openCoupon(uikAction);
         break;
+      case UIK_ACTION.OPEN_CHECKOUT:
+        openCheckout(uikAction);
+        break;
+
       default:
     }
   }
@@ -145,4 +149,12 @@ void openCoupon(UikAction uikAction) {
   print("Coupon OPEN");
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, MyApiRoutes.couponScreen);
+}
+
+void openCheckout(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  print("checkout");
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.addressBookScreen);
 }
