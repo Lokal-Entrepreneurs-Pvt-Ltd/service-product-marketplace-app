@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
@@ -86,31 +88,41 @@ class _SignupScreenState extends State<SignupScreen> {
                     // Creating a POST request with http client
                     // var client = http.Client();
 
-                    Uri uri = Uri.parse(
-                        "https://dev.localee.co.in/api/customer/signup");
+                    // Uri uri = Uri.parse(
+                    //     "https://dev.localee.co.in/api/customer/signup");
 
-                    var response = await http.post(
-                      uri,
-                      body: {
-                        "email": emailController.text,
-                        "password": passwordController.text,
-                      },
-                    );
+                    final response = await ApiRepository.getSignUpScreen(
+                        ApiRequestBody.getSignUpRequest(
+                            emailController.text, passwordController.text));
 
-                    final body =
-                        jsonDecode(response.body) as Map<String, dynamic>;
+                    // ApiRequestBody.getLoginRequest(emailController.text);
 
-                    if (body["isSuccess"]) {
-                      final String authToken =
-                          body["data"]["response"]["authToken"];
+                    print(
+                        "*****************************************************************************************************************************************************************************");
+                    print(response.isSuccess);
 
-                      UserDataHandler.saveUserToken(authToken);
-                      UserDataHandler.saveEmailPassword(
-                          emailController.text, passwordController.text);
-                    } else {
-                      isAuthError = true;
-                      authErrorMessage = body["error"]["message"];
-                    }
+                    // var response = await http.post(
+                    //   uri,
+                    //   body: {
+                    //     "email": emailController.text,
+                    //     "password": passwordController.text,
+                    //   },
+                    // );
+
+                    // final body =
+                    //     jsonDecode(response.body) as Map<String, dynamic>;
+
+                    // if (body["isSuccess"]) {
+                    //   final String authToken =
+                    //       body["data"]["response"]["authToken"];
+
+                    //   UserDataHandler.saveUserToken(authToken);
+                    //   UserDataHandler.saveEmailPassword(
+                    //       emailController.text, passwordController.text);
+                    // } else {
+                    //   isAuthError = true;
+                    //   authErrorMessage = body["error"]["message"];
+                    // }
 
                     Navigator.push(
                       context,

@@ -83,10 +83,21 @@ class ApiRepository {
             baseUrl: "https://demo6536398.mockable.io/")
         .getMyAccountScreen(args);
   }
-  
+
   static Future<ApiResponse> getAddressBookScreen(args) {
     return StandardScreenClient(getDio(),
             baseUrl: "https://demo4695667.mockable.io/")
         .getAddressBookScreen(args);
   }
+
+  static Future<ApiResponse> getLoginScreen(args) {
+    return StandardScreenClient(getDio()).getLoginScreen(args);
+  }
+
+  static Future<ApiResponse> getSignUpScreen(args) {
+    return StandardScreenClient(getDio()).getSignUpScreen(args);
+  }
 }
+
+// apirequestbody class 
+// make get login request body function
