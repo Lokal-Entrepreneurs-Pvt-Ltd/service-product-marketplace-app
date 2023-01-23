@@ -7,14 +7,14 @@ abstract class DeeplinkHandler {
     print("__________________url____________________");
     print(url);
     Map<String, dynamic>? args = {};
-    int start = url.indexOf("://") + 2;
+    int start = url.indexOf("www.localee.co.in") + 17;
     int end = url.indexOf("?");
     String route = url.substring(start, end);
     String argsString = url.substring(end + 1);
-    List<String> Params = argsString.split(RegExp(r'&'));
-    for (int i = 0; i < Params.length; i++) {
-      List<String> keyValuePair = Params[i].split(RegExp(r'='));
-      args[keyValuePair[0]] = keyValuePair[1];
+    List<String> argsList = argsString.split("&");
+    for (int i = 0; i < argsList.length; i++) {
+      List<String> params = argsList[i].split("=");
+      args[params[0]] = params[1];
     }
 
     print(route);
@@ -24,35 +24,35 @@ abstract class DeeplinkHandler {
     switch (route) {
       case MyRoutes.loginScreen:
         {
-          if (args!.isEmpty) {
+          if (args.isEmpty) {
             _pushScreen(context, MyRoutes.loginScreen);
           }
         }
         break;
       case MyRoutes.homeScreen:
         {
-          if (args!.isEmpty) {
+          if (args.isEmpty) {
             _pushScreen(context, MyRoutes.homeScreen);
           }
         }
         break;
       case MyRoutes.catalogueScreen:
         {
-          if (args!["categoryId"] != null) {
+          if (args["categoryId"] != null) {
             _pushScreen(context, MyRoutes.catalogueScreen, args);
           }
         }
         break;
       case MyRoutes.searchScreen:
         {
-          if (args!.isEmpty) {
+          if (args.isEmpty) {
             _pushScreen(context, MyRoutes.searchScreen);
           }
         }
         break;
       case MyRoutes.productScreen:
         {
-          if (args!["skuId"] != null) {
+          if (args["skuId"] != null) {
             _pushScreen(context, MyRoutes.productScreen, args);
           }
         }
