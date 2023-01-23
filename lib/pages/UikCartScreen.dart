@@ -54,7 +54,7 @@ class UikCartScreen extends StandardPage {
   @override
   dynamic getData() {
     // return ApiRepository.getHomescreen;
-    return fetchAlbum;
+    return getMockedApiResponse;
   }
 
   void onCartScreenTapAction(UikAction uikAction) {
@@ -87,7 +87,7 @@ class UikCartScreen extends StandardPage {
   }
 }
 
-Future<ApiResponse> fetchAlbum(args) async {
+Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
