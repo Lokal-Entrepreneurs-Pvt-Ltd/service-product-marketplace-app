@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
-import 'UikCart.dart';
 
 class UikEmptyCartScreen extends StandardPage {
   @override
@@ -48,13 +47,14 @@ class UikCartScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_ISP);
     actionList.add(UIK_ACTION.ADD_TO_CART);
     actionList.add(UIK_ACTION.OPEN_COUPON);
+    actionList.add(UIK_ACTION.OPEN_CHECKOUT);
     return actionList;
   }
 
   @override
   dynamic getData() {
     // return ApiRepository.getHomescreen;
-    return fetchAlbum;
+    return getMockedApiResponse;
   }
 
   void onCartScreenTapAction(UikAction uikAction) {
@@ -68,6 +68,10 @@ class UikCartScreen extends StandardPage {
       case UIK_ACTION.OPEN_COUPON:
         openCoupon(uikAction);
         break;
+      case UIK_ACTION.OPEN_CHECKOUT:
+        openCheckout(uikAction);
+        break;
+
       default:
     }
   }
@@ -83,7 +87,7 @@ class UikCartScreen extends StandardPage {
   }
 }
 
-Future<ApiResponse> fetchAlbum(args) async {
+Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
@@ -145,4 +149,12 @@ void openCoupon(UikAction uikAction) {
   print("Coupon OPEN");
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, MyApiRoutes.couponScreen);
+}
+
+void openCheckout(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  print("checkout");
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, MyApiRoutes.addressBookScreen);
 }

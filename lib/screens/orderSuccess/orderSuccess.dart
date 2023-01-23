@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+import '../../utils/network/retrofit/api_routes.dart';
+
 class OrderSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class OrderSuccessScreen extends StatelessWidget {
               children: const <Widget>[
                 Icon(
                   Icons.person_outline_sharp,
-                  size: 30,
+                  size: 50,
                 ),
                 SizedBox(
                   child: Padding(
@@ -53,7 +56,9 @@ class OrderSuccessScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, bottom: 20, top: 692),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    goToOrderScreen();
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -85,4 +90,10 @@ class OrderSuccessScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void goToOrderScreen() {
+  var context = NavigationService.navigatorKey.currentContext;
+
+  Navigator.pushNamed(context!, MyApiRoutes.orderScreen);
 }

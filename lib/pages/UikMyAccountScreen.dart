@@ -30,7 +30,8 @@ class UikMyAccountScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return fetchAlbum;
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+    return getMockedApiResponse;
   }
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
@@ -100,7 +101,7 @@ void openOrders(UikAction uikAction) {
   Navigator.pushNamed(context!, MyApiRoutes.orderScreen);
 }
 
-Future<ApiResponse> fetchAlbum(args) async {
+Future<ApiResponse> getMockedApiResponse(args) async {
   print("lavesh ${args}");
   final response = await http.get(
     Uri.parse('https://demo6536398.mockable.io/myAccount'),

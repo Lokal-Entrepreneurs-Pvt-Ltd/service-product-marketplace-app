@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/pages/UikHome.dart';
 
 import '../Widgets/UikSearchBar/searchbar.dart';
@@ -24,11 +25,36 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
       body: Column(
         children: [
           SizedBox(
-            height: 170,
+            height: 210,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 16.0),
+
+                //Code for Membership Banner
+                //
+                //
+                // Container(
+                //     color: Color(0xFF3F51B5),
+                //     width: MediaQuery.of(context).size.width,
+                //     child: Padding(
+                //       padding: const EdgeInsets.all(10.0),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //         children: [
+                //           Text(
+                //             "Save Upto 15% with local App membership",
+                //             style: GoogleFonts.poppins(color: Colors.white),
+                //           ),
+                //           Icon(
+                //             Icons.arrow_forward_ios,
+                //             color: Colors.white,
+                //           )
+                //         ],
+                //       ),
+                //     )),
+                //
+                //
                 GestureDetector(
                   onTap: () async {
                     GeoPoint? location = await showSimplePickerLocation(
