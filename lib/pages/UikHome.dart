@@ -14,7 +14,6 @@ import '../actions.dart';
 class UikHome extends StandardPage {
   @override
   Set<String?> getActions() {
-    print("dddddddddddddddddddddddddddddddddddd");
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.OPEN_ISP);
@@ -24,8 +23,8 @@ class UikHome extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.getHomescreen;
-    return getMockedApiResponse;
+    return ApiRepository.getHomescreen;
+    // return fetchAlbum;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
@@ -94,6 +93,5 @@ void openCategory(UikAction uikAction) {
   print(
       "_____________________________Catalogue call___________________________");
   var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
+  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
