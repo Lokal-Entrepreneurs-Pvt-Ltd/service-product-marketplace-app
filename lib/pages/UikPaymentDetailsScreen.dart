@@ -27,7 +27,7 @@ class UikPaymentDetailsScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return fetchAlbum;
+    return getMockedApiResponse;
   }
 
   void onPaymentDetailsScreenTapAction(UikAction uikAction) {
@@ -71,7 +71,7 @@ void payOnline(UikAction uikAction) {
   UiUtils.showToast("PAY ONLINE");
 }
 
-Future<ApiResponse> fetchAlbum(args) async {
+Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
