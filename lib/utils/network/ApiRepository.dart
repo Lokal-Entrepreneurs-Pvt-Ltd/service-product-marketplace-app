@@ -34,6 +34,10 @@ class ApiRepository {
     return StandardScreenClient(getDio()).getProductScreen(args);
   }
 
+  static Future<ApiResponse> getCartScreen(args) {
+    return StandardScreenClient(getDio()).getCartScreen(args);
+  }
+
   static Future<ApiResponse> getCouponScreen(args) {
     return StandardScreenClient(getDio(),
             baseUrl: "https://demo6536398.mockable.io/")
@@ -54,12 +58,6 @@ class ApiRepository {
     return StandardScreenClient(getDio(),
             baseUrl: "https://demo8971456.mockable.io/")
         .getOrderScreen(args);
-  }
-
-  static Future<ApiResponse> getCartScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo9790512.mockable.io/")
-        .getCartScreen(args);
   }
 
   static Future<ApiResponse> getEmptyCartScreen(args) {

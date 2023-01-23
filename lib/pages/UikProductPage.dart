@@ -15,9 +15,7 @@ class UikProductPage extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_CATEGORY);
-    actionList.add(UIK_ACTION.OPEN_ISP);
-    actionList.add(UIK_ACTION.ADD_TO_CART);
+    actionList.add(UIK_ACTION.OPEN_CART);
     return actionList;
   }
 
@@ -29,11 +27,8 @@ class UikProductPage extends StandardPage {
 
   void onProductPageTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        openCategory(uikAction);
+      case UIK_ACTION.OPEN_CART:
+        showCartScreen(uikAction);
         break;
       default:
     }
@@ -73,37 +68,7 @@ Future<ApiResponse> fetchAlbum(args) async {
   }
 }
 
-void addToCart(UikAction uikAction) async {
-  var skuId = uikAction.tap.data.skuId;
-
-  //api call to update cart
-  // final response =
-  //     await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
-  //   "ngrok-skip-browser-warning": "value",
-  // }, body: {
-  //   "skuId": skuId,
-  //   "cartId": "",
-  //   "action": "add"
-  // });
-
-  //displaying response from update cart
-  // print("statusCode ${response.body}");
-
+void showCartScreen(UikAction uikAction) async {
   var context = NavigationService.navigatorKey.currentContext;
-
-  Navigator.pushNamed(context!, MyApiRoutes.cartScreen);
-}
-
-void openCategory(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
-}
-
-void openProduct(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.productScreen);
+  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
