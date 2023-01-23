@@ -53,4 +53,10 @@ abstract class StandardScreenClient {
 
   @POST(MyApiRoutes.addressBookScreen)
   Future<ApiResponse> getAddressBookScreen(args);
+
+  @POST(MyApiRoutes.loginScreen)
+  Future<ApiResponse> getLoginScreen(args);
+
+  @POST(MyApiRoutes.signUpScreen)
+  Future<ApiResponse> getSignUpScreen(args);
 }

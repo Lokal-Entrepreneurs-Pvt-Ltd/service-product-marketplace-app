@@ -49,7 +49,7 @@ void openSearch(UikAction uikAction) {
   UiUtils.showToast("OPEN SEARCH");
 }
 
-Future<StandardScreenResponse> fetchAlbum() async {
+Future<StandardScreenResponse> getMockedApiResponse() async {
   final response = await http.get(
     Uri.parse('https://demo1595178.mockable.io/SearchCategory'),
     headers: {

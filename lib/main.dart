@@ -16,6 +16,7 @@ import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/screens/forgetPassword/ForgetPassword.dart';
+import 'package:lokal/screens/login/login.dart';
 import 'package:lokal/screens/setNewPassword/set_new_password_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/screens/orderSuccess/orderSuccess.dart';
@@ -131,6 +132,16 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
+          // "/": (context) => success(),
+
+          //   "/": (context) => UikOrderHistoryScreen().page,
+          // "/": (context) => LoginPageScreen(),
+          //  "/": (context) => UikAddressBook().page,
+
+          // "/": (context) => UikHome().page,
+
+          // "/": (context) => const SetNewPasswordScreen(),
+
           "/": (context) => UikBottomNavigationBar(),
           MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
