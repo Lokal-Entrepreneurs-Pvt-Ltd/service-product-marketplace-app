@@ -5,10 +5,13 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/Widgets/test.dart';
+import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
+import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -30,7 +33,6 @@ import 'screens/login.dart';
 
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/pages/UikFilter.dart';
-import 'package:lokal/pages/UikOrder.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
@@ -129,19 +131,9 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-          // "/": (context) => success(),
-
-          //   "/": (context) => UikOrderHistoryScreen().page,
           "/": (context) => UikBottomNavigationBar(),
-          //  "/": (context) => UikAddressBook().page,
-
-          // "/": (context) => UikHome().page,
-
-          // "/": (context) => const SetNewPasswordScreen(),
-
           MyApiRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyApiRoutes.cartScreen: (context) => UikCartScreen().page,
-          // MyApiRoutes.loginScreen: (context) => LoginPage(),
           MyApiRoutes.homeScreen: (context) => UikHome().page,
           MyApiRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           MyApiRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
@@ -150,13 +142,12 @@ class _LokalAppState extends State<LokalApp> {
           MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
           MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
           MyApiRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
-          // MyApiRoutes.addressBook: (context) => UikAddressBook().page,
           MyApiRoutes.couponScreen: (context) => UikCouponScreen().page,
           MyApiRoutes.addressBookScreen: (context) => UikAddressBook().page,
-          // MyApiRoutes.signUpScreen: (context) => const SignupScreen(),
-          // MyApiRoutes.otpScreen: (context) => const OtpScreen(),
-          // MyApiRoutes.setNewPasswordScreen: (context) =>
-          // const SetNewPasswordScreen(),
+          MyApiRoutes.addAddressScreen: (context) => UikAddAddressScreen().page,
+          MyApiRoutes.paymentDetailsScreen: (context) =>
+              UikPaymentDetailsScreen().page,
+          MyApiRoutes.paymentStatusScreen: (context) => OrderSuccessScreen()
         },
       ),
     );
