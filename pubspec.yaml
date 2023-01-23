@@ -47,7 +47,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_xlider: ^3.4.0
   geocoding: ^2.0.5
-  geolocator: ^9.0.2
+  geolocator: ^9.0.2  
   getwidget: ^3.0.1
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.2.3
@@ -65,7 +65,7 @@ dependencies:
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
   firebase_analytics: ^10.0.6
-  ui_sdk: ^1.0.65+1
+  ui_sdk: ^1.0.70+1
   chucker_flutter: ^1.4.0
   sticky_headers: ^0.3.0+2
   fluttertoast: ^8.1.2

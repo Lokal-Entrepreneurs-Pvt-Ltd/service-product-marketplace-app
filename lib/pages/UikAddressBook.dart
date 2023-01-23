@@ -1,18 +1,17 @@
 import 'dart:convert';
-// import 'package:lokal/Widgets/UikSnackbar/snack.dart';
-import 'package:lokal/utils/deeplink_handler.dart';
-import 'package:lokal/utils/network/ApiRepository.dart';
+
+import 'package:flutter/material.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
-import '../utils/deeplink_handler.dart';
-import '../constants.dart';
-import '../main.dart';
+
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+
+import '../utils/network/retrofit/api_routes.dart';
 
 // add adress
 // remove add
@@ -26,6 +25,7 @@ class UikAddressBook extends StandardPage {
     actionList.add(UIK_ACTION.ADD_ADDRESS);
     actionList.add(UIK_ACTION.REMOVE_ADDRESS);
     actionList.add(UIK_ACTION.DELETE_ADDRESS);
+    actionList.add(UIK_ACTION.OPEN_PAYMENT);
     return actionList;
   }
 
@@ -44,6 +44,9 @@ class UikAddressBook extends StandardPage {
         break;
       case UIK_ACTION.DELETE_ADDRESS:
         deleteAddress(uikAction);
+        break;
+      case UIK_ACTION.OPEN_PAYMENT:
+        openPayment(uikAction);
         break;
       default:
     }
@@ -69,7 +72,15 @@ void removeAddress(UikAction uikAction) {
 }
 
 void addAddress(UikAction uikAction) {
-  UiUtils.showToast("ADD ADDRESS");
+  var context = NavigationService.navigatorKey.currentContext;
+
+  Navigator.pushNamed(context!, MyApiRoutes.addAddressScreen);
+}
+
+void openPayment(UikAction uikAction) {
+  var context = NavigationService.navigatorKey.currentContext;
+
+  Navigator.pushNamed(context!, MyApiRoutes.paymentDetailsScreen);
 }
 
 Future<ApiResponse> fetchAlbum(args) async {
@@ -78,7 +89,7 @@ Future<ApiResponse> fetchAlbum(args) async {
   };
 
   final response = await http.get(
-    Uri.parse('https://demo4695667.mockable.io/addressbook'),
+    Uri.parse('http://demo2913052.mockable.io/addressbook'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
