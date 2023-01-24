@@ -140,7 +140,7 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => const SetNewPasswordScreen(),
 
 
-          "/": (context) => UikBottomNavigationBar(),
+          "/": (context) => UikHome().page,
           MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
