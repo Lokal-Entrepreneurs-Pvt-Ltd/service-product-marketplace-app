@@ -7,14 +7,18 @@ abstract class DeeplinkHandler {
     print("__________________url____________________");
     print(url);
     Map<String, dynamic>? args = {};
-    int start = url.indexOf("www.localee.co.in") + 17;
-    int end = url.indexOf("?");
-    String route = url.substring(start, end);
-    String argsString = url.substring(end + 1);
-    List<String> argsList = argsString.split("&");
-    for (int i = 0; i < argsList.length; i++) {
-      List<String> params = argsList[i].split("=");
-      args[params[0]] = params[1];
+    String route = "";
+    try {
+      int index = url.indexOf("://");
+      String string = url.substring(index + 3);
+      List<String> strList = string.split(RegExp(r'[/|?|&]'));
+      route = "/${strList[1]}";
+      for (int i = 2; i < strList.length; i++) {
+        List<String> keyValuePair = strList[i].split("=");
+        args[keyValuePair[0]] = keyValuePair[1];
+      }
+    } catch (e) {
+      print(e);
     }
 
     print(route);

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/pages/UikHome.dart';
 
 import '../Widgets/UikSearchBar/searchbar.dart';
+import '../utils/uik_color.dart';
 import '../widgets/UikCell/UikCell.dart';
 
 class UikHomeWrapper extends StatefulWidget {
@@ -25,7 +26,7 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
       body: Column(
         children: [
           SizedBox(
-            height: 210,
+            height: 161,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -92,7 +93,10 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
                   child: Cell(
                     titleText: street,
                     subtitleText: "$city - $state",
-                    leftChild: const Icon(Icons.location_on),
+                    leftChild: const Icon(
+                      Icons.location_on,
+                      color: Color(UikColor.charizard_300),
+                    ),
                   ),
                 ),
                 const SearchBar(),
