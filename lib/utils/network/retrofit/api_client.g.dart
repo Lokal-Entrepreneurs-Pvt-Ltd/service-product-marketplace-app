@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://8f01-202-89-65-238.ngrok.io/';
+    baseUrl ??= 'https://d851-202-89-65-238.ngrok.io';
   }
 
   final Dio _dio;
@@ -80,7 +80,7 @@ class _StandardScreenClient implements StandardScreenClient {
     )
             .compose(
               _dio.options,
-              '/cataloguescreen',
+              '/products/get',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -114,8 +114,6 @@ class _StandardScreenClient implements StandardScreenClient {
 
   @override
   Future<ApiResponse> getCartScreen(args) async {
-    print("rashid chuchu");
-    print(args);
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -326,7 +324,7 @@ class _StandardScreenClient implements StandardScreenClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = args;
+    final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -349,7 +347,7 @@ class _StandardScreenClient implements StandardScreenClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = args;
+    final _data = <String, dynamic>{};
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
