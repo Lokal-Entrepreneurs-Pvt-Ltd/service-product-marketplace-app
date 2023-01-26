@@ -12,6 +12,7 @@ import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
+import 'package:lokal/pages/UikInvite.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -139,8 +140,7 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => const SetNewPasswordScreen(),
 
-
-          "/": (context) => UikHome().page,
+          "/": (context) => UikInviteScreen().page,
           MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
@@ -155,7 +155,6 @@ class _LokalAppState extends State<LokalApp> {
           // MyApiRoutes.paymentDetailsScreen: (context) =>
           //     UikPaymentDetailsScreen().page,
           // MyApiRoutes.paymentStatusScreen: (context) => OrderSuccessScreen()
-
         },
       ),
     );
