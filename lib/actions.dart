@@ -35,4 +35,7 @@ class UIK_ACTION {
   static const String OPEN_STATUS = 'OPEN_STATUS';
   static const String OPEN_COPY = 'OPEN_COPY';
   static const String OPEN_SHARE = 'OPEN_SHARE';
+  static const String OPEN_WITHDRAW = 'OPEN_WITHDRAW';
+  static const String OPEN_LEADS = 'OPEN_LEADS';
+  static const String OPEN_HISTORY = 'OPEN_HISTORY';
 }
