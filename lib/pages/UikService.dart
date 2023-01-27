@@ -14,7 +14,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
-class UikInviteScreen extends StandardPage {
+class UikServiceScreen extends StandardPage {
   // final obj = Snack();
   @override
   Set<String?> getActions() {
@@ -33,7 +33,7 @@ class UikInviteScreen extends StandardPage {
     // return ApiRepository.getHomescreen;
   }
 
-  void onInviteScreenTapAction(UikAction uikAction) {
+  void onServiceScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_INVITE:
         openInvite(uikAction);
@@ -53,12 +53,12 @@ class UikInviteScreen extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return onInviteScreenTapAction;
+    return onServiceScreenTapAction;
   }
 
   @override
   getPageContext() {
-    return UikInviteScreen;
+    return UikServiceScreen;
   }
 }
 
@@ -81,7 +81,7 @@ void openInvite(UikAction uikAction) {
 Future<ApiResponse> getMockedApiResponse(args) async {
   print("lavesh ${args}");
   final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/invite'),
+    Uri.parse('https://demo6536398.mockable.io/service'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },

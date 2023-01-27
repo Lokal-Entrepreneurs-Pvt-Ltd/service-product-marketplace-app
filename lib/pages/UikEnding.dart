@@ -14,15 +14,14 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
-class UikInviteScreen extends StandardPage {
+class UikEndingScreen extends StandardPage {
   // final obj = Snack();
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_INVITE);
-    actionList.add(UIK_ACTION.OPEN_STATUS);
-    actionList.add(UIK_ACTION.OPEN_COPY);
-    actionList.add(UIK_ACTION.OPEN_SHARE);
+    actionList.add(UIK_ACTION.OPEN_WITHDRAW);
+    actionList.add(UIK_ACTION.OPEN_LEADS);
+    actionList.add(UIK_ACTION.OPEN_HISTORY);
     return actionList;
   }
 
@@ -33,19 +32,16 @@ class UikInviteScreen extends StandardPage {
     // return ApiRepository.getHomescreen;
   }
 
-  void onInviteScreenTapAction(UikAction uikAction) {
+  void onEndingScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_INVITE:
-        openInvite(uikAction);
+      case UIK_ACTION.OPEN_WITHDRAW:
+        openWithdraw(uikAction);
         break;
-      case UIK_ACTION.OPEN_STATUS:
-        openStatus(uikAction);
+      case UIK_ACTION.OPEN_LEADS:
+        openLeads(uikAction);
         break;
-      case UIK_ACTION.OPEN_COPY:
-        openCopy(uikAction);
-        break;
-      case UIK_ACTION.OPEN_SHARE:
-        openShare(uikAction);
+      case UIK_ACTION.OPEN_HISTORY:
+        openHistory(uikAction);
         break;
       default:
     }
@@ -53,35 +49,31 @@ class UikInviteScreen extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return onInviteScreenTapAction;
+    return onEndingScreenTapAction;
   }
 
   @override
   getPageContext() {
-    return UikInviteScreen;
+    return UikEndingScreen;
   }
 }
 
-void openShare(UikAction uikAction) {
-  UiUtils.showToast("Share");
+void openHistory(UikAction uikAction) {
+  UiUtils.showToast("History");
 }
 
-void openCopy(UikAction uikAction) {
-  UiUtils.showToast("Copy");
+void openLeads(UikAction uikAction) {
+  UiUtils.showToast("Leads");
 }
 
-void openStatus(UikAction uikAction) {
-  UiUtils.showToast("Status");
-}
-
-void openInvite(UikAction uikAction) {
-  UiUtils.showToast("Invite");
+void openWithdraw(UikAction uikAction) {
+  UiUtils.showToast("Withdraw");
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
   print("lavesh ${args}");
   final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/invite'),
+    Uri.parse('https://demo6536398.mockable.io/ending'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
