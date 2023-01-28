@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class UikColor {
   static const String black = '#212121';
   static const String white = '#FFFFFF';
@@ -5,7 +7,7 @@ class UikColor {
   //------------CHARIZARD-------------------
   static const String charizard_100 = '#FFF8CF';
   static const String charizard_200 = '#FFECB2';
-  static const int charizard_300 = 0xFFFEE440;
+  static const String charizard_300 = "#FFECB2";
   static const String charizard_400 = '#FEE440';
   static const String charizard_500 = '#FFD60A';
 
