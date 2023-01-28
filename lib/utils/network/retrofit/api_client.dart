@@ -27,6 +27,9 @@ abstract class StandardScreenClient {
   @POST(MyApiRoutes.productScreen)
   Future<ApiResponse> getProductScreen(args);
 
+  @POST(MyApiRoutes.updateCart)
+  Future<ApiResponse> updateCart(args);
+
   @POST(MyApiRoutes.cartScreen)
   Future<ApiResponse> getCartScreen(args);
 

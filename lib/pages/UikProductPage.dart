@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
+import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -10,6 +11,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
+import '../utils/storage/product_data_handler.dart';
 
 class UikProductPage extends StandardPage {
   @override
@@ -69,6 +71,18 @@ Future<ApiResponse> getMockedApiResponse(args) async {
 }
 
 void showCartScreen(UikAction uikAction) async {
+  print("________________________UikAction______________________");
+  print(uikAction);
+  String skuId = await ProductDataHandler.getProductSkuId();
+  print(skuId);
+  var args = {
+    "skuId": skuId,
+    "action": "add",
+  };
+  dynamic response = await ApiRepository.updateCart(args);
+  CartDataHandler.saveCartId(response.data['cart_data']['cartId']);
+  print(response.data['cart_data']['cartId']);
+  print("!!!!!!!!!!!!!!!!!!!!!!!!!API call done!!!!!!!!!!!!!!!!!!");
   var context = NavigationService.navigatorKey.currentContext;
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/routes.dart';
+import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'storage/product_data_handler.dart';
+
 abstract class DeeplinkHandler {
-  static void openPage(BuildContext context, String url) {
+  static void openPage(BuildContext context, String url) async {
     print("__________________url____________________");
     print(url);
     Map<String, dynamic>? args = {};
@@ -57,12 +60,17 @@ abstract class DeeplinkHandler {
       case MyRoutes.productScreen:
         {
           if (args["skuId"] != null) {
+            ProductDataHandler.saveProductSkuId(args['skuId']);
             _pushScreen(context, MyRoutes.productScreen, args);
           }
         }
         break;
       case MyRoutes.cartScreen:
         {
+          print("!!!!!!!!!!!!!!!!args!!!!!!!!!!!!!!!!");
+          print(args);
+          String cartId = await CartDataHandler.getCartId();
+          args = {"cartId": cartId};
           _pushScreen(context, MyRoutes.cartScreen, args);
         }
         break;
