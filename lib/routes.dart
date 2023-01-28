@@ -1,8 +1,9 @@
 class MyRoutes {
   static const String homeScreen = '/discovery/get';
   static const String catalogueScreen = '/products';
-  static const String productScreen = "/product/detail";
-  static const String cartScreen = '/cart/get';
+  static const String productScreen = "/detail";
+  static const String addressBookScreen = "/addressbook";
+  static const String cartScreen = '/cart';
   static const String loginScreen = '/loginscreen';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
@@ -16,7 +17,6 @@ class MyRoutes {
   static const String myAccountScreen = "/myAccountScreen";
   static const String couponScreen = "/couponscreen";
   static const String forgetPassword = "/forgetPassword";
-  static const String addressBook = "/addressbook";
   static const String signUpScreen = "/signupscreen";
   static const String otpScreen = "/otpscreen";
   static const String setNewPasswordScreen = "/setnewpassword";

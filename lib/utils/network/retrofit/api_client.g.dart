@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://b5c4-202-89-65-238.in.ngrok.io';
+    baseUrl ??= 'https://bc2f-42-108-165-126.ngrok.io';
   }
 
   final Dio _dio;
@@ -104,6 +104,29 @@ class _StandardScreenClient implements StandardScreenClient {
             .compose(
               _dio.options,
               '/products/getProductDetails',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse> updateCart(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/cart/update',
               queryParameters: queryParameters,
               data: _data,
             )
