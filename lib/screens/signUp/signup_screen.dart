@@ -88,41 +88,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     // Creating a POST request with http client
                     // var client = http.Client();
 
-                    // Uri uri = Uri.parse(
-                    //     "https://dev.localee.co.in/api/customer/signup");
-
                     final response = await ApiRepository.getSignUpScreen(
                         ApiRequestBody.getSignUpRequest(
                             emailController.text, passwordController.text));
-
-                    // ApiRequestBody.getLoginRequest(emailController.text);
-
-                    print(
-                        "*****************************************************************************************************************************************************************************");
-                    print(response.isSuccess);
-
-                    // var response = await http.post(
-                    //   uri,
-                    //   body: {
-                    //     "email": emailController.text,
-                    //     "password": passwordController.text,
-                    //   },
-                    // );
-
-                    // final body =
-                    //     jsonDecode(response.body) as Map<String, dynamic>;
-
-                    // if (body["isSuccess"]) {
-                    //   final String authToken =
-                    //       body["data"]["response"]["authToken"];
-
-                    //   UserDataHandler.saveUserToken(authToken);
-                    //   UserDataHandler.saveEmailPassword(
-                    //       emailController.text, passwordController.text);
-                    // } else {
-                    //   isAuthError = true;
-                    //   authErrorMessage = body["error"]["message"];
-                    // }
 
                     Navigator.push(
                       context,
