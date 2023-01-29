@@ -29,8 +29,8 @@ class UikServiceScreen extends StandardPage {
   @override
   dynamic getData() {
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-    return getMockedApiResponse;
-    // return ApiRepository.getHomescreen;
+    // return getMockedApiResponse;
+    return ApiRepository.getServiceScreen;
   }
 
   void onServiceScreenTapAction(UikAction uikAction) {
