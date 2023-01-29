@@ -34,6 +34,10 @@ class ApiRepository {
     return StandardScreenClient(getDio()).getProductScreen(args);
   }
 
+  static Future<ApiResponse> updateCart(args) {
+    return StandardScreenClient(getDio()).updateCart(args);
+  }
+
   static Future<ApiResponse> getCartScreen(args) {
     return StandardScreenClient(getDio()).getCartScreen(args);
   }
