@@ -29,8 +29,8 @@ class UikInviteScreen extends StandardPage {
   @override
   dynamic getData() {
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-    return getMockedApiResponse;
-    // return ApiRepository.getHomescreen;
+    // return getMockedApiResponse;
+    return ApiRepository.getInviteScreen;
   }
 
   void onInviteScreenTapAction(UikAction uikAction) {

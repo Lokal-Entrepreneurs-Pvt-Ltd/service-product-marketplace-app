@@ -14,7 +14,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
-class UikEndingScreen extends StandardPage {
+class UikEarningScreen extends StandardPage {
   // final obj = Snack();
   @override
   Set<String?> getActions() {
@@ -28,11 +28,11 @@ class UikEndingScreen extends StandardPage {
   @override
   dynamic getData() {
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-    return getMockedApiResponse;
-    // return ApiRepository.getHomescreen;
+    // return getMockedApiResponse;
+    return ApiRepository.getEarningScreen;
   }
 
-  void onEndingScreenTapAction(UikAction uikAction) {
+  void onEarningScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_WITHDRAW:
         openWithdraw(uikAction);
@@ -49,12 +49,12 @@ class UikEndingScreen extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return onEndingScreenTapAction;
+    return onEarningScreenTapAction;
   }
 
   @override
   getPageContext() {
-    return UikEndingScreen;
+    return UikEarningScreen;
   }
 }
 
@@ -73,7 +73,7 @@ void openWithdraw(UikAction uikAction) {
 Future<ApiResponse> getMockedApiResponse(args) async {
   print("lavesh ${args}");
   final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/ending'),
+    Uri.parse('https://demo6536398.mockable.io/earning'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
