@@ -2,6 +2,7 @@ class MyApiRoutes {
   static const String homeScreen = '/discovery/get';
   static const String catalogueScreen = '/products/get';
   static const String productScreen = "/products/getProductDetails";
+  static const String updateCart = '/cart/update';
   static const String cartScreen = '/cart/get';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';

@@ -95,7 +95,7 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
                     subtitleText: "$city - $state",
                     leftChild: const Icon(
                       Icons.location_on,
-                      color: Color(UikColor.charizard_300),
+                      color: Colors.yellow,
                     ),
                   ),
                 ),

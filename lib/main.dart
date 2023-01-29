@@ -145,12 +145,13 @@ class _LokalAppState extends State<LokalApp> {
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
           MyRoutes.cartScreen: (context) => UikCartScreen().page,
+          MyRoutes.addressBookScreen: (context) => UikAddressBook().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
           // MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
           // MyApiRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
           // MyApiRoutes.couponScreen: (context) => UikCouponScreen().page,
-          // MyApiRoutes.addressBookScreen: (context) => UikAddressBook().page,
+
           // MyApiRoutes.addAddressScreen: (context) => UikAddAddressScreen().page,
           // MyApiRoutes.paymentDetailsScreen: (context) =>
           //     UikPaymentDetailsScreen().page,
