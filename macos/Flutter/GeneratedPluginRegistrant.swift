@@ -12,7 +12,7 @@ import firebase_crashlytics
 import firebase_database
 import firebase_messaging
 import geolocator_apple
-import path_provider_macos
+import path_provider_foundation
 import share_plus
 import shared_preferences_foundation
 import smart_auth
