@@ -72,7 +72,6 @@ Future<ApiResponse> getMockedApiResponse(args) async {
 
 void showCartScreen(UikAction uikAction) async {
   print("________________________UikAction______________________");
-  print(uikAction);
   String skuId = await ProductDataHandler.getProductSkuId();
   print(skuId);
   var args = {

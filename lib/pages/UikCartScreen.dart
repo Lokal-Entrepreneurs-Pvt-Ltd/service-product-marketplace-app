@@ -8,7 +8,8 @@ import 'package:ui_sdk/props/UikAction.dart';
 import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../main.dart';
-import '../utils/network/retrofit/api_routes.dart';
+import '../utils/deeplink_handler.dart';
+import '../screen_routes.dart';
 
 class UikEmptyCartScreen extends StandardPage {
   @override
@@ -19,7 +20,6 @@ class UikEmptyCartScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    print("########################################################");
     return ApiRepository.getCartScreen;
   }
 
@@ -40,33 +40,19 @@ class UikCartScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_CATEGORY);
-    actionList.add(UIK_ACTION.OPEN_ISP);
-    actionList.add(UIK_ACTION.ADD_TO_CART);
-    actionList.add(UIK_ACTION.OPEN_COUPON);
-    actionList.add(UIK_ACTION.OPEN_CHECKOUT);
+    actionList.add(UIK_ACTION.OPEN_ADDRESS);
     return actionList;
   }
 
   @override
   dynamic getData() {
     return ApiRepository.getCartScreen;
-    //return fetchAlbum;
   }
 
   void onCartScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_COUPON:
-        openCoupon(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CHECKOUT:
-        openCheckout(uikAction);
+      case UIK_ACTION.OPEN_ADDRESS:
+        openAddress(uikAction);
         break;
 
       default:
@@ -105,6 +91,11 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   }
 }
 
+
+void openAddress(UikAction uikAction) {
+  var context = NavigationService.navigatorKey.currentContext;
+  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+}
 void addToCart(UikAction uikAction) async {
   var skuId = uikAction.tap.data.skuId;
 
@@ -123,21 +114,21 @@ void addToCart(UikAction uikAction) async {
 
   var context = NavigationService.navigatorKey.currentContext;
 
-  Navigator.pushNamed(context!, MyApiRoutes.cartScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
 }
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.catalogueScreen);
 }
 
 void openProduct(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.productScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.productScreen);
 }
 
 void openCoupon(UikAction uikAction) {
@@ -145,7 +136,7 @@ void openCoupon(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   print("Coupon OPEN");
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.couponScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.couponScreen);
 }
 
 void openCheckout(UikAction uikAction) {
@@ -153,5 +144,6 @@ void openCheckout(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   print("checkout");
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.addressBookScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.addressBookScreen);
+
 }
