@@ -1,6 +1,7 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -97,6 +98,10 @@ class _LokalAppState extends State<LokalApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -108,7 +113,6 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-
           "/": (context) => UikBottomNavigationBar(),
           ApiRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ApiRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
