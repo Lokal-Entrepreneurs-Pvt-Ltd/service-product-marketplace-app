@@ -88,7 +88,7 @@ class _LokalAppState extends State<LokalApp> {
 
     AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
 
-    /* 
+    /*
       // Postman -> Headers
       Authorization - key=<Server Key>
       Content-Type - application/json
@@ -139,13 +139,13 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => const SetNewPasswordScreen(),
 
-
           "/": (context) => UikBottomNavigationBar(),
           MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
           MyRoutes.cartScreen: (context) => UikCartScreen().page,
           MyRoutes.addressBookScreen: (context) => UikAddressBook().page,
+          MyRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
           // MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
@@ -156,7 +156,6 @@ class _LokalAppState extends State<LokalApp> {
           // MyApiRoutes.paymentDetailsScreen: (context) =>
           //     UikPaymentDetailsScreen().page,
           // MyApiRoutes.paymentStatusScreen: (context) => OrderSuccessScreen()
-
         },
       ),
     );
