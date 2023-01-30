@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/routes.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,55 +31,55 @@ abstract class DeeplinkHandler {
 
     // /checkout
     switch (route) {
-      case MyRoutes.loginScreen:
+      case ScreenRoutes.loginScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.loginScreen);
+            _pushScreen(context, ScreenRoutes.loginScreen);
           }
         }
         break;
-      case MyRoutes.homeScreen:
+      case ScreenRoutes.homeScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.homeScreen);
+            _pushScreen(context, ScreenRoutes.homeScreen);
           }
         }
         break;
-      case MyRoutes.catalogueScreen:
+      case ScreenRoutes.catalogueScreen:
         {
           if (args["categoryId"] != null) {
-            _pushScreen(context, MyRoutes.catalogueScreen, args);
+            _pushScreen(context, ScreenRoutes.catalogueScreen, args);
           }
         }
         break;
-      case MyRoutes.searchScreen:
+      case ScreenRoutes.searchScreen:
         {
           if (args.isEmpty) {
-            _pushScreen(context, MyRoutes.searchScreen);
+            _pushScreen(context, ScreenRoutes.searchScreen);
           }
         }
         break;
-      case MyRoutes.productScreen:
+      case ScreenRoutes.productScreen:
         {
           if (args["skuId"] != null) {
             ProductDataHandler.saveProductSkuId(args['skuId']);
-            _pushScreen(context, MyRoutes.productScreen, args);
+            _pushScreen(context, ScreenRoutes.productScreen, args);
           }
         }
         break;
-      case MyRoutes.cartScreen:
+      case ScreenRoutes.cartScreen:
         {
           print("!!!!!!!!!!!!!!!!args!!!!!!!!!!!!!!!!");
           print(args);
           String cartId = await CartDataHandler.getCartId();
           args = {"cartId": cartId};
-          _pushScreen(context, MyRoutes.cartScreen, args);
+          _pushScreen(context, ScreenRoutes.cartScreen, args);
         }
         break;
 
-      case MyRoutes.addressBookScreen:
+      case ScreenRoutes.addressBookScreen:
         {
-          _pushScreen(context, MyRoutes.addressBookScreen, args);
+          _pushScreen(context, ScreenRoutes.addressBookScreen, args);
         }
         break;
       default:

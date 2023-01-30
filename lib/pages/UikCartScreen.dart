@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../main.dart';
 import '../utils/deeplink_handler.dart';
-import '../utils/network/retrofit/api_routes.dart';
+import '../screen_routes.dart';
 
 class UikEmptyCartScreen extends StandardPage {
   @override
@@ -20,7 +20,6 @@ class UikEmptyCartScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    print("########################################################");
     return ApiRepository.getCartScreen;
   }
 
@@ -92,7 +91,59 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   }
 }
 
+
 void openAddress(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+}
+void addToCart(UikAction uikAction) async {
+  var skuId = uikAction.tap.data.skuId;
+
+  //api call to update cart
+  // final response =
+  //     await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
+  //   "ngrok-skip-browser-warning": "value",
+  // }, body: {
+  //   "skuId": skuId,
+  //   "cartId": "",
+  //   "action": "add"
+  // });
+
+  //displaying response from update cart
+  // print("statusCode ${response.body}");
+
+  var context = NavigationService.navigatorKey.currentContext;
+
+  Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
+}
+
+void openCategory(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, ScreenRoutes.catalogueScreen);
+}
+
+void openProduct(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, ScreenRoutes.productScreen);
+}
+
+void openCoupon(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  print("Coupon OPEN");
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, ScreenRoutes.couponScreen);
+}
+
+void openCheckout(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  var context = NavigationService.navigatorKey.currentContext;
+  print("checkout");
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, ScreenRoutes.addressBookScreen);
+
 }
