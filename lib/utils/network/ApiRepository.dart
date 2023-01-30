@@ -23,7 +23,8 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getHomescreen(args) {
-    return StandardScreenClient(getDio()).getHomeScreen(args);
+    return StandardScreenClient(getDio())
+        .getHomeScreen(args);
   }
 
   static Future<ApiResponse> getCatalogue(args) {
