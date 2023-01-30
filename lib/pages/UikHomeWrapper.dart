@@ -25,12 +25,13 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(height: 20.0),
+          /* SizedBox(
             height: 161,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 16.0),
+                // const SizedBox(height: 16.0),
 
                 //Code for Membership Banner
                 //
@@ -102,7 +103,8 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
                 const SearchBar(),
               ],
             ),
-          ),
+          ), */
+          const SearchBar(),
           Expanded(child: UikHome().page),
         ],
       ),
