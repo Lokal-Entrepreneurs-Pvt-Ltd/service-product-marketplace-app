@@ -1,4 +1,4 @@
-class MyRoutes {
+class ScreenRoutes {
   static const String homeScreen = '/discovery/get';
   static const String catalogueScreen = '/products';
   static const String productScreen = "/detail";
