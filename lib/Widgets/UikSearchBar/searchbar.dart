@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/routes.dart';
 
 class SearchBar extends StatelessWidget {
@@ -11,7 +12,12 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(MyRoutes.searchScreen);
+        // Navigator.of(context).pushNamed(MyRoutes.searchScreen);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => UikSearchCatalog().page,
+          ),
+        );
       },
       child: Container(
         // margin: const EdgeInsets.fromLTRB(14, 23, 14, 2),

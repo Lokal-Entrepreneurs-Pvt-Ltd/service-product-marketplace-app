@@ -13,8 +13,8 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    // baseUrl ??= 'https://abc6-2405-201-e029-5bc9-1aa-33ee-8393-dab8.in.ngrok.io/';
-    baseUrl ??= 'https://demo9563851.mockable.io/';
+    baseUrl ??= 'https://a186-2405-201-e029-5bc9-b3b2-88e0-e54c-edc4.in.ngrok.io';
+    // baseUrl ??= 'https://demo9563851.mockable.io/';
   }
 
   final Dio _dio;
@@ -196,7 +196,7 @@ class _StandardScreenClient implements StandardScreenClient {
     )
             .compose(
               _dio.options,
-              '/search',
+              '/discovery/search',
               queryParameters: queryParameters,
               data: _data,
             )
