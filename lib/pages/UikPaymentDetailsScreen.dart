@@ -64,7 +64,7 @@ void paymentStatus(UikAction uikAction) {
   print("...................inside status...........");
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.paymentStatusScreen);
+  Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
 
 void payOnline(UikAction uikAction) {

@@ -95,5 +95,5 @@ class OrderSuccessScreen extends StatelessWidget {
 void goToOrderScreen() {
   var context = NavigationService.navigatorKey.currentContext;
 
-  Navigator.pushNamed(context!, MyApiRoutes.orderScreen);
+  Navigator.pushNamed(context!, ApiRoutes.orderScreen);
 }
