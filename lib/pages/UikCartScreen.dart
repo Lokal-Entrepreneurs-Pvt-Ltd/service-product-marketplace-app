@@ -8,6 +8,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../main.dart';
+import '../utils/deeplink_handler.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
 class UikEmptyCartScreen extends StandardPage {
@@ -40,33 +41,19 @@ class UikCartScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_CATEGORY);
-    actionList.add(UIK_ACTION.OPEN_ISP);
-    actionList.add(UIK_ACTION.ADD_TO_CART);
-    actionList.add(UIK_ACTION.OPEN_COUPON);
-    actionList.add(UIK_ACTION.OPEN_CHECKOUT);
+    actionList.add(UIK_ACTION.OPEN_ADDRESS);
     return actionList;
   }
 
   @override
   dynamic getData() {
     return ApiRepository.getCartScreen;
-    //return fetchAlbum;
   }
 
   void onCartScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_COUPON:
-        openCoupon(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CHECKOUT:
-        openCheckout(uikAction);
+      case UIK_ACTION.OPEN_ADDRESS:
+        openAddress(uikAction);
         break;
 
       default:
@@ -105,53 +92,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   }
 }
 
-void addToCart(UikAction uikAction) async {
-  var skuId = uikAction.tap.data.skuId;
-
-  //api call to update cart
-  // final response =
-  //     await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
-  //   "ngrok-skip-browser-warning": "value",
-  // }, body: {
-  //   "skuId": skuId,
-  //   "cartId": "",
-  //   "action": "add"
-  // });
-
-  //displaying response from update cart
-  // print("statusCode ${response.body}");
-
+void openAddress(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
-
-  Navigator.pushNamed(context!, MyApiRoutes.cartScreen);
-}
-
-void openCategory(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
-}
-
-void openProduct(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.productScreen);
-}
-
-void openCoupon(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  print("Coupon OPEN");
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.couponScreen);
-}
-
-void openCheckout(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  print("checkout");
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.addressBookScreen);
+  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }

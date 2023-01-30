@@ -4,6 +4,7 @@ class MyApiRoutes {
   static const String productScreen = "/products/getProductDetails";
   static const String updateCart = '/cart/update';
   static const String cartScreen = '/cart/get';
+  static const String addressScreen = '/checkout/initiate';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
   static const String paymentStatusScreen = '/paymentstatusscreen';
