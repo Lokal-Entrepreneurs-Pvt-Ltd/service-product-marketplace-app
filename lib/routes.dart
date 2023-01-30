@@ -2,8 +2,8 @@ class MyRoutes {
   static const String homeScreen = '/discovery/get';
   static const String catalogueScreen = '/products';
   static const String productScreen = "/detail";
-  static const String addressBookScreen = "/addressbook";
   static const String cartScreen = '/cart';
+  static const String addressBookScreen = '/checkout';
   static const String loginScreen = '/loginscreen';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';

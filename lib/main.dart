@@ -139,8 +139,7 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => const SetNewPasswordScreen(),
 
-
-          "/": (context) => UikHome().page,
+          "/": (context) => UikBottomNavigationBar(),
           MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
           MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           MyRoutes.productScreen: (context) => UikProductPage().page,
@@ -156,7 +155,6 @@ class _LokalAppState extends State<LokalApp> {
           // MyApiRoutes.paymentDetailsScreen: (context) =>
           //     UikPaymentDetailsScreen().page,
           // MyApiRoutes.paymentStatusScreen: (context) => OrderSuccessScreen()
-
         },
       ),
     );
