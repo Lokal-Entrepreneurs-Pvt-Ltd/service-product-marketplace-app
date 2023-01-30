@@ -33,6 +33,9 @@ abstract class StandardScreenClient {
   @POST(MyApiRoutes.cartScreen)
   Future<ApiResponse> getCartScreen(args);
 
+  @POST(MyApiRoutes.addressScreen)
+  Future<ApiResponse> getAddressScreen(args);
+
   @POST(MyApiRoutes.couponScreen)
   Future<ApiResponse> getCouponScreen(args);
 

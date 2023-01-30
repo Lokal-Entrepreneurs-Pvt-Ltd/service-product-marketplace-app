@@ -7,6 +7,7 @@ import 'storage/product_data_handler.dart';
 
 abstract class DeeplinkHandler {
   static void openPage(BuildContext context, String url) async {
+    //https://localee.co.in/routName?args1=10&arg2=20
     print("__________________url____________________");
     print(url);
     Map<String, dynamic>? args = {};
@@ -28,6 +29,7 @@ abstract class DeeplinkHandler {
     if (args["cartId"] == "") args["cartId"] = null;
     print(args);
 
+    // /checkout
     switch (route) {
       case MyRoutes.loginScreen:
         {
@@ -72,6 +74,12 @@ abstract class DeeplinkHandler {
           String cartId = await CartDataHandler.getCartId();
           args = {"cartId": cartId};
           _pushScreen(context, MyRoutes.cartScreen, args);
+        }
+        break;
+
+      case MyRoutes.addressBookScreen:
+        {
+          _pushScreen(context, MyRoutes.addressBookScreen, args);
         }
         break;
       default:
