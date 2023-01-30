@@ -87,8 +87,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getAddressBookScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo4695667.mockable.io/")
+    return StandardScreenClient(getDio(),)
         .getAddressBookScreen(args);
   }
 

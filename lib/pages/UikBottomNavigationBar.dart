@@ -26,11 +26,11 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     var context = NavigationService.navigatorKey.currentContext;
     if (index == _selectedIndex) return;
     if (index == 0) {
-      Navigator.pushNamed(context!, MyApiRoutes.homeScreen);
+      Navigator.pushNamed(context!, ApiRoutes.homeScreen);
     } else if (index == 1) {
-      Navigator.pushNamed(context!, MyApiRoutes.cartScreen);
+      Navigator.pushNamed(context!, ApiRoutes.cartScreen);
     } else if (index == 2) {
-      Navigator.pushNamed(context!, MyApiRoutes.myAccountScreen);
+      Navigator.pushNamed(context!, ApiRoutes.myAccountScreen);
     }
   }
 
@@ -113,5 +113,5 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
 void openCartScreen() {
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.cartScreen);
+  Navigator.pushNamed(context!, ApiRoutes.cartScreen);
 }
