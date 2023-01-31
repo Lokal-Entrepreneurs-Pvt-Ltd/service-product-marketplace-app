@@ -2,6 +2,8 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:lokal/Widgets/test.dart';
+import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -68,7 +70,7 @@ class _LokalAppState extends State<LokalApp> {
 
     //AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
 
-    /* 
+    /*
       // Postman -> Headers
       Authorization - key=<Server Key>
       Content-Type - application/json
@@ -113,18 +115,33 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-          "/": (context) => UikBottomNavigationBar(),
-          ApiRoutes.homeScreen: (context) => const UikHomeWrapper(),
-          ApiRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
-          ApiRoutes.productScreen: (context) => UikProductPage().page,
-          ApiRoutes.cartScreen: (context) => UikCartScreen().page,
-          ApiRoutes.addressScreen: (context) => UikAddressBook().page,
+          // "/": (context) => success(),
+
+          //   "/": (context) => UikOrderHistoryScreen().page,
+          // "/": (context) => LoginPageScreen(),
+          //  "/": (context) => UikAddressBook().page,
+
+          // "/": (context) => UikHome().page,
+
+          // "/": (context) => const SetNewPasswordScreen(),
+
           "/": (context) => UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
           ScreenRoutes.cartScreen: (context) => UikCartScreen().page,
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
+          //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
+          // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
+          // MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
+          // MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,
+          // MyApiRoutes.forgetPassword: (context) => const ForgetPasswordScreen(),
+          // MyApiRoutes.couponScreen: (context) => UikCouponScreen().page,
+
+          // MyApiRoutes.addAddressScreen: (context) => UikAddAddressScreen().page,
+          // MyApiRoutes.paymentDetailsScreen: (context) =>
+          //     UikPaymentDetailsScreen().page,
+          // MyApiRoutes.paymentStatusScreen: (context) => OrderSuccessScreen()
         },
       ),
     );
