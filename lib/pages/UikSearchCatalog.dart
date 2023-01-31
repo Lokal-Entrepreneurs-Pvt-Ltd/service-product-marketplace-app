@@ -23,6 +23,7 @@ class UikSearchCatalog extends StandardPage {
   @override
   dynamic getData() {
     return ApiRepository.getSearchScreen;
+    // return getMockedApiResponse;
   }
 
   void onSearchCatalogTapAction(UikAction uikAction) {
@@ -49,7 +50,7 @@ void openSearch(UikAction uikAction) {
   UiUtils.showToast("OPEN SEARCH");
 }
 
-Future<StandardScreenResponse> getMockedApiResponse() async {
+Future<ApiResponse> getMockedApiResponse() async {
   final response = await http.get(
     Uri.parse('https://demo1595178.mockable.io/SearchCategory'),
     headers: {
@@ -59,7 +60,7 @@ Future<StandardScreenResponse> getMockedApiResponse() async {
 
   // StandardScreenResponse
   if (response.statusCode == 200) {
-    return StandardScreenResponse.fromJson(jsonDecode(response.body));
+    return ApiResponse.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load album');
   }
