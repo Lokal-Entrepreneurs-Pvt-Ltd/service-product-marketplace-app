@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
-import 'package:lokal/routes.dart';
+//import 'package:lokal/routes.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({super.key});
