@@ -1,6 +1,7 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // import 'package:lokal/Widgets/test.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
@@ -99,6 +100,10 @@ class _LokalAppState extends State<LokalApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(

@@ -1,7 +1,7 @@
 class ScreenRoutes {
   static const String homeScreen = '/discovery/get';
   static const String catalogueScreen = '/products';
-  static const String productScreen = "/detail";
+  static const String productScreen = "/product_detail";
   static const String cartScreen = '/cart';
   static const String addressBookScreen = '/checkout';
   static const String loginScreen = '/loginscreen';
