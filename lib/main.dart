@@ -10,6 +10,7 @@ import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikInvite.dart';
+import 'package:lokal/pages/UikService.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -131,7 +132,7 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => const SetNewPasswordScreen(),
 
-          "/": (context) => UikInviteScreen().page,
+          "/": (context) => UikServiceScreen().page,
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
