@@ -100,5 +100,5 @@ void openCategory(UikAction uikAction) {
   print("Category call");
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.catalogueScreen);
+  Navigator.pushNamed(context!, ApiRoutes.catalogueScreen);
 }

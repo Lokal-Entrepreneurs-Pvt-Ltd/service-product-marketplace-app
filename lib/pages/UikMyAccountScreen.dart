@@ -4,6 +4,7 @@ import 'dart:convert';
 // import 'package:lokal/Widgets/UikSnackbar/snack.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/actions.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -82,7 +83,7 @@ void openAddress(UikAction uikAction) {
 
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.addressBookScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.addressBookScreen);
 }
 
 void openWishlist(UikAction uikAction) {
@@ -98,7 +99,7 @@ void openOrders(UikAction uikAction) {
 
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, MyApiRoutes.orderScreen);
+  Navigator.pushNamed(context!, ApiRoutes.orderScreen);
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {

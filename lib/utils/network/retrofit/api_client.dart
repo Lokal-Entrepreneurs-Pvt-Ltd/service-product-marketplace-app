@@ -1,5 +1,5 @@
 import 'package:lokal/constants.dart';
-import 'package:lokal/routes.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import 'package:dio/dio.dart';
@@ -18,49 +18,52 @@ abstract class StandardScreenClient {
   @POST("/")
   Future<ApiResponse> getResponse();
 
-  @POST(MyApiRoutes.homeScreen)
+  @POST(ApiRoutes.homeScreen)
   Future<ApiResponse> getHomeScreen(args);
 
-  @POST(MyApiRoutes.catalogueScreen)
+  @POST(ApiRoutes.catalogueScreen)
   Future<ApiResponse> getCatlogue(args);
 
-  @POST(MyApiRoutes.productScreen)
+  @POST(ApiRoutes.productScreen)
   Future<ApiResponse> getProductScreen(args);
 
-  @POST(MyApiRoutes.updateCart)
+  @POST(ApiRoutes.updateCart)
   Future<ApiResponse> updateCart(args);
 
-  @POST(MyApiRoutes.cartScreen)
+  @POST(ApiRoutes.cartScreen)
   Future<ApiResponse> getCartScreen(args);
 
-  @POST(MyApiRoutes.couponScreen)
+  @POST(ApiRoutes.addressScreen)
+  Future<ApiResponse> getAddressScreen(args);
+
+  @POST(ApiRoutes.couponScreen)
   Future<ApiResponse> getCouponScreen(args);
 
-  @POST(MyApiRoutes.searchScreen)
+  @POST(ApiRoutes.searchScreen)
   Future<ApiResponse> getSearchScreen(args);
 
-  @POST(MyApiRoutes.paymentdetailsScreen)
+  @POST(ApiRoutes.paymentdetailsScreen)
   Future<ApiResponse> getPaymentDetailsScreen(args);
 
-  @POST(MyApiRoutes.orderScreen)
+  @POST(ApiRoutes.orderScreen)
   Future<ApiResponse> getOrderScreen(args);
 
-  @POST(MyApiRoutes.emptyCartScreen)
+  @POST(ApiRoutes.emptyCartScreen)
   Future<ApiResponse> getEmptyCartScreen(args);
 
-  @POST(MyApiRoutes.myAccountScreen)
+  @POST(ApiRoutes.myAccountScreen)
   Future<ApiResponse> getMyAccountScreen(args);
 
-  @POST(MyApiRoutes.orderHistoryScreen)
+  @POST(ApiRoutes.orderHistoryScreen)
   Future<ApiResponse> getOrderHistoryScreen(args);
 
-  @POST(MyApiRoutes.addressBookScreen)
+  @POST(ApiRoutes.checkoutInit)
   Future<ApiResponse> getAddressBookScreen(args);
 
-  @POST(MyApiRoutes.loginScreen)
+  @POST(ApiRoutes.loginScreen)
   Future<ApiResponse> getLoginScreen(args);
 
-  @POST(MyApiRoutes.signUpScreen)
+  @POST(ApiRoutes.signUpScreen)
   Future<ApiResponse> getSignUpScreen(args);
 
   @POST(MyApiRoutes.inviteScreen)
