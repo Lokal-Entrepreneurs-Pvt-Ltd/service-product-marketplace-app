@@ -23,7 +23,8 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getHomescreen(args) {
-    return StandardScreenClient(getDio()).getHomeScreen(args);
+    return StandardScreenClient(getDio())
+        .getHomeScreen(args);
   }
 
   static Future<ApiResponse> getCatalogue(args) {
@@ -40,6 +41,10 @@ class ApiRepository {
 
   static Future<ApiResponse> getCartScreen(args) {
     return StandardScreenClient(getDio()).getCartScreen(args);
+  }
+
+  static Future<ApiResponse> getAddressScreen(args) {
+    return StandardScreenClient(getDio()).getAddressScreen(args);
   }
 
   static Future<ApiResponse> getCouponScreen(args) {
@@ -83,8 +88,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getAddressBookScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo4695667.mockable.io/")
+    return StandardScreenClient(getDio(),)
         .getAddressBookScreen(args);
   }
 

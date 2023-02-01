@@ -13,7 +13,8 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://bc2f-42-108-165-126.ngrok.io';
+    baseUrl ??= 'https://d3c3-42-108-165-85.ngrok.io';
+    // baseUrl ??= 'https://demo9563851.mockable.io/';
   }
 
   final Dio _dio;
@@ -159,6 +160,29 @@ class _StandardScreenClient implements StandardScreenClient {
   }
 
   @override
+  Future<ApiResponse> getAddressScreen(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/checkout/initiate',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<ApiResponse> getCouponScreen(args) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -195,7 +219,7 @@ class _StandardScreenClient implements StandardScreenClient {
     )
             .compose(
               _dio.options,
-              '/search',
+              '/discovery/search',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -324,7 +348,7 @@ class _StandardScreenClient implements StandardScreenClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -333,7 +357,7 @@ class _StandardScreenClient implements StandardScreenClient {
     )
             .compose(
               _dio.options,
-              '/addressbook',
+              '/checkout/initiate',
               queryParameters: queryParameters,
               data: _data,
             )

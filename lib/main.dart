@@ -1,11 +1,8 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:lokal/Widgets/test.dart';
+import 'package:flutter/services.dart';
+// import 'package:lokal/Widgets/test.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
@@ -16,22 +13,12 @@ import 'package:lokal/pages/UikInvite.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
-import 'package:lokal/screens/forgetPassword/ForgetPassword.dart';
-import 'package:lokal/screens/orderSuccess/orderSuccess.dart';
-import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
-import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikProductPage.dart';
-import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
-//import 'package:lokal/utils/dio/models/product_provider.dart';
-import 'routes.dart';
-import 'screens/Onboarding/OnboardingScreen.dart';
-import 'screens/login.dart';
-
+import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
-import 'package:lokal/pages/UikFilter.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
@@ -43,28 +30,28 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
-
-  FlutterError.onError = (errorDetails) {
-    FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  };
-
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
-
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-
-  print(fcmToken);
-
-  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-    fcmToken = fcmToken;
-    print(fcmToken);
-  }).onError((err) {
-    print("error");
-    throw Exception(err);
-  });
+  // await Firebase.initializeApp();
+  //
+  // FlutterError.onError = (errorDetails) {
+  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  // };
+  //
+  // PlatformDispatcher.instance.onError = (error, stack) {
+  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  //   return true;
+  // };
+  //
+  // final fcmToken = await FirebaseMessaging.instance.getToken();
+  //
+  // print(fcmToken);
+  //
+  // FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+  //   fcmToken = fcmToken;
+  //   print(fcmToken);
+  // }).onError((err) {
+  //   print("error");
+  //   throw Exception(err);
+  // });
 
   runApp(LokalApp());
 }
@@ -87,9 +74,9 @@ class _LokalAppState extends State<LokalApp> {
   void initState() {
     super.initState();
 
-    AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
+    //AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
 
-    /* 
+    /*
       // Postman -> Headers
       Authorization - key=<Server Key>
       Content-Type - application/json
@@ -108,17 +95,21 @@ class _LokalAppState extends State<LokalApp> {
       }
      */
 
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      // print(message.data["link"]);
-
-      DeeplinkHandler.openPage(
-          NavigationService.navigatorKey.currentContext!, message.data["link"]);
-    });
+    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    //   // print(message.data["link"]);
+    //
+    //   DeeplinkHandler.openPage(
+    //       NavigationService.navigatorKey.currentContext!, message.data["link"]);
+    // });
   }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -141,11 +132,12 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => const SetNewPasswordScreen(),
 
           "/": (context) => UikInviteScreen().page,
-          MyRoutes.homeScreen: (context) => const UikHomeWrapper(),
-          MyRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
-          MyRoutes.productScreen: (context) => UikProductPage().page,
-          MyRoutes.cartScreen: (context) => UikCartScreen().page,
-          MyRoutes.addressBookScreen: (context) => UikAddressBook().page,
+          ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
+          ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
+          ScreenRoutes.productScreen: (context) => UikProductPage().page,
+          ScreenRoutes.cartScreen: (context) => UikCartScreen().page,
+          ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
+          //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
           // MyApiRoutes.emptyCartScreen: (context) => UikEmptyCartScreen().page,

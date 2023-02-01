@@ -29,8 +29,7 @@ class UikCatalogScreen extends StandardPage {
   }
 
   void onCatalogScreenTapAction(UikAction uikAction) {
-    print("___________________UIK-ACTION______________________");
-    print(uikAction);
+    print("___________________UIK-ACTION_____________________f_");
 
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_PRODUCT:
