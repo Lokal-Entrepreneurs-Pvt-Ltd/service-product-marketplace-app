@@ -92,6 +92,24 @@ class ApiRepository {
         .getAddressBookScreen(args);
   }
 
+  static Future<ApiResponse> getInviteScreen(args) {
+    return StandardScreenClient(getDio(),
+            baseUrl: "https://demo6536398.mockable.io/")
+        .getInviteScreen(args);
+  }
+
+  static Future<ApiResponse> getServiceScreen(args) {
+    return StandardScreenClient(getDio(),
+            baseUrl: "https://demo6536398.mockable.io/")
+        .getServiceScreen(args);
+  }
+
+  static Future<ApiResponse> getEarningScreen(args) {
+    return StandardScreenClient(getDio(),
+            baseUrl: "https://demo6536398.mockable.io/")
+        .getEarningScreen(args);
+  }
+
   static Future<ApiResponse> getLoginScreen(args) {
     return StandardScreenClient(getDio()).getLoginScreen(args);
   }

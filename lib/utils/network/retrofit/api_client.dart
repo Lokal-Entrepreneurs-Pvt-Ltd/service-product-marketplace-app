@@ -65,4 +65,13 @@ abstract class StandardScreenClient {
 
   @POST(ApiRoutes.signUpScreen)
   Future<ApiResponse> getSignUpScreen(args);
+
+  @GET(ApiRoutes.inviteScreen)
+  Future<ApiResponse> getInviteScreen(args);
+
+  @GET(ApiRoutes.earningScreen)
+  Future<ApiResponse> getEarningScreen(args);
+
+  @GET(ApiRoutes.serviceScreen)
+  Future<ApiResponse> getServiceScreen(args);
 }

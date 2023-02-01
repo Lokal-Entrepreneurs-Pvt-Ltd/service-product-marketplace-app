@@ -31,4 +31,11 @@ class UIK_ACTION {
   static const String OPEN_SEARCH = 'OPEN_SEARCH';
   static const String PAY_ONLINE = 'PAY_ONLINE';
   static const String PAY_COD = 'PAY_COD';
+  static const String OPEN_INVITE = 'OPEN_INVITE';
+  static const String OPEN_STATUS = 'OPEN_STATUS';
+  static const String OPEN_COPY = 'OPEN_COPY';
+  static const String OPEN_SHARE = 'OPEN_SHARE';
+  static const String OPEN_WITHDRAW = 'OPEN_WITHDRAW';
+  static const String OPEN_LEADS = 'OPEN_LEADS';
+  static const String OPEN_HISTORY = 'OPEN_HISTORY';
 }

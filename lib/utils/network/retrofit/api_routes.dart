@@ -23,4 +23,7 @@ class ApiRoutes {
 
   static const String loginScreen = "/customer/login";
   static const String signUpScreen = "/customer/signup";
+  static const String inviteScreen = "/invite";
+  static const String earningScreen = "/earning";
+  static const String serviceScreen = "/service";
 }
