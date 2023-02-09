@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
+import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
@@ -130,14 +131,13 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => UikHome().page,
 
-          // "/": (context) => const SetNewPasswordScreen(),
-
-          "/": (context) => UikServiceScreen().page,
+          "/": (context) =>  UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
           ScreenRoutes.cartScreen: (context) => UikCartScreen().page,
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
+          // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.orderScreen: (context) => UikOrderScreen().page,
