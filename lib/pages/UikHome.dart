@@ -23,8 +23,8 @@ class UikHome extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.getHomescreen;
-    return getMockedApiResponse;
+    return ApiRepository.getHomescreen;
+   // return getMockedApiResponse;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
