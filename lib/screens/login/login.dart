@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
+import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
@@ -10,6 +11,7 @@ import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 
+import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
@@ -98,13 +100,20 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     final response = await ApiRepository.getLoginScreen(
                         ApiRequestBody.getLoginRequest(
                             emailController.text, passwordController.text));
+                    if(response.isSuccess!) {
+                      UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UikBottomNavigationBar(),
+                        ),
+                      );
+                    }
+                    else {
+                      //todo show login error
+                      UiUtils.showToast(response.error![MESSAGE]);
+                    }
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UikBottomNavigationBar(),
-                      ),
-                    );
                   }
 
                   if (isEmailValid(emailController.text)) {
