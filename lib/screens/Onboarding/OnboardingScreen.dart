@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/screens/RegisterScreen/RegisterScreen.dart';
+import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -158,7 +159,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterScreen()));
+                                builder: (context) => SignupScreen()));
                       },
                       child: Text(
                         "Become Partner",

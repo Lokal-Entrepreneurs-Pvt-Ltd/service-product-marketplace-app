@@ -32,7 +32,7 @@ class UikMyAccountScreen extends StandardPage {
   @override
   dynamic getData() {
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-    return getMockedApiResponse;
+    return ApiRepository.getMyAccountScreen;
   }
 
   void onMyAccountScreenTapAction(UikAction uikAction) {

@@ -16,7 +16,7 @@ class ApiRoutes {
   static const String icon = "/icon";
   static const String emptyCartScreen = "/emptycartscreen";
   static const String forgetPassword = "/forgetPassword";
-  static const String myAccountScreen = "/myAccount";
+  static const String myAccountScreen = "/customer/account";
   static const String checkoutInit = "/checkout/initiate";
   static const String addAddressScreen = "/addaddressScreen";
   static const String couponScreen = "/couponscreen";

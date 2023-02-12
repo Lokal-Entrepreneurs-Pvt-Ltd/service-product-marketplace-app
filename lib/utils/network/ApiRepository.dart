@@ -82,8 +82,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getMyAccountScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo6536398.mockable.io/")
+    return StandardScreenClient(getDio(),)
         .getMyAccountScreen(args);
   }
 

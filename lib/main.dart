@@ -12,11 +12,14 @@ import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikInvite.dart';
 import 'package:lokal/pages/UikService.dart';
+import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
+import 'package:lokal/screens/login.dart';
+import 'package:lokal/screens/login/login.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'screen_routes.dart';
@@ -131,12 +134,13 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => UikHome().page,
 
-          "/": (context) =>  UikBottomNavigationBar(),
+          "/": (context) =>  LoginPageScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
           ScreenRoutes.cartScreen: (context) => UikCartScreen().page,
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
+          ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
