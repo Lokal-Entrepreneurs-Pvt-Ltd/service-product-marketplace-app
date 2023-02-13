@@ -7,11 +7,13 @@ import 'package:lokal/actions.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 
+import '../constants/strings.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
@@ -53,7 +55,7 @@ class UikMyAccountScreen extends StandardPage {
         openPayment(uikAction);
         break;
       case UIK_ACTION.OPEN_SIGN_OUT:
-        openSign(uikAction);
+        singOut(uikAction);
         break;
       default:
     }
@@ -70,8 +72,9 @@ class UikMyAccountScreen extends StandardPage {
   }
 }
 
-void openSign(UikAction uikAction) {
-  UiUtils.showToast("SIGN OUT");
+void singOut(UikAction uikAction) {
+  UiUtils.showToast(LOG_OUT);
+  UserDataHandler.clearUserToken();
 }
 
 void openPayment(UikAction uikAction) {

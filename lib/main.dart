@@ -20,8 +20,11 @@ import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/login.dart';
 import 'package:lokal/screens/login/login.dart';
+import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
+import 'package:lokal/utils/storage/preference_util.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
@@ -34,7 +37,7 @@ void main() async {
   await appInit.init();
 
   WidgetsFlutterBinding.ensureInitialized();
-
+  await PreferenceUtils.init();
   // await Firebase.initializeApp();
   //
   // FlutterError.onError = (errorDetails) {
@@ -58,13 +61,18 @@ void main() async {
   //   throw Exception(err);
   // });
 
+
+  // SharedPreferences.getInstance().then((instance) {
+  //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
+  //   runApp(MyApp());
+  // });
+
   runApp(LokalApp());
 }
 
 class NavigationService {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
-
 class LokalApp extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
@@ -73,6 +81,7 @@ class LokalApp extends StatefulWidget {
   @override
   State<LokalApp> createState() => _LokalAppState();
 }
+
 
 class _LokalAppState extends State<LokalApp> {
   @override
@@ -134,7 +143,7 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => UikHome().page,
 
-          "/": (context) =>  LoginPageScreen(),
+          "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
