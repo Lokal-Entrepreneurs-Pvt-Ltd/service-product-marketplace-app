@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -75,6 +76,14 @@ class UikMyAccountScreen extends StandardPage {
 void singOut(UikAction uikAction) {
   UiUtils.showToast(LOG_OUT);
   UserDataHandler.clearUserToken();
+  Navigator.pushAndRemoveUntil(
+      NavigationService.navigatorKey.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => OnboardingScreen(),
+      ),
+      ModalRoute.withName(ScreenRoutes.myAccountScreen)
+  );
+  // todo mano recreate the main.dart by adding listners
 }
 
 void openPayment(UikAction uikAction) {
