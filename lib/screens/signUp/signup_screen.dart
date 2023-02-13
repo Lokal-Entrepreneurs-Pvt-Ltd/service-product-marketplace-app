@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 import 'package:ui_sdk/components/UikText.dart';
 import 'package:ui_sdk/components/WidgetType.dart';
 
+import '../../constants/json_constants.dart';
+import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
@@ -45,7 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
           children: [
             UikNavbar(
               size: "",
-              titleText: "enter your email\naddress",
+              titleText: "enter your email\naddress to signup",
               leftIcon: const Icon(Icons.arrow_back),
             ),
             const SizedBox(
@@ -92,12 +94,20 @@ class _SignupScreenState extends State<SignupScreen> {
                         ApiRequestBody.getSignUpRequest(
                             emailController.text, passwordController.text));
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => UikBottomNavigationBar(),
-                      ),
-                    );
+                    if(response.isSuccess!) {
+                      UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UikBottomNavigationBar(),
+                        ),
+                      );
+                    }
+                    else {
+                      //todo show login error
+                      UiUtils.showToast(response.error![MESSAGE]);
+                    }
+
                   }
 
                   if (isEmailValid(emailController.text)) {

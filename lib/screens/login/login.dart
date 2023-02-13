@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -102,12 +103,15 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             emailController.text, passwordController.text));
                     if(response.isSuccess!) {
                       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
                           builder: (context) => UikBottomNavigationBar(),
                         ),
+                          ModalRoute.withName(ScreenRoutes.loginScreen)
                       );
+
+                    //  Navigator.popUntil(context, ModalRoute.withName(ScreenRoutes.loginScreen));
                     }
                     else {
                       //todo show login error

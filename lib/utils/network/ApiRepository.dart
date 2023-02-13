@@ -8,16 +8,6 @@ import '../storage/user_data_handler.dart';
 class ApiRepository {
   static Dio getDio() {
     Dio dio = Dio(BaseOptions(contentType: "application/json"));
-    String authToken = "";
-    UserDataHandler.getUserToken().then((value) {
-      authToken = value;
-    });
-    Map<String, String> headers = <String, String>{
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $authToken'
-    };
-    dio.options.headers = headers;
     dio.interceptors.add(ChuckerDioInterceptor());
     return dio;
   }

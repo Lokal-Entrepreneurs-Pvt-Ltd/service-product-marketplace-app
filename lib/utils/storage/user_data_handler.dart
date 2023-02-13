@@ -1,10 +1,15 @@
+import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class UserDataHandler {
-  static void saveUserToken(String userToken) async {
-    final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString("userToken", userToken);
+  static void saveUserToken(String userToken) async {
+    PreferenceUtils.setString(AUTH_TOKEN, userToken);
+  }
+
+  static void clearUserToken()  {
+    PreferenceUtils.setString(AUTH_TOKEN, "");
   }
 
   static void saveEmailPassword(String email, String password) async {
@@ -14,9 +19,8 @@ abstract class UserDataHandler {
     await prefs.setString("password", password);
   }
 
-  static Future<String> getUserToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('userToken') ?? "";
+  static String getUserToken()  {
+    return PreferenceUtils.getString(AUTH_TOKEN);
   }
 
   static Future<String> getUserEmail() async {
