@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://4c55-2401-4900-2e87-6375-e9f0-8883-fe37-4f47.in.ngrok.io';
+    baseUrl ??= 'https://cb12-2405-201-e029-5bc9-376f-bf14-b2f9-d8e4.in.ngrok.io';
     // baseUrl ??= 'https://demo9563851.mockable.io/';
   }
 
@@ -368,6 +368,7 @@ class _StandardScreenClient implements StandardScreenClient {
 
   @override
   Future<ApiResponse> getLoginScreen(args) async {
+    print("Inside Login generated!");
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -386,6 +387,7 @@ class _StandardScreenClient implements StandardScreenClient {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ApiResponse.fromJson(_result.data!);
+    // print(value);
     return value;
   }
 

@@ -97,27 +97,34 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       passwordController.text.length >= 6) {
                     // Creating a POST request with http client
                     // var client = http.Client();
+                    print("Inside Email Validation!");
 
                     final response = await ApiRepository.getLoginScreen(
                         ApiRequestBody.getLoginRequest(
                             emailController.text, passwordController.text));
-                    if(response.isSuccess!) {
+                    print("Response");
+                    // print(response);
+                    if (response.isSuccess!) {
+                      print("LOGINSCREEN----------------");
                       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
                       Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UikBottomNavigationBar(),
-                        ),
-                          ModalRoute.withName(ScreenRoutes.loginScreen)
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UikBottomNavigationBar(),
+                          ),
+                          ModalRoute.withName(ScreenRoutes.loginScreen));
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => UikBottomNavigationBar(),
+                      //   ),
+                      // );
 
-                    //  Navigator.popUntil(context, ModalRoute.withName(ScreenRoutes.loginScreen));
-                    }
-                    else {
+                      //  Navigator.popUntil(context, ModalRoute.withName(ScreenRoutes.loginScreen));
+                    } else {
                       //todo show login error
                       UiUtils.showToast(response.error![MESSAGE]);
                     }
-
                   }
 
                   if (isEmailValid(emailController.text)) {
