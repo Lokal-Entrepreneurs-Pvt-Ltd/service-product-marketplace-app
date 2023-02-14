@@ -18,7 +18,6 @@ import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
-import 'package:lokal/screens/login.dart';
 import 'package:lokal/screens/login/login.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
@@ -143,7 +142,7 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => UikHome().page,
 
-          "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
+          "/": (context) => UserDataHandler.getUserToken().isEmpty ?  const LoginPageScreen() : UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
