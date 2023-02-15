@@ -1,61 +1,77 @@
-import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/utils/storage/preference_constants.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class UserDataHandler {
-
   static void saveUserToken(String userToken) async {
     PreferenceUtils.setString(AUTH_TOKEN, userToken);
   }
 
-  static void clearUserToken()  {
+  static void clearUserToken() {
     PreferenceUtils.setString(AUTH_TOKEN, "");
   }
 
-  static void saveEmailPassword(String email, String password) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString("email", email);
-    await prefs.setString("password", password);
-  }
-
-  static String getUserToken()  {
+  static String getUserToken() {
     return PreferenceUtils.getString(AUTH_TOKEN);
   }
 
-  static Future<String> getUserEmail() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString("email") ?? "";
-  }
-
-  static Future<String> getUserPhone() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString("phone") ?? "";
+  static void saveEmailPassword(String email, String password) async {
+    PreferenceUtils.setString(EMAIL, email);
+    PreferenceUtils.setString(PASSWORD, password);
   }
 
   static Future<String> getUserName() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString("name") ?? "";
+    return PreferenceUtils.getString(NAME, "");
   }
 
-  static Future<String> getUserBirth() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString("birth") ?? "";
+  static void saveUserName(String name) {
+    PreferenceUtils.setString(NAME, name);
   }
 
-  static Future<String> getUserGST() async {
-    final prefs = await SharedPreferences.getInstance();
+  static Future<String> getUserEmail() async {
+    return PreferenceUtils.getString(EMAIL, "");
+  }
 
-    return prefs.getString("GST") ?? "";
+  static void saveUserEmail(String email) {
+    PreferenceUtils.setString(EMAIL, email);
   }
 
   static Future<String> getUserPassword() async {
-    final prefs = await SharedPreferences.getInstance();
+    return PreferenceUtils.getString(PASSWORD, "");
+  }
 
-    return prefs.getString("password") ?? "";
+  static void saveUserPassword(String password) {
+    PreferenceUtils.setString(PASSWORD, password);
+  }
+
+  static Future<String> getUserGST() async {
+    return PreferenceUtils.getString(GST, "");
+  }
+
+  static void saveUserGST(String gst) {
+    PreferenceUtils.setString(GST, gst);
+  }
+
+  static Future<String> getUserDob() async {
+    return PreferenceUtils.getString(DOB, "");
+  }
+
+  static void saveUserDob(String dob) {
+    PreferenceUtils.setString(DOB, dob);
+  }
+
+  static Future<String> getUserPhone() async {
+    return PreferenceUtils.getString(PHONE, "");
+  }
+
+  static void saveUserPhone(String phone) {
+    PreferenceUtils.setString(PHONE, phone);
+  }
+
+  static bool getIsUserVerified() {
+    return PreferenceUtils.getBool(IS_USER_VERIFIED, false);
+  }
+
+  static void saveIsUserVerified(bool isUserVerified) {
+    PreferenceUtils.setBool(IS_USER_VERIFIED, isUserVerified);
   }
 }

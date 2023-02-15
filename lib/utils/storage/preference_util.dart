@@ -2,12 +2,10 @@ import 'dart:async' show Future;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenceUtils {
-
   static late final SharedPreferences _prefsInstance;
 
   static Future<SharedPreferences> init() async =>
       _prefsInstance = await SharedPreferences.getInstance();
-
 
   // call this method from iniState() function of mainApp().
 
@@ -18,5 +16,14 @@ class PreferenceUtils {
   static Future<bool> setString(String key, String value) async {
     var prefs = await _prefsInstance;
     return prefs?.setString(key, value) ?? Future.value(false);
+  }
+
+  static bool getBool(String key, [bool? defValue]) {
+    return _prefsInstance.getBool(key) ?? defValue!;
+  }
+
+  static Future<bool> setBool(String key, bool value) async {
+    var prefs = await _prefsInstance;
+    return prefs?.setBool(key, value) ?? Future.value(false);
   }
 }
