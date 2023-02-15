@@ -35,7 +35,8 @@ class UikMyAccountScreen extends StandardPage {
   @override
   dynamic getData() {
     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-    return ApiRepository.getMyAccountScreen;
+    // return ApiRepository.getMyAccountScreen;
+    return getMockedApiResponse;
   }
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
@@ -77,11 +78,12 @@ void singOut(UikAction uikAction) {
   UiUtils.showToast(LOG_OUT);
   UserDataHandler.clearUserToken();
   Navigator.pushAndRemoveUntil(
-      NavigationService.navigatorKey.currentContext!,
-      MaterialPageRoute(
-        builder: (context) => OnboardingScreen(),
-      ),
-      ModalRoute.withName(ScreenRoutes.myAccountScreen)
+    NavigationService.navigatorKey.currentContext!,
+    MaterialPageRoute(
+      builder: (context) => OnboardingScreen(),
+    ),
+    // ModalRoute.withName(ScreenRoutes.homeScreen)
+    (route) => false,
   );
   // todo mano recreate the main.dart by adding listners
 }
