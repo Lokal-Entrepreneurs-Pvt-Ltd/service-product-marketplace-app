@@ -60,7 +60,6 @@ void main() async {
   //   throw Exception(err);
   // });
 
-
   // SharedPreferences.getInstance().then((instance) {
   //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
   //   runApp(MyApp());
@@ -72,6 +71,7 @@ void main() async {
 class NavigationService {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }
+
 class LokalApp extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
@@ -80,7 +80,6 @@ class LokalApp extends StatefulWidget {
   @override
   State<LokalApp> createState() => _LokalAppState();
 }
-
 
 class _LokalAppState extends State<LokalApp> {
   @override
@@ -142,7 +141,8 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => UikHome().page,
 
-          "/": (context) => UserDataHandler.getUserToken().isEmpty ?  const LoginPageScreen() : UikBottomNavigationBar(),
+          // "/": (context) => UserDataHandler.getUserToken().isEmpty ?  const LoginPageScreen() : UikBottomNavigationBar(),
+          "/": (context) => OnboardingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
