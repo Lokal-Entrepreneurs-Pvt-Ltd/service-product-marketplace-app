@@ -7,6 +7,7 @@ import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
+import 'package:lokal/utils/storage/preference_constants.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
@@ -97,15 +98,23 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       passwordController.text.length >= 6) {
                     // Creating a POST request with http client
                     // var client = http.Client();
-                    print("Inside Email Validation!");
 
                     final response = await ApiRepository.getLoginScreen(
-                        ApiRequestBody.getLoginRequest(
-                            emailController.text, passwordController.text));
-                    print("Response");
-                    // print(response);
+                      ApiRequestBody.getLoginRequest(
+                        emailController.text,
+                        passwordController.text,
+                      ),
+                    );
+
+                    UserDataHandler.saveUserEmail(response.data[EMAIL]);
+                    UserDataHandler.saveUserEmail(response.data[PASSWORD]);
+                    UserDataHandler.saveUserEmail(response.data[NAME]);
+                    UserDataHandler.saveUserEmail(response.data[GST]);
+                    UserDataHandler.saveUserEmail(response.data[DOB]);
+                    UserDataHandler.saveUserEmail(response.data[PHONE]);
+                    UserDataHandler.saveUserEmail(response.data[IS_USER_VERIFIED]);
+
                     if (response.isSuccess!) {
-                      print("LOGINSCREEN----------------");
                       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
                       Navigator.pushAndRemoveUntil(
                           context,
@@ -113,16 +122,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             builder: (context) => UikBottomNavigationBar(),
                           ),
                           ModalRoute.withName(ScreenRoutes.loginScreen));
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => UikBottomNavigationBar(),
-                      //   ),
-                      // );
-
-                      //  Navigator.popUntil(context, ModalRoute.withName(ScreenRoutes.loginScreen));
                     } else {
-                      //todo show login error
+                      // TODO: Show login error
                       UiUtils.showToast(response.error![MESSAGE]);
                     }
                   }

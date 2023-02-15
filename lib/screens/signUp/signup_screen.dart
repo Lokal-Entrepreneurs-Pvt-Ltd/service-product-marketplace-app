@@ -14,6 +14,7 @@ import 'package:ui_sdk/components/WidgetType.dart';
 
 import '../../constants/json_constants.dart';
 import '../../utils/UiUtils/UiUtils.dart';
+import '../../utils/storage/preference_constants.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
@@ -94,7 +95,15 @@ class _SignupScreenState extends State<SignupScreen> {
                         ApiRequestBody.getSignUpRequest(
                             emailController.text, passwordController.text));
 
-                    if(response.isSuccess!) {
+                    UserDataHandler.saveUserEmail(response.data[PASSWORD]);
+                    UserDataHandler.saveUserEmail(response.data[NAME]);
+                    UserDataHandler.saveUserEmail(response.data[GST]);
+                    UserDataHandler.saveUserEmail(response.data[DOB]);
+                    UserDataHandler.saveUserEmail(response.data[PHONE]);
+                    UserDataHandler.saveUserEmail(
+                        response.data[IS_USER_VERIFIED]);
+
+                    if (response.isSuccess!) {
                       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
                       Navigator.push(
                         context,
@@ -102,12 +111,10 @@ class _SignupScreenState extends State<SignupScreen> {
                           builder: (context) => UikBottomNavigationBar(),
                         ),
                       );
-                    }
-                    else {
+                    } else {
                       //todo show login error
                       UiUtils.showToast(response.error![MESSAGE]);
                     }
-
                   }
 
                   if (isEmailValid(emailController.text)) {
