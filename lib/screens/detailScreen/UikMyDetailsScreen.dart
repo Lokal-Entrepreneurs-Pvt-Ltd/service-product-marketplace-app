@@ -37,7 +37,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     emailController.text = await UserDataHandler.getUserEmail();
     phoneController.text = await UserDataHandler.getUserPhone();
     nameController.text = await UserDataHandler.getUserName();
-    birthController.text = await UserDataHandler.getUserBirth();
+    birthController.text = await UserDataHandler.getUserDob();
     GSTController.text = await UserDataHandler.getUserGST();
   }
 
