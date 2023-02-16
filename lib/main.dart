@@ -29,6 +29,8 @@ import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/detailScreen/UikMyDetailsScreen.dart';
+
 var appInit;
 
 void main() async {
@@ -142,13 +144,14 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => UikHome().page,
 
           // "/": (context) => UserDataHandler.getUserToken().isEmpty ?  const LoginPageScreen() : UikBottomNavigationBar(),
-          "/": (context) => OnboardingScreen(),
+          "/": (context) => const LoginPageScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
           ScreenRoutes.cartScreen: (context) => UikCartScreen().page,
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
+          ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
