@@ -49,7 +49,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
 
   void initialize() async {
     emailController.text = await UserDataHandler.getUserEmail();
-    passwordController.text = await UserDataHandler.getUserPassword();
+    //passwordController.text = await UserDataHandler.getUserPassword();
   }
 
   @override
@@ -119,13 +119,23 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             print("LOGINSCREEN----------------");
                             UserDataHandler.saveUserToken(
                                 response.data[AUTH_TOKEN]);
-                            UserDataHandler.saveUserEmail(response.data[PASSWORD]);
-                            UserDataHandler.saveUserEmail(response.data[NAME]);
-                            UserDataHandler.saveUserEmail(response.data[GST]);
-                            UserDataHandler.saveUserEmail(response.data[DOB]);
-                            UserDataHandler.saveUserEmail(response.data[PHONE]);
-                            UserDataHandler.saveUserEmail(
-                                response.data[IS_USER_VERIFIED]);
+
+                            var customerData = response.data[CUSTOMER_DATA];
+                            if(customerData != null) {
+                              if(customerData[EMAIL] !=null)
+                              UserDataHandler.saveUserEmail(customerData[EMAIL]);
+                             // UserDataHandler.saveIsUserVerified(customerData[IS_USER_VERIFIED]);
+                              if(customerData[DOB] !=null)
+                              UserDataHandler.saveUserDob(customerData[DOB]);
+                              if(customerData[PHONE_NUMBER] !=null)
+                              UserDataHandler.saveUserPhone(customerData[PHONE_NUMBER]);
+                              if(customerData[GST_TAX_VAT] !=null)
+                              UserDataHandler.saveUserGST(customerData[GST_TAX_VAT]);
+                              if(customerData[USER_ID] !=null)
+                              UserDataHandler.saveUserId(customerData[USER_ID]);
+                              if(customerData[FIRST_NAME] !=null)
+                              UserDataHandler.saveUserName(customerData[FIRST_NAME]);
+                            }
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
@@ -133,14 +143,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                       UikBottomNavigationBar(),
                                 ),
                                 ModalRoute.withName(ScreenRoutes.loginScreen));
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => UikBottomNavigationBar(),
-                            //   ),
-                            // );
 
-                            //  Navigator.popUntil(context, ModalRoute.withName(ScreenRoutes.loginScreen));
                           } else {
                             //todo show login error
                             UiUtils.showToast(response.error![MESSAGE]);

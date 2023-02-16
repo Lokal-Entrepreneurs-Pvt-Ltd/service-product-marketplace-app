@@ -95,11 +95,11 @@ class _SignupScreenState extends State<SignupScreen> {
                         ApiRequestBody.getSignUpRequest(
                             emailController.text, passwordController.text));
 
-                    UserDataHandler.saveUserEmail(response.data[PASSWORD]);
-                    UserDataHandler.saveUserEmail(response.data[NAME]);
-                    UserDataHandler.saveUserEmail(response.data[GST]);
+                    UserDataHandler.saveUserEmail(response.data[EMAIL]);
+                    UserDataHandler.saveUserEmail(response.data[FIRST_NAME]);
+                    UserDataHandler.saveUserEmail(response.data[GST_TAX_VAT]);
                     UserDataHandler.saveUserEmail(response.data[DOB]);
-                    UserDataHandler.saveUserEmail(response.data[PHONE]);
+                    UserDataHandler.saveUserEmail(response.data[PHONE_NUMBER]);
                     UserDataHandler.saveUserEmail(
                         response.data[IS_USER_VERIFIED]);
 

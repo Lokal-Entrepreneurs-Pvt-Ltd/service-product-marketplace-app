@@ -14,17 +14,17 @@ abstract class UserDataHandler {
     return PreferenceUtils.getString(AUTH_TOKEN);
   }
 
-  static void saveEmailPassword(String email, String password) async {
+  static void saveEmailPassword(String email, String passwordpassword) async {
     PreferenceUtils.setString(EMAIL, email);
-    PreferenceUtils.setString(PASSWORD, password);
+    // PreferenceUtils.setString(PASSWORD, password);
   }
 
   static Future<String> getUserName() async {
-    return PreferenceUtils.getString(NAME, "");
+    return PreferenceUtils.getString(FIRST_NAME, "");
   }
 
   static void saveUserName(String name) {
-    PreferenceUtils.setString(NAME, name);
+    PreferenceUtils.setString(FIRST_NAME, name);
   }
 
   static Future<String> getUserEmail() async {
@@ -35,20 +35,20 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(EMAIL, email);
   }
 
-  static Future<String> getUserPassword() async {
-    return PreferenceUtils.getString(PASSWORD, "");
+  static Future<String> getUserId() async {
+    return PreferenceUtils.getString(USER_ID, "");
   }
 
-  static void saveUserPassword(String password) {
-    PreferenceUtils.setString(PASSWORD, password);
+  static void saveUserId(String userId) {
+    PreferenceUtils.setString(USER_ID, userId);
   }
 
   static Future<String> getUserGST() async {
-    return PreferenceUtils.getString(GST, "");
+    return PreferenceUtils.getString(GST_TAX_VAT, "");
   }
 
   static void saveUserGST(String gst) {
-    PreferenceUtils.setString(GST, gst);
+    PreferenceUtils.setString(GST_TAX_VAT, gst);
   }
 
   static Future<String> getUserDob() async {
@@ -60,11 +60,11 @@ abstract class UserDataHandler {
   }
 
   static Future<String> getUserPhone() async {
-    return PreferenceUtils.getString(PHONE, "");
+    return PreferenceUtils.getString(PHONE_NUMBER, "");
   }
 
   static void saveUserPhone(String phone) {
-    PreferenceUtils.setString(PHONE, phone);
+    PreferenceUtils.setString(PHONE_NUMBER, phone);
   }
 
   static bool getIsUserVerified() {

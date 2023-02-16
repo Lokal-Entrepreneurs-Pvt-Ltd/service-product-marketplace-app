@@ -1,8 +1,8 @@
 const String AUTH_TOKEN= "authToken";
 const String EMAIL = "email";
-const String PASSWORD = "password";
-const String NAME = "name";
-const String GST = "gst";
+const String USER_ID = "id";
+const String FIRST_NAME = "name";
+const String GST_TAX_VAT = "taxvat";
 const String DOB = "dob";
-const String PHONE = "phone";
-const String IS_USER_VERIFIED = "isUserVerified";
+const String PHONE_NUMBER = "phoneNumber";
+const String IS_USER_VERIFIED = "isVerified";
