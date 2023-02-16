@@ -20,4 +20,14 @@ class ScreenRoutes {
   static const String signUpScreen = "/signupscreen";
   static const String otpScreen = "/otpscreen";
   static const String setNewPasswordScreen = "/setnewpassword";
+  static const String addAddressScreen = "/addaddressScreen";
+  static const String paymentStatusScreen = '/paymentstatusscreen';
+  static const String updateCart = '/cart/update';
+  static const String addressScreen = '/checkout/initiate';
+  static const String paymentdetailsScreen = '/paymentdetailsscreen';
+  static const String otp = "/otp";
+  static const String checkoutInit = "/checkout/initiate";
+  static const String inviteScreen = "/invite";
+  static const String earningScreen = "/earning";
+  static const String serviceScreen = "/service";
 }
