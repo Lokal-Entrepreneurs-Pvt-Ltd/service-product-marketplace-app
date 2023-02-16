@@ -37,6 +37,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   var authErrorCode = -1;
   var authErrorMessage = "";
 
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -54,102 +56,116 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        child: ListView(
-          children: [
-            UikNavbar(
-              size: "",
-              titleText: "welcome back!\nLogin to continue",
-              leftIcon: const Icon(Icons.arrow_back),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            MyTextField(
-              labelText: "Email",
-              width: 343,
-              height: 64,
-              Controller: emailController,
-              error: errorEmail,
-              description: descEmail,
-            ),
-            MyTextField(
-              labelText: "Password",
-              width: 343,
-              height: 64,
-              Controller: passwordController,
-              error: errorPassword,
-              isPassword: true,
-              description: descPassword,
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                left: 16,
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView(
+                children: [
+                  UikNavbar(
+                    size: "",
+                    titleText: "welcome back!\nLogin to continue",
+                    leftIcon: const Icon(Icons.arrow_back),
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                  MyTextField(
+                    labelText: "Email",
+                    width: 343,
+                    height: 64,
+                    Controller: emailController,
+                    error: errorEmail,
+                    description: descEmail,
+                  ),
+                  MyTextField(
+                    labelText: "Password",
+                    width: 343,
+                    height: 64,
+                    Controller: passwordController,
+                    error: errorPassword,
+                    isPassword: true,
+                    description: descPassword,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 16,
+                    ),
+                    child: UikButton(
+                      text: "Continue",
+                      backgroundColor: const Color(0xffFEE440),
+                      onClick: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        // Once the user logs in with email and password,
+                        // we use a POST API endpoint to send them to the backend
+                        // The response will have authToken
+                        // We are storing the authToken, userName and password locally using SharedPreferences
+                        if (isEmailValid(emailController.text) &&
+                            passwordController.text.length >= 6) {
+                          // Creating a POST request with http client
+                          // var client = http.Client();
+                          print("Inside Email Validation!");
+
+                          final response = await ApiRepository.getLoginScreen(
+                              ApiRequestBody.getLoginRequest(
+                                  emailController.text,
+                                  passwordController.text));
+                          print("Response");
+                          // print(response);
+                          if (response.isSuccess!) {
+                            print("LOGINSCREEN----------------");
+                            UserDataHandler.saveUserToken(
+                                response.data[AUTH_TOKEN]);
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      UikBottomNavigationBar(),
+                                ),
+                                ModalRoute.withName(ScreenRoutes.loginScreen));
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => UikBottomNavigationBar(),
+                            //   ),
+                            // );
+
+                            //  Navigator.popUntil(context, ModalRoute.withName(ScreenRoutes.loginScreen));
+                          } else {
+                            //todo show login error
+                            UiUtils.showToast(response.error![MESSAGE]);
+                          }
+                        }
+
+                        if (isEmailValid(emailController.text)) {
+                          errorEmail = false;
+                          descEmail = '';
+                        } else {
+                          errorEmail = true;
+                          descEmail = "Please Enter the valid email";
+                        }
+
+                        if (passwordController.text.length >= 6) {
+                          errorPassword = false;
+                          descPassword = '';
+                        } else {
+                          errorPassword = true;
+                          descPassword = "Password must contain 6 characters";
+                        }
+
+                        setState(() {
+                          isLoading = false;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
               ),
-              child: UikButton(
-                text: "Continue",
-                backgroundColor: const Color(0xffFEE440),
-                onClick: () async {
-                  // Once the user logs in with email and password,
-                  // we use a POST API endpoint to send them to the backend
-                  // The response will have authToken
-                  // We are storing the authToken, userName and password locally using SharedPreferences
-                  if (isEmailValid(emailController.text) &&
-                      passwordController.text.length >= 6) {
-                    // Creating a POST request with http client
-                    // var client = http.Client();
-                    print("Inside Email Validation!");
-
-                    final response = await ApiRepository.getLoginScreen(
-                        ApiRequestBody.getLoginRequest(
-                            emailController.text, passwordController.text));
-                    print("Response");
-                    // print(response);
-                    if (response.isSuccess!) {
-                      print("LOGINSCREEN----------------");
-                      UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UikBottomNavigationBar(),
-                          ),
-                          ModalRoute.withName(ScreenRoutes.loginScreen));
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => UikBottomNavigationBar(),
-                      //   ),
-                      // );
-
-                      //  Navigator.popUntil(context, ModalRoute.withName(ScreenRoutes.loginScreen));
-                    } else {
-                      //todo show login error
-                      UiUtils.showToast(response.error![MESSAGE]);
-                    }
-                  }
-
-                  if (isEmailValid(emailController.text)) {
-                    errorEmail = false;
-                    descEmail = '';
-                  } else {
-                    errorEmail = true;
-                    descEmail = "Please Enter the valid email";
-                  }
-
-                  if (passwordController.text.length >= 6) {
-                    errorPassword = false;
-                    descPassword = '';
-                  } else {
-                    errorPassword = true;
-                    descPassword = "Password must contain 6 characters";
-                  }
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-          ],
-        ),
       ),
     );
   }
