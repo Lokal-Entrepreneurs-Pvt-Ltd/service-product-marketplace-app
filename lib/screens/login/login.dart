@@ -119,6 +119,13 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                             print("LOGINSCREEN----------------");
                             UserDataHandler.saveUserToken(
                                 response.data[AUTH_TOKEN]);
+                            UserDataHandler.saveUserEmail(response.data[PASSWORD]);
+                            UserDataHandler.saveUserEmail(response.data[NAME]);
+                            UserDataHandler.saveUserEmail(response.data[GST]);
+                            UserDataHandler.saveUserEmail(response.data[DOB]);
+                            UserDataHandler.saveUserEmail(response.data[PHONE]);
+                            UserDataHandler.saveUserEmail(
+                                response.data[IS_USER_VERIFIED]);
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
