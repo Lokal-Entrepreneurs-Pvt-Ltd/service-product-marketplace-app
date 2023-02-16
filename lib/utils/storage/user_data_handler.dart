@@ -39,8 +39,8 @@ abstract class UserDataHandler {
     return PreferenceUtils.getString(USER_ID, "");
   }
 
-  static void saveUserId(String userId) {
-    PreferenceUtils.setString(USER_ID, userId);
+  static void saveUserId(int userId) {
+    PreferenceUtils.setInt(USER_ID, userId);
   }
 
   static Future<String> getUserGST() async {
