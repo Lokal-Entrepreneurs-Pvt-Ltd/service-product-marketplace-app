@@ -10,6 +10,7 @@ class ScreenRoutes {
   static const String orderScreen = '/orderscreen';
   static const String emptyCartScreen = '/emptycartscreen';
   static const String orderHistoryScreen = "/orderhistoryscreen";
+  static const String myDetailsScreen = "/mydetailsscreen";
 
   static const String avatar = "/avatar";
   static const String icon = "/icon";

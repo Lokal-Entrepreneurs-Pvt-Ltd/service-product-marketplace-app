@@ -106,6 +106,8 @@ void openWishlist(UikAction uikAction) {
 
 void openDetails(UikAction uikAction) {
   UiUtils.showToast("DETAILS");
+  var context = NavigationService.navigatorKey.currentContext;
+  Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
 }
 
 void openOrders(UikAction uikAction) {

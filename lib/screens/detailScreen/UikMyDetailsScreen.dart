@@ -26,6 +26,8 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   final birthController = TextEditingController();
   final GSTController = TextEditingController();
 
+  final authToken = UserDataHandler.getUserToken();
+
   @override
   void initState() {
     super.initState();
@@ -53,14 +55,6 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
           style: TextStyle(color: Colors.black, fontSize: 20),
         ),
         centerTitle: true,
-        actions: [
-          TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Save",
-                style: TextStyle(color: Colors.black, fontSize: 16),
-              ))
-        ],
         leading: IconButton(
           iconSize: 26,
           icon: const Icon(
@@ -84,62 +78,20 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               height: 64,
               Controller: nameController,
             ),
-            // Container(
-            //   margin: const EdgeInsets.only(
-            //     left: 16,
-            //   ),
-            //   child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Text("Full Name"),
-            //     ],
-            //   ),
-            //   width: 363,
-            //   height: 64,
-            //   decoration: BoxDecoration(
-            //     color: Colors.grey,
-            //     borderRadius: BorderRadius.circular(8),
-            //   ),
-            // ),
             MyTextField(
               labelText: "Phone",
               width: 343,
               height: 64,
               Controller: phoneController,
-              rightElement: Row(
-                children: const [
-                  Text(
-                    "verifying",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Icon(
-                    Icons.refresh,
-                    size: 13,
-                  ),
-                ],
-              ),
             ),
-            Container(
-              margin: const EdgeInsets.only(
-                left: 20,
-                bottom: 16,
-              ),
-              child: OtpTextField(
-                numberOfFields: 6,
-                borderColor: const Color(0xFFF5F5F5),
-                showFieldAsBox: true,
-                fieldWidth: 46,
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-              ),
-            ),
-            MyTextField(
+            /* MyTextField(
               labelText: "Email",
               width: 343,
               height: 64,
               Controller: emailController,
-            ),
+            ), */
             MyTextField(
-              labelText: "Date of Birth",
+              labelText: "Date of birth",
               width: 343,
               height: 64,
               Controller: birthController,
@@ -149,6 +101,39 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               width: 343,
               height: 64,
               Controller: GSTController,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: UikButton(
+                onClick: () async {
+                  final response = await http.post(
+                    Uri.parse(
+                        'https://dev.localee.co.in/api/customer/updatecustomerinfo'),
+                    headers: {
+                      "ngrok-skip-browser-warning": "value",
+                      "Authorization": "Bearer $authToken",
+                    },
+                    body: {
+                      "name": nameController.text,
+                      "email": emailController.text,
+                      "taxvat": GSTController.text,
+                      "dob": birthController.text,
+                      "phone": phoneController.text,
+                    },
+                  );
+
+                  UserDataHandler.saveUserName(nameController.text);
+                  UserDataHandler.saveUserEmail(emailController.text);
+                  UserDataHandler.saveUserGST(GSTController.text);
+                  UserDataHandler.saveUserDob(birthController.text);
+                  UserDataHandler.saveUserPhone(phoneController.text);
+
+                  print(response.body);
+
+                  Navigator.of(context).pop();
+                },
+                text: "Save Details",
+              ),
             ),
           ],
         ),
