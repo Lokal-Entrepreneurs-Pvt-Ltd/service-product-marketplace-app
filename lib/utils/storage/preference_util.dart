@@ -37,7 +37,7 @@ class PreferenceUtils {
   }
 
   static List<String> getStringList(String key, [List<String>? defValue]) {
-    return _prefsInstance.getStringList(key) ?? defValue!;
+    return _prefsInstance.getStringList(key) ?? [];
   }
 
   static Future<bool> setStringList(String key, List<String> value) async {
