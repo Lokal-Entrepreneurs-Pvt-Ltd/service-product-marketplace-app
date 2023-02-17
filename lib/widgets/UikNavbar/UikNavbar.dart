@@ -45,7 +45,10 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
               // color: Colors.amber,
               child: IconButton(
                 padding: const EdgeInsets.all(0.0),
-                onPressed: () {},
+                onPressed: () {
+                  print("Pop");
+                  Navigator.pop(context);
+                },
                 icon: leftIcon!,
                 // iconSize: 60,
                 color: Colors.black,
@@ -145,7 +148,12 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            leftIcon!,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: leftIcon,
+                            ),
                           ],
                         ),
                       ),
