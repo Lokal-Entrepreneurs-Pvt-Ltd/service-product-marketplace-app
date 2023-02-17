@@ -21,7 +21,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    UikHome().page,
+    const UikHomeWrapper(),
     UikCartScreen().page,
     UikMyAccountScreen().page,
   ];
@@ -29,54 +29,52 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   int totalCartItems = CartDataHandler.getCartItems().length;
 
   void _onItemTapped(int index) {
-    var context = NavigationService.navigatorKey.currentContext;
-    if (index == _selectedIndex) return;
-    if (index == 0) {
-      Navigator.pushNamed(context!, ScreenRoutes.homeScreen);
-    } else if (index == 1) {
-      Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
-    } else if (index == 2) {
-      Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
-    }
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: const UikHomeWrapper(),
-        bottomNavigationBar: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+        body: Stack(
           children: [
+            _widgetOptions.elementAt(_selectedIndex),
             if (totalCartItems > 0)
-              BottomCartDetails(
-                totalItems: totalCartItems,
-                totalCost: 1000.0,
+              Positioned(
+                bottom: 0.0,
+                left: 0.0,
+                right: 0.0,
+                child: BottomCartDetails(
+                  totalItems: totalCartItems,
+                  totalCost: 1000.0,
+                ),
               ),
-            BottomNavigationBar(
-              onTap: _onItemTapped,
-              currentIndex: _selectedIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.shopping_bag,
-                  ),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person,
-                  ),
-                  label: "",
-                )
-              ],
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: _onItemTapped,
+          currentIndex: _selectedIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+              ),
+              label: "",
             ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.shopping_bag,
+              ),
+              label: "",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+              ),
+              label: "",
+            )
           ],
         ),
       ),
@@ -93,6 +91,12 @@ class BottomCartDetails extends StatelessWidget {
 
   final int totalItems;
   final double totalCost;
+
+  void openCartScreen() {
+    var context = NavigationService.navigatorKey.currentContext;
+    // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+    Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,10 +132,4 @@ class BottomCartDetails extends StatelessWidget {
       ),
     );
   }
-}
-
-void openCartScreen() {
-  var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
 }
