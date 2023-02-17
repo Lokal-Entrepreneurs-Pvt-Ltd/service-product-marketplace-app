@@ -1,21 +1,21 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:lokal/utils/storage/preference_util.dart';
 
-abstract class CartDataHandler {
-  static void saveCartId(String cartId) async {
-    final prefs = await SharedPreferences.getInstance();
+import 'cart_handler_constants.dart';
 
-    await prefs.setString("cartId", cartId);
+class CartDataHandler {
+  static void saveCartId(String cartId) {
+    PreferenceUtils.setString(CART_ID, cartId);
   }
 
-  static Future<String> getCartId() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString("cartId") ?? "";
+  static String getCartId() {
+    return PreferenceUtils.getString(CART_ID);
   }
 
-  static Future<List<String>> getCartItems() async {
-    final prefs = await SharedPreferences.getInstance();
+  static List<String> getCartItems() {
+    return PreferenceUtils.getStringList(CART_ITEMS);
+  }
 
-    return prefs.getStringList("cartItems") ?? [];
+  static void saveCartItems(List<String> items) {
+    PreferenceUtils.setStringList(CART_ITEMS, items);
   }
 }

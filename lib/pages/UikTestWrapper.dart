@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+// import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/pages/UikHome.dart';
@@ -58,7 +58,7 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
                 //
                 GestureDetector(
                   onTap: () async {
-                    GeoPoint? location = await showSimplePickerLocation(
+                    /* GeoPoint? location = await showSimplePickerLocation(
                       context: context,
                       isDismissible: true,
                       title: "Location Picker",
@@ -88,7 +88,7 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
                         city = placemarks[0].locality!;
                         state = placemarks[0].administrativeArea!;
                       });
-                    }
+                    } */
                   },
                   child: Cell(
                     titleText: street,
