@@ -34,9 +34,7 @@ class UikMyAccountScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-    // return ApiRepository.getMyAccountScreen;
-    return getMockedApiResponse;
+     return ApiRepository.getMyAccountScreen;
   }
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
@@ -118,19 +116,19 @@ void openOrders(UikAction uikAction) {
   Navigator.pushNamed(context!, ApiRoutes.orderScreen);
 }
 
-Future<ApiResponse> getMockedApiResponse(args) async {
-  print("lavesh ${args}");
-  final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/myAccount'),
-    headers: {
-      "ngrok-skip-browser-warning": "value",
-    },
-  );
-
-  // StandardScreenResponse
-  if (response.statusCode == 200) {
-    return ApiResponse.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load album');
-  }
-}
+// Future<ApiResponse> getMockedApiResponse(args) async {
+//   print("lavesh ${args}");
+//   final response = await http.get(
+//     Uri.parse('https://demo6536398.mockable.io/myAccount'),
+//     headers: {
+//       "ngrok-skip-browser-warning": "value",
+//     },
+//   );
+//
+//   // StandardScreenResponse
+//   if (response.statusCode == 200) {
+//     return ApiResponse.fromJson(jsonDecode(response.body));
+//   } else {
+//     throw Exception('Failed to load album');
+//   }
+// }
