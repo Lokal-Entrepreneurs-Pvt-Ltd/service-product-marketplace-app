@@ -46,7 +46,6 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
               child: IconButton(
                 padding: const EdgeInsets.all(0.0),
                 onPressed: () {
-                  print("Pop");
                   Navigator.pop(context);
                 },
                 icon: leftIcon!,
