@@ -7,6 +7,7 @@ import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/storage/cart_data_handler.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'UikHome.dart';
@@ -18,11 +19,15 @@ class UikBottomNavigationBar extends StatefulWidget {
 
 class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   int _selectedIndex = 0;
+
   static final List<Widget> _widgetOptions = <Widget>[
     UikHome().page,
     UikCartScreen().page,
     UikMyAccountScreen().page,
   ];
+
+  int totalCartItems = CartDataHandler.getCartItems().length;
+
   void _onItemTapped(int index) {
     var context = NavigationService.navigatorKey.currentContext;
     if (index == _selectedIndex) return;
@@ -39,7 +44,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: UikHomeWrapper(),
+        body: const UikHomeWrapper(),
         bottomNavigationBar: Container(
           width: 375,
           height: 104,
@@ -48,36 +53,11 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             color: Colors.transparent,
             child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    openCartScreen();
-                  },
-                  child: Container(
-                    height: 37,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    color: const Color(0xFF6247FF),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "12 items | 1200.00",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            "View Cart",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ]),
+                if (totalCartItems > 0)
+                  BottomCartDetails(
+                    totalItems: totalCartItems,
+                    totalCost: 1000.0,
                   ),
-                ),
                 BottomNavigationBar(
                   onTap: _onItemTapped,
                   currentIndex: _selectedIndex,
@@ -105,6 +85,52 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BottomCartDetails extends StatelessWidget {
+  const BottomCartDetails({
+    super.key,
+    required this.totalItems,
+    this.totalCost = 0.0,
+  });
+
+  final int totalItems;
+  final double totalCost;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        openCartScreen();
+      },
+      child: Container(
+        height: 37,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        color: const Color(0xFF6247FF),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "$totalItems items | $totalCost",
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: Colors.white,
+              ),
+            ),
+            const Text(
+              "View Cart",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );

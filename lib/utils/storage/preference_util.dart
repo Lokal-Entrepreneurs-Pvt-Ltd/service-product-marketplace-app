@@ -35,4 +35,13 @@ class PreferenceUtils {
     var prefs = await _prefsInstance;
     return prefs?.setInt(key, value) ?? Future.value(false);
   }
+
+  static List<String> getStringList(String key, [List<String>? defValue]) {
+    return _prefsInstance.getStringList(key) ?? defValue!;
+  }
+
+  static Future<bool> setStringList(String key, List<String> value) async {
+    var prefs = await _prefsInstance;
+    return prefs?.setStringList(key, value) ?? Future.value(false);
+  }
 }
