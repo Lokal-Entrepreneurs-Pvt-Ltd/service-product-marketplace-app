@@ -45,46 +45,39 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     return MaterialApp(
       home: Scaffold(
         body: const UikHomeWrapper(),
-        bottomNavigationBar: Container(
-          width: 375,
-          height: 104,
-          color: const Color(0xFFFFFFFF),
-          child: Material(
-            color: Colors.transparent,
-            child: Column(
-              children: [
-                if (totalCartItems > 0)
-                  BottomCartDetails(
-                    totalItems: totalCartItems,
-                    totalCost: 1000.0,
+        bottomNavigationBar: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            if (totalCartItems > 0)
+              BottomCartDetails(
+                totalItems: totalCartItems,
+                totalCost: 1000.0,
+              ),
+            BottomNavigationBar(
+              onTap: _onItemTapped,
+              currentIndex: _selectedIndex,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
                   ),
-                BottomNavigationBar(
-                  onTap: _onItemTapped,
-                  currentIndex: _selectedIndex,
-                  items: const [
-                    BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.home,
-                      ),
-                      label: "",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.shopping_bag,
-                      ),
-                      label: "",
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.person,
-                      ),
-                      label: "",
-                    )
-                  ],
+                  label: "",
                 ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.shopping_bag,
+                  ),
+                  label: "",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.person,
+                  ),
+                  label: "",
+                )
               ],
             ),
-          ),
+          ],
         ),
       ),
     );
