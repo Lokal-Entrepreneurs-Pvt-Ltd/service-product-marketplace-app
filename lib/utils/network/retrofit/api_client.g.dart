@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://e002-182-69-183-64.in.ngrok.io';
+    baseUrl ??= 'https://2372-202-89-65-238.in.ngrok.io';
   }
 
   final Dio _dio;

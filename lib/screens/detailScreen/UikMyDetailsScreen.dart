@@ -48,7 +48,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     nameController.text =  UserDataHandler.getUserName();
     birthController.text =  UserDataHandler.getUserDob();
     GSTController.text =  UserDataHandler.getUserGST();
-    showVerifyPhoneNumber = UserDataHandler.getUserPhone().isNotEmpty && !UserDataHandler.getIsUserVerified();
+   // showVerifyPhoneNumber = UserDataHandler.getUserPhone().isNotEmpty && !UserDataHandler.getIsUserVerified();
   }
 
 
@@ -84,11 +84,11 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             birthController.text,
             phoneController.text));
     if(response.isSuccess!){
-      UserDataHandler.saveUserName(nameController.text);
-      UserDataHandler.saveUserEmail(emailController.text);
-      UserDataHandler.saveUserGST(GSTController.text);
-      UserDataHandler.saveUserDob(birthController.text);
-      UserDataHandler.saveUserPhone(phoneController.text);
+      var customerData = response.data[CUSTOMER_DATA];
+      if(customerData!= null) {
+        UserDataHandler.saveCustomerData(customerData);
+      }
+
       UiUtils.showToast(ACCOUNT_DETAILS_UPDATED);
       Navigator.of(context).pop();
     }
@@ -145,12 +145,12 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               height: 64,
               Controller: emailController,
             ),
-            MyTextField(
-              labelText: "Date of birth",
-              width: 343,
-              height: 64,
-              Controller: birthController,
-            ),
+            // MyTextField(
+            //   labelText: "Date of birth",
+            //   width: 343,
+            //   height: 64,
+            //   Controller: birthController,
+            // ),
             MyTextField(
               labelText: "GSTIN",
               width: 343,
