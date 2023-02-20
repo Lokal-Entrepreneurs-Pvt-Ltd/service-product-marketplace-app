@@ -29,6 +29,15 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   int totalCartItems = CartDataHandler.getCartItems().length;
 
   void _onItemTapped(int index) {
+    var context = NavigationService.navigatorKey.currentContext;
+    if (index == _selectedIndex) return;
+    if (index == 0) {
+      Navigator.pushNamed(context!, ScreenRoutes.homeScreen);
+    } else if (index == 1) {
+      Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
+    } else if (index == 2) {
+      Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
+    }
     setState(() {
       _selectedIndex = index;
     });

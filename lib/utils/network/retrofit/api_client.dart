@@ -74,4 +74,10 @@ abstract class StandardScreenClient {
 
   @GET(ApiRoutes.serviceScreen)
   Future<ApiResponse> getServiceScreen(args);
+
+  @POST(ApiRoutes.updateCustomerInfo)
+  Future<ApiResponse> updateCustomerInfo(args);
+
+  @POST(ApiRoutes.sendOtp)
+  Future<ApiResponse> sendOtp(args);
 }

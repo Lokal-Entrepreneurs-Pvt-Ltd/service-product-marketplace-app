@@ -44,4 +44,9 @@ class PreferenceUtils {
     var prefs = await _prefsInstance;
     return prefs?.setStringList(key, value) ?? Future.value(false);
   }
+
+  static Future<bool> clearStorage() async {
+    var prefs = await _prefsInstance;
+    return prefs.clear();
+  }
 }

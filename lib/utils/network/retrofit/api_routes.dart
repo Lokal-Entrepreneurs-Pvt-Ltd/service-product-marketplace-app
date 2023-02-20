@@ -26,4 +26,6 @@ class ApiRoutes {
   static const String inviteScreen = "/invite";
   static const String earningScreen = "/earning";
   static const String serviceScreen = "/service";
+  static const String updateCustomerInfo = "/customer/updatecustomerinfo";
+  static const String sendOtp = "/customer/sendOtp";
 }
