@@ -16,4 +16,9 @@ const String DOB = "dob";
 const String PHONE = "phone";
 const String PHONE_NUMBER = "phoneNumber";
 const String OTP = "otp";
+const String ADDRESS_ID = "addressId";
+const String PAYMENT_METHOD = "paymentMethod";
+const String ORDER_NUMBER_ID = "orderNumberId";
+const String PAYMENT_METHOD_COD = "cod";
+const String PAYMENT_METHOD_ONLINE = "online";
 

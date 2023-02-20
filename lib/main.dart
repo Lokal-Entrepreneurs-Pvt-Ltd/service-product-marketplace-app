@@ -154,6 +154,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
           ScreenRoutes.otpScreen: (context) =>  OtpScreen(),
+          ScreenRoutes.paymentDetailsScreen: (context) =>  UikPaymentDetailsScreen().page,
+          ScreenRoutes.orderScreen: (context) =>  UikOrderScreen().page,
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,

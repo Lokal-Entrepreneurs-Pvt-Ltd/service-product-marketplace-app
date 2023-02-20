@@ -26,7 +26,7 @@ class UikOrderScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.getOrderScreen;
+    return ApiRepository.getOrderScreen;
     return getMockedApiResponse;
   }
 

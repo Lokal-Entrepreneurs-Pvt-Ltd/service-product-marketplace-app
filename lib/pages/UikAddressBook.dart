@@ -3,14 +3,17 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
+import '../constants/json_constants.dart';
 import '../main.dart';
 
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
+import '../utils/network/ApiRequestBody.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'package:http/http.dart' as http;
 
@@ -84,8 +87,14 @@ void addAddress(UikAction uikAction) {
   Navigator.pushNamed(context!, ScreenRoutes.addAddressScreen);
 }
 
-void openPayment(UikAction uikAction) {
+Future<void> openPayment(UikAction uikAction) async {
+
   var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.paymentDetailsScreen);
+  Map<String, dynamic>? args = {
+      ADDRESS_ID: uikAction.tap.data.addressId!,
+     CART_ID: CartDataHandler.getCartId()
+  };
+  Navigator.pushNamed(context!, ScreenRoutes.paymentDetailsScreen, arguments: args);
+
 }
 
