@@ -113,6 +113,9 @@ class ApiRepository {
   static Future<ApiResponse> sendOtp(args) {
     return StandardScreenClient(getDio()).sendOtp(args);
   }
+  static Future<ApiResponse> verifyOtp(args) {
+    return StandardScreenClient(getDio()).verifyOtp(args);
+  }
 }
 
 // apirequestbody class 
