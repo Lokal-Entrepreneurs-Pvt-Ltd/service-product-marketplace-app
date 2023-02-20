@@ -25,7 +25,7 @@ class UikEmptyCartScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getCartScreen;
+    return ApiRepository.getCartScreen({"cartId" :CartDataHandler.getCartId()});
     // return getMockedApiResponse;
   }
 

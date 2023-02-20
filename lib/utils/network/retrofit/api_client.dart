@@ -83,4 +83,10 @@ abstract class StandardScreenClient {
 
   @POST(ApiRoutes.verifyOtp)
   Future<ApiResponse> verifyOtp(args);
+
+  @POST(ApiRoutes.addressNext)
+  Future<ApiResponse> addressNext(args);
+
+  @POST(ApiRoutes.paymentNext)
+  Future<ApiResponse> paymentNext(args);
 }

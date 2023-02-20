@@ -54,8 +54,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getOrderScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo8971456.mockable.io/")
+    return StandardScreenClient(getDio(),)
         .getOrderScreen(args);
   }
 
@@ -115,6 +114,14 @@ class ApiRepository {
   }
   static Future<ApiResponse> verifyOtp(args) {
     return StandardScreenClient(getDio()).verifyOtp(args);
+  }
+
+  static Future<ApiResponse> addressNext(args) {
+    return StandardScreenClient(getDio()).addressNext(args);
+  }
+
+  static Future<ApiResponse> paymentNext(args) {
+    return StandardScreenClient(getDio()).paymentNext(args);
   }
 }
 

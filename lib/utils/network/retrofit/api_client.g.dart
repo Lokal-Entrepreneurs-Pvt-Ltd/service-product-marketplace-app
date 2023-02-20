@@ -255,7 +255,7 @@ class _StandardScreenClient implements StandardScreenClient {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = args;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
       method: 'POST',
@@ -264,7 +264,7 @@ class _StandardScreenClient implements StandardScreenClient {
     )
             .compose(
               _dio.options,
-              '/orderscreen',
+              '/order/get',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -558,6 +558,54 @@ class _StandardScreenClient implements StandardScreenClient {
         .compose(
       _dio.options,
       '/customer/verifyOtp',
+      queryParameters: queryParameters,
+      data: _data,
+    )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.
+    data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse> addressNext(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+      _dio.options,
+      '/checkout/address/next',
+      queryParameters: queryParameters,
+      data: _data,
+    )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.
+    data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse> paymentNext(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+      _dio.options,
+      '/checkout/payment/next',
       queryParameters: queryParameters,
       data: _data,
     )

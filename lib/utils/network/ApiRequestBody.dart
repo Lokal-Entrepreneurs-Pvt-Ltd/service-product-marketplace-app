@@ -35,4 +35,12 @@ class ApiRequestBody {
     return {PHONE_NUMBER: phoneNumber, OTP: otp};
   }
 
+  static getAddressNextRequest(String cartId, num addressId) {
+    return {CART_ID: cartId, ADDRESS_ID: addressId};
+  }
+
+  static getPaymentNextRequest( String paymentMethod) {
+    return { PAYMENT_METHOD: paymentMethod};
+  }
+
 }

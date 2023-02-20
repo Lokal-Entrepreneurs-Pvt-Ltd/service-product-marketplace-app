@@ -81,7 +81,8 @@ abstract class UserDataHandler {
         UserDataHandler.saveUserEmail(
             customerData[EMAIL]);
       }
-      // UserDataHandler.saveIsUserVerified(customerData[IS_USER_VERIFIED]);
+      UserDataHandler.saveIsUserVerified(customerData[IS_USER_VERIFIED]);
+
       if (customerData[DOB] != null) {
         UserDataHandler.saveUserDob(customerData[DOB]);
       }

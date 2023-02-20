@@ -8,7 +8,7 @@ class ApiRoutes {
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
   static const String paymentStatusScreen = '/paymentstatusscreen';
-  static const String orderScreen = '/orderscreen';
+  static const String orderScreen = '/order/get';
   static const String paymentdetailsScreen = '/paymentdetailsscreen';
   static const String orderHistoryScreen = "/orderhistoryscreen";
   static const String otp = "/otp";
@@ -29,4 +29,6 @@ class ApiRoutes {
   static const String updateCustomerInfo = "/customer/updatecustomerinfo";
   static const String sendOtp = "/customer/sendOtp";
   static const String verifyOtp = "/customer/verifyOtp";
+  static const String addressNext = "/checkout/address/next";
+  static const String paymentNext = "/checkout/payment/next";
 }
