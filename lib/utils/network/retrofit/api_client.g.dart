@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://ff3a-2405-201-e029-5bc9-8d9a-3684-4153-968f.in.ngrok.io';
+    baseUrl ??= 'https://e002-182-69-183-64.in.ngrok.io';
   }
 
   final Dio _dio;
@@ -493,5 +493,53 @@ class _StandardScreenClient implements StandardScreenClient {
       }
     }
     return requestOptions;
+  }
+
+  @override
+  Future<ApiResponse> updateCustomerInfo(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+      _dio.options,
+      '/customer/updatecustomerinfo',
+      queryParameters: queryParameters,
+      data: _data,
+    )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.
+    data!);
+    return value;
+  }
+
+  @override
+  Future<ApiResponse> sendOtp(args) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = args;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ApiResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+      _dio.options,
+      '/customer/sendOtp',
+      queryParameters: queryParameters,
+      data: _data,
+    )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ApiResponse.fromJson(_result.
+    data!);
+    return value;
   }
 }

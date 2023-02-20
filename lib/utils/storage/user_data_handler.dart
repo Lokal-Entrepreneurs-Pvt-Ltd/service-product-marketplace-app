@@ -7,7 +7,7 @@ abstract class UserDataHandler {
   }
 
   static void clearUserToken() {
-    PreferenceUtils.setString(AUTH_TOKEN, "");
+    PreferenceUtils.clearStorage();
   }
 
   static String getUserToken() {
@@ -19,7 +19,7 @@ abstract class UserDataHandler {
     // PreferenceUtils.setString(PASSWORD, password);
   }
 
-  static Future<String> getUserName() async {
+  static String getUserName()  {
     return PreferenceUtils.getString(FIRST_NAME, "");
   }
 
@@ -27,7 +27,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(FIRST_NAME, name);
   }
 
-  static Future<String> getUserEmail() async {
+  static String getUserEmail()  {
     return PreferenceUtils.getString(EMAIL, "");
   }
 
@@ -35,7 +35,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(EMAIL, email);
   }
 
-  static Future<String> getUserId() async {
+  static String getUserId()  {
     return PreferenceUtils.getString(USER_ID, "");
   }
 
@@ -43,7 +43,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setInt(USER_ID, userId);
   }
 
-  static Future<String> getUserGST() async {
+  static String getUserGST()  {
     return PreferenceUtils.getString(GST_TAX_VAT, "");
   }
 
@@ -51,7 +51,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(GST_TAX_VAT, gst);
   }
 
-  static Future<String> getUserDob() async {
+  static String getUserDob()  {
     return PreferenceUtils.getString(DOB, "");
   }
 
@@ -59,7 +59,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(DOB, dob);
   }
 
-  static Future<String> getUserPhone() async {
+  static String getUserPhone()  {
     return PreferenceUtils.getString(PHONE_NUMBER, "");
   }
 

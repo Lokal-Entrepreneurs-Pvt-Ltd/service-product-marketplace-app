@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -52,7 +53,11 @@ class UikCartScreen extends StandardPage {
   void onCartScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_ADDRESS:
+        if(UserDataHandler.getIsUserVerified())
         openAddress(uikAction);
+        else {
+          openMyDetails();
+        }
         break;
 
       default:
@@ -91,10 +96,14 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   }
 }
 
-
 void openAddress(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+}
+
+void openMyDetails() {
+  var context = NavigationService.navigatorKey.currentContext;
+  Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
 }
 void addToCart(UikAction uikAction) async {
   var skuId = uikAction.tap.data.skuId;

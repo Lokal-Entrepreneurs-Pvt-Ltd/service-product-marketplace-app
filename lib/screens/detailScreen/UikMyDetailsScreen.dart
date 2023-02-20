@@ -9,6 +9,13 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import '../../../utils/storage/user_data_handler.dart';
 import '../../../widgets/UikNavbar/UikNavbar.dart';
+import '../../constants/json_constants.dart';
+import '../../constants/strings.dart';
+import '../../main.dart';
+import '../../screen_routes.dart';
+import '../../utils/UiUtils/UiUtils.dart';
+import '../../utils/network/ApiRepository.dart';
+import '../../utils/network/ApiRequestBody.dart';
 
 // move to screen folder
 
@@ -18,7 +25,7 @@ class MyDetailsScreen extends StatefulWidget {
   @override
   State<MyDetailsScreen> createState() => _MyDetailsScreenState();
 }
-
+var showVerifyPhoneNumber  = false;
 class _MyDetailsScreenState extends State<MyDetailsScreen> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -35,14 +42,62 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     initialize();
   }
 
-  void initialize() async {
-    emailController.text = await UserDataHandler.getUserEmail();
-    phoneController.text = await UserDataHandler.getUserPhone();
-    nameController.text = await UserDataHandler.getUserName();
-    birthController.text = await UserDataHandler.getUserDob();
-    GSTController.text = await UserDataHandler.getUserGST();
+  void initialize()  {
+    emailController.text =  UserDataHandler.getUserEmail();
+    phoneController.text =  UserDataHandler.getUserPhone();
+    nameController.text =  UserDataHandler.getUserName();
+    birthController.text =  UserDataHandler.getUserDob();
+    GSTController.text =  UserDataHandler.getUserGST();
+    showVerifyPhoneNumber = UserDataHandler.getUserPhone().isNotEmpty && !UserDataHandler.getIsUserVerified();
   }
 
+
+
+  String setButtonText(){
+    if(showVerifyPhoneNumber) {
+      return VERIFY_NUMBER;
+    }
+    return SAVE_DETAILS;
+  }
+
+  Future<void> handleOnButtonClick () async {
+
+    if(showVerifyPhoneNumber){
+      final response = await ApiRepository.sendOtp(
+          ApiRequestBody.getSendOtpRequest(
+              phoneController.text));
+      if(response.isSuccess!){
+        UiUtils.showToast(OTP_SENT);
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pushNamed(context!, ScreenRoutes.otpScreen);
+      }
+      else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    }
+    else {
+    final response = await ApiRepository.updateCustomerInfo(
+        ApiRequestBody.getSaveDetailsRequest(
+            nameController.text,
+            emailController.text,
+            GSTController.text,
+            birthController.text,
+            phoneController.text));
+    if(response.isSuccess!){
+      UserDataHandler.saveUserName(nameController.text);
+      UserDataHandler.saveUserEmail(emailController.text);
+      UserDataHandler.saveUserGST(GSTController.text);
+      UserDataHandler.saveUserDob(birthController.text);
+      UserDataHandler.saveUserPhone(phoneController.text);
+      UiUtils.showToast(ACCOUNT_DETAILS_UPDATED);
+      Navigator.of(context).pop();
+    }
+    else {
+      UiUtils.showToast(response.error![MESSAGE]);
+    }
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,12 +139,12 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               height: 64,
               Controller: phoneController,
             ),
-            /* MyTextField(
+             MyTextField(
               labelText: "Email",
               width: 343,
               height: 64,
               Controller: emailController,
-            ), */
+            ),
             MyTextField(
               labelText: "Date of birth",
               width: 343,
@@ -105,34 +160,10 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
               child: UikButton(
-                onClick: () async {
-                  final response = await http.post(
-                    Uri.parse(
-                        'https://dev.localee.co.in/api/customer/updatecustomerinfo'),
-                    headers: {
-                      "ngrok-skip-browser-warning": "value",
-                      "Authorization": "Bearer $authToken",
-                    },
-                    body: {
-                      "name": nameController.text,
-                      "email": emailController.text,
-                      "taxvat": GSTController.text,
-                      "dob": birthController.text,
-                      "phone": phoneController.text,
-                    },
-                  );
-
-                  UserDataHandler.saveUserName(nameController.text);
-                  UserDataHandler.saveUserEmail(emailController.text);
-                  UserDataHandler.saveUserGST(GSTController.text);
-                  UserDataHandler.saveUserDob(birthController.text);
-                  UserDataHandler.saveUserPhone(phoneController.text);
-
-                  print(response.body);
-
-                  Navigator.of(context).pop();
+                onClick: ()  {
+                  handleOnButtonClick();
                 },
-                text: "Save Details",
+                text: setButtonText(),
               ),
             ),
           ],

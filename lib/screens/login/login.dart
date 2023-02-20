@@ -59,7 +59,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
         color: Colors.white,
         child: isLoading
             ? const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator( color: Colors.yellow),
               )
             : ListView(
                 children: [
