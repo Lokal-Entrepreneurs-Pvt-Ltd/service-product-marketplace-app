@@ -92,7 +92,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     margin: const EdgeInsets.only(
                       left: 16,
                     ),
-                    child: UikButton(
+                    child:
+                    UikButton(
                       text: "Continue",
                       backgroundColor: const Color(0xffFEE440),
                       onClick: () async {

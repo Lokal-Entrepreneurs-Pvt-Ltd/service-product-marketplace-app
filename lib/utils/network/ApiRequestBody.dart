@@ -1,35 +1,38 @@
+import '../../constants/json_constants.dart';
+
 class ApiRequestBody {
   static getLoginRequest(String email, password) {
-    return {"email": email, "password": password};
+    return {EMAIL: email, PASSWORD: password};
   }
 
   static getSignUpRequest(String email, password) {
-    return {"email": email, "password": password};
+    return {EMAIL: email, PASSWORD: password};
   }
 
   static getUpdateCartRequest(String skuId,String action, String cartId) {
    return {
-      "skuId": skuId,
-      "action": action,
-      "cartId": cartId,
+      SKU_ID: skuId,
+      ACTION: action,
+      CART_ID: cartId,
     };
   }
 
   static getSaveDetailsRequest(String name, String email, String gst, String dob, String phone) {
     return {
-      "name": name,
-      "email": email,
-      "taxvat":gst,
-      "dob": dob,
-      "phone": phone,
+      NAME: name,
+      EMAIL: email,
+      TAX_VAT: gst,
+      DOB: dob,
+      PHONE: phone,
     };
   }
 
   static getSendOtpRequest(String phoneNumber) {
-    return {"phoneNumber": phoneNumber};
+    return {PHONE_NUMBER: phoneNumber};
   }
 
-
-
+  static getVerifyOtpRequest(String phoneNumber, String otp) {
+    return {PHONE_NUMBER: phoneNumber, OTP: otp};
+  }
 
 }

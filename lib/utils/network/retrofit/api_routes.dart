@@ -28,4 +28,5 @@ class ApiRoutes {
   static const String serviceScreen = "/service";
   static const String updateCustomerInfo = "/customer/updatecustomerinfo";
   static const String sendOtp = "/customer/sendOtp";
+  static const String verifyOtp = "/customer/verifyOtp";
 }

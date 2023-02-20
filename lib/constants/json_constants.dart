@@ -5,4 +5,15 @@ const String AUTHORIZATION = "Authorization";
 const String APPLICATION_JSON = "application/json";
 const String CUSTOMER_DATA = "customerData";
 const String CART_DATA = "cart_data";
+const String EMAIL = "email";
+const String PASSWORD = "password";
 const String CART_ID = "cartId";
+const String SKU_ID = "skuId";
+const String ACTION = "action";
+const String NAME = "name";
+const String TAX_VAT = "taxvat";
+const String DOB = "dob";
+const String PHONE = "phone";
+const String PHONE_NUMBER = "phoneNumber";
+const String OTP = "otp";
+

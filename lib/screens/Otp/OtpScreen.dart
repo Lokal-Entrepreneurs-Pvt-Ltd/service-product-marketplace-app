@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/colors.dart';
-import 'package:lokal/screens/RegistrationTwoScreen/RegistrationTwoScreen.dart';
-//import 'package:pinput/pinput.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'dart:async';
 import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
 import '../../widgets/UikButton/UikButton.dart';
+
 
 class OtpScreen extends StatefulWidget {
   final String mobileNumber;
@@ -58,7 +59,7 @@ class _OtpScreenState extends State<OtpScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Enter OTP",
+                  ENTER_OTP,
                   style: TextStyle(
                     fontSize: DIMEN_32,
                     fontWeight: FontWeight.w600,
@@ -68,7 +69,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 8,
                 ),
                 Text(
-                  "We sent it to +91-${widget.mobileNumber}",
+                  "We sent it to ${UserDataHandler.getUserPhone()}",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -76,6 +77,149 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
               ],
+            ),
+
+            Form(
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 118),
+                padding: const EdgeInsets.fromLTRB(16, 0, 0, 4),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      height: 64,
+                      width: 48,
+                      // fillColor:Color(0xffF5F5F5),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xffF5F5F5),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide:
+                            BorderSide(width: 3, color: Color(0xffE0E0E0)),
+                          ),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Color(0xffE0E0E0),
+                              ),
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    SizedBox(
+                      height: 64,
+                      width: 48,
+
+                      // fillColor:Color(0xffF5F5F5),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xffF5F5F5),
+                          border: OutlineInputBorder(
+                              borderSide:
+                              const BorderSide(color: Color(0xffE0E0E0)),
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    SizedBox(
+                      height: 64,
+                      width: 48,
+
+                      // fillColor:Color(0xffF5F5F5),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xffF5F5F5),
+                          border: OutlineInputBorder(
+                              borderSide:
+                              const BorderSide(color: Color(0xffE0E0E0)),
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    SizedBox(
+                      height: 64,
+                      width: 48,
+
+                      // fillColor:Color(0xffF5F5F5),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xffF5F5F5),
+                          border: OutlineInputBorder(
+                              borderSide:
+                              const BorderSide(color: Color(0xffE0E0E0)),
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    SizedBox(
+                      height: 64,
+                      width: 48,
+
+                      // fillColor:Color(0xffF5F5F5),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: const Color(0xffF5F5F5),
+                          border: OutlineInputBorder(
+                              borderSide:
+                              const BorderSide(color: Color(0xffE0E0E0)),
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                        style: Theme.of(context).textTheme.headline6,
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(1),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
             const SizedBox(
               height: 16,
@@ -102,7 +246,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 height: 64,
                 width: 327,
                 child: UikButton(
-                  text: "Continue",
+                  text: CONTINUE,
                   widthSize: 327,
                   backgroundColor: const Color(0xffFEE440),
                   onClick: () {},

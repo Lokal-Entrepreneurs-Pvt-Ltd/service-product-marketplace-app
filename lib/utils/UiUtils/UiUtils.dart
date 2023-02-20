@@ -8,8 +8,8 @@ class UiUtils {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 3,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: Colors.yellow,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 }

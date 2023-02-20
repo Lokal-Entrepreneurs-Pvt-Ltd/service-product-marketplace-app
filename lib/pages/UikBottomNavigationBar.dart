@@ -31,9 +31,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   void _onItemTapped(int index) {
     var context = NavigationService.navigatorKey.currentContext;
     if (index == _selectedIndex) return;
-    if (index == 0) {
-      Navigator.pushNamed(context!, ScreenRoutes.homeScreen);
-    } else if (index == 1) {
+    if (index == 1) {
       Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
     } else if (index == 2) {
       Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
@@ -49,7 +47,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       home: Scaffold(
         body: Stack(
           children: [
-            _widgetOptions.elementAt(_selectedIndex),
+            _widgetOptions.elementAt(0),
             if (totalCartItems > 0)
               Positioned(
                 bottom: 0.0,

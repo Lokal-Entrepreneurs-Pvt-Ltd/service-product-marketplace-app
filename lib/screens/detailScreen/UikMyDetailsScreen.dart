@@ -1,14 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import '../../../utils/storage/user_data_handler.dart';
-import '../../../widgets/UikNavbar/UikNavbar.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
 import '../../main.dart';
@@ -128,19 +121,19 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         child: ListView(
           children: [
             MyTextField(
-              labelText: "Full Name",
+              labelText: FULL_NAME,
               width: 343,
               height: 64,
               Controller: nameController,
             ),
             MyTextField(
-              labelText: "Phone",
+              labelText: PHONE,
               width: 343,
               height: 64,
               Controller: phoneController,
             ),
              MyTextField(
-              labelText: "Email",
+              labelText: EMAIL,
               width: 343,
               height: 64,
               Controller: emailController,
@@ -152,7 +145,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             //   Controller: birthController,
             // ),
             MyTextField(
-              labelText: "GSTIN",
+              labelText: GSTIN,
               width: 343,
               height: 64,
               Controller: GSTController,
