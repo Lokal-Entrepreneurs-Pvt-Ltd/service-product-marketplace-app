@@ -95,16 +95,13 @@ class _SignupScreenState extends State<SignupScreen> {
                         ApiRequestBody.getSignUpRequest(
                             emailController.text, passwordController.text));
 
-                    UserDataHandler.saveUserEmail(response.data[EMAIL]);
-                    UserDataHandler.saveUserEmail(response.data[FIRST_NAME]);
-                    UserDataHandler.saveUserEmail(response.data[GST_TAX_VAT]);
-                    UserDataHandler.saveUserEmail(response.data[DOB]);
-                    UserDataHandler.saveUserEmail(response.data[PHONE_NUMBER]);
-                    UserDataHandler.saveUserEmail(
-                        response.data[IS_USER_VERIFIED]);
-
                     if (response.isSuccess!) {
                       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+
+                      var customerData = response.data[CUSTOMER_DATA];
+                      if(customerData!= null) {
+                        UserDataHandler.saveCustomerData(customerData);
+                      }
                       Navigator.push(
                         context,
                         MaterialPageRoute(

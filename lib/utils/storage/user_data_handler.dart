@@ -19,7 +19,7 @@ abstract class UserDataHandler {
     // PreferenceUtils.setString(PASSWORD, password);
   }
 
-  static String getUserName()  {
+  static String getUserName() {
     return PreferenceUtils.getString(FIRST_NAME, "");
   }
 
@@ -27,7 +27,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(FIRST_NAME, name);
   }
 
-  static String getUserEmail()  {
+  static String getUserEmail() {
     return PreferenceUtils.getString(EMAIL, "");
   }
 
@@ -35,7 +35,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(EMAIL, email);
   }
 
-  static String getUserId()  {
+  static String getUserId() {
     return PreferenceUtils.getString(USER_ID, "");
   }
 
@@ -43,7 +43,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setInt(USER_ID, userId);
   }
 
-  static String getUserGST()  {
+  static String getUserGST() {
     return PreferenceUtils.getString(GST_TAX_VAT, "");
   }
 
@@ -51,7 +51,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(GST_TAX_VAT, gst);
   }
 
-  static String getUserDob()  {
+  static String getUserDob() {
     return PreferenceUtils.getString(DOB, "");
   }
 
@@ -59,7 +59,7 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(DOB, dob);
   }
 
-  static String getUserPhone()  {
+  static String getUserPhone() {
     return PreferenceUtils.getString(PHONE_NUMBER, "");
   }
 
@@ -73,5 +73,34 @@ abstract class UserDataHandler {
 
   static void saveIsUserVerified(bool isUserVerified) {
     PreferenceUtils.setBool(IS_USER_VERIFIED, isUserVerified);
+  }
+
+  static void saveCustomerData(customerData) {
+    if (customerData != null) {
+      if (customerData[EMAIL] != null) {
+        UserDataHandler.saveUserEmail(
+            customerData[EMAIL]);
+      }
+      // UserDataHandler.saveIsUserVerified(customerData[IS_USER_VERIFIED]);
+      if (customerData[DOB] != null) {
+        UserDataHandler.saveUserDob(customerData[DOB]);
+      }
+      if (customerData[PHONE_NUMBER] != null) {
+        UserDataHandler.saveUserPhone(
+            customerData[PHONE_NUMBER]);
+      }
+      if (customerData[GST_TAX_VAT] != null) {
+        UserDataHandler.saveUserGST(
+            customerData[GST_TAX_VAT]);
+      }
+      if (customerData[USER_ID] != null) {
+        UserDataHandler.saveUserId(
+            customerData[USER_ID]);
+      }
+      if (customerData[FIRST_NAME] != null) {
+        UserDataHandler.saveUserName(
+            customerData[FIRST_NAME]);
+      }
+    }
   }
 }

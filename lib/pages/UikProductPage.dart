@@ -50,28 +50,7 @@ class UikProductPage extends StandardPage {
   }
 }
 
-// Future<ApiResponse> getMockedApiResponse(args) async {
-//   final queryParameter = {
-//     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-//   };
-//   print("entering lavesh");
-//   final response = await http.post(
-//     Uri.parse(
-//         'https://4b7c-103-70-43-12.in.ngrok.io/products/getProductDetails'),
-//     headers: {
-//       "ngrok-skip-browser-warning": "value",
-//     },
-//   );
-//
-//   print("........................response..........................");
-//   print(response.body);
-//
-//   if (response.statusCode == 200) {
-//     return ApiResponse.fromJson(jsonDecode(response.body));
-//   } else {
-//     throw Exception('Failed to load album');
-//   }
-// }
+
 
 void showCartScreen(UikAction uikAction) async {
   String skuId = await ProductDataHandler.getProductSkuId();
