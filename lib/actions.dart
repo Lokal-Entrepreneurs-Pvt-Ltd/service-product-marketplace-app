@@ -38,4 +38,5 @@ class UIK_ACTION {
   static const String OPEN_WITHDRAW = 'OPEN_WITHDRAW';
   static const String OPEN_LEADS = 'OPEN_LEADS';
   static const String OPEN_HISTORY = 'OPEN_HISTORY';
+  static const String REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
 }
