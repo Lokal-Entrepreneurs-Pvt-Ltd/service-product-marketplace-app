@@ -8,6 +8,7 @@ const String ENTER_OTP = "Enter OTP";
 const String CONTINUE = "Continue";
 const String GSTIN = "GSTIN";
 const String FULL_NAME = " Full Name";
+const String CHOOSE_PAYMENT_METHOD = "Choose a payment method!";
 
 
 
