@@ -39,4 +39,5 @@ class UIK_ACTION {
   static const String OPEN_LEADS = 'OPEN_LEADS';
   static const String OPEN_HISTORY = 'OPEN_HISTORY';
   static const String REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
+  static const String PLACE_ORDER = 'PLACE_ORDER';
 }

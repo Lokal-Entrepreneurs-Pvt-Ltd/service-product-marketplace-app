@@ -91,7 +91,7 @@ Future<void> openPayment(UikAction uikAction) async {
 
   var context = NavigationService.navigatorKey.currentContext;
   Map<String, dynamic>? args = {
-      ADDRESS_ID: uikAction.tap.data.addressId!,
+      // ADDRESS_ID: uikAction.tap.data.addressId!,
      CART_ID: CartDataHandler.getCartId()
   };
   Navigator.pushNamed(context!, ScreenRoutes.paymentDetailsScreen, arguments: args);
