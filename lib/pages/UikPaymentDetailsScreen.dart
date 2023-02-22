@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lokal/constants/strings.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -19,22 +20,33 @@ import '../utils/network/retrofit/api_routes.dart';
 // pay_cod
 //
 
+// enum PaymentMethod {
+//   online,
+//   cod,
+// }
+
 class UikPaymentDetailsScreen extends StandardPage {
+  String paymentMethod = "";
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.PAY_ONLINE);
     actionList.add(UIK_ACTION.PAY_COD);
+    actionList.add(UIK_ACTION.PLACE_ORDER);
     actionList.add(UIK_ACTION.PAYMENT_STATUS);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.addressNext;
+    // return ApiRepository.addressNext;
+    return getMockedApiResponse;
   }
 
   void onPaymentDetailsScreenTapAction(UikAction uikAction) {
+    print(uikAction.tap.type);
+
     switch (uikAction.tap.type) {
       case UIK_ACTION.PAY_ONLINE:
         payOnline(uikAction);
@@ -44,6 +56,9 @@ class UikPaymentDetailsScreen extends StandardPage {
         break;
       case UIK_ACTION.PAYMENT_STATUS:
         paymentStatus(uikAction);
+        break;
+      case UIK_ACTION.PLACE_ORDER:
+        placeOrder(uikAction);
         break;
       default:
     }
@@ -58,25 +73,40 @@ class UikPaymentDetailsScreen extends StandardPage {
   getPageContext() {
     return UikPaymentDetailsScreen;
   }
-}
 
-void payCOD(UikAction uikAction) {
-    makePayment(uikAction,PAYMENT_METHOD_COD);
+  void payCOD(UikAction uikAction) {
+    paymentMethod = PAYMENT_METHOD_COD;
+    makePayment(uikAction, PAYMENT_METHOD_COD);
+  }
+
+  void payOnline(UikAction uikAction) {
+    paymentMethod = PAYMENT_METHOD_ONLINE;
+    makePayment(uikAction, PAYMENT_METHOD_ONLINE);
+  }
+
+  void placeOrder(UikAction uikAction) {
+    if (paymentMethod.isEmpty) {
+      UiUtils.showToast(CHOOSE_PAYMENT_METHOD);
+    } else {
+      print(paymentMethod);
+      makePayment(uikAction, paymentMethod);
+    }
+  }
 }
 
 Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
+  dynamic response = await ApiRepository.paymentNext(
+    ApiRequestBody.getPaymentNextRequest(paymentMethod),
+  );
 
-  dynamic response = await ApiRepository.paymentNext(ApiRequestBody.
-  getPaymentNextRequest( paymentMethod));
   if (response.isSuccess!) {
     var orderNumberId = response.data[ORDER_NUMBER_ID];
     Map<String, dynamic>? args = {
-      "orderNumberId" : orderNumberId,
+      "orderNumberId": orderNumberId,
     };
     var context = NavigationService.navigatorKey.currentContext;
     Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: args);
-  }
-  else {
+  } else {
     UiUtils.showToast(response.error![MESSAGE]);
   }
 }
@@ -88,27 +118,23 @@ void paymentStatus(UikAction uikAction) {
   Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
 
-void payOnline(UikAction uikAction) {
-  makePayment(uikAction,PAYMENT_METHOD_ONLINE);
-}
+Future<ApiResponse> getMockedApiResponse(args) async {
+  final queryParameter = {
+    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
+  };
+  print("entering lavesh");
+  final response = await http.get(
+    Uri.parse('https://demo9979323.mockable.io/payments'),
+    headers: {
+      "ngrok-skip-browser-warning": "value",
+    },
+  );
 
-// Future<ApiResponse> getMockedApiResponse(args) async {
-//   final queryParameter = {
-//     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-//   };
-//   print("entering lavesh");
-//   final response = await http.get(
-//     Uri.parse('http://demo2913052.mockable.io/payment'),
-//     headers: {
-//       "ngrok-skip-browser-warning": "value",
-//     },
-//   );
-//
-//   print(response.body);
-//
-//   if (response.statusCode == 200) {
-//     return ApiResponse.fromJson(jsonDecode(response.body));
-//   } else {
-//     throw Exception('Failed to load album');
-//   }
-// }
+  print(response.body);
+
+  if (response.statusCode == 200) {
+    return ApiResponse.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load album');
+  }
+}

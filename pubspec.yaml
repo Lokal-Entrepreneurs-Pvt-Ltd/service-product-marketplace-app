@@ -65,7 +65,11 @@ dependencies:
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
   firebase_analytics: ^10.0.6
+<<<<<<< HEAD
   ui_sdk: ^1.0.83+1
+=======
+  ui_sdk: ^1.0.82+1
+>>>>>>> ab96458aca137d6f29e87f599047a817e245affa
   chucker_flutter: ^1.4.0
   sticky_headers: ^0.3.0+2
   fluttertoast: ^8.1.2
