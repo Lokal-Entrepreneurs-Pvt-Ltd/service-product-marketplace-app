@@ -28,7 +28,7 @@ class UikSearchCatalog extends StandardPage {
 
   void onSearchCatalogTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_ORDERS:
+      case UIK_ACTION.OPEN_ORDER_HISTORY:
         openSearch(uikAction);
         break;
       default:
@@ -52,7 +52,7 @@ void openSearch(UikAction uikAction) {
 
 Future<ApiResponse> getMockedApiResponse() async {
   final response = await http.get(
-    Uri.parse('https://demo1595178.mockable.io/SearchCategory'),
+    Uri.parse('https://v.mockable.io/SearchCategory'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },

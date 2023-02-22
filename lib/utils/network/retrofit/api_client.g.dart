@@ -13,7 +13,7 @@ class _StandardScreenClient implements StandardScreenClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://e6c2-202-89-65-238.in.ngrok.io';
+    baseUrl ??= 'https://132a-202-89-65-238.in.ngrok.io';
   }
 
   final Dio _dio;
@@ -333,7 +333,7 @@ class _StandardScreenClient implements StandardScreenClient {
     )
             .compose(
               _dio.options,
-              '/orderhistoryscreen',
+              '/order/getAll',
               queryParameters: queryParameters,
               data: _data,
             )

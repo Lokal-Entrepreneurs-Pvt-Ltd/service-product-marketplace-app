@@ -90,11 +90,13 @@ void addAddress(UikAction uikAction) {
 Future<void> openPayment(UikAction uikAction) async {
 
   var context = NavigationService.navigatorKey.currentContext;
-  Map<String, dynamic>? args = {
-      ADDRESS_ID: uikAction.tap.data.addressId!,
-     CART_ID: CartDataHandler.getCartId()
-  };
-  Navigator.pushNamed(context!, ScreenRoutes.paymentDetailsScreen, arguments: args);
-
+  if(uikAction.tap.data.key == TAP_ACTION_TYPE_KEY_ADDRESS_ID) {
+    Map<String, dynamic>? args = {
+      ADDRESS_ID: uikAction.tap.data.value,
+      CART_ID: CartDataHandler.getCartId()
+    };
+    Navigator.pushNamed(
+        context!, ScreenRoutes.paymentDetailsScreen, arguments: args);
+  }
 }
 

@@ -14,7 +14,6 @@ class UIK_ACTION {
   static const String OPEN_COUPON = 'OPEN_COUPON';
   static const String APPLY_COUPON = 'APPLY_COUPON';
   static const String REMOVE_COUPON = 'REMOVE_COUPON';
-  static const String OPEN_ORDERS = 'OPEN_ORDERS';
   static const String OPEN_DETAILS = 'OPEN_DETAILS';
   static const String OPEN_WISHLIST = 'OPEN_WISHLIST';
   static const String OPEN_ADDRESS = 'OPEN_ADDRESS';
