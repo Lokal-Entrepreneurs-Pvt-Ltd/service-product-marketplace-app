@@ -5,7 +5,6 @@ class UIK_ACTION {
   static const String OPEN_CATEGORY = 'OPEN_CATEGORY';
   static const String OPEN_ISP = 'OPEN_ISP';
   static const String ADD_TO_CART = 'ADD_TO_CART';
-  static const String REMOVE_FROM_CART = 'REMOVE_FROM_CART';
   static const String VIEW_DETAILS = 'VIEW_DETAILS';
   static const String VIEW_FAQ = 'VIEW_FAQ';
   static const String OPEN_WEB = 'OPEN_WEB';
@@ -38,6 +37,6 @@ class UIK_ACTION {
   static const String OPEN_WITHDRAW = 'OPEN_WITHDRAW';
   static const String OPEN_LEADS = 'OPEN_LEADS';
   static const String OPEN_HISTORY = 'OPEN_HISTORY';
-  static const String REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
+  static const String REMOVE_FROM_CART = 'REMOVE_FROM_CART';
   static const String PLACE_ORDER = 'PLACE_ORDER';
 }
