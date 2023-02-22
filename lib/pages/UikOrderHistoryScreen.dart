@@ -23,7 +23,7 @@ class UikOrderHistoryScreen extends StandardPage {
 
   void onOrderHistoryScrenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_ORDERS:
+      case UIK_ACTION.OPEN_ORDER_HISTORY:
         openOrder(uikAction);
         break;
       default:

@@ -23,7 +23,7 @@ class UikMyAccountScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_ORDERS);
+    actionList.add(UIK_ACTION.OPEN_ORDER_HISTORY);
     actionList.add(UIK_ACTION.OPEN_DETAILS);
     actionList.add(UIK_ACTION.OPEN_WISHLIST);
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
@@ -39,7 +39,7 @@ class UikMyAccountScreen extends StandardPage {
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_ORDERS:
+      case UIK_ACTION.OPEN_ORDER_HISTORY:
         openOrders(uikAction);
         break;
       case UIK_ACTION.OPEN_DETAILS:
@@ -109,11 +109,9 @@ void openDetails(UikAction uikAction) {
 }
 
 void openOrders(UikAction uikAction) {
-  UiUtils.showToast("ORDERS");
-
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ApiRoutes.orderScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.orderHistoryScreen);
 }
 
 // Future<ApiResponse> getMockedApiResponse(args) async {

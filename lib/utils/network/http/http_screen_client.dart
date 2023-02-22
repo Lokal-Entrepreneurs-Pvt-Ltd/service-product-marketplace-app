@@ -6,7 +6,8 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../../constants.dart';
 
-class HttpScreenClient {
+class
+HttpScreenClient {
   static Future<ApiResponse> getHomeScreen(args) async {
     // String url = apiBaseUrl ?? baseUrl;
 
