@@ -28,28 +28,10 @@ class UikAddressBook extends StandardPage {
 
   @override
   dynamic getData() {
-   //return  getMockedApiResponse;
     return ApiRepository.getAddressScreen;
   }
 
 
-
-  // Future<ApiResponse> getMockedApiResponse(args) async {
-  //   print("lavesh ${args}");
-  //   final response = await http.get(
-  //     Uri.parse('http://demo2913052.mockable.io/addressbook'),
-  //     headers: {
-  //       "ngrok-skip-browser-warning": "value",
-  //     },
-  //   );
-  //
-  //   // StandardScreenResponse
-  //   if (response.statusCode == 200) {
-  //     return ApiResponse.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Failed to load album');
-  //   }
-  // }
   void onAddressBookTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_ADDRESS:
@@ -90,7 +72,7 @@ void addAddress(UikAction uikAction) {
 Future<void> openPayment(UikAction uikAction) async {
 
   var context = NavigationService.navigatorKey.currentContext;
-<<<<<<< HEAD
+
   if(uikAction.tap.data.key == TAP_ACTION_TYPE_KEY_ADDRESS_ID) {
     Map<String, dynamic>? args = {
       ADDRESS_ID: uikAction.tap.data.value,
@@ -99,13 +81,5 @@ Future<void> openPayment(UikAction uikAction) async {
     Navigator.pushNamed(
         context!, ScreenRoutes.paymentDetailsScreen, arguments: args);
   }
-=======
-  Map<String, dynamic>? args = {
-      // ADDRESS_ID: uikAction.tap.data.addressId!,
-     CART_ID: CartDataHandler.getCartId()
-  };
-  Navigator.pushNamed(context!, ScreenRoutes.paymentDetailsScreen, arguments: args);
-
->>>>>>> ab96458aca137d6f29e87f599047a817e245affa
 }
 
