@@ -30,3 +30,7 @@ const String STATE = "state";
 const String POSTCODE = "postcode";
 const String TELEPHONE = "telephone";
 
+// ------Tap Action ------------
+
+const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";
+const String TAP_ACTION_TYPE_KEY_ORDER_NUMBER_ID = "orderNumberId";

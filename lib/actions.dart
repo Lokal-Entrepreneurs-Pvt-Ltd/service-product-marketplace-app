@@ -14,7 +14,6 @@ class UIK_ACTION {
   static const String OPEN_COUPON = 'OPEN_COUPON';
   static const String APPLY_COUPON = 'APPLY_COUPON';
   static const String REMOVE_COUPON = 'REMOVE_COUPON';
-  static const String OPEN_ORDERS = 'OPEN_ORDERS';
   static const String OPEN_DETAILS = 'OPEN_DETAILS';
   static const String OPEN_WISHLIST = 'OPEN_WISHLIST';
   static const String OPEN_ADDRESS = 'OPEN_ADDRESS';
@@ -27,7 +26,7 @@ class UIK_ACTION {
   static const String DELETE_ADDRESS = 'DELETE_ADDRESS';
   static const String OPEN_PRODUCT = 'OPEN_PRODUCT';
   static const String OPEN_ORDER_HISTORY = 'OPEN_ORDER_HISTORY';
-  static const String ORDER_DETAIL = 'ORDER_DETAIL';
+  static const String OPEN_ORDER = 'OPEN_ORDER';
   static const String OPEN_SEARCH = 'OPEN_SEARCH';
   static const String PAY_ONLINE = 'PAY_ONLINE';
   static const String PAY_COD = 'PAY_COD';
