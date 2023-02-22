@@ -20,13 +20,14 @@ class UikEmptyCartScreen extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
+    actionList.add(UIK_ACTION.REMOVE_FROM_CART);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getCartScreen({"cartId" :CartDataHandler.getCartId()});
-    // return getMockedApiResponse;
+    // return ApiRepository.getCartScreen({"cartId": CartDataHandler.getCartId()});
+    return getMockedApiResponse;
   }
 
   void onEmptyCartScreenTapAction() {}
@@ -47,7 +48,7 @@ class UikCartScreen extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
-    actionList.add(UIK_ACTION.REMOVE_CART_ITEM);
+    actionList.add(UIK_ACTION.REMOVE_FROM_CART);
     return actionList;
   }
 
@@ -65,14 +66,9 @@ class UikCartScreen extends StandardPage {
           openMyDetails();
         }
         break;
-      case UIK_ACTION.REMOVE_CART_ITEM:
-        if (UserDataHandler.getIsUserVerified()) {
-          removeCartItem(uikAction);
-        } else {
-          openMyDetails();
-        }
+      case UIK_ACTION.REMOVE_FROM_CART:
+        removeCartItem(uikAction);
         break;
-
       default:
     }
   }
@@ -94,7 +90,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
 
   final response = await http.get(
-    Uri.parse('https://929e-202-89-65-238.ngrok.io/customer/get'),
+    Uri.parse('https://132a-202-89-65-238.in.ngrok.io/cart/get'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
