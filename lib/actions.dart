@@ -26,7 +26,7 @@ class UIK_ACTION {
   static const String DELETE_ADDRESS = 'DELETE_ADDRESS';
   static const String OPEN_PRODUCT = 'OPEN_PRODUCT';
   static const String OPEN_ORDER_HISTORY = 'OPEN_ORDER_HISTORY';
-  static const String ORDER_DETAIL = 'ORDER_DETAIL';
+  static const String OPEN_ORDER = 'OPEN_ORDER';
   static const String OPEN_SEARCH = 'OPEN_SEARCH';
   static const String PAY_ONLINE = 'PAY_ONLINE';
   static const String PAY_COD = 'PAY_COD';

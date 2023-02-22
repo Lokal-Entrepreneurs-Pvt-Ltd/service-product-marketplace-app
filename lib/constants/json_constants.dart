@@ -22,13 +22,7 @@ const String ORDER_NUMBER_ID = "orderNumberId";
 const String PAYMENT_METHOD_COD = "cod";
 const String PAYMENT_METHOD_ONLINE = "online";
 
-
-
-
-
-
-
 // ------Tap Action ------------
 
 const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";
-
+const String TAP_ACTION_TYPE_KEY_ORDER_NUMBER_ID = "orderNumberId";
