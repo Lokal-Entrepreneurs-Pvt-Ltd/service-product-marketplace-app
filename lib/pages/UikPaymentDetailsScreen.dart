@@ -40,13 +40,11 @@ class UikPaymentDetailsScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.addressNext;
-    return getMockedApiResponse;
+     return ApiRepository.addressNext;
+    //return getMockedApiResponse;
   }
 
   void onPaymentDetailsScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
-
     switch (uikAction.tap.type) {
       case UIK_ACTION.PAY_ONLINE:
         payOnline(uikAction);
@@ -102,7 +100,7 @@ Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
   if (response.isSuccess!) {
     var orderNumberId = response.data[ORDER_NUMBER_ID];
     Map<String, dynamic>? args = {
-      "orderNumberId": orderNumberId,
+      ORDER_NUMBER_ID: orderNumberId,
     };
     var context = NavigationService.navigatorKey.currentContext;
     Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: args);
@@ -118,23 +116,23 @@ void paymentStatus(UikAction uikAction) {
   Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
 
-Future<ApiResponse> getMockedApiResponse(args) async {
-  final queryParameter = {
-    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-  };
-  print("entering lavesh");
-  final response = await http.get(
-    Uri.parse('https://demo9979323.mockable.io/payments'),
-    headers: {
-      "ngrok-skip-browser-warning": "value",
-    },
-  );
-
-  print(response.body);
-
-  if (response.statusCode == 200) {
-    return ApiResponse.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load album');
-  }
-}
+// Future<ApiResponse> getMockedApiResponse(args) async {
+//   final queryParameter = {
+//     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
+//   };
+//   print("entering lavesh");
+//   final response = await http.get(
+//     Uri.parse('https://demo9979323.mockable.io/payments'),
+//     headers: {
+//       "ngrok-skip-browser-warning": "value",
+//     },
+//   );
+//
+//   print(response.body);
+//
+//   if (response.statusCode == 200) {
+//     return ApiResponse.fromJson(jsonDecode(response.body));
+//   } else {
+//     throw Exception('Failed to load album');
+//   }
+// }

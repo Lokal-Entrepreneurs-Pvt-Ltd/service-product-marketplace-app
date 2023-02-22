@@ -16,7 +16,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 
 import '../constants/strings.dart';
 import '../main.dart';
-import '../utils/network/retrofit/api_routes.dart';
+
 
 class UikMyAccountScreen extends StandardPage {
   // final obj = Snack();
