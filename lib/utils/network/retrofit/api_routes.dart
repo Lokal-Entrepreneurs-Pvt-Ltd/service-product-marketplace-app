@@ -10,7 +10,7 @@ class ApiRoutes {
   static const String paymentStatusScreen = '/paymentstatusscreen';
   static const String orderScreen = '/order/get';
   static const String paymentdetailsScreen = '/paymentdetailsscreen';
-  static const String orderHistoryScreen = "/orderhistoryscreen";
+  static const String orderHistoryScreen = "/order/getAll";
   static const String otp = "/otp";
   static const String avatar = "/avatar";
   static const String icon = "/icon";
