@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -18,11 +20,18 @@ import '../utils/network/retrofit/api_routes.dart';
 // delete address
 
 class UikAddAddressScreen extends StandardPage {
-  // final obj = Snack();
+  String name = "";
+  String phone = "";
+  String street = "";
+  String houseNumber = "";
+  String city = "";
+  String postcode = "";
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-
+    actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);
+    actionList.add(UIK_ACTION.SUBMIT_ADDRESS);
     return actionList;
   }
 
@@ -33,6 +42,12 @@ class UikAddAddressScreen extends StandardPage {
 
   void onAddressBookTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
+      case UIK_ACTION.ON_TEXT_EDIT_COMPLETE:
+        onTextEditComplete(uikAction);
+        break;
+      case UIK_ACTION.SUBMIT_ADDRESS:
+        submitAddress(uikAction);
+        break;
       default:
     }
   }
@@ -46,6 +61,50 @@ class UikAddAddressScreen extends StandardPage {
   getPageContext() {
     return UikAddAddressScreen;
   }
+
+  void onTextEditComplete(UikAction uikAction) {
+    var key = uikAction.tap.data.key;
+    var value = uikAction.tap.data.value;
+
+    print(key);
+    print(value);
+
+    if (key == "Full Name") {
+      name = value!;
+    } else if (key == "Phone") {
+      phone = value!;
+    } else if (key == "Street") {
+      street = value!;
+    } else if (key == "House number") {
+      houseNumber = value!;
+    } else if (key == "City") {
+      city = value!;
+    } else if (key == "Postcode") {
+      postcode = value!;
+    }
+  }
+
+  void submitAddress(UikAction uikAction) {
+    Map<String, dynamic> args = {
+      FIRST_NAME: name,
+      LAST_NAME: "",
+      ADDRESS_LINE_1: houseNumber,
+      ADDRESS_LINE_2: street,
+      CITY: city,
+      STATE: {
+        "id": 578,
+      },
+      POSTCODE: postcode,
+      TELEPHONE: phone,
+    };
+
+    final BuildContext context = NavigationService.navigatorKey.currentContext!;
+    Navigator.pushNamed(
+      context,
+      ScreenRoutes.paymentDetailsScreen,
+      arguments: args,
+    );
+  }
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
@@ -54,7 +113,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
 
   final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/address'),
+    Uri.parse('https://demo3926789.mockable.io/addaddress'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
