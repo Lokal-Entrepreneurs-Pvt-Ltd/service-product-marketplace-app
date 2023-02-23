@@ -39,4 +39,6 @@ class UIK_ACTION {
   static const String OPEN_HISTORY = 'OPEN_HISTORY';
   static const String REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
   static const String PLACE_ORDER = 'PLACE_ORDER';
+  static const String ON_TEXT_EDIT_COMPLETE = 'ON_TEXT_EDIT_COMPLETE';
+  static const String SUBMIT_ADDRESS = 'SUBMIT_ADDRESS';
 }
