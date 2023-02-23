@@ -14,6 +14,7 @@ import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 import '../utils/network/retrofit/api_routes.dart';
+import '../utils/storage/user_data_handler.dart';
 
 // add adress
 // remove add
@@ -26,6 +27,8 @@ class UikAddAddressScreen extends StandardPage {
   String houseNumber = "";
   String city = "";
   String postcode = "";
+
+  String authToken = UserDataHandler.getUserToken();
 
   @override
   Set<String?> getActions() {
@@ -86,16 +89,18 @@ class UikAddAddressScreen extends StandardPage {
 
   void submitAddress(UikAction uikAction) {
     Map<String, dynamic> args = {
-      FIRST_NAME: name,
-      LAST_NAME: "",
-      ADDRESS_LINE_1: houseNumber,
-      ADDRESS_LINE_2: street,
-      CITY: city,
-      STATE: {
-        "id": 578,
+      ADDRESS: {
+        FIRST_NAME: name,
+        LAST_NAME: "",
+        ADDRESS_LINE_1: houseNumber,
+        ADDRESS_LINE_2: street,
+        CITY: city,
+        STATE: {
+          "id": 578,
+        },
+        POSTCODE: postcode,
+        TELEPHONE: phone,
       },
-      POSTCODE: postcode,
-      TELEPHONE: phone,
     };
 
     final BuildContext context = NavigationService.navigatorKey.currentContext!;

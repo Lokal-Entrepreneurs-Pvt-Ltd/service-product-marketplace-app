@@ -21,6 +21,7 @@ const String PAYMENT_METHOD = "paymentMethod";
 const String ORDER_NUMBER_ID = "orderNumberId";
 const String PAYMENT_METHOD_COD = "cod";
 const String PAYMENT_METHOD_ONLINE = "online";
+const String ADDRESS = "address";
 const String FIRST_NAME = "firstName";
 const String LAST_NAME = "lastName";
 const String ADDRESS_LINE_1 = "addressLine1";
