@@ -73,20 +73,20 @@ Future<ApiResponse> getMockedApiResponse(args) async {
 }
 
 void addToCart(UikAction uikAction) async {
-  var skuId = uikAction.tap.data.skuId;
-
-  //api call to update cart
-  final response =
-      await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
-    "ngrok-skip-browser-warning": "value",
-  }, body: {
-    "skuId": skuId,
-    "cartId": "",
-    "action": "add"
-  });
-
-  //displaying response from update cart
-  print("statusCode ${response.body}");
+  // var skuId = uikAction.tap.data.skuId;
+  //
+  // //api call to update cart
+  // final response =
+  //     await getHttp().post(Uri.parse('${baseUrl}/cart/update'), headers: {
+  //   "ngrok-skip-browser-warning": "value",
+  // }, body: {
+  //   "skuId": skuId,
+  //   "cartId": "",
+  //   "action": "add"
+  // });
+  //
+  // //displaying response from update cart
+  // print("statusCode ${response.body}");
 }
 
 void openCategory(UikAction uikAction) {

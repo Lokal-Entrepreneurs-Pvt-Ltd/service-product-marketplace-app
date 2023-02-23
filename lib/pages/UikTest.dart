@@ -369,7 +369,7 @@ void addToCart(UikAction uikAction) async {
 
   //api call to update cart
   final response =
-      await http.post(Uri.parse('${baseUrl}/cart/update'), headers: {
+      await getHttp().post(Uri.parse('${baseUrl}/cart/update'), headers: {
     "ngrok-skip-browser-warning": "value",
   }, body: {
     "skuId": skuId,

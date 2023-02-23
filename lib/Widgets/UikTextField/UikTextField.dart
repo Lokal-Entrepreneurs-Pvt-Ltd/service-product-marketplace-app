@@ -106,37 +106,7 @@ class _MyTextFieldState extends State<MyTextField> {
                             setState(() {});
                           },
                           onEditingComplete: () async {
-                            // https://08ea-202-89-65-238.in.ngrok.io/customer/doesAccountExist
 
-                            if (!widget.isSignUpField) {
-                              if (!widget.isPassword) {
-                                Uri uri = Uri.parse(
-                                    "http://localhost:3000/customer/doesAccountExist");
-
-                                var response = await http.post(
-                                  uri,
-                                  body: {
-                                    "email": widget.Controller.text,
-                                  },
-                                );
-
-                                final body = jsonDecode(response.body)
-                                    as Map<String, dynamic>;
-
-                                if (body["isSuccess"]) {
-                                  bool isAccountFound =
-                                      body["data"]["response"]["accountFound"];
-
-                                  if (!isAccountFound) {
-                                    setState(() {
-                                      widget.error = true;
-                                      widget.description =
-                                          "Account doesn't exist";
-                                    });
-                                  }
-                                }
-                              }
-                            }
                           },
                           obscureText: widget.isPassword,
                           cursorColor: Colors.black,

@@ -45,23 +45,16 @@ class ApiRepository {
     return HttpScreenClient.getSearchScreen(args);
   }
 
-  static Future<ApiResponse> getPaymentDetailsScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo8023603.mockable.io/")
-        .getPaymentDetailsScreen(args);
-  }
 
   static Future<ApiResponse> getOrderScreen(args) {
-    return StandardScreenClient(
-      getDio(),
-    ).getOrderScreen(args);
+    return   HttpScreenClient.getOrderScreen(args);
   }
 
-  static Future<ApiResponse> getEmptyCartScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "http://demo2913052.mockable.io/")
-        .getEmptyCartScreen(args);
-  }
+  // static Future<ApiResponse> getEmptyCartScreen(args) {
+  //   return StandardScreenClient(getDio(),
+  //           baseUrl: "http://demo2913052.mockable.io/")
+  //       .getEmptyCartScreen(args);
+  // }
 
   static Future<ApiResponse> getOrderHistoryScreen(args) {
     return StandardScreenClient(
@@ -91,7 +84,7 @@ class ApiRepository {
     return HttpScreenClient.getEarningScreen(args);
   }
 
-  static Future<ApiResponse> getLoginScreen(args) {
+  static Future<ApiResponse> getLoginScreen( args) {
     return HttpScreenClient.getLoginScreen(args);
   }
 
