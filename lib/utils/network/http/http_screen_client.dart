@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:lokal/utils/network/network_utils.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
@@ -9,8 +10,12 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../../constants/environment.dart';
 
 class HttpScreenClient {
+
+  static ChuckerHttpClient getHttp () {
+   return ChuckerHttpClient(http.Client());
+  }
   static Future<ApiResponse> getHomeScreen(args) async {
-    final response = await http.post(
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.homeScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -24,8 +29,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getMyAccountScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.myAccountScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -39,8 +44,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getCatalogueScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.catalogueScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -54,8 +59,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getProductScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.productScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -69,8 +74,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> updateCart(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.updateCart),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -84,8 +89,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getCartScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.cartScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -99,8 +104,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getAddressScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.addressScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -114,8 +119,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getCouponScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.couponScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -129,8 +134,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getSearchScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.searchScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -144,8 +149,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getPaymentDetailsScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.paymentDetailsScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -159,8 +164,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getOrderScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.orderScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -174,8 +179,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getEmptyCartScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.emptyCartScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -189,8 +194,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getOrderHistoryScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.orderHistoryScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -204,8 +209,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getAddressBookScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.addressBook),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -219,8 +224,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getInviteScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.inviteScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -234,8 +239,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getServiceScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.serviceScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -249,8 +254,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getEarningScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.earningScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -263,12 +268,12 @@ class HttpScreenClient {
     }
   }
 
-  static Future<ApiResponse> getLoginScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+  static Future<ApiResponse> getLoginScreen(Map<String, dynamic>? args) async {
+
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.loginScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
-      body: args,
+      body: jsonEncode(args),
     );
 
     if (response.statusCode == 200) {
@@ -279,8 +284,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getSignUpScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.signUpScreen),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -294,8 +299,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> updateCustomerInfo(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.updateCustomerInfo),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -309,8 +314,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> sendOtp(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.sendOtp),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -324,8 +329,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> verifyOtp(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.verifyOtp),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -339,8 +344,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> addressNext(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.addressNext),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,
@@ -354,8 +359,8 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> paymentNext(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    final response = await http.post(
+      Map<String, dynamic>? args) async {
+    final response = await getHttp().post(
       Uri.parse(BASE_URL + ApiRoutes.paymentNext),
       headers: {...NetworkUtils.getRequestHeaders()},
       body: args,

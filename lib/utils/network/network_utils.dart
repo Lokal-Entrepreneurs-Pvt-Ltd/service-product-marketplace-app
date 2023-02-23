@@ -2,7 +2,7 @@ import '../storage/user_data_handler.dart';
 
 abstract class NetworkUtils {
 
-  static dynamic getRequestHeaders() {
+  static Map<String, String> getRequestHeaders() {
     return {
       "ngrok-skip-browser-warning": "value",
     "Accept": "*/*",
