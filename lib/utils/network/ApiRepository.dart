@@ -4,6 +4,7 @@ import 'package:lokal/utils/network/retrofit/api_client.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../storage/user_data_handler.dart';
+import 'http/http_screen_client.dart';
 
 class ApiRepository {
   static Dio getDio() {
@@ -13,8 +14,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getHomescreen(args) {
-    return StandardScreenClient(getDio())
-        .getHomeScreen(args);
+    return  HttpScreenClient.getHomeScreen(args);
   }
 
   static Future<ApiResponse> getCatalogue(args) {
@@ -70,8 +70,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getMyAccountScreen(args) {
-    return StandardScreenClient(getDio(),)
-        .getMyAccountScreen(args);
+    return HttpScreenClient.getMyAccountScreen(args);
   }
 
   static Future<ApiResponse> getAddressBookScreen(args) {

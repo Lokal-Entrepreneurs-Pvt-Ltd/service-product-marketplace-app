@@ -132,7 +132,8 @@ class _LokalAppState extends State<LokalApp> {
           create: (context) => DarkThemeProvider(),
         ),
       ],
-      child: MaterialApp(
+      child:
+      MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
@@ -146,7 +147,7 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => UikHome().page,
 
           "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
-          // "/": (context) => UikAddAddressScreen().page,
+         // "/": (context) => UikAddAddressScreen().page,
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,

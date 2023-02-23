@@ -1,40 +1,53 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:lokal/utils/network/network_utils.dart';
+import 'package:lokal/utils/network/retrofit/api_routes.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../../constants.dart';
+import '../../../constants/environment.dart';
+
 
 class
 HttpScreenClient {
+
   static Future<ApiResponse> getHomeScreen(args) async {
-    // String url = apiBaseUrl ?? baseUrl;
-
-    print("World");
-
-    final response = await http.get(
-      // Uri.parse('$url/discovery/get'),
-      Uri.parse('http://demo2913052.mockable.io/home'),
+    final response = await http.post(
+      Uri.parse(BASE_URL+ ApiRoutes.homeScreen),
       headers: {
-        "ngrok-skip-browser-warning": "value",
+        ... NetworkUtils.getRequestHeaders()
       },
-      // body: args,
+      body: args,
     );
-
-    print(response.body);
-
     if (response.statusCode == 200) {
       return ApiResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load homescreen');
+    }
+  }
+
+  static Future<ApiResponse> getMyAccountScreen(
+      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
+    final response = await http.post(
+      Uri.parse(BASE_URL+ ApiRoutes.myAccountScreen),
+      headers: {
+        ... NetworkUtils.getRequestHeaders()
+      },
+      body: args,
+    );
+    if (response.statusCode == 200) {
+      return ApiResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load my account');
     }
   }
 
   static Future<ApiResponse> getCatalogueScreen(
       [String? apiBaseUrl, Map<String, dynamic>? args]) async {
     String url = apiBaseUrl ?? baseUrl;
-
     final response = await http.post(
       Uri.parse('$url/products/get'),
       headers: {
@@ -240,24 +253,7 @@ HttpScreenClient {
     }
   }
 
-  static Future<ApiResponse> getMyAccountScreen(
-      [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    String url = apiBaseUrl ?? baseUrl;
 
-    final response = await http.post(
-      Uri.parse('$url/myAccount'),
-      headers: {
-        "ngrok-skip-browser-warning": "value",
-      },
-      body: args,
-    );
-
-    if (response.statusCode == 200) {
-      return ApiResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }
 
   static Future<ApiResponse> getAddressBookScreen(
       [String? apiBaseUrl, Map<String, dynamic>? args]) async {
