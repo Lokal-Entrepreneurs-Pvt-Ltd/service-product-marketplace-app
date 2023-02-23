@@ -14,7 +14,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getHomescreen(args) {
-    return  HttpScreenClient.getHomeScreen(args);
+    return HttpScreenClient.getHomeScreen(args);
   }
 
   static Future<ApiResponse> getCatalogue(args) {
@@ -22,29 +22,27 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getProductScreen(args) {
-    return StandardScreenClient(getDio()).getProductScreen(args);
+    return HttpScreenClient.getProductScreen(args);
   }
 
   static Future<ApiResponse> updateCart(args) {
-    return StandardScreenClient(getDio()).updateCart(args);
+    return HttpScreenClient.updateCart(args);
   }
 
   static Future<ApiResponse> getCartScreen(args) {
-    return StandardScreenClient(getDio()).getCartScreen(args);
+    return HttpScreenClient.getCartScreen(args);
   }
 
   static Future<ApiResponse> getAddressScreen(args) {
-    return StandardScreenClient(getDio()).getAddressScreen(args);
+    return HttpScreenClient.getAddressScreen(args);
   }
 
   static Future<ApiResponse> getCouponScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo6536398.mockable.io/")
-        .getCouponScreen(args);
+    return HttpScreenClient.getCouponScreen(args);
   }
 
   static Future<ApiResponse> getSearchScreen(args) {
-    return StandardScreenClient(getDio()).getSearchScreen(args);
+    return HttpScreenClient.getSearchScreen(args);
   }
 
   static Future<ApiResponse> getPaymentDetailsScreen(args) {
@@ -54,8 +52,9 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getOrderScreen(args) {
-    return StandardScreenClient(getDio(),)
-        .getOrderScreen(args);
+    return StandardScreenClient(
+      getDio(),
+    ).getOrderScreen(args);
   }
 
   static Future<ApiResponse> getEmptyCartScreen(args) {
@@ -65,8 +64,9 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getOrderHistoryScreen(args) {
-    return StandardScreenClient(getDio(),)
-        .getOrderHistoryScreen(args);
+    return StandardScreenClient(
+      getDio(),
+    ).getOrderHistoryScreen(args);
   }
 
   static Future<ApiResponse> getMyAccountScreen(args) {
@@ -74,52 +74,49 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getAddressBookScreen(args) {
-    return StandardScreenClient(getDio(),)
-        .getAddressBookScreen(args);
+    return StandardScreenClient(
+      getDio(),
+    ).getAddressBookScreen(args);
   }
 
   static Future<ApiResponse> getInviteScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo6536398.mockable.io/")
-        .getInviteScreen(args);
+    return HttpScreenClient.getInviteScreen(args);
   }
 
   static Future<ApiResponse> getServiceScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo6536398.mockable.io/")
-        .getServiceScreen(args);
+    return HttpScreenClient.getServiceScreen(args);
   }
 
   static Future<ApiResponse> getEarningScreen(args) {
-    return StandardScreenClient(getDio(),
-            baseUrl: "https://demo6536398.mockable.io/")
-        .getEarningScreen(args);
+    return HttpScreenClient.getEarningScreen(args);
   }
 
   static Future<ApiResponse> getLoginScreen(args) {
-    return StandardScreenClient(getDio()).getLoginScreen(args);
+    return HttpScreenClient.getLoginScreen(args);
   }
 
   static Future<ApiResponse> getSignUpScreen(args) {
-    return StandardScreenClient(getDio()).getSignUpScreen(args);
+    return HttpScreenClient.getSignUpScreen(args);
   }
 
   static Future<ApiResponse> updateCustomerInfo(args) {
-    return StandardScreenClient(getDio()).updateCustomerInfo(args);
+    return HttpScreenClient.updateCustomerInfo(args);
   }
+
   static Future<ApiResponse> sendOtp(args) {
-    return StandardScreenClient(getDio()).sendOtp(args);
+    return HttpScreenClient.sendOtp(args);
   }
+
   static Future<ApiResponse> verifyOtp(args) {
-    return StandardScreenClient(getDio()).verifyOtp(args);
+    return HttpScreenClient.verifyOtp(args);
   }
 
   static Future<ApiResponse> addressNext(args) {
-    return StandardScreenClient(getDio()).addressNext(args);
+    return HttpScreenClient.addressNext(args);
   }
 
   static Future<ApiResponse> paymentNext(args) {
-    return StandardScreenClient(getDio()).paymentNext(args);
+    return HttpScreenClient.paymentNext(args);
   }
 }
 

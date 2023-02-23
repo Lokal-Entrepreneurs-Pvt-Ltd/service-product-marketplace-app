@@ -31,4 +31,5 @@ class ApiRoutes {
   static const String verifyOtp = "/customer/verifyOtp";
   static const String addressNext = "/checkout/address/next";
   static const String paymentNext = "/checkout/payment/next";
+  static const String addressBook = "/checkout/addressbook";
 }
