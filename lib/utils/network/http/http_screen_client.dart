@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -15,16 +17,21 @@ class HttpScreenClient {
    return ChuckerHttpClient(http.Client());
   }
   static Future<ApiResponse> getHomeScreen(args) async {
-    final response = await getHttp().post(
-      Uri.parse(BASE_URL + ApiRoutes.homeScreen),
-      headers: {...NetworkUtils.getRequestHeaders()},
-      body: args,
-    );
-
-    if (response.statusCode == 200) {
-      return ApiResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load homescreen');
+    try {
+      final response = await getHttp().post(
+        Uri.parse(BASE_URL + ApiRoutes.homeScreen),
+        headers: {...NetworkUtils.getRequestHeaders()},
+        body: args,
+      ).timeout( Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
+      if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
+        return ApiResponse.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('Failed to load '+ ApiRoutes.homeScreen);
+      }
+    } on TimeoutException catch (_) {
+      throw Exception('Timeout Error to load '+ ApiRoutes.homeScreen);
+    } on SocketException catch (_) {
+      throw Exception('Socket Error to load '+ ApiRoutes.homeScreen);
     }
   }
 
