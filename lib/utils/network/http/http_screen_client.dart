@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lokal/utils/network/network_utils.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
-import 'package:lokal/utils/storage/user_data_handler.dart';
 
 import 'package:ui_sdk/props/ApiResponse.dart';
 
-import '../../../constants.dart';
 import '../../../constants/environment.dart';
 
 class HttpScreenClient {
