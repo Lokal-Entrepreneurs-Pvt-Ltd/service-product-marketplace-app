@@ -47,19 +47,17 @@ HttpScreenClient {
 
   static Future<ApiResponse> getCatalogueScreen(
       [String? apiBaseUrl, Map<String, dynamic>? args]) async {
-    String url = apiBaseUrl ?? baseUrl;
     final response = await http.post(
-      Uri.parse('$url/products/get'),
+      Uri.parse(BASE_URL+ ApiRoutes.catalogueScreen),
       headers: {
-        "ngrok-skip-browser-warning": "value",
+        ... NetworkUtils.getRequestHeaders()
       },
       body: args,
     );
-
     if (response.statusCode == 200) {
       return ApiResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load catalog screen');
     }
   }
 

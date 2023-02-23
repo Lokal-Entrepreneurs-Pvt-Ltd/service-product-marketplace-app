@@ -18,7 +18,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getCatalogue(args) {
-    return StandardScreenClient(getDio()).getCatlogue(args);
+    return HttpScreenClient.getCatalogueScreen(args);
   }
 
   static Future<ApiResponse> getProductScreen(args) {
