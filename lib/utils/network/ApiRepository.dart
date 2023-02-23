@@ -57,9 +57,7 @@ class ApiRepository {
   // }
 
   static Future<ApiResponse> getOrderHistoryScreen(args) {
-    return StandardScreenClient(
-      getDio(),
-    ).getOrderHistoryScreen(args);
+    return HttpScreenClient.getOrderHistoryScreen(args);
   }
 
   static Future<ApiResponse> getMyAccountScreen(args) {
