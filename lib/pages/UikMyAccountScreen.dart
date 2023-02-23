@@ -24,7 +24,7 @@ class UikMyAccountScreen extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_ORDER_HISTORY);
-    actionList.add(UIK_ACTION.OPEN_DETAILS);
+    actionList.add(UIK_ACTION.OPEN_MY_DETAILS);
     actionList.add(UIK_ACTION.OPEN_WISHLIST);
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
     actionList.add(UIK_ACTION.OPEN_PAYMENT);
@@ -42,7 +42,7 @@ class UikMyAccountScreen extends StandardPage {
       case UIK_ACTION.OPEN_ORDER_HISTORY:
         openOrders(uikAction);
         break;
-      case UIK_ACTION.OPEN_DETAILS:
+      case UIK_ACTION.OPEN_MY_DETAILS:
         openDetails(uikAction);
         break;
       case UIK_ACTION.OPEN_WISHLIST:
@@ -103,7 +103,6 @@ void openWishlist(UikAction uikAction) {
 }
 
 void openDetails(UikAction uikAction) {
-  UiUtils.showToast("DETAILS");
   var context = NavigationService.navigatorKey.currentContext;
   Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
 }
