@@ -1,6 +1,7 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:lokal/utils/network/retrofit/api_client.dart';
+import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../storage/user_data_handler.dart';
@@ -14,40 +15,40 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getHomescreen(args) {
-    return HttpScreenClient.getHomeScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.homeScreen, args);
   }
 
   static Future<ApiResponse> getCatalogue(args) {
-    return HttpScreenClient.getCatalogueScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.catalogueScreen, args);
   }
 
   static Future<ApiResponse> getProductScreen(args) {
-    return HttpScreenClient.getProductScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.productScreen, args);
   }
 
   static Future<ApiResponse> updateCart(args) {
-    return HttpScreenClient.updateCart(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.updateCart, args);
   }
 
   static Future<ApiResponse> getCartScreen(args) {
-    return HttpScreenClient.getCartScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.cartScreen, args);
   }
 
   static Future<ApiResponse> getAddressScreen(args) {
-    return HttpScreenClient.getAddressScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.addressScreen, args);
   }
 
   static Future<ApiResponse> getCouponScreen(args) {
-    return HttpScreenClient.getCouponScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.couponScreen, args);
   }
 
   static Future<ApiResponse> getSearchScreen(args) {
-    return HttpScreenClient.getSearchScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.searchScreen, args);
   }
 
 
   static Future<ApiResponse> getOrderScreen(args) {
-    return   HttpScreenClient.getOrderScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.orderScreen, args);
   }
 
   // static Future<ApiResponse> getEmptyCartScreen(args) {
@@ -57,57 +58,55 @@ class ApiRepository {
   // }
 
   static Future<ApiResponse> getOrderHistoryScreen(args) {
-    return HttpScreenClient.getOrderHistoryScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.orderHistoryScreen, args);
   }
 
   static Future<ApiResponse> getMyAccountScreen(args) {
-    return HttpScreenClient.getMyAccountScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.myAccountScreen, args);
   }
 
   static Future<ApiResponse> getAddressBookScreen(args) {
-    return StandardScreenClient(
-      getDio(),
-    ).getAddressBookScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.addressBook, args);
   }
 
   static Future<ApiResponse> getInviteScreen(args) {
-    return HttpScreenClient.getInviteScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.inviteScreen, args);
   }
 
   static Future<ApiResponse> getServiceScreen(args) {
-    return HttpScreenClient.getServiceScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.serviceScreen, args);
   }
 
   static Future<ApiResponse> getEarningScreen(args) {
-    return HttpScreenClient.getEarningScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.earningScreen, args);
   }
 
   static Future<ApiResponse> getLoginScreen( args) {
-    return HttpScreenClient.getLoginScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.loginScreen, args);
   }
 
   static Future<ApiResponse> getSignUpScreen(args) {
-    return HttpScreenClient.getSignUpScreen(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.signUpScreen, args);
   }
 
   static Future<ApiResponse> updateCustomerInfo(args) {
-    return HttpScreenClient.updateCustomerInfo(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.updateCustomerInfo, args);
   }
 
   static Future<ApiResponse> sendOtp(args) {
-    return HttpScreenClient.sendOtp(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtp, args);
   }
 
   static Future<ApiResponse> verifyOtp(args) {
-    return HttpScreenClient.verifyOtp(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyOtp, args);
   }
 
   static Future<ApiResponse> addressNext(args) {
-    return HttpScreenClient.addressNext(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.addressNext, args);
   }
 
   static Future<ApiResponse> paymentNext(args) {
-    return HttpScreenClient.paymentNext(args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.paymentNext, args);
   }
 }
 
