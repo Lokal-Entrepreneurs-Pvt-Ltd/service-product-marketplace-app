@@ -35,9 +35,13 @@ class UikHome extends StandardPage {
       case UIK_ACTION.OPEN_CATEGORY:
         openCategory(uikAction);
         break;
+      case UIK_ACTION.OPEN_PRODUCT:
+        openProduct(uikAction);
+        break;
       default:
     }
   }
+
 
   @override
   getPageCallBackForAction() {
@@ -48,6 +52,12 @@ class UikHome extends StandardPage {
   getPageContext() {
     return UikHome;
   }
+}
+
+void openProduct(UikAction uikAction) {
+  //Navigation to the product screen
+  var context = NavigationService.navigatorKey.currentContext;
+  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
