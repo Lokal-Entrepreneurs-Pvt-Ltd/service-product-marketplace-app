@@ -5,7 +5,7 @@ class ApiRoutes {
   static const String updateCart = '/cart/update';
   static const String cartScreen = '/cart/get';
   static const String addressScreen = '/checkout/initiate';
-  static const String searchScreen = '/search';
+  static const String searchScreen = '/discovery/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
   static const String paymentStatusScreen = '/paymentstatusscreen';
   static const String orderScreen = '/order/get';
