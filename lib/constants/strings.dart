@@ -9,8 +9,8 @@ const String CONTINUE = "Continue";
 const String GSTIN = "GSTIN";
 const String FULL_NAME = " Full Name";
 const String CHOOSE_PAYMENT_METHOD = "Choose a payment method!";
-
-
+const String PAY_ONLINE_SELECTED = "Online payment mode selected!";
+const String PAY_COD_SELECTED = "Cod payment mode selected!";
 
 
 

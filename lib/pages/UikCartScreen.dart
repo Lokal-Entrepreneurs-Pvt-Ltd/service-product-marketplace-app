@@ -66,11 +66,7 @@ class UikCartScreen extends StandardPage {
         }
         break;
       case UIK_ACTION.REMOVE_FROM_CART:
-        if (UserDataHandler.getIsUserVerified()) {
-          removeCartItem(uikAction);
-        } else {
-          openMyDetails();
-        }
+        removeCartItem(uikAction);
         break;
 
       default:

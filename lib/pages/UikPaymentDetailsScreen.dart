@@ -47,10 +47,12 @@ class UikPaymentDetailsScreen extends StandardPage {
   void onPaymentDetailsScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.PAY_ONLINE:
-        payOnline(uikAction);
+        UiUtils.showToast(PAY_ONLINE_SELECTED);
+        setPaymentMode(PAYMENT_METHOD_ONLINE);
         break;
       case UIK_ACTION.PAY_COD:
-        payCOD(uikAction);
+        UiUtils.showToast(PAY_COD_SELECTED);
+        setPaymentMode(PAYMENT_METHOD_COD);
         break;
       case UIK_ACTION.PAYMENT_STATUS:
         paymentStatus(uikAction);
@@ -72,21 +74,14 @@ class UikPaymentDetailsScreen extends StandardPage {
     return UikPaymentDetailsScreen;
   }
 
-  void payCOD(UikAction uikAction) {
-    paymentMethod = PAYMENT_METHOD_COD;
-    makePayment(uikAction, PAYMENT_METHOD_COD);
-  }
-
-  void payOnline(UikAction uikAction) {
-    paymentMethod = PAYMENT_METHOD_ONLINE;
-    makePayment(uikAction, PAYMENT_METHOD_ONLINE);
+  void setPaymentMode(String paymentMethod) {
+    this.paymentMethod = paymentMethod;
   }
 
   void placeOrder(UikAction uikAction) {
     if (paymentMethod.isEmpty) {
       UiUtils.showToast(CHOOSE_PAYMENT_METHOD);
     } else {
-      print(paymentMethod);
       makePayment(uikAction, paymentMethod);
     }
   }
@@ -115,24 +110,3 @@ void paymentStatus(UikAction uikAction) {
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
-
-// Future<ApiResponse> getMockedApiResponse(args) async {
-//   final queryParameter = {
-//     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-//   };
-//   print("entering lavesh");
-//   final response = await http.get(
-//     Uri.parse('https://demo9979323.mockable.io/payments'),
-//     headers: {
-//       "ngrok-skip-browser-warning": "value",
-//     },
-//   );
-
-//   print(response.body);
-
-//   if (response.statusCode == 200) {
-//     return ApiResponse.fromJson(jsonDecode(response.body));
-//   } else {
-//     throw Exception('Failed to load album');
-//   }
-// }
