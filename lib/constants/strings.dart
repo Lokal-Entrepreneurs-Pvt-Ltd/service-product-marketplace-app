@@ -11,6 +11,11 @@ const String FULL_NAME = " Full Name";
 const String CHOOSE_PAYMENT_METHOD = "Choose a payment method!";
 const String PAY_ONLINE_SELECTED = "Online payment mode selected!";
 const String PAY_COD_SELECTED = "Cod payment mode selected!";
+const String ENTER_NAME = "Enter your name";
+const String ENTER_PHONE = "Enter your phone number";
+const String ENTER_EMAIL = "Enter your email";
+const String ENTER_GST = "Enter your GST number";
+const String PAYMENT_FAILED = "Your payment failed! Please try again later!";
 
 
 
