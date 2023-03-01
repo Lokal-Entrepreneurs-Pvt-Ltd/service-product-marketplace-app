@@ -40,7 +40,7 @@ class UikPaymentDetailsScreen extends StandardPage {
 
   @override
   dynamic getData() {
-     return ApiRepository.addressNext;
+    return ApiRepository.addressNext;
     //return getMockedApiResponse;
   }
 
@@ -94,9 +94,12 @@ Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
 
   if (response.isSuccess!) {
     var orderNumberId = response.data[ORDER_NUMBER_ID];
+
     Map<String, dynamic>? args = {
       ORDER_NUMBER_ID: orderNumberId,
+      PAYMENT_METHOD: paymentMethod,
     };
+    
     var context = NavigationService.navigatorKey.currentContext;
     Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: args);
   } else {
@@ -110,5 +113,3 @@ void paymentStatus(UikAction uikAction) {
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
-
-

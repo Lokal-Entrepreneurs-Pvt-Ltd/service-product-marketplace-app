@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/colors.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/screens/otp.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 import 'dart:async';
 import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
 import '../../widgets/UikButton/UikButton.dart';
-
 
 class OtpScreen extends StatefulWidget {
   final String mobileNumber;
@@ -26,6 +32,9 @@ class _OtpScreenState extends State<OtpScreen> {
   String digitSeconds = "20";
   Timer? timer;
   bool started = true;
+
+  String optPinEntered = "";
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +43,10 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
+
+    print(args);
+
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
@@ -69,7 +82,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 8,
                 ),
                 Text(
-                  "We sent it to ${UserDataHandler.getUserPhone()}",
+                  // "We sent it to ${UserDataHandler.getUserPhone()}",
+                  "We sent it to $args",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -78,168 +92,22 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ],
             ),
-
-            Form(
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(0, 10, 0, 118),
-                padding: const EdgeInsets.fromLTRB(16, 0, 0, 4),
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      height: 64,
-                      width: 48,
-                      // fillColor:Color(0xffF5F5F5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xffF5F5F5),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide:
-                            BorderSide(width: 3, color: Color(0xffE0E0E0)),
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Color(0xffE0E0E0),
-                              ),
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SizedBox(
-                      height: 64,
-                      width: 48,
-
-                      // fillColor:Color(0xffF5F5F5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xffF5F5F5),
-                          border: OutlineInputBorder(
-                              borderSide:
-                              const BorderSide(color: Color(0xffE0E0E0)),
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SizedBox(
-                      height: 64,
-                      width: 48,
-
-                      // fillColor:Color(0xffF5F5F5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xffF5F5F5),
-                          border: OutlineInputBorder(
-                              borderSide:
-                              const BorderSide(color: Color(0xffE0E0E0)),
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SizedBox(
-                      height: 64,
-                      width: 48,
-
-                      // fillColor:Color(0xffF5F5F5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xffF5F5F5),
-                          border: OutlineInputBorder(
-                              borderSide:
-                              const BorderSide(color: Color(0xffE0E0E0)),
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SizedBox(
-                      height: 64,
-                      width: 48,
-
-                      // fillColor:Color(0xffF5F5F5),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xffF5F5F5),
-                          border: OutlineInputBorder(
-                              borderSide:
-                              const BorderSide(color: Color(0xffE0E0E0)),
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(1),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+            const SizedBox(height: 20.0),
+            OTPTextField(
+              length: 6,
+              width: double.infinity,
+              fieldWidth: 40,
+              style: const TextStyle(fontSize: 18),
+              textFieldAlignment: MainAxisAlignment.spaceAround,
+              fieldStyle: FieldStyle.box,
+              onCompleted: (pin) {
+                optPinEntered = pin;
+              },
             ),
+            const SizedBox(height: 20.0),
             const SizedBox(
               height: 16,
             ),
-            // Center(
-            //   child: Pinput(
-            //     length: 6,
-            //     defaultPinTheme: PinTheme(
-            //       height: 64,
-            //       width: 48,
-            //       decoration: BoxDecoration(
-            //           borderRadius: const BorderRadius.all(Radius.circular(8)),
-            //           color: HexColor("#F5F5F5")),
-            //       textStyle: const TextStyle(
-            //         fontSize: 24,
-            //         fontWeight: FontWeight.w400,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.all(16),
               child: SizedBox(
@@ -248,8 +116,25 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: UikButton(
                   text: CONTINUE,
                   widthSize: 327,
-                  backgroundColor: const Color(0xffFEE440),
-                  onClick: () {},
+                  backgroundColor: const Color(0xFFFEE440),
+                  onClick: () async {
+                    if (optPinEntered.length == 6) {
+                      final response = await ApiRepository.verifyOtp(
+                        ApiRequestBody.getVerifyOtpRequest(
+                            args.substring(3),
+                            // optPinEntered,
+                            "221300"),
+                      );
+
+                      if (response.isSuccess!) {
+                        print("OTP verification done!");
+                        Navigator.of(context)
+                            .pushNamed(ScreenRoutes.myAccountScreen);
+                      } else {
+                        UiUtils.showToast("OTP verification ERROR!");
+                      }
+                    }
+                  },
                 ),
               ),
             ),
@@ -260,9 +145,10 @@ class _OtpScreenState extends State<OtpScreen> {
               child: Text(
                 "New code 00:$digitSeconds",
                 style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: HexColor(HEX_GRAY)),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: HexColor(HEX_GRAY),
+                ),
               ),
             ),
           ],
