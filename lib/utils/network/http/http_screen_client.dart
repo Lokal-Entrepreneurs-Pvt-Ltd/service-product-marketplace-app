@@ -12,28 +12,30 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../../constants/environment.dart';
 
 class HttpScreenClient {
-
-  static ChuckerHttpClient getHttp () {
-   return ChuckerHttpClient(http.Client());
+  static ChuckerHttpClient getHttp() {
+    return ChuckerHttpClient(http.Client());
   }
 
   static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
-    var bodyParams  =  (args!= null) ? args : <String, dynamic>{};
+    var bodyParams = (args != null) ? args : <String, dynamic>{};
+    var header = NetworkUtils.getRequestHeaders();
+
     try {
-      final response = await getHttp().post(
+      final response = await http.post(
         Uri.parse(BASE_URL + pageRoute),
-        headers: {...NetworkUtils.getRequestHeaders()},
+        headers: header,
         body: jsonEncode(bodyParams),
-      ).timeout( Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
+      );
+
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
         return ApiResponse.fromJson(jsonDecode(response.body));
       } else {
-        throw Exception('Failed to load '+ pageRoute);
+        throw Exception('Failed to load ' + pageRoute);
       }
     } on TimeoutException catch (_) {
-      throw Exception('Timeout Error to load '+ pageRoute);
+      throw Exception('Timeout Error to load ' + pageRoute);
     } on SocketException catch (_) {
-      throw Exception('Socket Error to load '+ pageRoute);
+      throw Exception('Socket Error to load ' + pageRoute);
     }
   }
 }
