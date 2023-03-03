@@ -25,7 +25,7 @@ class UikEmptyCartScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getCartScreen({"cartId" :CartDataHandler.getCartId()});
+    return ApiRepository.getCartScreen({"cartId": CartDataHandler.getCartId()});
     // return getMockedApiResponse;
   }
 
@@ -47,6 +47,7 @@ class UikCartScreen extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
+    actionList.add(UIK_ACTION.REMOVE_FROM_CART);
     actionList.add(UIK_ACTION.REMOVE_CART_ITEM);
     return actionList;
   }
@@ -66,6 +67,9 @@ class UikCartScreen extends StandardPage {
         }
         break;
       case UIK_ACTION.REMOVE_FROM_CART:
+        removeCartItem(uikAction);
+        break;
+      case UIK_ACTION.REMOVE_CART_ITEM:
         removeCartItem(uikAction);
         break;
 
