@@ -48,7 +48,7 @@ class UikPaymentDetailsScreen extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.PAY_ONLINE:
         UiUtils.showToast(PAY_ONLINE_SELECTED);
-        setPaymentMode(PAYMENT_METHOD_ONLINE);
+        setPaymentMode(PAYMENT_METHOD_COD);
         break;
       case UIK_ACTION.PAY_COD:
         UiUtils.showToast(PAY_COD_SELECTED);
@@ -101,7 +101,8 @@ Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
     };
     
     var context = NavigationService.navigatorKey.currentContext;
-    Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: args);
+    CartDataHandler.clearCart();
+    Navigator.pushNamedAndRemoveUntil(context!, ScreenRoutes.orderScreen, arguments: args, ModalRoute.withName(ScreenRoutes.productScreen));
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
   }

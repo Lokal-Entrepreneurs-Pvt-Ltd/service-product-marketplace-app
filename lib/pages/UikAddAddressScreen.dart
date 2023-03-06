@@ -91,7 +91,7 @@ class UikAddAddressScreen extends StandardPage {
     Map<String, dynamic> args = {
       ADDRESS: {
         FIRST_NAME: name,
-        LAST_NAME: "",
+        LAST_NAME: "singh",
         ADDRESS_LINE_1: houseNumber,
         ADDRESS_LINE_2: street,
         CITY: city,

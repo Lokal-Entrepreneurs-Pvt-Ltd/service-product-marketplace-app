@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/colors.dart';
+import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/screens/otp.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
@@ -15,7 +16,8 @@ import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
 import '../../widgets/UikButton/UikButton.dart';
 
-class OtpScreen extends StatefulWidget {
+class
+OtpScreen extends StatefulWidget {
   final String mobileNumber;
 
   const OtpScreen({
@@ -128,9 +130,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       );
 
                       if (response.isSuccess!) {
-                        print("OTP verification done!");
-                        Navigator.of(context)
-                            .pushNamed(ScreenRoutes.myAccountScreen);
+                        UiUtils.showToast(OTP_VERIFIED);
+                        UserDataHandler.saveIsUserVerified(response.data[SUCCESS]);
+                        Navigator.pop(context);
                       } else {
                         UiUtils.showToast("OTP verification ERROR!");
                       }
