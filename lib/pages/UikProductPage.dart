@@ -21,6 +21,7 @@ class UikProductPage extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_CART);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -34,6 +35,10 @@ class UikProductPage extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_CART:
         showCartScreen(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pop(context!);
         break;
       default:
     }
