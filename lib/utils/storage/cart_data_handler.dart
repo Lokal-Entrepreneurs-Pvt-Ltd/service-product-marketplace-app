@@ -11,8 +11,14 @@ class CartDataHandler {
     return PreferenceUtils.getString(CART_ID);
   }
 
+  static void clearCart() {
+     PreferenceUtils.setString(CART_ID,"");
+     PreferenceUtils.setStringList(CART_ITEMS,[]);
+  }
   static List<String> getCartItems() {
     return PreferenceUtils.getStringList(CART_ITEMS,[]);
+
+
   }
 
   static void saveCartItems(List<String> items) {
