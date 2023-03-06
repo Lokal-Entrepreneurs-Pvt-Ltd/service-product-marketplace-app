@@ -35,6 +35,7 @@ class UikPaymentDetailsScreen extends StandardPage {
     actionList.add(UIK_ACTION.PAY_COD);
     actionList.add(UIK_ACTION.PLACE_ORDER);
     actionList.add(UIK_ACTION.PAYMENT_STATUS);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -59,6 +60,10 @@ class UikPaymentDetailsScreen extends StandardPage {
         break;
       case UIK_ACTION.PLACE_ORDER:
         placeOrder(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pop(context!);
         break;
       default:
     }

@@ -35,6 +35,7 @@ class UikAddAddressScreen extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);
     actionList.add(UIK_ACTION.SUBMIT_ADDRESS);
+    actionList.add(UIK_ACTION.ADD_ADDRESS);
     return actionList;
   }
 
@@ -50,6 +51,10 @@ class UikAddAddressScreen extends StandardPage {
         break;
       case UIK_ACTION.SUBMIT_ADDRESS:
         submitAddress(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pop(context!);
         break;
       default:
     }

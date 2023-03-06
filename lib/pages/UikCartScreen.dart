@@ -49,6 +49,7 @@ class UikCartScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
     actionList.add(UIK_ACTION.REMOVE_FROM_CART);
     actionList.add(UIK_ACTION.REMOVE_CART_ITEM);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -71,6 +72,10 @@ class UikCartScreen extends StandardPage {
         break;
       case UIK_ACTION.REMOVE_CART_ITEM:
         removeCartItem(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pop(context!);
         break;
 
       default:

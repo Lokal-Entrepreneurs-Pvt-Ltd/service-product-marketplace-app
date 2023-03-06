@@ -21,6 +21,7 @@ class UikOrderScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.OPEN_ISP);
     actionList.add(UIK_ACTION.ADD_TO_CART);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -37,6 +38,10 @@ class UikOrderScreen extends StandardPage {
         break;
       case UIK_ACTION.OPEN_CATEGORY:
         openCategory(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pop(context!);
         break;
       default:
     }
