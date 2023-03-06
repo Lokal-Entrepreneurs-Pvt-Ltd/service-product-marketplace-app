@@ -147,7 +147,7 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => UikHome().page,
 
           "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
-        //  "/": (context) => OtpScreen(),
+        //  "/": (context) => UikAddAddressScreen().page,
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
