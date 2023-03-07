@@ -15,9 +15,7 @@ class UikMyGames extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_CATEGORY);
-    actionList.add(UIK_ACTION.OPEN_ISP);
-    actionList.add(UIK_ACTION.ADD_TO_CART);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -27,16 +25,11 @@ class UikMyGames extends StandardPage {
     return getMockedApiResponse;
   }
 
-  void onHomeScreenTapAction(UikAction uikAction) {
+  void onMyGamesTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PRODUCT:
-        openProduct(uikAction);
+      case UIK_ACTION.BACK_PRESSED:
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pop(context!);
         break;
       default:
     }
@@ -45,7 +38,7 @@ class UikMyGames extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return onHomeScreenTapAction;
+    return onMyGamesTapAction;
   }
 
   @override
