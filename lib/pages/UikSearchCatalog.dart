@@ -3,10 +3,7 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
-import 'package:dio/dio.dart';
 import '../utils/network/ApiRepository.dart';
-import '../utils/network/retrofit/api_client.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 

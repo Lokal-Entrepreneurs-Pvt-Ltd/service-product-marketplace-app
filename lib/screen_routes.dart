@@ -31,4 +31,5 @@ class ScreenRoutes {
   static const String inviteScreen = "/invite";
   static const String earningScreen = "/earning";
   static const String serviceScreen = "/service";
+  static const String myGames = "/mygames";
 }

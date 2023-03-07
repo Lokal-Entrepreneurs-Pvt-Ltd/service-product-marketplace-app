@@ -12,7 +12,8 @@ import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'UikHome.dart';
 
-class UikBottomNavigationBar extends StatefulWidget {
+class
+UikBottomNavigationBar extends StatefulWidget {
   @override
   State<UikBottomNavigationBar> createState() => _UikBottomNavigationBarState();
 }
@@ -32,6 +33,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     var context = NavigationService.navigatorKey.currentContext;
     if (index == _selectedIndex) return;
     if (index == 1) {
+      Navigator.pushNamed(context!, ScreenRoutes.myGames);
+    }
+    if (index == 2) {
       Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
     }
 
@@ -80,6 +84,12 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             //   ),
             //   label: "",
             // ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.gamepad,
+              ),
+              label: "",
+            ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,
