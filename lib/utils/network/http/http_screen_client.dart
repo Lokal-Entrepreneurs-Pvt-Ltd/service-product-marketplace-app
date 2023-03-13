@@ -25,8 +25,7 @@ class HttpScreenClient {
         Uri.parse(BASE_URL + pageRoute),
         headers: header,
         body: jsonEncode(bodyParams),
-      );
-
+      ).timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
         return ApiResponse.fromJson(jsonDecode(response.body));
       } else {
