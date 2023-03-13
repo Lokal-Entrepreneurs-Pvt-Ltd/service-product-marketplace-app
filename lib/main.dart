@@ -142,7 +142,6 @@ class _LokalAppState extends State<LokalApp> {
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
           // "/": (context) => success(),
-
           //   "/": (context) => UikOrderHistoryScreen().page,
           // "/": (context) => LoginPageScreen(),
           //  "/": (context) => UikAddressBook().page,

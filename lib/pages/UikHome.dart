@@ -24,7 +24,7 @@ class UikHome extends StandardPage {
   @override
   dynamic getData() {
     return ApiRepository.getHomescreen;
-   // return getMockedApiResponse;
+    return getMockedApiResponse;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
@@ -66,7 +66,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo9563851.mockable.io/discovery/get'),
+    Uri.parse('https://demo5397331.mockable.io/cartscreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
