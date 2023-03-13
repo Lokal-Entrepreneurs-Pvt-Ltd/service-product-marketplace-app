@@ -50,7 +50,7 @@ class UikPaymentDetailsScreen extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.PAY_ONLINE:
         UiUtils.showToast(PAY_ONLINE_SELECTED);
-        setPaymentMode(PAYMENT_METHOD_COD);
+        setPaymentMode(PAYMENT_METHOD_ONLINE);
         break;
       case UIK_ACTION.PAY_COD:
         UiUtils.showToast(PAY_COD_SELECTED);
@@ -108,7 +108,6 @@ Future<void> makeOnlinePayment(
     };
 
     RazorpayPayment razorpay = RazorpayPayment(orderId: orderNumberId);
-
     razorpay.openPaymentPage();
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
@@ -117,6 +116,7 @@ Future<void> makeOnlinePayment(
 
 void makeCodPayment() {
   var context = NavigationService.navigatorKey.currentContext;
+  CartDataHandler.clearCart();
   Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: {});
 }
 
