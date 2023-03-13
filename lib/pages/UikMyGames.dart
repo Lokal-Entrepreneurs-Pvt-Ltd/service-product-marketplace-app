@@ -11,48 +11,46 @@ import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
 
-class UikCatalogScreen extends StandardPage {
+class UikMyGames extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_CATEGORY);
-    actionList.add(UIK_ACTION.OPEN_ISP);
-    actionList.add(UIK_ACTION.ADD_TO_CART);
-    actionList.add(UIK_ACTION.OPEN_PRODUCT);
     actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getCatalogue;
-    //return fetchAlbum;
+    //return ApiRepository.getHomescreen;
+    return getMockedApiResponse;
   }
 
-  void onCatalogScreenTapAction(UikAction uikAction) {
-    print("___________________UIK-ACTION_____________________f_");
-
+  void onMyGamesTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_PRODUCT:
-        openProduct(uikAction);
-        break;
       case UIK_ACTION.BACK_PRESSED:
         var context = NavigationService.navigatorKey.currentContext;
-       Navigator.pop(context!);
+        Navigator.pop(context!);
         break;
       default:
     }
   }
 
+
   @override
   getPageCallBackForAction() {
-    return onCatalogScreenTapAction;
+    return onMyGamesTapAction;
   }
 
   @override
   getPageContext() {
-    return UikCatalogScreen;
+    return UikMyGames;
   }
+}
+
+void openProduct(UikAction uikAction) {
+  //Navigation to the product screen
+  var context = NavigationService.navigatorKey.currentContext;
+  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
@@ -61,7 +59,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo6536398.mockable.io/cataloguescreen'),
+    Uri.parse('http://demo8751245.mockable.io/mygames'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -76,8 +74,27 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   }
 }
 
-void openProduct(UikAction uikAction) {
-  //Navigation to the product screen
+void addToCart(UikAction uikAction) async {
+  // var skuId = uikAction.tap.data.skuId;
+  //
+  // //api call to update cart
+  // final response =
+  //     await getHttp().post(Uri.parse('${baseUrl}/cart/update'), headers: {
+  //   "ngrok-skip-browser-warning": "value",
+  // }, body: {
+  //   "skuId": skuId,
+  //   "cartId": "",
+  //   "action": "add"
+  // });
+  //
+  // //displaying response from update cart
+  // print("statusCode ${response.body}");
+}
+
+void openCategory(UikAction uikAction) {
+  //Navigation to the next screen through deepLink Handler
+  print(
+      "_____________________________Catalogue call___________________________");
   var context = NavigationService.navigatorKey.currentContext;
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }

@@ -1,4 +1,5 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,10 +9,12 @@ import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:lokal/pages/UikMyGames.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikInvite.dart';
+import 'package:lokal/pages/UikMyGames.dart';
 import 'package:lokal/pages/UikService.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
@@ -41,7 +44,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceUtils.init();
-  // await Firebase.initializeApp();
+
   //
   // FlutterError.onError = (errorDetails) {
   //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
@@ -159,8 +162,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.paymentDetailsScreen: (context) =>  UikPaymentDetailsScreen().page,
           ScreenRoutes.orderScreen: (context) =>  UikOrderScreen().page,
           ScreenRoutes.addAddressScreen: (context) =>  UikAddAddressScreen().page,
-          ScreenRoutes.myDetailsScreen: (context) =>  MyDetailsScreen(),
           ScreenRoutes.orderHistoryScreen: (context) =>  UikOrderHistoryScreen().page,
+          ScreenRoutes.myGames: (context) =>  UikMyGames().page,
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,

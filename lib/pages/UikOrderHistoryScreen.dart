@@ -3,7 +3,6 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../utils/network/retrofit/api_client.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 // import 'package:lokal/Widgets/UikSnackbar/snack.dart';

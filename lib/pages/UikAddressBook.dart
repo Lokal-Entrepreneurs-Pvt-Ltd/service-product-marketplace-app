@@ -23,6 +23,7 @@ class UikAddressBook extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_PAYMENT);
     actionList.add(UIK_ACTION.ADD_ADDRESS);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -39,6 +40,10 @@ class UikAddressBook extends StandardPage {
         break;
       case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pop(context!);
         break;
 
       default:

@@ -12,7 +12,8 @@ import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'UikHome.dart';
 
-class UikBottomNavigationBar extends StatefulWidget {
+class
+UikBottomNavigationBar extends StatefulWidget {
   @override
   State<UikBottomNavigationBar> createState() => _UikBottomNavigationBarState();
 }
@@ -22,8 +23,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const UikHomeWrapper(),
-    UikCartScreen().page,
-    UikMyAccountScreen().page,
+    // UikCartScreen().page,
+    // UikMyAccountScreen().page,
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
@@ -32,13 +33,20 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     var context = NavigationService.navigatorKey.currentContext;
     if (index == _selectedIndex) return;
     if (index == 1) {
-      Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
-    } else if (index == 2) {
+      Navigator.pushNamed(context!, ScreenRoutes.myGames);
+    }
+    if (index == 2) {
       Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
     }
-    setState(() {
-      _selectedIndex = index;
-    });
+
+    // if (index == 1) {
+    //   Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
+    // } else if (index == 2) {
+    //   Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
+    // }
+    // setState(() {
+    //   _selectedIndex = index;
+    // });
   }
 
   @override
@@ -70,9 +78,15 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               ),
               label: "",
             ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.shopping_bag,
+            //   ),
+            //   label: "",
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.shopping_bag,
+                Icons.gamepad,
               ),
               label: "",
             ),

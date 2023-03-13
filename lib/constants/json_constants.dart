@@ -30,7 +30,7 @@ const String CITY = "city";
 const String STATE = "state";
 const String POSTCODE = "postcode";
 const String TELEPHONE = "telephone";
-
+const String SUCCESS = "success";
 // ------Tap Action ------------
 
 const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";
