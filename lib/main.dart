@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 // import 'package:lokal/Widgets/test.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
+import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
@@ -135,8 +136,7 @@ class _LokalAppState extends State<LokalApp> {
           create: (context) => DarkThemeProvider(),
         ),
       ],
-      child:
-      MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
@@ -148,8 +148,10 @@ class _LokalAppState extends State<LokalApp> {
 
           // "/": (context) => UikHome().page,
 
-          "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
-        //  "/": (context) => OtpScreen(),
+          "/": (context) => UserDataHandler.getUserToken().isEmpty
+              ? OnboardingScreen()
+              : UikBottomNavigationBar(),
+          // "/": (context) => UikBtsLocationFeasibilityScreen().page,
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -157,12 +159,17 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.otpScreen: (context) =>  OtpScreen(),
-          ScreenRoutes.paymentDetailsScreen: (context) =>  UikPaymentDetailsScreen().page,
-          ScreenRoutes.orderScreen: (context) =>  UikOrderScreen().page,
-          ScreenRoutes.addAddressScreen: (context) =>  UikAddAddressScreen().page,
-          ScreenRoutes.orderHistoryScreen: (context) =>  UikOrderHistoryScreen().page,
-          ScreenRoutes.myGames: (context) =>  UikMyGames().page,
+          ScreenRoutes.otpScreen: (context) => OtpScreen(),
+          ScreenRoutes.paymentDetailsScreen: (context) =>
+              UikPaymentDetailsScreen().page,
+          ScreenRoutes.orderScreen: (context) => UikOrderScreen().page,
+          ScreenRoutes.addAddressScreen: (context) =>
+              UikAddAddressScreen().page,
+          ScreenRoutes.orderHistoryScreen: (context) =>
+              UikOrderHistoryScreen().page,
+          ScreenRoutes.myGames: (context) => UikMyGames().page,
+          ScreenRoutes.btsLocationFeasibility: (context) =>
+              UikBtsLocationFeasibilityScreen().page,
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
