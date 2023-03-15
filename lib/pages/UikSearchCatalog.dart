@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
-import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
+import 'package:ui_sdk/props/UikAction.dart';
+import '../utils/NavigationUtils.dart';
 import '../utils/network/ApiRepository.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
@@ -14,6 +15,7 @@ class UikSearchCatalog extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_SEARCH);
+    actionList.add(UIK_ACTION.OPEN_CATEGORY);
     return actionList;
   }
 
@@ -27,6 +29,9 @@ class UikSearchCatalog extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_ORDER_HISTORY:
         openSearch(uikAction);
+        break;
+      case UIK_ACTION.OPEN_CATEGORY:
+        NavigationUtils.openCategory(uikAction);
         break;
       default:
     }
