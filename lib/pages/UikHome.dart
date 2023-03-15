@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
@@ -29,12 +30,11 @@ class UikHome extends StandardPage {
 
   void onHomeScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.
-      ADD_TO_CART:
+      case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
         break;
       case UIK_ACTION.OPEN_CATEGORY:
-        openCategory(uikAction);
+        NavigationUtils.openCategory(uikAction);
         break;
       case UIK_ACTION.OPEN_PRODUCT:
         openProduct(uikAction);
@@ -99,10 +99,4 @@ void addToCart(UikAction uikAction) async {
   // print("statusCode ${response.body}");
 }
 
-void openCategory(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  print(
-      "_____________________________Catalogue call___________________________");
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-}
+
