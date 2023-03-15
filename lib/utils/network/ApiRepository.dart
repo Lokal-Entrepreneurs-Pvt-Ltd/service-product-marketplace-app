@@ -110,6 +110,10 @@ class ApiRepository {
   static Future<ApiResponse> btsLocationFeasibility(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.btsLocationFeasibility, args);
   }
+
+  static Future<ApiResponse> getAllGames(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getAllGames, args);
+  }
 }
 
 // apirequestbody class 

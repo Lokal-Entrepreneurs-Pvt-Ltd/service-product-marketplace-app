@@ -29,7 +29,8 @@ class UikHome extends StandardPage {
 
   void onHomeScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
+      case UIK_ACTION.
+      ADD_TO_CART:
         addToCart(uikAction);
         break;
       case UIK_ACTION.OPEN_CATEGORY:
