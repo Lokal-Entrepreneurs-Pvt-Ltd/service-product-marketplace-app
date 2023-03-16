@@ -109,6 +109,8 @@ UikAddAddressScreen extends StandardPage {
       },
     };
 
+    print(args);
+
     final BuildContext context = NavigationService.navigatorKey.currentContext!;
     Navigator.pushNamed(
       context,

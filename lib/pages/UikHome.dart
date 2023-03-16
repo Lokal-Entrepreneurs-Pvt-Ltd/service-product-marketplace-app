@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -19,16 +20,18 @@ class UikHome extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.OPEN_ISP);
     actionList.add(UIK_ACTION.ADD_TO_CART);
+    actionList.add(UIK_ACTION.OPEN_PRODUCT);
     return actionList;
   }
 
   @override
   dynamic getData() {
     return ApiRepository.getHomescreen;
-    return getMockedApiResponse;
+  //  return getMockedApiResponse;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
+    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
@@ -56,6 +59,7 @@ class UikHome extends StandardPage {
 }
 
 void openProduct(UikAction uikAction) {
+  print(uikAction.tap.data.url);
   //Navigation to the product screen
   var context = NavigationService.navigatorKey.currentContext;
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
@@ -67,7 +71,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo5397331.mockable.io/cartscreen'),
+  Uri.parse('https://demo0955568.mockable.io/homescreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
