@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/payments/razorpay_payment.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -49,7 +50,7 @@ class UikPaymentDetailsScreen extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.PAY_ONLINE:
         UiUtils.showToast(PAY_ONLINE_SELECTED);
-        setPaymentMode(PAYMENT_METHOD_COD);
+        setPaymentMode(PAYMENT_METHOD_ONLINE);
         break;
       case UIK_ACTION.PAY_COD:
         UiUtils.showToast(PAY_COD_SELECTED);
@@ -87,12 +88,13 @@ class UikPaymentDetailsScreen extends StandardPage {
     if (paymentMethod.isEmpty) {
       UiUtils.showToast(CHOOSE_PAYMENT_METHOD);
     } else {
-      makePayment(uikAction, paymentMethod);
+      checkPaymentMethod(uikAction, paymentMethod);
     }
   }
 }
 
-Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
+Future<void> makeOnlinePayment(
+    UikAction uikAction, String paymentMethod) async {
   dynamic response = await ApiRepository.paymentNext(
     ApiRequestBody.getPaymentNextRequest(paymentMethod),
   );
@@ -104,13 +106,18 @@ Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
       ORDER_NUMBER_ID: orderNumberId,
       PAYMENT_METHOD: paymentMethod,
     };
-    
-    var context = NavigationService.navigatorKey.currentContext;
-    CartDataHandler.clearCart();
-    Navigator.pushNamedAndRemoveUntil(context!, ScreenRoutes.orderScreen, arguments: args, ModalRoute.withName(ScreenRoutes.productScreen));
+
+    RazorpayPayment razorpay = RazorpayPayment(orderId: orderNumberId);
+    razorpay.openPaymentPage();
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
   }
+}
+
+void makeCodPayment() {
+  var context = NavigationService.navigatorKey.currentContext;
+  CartDataHandler.clearCart();
+  Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: {});
 }
 
 void paymentStatus(UikAction uikAction) {
@@ -118,4 +125,12 @@ void paymentStatus(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
+}
+
+void checkPaymentMethod(UikAction uikAction, String paymentMethod) {
+  if (paymentMethod == "cod") {
+    makeCodPayment();
+  } else {
+    makeOnlinePayment(uikAction, paymentMethod);
+  }
 }
