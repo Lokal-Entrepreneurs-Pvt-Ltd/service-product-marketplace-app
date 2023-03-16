@@ -20,7 +20,8 @@ import '../utils/storage/user_data_handler.dart';
 // remove add
 // delete address
 
-class UikAddAddressScreen extends StandardPage {
+class
+UikAddAddressScreen extends StandardPage {
   String name = "";
   String phone = "";
   String street = "";

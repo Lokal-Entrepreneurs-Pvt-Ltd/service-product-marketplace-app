@@ -21,8 +21,8 @@ class UikMyGames extends StandardPage {
 
   @override
   dynamic getData() {
-    //return ApiRepository.getHomescreen;
-    return getMockedApiResponse;
+    return ApiRepository.getAllGames;
+    //return getMockedApiResponse;
   }
 
   void onMyGamesTapAction(UikAction uikAction) {

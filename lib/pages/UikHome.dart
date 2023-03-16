@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
@@ -36,7 +37,7 @@ class UikHome extends StandardPage {
         addToCart(uikAction);
         break;
       case UIK_ACTION.OPEN_CATEGORY:
-        openCategory(uikAction);
+        NavigationUtils.openCategory(uikAction);
         break;
       case UIK_ACTION.OPEN_PRODUCT:
         openProduct(uikAction);
@@ -70,7 +71,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('https://demo0955568.mockable.io/homescreen'),
+  Uri.parse('https://demo0955568.mockable.io/homescreen'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -102,10 +103,4 @@ void addToCart(UikAction uikAction) async {
   // print("statusCode ${response.body}");
 }
 
-void openCategory(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  print(
-      "_____________________________Catalogue call___________________________");
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-}
+
