@@ -42,4 +42,7 @@ class UIK_ACTION {
   static const String ON_TEXT_EDIT_COMPLETE = 'ON_TEXT_EDIT_COMPLETE';
   static const String SUBMIT_ADDRESS = 'SUBMIT_ADDRESS';
   static const String BACK_PRESSED = 'BACK_PRESSED';
+  static const String SELECT_STATE = 'SELECT_STATE';
+  static const String SELECT_DISTRICT = 'SELECT_DISTRICT';
+  static const String SELECT_BLOCK = 'SELECT_BLOCK';
 }
