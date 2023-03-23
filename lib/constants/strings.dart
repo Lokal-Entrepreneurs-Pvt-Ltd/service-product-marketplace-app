@@ -17,7 +17,7 @@ const String ENTER_PHONE = "Enter your phone number";
 const String ENTER_EMAIL = "Enter your email";
 const String ENTER_GST = "Enter your GST number";
 const String PAYMENT_FAILED = "Your payment failed! Please try again later!";
-
+const String PAYMENT_MODE_ERROR = "Payment mode error! Please try again later!";
 
 
 

@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lokal/constants/environment.dart';
 // import 'package:lokal/Widgets/test.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
@@ -30,6 +31,7 @@ import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'configs/environment.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
@@ -45,7 +47,12 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceUtils.init();
+  const String environment = String.fromEnvironment(
+    ENVIRONMENT_KEY,
+    defaultValue: Environment.LOCAL,
+  );
 
+  Environment().initConfig(environment);
   //
   // FlutterError.onError = (errorDetails) {
   //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
