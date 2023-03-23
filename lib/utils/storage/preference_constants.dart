@@ -6,3 +6,5 @@ const String GST_TAX_VAT = "taxvat";
 const String DOB = "dob";
 const String PHONE_NUMBER = "phoneNumber";
 const String IS_USER_VERIFIED = "isVerified";
+const String DEFAULT_ENVIRONMENT = "DEFAULT_ENVIRONMENT";
+const String LOCAL_BASE_URL = "LOCAL_BASE_URL";
