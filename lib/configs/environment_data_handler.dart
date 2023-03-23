@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/foundation.dart';
 import 'package:lokal/configs/environment.dart';
 
 
@@ -13,7 +14,7 @@ PreferenceUtils.setString(DEFAULT_ENVIRONMENT, environment);
 }
 
 static String getDefaultEnvironment() {
-  return PreferenceUtils.getString(DEFAULT_ENVIRONMENT, Environment.LOCAL);
+  return PreferenceUtils.getString(DEFAULT_ENVIRONMENT, kDebugMode?  Environment.LOCAL: Environment.PROD);
 }
 
 static void setLocalBaseUrl(String localBaseUrl) {
