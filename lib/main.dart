@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
 // import 'package:lokal/Widgets/test.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
@@ -47,11 +48,10 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceUtils.init();
-  const String environment = String.fromEnvironment(
+  String environment = String.fromEnvironment(
     ENVIRONMENT_KEY,
-    defaultValue: Environment.LOCAL,
+    defaultValue: EnvironmentDataHandler.getDefaultEnvironment(),
   );
-
   Environment().initConfig(environment);
   //
   // FlutterError.onError = (errorDetails) {
