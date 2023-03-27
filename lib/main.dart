@@ -74,7 +74,7 @@ void main() async {
   //   runApp(MyApp());
   // });
 
-  runApp(MaterialApp(home: LokalApp()));
+  runApp(MaterialApp(home: LokalApp(),theme: ThemeData(fontFamily: 'Georgia'),));
 }
 
 class NavigationService {
