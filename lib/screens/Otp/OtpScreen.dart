@@ -123,7 +123,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     if (optPinEntered.length == 6) {
                       final response = await ApiRepository.verifyOtp(
                         ApiRequestBody.getVerifyOtpRequest(
-                          args.substring(3),
+                          args,
                           optPinEntered,
                           // "221300",
                         ),
