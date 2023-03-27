@@ -1,5 +1,6 @@
 const String STR_WELCOME = "Welcome!";
 const String LOG_OUT = "You have been logged out!";
+const String LOG_IN = "Kindly Login!";
 const String ACCOUNT_DETAILS_UPDATED = "Account Details Updated!";
 const String SAVE_DETAILS = "Save Details";
 const String VERIFY_NUMBER = "Verify Number";

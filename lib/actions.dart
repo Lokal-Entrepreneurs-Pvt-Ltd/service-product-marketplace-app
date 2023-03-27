@@ -19,6 +19,7 @@ class UIK_ACTION {
   static const String OPEN_ADDRESS = 'OPEN_ADDRESS';
   static const String OPEN_PAYMENT = 'OPEN_PAYMENT';
   static const String OPEN_SIGN_OUT = 'OPEN_SIGN_OUT';
+  static const String OPEN_LOG_IN = 'OPEN_LOG_IN';
   static const String ADD_ADDRESS = 'ADD_ADDRESS';
   static const String ADD_FILTER = 'ADD_FILTER';
   static const String REMOVE_FILTER = 'REMOVE_FILTER';
