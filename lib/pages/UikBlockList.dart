@@ -13,31 +13,42 @@ import 'package:http/http.dart' as http;
 
 import '../main.dart';
 
-class UikStateList extends StandardPage {
+class UikBlockList extends StandardPage {
   int selectedValue = -1;
+
+  UikBlockList({
+    required this.districtCode,
+  });
+
+  final int districtCode;
 
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_STATE");
+    actionList.add("SELECT_CITY");
+    actionList.add("CITY_SELECTED");
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getStates;
+    return ApiRepository.getBlocks;
     // return getMockedApiResponse;
   }
 
   void onStateListScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case "SELECT_STATE":
+      case "SELECT_CITY":
         {
           print("Inside Select City");
           print(uikAction.tap.data.value);
           selectedValue = int.parse(uikAction.tap.data.value!);
-
+        }
+        break;
+      case "CITY_SELECTED":
+        {
+          print(selectedValue);
           var context = NavigationService.navigatorKey.currentContext;
           Navigator.of(context!).pop(selectedValue);
         }
@@ -53,7 +64,7 @@ class UikStateList extends StandardPage {
 
   @override
   getPageContext() {
-    return UikStateList;
+    return UikBlockList;
   }
 }
 
