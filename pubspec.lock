@@ -1406,10 +1406,10 @@ packages:
     dependency: "direct main"
     description:
       name: ui_sdk
-      sha256: d97301a767ac6df35c68d88d5d811d43a64da45344ef27dbdb8c1d7659e10218
+      sha256: "1b1e08b0e07b119dbb7cd1a9d3453d374efc24077af4a275e193605c89e8c59a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.91+1"
+    version: "1.0.92+1"
   universal_io:
     dependency: transitive
     description:

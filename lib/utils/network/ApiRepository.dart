@@ -44,7 +44,6 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.searchScreen, args);
   }
 
-
   static Future<ApiResponse> getOrderScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.orderScreen, args);
   }
@@ -79,7 +78,7 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.earningScreen, args);
   }
 
-  static Future<ApiResponse> getLoginScreen( args) {
+  static Future<ApiResponse> getLoginScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.loginScreen, args);
   }
 
@@ -106,9 +105,22 @@ class ApiRepository {
   static Future<ApiResponse> paymentNext(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.paymentNext, args);
   }
-  
+
   static Future<ApiResponse> btsLocationFeasibility(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.btsLocationFeasibility, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.btsLocationFeasibility, args);
+  }
+
+  static Future<ApiResponse> getStates(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getStates, args);
+  }
+  
+  static Future<ApiResponse> getDistricts(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getDistrict, args);
+  }
+  
+  static Future<ApiResponse> getBlocks(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getBlocks, args);
   }
 
   static Future<ApiResponse> getAllGames(args) {

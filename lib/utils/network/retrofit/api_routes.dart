@@ -32,6 +32,10 @@ class ApiRoutes {
   static const String addressNext = "/checkout/address/next";
   static const String paymentNext = "/checkout/payment/next";
   static const String addressBook = "/checkout/addressbook";
-  static const String btsLocationFeasibility = "/btslocationfeasibility";
+  static const String btsLocationFeasibility =
+      "/isp/feasiblity/locationFeasiblityForm";
+  static const String getStates = "/isp/feasiblity/getStates";
+  static const String getDistrict = "/isp/feasiblity/getDistrictForState";
+  static const String getBlocks = "/isp/feasilblity/getBlocksForDistrict";
   static const String getAllGames = "/misc/getAllGames";
 }
