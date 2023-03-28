@@ -42,5 +42,6 @@ class UIK_ACTION {
   static const String PLACE_ORDER = 'PLACE_ORDER';
   static const String ON_TEXT_EDIT_COMPLETE = 'ON_TEXT_EDIT_COMPLETE';
   static const String SUBMIT_ADDRESS = 'SUBMIT_ADDRESS';
+  static const String SELECT_TOWER = 'SELECT_TOWER';
   static const String BACK_PRESSED = 'BACK_PRESSED';
 }
