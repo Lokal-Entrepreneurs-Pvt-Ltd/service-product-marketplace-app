@@ -19,4 +19,9 @@ abstract class NavigationUtils {
     var context = NavigationService.navigatorKey.currentContext;
     Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: args);
   }
+
+  static void pop() {
+    var context = NavigationService.navigatorKey.currentContext;
+    Navigator.maybePop(context!);
+  }
 }
