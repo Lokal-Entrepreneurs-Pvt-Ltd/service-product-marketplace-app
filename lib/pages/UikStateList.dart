@@ -20,6 +20,7 @@ class UikStateList extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add("SELECT_STATE");
+    actionList.add("SUBMIT_FORM");
     return actionList;
   }
 
@@ -38,6 +39,12 @@ class UikStateList extends StandardPage {
           print(uikAction.tap.data.value);
           selectedValue = int.parse(uikAction.tap.data.value!);
 
+          var context = NavigationService.navigatorKey.currentContext;
+          // Navigator.of(context!).pop(selectedValue);
+        }
+        break;
+      case "SUBMIT_FORM":
+        {
           var context = NavigationService.navigatorKey.currentContext;
           Navigator.of(context!).pop(selectedValue);
         }

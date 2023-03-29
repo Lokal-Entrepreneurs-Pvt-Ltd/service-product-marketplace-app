@@ -157,6 +157,7 @@ class _LokalAppState extends State<LokalApp> {
         ///      : UikBottomNavigationBar(),
          "/": (context) => UikBtsLocationFeasibilityScreen().page,
 
+
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
