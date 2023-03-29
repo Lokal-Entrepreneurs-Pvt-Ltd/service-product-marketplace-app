@@ -78,7 +78,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     print("Inside Select State func");
     var context = NavigationService.navigatorKey.currentContext;
 
-    final result = await showModalBottomSheet(
+    var result = await showModalBottomSheet(
       context: context!,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -106,13 +106,14 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     print(result);
 
     stateCode = result;
+    return;
   }
 
   void selectDistrict(UikAction uikAction) async {
     print("Inside Select District func");
     var context = NavigationService.navigatorKey.currentContext;
 
-    final result = await showModalBottomSheet(
+    var result = await showModalBottomSheet(
       context: context!,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -146,7 +147,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     print("Inside Select Block func");
     var context = NavigationService.navigatorKey.currentContext;
 
-    final result = await showModalBottomSheet(
+    var result = await showModalBottomSheet(
       context: context!,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
