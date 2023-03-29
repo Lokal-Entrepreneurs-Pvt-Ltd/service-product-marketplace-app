@@ -13,6 +13,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
+import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
 import '../utils/storage/product_data_handler.dart';
 
@@ -37,8 +38,7 @@ class UikProductPage extends StandardPage {
         showCartScreen(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        var context = NavigationService.navigatorKey.currentContext;
-        Navigator.pop(context!);
+        NavigationUtils.pop();
         break;
       default:
     }
@@ -55,20 +55,17 @@ class UikProductPage extends StandardPage {
   }
 }
 
-
-
 void showCartScreen(UikAction uikAction) async {
   String skuId = await ProductDataHandler.getProductSkuId();
-  dynamic response = await ApiRepository.updateCart(ApiRequestBody.
-  getUpdateCartRequest(skuId, "add", CartDataHandler.getCartId()));
+  dynamic response = await ApiRepository.updateCart(
+      ApiRequestBody.getUpdateCartRequest(
+          skuId, "add", CartDataHandler.getCartId()));
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
     CartDataHandler.saveCartId(cartIdReceived);
     var context = NavigationService.navigatorKey.currentContext;
     DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  }
-  else {
+  } else {
     UiUtils.showToast(response.error![MESSAGE]);
   }
-
 }
