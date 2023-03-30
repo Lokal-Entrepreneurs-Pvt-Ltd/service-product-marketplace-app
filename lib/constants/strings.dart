@@ -1,5 +1,6 @@
 const String STR_WELCOME = "Welcome!";
 const String LOG_OUT = "You have been logged out!";
+const String LOG_IN = "Kindly Login!";
 const String ACCOUNT_DETAILS_UPDATED = "Account Details Updated!";
 const String SAVE_DETAILS = "Save Details";
 const String VERIFY_NUMBER = "Verify Number";
@@ -17,7 +18,7 @@ const String ENTER_PHONE = "Enter your phone number";
 const String ENTER_EMAIL = "Enter your email";
 const String ENTER_GST = "Enter your GST number";
 const String PAYMENT_FAILED = "Your payment failed! Please try again later!";
-
+const String PAYMENT_MODE_ERROR = "Payment mode error! Please try again later!";
 
 
 

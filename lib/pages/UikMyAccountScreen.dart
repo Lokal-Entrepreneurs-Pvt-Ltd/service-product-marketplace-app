@@ -29,6 +29,7 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
     actionList.add(UIK_ACTION.OPEN_PAYMENT);
     actionList.add(UIK_ACTION.OPEN_SIGN_OUT);
+    actionList.add(UIK_ACTION.OPEN_LOG_IN);
     return actionList;
   }
 
@@ -54,9 +55,16 @@ class UikMyAccountScreen extends StandardPage {
       case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
         break;
-      case UIK_ACTION.OPEN_SIGN_OUT:
-        singOut(uikAction);
-        break;
+      case UIK_ACTION.OPEN_SIGN_OUT:{
+      UiUtils.showToast(LOG_OUT);
+      clearDataAndMoveToOnboarding(uikAction);
+       }
+       break;
+      case UIK_ACTION.OPEN_LOG_IN:{
+        UiUtils.showToast(LOG_IN);
+        clearDataAndMoveToOnboarding(uikAction);
+      }
+      break;
       default:
     }
   }
@@ -72,8 +80,8 @@ class UikMyAccountScreen extends StandardPage {
   }
 }
 
-void singOut(UikAction uikAction) {
-  UiUtils.showToast(LOG_OUT);
+void clearDataAndMoveToOnboarding(UikAction uikAction) {
+
   UserDataHandler.clearUserToken();
   Navigator.pushAndRemoveUntil(
     NavigationService.navigatorKey.currentContext!,

@@ -17,8 +17,6 @@ class CartDataHandler {
   }
   static List<String> getCartItems() {
     return PreferenceUtils.getStringList(CART_ITEMS,[]);
-
-
   }
 
   static void saveCartItems(List<String> items) {
