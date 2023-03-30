@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lokal/configs/environment.dart';
+import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -7,7 +11,9 @@ import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
+import 'package:lokal/utils/storage/preference_util.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'UikHome.dart';
@@ -28,6 +34,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
+
 
   void _onItemTapped(int index) {
     var context = NavigationService.navigatorKey.currentContext;

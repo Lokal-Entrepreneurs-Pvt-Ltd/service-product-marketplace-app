@@ -106,6 +106,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.paymentNext, args);
   }
 
+  static Future<ApiResponse> validatePayment(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.paymentValidate, args);
+  }
+
   static Future<ApiResponse> btsLocationFeasibility(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.btsLocationFeasibility, args);

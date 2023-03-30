@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
@@ -37,8 +38,7 @@ class UikCatalogScreen extends StandardPage {
         openProduct(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        var context = NavigationService.navigatorKey.currentContext;
-       Navigator.pop(context!);
+        NavigationUtils.pop();
         break;
       default:
     }

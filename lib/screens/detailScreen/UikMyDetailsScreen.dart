@@ -71,27 +71,22 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
 
     if (showVerifyPhoneNumber) {
 
-      Navigator.popAndPushNamed(
-        context!,
-        ScreenRoutes.otpScreen,
-        arguments: phoneController.text,
+      final response = await ApiRepository.sendOtp(
+        ApiRequestBody.getSendOtpRequest(phoneController.text),
       );
-      // final response = await ApiRepository.sendOtp(
-      //   ApiRequestBody.getSendOtpRequest(phoneController.text),
-      // );
-      //
-      // if (response.isSuccess!) {
-      //   UiUtils.showToast(OTP_SENT);
-      //
-      //   var context = NavigationService.navigatorKey.currentContext;
-      //   Navigator.pushNamed(
-      //     context!,
-      //     ScreenRoutes.otpScreen,
-      //     arguments: phoneController.text,
-      //   );
-      // } else {
-      //   UiUtils.showToast(response.error![MESSAGE]);
-      // }
+
+      if (response.isSuccess!) {
+        UiUtils.showToast(OTP_SENT);
+
+        var context = NavigationService.navigatorKey.currentContext;
+        Navigator.pushNamed(
+          context!,
+          ScreenRoutes.otpScreen,
+          arguments: phoneController.text,
+        );
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
     } else {
       final response = await ApiRepository.updateCustomerInfo(
         ApiRequestBody.getSaveDetailsRequest(
