@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../constants/json_constants.dart';
 import '../main.dart';
+import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
 import '../utils/deeplink_handler.dart';
 import '../screen_routes.dart';
@@ -74,8 +75,7 @@ class UikCartScreen extends StandardPage {
         removeCartItem(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        var context = NavigationService.navigatorKey.currentContext;
-        Navigator.pop(context!);
+        NavigationUtils.pop();
         break;
 
       default:
