@@ -15,9 +15,7 @@ import '../main.dart';
 import '../utils/network/ApiRequestBody.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
-
 class UikPaymentDetailsScreen extends StandardPage {
-
   String paymentMethod = "";
   String orderNumberId = "";
   String rzpPaymentId = "";
@@ -58,8 +56,7 @@ class UikPaymentDetailsScreen extends StandardPage {
         placeOrder(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        var context = NavigationService.navigatorKey.currentContext;
-        Navigator.pop(context!);
+        NavigationUtils.pop();
         break;
       default:
     }
@@ -78,6 +75,7 @@ class UikPaymentDetailsScreen extends StandardPage {
   void setPaymentMode(String paymentMethod) {
     this.paymentMethod = paymentMethod;
   }
+
   void placeOrder(UikAction uikAction) {
     if (paymentMethod.isEmpty) {
       UiUtils.showToast(CHOOSE_PAYMENT_METHOD);
@@ -86,8 +84,7 @@ class UikPaymentDetailsScreen extends StandardPage {
     }
   }
 
-  Future<void> makePayment(
-      UikAction uikAction, String paymentMethod) async {
+  Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
     dynamic response = await ApiRepository.paymentNext(
       ApiRequestBody.getPaymentNextRequest(paymentMethod),
     );
@@ -95,21 +92,17 @@ class UikPaymentDetailsScreen extends StandardPage {
     if (response.isSuccess! && paymentMethod.isNotEmpty) {
       orderNumberId = response.data[ORDER_NUMBER_ID];
       CartDataHandler.clearCart();
-      if(paymentMethod == UIK_ACTION.PAY_COD) {
+      if (paymentMethod == UIK_ACTION.PAY_COD) {
         makeCodPayment();
-      }
-      else  if (paymentMethod == PAYMENT_METHOD_ONLINE){
+      } else if (paymentMethod == PAYMENT_METHOD_ONLINE) {
         makeOnlinePayment(response);
-      }
-      else {
+      } else {
         UiUtils.showToast(PAYMENT_MODE_ERROR);
       }
     } else {
       UiUtils.showToast(response.error![MESSAGE]);
     }
   }
-
-
 
   void paymentStatus(UikAction uikAction) {
     print("...................inside status...........");
@@ -121,7 +114,8 @@ class UikPaymentDetailsScreen extends StandardPage {
   void makeOnlinePayment(response) {
     rzpOrderId = response.data[RAZOR_PAY_ORDER_ID];
     CartDataHandler.clearCart();
-    RazorpayPayment razorpay = RazorpayPayment(rzpOrderId : rzpOrderId, orderNumberId : orderNumberId);
+    RazorpayPayment razorpay =
+        RazorpayPayment(rzpOrderId: rzpOrderId, orderNumberId: orderNumberId);
     razorpay.openPaymentPage();
   }
 
@@ -132,5 +126,4 @@ class UikPaymentDetailsScreen extends StandardPage {
     };
     NavigationUtils.openOrderScreen(args);
   }
-
 }

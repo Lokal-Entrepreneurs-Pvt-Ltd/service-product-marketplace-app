@@ -10,6 +10,7 @@ import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 import '../main.dart';
+import '../utils/NavigationUtils.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
 // view order details
@@ -40,8 +41,7 @@ class UikOrderScreen extends StandardPage {
         openCategory(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        var context = NavigationService.navigatorKey.currentContext;
-        Navigator.pop(context!);
+        NavigationUtils.pop();
         break;
       default:
     }

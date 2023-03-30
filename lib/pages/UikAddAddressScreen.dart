@@ -13,6 +13,7 @@ import '../main.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
+import '../utils/NavigationUtils.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import '../utils/storage/user_data_handler.dart';
 
@@ -20,8 +21,7 @@ import '../utils/storage/user_data_handler.dart';
 // remove add
 // delete address
 
-class
-UikAddAddressScreen extends StandardPage {
+class UikAddAddressScreen extends StandardPage {
   String name = "";
   String phone = "";
   String street = "";
@@ -54,8 +54,7 @@ UikAddAddressScreen extends StandardPage {
         submitAddress(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        var context = NavigationService.navigatorKey.currentContext;
-        Navigator.pop(context!);
+        NavigationUtils.pop();
         break;
       default:
     }
