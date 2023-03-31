@@ -12,6 +12,7 @@ import '../actions.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
+import '../utils/NavigationUtils.dart';
 
 class UikStateList extends StandardPage {
   int selectedValue = -1;
@@ -45,8 +46,10 @@ class UikStateList extends StandardPage {
         break;
       case "SUBMIT_FORM":
         {
-          var context = NavigationService.navigatorKey.currentContext;
-          Navigator.of(context!).pop(selectedValue);
+          var context = NavigationService.navigatorKey.currentContext!;
+          // Navigator.of(context!).pop(selectedValue);
+          // NavigationUtils.pop(selectedValue);
+          Navigator.maybePop(context, selectedValue);
         }
         break;
       default:
