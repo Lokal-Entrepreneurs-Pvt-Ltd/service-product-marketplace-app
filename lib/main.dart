@@ -238,13 +238,14 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => UikHome().page,
 
 
-          "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
+          // "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
         //  "/": (context) => UikPaymentDetailsScreen().page,
 
        //   "/": (context) => UserDataHandler.getUserToken().isEmpty
             //  ? OnboardingScreen()
         ///      : UikBottomNavigationBar(),
-         // "/": (context) => UikBtsLocationFeasibilityScreen().page,
+         "/": (context) => UikBtsLocationFeasibilityScreen().page,
+
 
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
