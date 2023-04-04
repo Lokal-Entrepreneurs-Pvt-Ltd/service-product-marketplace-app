@@ -4,7 +4,7 @@ const String ACCEPT = "Accept";
 const String AUTHORIZATION = "Authorization";
 const String APPLICATION_JSON = "application/json";
 const String CUSTOMER_DATA = "customerData";
-const String CART_DATA = "cart_data";
+const String CART_DATA = "cartData";
 const String EMAIL = "email";
 const String PASSWORD = "password";
 const String CART_ID = "cartId";
@@ -19,18 +19,21 @@ const String OTP = "otp";
 const String ADDRESS_ID = "addressId";
 const String PAYMENT_METHOD = "paymentMethod";
 const String ORDER_NUMBER_ID = "orderNumberId";
+const String RAZOR_PAY_ORDER_ID = "rzpOrderId";
+const String RAZOR_PAYMENT_ID = "rzpPaymentId";
+const String RAZOR_PAY_SIGNATURE = "rzpSignature";
 const String PAYMENT_METHOD_COD = "cod";
 const String PAYMENT_METHOD_ONLINE = "online";
 const String ADDRESS = "address";
 const String FIRST_NAME = "firstName";
-const String LAST_NAME = "lastName";
+const String LAST_NAME = "lastname";
 const String ADDRESS_LINE_1 = "addressLine1";
 const String ADDRESS_LINE_2 = "addressLine2";
 const String CITY = "city";
 const String STATE = "state";
 const String POSTCODE = "postcode";
 const String TELEPHONE = "telephone";
-
+const String SUCCESS = "success";
 // ------Tap Action ------------
 
 const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";

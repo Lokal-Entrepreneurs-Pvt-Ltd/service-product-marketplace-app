@@ -13,6 +13,7 @@ import '../main.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
+import '../utils/NavigationUtils.dart';
 import '../utils/network/ApiRequestBody.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'package:http/http.dart' as http;
@@ -23,6 +24,7 @@ class UikAddressBook extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_PAYMENT);
     actionList.add(UIK_ACTION.ADD_ADDRESS);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -31,7 +33,6 @@ class UikAddressBook extends StandardPage {
     return ApiRepository.getAddressScreen;
   }
 
-
   void onAddressBookTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_ADDRESS:
@@ -39,6 +40,9 @@ class UikAddressBook extends StandardPage {
         break;
       case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
 
       default:
@@ -70,16 +74,14 @@ void addAddress(UikAction uikAction) {
 }
 
 Future<void> openPayment(UikAction uikAction) async {
-
   var context = NavigationService.navigatorKey.currentContext;
 
-  if(uikAction.tap.data.key == TAP_ACTION_TYPE_KEY_ADDRESS_ID) {
+  if (uikAction.tap.data.key == TAP_ACTION_TYPE_KEY_ADDRESS_ID) {
     Map<String, dynamic>? args = {
       ADDRESS_ID: uikAction.tap.data.value,
       CART_ID: CartDataHandler.getCartId()
     };
-    Navigator.pushNamed(
-        context!, ScreenRoutes.paymentDetailsScreen, arguments: args);
+    Navigator.pushNamed(context!, ScreenRoutes.paymentDetailsScreen,
+        arguments: args);
   }
 }
-

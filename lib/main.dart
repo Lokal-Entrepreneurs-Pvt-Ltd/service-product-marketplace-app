@@ -2,36 +2,37 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:lokal/Widgets/test.dart';
+import 'package:lokal/configs/env_utils.dart';
+import 'package:lokal/configs/environment_data_handler.dart';
+import 'package:lokal/constants/environment.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
+import 'package:lokal/pages/UikBtsCheckLocation.dart';
+import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
-import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:lokal/pages/UikMyGames.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
-import 'package:lokal/pages/UikInvite.dart';
-import 'package:lokal/pages/UikService.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
-import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
-import 'package:lokal/screens/login/login.dart';
-import 'package:lokal/screens/otp.dart';
-import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
-import 'package:lokal/utils/network/retrofit/api_routes.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
+
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'configs/environment.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
+import 'package:shake/shake.dart';
 
 var appInit;
 
@@ -41,7 +42,12 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceUtils.init();
-  // await Firebase.initializeApp();
+  String environment = String.fromEnvironment(
+    ENVIRONMENT_KEY,
+    defaultValue: EnvironmentDataHandler.getDefaultEnvironment(),
+  );
+  Environment().initConfig(environment);
+
   //
   // FlutterError.onError = (errorDetails) {
   //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
@@ -69,7 +75,10 @@ void main() async {
   //   runApp(MyApp());
   // });
 
-  runApp(LokalApp());
+  runApp(MaterialApp(
+    home: LokalApp(),
+    theme: ThemeData(fontFamily: 'Georgia'),
+  ));
 }
 
 class NavigationService {
@@ -85,11 +94,22 @@ class LokalApp extends StatefulWidget {
   State<LokalApp> createState() => _LokalAppState();
 }
 
+late ShakeDetector detector;
+
 class _LokalAppState extends State<LokalApp> {
   @override
   void initState() {
     super.initState();
-
+    detector = ShakeDetector.autoStart(
+      onPhoneShake: () {
+        // Do stuff on phone shake
+        if (kDebugMode) displayTextInputDialog(context);
+      },
+      minimumShakeCount: 1,
+      shakeSlopTimeMS: 500,
+      shakeCountResetTime: 3000,
+      shakeThresholdGravity: 2.7,
+    );
     //AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
 
     /*
@@ -119,6 +139,86 @@ class _LokalAppState extends State<LokalApp> {
     // });
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    detector.stopListening();
+  }
+
+  displayTextInputDialog(BuildContext context) async {
+    var tempLocalUrl = EnvironmentDataHandler.getLocalBaseUrl();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          var _textFieldController = TextEditingController(
+              text: EnvironmentDataHandler.getLocalBaseUrl());
+          return AlertDialog(
+            title: Text('Set Ngrok URL'),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  tempLocalUrl = value;
+                });
+              },
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Enter the local url"),
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                child: const Text('Clear Data and Kill App'),
+                onPressed: () {
+                  setState(() {
+                    UiUtils.showToast("Data Cleared, Restart the app");
+                    PreferenceUtils.clearStorage();
+                    SystemNavigator.pop();
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                child: const Text('Set Prod'),
+                onPressed: () {
+                  setState(() {
+                    EnvUtils.setEnvironmentAndResetApp(
+                        context, Environment.PROD, "");
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.green,
+                textColor: Colors.white,
+                child: const Text('Set Dev'),
+                onPressed: () {
+                  setState(() {
+                    EnvUtils.setEnvironmentAndResetApp(
+                        context, Environment.DEV, "");
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: Text('Set Lokal'),
+                onPressed: () {
+                  setState(() {
+                    if (tempLocalUrl.isNotEmpty &&
+                        tempLocalUrl.endsWith("ngrok.io")) {
+                      EnvUtils.setEnvironmentAndResetApp(
+                          context, Environment.LOCAL, tempLocalUrl);
+                    } else
+                      UiUtils.showToast("Invalid url");
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -132,14 +232,12 @@ class _LokalAppState extends State<LokalApp> {
           create: (context) => DarkThemeProvider(),
         ),
       ],
-      child:
-      MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
           // "/": (context) => success(),
-
           //   "/": (context) => UikOrderHistoryScreen().page,
           // "/": (context) => LoginPageScreen(),
           //  "/": (context) => UikAddressBook().page,
@@ -147,7 +245,20 @@ class _LokalAppState extends State<LokalApp> {
           // "/": (context) => UikHome().page,
 
           "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
+          // "/": (context) => UikBtsCheckLocationScreen().page,
+
+
+          //   "/": (context) => UserDataHandler.getUserToken().isEmpty
+          //  ? OnboardingScreen()
+          ///      : UikBottomNavigationBar(),
+          // "/": (context) => UikBtsLocationFeasibilityScreen().page,
+          "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
         //  "/": (context) => UikPaymentDetailsScreen().page,
+
+       //   "/": (context) => UserDataHandler.getUserToken().isEmpty
+            //  ? OnboardingScreen()
+        ///      : UikBottomNavigationBar(),
+         //"/": (context) => UikBtsLocationFeasibilityScreen().page,
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -155,12 +266,19 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.otpScreen: (context) =>  OtpScreen(),
-          ScreenRoutes.paymentDetailsScreen: (context) =>  UikPaymentDetailsScreen().page,
-          ScreenRoutes.orderScreen: (context) =>  UikOrderScreen().page,
-          ScreenRoutes.addAddressScreen: (context) =>  UikAddAddressScreen().page,
-          ScreenRoutes.myDetailsScreen: (context) =>  MyDetailsScreen(),
-          ScreenRoutes.orderHistoryScreen: (context) =>  UikOrderHistoryScreen().page,
+          ScreenRoutes.otpScreen: (context) => OtpScreen(),
+          ScreenRoutes.paymentDetailsScreen: (context) =>
+              UikPaymentDetailsScreen().page,
+          ScreenRoutes.orderScreen: (context) => UikOrderScreen().page,
+          ScreenRoutes.addAddressScreen: (context) =>
+              UikAddAddressScreen().page,
+          ScreenRoutes.orderHistoryScreen: (context) =>
+              UikOrderHistoryScreen().page,
+          ScreenRoutes.myGames: (context) => UikMyGames().page,
+          ScreenRoutes.btsLocationFeasibility: (context) =>
+              UikBtsLocationFeasibilityScreen().page,
+          ScreenRoutes.btsCheckLocation: (context) =>
+              UikBtsCheckLocationScreen().page,
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,

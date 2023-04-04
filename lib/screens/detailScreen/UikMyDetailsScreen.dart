@@ -18,7 +18,9 @@ class MyDetailsScreen extends StatefulWidget {
   @override
   State<MyDetailsScreen> createState() => _MyDetailsScreenState();
 }
-var showVerifyPhoneNumber  = false;
+
+var showVerifyPhoneNumber = false;
+
 class _MyDetailsScreenState extends State<MyDetailsScreen> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -35,62 +37,82 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     initialize();
   }
 
-  void initialize()  {
-    emailController.text =  UserDataHandler.getUserEmail();
-    phoneController.text =  UserDataHandler.getUserPhone();
-    nameController.text =  UserDataHandler.getUserName();
-    birthController.text =  UserDataHandler.getUserDob();
-    GSTController.text =  UserDataHandler.getUserGST();
-   // showVerifyPhoneNumber = UserDataHandler.getUserPhone().isNotEmpty && !UserDataHandler.getIsUserVerified();
+  void initialize() {
+    emailController.text = UserDataHandler.getUserEmail();
+    phoneController.text = UserDataHandler.getUserPhone();
+    nameController.text = UserDataHandler.getUserName();
+    birthController.text = UserDataHandler.getUserDob();
+    GSTController.text = UserDataHandler.getUserGST();
+    showVerifyPhoneNumber = UserDataHandler.getUserPhone().isNotEmpty &&
+        !UserDataHandler.getIsUserVerified();
   }
 
-
-
-  String setButtonText(){
-    if(showVerifyPhoneNumber) {
+  String setButtonText() {
+    if (showVerifyPhoneNumber) {
       return VERIFY_NUMBER;
     }
     return SAVE_DETAILS;
   }
 
-  Future<void> handleOnButtonClick () async {
+  Future<void> handleOnButtonClick() async {
+    if (nameController.text.isEmpty) {
+      UiUtils.showToast(ENTER_EMAIL);
+      return;
+    } else if (phoneController.text.isEmpty) {
+      UiUtils.showToast(ENTER_PHONE);
+      return;
+    } else if (emailController.text.isEmpty) {
+      UiUtils.showToast(ENTER_EMAIL);
+      return;
+    } else if (GSTController.text.isEmpty) {
+      UiUtils.showToast(ENTER_GST);
+      return;
+    }
 
-    if(showVerifyPhoneNumber){
+    if (showVerifyPhoneNumber) {
+
       final response = await ApiRepository.sendOtp(
-          ApiRequestBody.getSendOtpRequest(
-              phoneController.text));
-      if(response.isSuccess!){
+        ApiRequestBody.getSendOtpRequest(phoneController.text),
+      );
+
+      if (response.isSuccess!) {
         UiUtils.showToast(OTP_SENT);
+
         var context = NavigationService.navigatorKey.currentContext;
-        Navigator.pushNamed(context!, ScreenRoutes.otpScreen);
+        Navigator.pushNamed(
+          context!,
+          ScreenRoutes.otpScreen,
+          arguments: phoneController.text,
+        );
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
       }
-      else {
+    } else {
+      final response = await ApiRepository.updateCustomerInfo(
+        ApiRequestBody.getSaveDetailsRequest(
+          nameController.text,
+          emailController.text,
+          GSTController.text,
+          birthController.text,
+          phoneController.text,
+        ),
+      );
+
+      if (response.isSuccess!) {
+        var customerData = response.data;
+        if (customerData != null) {
+          UserDataHandler.saveCustomerData(customerData);
+        }
+
+        UiUtils.showToast(ACCOUNT_DETAILS_UPDATED);
+
+        Navigator.of(context).pop();
+      } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
     }
-    else {
-    final response = await ApiRepository.updateCustomerInfo(
-        ApiRequestBody.getSaveDetailsRequest(
-            nameController.text,
-            emailController.text,
-            GSTController.text,
-            birthController.text,
-            phoneController.text));
-    if(response.isSuccess!){
-      var customerData = response.data[CUSTOMER_DATA];
-      if(customerData!= null) {
-        UserDataHandler.saveCustomerData(customerData);
-      }
-
-      UiUtils.showToast(ACCOUNT_DETAILS_UPDATED);
-      Navigator.of(context).pop();
-    }
-    else {
-      UiUtils.showToast(response.error![MESSAGE]);
-    }
-    }
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +154,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               height: 64,
               Controller: phoneController,
             ),
-             MyTextField(
+            MyTextField(
               labelText: EMAIL,
               width: 343,
               height: 64,
@@ -153,7 +175,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
               child: UikButton(
-                onClick: ()  {
+                onClick: () {
                   handleOnButtonClick();
                 },
                 text: setButtonText(),

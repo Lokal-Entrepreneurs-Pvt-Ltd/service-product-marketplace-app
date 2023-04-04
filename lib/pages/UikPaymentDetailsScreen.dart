@@ -2,31 +2,25 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/strings.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/payments/razorpay_payment.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
-import 'package:http/http.dart' as http;
-
 import '../constants/json_constants.dart';
 import '../main.dart';
-import '../screen_routes.dart';
 import '../utils/network/ApiRequestBody.dart';
 import '../utils/network/retrofit/api_routes.dart';
-// pay_online
-// pay_cod
-//
-
-// enum PaymentMethod {
-//   online,
-//   cod,
-// }
 
 class UikPaymentDetailsScreen extends StandardPage {
   String paymentMethod = "";
+  String orderNumberId = "";
+  String rzpPaymentId = "";
+  String rzpSignature = "";
+  String rzpOrderId = "";
 
   @override
   Set<String?> getActions() {
@@ -35,13 +29,14 @@ class UikPaymentDetailsScreen extends StandardPage {
     actionList.add(UIK_ACTION.PAY_COD);
     actionList.add(UIK_ACTION.PLACE_ORDER);
     actionList.add(UIK_ACTION.PAYMENT_STATUS);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
   @override
   dynamic getData() {
-     return ApiRepository.addressNext;
-    // return getMockedApiResponse;
+    return ApiRepository.addressNext;
+    //return getMockedApiResponse;
   }
 
   void onPaymentDetailsScreenTapAction(UikAction uikAction) {
@@ -59,6 +54,9 @@ class UikPaymentDetailsScreen extends StandardPage {
         break;
       case UIK_ACTION.PLACE_ORDER:
         placeOrder(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }
@@ -85,24 +83,51 @@ class UikPaymentDetailsScreen extends StandardPage {
       makePayment(uikAction, paymentMethod);
     }
   }
-}
 
-Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
-  dynamic response = await ApiRepository.paymentNext(
-    ApiRequestBody.getPaymentNextRequest(paymentMethod),
-  );
+  Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
+    dynamic response = await ApiRepository.paymentNext(
+      ApiRequestBody.getPaymentNextRequest(paymentMethod),
+    );
 
-  if (response.isSuccess!) {
-    var orderNumberId = response.data[ORDER_NUMBER_ID];
+    if (response.isSuccess! && paymentMethod.isNotEmpty) {
+      orderNumberId = response.data[ORDER_NUMBER_ID];
+      CartDataHandler.clearCart();
+      if (paymentMethod == PAYMENT_METHOD_COD){
+        makeCodPayment();
+      } else if (paymentMethod == PAYMENT_METHOD_ONLINE) {
+        makeOnlinePayment(response);
+      } else {
+        UiUtils.showToast(PAYMENT_MODE_ERROR);
+      }
+    } else {
+      UiUtils.showToast(response.error![MESSAGE]);
+    }
+  }
+
+  void paymentStatus(UikAction uikAction) {
+    print("...................inside status...........");
+    var context = NavigationService.navigatorKey.currentContext;
+    // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+    Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
+  }
+
+  void makeOnlinePayment(response) {
+    rzpOrderId = response.data[RAZOR_PAY_ORDER_ID];
+    CartDataHandler.clearCart();
+    RazorpayPayment razorpay =
+        RazorpayPayment(rzpOrderId: rzpOrderId, orderNumberId: orderNumberId);
+    razorpay.openPaymentPage();
+  }
+
+  void makeCodPayment() {
     Map<String, dynamic>? args = {
       ORDER_NUMBER_ID: orderNumberId,
+      PAYMENT_METHOD: paymentMethod,
     };
-    var context = NavigationService.navigatorKey.currentContext;
-    Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: args);
-  } else {
-    UiUtils.showToast(response.error![MESSAGE]);
+    NavigationUtils.openOrderScreen(args);
   }
 }
+
 
 void paymentStatus(UikAction uikAction) {
   print("...................inside status...........");
@@ -110,3 +135,4 @@ void paymentStatus(UikAction uikAction) {
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
+

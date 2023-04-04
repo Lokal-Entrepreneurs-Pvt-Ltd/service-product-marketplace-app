@@ -19,6 +19,7 @@ class UIK_ACTION {
   static const String OPEN_ADDRESS = 'OPEN_ADDRESS';
   static const String OPEN_PAYMENT = 'OPEN_PAYMENT';
   static const String OPEN_SIGN_OUT = 'OPEN_SIGN_OUT';
+  static const String OPEN_LOG_IN = 'OPEN_LOG_IN';
   static const String ADD_ADDRESS = 'ADD_ADDRESS';
   static const String ADD_FILTER = 'ADD_FILTER';
   static const String REMOVE_FILTER = 'REMOVE_FILTER';
@@ -41,4 +42,10 @@ class UIK_ACTION {
   static const String PLACE_ORDER = 'PLACE_ORDER';
   static const String ON_TEXT_EDIT_COMPLETE = 'ON_TEXT_EDIT_COMPLETE';
   static const String SUBMIT_ADDRESS = 'SUBMIT_ADDRESS';
+  static const String SELECT_TOWER = 'SELECT_TOWER';
+  static const String BACK_PRESSED = 'BACK_PRESSED';
+  static const String SELECT_STATE = 'SELECT_STATE';
+  static const String SELECT_DISTRICT = 'SELECT_DISTRICT';
+  static const String SELECT_BLOCK = 'SELECT_BLOCK';
+  static const String FETCH_LOCATION = 'FETCH_LOCATION';
 }
