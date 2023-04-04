@@ -2,7 +2,7 @@ import '../storage/user_data_handler.dart';
 
 abstract class NetworkUtils {
   static int HTTP_SUCCESS = 200;
-  static int REQUEST_TIMEOUT = 60;
+  static int REQUEST_TIMEOUT = 300;
   static Map<String, String> getRequestHeaders() {
     var authToken = UserDataHandler.getUserToken();
 

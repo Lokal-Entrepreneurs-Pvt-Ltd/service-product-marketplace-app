@@ -10,6 +10,7 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
+import '../utils/NavigationUtils.dart';
 
 class UikMyGames extends StandardPage {
   @override
@@ -28,13 +29,11 @@ class UikMyGames extends StandardPage {
   void onMyGamesTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.BACK_PRESSED:
-        var context = NavigationService.navigatorKey.currentContext;
-        Navigator.pop(context!);
+        NavigationUtils.pop();
         break;
       default:
     }
   }
-
 
   @override
   getPageCallBackForAction() {
