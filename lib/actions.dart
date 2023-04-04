@@ -44,4 +44,8 @@ class UIK_ACTION {
   static const String SUBMIT_ADDRESS = 'SUBMIT_ADDRESS';
   static const String SELECT_TOWER = 'SELECT_TOWER';
   static const String BACK_PRESSED = 'BACK_PRESSED';
+  static const String SELECT_STATE = 'SELECT_STATE';
+  static const String SELECT_DISTRICT = 'SELECT_DISTRICT';
+  static const String SELECT_BLOCK = 'SELECT_BLOCK';
+  static const String FETCH_LOCATION = 'FETCH_LOCATION';
 }

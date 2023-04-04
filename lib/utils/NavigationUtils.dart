@@ -17,6 +17,11 @@ abstract class NavigationUtils {
 
  static void openOrderScreen(Map<String, dynamic> args) {
     var context = NavigationService.navigatorKey.currentContext;
-    Navigator.pushNamed(context!, ScreenRoutes.orderScreen, arguments: args);
+    Navigator.pushNamedAndRemoveUntil(context!, ScreenRoutes.orderScreen, ModalRoute.withName('/'), arguments: args);
+  }
+
+  static void pop() {
+    var context = NavigationService.navigatorKey.currentContext;
+    Navigator.maybePop(context!);
   }
 }
