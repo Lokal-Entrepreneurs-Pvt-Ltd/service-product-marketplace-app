@@ -13,6 +13,7 @@ import '../main.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
+import '../utils/NavigationUtils.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import '../utils/storage/user_data_handler.dart';
 
@@ -35,6 +36,7 @@ class UikAddAddressScreen extends StandardPage {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);
     actionList.add(UIK_ACTION.SUBMIT_ADDRESS);
+    actionList.add(UIK_ACTION.ADD_ADDRESS);
     return actionList;
   }
 
@@ -50,6 +52,9 @@ class UikAddAddressScreen extends StandardPage {
         break;
       case UIK_ACTION.SUBMIT_ADDRESS:
         submitAddress(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }
@@ -111,7 +116,7 @@ class UikAddAddressScreen extends StandardPage {
     Map<String, dynamic> args = {
       ADDRESS: {
         FIRST_NAME: name,
-        LAST_NAME: "",
+        LAST_NAME: "singh",
         ADDRESS_LINE_1: houseNumber,
         ADDRESS_LINE_2: street,
         CITY: city,
@@ -122,6 +127,8 @@ class UikAddAddressScreen extends StandardPage {
         TELEPHONE: phone,
       },
     };
+
+    print(args);
 
     final BuildContext context = NavigationService.navigatorKey.currentContext!;
     Navigator.pushNamed(

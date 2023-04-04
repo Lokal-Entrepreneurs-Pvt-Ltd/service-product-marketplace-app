@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
@@ -19,6 +20,7 @@ class UikCatalogScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_ISP);
     actionList.add(UIK_ACTION.ADD_TO_CART);
     actionList.add(UIK_ACTION.OPEN_PRODUCT);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -34,6 +36,9 @@ class UikCatalogScreen extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_PRODUCT:
         openProduct(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }

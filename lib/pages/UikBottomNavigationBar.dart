@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lokal/configs/environment.dart';
+import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -7,12 +11,15 @@ import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
+import 'package:lokal/utils/storage/preference_util.dart';
 import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'UikHome.dart';
 
-class UikBottomNavigationBar extends StatefulWidget {
+class
+UikBottomNavigationBar extends StatefulWidget {
   @override
   State<UikBottomNavigationBar> createState() => _UikBottomNavigationBarState();
 }
@@ -22,23 +29,31 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const UikHomeWrapper(),
-    UikCartScreen().page,
-    UikMyAccountScreen().page,
+    // UikCartScreen().page,
+    // UikMyAccountScreen().page,
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
+
 
   void _onItemTapped(int index) {
     var context = NavigationService.navigatorKey.currentContext;
     if (index == _selectedIndex) return;
     if (index == 1) {
-      Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
-    } else if (index == 2) {
+      Navigator.pushNamed(context!, ScreenRoutes.myGames);
+    }
+    if (index == 2) {
       Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
     }
-    setState(() {
-      _selectedIndex = index;
-    });
+
+    // if (index == 1) {
+    //   Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
+    // } else if (index == 2) {
+    //   Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
+    // }
+    // setState(() {
+    //   _selectedIndex = index;
+    // });
   }
 
   @override
@@ -70,9 +85,15 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               ),
               label: "",
             ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.shopping_bag,
+            //   ),
+            //   label: "",
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.shopping_bag,
+                Icons.gamepad,
               ),
               label: "",
             ),

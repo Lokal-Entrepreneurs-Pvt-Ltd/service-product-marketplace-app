@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import '../actions.dart';
 import '../constants/json_constants.dart';
 import '../main.dart';
+import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
 import '../utils/deeplink_handler.dart';
 import '../screen_routes.dart';
@@ -25,7 +26,7 @@ class UikEmptyCartScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getCartScreen({"cartId" :CartDataHandler.getCartId()});
+    return ApiRepository.getCartScreen({"cartId": CartDataHandler.getCartId()});
     // return getMockedApiResponse;
   }
 
@@ -47,7 +48,9 @@ class UikCartScreen extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
+    actionList.add(UIK_ACTION.REMOVE_FROM_CART);
     actionList.add(UIK_ACTION.REMOVE_CART_ITEM);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -67,6 +70,12 @@ class UikCartScreen extends StandardPage {
         break;
       case UIK_ACTION.REMOVE_FROM_CART:
         removeCartItem(uikAction);
+        break;
+      case UIK_ACTION.REMOVE_CART_ITEM:
+        removeCartItem(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
 
       default:

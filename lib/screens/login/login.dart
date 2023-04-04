@@ -114,7 +114,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                               ApiRequestBody.getLoginRequest(
                                   emailController.text,
                                   passwordController.text));
-                          print("Response");
                           // print(response);
                           if (response.isSuccess!) {
                             print("LOGINSCREEN----------------");

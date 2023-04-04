@@ -43,4 +43,8 @@ class ApiRequestBody {
     return { PAYMENT_METHOD: paymentMethod};
   }
 
+  static getValidatePayment( String orderNumberId, String rzpPaymentId, String rzpSignature) {
+    return { ORDER_NUMBER_ID: orderNumberId, RAZOR_PAYMENT_ID:rzpPaymentId, RAZOR_PAY_SIGNATURE : rzpSignature };
+  }
+
 }
