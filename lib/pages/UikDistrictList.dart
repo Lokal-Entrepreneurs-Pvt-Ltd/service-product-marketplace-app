@@ -25,22 +25,18 @@ class UikDistrictList extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_CITY");
-    actionList.add("CITY_SELECTED");
+    actionList.add("SELECT_DISTRICT");
+    actionList.add("SUBMIT_FORM");
     return actionList;
   }
 
   @override
   dynamic getData() {
-    // return ApiRepository.getDistricts({
-    //   "stateCode": stateCode,
-    // });
-    return getMockedApiResponse({
-      "stateCode": stateCode,
-    });
+    return ApiRepository.getDistricts(null);
+    // return getMockedApiResponse();
   }
 
-  void onStateListScreenTapAction(UikAction uikAction) {
+  void onDistrictListScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case "SELECT_DISTRICT":
@@ -63,7 +59,7 @@ class UikDistrictList extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return onStateListScreenTapAction;
+    return onDistrictListScreenTapAction;
   }
 
   @override
@@ -72,21 +68,20 @@ class UikDistrictList extends StandardPage {
   }
 }
 
-Future<ApiResponse>? getMockedApiResponse(args) async {
+Future<ApiResponse>? getMockedApiResponse() async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
 
-  print(args);
+  // print(args);
 
-  final response = await http.post(
+  final response = await http.get(
     // Uri.parse('https://demo4081726.mockable.io/districtslist'),
-    Uri.parse(
-        'https://0fe2-2405-201-e029-5bc9-2e08-8f82-fde-9131.in.ngrok.io/isp/feasiblity/getDistrictForState'),
+    Uri.parse('https://demo4081726.mockable.io/districtslist'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
-    body: args,
+    // body: args,
   );
 
   print("Hellowww");
