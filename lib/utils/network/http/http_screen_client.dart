@@ -12,22 +12,26 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../../constants/environment.dart';
 
-class
-HttpScreenClient {
+class HttpScreenClient {
   static ChuckerHttpClient getHttp() {
     return ChuckerHttpClient(http.Client());
   }
 
   static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
+    print(args);
     var bodyParams = (args != null) ? args : <String, dynamic>{};
     var header = NetworkUtils.getRequestHeaders();
     try {
-      final response = await getHttp().post(
-        Uri.parse(Environment().config.BASE_URL + pageRoute),
-        headers: header,
-        body: jsonEncode(bodyParams),
-      ).timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
+      final response = await getHttp()
+          .post(
+            Uri.parse(Environment().config.BASE_URL + pageRoute),
+            headers: header,
+            body: jsonEncode(bodyParams),
+          )
+          .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
+
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
+        print(response.body);
         return ApiResponse.fromJson(jsonDecode(response.body));
       } else {
         throw Exception('Failed to load ' + pageRoute);
