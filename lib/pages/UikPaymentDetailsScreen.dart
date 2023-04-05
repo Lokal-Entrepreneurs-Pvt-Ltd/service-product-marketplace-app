@@ -133,3 +133,11 @@ class UikPaymentDetailsScreen extends StandardPage {
   }
 }
 
+
+void paymentStatus(UikAction uikAction) {
+  print("...................inside status...........");
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
+}
+

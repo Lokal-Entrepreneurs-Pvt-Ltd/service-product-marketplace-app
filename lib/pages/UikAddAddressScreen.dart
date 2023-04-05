@@ -95,6 +95,26 @@ class UikAddAddressScreen extends StandardPage {
   }
 
   void submitAddress(UikAction uikAction) {
+    if (name.isEmpty) {
+      UiUtils.showToast("Enter your name");
+      return;
+    } else if (houseNumber.isEmpty) {
+      UiUtils.showToast("Enter your house number");
+      return;
+    } else if (street.isEmpty) {
+      UiUtils.showToast("Enter your street");
+      return;
+    } else if (city.isEmpty) {
+      UiUtils.showToast("Enter your city");
+      return;
+    } else if (postcode.isEmpty) {
+      UiUtils.showToast("Enter your post code");
+      return;
+    } else if (phone.isEmpty) {
+      UiUtils.showToast("Enter your phone number");
+      return;
+    }
+
     Map<String, dynamic> args = {
       ADDRESS: {
         FIRST_NAME: name,
