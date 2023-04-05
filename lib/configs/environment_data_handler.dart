@@ -22,7 +22,7 @@ static void setLocalBaseUrl(String localBaseUrl) {
 }
 // Set your url here
 static String getLocalBaseUrl() {
-  return PreferenceUtils.getString(LOCAL_BASE_URL, "https://c845-202-89-65-238.in.ngrok.io");
+  return PreferenceUtils.getString(LOCAL_BASE_URL, "https://3ff8-2401-4900-5fc3-3416-4c5b-5dbb-5724-19d.in.ngrok.io");
 }
 
 }

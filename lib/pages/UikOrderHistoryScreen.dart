@@ -71,6 +71,11 @@ class UikOrderHistoryScreen extends StandardPage {
   getPageContext() {
     return UikOrderHistoryScreen;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void openOrder(UikAction uikAction) {

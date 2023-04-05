@@ -52,6 +52,10 @@ class UikCouponScreen extends StandardPage {
   getPageContext() {
     return UikCouponScreen;
   }
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void applyCoupon(UikAction uikAction) {
