@@ -92,7 +92,7 @@ class UikPaymentDetailsScreen extends StandardPage {
     if (response.isSuccess! && paymentMethod.isNotEmpty) {
       orderNumberId = response.data[ORDER_NUMBER_ID];
       CartDataHandler.clearCart();
-      if (paymentMethod == UIK_ACTION.PAY_COD) {
+      if (paymentMethod == PAYMENT_METHOD_COD){
         makeCodPayment();
       } else if (paymentMethod == PAYMENT_METHOD_ONLINE) {
         makeOnlinePayment(response);
@@ -127,3 +127,4 @@ class UikPaymentDetailsScreen extends StandardPage {
     NavigationUtils.openOrderScreen(args);
   }
 }
+
