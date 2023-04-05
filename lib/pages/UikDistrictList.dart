@@ -12,6 +12,7 @@ import '../actions.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
+import '../utils/storage/cart_data_handler.dart';
 
 class UikDistrictList extends StandardPage {
   int selectedValue = -1;
@@ -32,12 +33,8 @@ class UikDistrictList extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.getDistricts({
-    //   "stateCode": stateCode,
-    // });
-    return getMockedApiResponse({
-      "stateCode": stateCode,
-    });
+    return ApiRepository.getDistricts;
+    return getMockedApiResponse();
   }
 
   void onStateListScreenTapAction(UikAction uikAction) {
@@ -70,27 +67,26 @@ class UikDistrictList extends StandardPage {
   getPageContext() {
     return UikDistrictList;
   }
+
+  @override
+  Map<String, dynamic>? getConstructorArgs() {
+    return {
+      "stateCode": stateCode,
+    };
+  }
 }
 
-Future<ApiResponse>? getMockedApiResponse(args) async {
-  final queryParameter = {
-    "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
-  };
+Future<ApiResponse>? getMockedApiResponse() async {
 
-  print(args);
-
-  final response = await http.post(
+  final response = await http.get(
     // Uri.parse('https://demo4081726.mockable.io/districtslist'),
     Uri.parse(
-        'https://0fe2-2405-201-e029-5bc9-2e08-8f82-fde-9131.in.ngrok.io/isp/feasiblity/getDistrictForState'),
+        'https://demo4081726.mockable.io/districtslist'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
-    body: args,
   );
 
-  print("Hellowww");
-  print(response.body);
 
   if (response.statusCode == 200) {
     return ApiResponse.fromJson(jsonDecode(response.body));

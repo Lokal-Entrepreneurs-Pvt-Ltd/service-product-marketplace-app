@@ -72,6 +72,11 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     return UikBtsLocationFeasibilityScreen;
   }
 
+  @override
+  getConstructorArgs() {
+   return {};
+  }
+
   void onEditingText(UikAction uikAction) {}
 
   void selectState(UikAction uikAction) async {
@@ -110,6 +115,12 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   }
 
   void selectDistrict(UikAction uikAction) async {
+
+    if( stateCode == -1){
+      UiUtils.showToast("Kindly select state first !");
+      return;
+    }
+
     print("Inside Select District func");
     var context = NavigationService.navigatorKey.currentContext;
 
@@ -144,6 +155,17 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   }
 
   void selectBlock(UikAction uikAction) async {
+
+    if( stateCode == -1){
+      UiUtils.showToast("Kindly select state first !");
+      return;
+    }
+
+    if( stateCode == -1){
+      UiUtils.showToast("Kindly select state first !");
+      return;
+    }
+
     print("Inside Select Block func");
     var context = NavigationService.navigatorKey.currentContext;
 

@@ -58,6 +58,11 @@ class UikAddressBook extends StandardPage {
   getPageContext() {
     return UikAddressBook;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void deleteAddress(UikAction uikAction) {

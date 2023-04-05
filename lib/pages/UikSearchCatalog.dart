@@ -50,6 +50,10 @@ class UikSearchCatalog extends StandardPage {
   getPageContext() {
     return UikSearchCatalog;
   }
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void openSearch(UikAction uikAction) {
