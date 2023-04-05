@@ -40,6 +40,12 @@ class UikBtsCheckLocationScreen extends StandardPage {
   }
 
   void onSelectTower(UikAction uikAction) {}
+
+  @override
+  getConstructorArgs() {
+    // TODO: implement getConstructorArgs
+    return {};
+  }
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
