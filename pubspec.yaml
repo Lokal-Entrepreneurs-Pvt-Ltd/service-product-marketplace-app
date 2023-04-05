@@ -69,7 +69,7 @@ dependencies:
   sticky_headers: ^0.3.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
-  ui_sdk: ^1.0.93+1
+  ui_sdk: ^1.0.94+1
 
 
 dev_dependencies:

@@ -44,6 +44,10 @@ class UikMyGames extends StandardPage {
   getPageContext() {
     return UikMyGames;
   }
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void openProduct(UikAction uikAction) {

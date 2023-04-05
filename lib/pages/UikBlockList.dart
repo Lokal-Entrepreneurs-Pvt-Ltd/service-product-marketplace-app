@@ -66,6 +66,10 @@ class UikBlockList extends StandardPage {
   getPageContext() {
     return UikBlockList;
   }
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 Future<ApiResponse>? getMockedApiResponse(args) async {

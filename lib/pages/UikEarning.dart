@@ -56,6 +56,10 @@ class UikEarningScreen extends StandardPage {
   getPageContext() {
     return UikEarningScreen;
   }
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void openHistory(UikAction uikAction) {

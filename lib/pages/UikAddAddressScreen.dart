@@ -70,6 +70,8 @@ class UikAddAddressScreen extends StandardPage {
     return UikAddAddressScreen;
   }
 
+
+
   void onTextEditComplete(UikAction uikAction) {
     var key = uikAction.tap.data.key;
     var value = uikAction.tap.data.value;
@@ -116,6 +118,11 @@ class UikAddAddressScreen extends StandardPage {
       ScreenRoutes.paymentDetailsScreen,
       arguments: args,
     );
+  }
+
+  @override
+  getConstructorArgs() {
+   return {};
   }
 }
 

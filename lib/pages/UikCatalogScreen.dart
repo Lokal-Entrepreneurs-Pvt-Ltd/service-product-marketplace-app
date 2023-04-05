@@ -53,6 +53,11 @@ class UikCatalogScreen extends StandardPage {
   getPageContext() {
     return UikCatalogScreen;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {

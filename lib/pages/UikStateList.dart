@@ -65,6 +65,11 @@ class UikStateList extends StandardPage {
   getPageContext() {
     return UikStateList;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 Future<ApiResponse>? getMockedApiResponse(args) async {
