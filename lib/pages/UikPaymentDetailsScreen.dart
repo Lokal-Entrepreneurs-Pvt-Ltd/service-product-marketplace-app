@@ -72,6 +72,11 @@ class UikPaymentDetailsScreen extends StandardPage {
     return UikPaymentDetailsScreen;
   }
 
+  @override
+  getConstructorArgs() {
+   return {};
+  }
+
   void setPaymentMode(String paymentMethod) {
     this.paymentMethod = paymentMethod;
   }

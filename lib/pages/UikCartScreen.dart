@@ -41,6 +41,11 @@ class UikEmptyCartScreen extends StandardPage {
   getPageContext() {
     return UikEmptyCartScreen;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 class UikCartScreen extends StandardPage {
@@ -90,6 +95,10 @@ class UikCartScreen extends StandardPage {
   @override
   getPageContext() {
     return UikCartScreen;
+  }
+  @override
+  getConstructorArgs() {
+   return {};
   }
 }
 

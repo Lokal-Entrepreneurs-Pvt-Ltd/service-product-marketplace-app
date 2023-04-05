@@ -60,6 +60,11 @@ class UikInviteScreen extends StandardPage {
   getPageContext() {
     return UikInviteScreen;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void openShare(UikAction uikAction) {
