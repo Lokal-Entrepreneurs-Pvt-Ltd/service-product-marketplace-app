@@ -32,6 +32,7 @@ class HttpScreenClient {
           )
           .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
       print(response);
+      print(response.body);
 
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
         print(response.body);

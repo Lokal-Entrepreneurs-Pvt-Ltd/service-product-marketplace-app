@@ -12,28 +12,29 @@ import '../actions.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
+import '../utils/storage/cart_data_handler.dart';
 
 class UikDistrictList extends StandardPage {
-  int selectedValue = -1;
+  int? selectedValue = -1;
 
   UikDistrictList({
     required this.stateCode,
   });
 
-  final int stateCode;
+  final int? stateCode;
 
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add("SELECT_DISTRICT");
-    actionList.add("SUBMIT_FORM");
+    actionList.add("CONFIRM_DISTRICT");
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getDistricts(null);
-    // return getMockedApiResponse();
+    return ApiRepository.getDistricts;
+    return getMockedApiResponse();
   }
 
   void onDistrictListScreenTapAction(UikAction uikAction) {
@@ -46,7 +47,7 @@ class UikDistrictList extends StandardPage {
           selectedValue = int.parse(uikAction.tap.data.value!);
         }
         break;
-      case "SUBMIT_FORM":
+      case "CONFIRM_DISTRICT":
         {
           print(selectedValue);
           var context = NavigationService.navigatorKey.currentContext;
@@ -66,6 +67,13 @@ class UikDistrictList extends StandardPage {
   getPageContext() {
     return UikDistrictList;
   }
+
+  @override
+  Map<String, dynamic>? getConstructorArgs() {
+    return {
+      "stateCode": stateCode,
+    };
+  }
 }
 
 Future<ApiResponse>? getMockedApiResponse() async {
@@ -83,9 +91,6 @@ Future<ApiResponse>? getMockedApiResponse() async {
     },
     // body: args,
   );
-
-  print("Hellowww");
-  print(response.body);
 
   if (response.statusCode == 200) {
     return ApiResponse.fromJson(jsonDecode(response.body));

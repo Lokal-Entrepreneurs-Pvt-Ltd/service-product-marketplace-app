@@ -19,9 +19,9 @@ import 'UikBlockList.dart';
 import 'UikDistrictList.dart';
 
 class UikBtsLocationFeasibilityScreen extends StandardPage {
-  int stateCode = -1;
-  int districtCode = -1;
-  int blockCode = -1;
+  int? stateCode = -1;
+  int? districtCode = -1;
+  int? blockCode = -1;
 
   @override
   Set<String?> getActions() {
@@ -37,7 +37,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   @override
   dynamic getData() {
     return ApiRepository.btsLocationFeasibility;
-    // return getMockedApiResponse;
+    return getMockedApiResponse;
   }
 
   void onBtsLocationFeasibilityScreenTapAction(UikAction uikAction) {
@@ -72,6 +72,11 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     return UikBtsLocationFeasibilityScreen;
   }
 
+  @override
+  getConstructorArgs() {
+    return {};
+  }
+
   void onEditingText(UikAction uikAction) {}
 
   void selectState(UikAction uikAction) async {
@@ -102,7 +107,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    print("RESULT VALUE - ");
+    print(
+        "...........................................RESULT VALUE -.............................. ");
     print(result);
 
     stateCode = result;
@@ -110,6 +116,11 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   }
 
   void selectDistrict(UikAction uikAction) async {
+    if (stateCode == -1 || stateCode == null) {
+      UiUtils.showToast("Kindly select state first !");
+      return;
+    }
+
     print("Inside Select District func");
     var context = NavigationService.navigatorKey.currentContext;
 
@@ -137,13 +148,24 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    print("RESULT VALUE - ");
+    print(
+        ".........................................RESULT VALUE -........................................ ");
     print(result);
 
     districtCode = result;
   }
 
   void selectBlock(UikAction uikAction) async {
+    if (stateCode == -1 || stateCode == null) {
+      UiUtils.showToast("Kindly select state first !");
+      return;
+    }
+
+    if (districtCode == -1 || districtCode == null) {
+      UiUtils.showToast("Kindly select district first !");
+      return;
+    }
+
     print("Inside Select Block func");
     var context = NavigationService.navigatorKey.currentContext;
 
@@ -171,7 +193,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    print("RESULT VALUE - ");
+    print(
+        ".............................................RESULT VALUE -.................................. ");
     print(result);
 
     blockCode = result;
@@ -200,7 +223,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     }
 
     Position position = await Geolocator.getCurrentPosition();
-
+    print(
+        "...............................................Tashu............................................");
     print(position.latitude);
     print(position.longitude);
   }

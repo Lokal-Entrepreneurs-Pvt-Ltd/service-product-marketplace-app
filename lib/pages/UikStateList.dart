@@ -21,7 +21,7 @@ class UikStateList extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add("SELECT_STATE");
-    actionList.add("SUBMIT_FORM");
+    actionList.add("CONFIRM_STATE");
     return actionList;
   }
 
@@ -44,7 +44,7 @@ class UikStateList extends StandardPage {
           // Navigator.of(context!).pop(selectedValue);
         }
         break;
-      case "SUBMIT_FORM":
+      case "CONFIRM_STATE":
         {
           var context = NavigationService.navigatorKey.currentContext!;
           // Navigator.of(context!).pop(selectedValue);
@@ -64,6 +64,11 @@ class UikStateList extends StandardPage {
   @override
   getPageContext() {
     return UikStateList;
+  }
+
+  @override
+  getConstructorArgs() {
+    return {};
   }
 }
 

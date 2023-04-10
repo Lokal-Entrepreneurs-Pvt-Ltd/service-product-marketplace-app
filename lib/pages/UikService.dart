@@ -60,6 +60,11 @@ class UikServiceScreen extends StandardPage {
   getPageContext() {
     return UikServiceScreen;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void openShare(UikAction uikAction) {
