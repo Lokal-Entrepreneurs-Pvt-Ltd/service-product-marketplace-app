@@ -78,6 +78,11 @@ class UikMyAccountScreen extends StandardPage {
   getPageContext() {
     return UikMyAccountScreen;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void clearDataAndMoveToOnboarding(UikAction uikAction) {

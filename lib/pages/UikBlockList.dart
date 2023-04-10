@@ -14,19 +14,19 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class UikBlockList extends StandardPage {
-  int selectedValue = -1;
+  int? selectedValue = -1;
 
   UikBlockList({
     required this.districtCode,
   });
 
-  final int districtCode;
+  final int? districtCode;
 
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_CITY");
-    actionList.add("CITY_SELECTED");
+    actionList.add("SELECT_BLOCK");
+    actionList.add("CONFIRM_BLOCK");
     return actionList;
   }
 
@@ -46,7 +46,7 @@ class UikBlockList extends StandardPage {
           selectedValue = int.parse(uikAction.tap.data.value!);
         }
         break;
-      case "CITY_SELECTED":
+      case "CONFIRM_BLOCK":
         {
           print(selectedValue);
           var context = NavigationService.navigatorKey.currentContext;
@@ -65,6 +65,13 @@ class UikBlockList extends StandardPage {
   @override
   getPageContext() {
     return UikBlockList;
+  }
+
+  @override
+  getConstructorArgs() {
+    return {
+      "districtCode": districtCode,
+    };
   }
 }
 

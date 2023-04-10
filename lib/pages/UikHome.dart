@@ -56,6 +56,11 @@ class UikHome extends StandardPage {
   getPageContext() {
     return UikHome;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void openProduct(UikAction uikAction) {

@@ -56,6 +56,11 @@ class UikOrderScreen extends StandardPage {
   getPageContext() {
     return UikOrderScreen;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void orderDetail(UikAction uikAction) {

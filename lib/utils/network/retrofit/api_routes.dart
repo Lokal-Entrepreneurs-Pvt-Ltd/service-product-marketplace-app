@@ -37,6 +37,6 @@ class ApiRoutes {
       "/isp/feasiblity/locationFeasiblityForm";
   static const String getStates = "/isp/feasiblity/getStates";
   static const String getDistrict = "/isp/feasiblity/getDistrictForState";
-  static const String getBlocks = "/isp/feasilblity/getBlocksForDistrict";
+  static const String getBlocks = "/isp/feasiblity/getBlocksForDistrict";
   static const String getAllGames = "/misc/getAllGames";
 }

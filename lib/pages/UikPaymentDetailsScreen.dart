@@ -72,6 +72,11 @@ class UikPaymentDetailsScreen extends StandardPage {
     return UikPaymentDetailsScreen;
   }
 
+  @override
+  getConstructorArgs() {
+   return {};
+  }
+
   void setPaymentMode(String paymentMethod) {
     this.paymentMethod = paymentMethod;
   }
@@ -126,5 +131,13 @@ class UikPaymentDetailsScreen extends StandardPage {
     };
     NavigationUtils.openOrderScreen(args);
   }
+}
+
+
+void paymentStatus(UikAction uikAction) {
+  print("...................inside status...........");
+  var context = NavigationService.navigatorKey.currentContext;
+  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
 

@@ -53,6 +53,11 @@ class UikProductPage extends StandardPage {
   getPageContext() {
     return UikProductPage;
   }
+
+  @override
+  getConstructorArgs() {
+   return {};
+  }
 }
 
 void showCartScreen(UikAction uikAction) async {

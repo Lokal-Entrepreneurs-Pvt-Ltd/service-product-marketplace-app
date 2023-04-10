@@ -7,6 +7,7 @@ import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
+import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
@@ -236,20 +237,10 @@ class _LokalAppState extends State<LokalApp> {
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         routes: {
-          // "/": (context) => success(),
-          //   "/": (context) => UikOrderHistoryScreen().page,
-          // "/": (context) => LoginPageScreen(),
-          //  "/": (context) => UikAddressBook().page,
-
           "/": (context) => UikBtsLocationFeasibilityScreen().page,
-
-          // "/": (context) => UserDataHandler.getUserToken().isEmpty ?  OnboardingScreen() : UikBottomNavigationBar(),
-          //  "/": (context) => UikPaymentDetailsScreen().page,
-
-          //   "/": (context) => UserDataHandler.getUserToken().isEmpty
-          //  ? OnboardingScreen()
-          ///      : UikBottomNavigationBar(),
-          //"/": (context) => UikBtsLocationFeasibilityScreen().page,
+          // "/": (context) => UserDataHandler.getUserToken().isEmpty
+          //     ? OnboardingScreen()
+          //     : UikBottomNavigationBar(),
 
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
@@ -269,6 +260,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.myGames: (context) => UikMyGames().page,
           ScreenRoutes.btsLocationFeasibility: (context) =>
               UikBtsLocationFeasibilityScreen().page,
+          ScreenRoutes.btsCheckLocation: (context) =>
+              UikBtsCheckLocationScreen().page,
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
