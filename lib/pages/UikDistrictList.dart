@@ -26,8 +26,8 @@ class UikDistrictList extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_DISTRICT");
-    actionList.add("CONFIRM_DISTRICT");
+    actionList.add(UIK_ACTION.SELECT_DISTRICT);
+    actionList.add(UIK_ACTION.CONFIRM_DISTRICT);
     return actionList;
   }
 
@@ -39,14 +39,12 @@ class UikDistrictList extends StandardPage {
 
   void onDistrictListScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case "SELECT_DISTRICT":
+      case UIK_ACTION.SELECT_DISTRICT:
         {
-          print("Inside Select City");
-          print(uikAction.tap.data.value);
           selectedValue = int.parse(uikAction.tap.data.value!);
         }
         break;
-      case "CONFIRM_DISTRICT":
+      case UIK_ACTION.CONFIRM_DISTRICT:
         {
           var context = NavigationService.navigatorKey.currentContext;
           Navigator.maybePop(context!, selectedValue);
