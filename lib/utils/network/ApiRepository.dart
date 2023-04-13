@@ -99,6 +99,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> addressNext(args) {
+    print(args);
     return HttpScreenClient.getApiResponse(ApiRoutes.addressNext, args);
   }
 
@@ -118,11 +119,11 @@ class ApiRepository {
   static Future<ApiResponse> getStates(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getStates, args);
   }
-  
+
   static Future<ApiResponse> getDistricts(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getDistrict, args);
   }
-  
+
   static Future<ApiResponse> getBlocks(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getBlocks, args);
   }

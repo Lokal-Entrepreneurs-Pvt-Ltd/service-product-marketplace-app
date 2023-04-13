@@ -39,7 +39,7 @@ class UikBlockList extends StandardPage {
   void onStateListScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case "SELECT_CITY":
+      case "SELECT_BLOCK":
         {
           print("Inside Select City");
           print(uikAction.tap.data.value);
@@ -50,7 +50,8 @@ class UikBlockList extends StandardPage {
         {
           print(selectedValue);
           var context = NavigationService.navigatorKey.currentContext;
-          Navigator.of(context!).pop(selectedValue);
+          Navigator.maybePop(context!, selectedValue);
+          // Navigator.of(context!).pop(selectedValue);
         }
         break;
       default:

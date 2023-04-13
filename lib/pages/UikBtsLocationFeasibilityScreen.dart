@@ -22,6 +22,12 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   int? stateCode = -1;
   int? districtCode = -1;
   int? blockCode = -1;
+  String customerName = "";
+  String email = "";
+  String phoneNo = "";
+  String stateName = "";
+  String districtName = "";
+  String blockName = "";
 
   @override
   Set<String?> getActions() {
@@ -77,7 +83,27 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     return {};
   }
 
-  void onEditingText(UikAction uikAction) {}
+  void onEditingText(UikAction uikAction) {
+    var key = uikAction.tap.data.key;
+    var value = uikAction.tap.data.value;
+
+    print(key);
+    print(value);
+
+    if (key == "Name") {
+      customerName = value!;
+    } else if (key == "Email") {
+      email = value!;
+    } else if (key == "Phone Number") {
+      phoneNo = value!;
+    } else if (key == "House number") {
+      stateName = value!;
+    } else if (key == "City") {
+      districtName = value!;
+    } else if (key == "Postcode") {
+      blockName = value!;
+    }
+  }
 
   void selectState(UikAction uikAction) async {
     print("Inside Select State func");
@@ -106,10 +132,12 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     );
 
     UiUtils.showToast("You selected $result");
+    print(uikAction.tap.data);
 
     print(
-        "...........................................RESULT VALUE -.............................. ");
+        "...........................................RESULT VALUE State-.............................. ");
     print(result);
+    print(result.runtimeType);
 
     stateCode = result;
     return;

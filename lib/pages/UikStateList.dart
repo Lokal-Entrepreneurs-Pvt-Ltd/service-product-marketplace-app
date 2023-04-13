@@ -36,7 +36,8 @@ class UikStateList extends StandardPage {
     switch (uikAction.tap.type) {
       case "SELECT_STATE":
         {
-          print("Inside Select City");
+          print("Inside Select State");
+          print(uikAction.tap.data.key);
           print(uikAction.tap.data.value);
           selectedValue = int.parse(uikAction.tap.data.value!);
 
