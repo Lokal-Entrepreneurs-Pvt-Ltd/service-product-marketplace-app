@@ -32,13 +32,9 @@ class UikStateList extends StandardPage {
   }
 
   void onStateListScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case "SELECT_STATE":
         {
-          print("Inside Select State");
-          print(uikAction.tap.data.key);
-          print(uikAction.tap.data.value);
           selectedValue = int.parse(uikAction.tap.data.value!);
 
           var context = NavigationService.navigatorKey.currentContext;

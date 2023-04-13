@@ -87,9 +87,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     var key = uikAction.tap.data.key;
     var value = uikAction.tap.data.value;
 
-    print(key);
-    print(value);
-
     if (key == "Name") {
       customerName = value!;
     } else if (key == "Email") {
@@ -106,7 +103,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   }
 
   void selectState(UikAction uikAction) async {
-    print("Inside Select State func");
     var context = NavigationService.navigatorKey.currentContext;
 
     var result = await showModalBottomSheet(
@@ -132,12 +128,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     );
 
     UiUtils.showToast("You selected $result");
-    print(uikAction.tap.data);
-
-    print(
-        "...........................................RESULT VALUE State-.............................. ");
-    print(result);
-    print(result.runtimeType);
 
     stateCode = result;
     return;
@@ -149,7 +139,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       return;
     }
 
-    print("Inside Select District func");
     var context = NavigationService.navigatorKey.currentContext;
 
     var result = await showModalBottomSheet(
@@ -176,10 +165,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    print(
-        ".........................................RESULT VALUE -........................................ ");
-    print(result);
-
     districtCode = result;
   }
 
@@ -194,7 +179,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       return;
     }
 
-    print("Inside Select Block func");
     var context = NavigationService.navigatorKey.currentContext;
 
     var result = await showModalBottomSheet(
@@ -220,10 +204,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     );
 
     UiUtils.showToast("You selected $result");
-
-    print(
-        ".............................................RESULT VALUE -.................................. ");
-    print(result);
 
     blockCode = result;
   }
@@ -251,10 +231,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     }
 
     Position position = await Geolocator.getCurrentPosition();
-    print(
-        "...............................................Tashu............................................");
-    print(position.latitude);
-    print(position.longitude);
   }
 }
 
