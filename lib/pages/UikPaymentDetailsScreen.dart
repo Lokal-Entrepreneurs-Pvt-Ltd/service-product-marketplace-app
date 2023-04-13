@@ -96,7 +96,6 @@ class UikPaymentDetailsScreen extends StandardPage {
 
     if (response.isSuccess! && paymentMethod.isNotEmpty) {
       orderNumberId = response.data[ORDER_NUMBER_ID];
-      CartDataHandler.clearCart();
       if (paymentMethod == PAYMENT_METHOD_COD){
         makeCodPayment();
       } else if (paymentMethod == PAYMENT_METHOD_ONLINE) {
@@ -118,7 +117,6 @@ class UikPaymentDetailsScreen extends StandardPage {
 
   void makeOnlinePayment(response) {
     rzpOrderId = response.data[RAZOR_PAY_ORDER_ID];
-    CartDataHandler.clearCart();
     RazorpayPayment razorpay =
         RazorpayPayment(rzpOrderId: rzpOrderId, orderNumberId: orderNumberId);
     razorpay.openPaymentPage();
