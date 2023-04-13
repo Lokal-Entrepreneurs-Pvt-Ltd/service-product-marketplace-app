@@ -46,7 +46,6 @@ class UikHome extends StandardPage {
     }
   }
 
-
   @override
   getPageCallBackForAction() {
     return onHomeScreenTapAction;
@@ -59,7 +58,7 @@ class UikHome extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
@@ -76,7 +75,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-  Uri.parse('http://demo8222596.mockable.io/home'),
+    Uri.parse('http://demo8222596.mockable.io/home'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -107,5 +106,3 @@ void addToCart(UikAction uikAction) async {
   // //displaying response from update cart
   // print("statusCode ${response.body}");
 }
-
-
