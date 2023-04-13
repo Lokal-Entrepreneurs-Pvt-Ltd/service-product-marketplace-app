@@ -25,8 +25,8 @@ class UikBlockList extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_BLOCK");
-    actionList.add("CONFIRM_BLOCK");
+    actionList.add(UIK_ACTION.SELECT_BLOCK);
+    actionList.add(UIK_ACTION.CONFIRM_BLOCK);
     return actionList;
   }
 
@@ -38,16 +38,13 @@ class UikBlockList extends StandardPage {
 
   void onStateListScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case "SELECT_BLOCK":
+      case UIK_ACTION.SELECT_BLOCK:
         {
-          print("Inside Select City");
-          print(uikAction.tap.data.value);
           selectedValue = int.parse(uikAction.tap.data.value!);
         }
         break;
-      case "CONFIRM_BLOCK":
+      case UIK_ACTION.CONFIRM_BLOCK:
         {
-          print(selectedValue);
           var context = NavigationService.navigatorKey.currentContext;
           Navigator.maybePop(context!, selectedValue);
           // Navigator.of(context!).pop(selectedValue);

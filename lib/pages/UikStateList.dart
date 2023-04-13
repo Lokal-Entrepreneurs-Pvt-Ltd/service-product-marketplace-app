@@ -20,8 +20,8 @@ class UikStateList extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_STATE");
-    actionList.add("CONFIRM_STATE");
+    actionList.add(UIK_ACTION.SELECT_STATE);
+    actionList.add(UIK_ACTION.CONFIRM_STATE);
     return actionList;
   }
 
@@ -33,19 +33,17 @@ class UikStateList extends StandardPage {
 
   void onStateListScreenTapAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
-      case "SELECT_STATE":
+      case UIK_ACTION.SELECT_STATE:
         {
           selectedValue = int.parse(uikAction.tap.data.value!);
 
           var context = NavigationService.navigatorKey.currentContext;
-          // Navigator.of(context!).pop(selectedValue);
         }
         break;
-      case "CONFIRM_STATE":
+      case UIK_ACTION.CONFIRM_STATE:
         {
           var context = NavigationService.navigatorKey.currentContext!;
-          // Navigator.of(context!).pop(selectedValue);
-          // NavigationUtils.pop(selectedValue);
+
           Navigator.maybePop(context, selectedValue);
         }
         break;
