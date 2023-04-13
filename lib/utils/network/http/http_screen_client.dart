@@ -18,9 +18,6 @@ class HttpScreenClient {
   }
 
   static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
-    print(
-        "......................................................Args.........................................");
-    print(args);
     var bodyParams = (args != null) ? args : <String, dynamic>{};
     var header = NetworkUtils.getRequestHeaders();
     try {
@@ -31,11 +28,8 @@ class HttpScreenClient {
             body: jsonEncode(bodyParams),
           )
           .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
-      print(response);
-      print(response.body);
 
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
-        print(response.body);
         return ApiResponse.fromJson(jsonDecode(response.body));
       } else {
         throw Exception('Failed to load ' + pageRoute);

@@ -99,7 +99,6 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> addressNext(args) {
-    print(args);
     return HttpScreenClient.getApiResponse(ApiRoutes.addressNext, args);
   }
 
