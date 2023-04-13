@@ -28,12 +28,16 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   var errorEmail = false;
   var descEmail = "";
 
   var errorPassword = false;
   var descPassword = "";
+
+  var errorConfirmPassword = false;
+  var descConfirmPassword = "";
 
   var isAuthError = false;
   var authErrorCode = -1;
@@ -73,6 +77,16 @@ class _SignupScreenState extends State<SignupScreen> {
               description: descPassword,
               isSignUpField: true,
             ),
+            MyTextField(
+              labelText: "Confirm Password",
+              width: 327,
+              height: 64,
+              Controller: confirmPasswordController,
+              error: errorConfirmPassword,
+              isPassword: true,
+              description: descConfirmPassword,
+              isSignUpField: true,
+            ),
             Container(
               margin: const EdgeInsets.only(
                 left: 16,
@@ -87,7 +101,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   // The response will have authToken
                   // We are storing the authToken, userName and password locally using SharedPreferences
                   if (isEmailValid(emailController.text) &&
-                      passwordController.text.length >= 6) {
+                      passwordController.text.length >= 6 &&
+                      confirmPasswordController.text ==
+                          passwordController.text) {
                     // Creating a POST request with http client
                     // var client = http.Client();
 
@@ -99,7 +115,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
 
                       var customerData = response.data[CUSTOMER_DATA];
-                      if(customerData!= null) {
+                      if (customerData != null) {
                         UserDataHandler.saveCustomerData(customerData);
                       }
                       Navigator.push(
@@ -129,6 +145,24 @@ class _SignupScreenState extends State<SignupScreen> {
                     errorPassword = true;
                     descPassword = "Password must contain 6 characters";
                   }
+
+                  if (confirmPasswordController.text.length >= 6) {
+                    if (confirmPasswordController.text !=
+                        passwordController.text) {
+                      errorConfirmPassword = true;
+                      descConfirmPassword =
+                          "ConfirmPassword must be equal to Password";
+                    } else {
+                      errorConfirmPassword = false;
+                      descConfirmPassword = '';
+                    }
+                  } else {
+                    errorConfirmPassword = true;
+                    descConfirmPassword =
+                        "Confirm Password must contain 6 characters";
+                  }
+
+                  setState(() {});
                 },
               ),
             ),
