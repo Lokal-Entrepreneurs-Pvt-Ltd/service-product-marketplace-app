@@ -38,7 +38,6 @@ class UikDistrictList extends StandardPage {
   }
 
   void onDistrictListScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case "SELECT_DISTRICT":
         {
@@ -49,7 +48,6 @@ class UikDistrictList extends StandardPage {
         break;
       case "CONFIRM_DISTRICT":
         {
-          print(selectedValue);
           var context = NavigationService.navigatorKey.currentContext;
           Navigator.maybePop(context!, selectedValue);
         }

@@ -37,7 +37,6 @@ class UikBlockList extends StandardPage {
   }
 
   void onStateListScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case "SELECT_BLOCK":
         {
