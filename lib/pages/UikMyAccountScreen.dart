@@ -29,7 +29,9 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
     actionList.add(UIK_ACTION.OPEN_PAYMENT);
     actionList.add(UIK_ACTION.OPEN_SIGN_OUT);
+    actionList.add(UIK_ACTION.OPEN_MY_ADDRESS);
     actionList.add(UIK_ACTION.OPEN_LOG_IN);
+
     return actionList;
   }
 
@@ -54,6 +56,9 @@ class UikMyAccountScreen extends StandardPage {
         break;
       case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
+        break;
+      case UIK_ACTION.OPEN_MY_ADDRESS:
+        openAddress(uikAction);
         break;
       case UIK_ACTION.OPEN_SIGN_OUT:{
       UiUtils.showToast(LOG_OUT);
@@ -104,11 +109,8 @@ void openPayment(UikAction uikAction) {
 }
 
 void openAddress(UikAction uikAction) {
-  UiUtils.showToast("ADDRESS");
-
   var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ScreenRoutes.addressBookScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.myAddressScreen);
 }
 
 void openWishlist(UikAction uikAction) {

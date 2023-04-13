@@ -11,6 +11,7 @@ import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
@@ -260,6 +261,8 @@ class _LokalAppState extends State<LokalApp> {
               UikBtsLocationFeasibilityScreen().page,
           ScreenRoutes.btsCheckLocation: (context) =>
               UikBtsCheckLocationScreen().page,
+          ScreenRoutes.myAddressScreen: (context) =>
+          UikMyAddressScreen().page,
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,
