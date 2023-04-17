@@ -16,8 +16,7 @@ import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
 import '../../widgets/UikButton/UikButton.dart';
 
-class
-OtpScreen extends StatefulWidget {
+class OtpScreen extends StatefulWidget {
   final String mobileNumber;
 
   const OtpScreen({
@@ -131,7 +130,8 @@ class _OtpScreenState extends State<OtpScreen> {
 
                       if (response.isSuccess!) {
                         UiUtils.showToast(OTP_VERIFIED);
-                        UserDataHandler.saveIsUserVerified(response.data[SUCCESS]);
+                        UserDataHandler.saveIsUserVerified(
+                            response.data[SUCCESS]);
                         Navigator.pop(context);
                       } else {
                         UiUtils.showToast("OTP verification ERROR!");

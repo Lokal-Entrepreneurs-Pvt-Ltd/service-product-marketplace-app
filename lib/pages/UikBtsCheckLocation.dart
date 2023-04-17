@@ -6,6 +6,8 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
 import 'package:http/http.dart' as http;
 
+import '../utils/network/ApiRepository.dart';
+
 class UikBtsCheckLocationScreen extends StandardPage {
   @override
   Set<String?> getActions() {
@@ -16,7 +18,7 @@ class UikBtsCheckLocationScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.btsLocationFeasibility;
+    return ApiRepository.getNearestTowers;
     return getMockedApiResponse;
   }
 

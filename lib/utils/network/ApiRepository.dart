@@ -115,6 +115,14 @@ class ApiRepository {
         ApiRoutes.btsLocationFeasibility, args);
   }
 
+  static Future<ApiResponse> getNearestTowers(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getNearestTowers, args);
+  }
+
+  static Future<ApiResponse> submitIspForm(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.submitIspForm, args);
+  }
+
   static Future<ApiResponse> getStates(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getStates, args);
   }

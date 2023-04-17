@@ -51,4 +51,5 @@ class UIK_ACTION {
   static const String CONFIRM_BLOCK = "CONFIRM_BLOCK";
   static const String CONFIRM_DISTRICT = "CONFIRM_DISTRICT";
   static const String CONFIRM_STATE = "CONFIRM_STATE";
+  static const String SUBMIT_FORM = "SUBMIT_FORM";
 }

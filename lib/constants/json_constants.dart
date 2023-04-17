@@ -34,6 +34,18 @@ const String STATE = "state";
 const String POSTCODE = "postcode";
 const String TELEPHONE = "telephone";
 const String SUCCESS = "success";
+
+const String CUSTOMER_NAME = "customerName";
+const String ISP_PHONE_NUMBER = "phoneNo";
+const String STATE_CODE = "stateCode";
+const String STATE_NAME = "stateName";
+const String DISTRICT_CODE = "districtCode";
+const String DISTRICT_NAME = "districtName";
+const String BLOCK_CODE = "blockCode";
+const String BLOCK_NAME = "blockName";
+const String LATITUDE = "latitude";
+const String LONGITUDE = "longitude";
+
 // ------Tap Action ------------
 
 const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";
