@@ -16,6 +16,7 @@ abstract class NavigationUtils {
  }
 
  static void openOrderScreen(Map<String, dynamic> args) {
+   CartDataHandler.clearCart();
     var context = NavigationService.navigatorKey.currentContext;
     Navigator.pushNamedAndRemoveUntil(context!, ScreenRoutes.orderScreen, ModalRoute.withName('/'), arguments: args);
   }
