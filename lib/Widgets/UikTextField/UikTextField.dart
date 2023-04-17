@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -100,14 +99,36 @@ class _MyTextFieldState extends State<MyTextField> {
                             }
                             if (widget.labelText == "Password" &&
                                 text.length >= 6) {
-                              widget.error = false;
-                              widget.description = "";
+                              if (isPasswordCompliant(text)) {
+                                widget.error = false;
+                                widget.description = "";
+                              } else {
+                                widget.error = true;
+                                widget.description =
+                                    "Password Must contains A special character uppercase and lowercase letters and numbers";
+                              }
+                            }
+
+                            if (widget.labelText == "Confirm Password" &&
+                                text.length < 6) {
+                              widget.error = true;
+                              widget.description =
+                                  "Confirm Password must contain 6 characters";
+                            }
+                            if (widget.labelText == "Confirm Password" &&
+                                text.length >= 6) {
+                              if (isPasswordCompliant(text)) {
+                                widget.error = false;
+                                widget.description = "";
+                              } else {
+                                widget.error = true;
+                                widget.description =
+                                    "Confirm Password Must contains a special character uppercase and lowercase letters and numbers";
+                              }
                             }
                             setState(() {});
                           },
-                          onEditingComplete: () async {
-
-                          },
+                          onEditingComplete: () async {},
                           obscureText: widget.isPassword,
                           cursorColor: Colors.black,
                           controller: widget.Controller,
@@ -152,6 +173,25 @@ class _MyTextFieldState extends State<MyTextField> {
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);
   }
+}
+
+bool isPasswordCompliant(String password, [int minLength = 6]) {
+  if (password == null || password.isEmpty) {
+    return false;
+  }
+
+  bool hasUppercase = password.contains(new RegExp(r'[A-Z]'));
+  bool hasDigits = password.contains(new RegExp(r'[0-9]'));
+  bool hasLowercase = password.contains(new RegExp(r'[a-z]'));
+  bool hasSpecialCharacters =
+      password.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+  bool hasMinLength = password.length > minLength;
+
+  return hasDigits &
+      hasUppercase &
+      hasLowercase &
+      hasSpecialCharacters &
+      hasMinLength;
 }
 
 Widget _buildTrailingIcon(Widget? leftElement) {

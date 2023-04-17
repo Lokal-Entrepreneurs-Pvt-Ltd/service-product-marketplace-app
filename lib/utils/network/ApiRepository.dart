@@ -78,6 +78,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.earningScreen, args);
   }
 
+  static Future<ApiResponse> getMyAddressScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.myAddressScreen, args);
+  }
+
   static Future<ApiResponse> getLoginScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.loginScreen, args);
   }

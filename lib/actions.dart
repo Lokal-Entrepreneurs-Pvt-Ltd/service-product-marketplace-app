@@ -52,4 +52,5 @@ class UIK_ACTION {
   static const String CONFIRM_DISTRICT = "CONFIRM_DISTRICT";
   static const String CONFIRM_STATE = "CONFIRM_STATE";
   static const String SUBMIT_FORM = "SUBMIT_FORM";
+  static const String OPEN_MY_ADDRESS = 'OPEN_MY_ADDRESS';
 }
