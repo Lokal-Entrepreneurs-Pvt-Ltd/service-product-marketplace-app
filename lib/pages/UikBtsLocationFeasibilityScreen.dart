@@ -13,9 +13,12 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants/json_constants.dart';
 import '../main.dart';
 import '../utils/UiUtils/UiUtils.dart';
+import '../utils/network/ApiRequestBody.dart';
 import 'UikBlockList.dart';
+import 'UikBtsCheckLocation.dart';
 import 'UikDistrictList.dart';
 
 class UikBtsLocationFeasibilityScreen extends StandardPage {
@@ -28,6 +31,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   String stateName = "";
   String districtName = "";
   String blockName = "";
+  double latitude = 0.0;
+  double longitude = 0.0;
 
   @override
   Set<String?> getActions() {
@@ -37,6 +42,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     actionList.add(UIK_ACTION.SELECT_DISTRICT);
     actionList.add(UIK_ACTION.SELECT_BLOCK);
     actionList.add(UIK_ACTION.FETCH_LOCATION);
+    actionList.add(UIK_ACTION.SUBMIT_FORM);
     return actionList;
   }
 
@@ -64,6 +70,9 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       case UIK_ACTION.FETCH_LOCATION:
         fetchLocation(uikAction);
         break;
+      case UIK_ACTION.SUBMIT_FORM:
+        submitForm(uikAction);
+        break;
       default:
     }
   }
@@ -83,7 +92,93 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     return {};
   }
 
+  void submitForm(UikAction uikAction) async {
+    if (customerName.isEmpty) {
+      UiUtils.showToast("Enter your name");
+      return;
+    } else if (email.isEmpty) {
+      UiUtils.showToast("Enter your email");
+      return;
+    } else if (phoneNo.isEmpty) {
+      UiUtils.showToast("Enter your phone number");
+      return;
+    } else if (stateName.isEmpty) {
+      UiUtils.showToast("Select your state");
+      return;
+    } else if (districtName.isEmpty) {
+      UiUtils.showToast("Select your district name");
+      return;
+    } else if (blockName.isEmpty) {
+      UiUtils.showToast("Select your block");
+      return;
+    } else if (latitude == 0.0 || longitude == 0.0) {
+      UiUtils.showToast("Fetch your location");
+      return;
+    }
+
+    final response = await ApiRepository.submitIspForm(
+        ApiRequestBody.submitIspFormRequest(
+            stateCode,
+            districtCode,
+            blockCode,
+            stateName,
+            districtName,
+            blockName,
+            customerName,
+            email,
+            phoneNo,
+            latitude,
+            longitude));
+
+    if (response.isSuccess!) {
+      // UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+
+      // var customerData = response.data[CUSTOMER_DATA];
+      // if(customerData!= null) {
+      //   UserDataHandler.saveCustomerData(customerData);
+      // }
+      final BuildContext context =
+          NavigationService.navigatorKey.currentContext!;
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => UikBtsCheckLocationScreen().page,
+      //   ),
+      // );
+
+      print("200 Success");
+    } else {
+      //todo show login error
+      UiUtils.showToast(response.error![MESSAGE]);
+    }
+
+    // Map<String, dynamic> args = {
+    //   ADDRESS: {
+    //     FIRST_NAME: name,
+    //     LAST_NAME: "singh",
+    //     ADDRESS_LINE_1: houseNumber,
+    //     ADDRESS_LINE_2: street,
+    //     CITY: city,
+    //     STATE: {
+    //       "id": 578,
+    //     },
+    //     POSTCODE: postcode,
+    //     TELEPHONE: phone,
+    //   },
+    // };
+
+    // print(args);
+
+    // final BuildContext context = NavigationService.navigatorKey.currentContext!;
+    // Navigator.pushNamed(
+    //   context,
+    //   ScreenRoutes.paymentDetailsScreen,
+    //   arguments: args,
+    // );
+  }
+
   void onEditingText(UikAction uikAction) {
+    print("................Lavesh................");
     var key = uikAction.tap.data.key;
     var value = uikAction.tap.data.value;
 
@@ -93,13 +188,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       email = value!;
     } else if (key == "Phone Number") {
       phoneNo = value!;
-    } else if (key == "House number") {
-      stateName = value!;
-    } else if (key == "City") {
-      districtName = value!;
-    } else if (key == "Postcode") {
-      blockName = value!;
     }
+    print(customerName);
   }
 
   void selectState(UikAction uikAction) async {
@@ -126,14 +216,21 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
         child: UikStateList().page,
       ),
     );
-
+    print(
+        "............................Shubham Checking..................................");
+    print(result.runtimeType);
     UiUtils.showToast("You selected $result");
 
-    stateCode = result;
+    stateCode = result[0];
+    stateName = result[1];
+    print(stateCode);
+    print("STATE Name INside selectstate $stateName");
     return;
   }
 
   void selectDistrict(UikAction uikAction) async {
+    print(stateCode);
+    print("STATE Name INside selectdistrict $stateName");
     if (stateCode == -1 || stateCode == null) {
       UiUtils.showToast("Kindly select state first !");
       return;
@@ -165,7 +262,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    districtCode = result;
+    districtCode = result[0];
+    districtName = result[1];
   }
 
   void selectBlock(UikAction uikAction) async {
@@ -205,10 +303,12 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    blockCode = result;
+    blockCode = result[0];
+    blockName = result[1];
   }
 
   Future<void> fetchLocation(UikAction uikAction) async {
+    print("/////////////////////////Inside fetch location/////////////");
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -231,6 +331,10 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     }
 
     Position position = await Geolocator.getCurrentPosition();
+    print(latitude);
+    print(longitude);
+    latitude = position.latitude;
+    longitude = position.longitude;
   }
 }
 

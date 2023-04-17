@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class UikBlockList extends StandardPage {
-  int? selectedValue = -1;
+  List<dynamic> selectedValue = [-1, "block"];
 
   UikBlockList({
     required this.districtCode,
@@ -40,7 +40,8 @@ class UikBlockList extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.SELECT_BLOCK:
         {
-          selectedValue = int.parse(uikAction.tap.data.value!);
+          selectedValue[0] = int.parse(uikAction.tap.data.value!);
+          selectedValue[1] = uikAction.tap.values!["blockName"];
         }
         break;
       case UIK_ACTION.CONFIRM_BLOCK:

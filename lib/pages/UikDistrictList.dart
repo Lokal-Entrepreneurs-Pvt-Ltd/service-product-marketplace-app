@@ -15,7 +15,7 @@ import '../main.dart';
 import '../utils/storage/cart_data_handler.dart';
 
 class UikDistrictList extends StandardPage {
-  int? selectedValue = -1;
+  List<dynamic> selectedValue = [-1, "district"];
 
   UikDistrictList({
     required this.stateCode,
@@ -41,7 +41,8 @@ class UikDistrictList extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.SELECT_DISTRICT:
         {
-          selectedValue = int.parse(uikAction.tap.data.value!);
+          selectedValue[0] = int.parse(uikAction.tap.data.value!);
+          selectedValue[1] = uikAction.tap.values!["districtName"];
         }
         break;
       case UIK_ACTION.CONFIRM_DISTRICT:
