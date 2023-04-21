@@ -13,37 +13,29 @@ import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
 
-class UikHome extends StandardPage {
+class UikIspHome extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_CATEGORY);
-    actionList.add(UIK_ACTION.OPEN_ISP);
-    actionList.add(UIK_ACTION.ADD_TO_CART);
-    actionList.add(UIK_ACTION.OPEN_PRODUCT);
+    actionList.add(UIK_ACTION.CHECK_FEASIBILITY);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getHomescreen;
+    return ApiRepository.getIspHomescreen;
     // return getMockedApiResponse;
   }
 
-  void onHomeScreenTapAction(UikAction uikAction) {
+  void ispHomeScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
+      case UIK_ACTION.CHECK_FEASIBILITY:
+        submitCheckFeasibility(uikAction);
         break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        NavigationUtils.openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PRODUCT:
-        openProduct(uikAction);
-        break;
-      case UIK_ACTION.OPEN_ISP:
-        openIsp(uikAction);
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }
@@ -51,12 +43,12 @@ class UikHome extends StandardPage {
 
   @override
   getPageCallBackForAction() {
-    return onHomeScreenTapAction;
+    return ispHomeScreenTapAction;
   }
 
   @override
   getPageContext() {
-    return UikHome;
+    return UikIspHome;
   }
 
   @override
@@ -65,20 +57,13 @@ class UikHome extends StandardPage {
   }
 }
 
-void openIsp(UikAction uikAction) {
+void submitCheckFeasibility(UikAction uikAction) async {
   final BuildContext context = NavigationService.navigatorKey.currentContext!;
+
   Navigator.pushNamed(
     context,
-    ScreenRoutes.ispHome,
-    // arguments: args,
+    ScreenRoutes.btsLocationFeasibility,
   );
-}
-
-void openProduct(UikAction uikAction) {
-  print(uikAction.tap.data.url);
-  //Navigation to the product screen
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
@@ -87,7 +72,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('http://demo8222596.mockable.io/home'),
+    Uri.parse('http://demo7588460.mockable.io/ispHome'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
@@ -100,21 +85,4 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   } else {
     throw Exception('Failed to load album');
   }
-}
-
-void addToCart(UikAction uikAction) async {
-  // var skuId = uikAction.tap.data.skuId;
-  //
-  // //api call to update cart
-  // final response =
-  //     await getHttp().post(Uri.parse('${baseUrl}/cart/update'), headers: {
-  //   "ngrok-skip-browser-warning": "value",
-  // }, body: {
-  //   "skuId": skuId,
-  //   "cartId": "",
-  //   "action": "add"
-  // });
-  //
-  // //displaying response from update cart
-  // print("statusCode ${response.body}");
 }

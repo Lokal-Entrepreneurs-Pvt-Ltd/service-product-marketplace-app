@@ -44,6 +44,13 @@ class ApiRequestBody {
     };
   }
 
+  static confirmTowerRequest(int value, String towerId) {
+    return {
+      ID: value,
+      TOWER_ID: towerId,
+    };
+  }
+
   static getSaveDetailsRequest(
       String name, String email, String gst, String dob, String phone) {
     return {

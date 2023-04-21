@@ -5,9 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikStateList.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:ui_sdk/Renderer.dart';
+// import 'package:ui_sdk/Renderer.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
+// import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
@@ -15,6 +15,8 @@ import 'package:http/http.dart' as http;
 
 import '../constants/json_constants.dart';
 import '../main.dart';
+import '../screen_routes.dart';
+import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
 import '../utils/network/ApiRequestBody.dart';
 import 'UikBlockList.dart';
@@ -43,13 +45,14 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     actionList.add(UIK_ACTION.SELECT_BLOCK);
     actionList.add(UIK_ACTION.FETCH_LOCATION);
     actionList.add(UIK_ACTION.SUBMIT_FORM);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
   @override
   dynamic getData() {
     return ApiRepository.btsLocationFeasibility;
-    return getMockedApiResponse;
+    // return getMockedApiResponse;
   }
 
   void onBtsLocationFeasibilityScreenTapAction(UikAction uikAction) {
@@ -72,6 +75,9 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
         break;
       case UIK_ACTION.SUBMIT_FORM:
         submitForm(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }
@@ -115,7 +121,16 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       UiUtils.showToast("Fetch your location");
       return;
     }
-
+    final BuildContext context = NavigationService.navigatorKey.currentContext!;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Color(0xfffee440),
+        ));
+      },
+    );
     final response = await ApiRepository.submitIspForm(
         ApiRequestBody.submitIspFormRequest(
             stateCode,
@@ -130,42 +145,29 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
             latitude,
             longitude));
 
+    Navigator.of(context).pop();
+
     if (response.isSuccess!) {
-      // UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-
-      // var customerData = response.data[CUSTOMER_DATA];
-      // if(customerData!= null) {
-      //   UserDataHandler.saveCustomerData(customerData);
-      // }
-      final BuildContext context =
-          NavigationService.navigatorKey.currentContext!;
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => UikBtsCheckLocationScreen().page,
-      //   ),
-      // );
-
-      print("200 Success");
+      Map<String, dynamic> args = {
+        "lat": latitude,
+        "long": longitude,
+        "radius": 50
+      };
+      int userId = -1;
+      if (response.data["id"] != -1) userId = response.data["id"];
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              UikBtsCheckLocationScreen(args: args, userId: userId).page,
+        ),
+        // arguments: args,
+      );
     } else {
       //todo show login error
       UiUtils.showToast(response.error![MESSAGE]);
     }
-
-    // Map<String, dynamic> args = {
-    //   ADDRESS: {
-    //     FIRST_NAME: name,
-    //     LAST_NAME: "singh",
-    //     ADDRESS_LINE_1: houseNumber,
-    //     ADDRESS_LINE_2: street,
-    //     CITY: city,
-    //     STATE: {
-    //       "id": 578,
-    //     },
-    //     POSTCODE: postcode,
-    //     TELEPHONE: phone,
-    //   },
-    // };
 
     // print(args);
 
@@ -178,7 +180,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   }
 
   void onEditingText(UikAction uikAction) {
-    print("................Lavesh................");
     var key = uikAction.tap.data.key;
     var value = uikAction.tap.data.value;
 
@@ -189,7 +190,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     } else if (key == "Phone Number") {
       phoneNo = value!;
     }
-    print(customerName);
   }
 
   void selectState(UikAction uikAction) async {
@@ -216,21 +216,16 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
         child: UikStateList().page,
       ),
     );
-    print(
-        "............................Shubham Checking..................................");
-    print(result.runtimeType);
+
     UiUtils.showToast("You selected $result");
 
     stateCode = result[0];
     stateName = result[1];
-    print(stateCode);
-    print("STATE Name INside selectstate $stateName");
+
     return;
   }
 
   void selectDistrict(UikAction uikAction) async {
-    print(stateCode);
-    print("STATE Name INside selectdistrict $stateName");
     if (stateCode == -1 || stateCode == null) {
       UiUtils.showToast("Kindly select state first !");
       return;
@@ -331,8 +326,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     }
 
     Position position = await Geolocator.getCurrentPosition();
-    print(latitude);
-    print(longitude);
+
     latitude = position.latitude;
     longitude = position.longitude;
   }
