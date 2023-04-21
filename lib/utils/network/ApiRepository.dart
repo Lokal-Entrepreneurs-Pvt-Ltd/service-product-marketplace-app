@@ -16,6 +16,14 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.homeScreen, args);
   }
 
+  static Future<ApiResponse> getIspHomescreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.ispHomeScreen, args);
+  }
+
+  static Future<ApiResponse> confirmTower(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.confirmTower, args);
+  }
+
   static Future<ApiResponse> getCatalogue(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.catalogueScreen, args);
   }

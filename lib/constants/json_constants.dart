@@ -50,3 +50,5 @@ const String LONGITUDE = "longitude";
 
 const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";
 const String TAP_ACTION_TYPE_KEY_ORDER_NUMBER_ID = "orderNumberId";
+const String ID = "id";
+const String TOWER_ID = "towerId";

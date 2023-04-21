@@ -11,7 +11,6 @@ import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
-import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
@@ -21,12 +20,14 @@ import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
+import 'package:lokal/screens/bts/ConfirmTowers.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'configs/environment.dart';
+import 'pages/UikIspHome.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
@@ -48,6 +49,10 @@ void main() async {
     defaultValue: EnvironmentDataHandler.getDefaultEnvironment(),
   );
   Environment().initConfig(environment);
+
+  runApp(
+    LokalApp(),
+  );
 
   //
   // FlutterError.onError = (errorDetails) {
@@ -75,11 +80,6 @@ void main() async {
   //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
   //   runApp(MyApp());
   // });
-
-  runApp(MaterialApp(
-    home: LokalApp(),
-    theme: ThemeData(fontFamily: 'Georgia'),
-  ));
 }
 
 class NavigationService {
@@ -237,11 +237,12 @@ class _LokalAppState extends State<LokalApp> {
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
+        theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => UikBtsLocationFeasibilityScreen().page,
-          // UserDataHandler.getUserToken().isEmpty
-          //     ? OnboardingScreen()
-          //     : UikBottomNavigationBar(),
+          // "/": (context) => UikBottomNavigationBar(),
+          "/": (context) => UserDataHandler.getUserToken().isEmpty
+              ? OnboardingScreen()
+              : UikBottomNavigationBar(),
 
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
@@ -261,10 +262,11 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.myGames: (context) => UikMyGames().page,
           ScreenRoutes.btsLocationFeasibility: (context) =>
               UikBtsLocationFeasibilityScreen().page,
-          ScreenRoutes.btsCheckLocation: (context) =>
-              UikBtsCheckLocationScreen().page,
-          ScreenRoutes.myAddressScreen: (context) =>
-          UikMyAddressScreen().page,
+          ScreenRoutes.ispHome: (context) => UikIspHome().page,
+          // ScreenRoutes.confirmTower: (context) => const ConfirmTowers(),
+          // ScreenRoutes.btsCheckLocation: (context) =>
+          //     UikBtsCheckLocationScreen().page,
+
           // "/": (context) => UikServiceScreen().page,
           //    ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           // MyApiRoutes.searchScreen: (context) => UikSearchCatalog().page,

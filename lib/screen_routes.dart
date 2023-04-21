@@ -35,4 +35,6 @@ class ScreenRoutes {
   // static const String btsLocationFeasibility = "/btslocation";
   static const String btsCheckLocation = "/btschecklocation";
   static const String btsLocationFeasibility = "/btslocationfeasibility";
+  static const String ispHome = "/ispHome";
+  static const String confirmTower = "/confirmTower";
 }
