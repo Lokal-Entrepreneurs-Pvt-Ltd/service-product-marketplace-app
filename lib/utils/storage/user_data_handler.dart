@@ -14,6 +14,10 @@ abstract class UserDataHandler {
     return PreferenceUtils.getString(AUTH_TOKEN);
   }
 
+  static String getDeviceId() {
+    return PreferenceUtils.getString(DEVICE_ID);
+  }
+
   static void saveEmailPassword(String email, String passwordpassword) async {
     PreferenceUtils.setString(EMAIL, email);
     // PreferenceUtils.setString(PASSWORD, password);
@@ -78,8 +82,7 @@ abstract class UserDataHandler {
   static void saveCustomerData(customerData) {
     if (customerData != null) {
       if (customerData[EMAIL] != null) {
-        UserDataHandler.saveUserEmail(
-            customerData[EMAIL]);
+        UserDataHandler.saveUserEmail(customerData[EMAIL]);
       }
       UserDataHandler.saveIsUserVerified(customerData[IS_USER_VERIFIED]);
 
@@ -87,20 +90,16 @@ abstract class UserDataHandler {
         UserDataHandler.saveUserDob(customerData[DOB]);
       }
       if (customerData[PHONE_NUMBER] != null) {
-        UserDataHandler.saveUserPhone(
-            customerData[PHONE_NUMBER]);
+        UserDataHandler.saveUserPhone(customerData[PHONE_NUMBER]);
       }
       if (customerData[GST_TAX_VAT] != null) {
-        UserDataHandler.saveUserGST(
-            customerData[GST_TAX_VAT]);
+        UserDataHandler.saveUserGST(customerData[GST_TAX_VAT]);
       }
       if (customerData[USER_ID] != null) {
-        UserDataHandler.saveUserId(
-            customerData[USER_ID]);
+        UserDataHandler.saveUserId(customerData[USER_ID]);
       }
       if (customerData[FIRST_NAME] != null) {
-        UserDataHandler.saveUserName(
-            customerData[FIRST_NAME]);
+        UserDataHandler.saveUserName(customerData[FIRST_NAME]);
       }
     }
   }
