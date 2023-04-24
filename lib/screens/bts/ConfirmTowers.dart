@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 
+import '../../constants/strings.dart';
 import '../../pages/UikBottomNavigationBar.dart';
 import '../../utils/NavigationUtils.dart';
 
@@ -14,15 +15,15 @@ class ConfirmTowers extends StatelessWidget {
       backgroundColor: Color(0xffFEEB70),
       body: ListView(
         children: [
-          Image.asset('assets/images/friendly.png'),
+          Image.asset(FRIEND_ICON),
           Text(
-            "Congratulations",
+            CONGRATULATIONS,
             style:
                 GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 24),
             textAlign: TextAlign.center,
           ),
           Text(
-            "Your BTS Location request has been taken",
+            BTS_REQUEST_TAKEN,
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -47,7 +48,6 @@ class ConfirmTowers extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => UikBottomNavigationBar(),
                     ),
-                    // arguments: args,
                   );
                 },
               ),

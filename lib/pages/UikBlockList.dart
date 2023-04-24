@@ -79,7 +79,6 @@ Future<ApiResponse>? getMockedApiResponse(args) async {
   };
 
   final response = await http.get(
-    // Uri.parse('https://demo8009892.mockable.io/statelist'),
     Uri.parse('https://demo9060148.mockable.io/statelist'),
     headers: {
       "ngrok-skip-browser-warning": "value",

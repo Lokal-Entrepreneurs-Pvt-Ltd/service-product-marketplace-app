@@ -14,6 +14,7 @@ import '../actions.dart';
 import 'package:http/http.dart' as http;
 
 import '../constants/json_constants.dart';
+import '../constants/strings.dart';
 import '../main.dart';
 import '../screen_routes.dart';
 import '../utils/NavigationUtils.dart';
@@ -100,25 +101,25 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
   void submitForm(UikAction uikAction) async {
     if (customerName.isEmpty) {
-      UiUtils.showToast("Enter your name");
+      UiUtils.showToast(ENTER_YOUR_NAME);
       return;
     } else if (email.isEmpty) {
-      UiUtils.showToast("Enter your email");
+      UiUtils.showToast(ENTER_YOUR_EMAIL);
       return;
     } else if (phoneNo.isEmpty) {
-      UiUtils.showToast("Enter your phone number");
+      UiUtils.showToast(ENTER_YOUR_PHONE_NUMBER);
       return;
     } else if (stateName.isEmpty) {
-      UiUtils.showToast("Select your state");
+      UiUtils.showToast(SELECT_STATE);
       return;
     } else if (districtName.isEmpty) {
-      UiUtils.showToast("Select your district name");
+      UiUtils.showToast(SELECT_DISTRICT);
       return;
     } else if (blockName.isEmpty) {
-      UiUtils.showToast("Select your block");
+      UiUtils.showToast(SELECT_BLOCK);
       return;
     } else if (latitude == 0.0 || longitude == 0.0) {
-      UiUtils.showToast("Fetch your location");
+      UiUtils.showToast(FETCH_LOCATION);
       return;
     }
     final BuildContext context = NavigationService.navigatorKey.currentContext!;
@@ -162,32 +163,21 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
           builder: (context) =>
               UikBtsCheckLocationScreen(args: args, userId: userId).page,
         ),
-        // arguments: args,
       );
     } else {
-      //todo show login error
       UiUtils.showToast(response.error![MESSAGE]);
     }
-
-    // print(args);
-
-    // final BuildContext context = NavigationService.navigatorKey.currentContext!;
-    // Navigator.pushNamed(
-    //   context,
-    //   ScreenRoutes.paymentDetailsScreen,
-    //   arguments: args,
-    // );
   }
 
   void onEditingText(UikAction uikAction) {
     var key = uikAction.tap.data.key;
     var value = uikAction.tap.data.value;
 
-    if (key == "Name") {
+    if (key == BTS_NAME) {
       customerName = value!;
-    } else if (key == "Email") {
+    } else if (key == BTS_EMAIL) {
       email = value!;
-    } else if (key == "Phone Number") {
+    } else if (key == BTS_PHONE_NUMBER) {
       phoneNo = value!;
     }
   }
@@ -303,7 +293,6 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
   }
 
   Future<void> fetchLocation(UikAction uikAction) async {
-    print("/////////////////////////Inside fetch location/////////////");
     bool serviceEnabled;
     LocationPermission permission;
 

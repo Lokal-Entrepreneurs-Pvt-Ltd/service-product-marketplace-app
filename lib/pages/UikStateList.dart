@@ -38,8 +38,6 @@ class UikStateList extends StandardPage {
           print(uikAction.tap.values);
           selectedValue[0] = int.parse(uikAction.tap.data.value!);
           selectedValue[1] = uikAction.tap.values!["stateName"];
-          // selectedValue[0] = uikAction.tap.data.value!;
-          // selectedValue[1] = uikAction.tap.values!["stateName"];
 
           var context = NavigationService.navigatorKey.currentContext;
         }
