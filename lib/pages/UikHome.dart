@@ -75,7 +75,6 @@ void openIsp(UikAction uikAction) {
 }
 
 void openProduct(UikAction uikAction) {
-  print(uikAction.tap.data.url);
   //Navigation to the product screen
   var context = NavigationService.navigatorKey.currentContext;
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
@@ -85,15 +84,12 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
     "id": "eb5f37b2-ca34-40a1-83ba-cb161eb55e6e",
   };
-  print("entering lavesh");
   final response = await http.get(
     Uri.parse('http://demo8222596.mockable.io/home'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
   );
-
-  print(response.body);
 
   if (response.statusCode == 200) {
     return ApiResponse.fromJson(jsonDecode(response.body));
