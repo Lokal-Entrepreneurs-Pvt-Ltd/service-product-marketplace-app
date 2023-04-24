@@ -15,13 +15,13 @@ import '../main.dart';
 import '../utils/NavigationUtils.dart';
 
 class UikStateList extends StandardPage {
-  int selectedValue = -1;
+  List<dynamic> selectedValue = [-1, "state"];
 
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_STATE");
-    actionList.add("SUBMIT_FORM");
+    actionList.add(UIK_ACTION.SELECT_STATE);
+    actionList.add(UIK_ACTION.CONFIRM_STATE);
     return actionList;
   }
 
@@ -32,23 +32,20 @@ class UikStateList extends StandardPage {
   }
 
   void onStateListScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case "SELECT_STATE":
+      case UIK_ACTION.SELECT_STATE:
         {
-          print("Inside Select City");
-          print(uikAction.tap.data.value);
-          selectedValue = int.parse(uikAction.tap.data.value!);
+          print(uikAction.tap.values);
+          selectedValue[0] = int.parse(uikAction.tap.data.value!);
+          selectedValue[1] = uikAction.tap.values!["stateName"];
 
           var context = NavigationService.navigatorKey.currentContext;
-          // Navigator.of(context!).pop(selectedValue);
         }
         break;
-      case "SUBMIT_FORM":
+      case UIK_ACTION.CONFIRM_STATE:
         {
           var context = NavigationService.navigatorKey.currentContext!;
-          // Navigator.of(context!).pop(selectedValue);
-          // NavigationUtils.pop(selectedValue);
+
           Navigator.maybePop(context, selectedValue);
         }
         break;
@@ -68,7 +65,7 @@ class UikStateList extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 

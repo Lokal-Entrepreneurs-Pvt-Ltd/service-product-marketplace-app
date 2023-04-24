@@ -5,23 +5,37 @@ import 'package:geolocator/geolocator.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikStateList.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:ui_sdk/Renderer.dart';
+// import 'package:ui_sdk/Renderer.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
+// import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants/json_constants.dart';
+import '../constants/strings.dart';
 import '../main.dart';
+import '../screen_routes.dart';
+import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
+import '../utils/network/ApiRequestBody.dart';
 import 'UikBlockList.dart';
+import 'UikBtsCheckLocation.dart';
 import 'UikDistrictList.dart';
 
 class UikBtsLocationFeasibilityScreen extends StandardPage {
-  int stateCode = -1;
-  int districtCode = -1;
-  int blockCode = -1;
+  int? stateCode = -1;
+  int? districtCode = -1;
+  int? blockCode = -1;
+  String customerName = "";
+  String email = "";
+  String phoneNo = "";
+  String stateName = "";
+  String districtName = "";
+  String blockName = "";
+  double latitude = 0.0;
+  double longitude = 0.0;
 
   @override
   Set<String?> getActions() {
@@ -31,6 +45,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     actionList.add(UIK_ACTION.SELECT_DISTRICT);
     actionList.add(UIK_ACTION.SELECT_BLOCK);
     actionList.add(UIK_ACTION.FETCH_LOCATION);
+    actionList.add(UIK_ACTION.SUBMIT_FORM);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -58,6 +74,12 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       case UIK_ACTION.FETCH_LOCATION:
         fetchLocation(uikAction);
         break;
+      case UIK_ACTION.SUBMIT_FORM:
+        submitForm(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
+        break;
       default:
     }
   }
@@ -74,13 +96,93 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 
-  void onEditingText(UikAction uikAction) {}
+  void submitForm(UikAction uikAction) async {
+    if (customerName.isEmpty) {
+      UiUtils.showToast(ENTER_YOUR_NAME);
+      return;
+    } else if (email.isEmpty) {
+      UiUtils.showToast(ENTER_YOUR_EMAIL);
+      return;
+    } else if (phoneNo.isEmpty) {
+      UiUtils.showToast(ENTER_YOUR_PHONE_NUMBER);
+      return;
+    } else if (stateName.isEmpty) {
+      UiUtils.showToast(SELECT_STATE);
+      return;
+    } else if (districtName.isEmpty) {
+      UiUtils.showToast(SELECT_DISTRICT);
+      return;
+    } else if (blockName.isEmpty) {
+      UiUtils.showToast(SELECT_BLOCK);
+      return;
+    } else if (latitude == 0.0 || longitude == 0.0) {
+      UiUtils.showToast(FETCH_LOCATION);
+      return;
+    }
+    final BuildContext context = NavigationService.navigatorKey.currentContext!;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Color(0xfffee440),
+        ));
+      },
+    );
+    final response = await ApiRepository.submitIspForm(
+        ApiRequestBody.submitIspFormRequest(
+            stateCode,
+            districtCode,
+            blockCode,
+            stateName,
+            districtName,
+            blockName,
+            customerName,
+            email,
+            phoneNo,
+            latitude,
+            longitude));
+
+    Navigator.of(context).pop();
+
+    if (response.isSuccess!) {
+      Map<String, dynamic> args = {
+        "lat": latitude,
+        "long": longitude,
+        "radius": 50
+      };
+      int userId = -1;
+      if (response.data["id"] != -1) userId = response.data["id"];
+      // ignore: use_build_context_synchronously
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              UikBtsCheckLocationScreen(args: args, userId: userId).page,
+        ),
+      );
+    } else {
+      UiUtils.showToast(response.error![MESSAGE]);
+    }
+  }
+
+  void onEditingText(UikAction uikAction) {
+    var key = uikAction.tap.data.key;
+    var value = uikAction.tap.data.value;
+
+    if (key == BTS_NAME) {
+      customerName = value!;
+    } else if (key == BTS_EMAIL) {
+      email = value!;
+    } else if (key == BTS_PHONE_NUMBER) {
+      phoneNo = value!;
+    }
+  }
 
   void selectState(UikAction uikAction) async {
-    print("Inside Select State func");
     var context = NavigationService.navigatorKey.currentContext;
 
     var result = await showModalBottomSheet(
@@ -107,21 +209,18 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    print("RESULT VALUE - ");
-    print(result);
+    stateCode = result[0];
+    stateName = result[1];
 
-    stateCode = result;
     return;
   }
 
   void selectDistrict(UikAction uikAction) async {
-
-    if( stateCode == -1){
+    if (stateCode == -1 || stateCode == null) {
       UiUtils.showToast("Kindly select state first !");
       return;
     }
 
-    print("Inside Select District func");
     var context = NavigationService.navigatorKey.currentContext;
 
     var result = await showModalBottomSheet(
@@ -148,25 +247,21 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    print("RESULT VALUE - ");
-    print(result);
-
-    districtCode = result;
+    districtCode = result[0];
+    districtName = result[1];
   }
 
   void selectBlock(UikAction uikAction) async {
-
-    if( stateCode == -1){
+    if (stateCode == -1 || stateCode == null) {
       UiUtils.showToast("Kindly select state first !");
       return;
     }
 
-    if( stateCode == -1){
-      UiUtils.showToast("Kindly select state first !");
+    if (districtCode == -1 || districtCode == null) {
+      UiUtils.showToast("Kindly select district first !");
       return;
     }
 
-    print("Inside Select Block func");
     var context = NavigationService.navigatorKey.currentContext;
 
     var result = await showModalBottomSheet(
@@ -193,10 +288,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     UiUtils.showToast("You selected $result");
 
-    print("RESULT VALUE - ");
-    print(result);
-
-    blockCode = result;
+    blockCode = result[0];
+    blockName = result[1];
   }
 
   Future<void> fetchLocation(UikAction uikAction) async {
@@ -223,8 +316,8 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
     Position position = await Geolocator.getCurrentPosition();
 
-    print(position.latitude);
-    print(position.longitude);
+    latitude = position.latitude;
+    longitude = position.longitude;
   }
 }
 

@@ -14,19 +14,19 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 
 class UikBlockList extends StandardPage {
-  int selectedValue = -1;
+  List<dynamic> selectedValue = [-1, "block"];
 
   UikBlockList({
     required this.districtCode,
   });
 
-  final int districtCode;
+  final int? districtCode;
 
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add("SELECT_CITY");
-    actionList.add("CITY_SELECTED");
+    actionList.add(UIK_ACTION.SELECT_BLOCK);
+    actionList.add(UIK_ACTION.CONFIRM_BLOCK);
     return actionList;
   }
 
@@ -37,20 +37,18 @@ class UikBlockList extends StandardPage {
   }
 
   void onStateListScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case "SELECT_CITY":
+      case UIK_ACTION.SELECT_BLOCK:
         {
-          print("Inside Select City");
-          print(uikAction.tap.data.value);
-          selectedValue = int.parse(uikAction.tap.data.value!);
+          selectedValue[0] = int.parse(uikAction.tap.data.value!);
+          selectedValue[1] = uikAction.tap.values!["blockName"];
         }
         break;
-      case "CITY_SELECTED":
+      case UIK_ACTION.CONFIRM_BLOCK:
         {
-          print(selectedValue);
           var context = NavigationService.navigatorKey.currentContext;
-          Navigator.of(context!).pop(selectedValue);
+          Navigator.maybePop(context!, selectedValue);
+          // Navigator.of(context!).pop(selectedValue);
         }
         break;
       default:
@@ -66,9 +64,12 @@ class UikBlockList extends StandardPage {
   getPageContext() {
     return UikBlockList;
   }
+
   @override
   getConstructorArgs() {
-   return {};
+    return {
+      "districtCode": districtCode,
+    };
   }
 }
 
@@ -78,7 +79,6 @@ Future<ApiResponse>? getMockedApiResponse(args) async {
   };
 
   final response = await http.get(
-    // Uri.parse('https://demo8009892.mockable.io/statelist'),
     Uri.parse('https://demo9060148.mockable.io/statelist'),
     headers: {
       "ngrok-skip-browser-warning": "value",

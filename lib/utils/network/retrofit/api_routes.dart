@@ -35,8 +35,12 @@ class ApiRoutes {
   static const String addressBook = "/checkout/addressbook";
   static const String btsLocationFeasibility =
       "/isp/feasiblity/locationFeasiblityForm";
+  static const String getNearestTowers = "/isp/feasiblity/getNearestTowers";
+  static const String submitIspForm = "/isp/feasiblity/submitIspForm";
   static const String getStates = "/isp/feasiblity/getStates";
   static const String getDistrict = "/isp/feasiblity/getDistrictForState";
-  static const String getBlocks = "/isp/feasilblity/getBlocksForDistrict";
+  static const String getBlocks = "/isp/feasiblity/getBlocksForDistrict";
   static const String getAllGames = "/misc/getAllGames";
+  static const String ispHomeScreen = "/isp/feasiblity/getIspHome";
+  static const String confirmTower = "/isp/feasiblity/confirmTower";
 }
