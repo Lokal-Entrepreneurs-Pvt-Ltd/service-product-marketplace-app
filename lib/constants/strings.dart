@@ -19,6 +19,16 @@ const String ENTER_EMAIL = "Enter your email";
 const String ENTER_GST = "Enter your GST number";
 const String PAYMENT_FAILED = "Your payment failed! Please try again later!";
 const String PAYMENT_MODE_ERROR = "Payment mode error! Please try again later!";
-
-
-
+const String BTS_NAME = "Name";
+const String BTS_EMAIL = "Email";
+const String BTS_PHONE_NUMBER = "Phone Number";
+const String ENTER_YOUR_NAME = "Enter your name";
+const String ENTER_YOUR_EMAIL = "Enter your email";
+const String ENTER_YOUR_PHONE_NUMBER = "Enter your phone number";
+const String SELECT_STATE = "Select your state";
+const String SELECT_DISTRICT = "Select your district name";
+const String SELECT_BLOCK = "Select your block";
+const String FETCH_LOCATION = "Fetch your location";
+const String FRIEND_ICON = 'assets/images/friendly.png';
+const String CONGRATULATIONS = "Congratulations";
+const String BTS_REQUEST_TAKEN = "Your BTS Location request has been taken";

@@ -16,6 +16,14 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.homeScreen, args);
   }
 
+  static Future<ApiResponse> getIspHomescreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.ispHomeScreen, args);
+  }
+
+  static Future<ApiResponse> confirmTower(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.confirmTower, args);
+  }
+
   static Future<ApiResponse> getCatalogue(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.catalogueScreen, args);
   }
@@ -119,14 +127,22 @@ class ApiRepository {
         ApiRoutes.btsLocationFeasibility, args);
   }
 
+  static Future<ApiResponse> getNearestTowers(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getNearestTowers, args);
+  }
+
+  static Future<ApiResponse> submitIspForm(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.submitIspForm, args);
+  }
+
   static Future<ApiResponse> getStates(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getStates, args);
   }
-  
+
   static Future<ApiResponse> getDistricts(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getDistrict, args);
   }
-  
+
   static Future<ApiResponse> getBlocks(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getBlocks, args);
   }
