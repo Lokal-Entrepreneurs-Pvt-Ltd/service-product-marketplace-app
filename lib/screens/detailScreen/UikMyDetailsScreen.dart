@@ -70,7 +70,6 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     }
 
     if (showVerifyPhoneNumber) {
-
       final response = await ApiRepository.sendOtp(
         ApiRequestBody.getSendOtpRequest(phoneController.text),
       );

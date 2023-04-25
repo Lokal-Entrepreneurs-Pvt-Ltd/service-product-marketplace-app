@@ -74,7 +74,7 @@ class UikPaymentDetailsScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 
   void setPaymentMode(String paymentMethod) {
@@ -90,13 +90,25 @@ class UikPaymentDetailsScreen extends StandardPage {
   }
 
   Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
+    final BuildContext context = NavigationService.navigatorKey.currentContext!;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Color(0xfffee440),
+        ));
+      },
+    );
     dynamic response = await ApiRepository.paymentNext(
       ApiRequestBody.getPaymentNextRequest(paymentMethod),
     );
 
+    Navigator.of(context).pop();
+
     if (response.isSuccess! && paymentMethod.isNotEmpty) {
       orderNumberId = response.data[ORDER_NUMBER_ID];
-      if (paymentMethod == PAYMENT_METHOD_COD){
+      if (paymentMethod == PAYMENT_METHOD_COD) {
         makeCodPayment();
       } else if (paymentMethod == PAYMENT_METHOD_ONLINE) {
         makeOnlinePayment(response);
@@ -131,11 +143,9 @@ class UikPaymentDetailsScreen extends StandardPage {
   }
 }
 
-
 void paymentStatus(UikAction uikAction) {
   print("...................inside status...........");
   var context = NavigationService.navigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   Navigator.pushNamed(context!, ApiRoutes.paymentStatusScreen);
 }
-
