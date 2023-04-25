@@ -19,7 +19,7 @@ class ApiRoutes {
   static const String myAccountScreen = "/customer/account";
   static const String checkoutInit = "/checkout/initiate";
   static const String addAddressScreen = "/addaddressScreen";
-  static const String couponScreen = "/couponscreen";
+  static const String couponScreen = "/cart/coupon/getAll";
   static const String myAddressScreen = "/customer/address";
   static const String loginScreen = "/customer/login";
   static const String signUpScreen = "/customer/signup";

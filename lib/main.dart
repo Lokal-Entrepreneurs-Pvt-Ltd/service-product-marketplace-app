@@ -12,6 +12,7 @@ import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
+import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
@@ -289,6 +290,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.btsLocationFeasibility: (context) =>
               UikBtsLocationFeasibilityScreen().page,
           ScreenRoutes.ispHome: (context) => UikIspHome().page,
+          ScreenRoutes.couponScreen: (context) => UikCouponScreen().page,
           // ScreenRoutes.confirmTower: (context) => const ConfirmTowers(),
           // ScreenRoutes.btsCheckLocation: (context) =>
           //     UikBtsCheckLocationScreen().page,
