@@ -90,21 +90,11 @@ class UikPaymentDetailsScreen extends StandardPage {
   }
 
   Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
-    final BuildContext context = NavigationService.navigatorKey.currentContext!;
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Color(0xfffee440),
-        ));
-      },
-    );
+    NavigationUtils.getLoader();
     dynamic response = await ApiRepository.paymentNext(
       ApiRequestBody.getPaymentNextRequest(paymentMethod),
     );
-
-    Navigator.of(context).pop();
+    NavigationUtils.pop();
 
     if (response.isSuccess! && paymentMethod.isNotEmpty) {
       orderNumberId = response.data[ORDER_NUMBER_ID];

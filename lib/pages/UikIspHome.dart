@@ -58,6 +58,7 @@ class UikIspHome extends StandardPage {
 }
 
 void submitCheckFeasibility(UikAction uikAction) async {
+  // NavigationUtils.openPage(uikAction);
   final BuildContext context = NavigationService.navigatorKey.currentContext!;
 
   Navigator.pushNamed(
