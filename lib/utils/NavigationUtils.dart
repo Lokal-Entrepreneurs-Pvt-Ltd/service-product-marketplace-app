@@ -15,6 +15,10 @@ abstract class NavigationUtils {
   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
  }
 
+ static  BuildContext? getCurrentContext(){
+    return NavigationService.navigatorKey.currentContext;
+ }
+
  static void openOrderScreen(Map<String, dynamic> args) {
    CartDataHandler.clearCart();
     var context = NavigationService.navigatorKey.currentContext;
@@ -23,6 +27,10 @@ abstract class NavigationUtils {
 
   static void pop() {
     var context = NavigationService.navigatorKey.currentContext;
-    Navigator.maybePop(context!);
+    Navigator.maybePop(getCurrentContext()!);
+  }
+
+  static void openPage(UikAction uikAction) {
+    DeeplinkHandler.openPage(getCurrentContext()!, uikAction.tap.data.url!);
   }
 }
