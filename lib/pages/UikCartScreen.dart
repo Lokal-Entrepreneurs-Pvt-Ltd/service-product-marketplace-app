@@ -84,7 +84,7 @@ class UikCartScreen extends StandardPage {
         NavigationUtils.pop();
         break;
       case UIK_ACTION.OPEN_PAGE:
-            NavigationUtils.openPage(uikAction);
+        NavigationUtils.openPage(uikAction);
         break;
 
       default:
@@ -162,18 +162,7 @@ void addToCart(UikAction uikAction) async {
 void removeCartItem(UikAction uikAction) async {
   var skuId = uikAction.tap.data.skuId;
   var cartId = CartDataHandler.getCartId();
-
-  final BuildContext context = NavigationService.navigatorKey.currentContext!;
-  showDialog(
-    context: context,
-    builder: (context) {
-      return const Center(
-          child: CircularProgressIndicator(
-        color: Color(0xfffee440),
-      ));
-    },
-  );
-
+  NavigationUtils.getLoader();
   dynamic response = await ApiRepository.updateCart(
     ApiRequestBody.getUpdateCartRequest(
       skuId!,
@@ -181,8 +170,7 @@ void removeCartItem(UikAction uikAction) async {
       cartId,
     ),
   );
-
-  Navigator.of(context).pop();
+  NavigationUtils.pop();
 
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
