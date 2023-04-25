@@ -55,4 +55,5 @@ class UIK_ACTION {
   static const String OPEN_MY_ADDRESS = 'OPEN_MY_ADDRESS';
   static const String CHECK_FEASIBILITY = "CHECK_FEASIBILITY";
   static const String CONFIRM_TOWER = "CONFIRM_TOWER";
+  static const String OPEN_PAGE = "OPEN_PAGE";
 }
