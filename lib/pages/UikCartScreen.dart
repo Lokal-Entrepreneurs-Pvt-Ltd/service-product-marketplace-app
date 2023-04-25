@@ -44,7 +44,7 @@ class UikEmptyCartScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
@@ -96,9 +96,10 @@ class UikCartScreen extends StandardPage {
   getPageContext() {
     return UikCartScreen;
   }
+
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
@@ -158,6 +159,17 @@ void removeCartItem(UikAction uikAction) async {
   var skuId = uikAction.tap.data.skuId;
   var cartId = CartDataHandler.getCartId();
 
+  final BuildContext context = NavigationService.navigatorKey.currentContext!;
+  showDialog(
+    context: context,
+    builder: (context) {
+      return const Center(
+          child: CircularProgressIndicator(
+        color: Color(0xfffee440),
+      ));
+    },
+  );
+
   dynamic response = await ApiRepository.updateCart(
     ApiRequestBody.getUpdateCartRequest(
       skuId!,
@@ -165,6 +177,8 @@ void removeCartItem(UikAction uikAction) async {
       cartId,
     ),
   );
+
+  Navigator.of(context).pop();
 
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
