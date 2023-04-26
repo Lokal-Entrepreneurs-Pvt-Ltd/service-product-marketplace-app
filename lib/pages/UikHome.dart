@@ -21,6 +21,7 @@ class UikHome extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_ISP);
     actionList.add(UIK_ACTION.ADD_TO_CART);
     actionList.add(UIK_ACTION.OPEN_PRODUCT);
+    actionList.add(UIK_ACTION.OPEN_PAGE);
     return actionList;
   }
 
@@ -44,6 +45,9 @@ class UikHome extends StandardPage {
         break;
       case UIK_ACTION.OPEN_ISP:
         openIsp(uikAction);
+        break;
+      case UIK_ACTION.OPEN_PAGE:
+        NavigationUtils.openPage(uikAction);
         break;
       default:
     }

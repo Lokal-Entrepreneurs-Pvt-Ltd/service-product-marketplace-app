@@ -25,8 +25,8 @@ class _UikHomeWrapperState extends State<UikHomeWrapper> {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(height: 20.0),
-          const SearchBar(),
+          // const SizedBox(height: 20.0),
+          // const SearchBar(),
           Expanded(child: UikHome().page),
         ],
       ),
