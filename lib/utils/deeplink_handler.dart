@@ -88,6 +88,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.couponScreen, args);
         }
         break;
+      case ScreenRoutes.isp:
+        {
+          _pushScreen(context, ScreenRoutes.ispHome, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }

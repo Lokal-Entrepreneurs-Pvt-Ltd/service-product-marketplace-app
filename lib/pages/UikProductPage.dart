@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
@@ -56,15 +57,20 @@ class UikProductPage extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
 void showCartScreen(UikAction uikAction) async {
   String skuId = await ProductDataHandler.getProductSkuId();
+  NavigationUtils.getLoader();
+
   dynamic response = await ApiRepository.updateCart(
       ApiRequestBody.getUpdateCartRequest(
           skuId, "add", CartDataHandler.getCartId()));
+
+  NavigationUtils.pop();
+
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
     CartDataHandler.saveCartId(cartIdReceived);
