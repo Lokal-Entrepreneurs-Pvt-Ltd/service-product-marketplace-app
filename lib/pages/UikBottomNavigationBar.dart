@@ -18,8 +18,7 @@ import '../main.dart';
 import '../utils/network/retrofit/api_routes.dart';
 import 'UikHome.dart';
 
-class
-UikBottomNavigationBar extends StatefulWidget {
+class UikBottomNavigationBar extends StatefulWidget {
   @override
   State<UikBottomNavigationBar> createState() => _UikBottomNavigationBarState();
 }
@@ -34,7 +33,6 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
-
 
   void _onItemTapped(int index) {
     var context = NavigationService.navigatorKey.currentContext;

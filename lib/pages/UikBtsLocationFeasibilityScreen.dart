@@ -123,15 +123,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       return;
     }
     final BuildContext context = NavigationService.navigatorKey.currentContext!;
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Color(0xfffee440),
-        ));
-      },
-    );
+    NavigationUtils.getLoader();
     final response = await ApiRepository.submitIspForm(
         ApiRequestBody.submitIspFormRequest(
             stateCode,
@@ -146,7 +138,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
             latitude,
             longitude));
 
-    Navigator.of(context).pop();
+    NavigationUtils.pop();
 
     if (response.isSuccess!) {
       Map<String, dynamic> args = {

@@ -44,7 +44,7 @@ class UikEmptyCartScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
@@ -84,7 +84,7 @@ class UikCartScreen extends StandardPage {
         NavigationUtils.pop();
         break;
       case UIK_ACTION.OPEN_PAGE:
-            NavigationUtils.openPage(uikAction);
+        NavigationUtils.openPage(uikAction);
         break;
 
       default:
@@ -100,9 +100,10 @@ class UikCartScreen extends StandardPage {
   getPageContext() {
     return UikCartScreen;
   }
+
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
@@ -161,7 +162,7 @@ void addToCart(UikAction uikAction) async {
 void removeCartItem(UikAction uikAction) async {
   var skuId = uikAction.tap.data.skuId;
   var cartId = CartDataHandler.getCartId();
-
+  NavigationUtils.getLoader();
   dynamic response = await ApiRepository.updateCart(
     ApiRequestBody.getUpdateCartRequest(
       skuId!,
@@ -169,6 +170,7 @@ void removeCartItem(UikAction uikAction) async {
       cartId,
     ),
   );
+  NavigationUtils.pop();
 
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
