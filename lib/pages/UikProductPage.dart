@@ -63,7 +63,7 @@ class UikProductPage extends StandardPage {
 
 void showCartScreen(UikAction uikAction) async {
   String skuId = await ProductDataHandler.getProductSkuId();
-  NavigationUtils.getLoader();
+  NavigationUtils.showLoaderOnTop();
 
   dynamic response = await ApiRepository.updateCart(
       ApiRequestBody.getUpdateCartRequest(

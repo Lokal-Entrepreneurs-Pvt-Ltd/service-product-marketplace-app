@@ -123,7 +123,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       return;
     }
     final BuildContext context = NavigationService.navigatorKey.currentContext!;
-    NavigationUtils.getLoader();
+    NavigationUtils.showLoaderOnTop();
     final response = await ApiRepository.submitIspForm(
         ApiRequestBody.submitIspFormRequest(
             stateCode,

@@ -8,8 +8,6 @@ import '../screen_routes.dart';
 abstract class NavigationUtils {
   static void openCategory(UikAction uikAction) {
     //Navigation to the next screen through deepLink Handler
-    print(
-        "_____________________________Catalogue call___________________________");
     var context = NavigationService.navigatorKey.currentContext;
     DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   }
@@ -18,7 +16,7 @@ abstract class NavigationUtils {
     return NavigationService.navigatorKey.currentContext;
   }
 
-  static Future getLoader() {
+  static Future showLoaderOnTop() {
     return showDialog(
       context: getCurrentContext()!,
       builder: (context) {
@@ -39,7 +37,6 @@ abstract class NavigationUtils {
   }
 
   static void pop() {
-    var context = NavigationService.navigatorKey.currentContext;
     Navigator.maybePop(getCurrentContext()!);
   }
 

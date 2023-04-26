@@ -63,12 +63,8 @@ class UikMembershipScreen extends StandardPage {
 }
 
 void addMembershipToCart(UikAction uikAction) async {
-  var key = uikAction.tap.data.key;
   var skuIdvalue = uikAction.tap.data.value;
-
-  // String skuId = await ProductDataHandler.getProductSkuId();
-  NavigationUtils.getLoader();
-
+  NavigationUtils.showLoaderOnTop();
   dynamic response = await ApiRepository.membershipUpdateCart(
       ApiRequestBody.getUpdateCartRequest(
           skuIdvalue!, "add", CartDataHandler.getCartId()));
@@ -83,13 +79,6 @@ void addMembershipToCart(UikAction uikAction) async {
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
   }
-  // // NavigationUtils.openPage(uikAction);
-  // final BuildContext context = NavigationService.navigatorKey.currentContext!;
-
-  // Navigator.pushNamed(
-  //   context,
-  //   ScreenRoutes.btsLocationFeasibility,
-  // );
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
@@ -105,7 +94,6 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   );
 
   print(response.body);
-
   if (response.statusCode == 200) {
     return ApiResponse.fromJson(jsonDecode(response.body));
   } else {
