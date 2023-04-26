@@ -93,6 +93,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.ispHome, args);
         }
         break;
+      case ScreenRoutes.membershipLanding:
+        {
+          _pushScreen(context, ScreenRoutes.membershipScreen, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }
