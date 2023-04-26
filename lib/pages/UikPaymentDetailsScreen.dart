@@ -90,7 +90,7 @@ class UikPaymentDetailsScreen extends StandardPage {
   }
 
   Future<void> makePayment(UikAction uikAction, String paymentMethod) async {
-    NavigationUtils.getLoader();
+    NavigationUtils.showLoaderOnTop();
     dynamic response = await ApiRepository.paymentNext(
       ApiRequestBody.getPaymentNextRequest(paymentMethod),
     );

@@ -162,7 +162,7 @@ void addToCart(UikAction uikAction) async {
 void removeCartItem(UikAction uikAction) async {
   var skuId = uikAction.tap.data.skuId;
   var cartId = CartDataHandler.getCartId();
-  NavigationUtils.getLoader();
+  NavigationUtils.showLoaderOnTop();
   dynamic response = await ApiRepository.updateCart(
     ApiRequestBody.getUpdateCartRequest(
       skuId!,

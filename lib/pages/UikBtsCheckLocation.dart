@@ -78,7 +78,7 @@ class UikBtsCheckLocationScreen extends StandardPage {
       return;
     }
     final BuildContext context = NavigationService.navigatorKey.currentContext!;
-    NavigationUtils.getLoader();
+    NavigationUtils.showLoaderOnTop();
     final response = await ApiRepository.confirmTower(
         ApiRequestBody.confirmTowerRequest(userId, this.towerId));
 
