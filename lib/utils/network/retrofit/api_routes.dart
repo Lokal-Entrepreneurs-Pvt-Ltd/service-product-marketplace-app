@@ -3,6 +3,7 @@ class ApiRoutes {
   static const String catalogueScreen = '/products/get';
   static const String productScreen = "/products/getProductDetails";
   static const String updateCart = '/cart/update';
+  static const String membershipUpdateCart = "/membership/updateCart";
   static const String cartScreen = '/cart/get';
   static const String addressScreen = '/checkout/initiate';
   static const String searchScreen = '/discovery/search';
@@ -43,4 +44,5 @@ class ApiRoutes {
   static const String getAllGames = "/misc/getAllGames";
   static const String ispHomeScreen = "/isp/feasiblity/getIspHome";
   static const String confirmTower = "/isp/feasiblity/confirmTower";
+  static const String membershipScreen = "/membership/getall";
 }

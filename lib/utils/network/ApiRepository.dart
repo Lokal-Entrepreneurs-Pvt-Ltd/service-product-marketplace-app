@@ -20,6 +20,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.ispHomeScreen, args);
   }
 
+  static Future<ApiResponse> getMembershipScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.membershipScreen, args);
+  }
+
   static Future<ApiResponse> confirmTower(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.confirmTower, args);
   }
@@ -30,6 +34,11 @@ class ApiRepository {
 
   static Future<ApiResponse> getProductScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.productScreen, args);
+  }
+
+  static Future<ApiResponse> membershipUpdateCart(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.membershipUpdateCart, args);
   }
 
   static Future<ApiResponse> updateCart(args) {

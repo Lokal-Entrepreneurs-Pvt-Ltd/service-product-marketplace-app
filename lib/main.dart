@@ -30,8 +30,10 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:platform_device_id/platform_device_id.dart';
+import 'package:ui_sdk/components/UikMembership.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
+import 'pages/UikMembershipScreen.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
@@ -291,6 +293,8 @@ class _LokalAppState extends State<LokalApp> {
               UikBtsLocationFeasibilityScreen().page,
           ScreenRoutes.ispHome: (context) => UikIspHome().page,
           ScreenRoutes.couponScreen: (context) => UikCouponScreen().page,
+          ScreenRoutes.membershipScreen: (context) =>
+              UikMembershipScreen().page,
           // ScreenRoutes.confirmTower: (context) => const ConfirmTowers(),
           // ScreenRoutes.btsCheckLocation: (context) =>
           //     UikBtsCheckLocationScreen().page,
