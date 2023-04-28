@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:lokal/configs/environment.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/network_utils.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
 
@@ -57,6 +58,7 @@ class HttpScreenClient {
      },
    );
   }
+
   static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
     var bodyParams = (args != null) ? args : <String, dynamic>{};
     var header = NetworkUtils.getRequestHeaders();
@@ -85,6 +87,7 @@ class HttpScreenClient {
              }
              break;
              default : {
+               UiUtils.showToast( apiResponse.error![MESSAGE]);
                throw Exception('Failed to load ' + pageRoute);
              }
            }
