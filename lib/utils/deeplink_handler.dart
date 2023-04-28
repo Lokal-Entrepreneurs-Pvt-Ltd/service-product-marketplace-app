@@ -31,6 +31,11 @@ abstract class DeeplinkHandler {
 
     // /checkout
     switch (route) {
+      case ScreenRoutes.homeScreen:
+        {
+          _pushScreen(context, ScreenRoutes.homeScreen, args);
+        }
+        break;
       case ScreenRoutes.loginScreen:
         {
           if (args.isEmpty) {
@@ -54,9 +59,7 @@ abstract class DeeplinkHandler {
         break;
       case ScreenRoutes.searchScreen:
         {
-          if (args.isEmpty) {
-            _pushScreen(context, ScreenRoutes.searchScreen);
-          }
+          _pushScreen(context, ScreenRoutes.searchScreen, args);
         }
         break;
       case ScreenRoutes.productScreen:
@@ -69,8 +72,6 @@ abstract class DeeplinkHandler {
         break;
       case ScreenRoutes.cartScreen:
         {
-          print("!!!!!!!!!!!!!!!!args!!!!!!!!!!!!!!!!");
-          print(args);
           String cartId = await CartDataHandler.getCartId();
           args = {"cartId": cartId};
           _pushScreen(context, ScreenRoutes.cartScreen, args);
@@ -96,6 +97,64 @@ abstract class DeeplinkHandler {
       case ScreenRoutes.membershipLanding:
         {
           _pushScreen(context, ScreenRoutes.membershipScreen, args);
+        }
+        break;
+
+      case ScreenRoutes.paymentDetailsScreen:
+        {
+          _pushScreen(context, ScreenRoutes.paymentDetailsScreen, args);
+        }
+        break;
+      case ScreenRoutes.orderScreen:
+        {
+          _pushScreen(context, ScreenRoutes.orderScreen, args);
+        }
+        break;
+
+      case ScreenRoutes.orderScreen:
+        {
+          _pushScreen(context, ScreenRoutes.orderScreen, args);
+        }
+        break;
+      case ScreenRoutes.orderHistoryScreen:
+        {
+          _pushScreen(context, ScreenRoutes.orderHistoryScreen, args);
+        }
+        break;
+      case ScreenRoutes.myDetailsScreen:
+        {
+          _pushScreen(context, ScreenRoutes.myDetailsScreen, args);
+        }
+        break;
+      case ScreenRoutes.myAddressScreen:
+        {
+          _pushScreen(context, ScreenRoutes.myAddressScreen, args);
+        }
+        break;
+
+      case ScreenRoutes.myAccountScreen:
+        {
+          _pushScreen(context, ScreenRoutes.myAccountScreen, args);
+        }
+        break;
+      case ScreenRoutes.signUpScreen:
+        {
+          _pushScreen(context, ScreenRoutes.signUpScreen, args);
+        }
+        break;
+      case ScreenRoutes.otpScreen:
+        {
+          _pushScreen(context, ScreenRoutes.otpScreen, args);
+        }
+        break;
+      case ScreenRoutes.addAddressScreen:
+        {
+          _pushScreen(context, ScreenRoutes.addAddressScreen, args);
+        }
+        break;
+      case ScreenRoutes.myGames:
+        {
+          _pushScreen(context, ScreenRoutes.myGames, args);
         }
         break;
       default:
