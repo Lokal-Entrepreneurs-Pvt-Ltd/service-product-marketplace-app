@@ -96,7 +96,7 @@ abstract class DeeplinkHandler {
         break;
       case ScreenRoutes.membershipLanding:
         {
-          _pushScreen(context, ScreenRoutes.membershipScreen, args);
+          _pushScreen(context, ScreenRoutes.membershipLanding, args);
         }
         break;
 

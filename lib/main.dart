@@ -13,6 +13,7 @@ import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
+import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
@@ -298,7 +299,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.ispHome: (context) => UikIspHome().page,
           ScreenRoutes.couponScreen: (context) => UikCouponScreen().page,
           ScreenRoutes.signUpScreen: (context) => const SignupScreen(),
-          ScreenRoutes.membershipScreen: (context) =>
+          ScreenRoutes.membershipLanding: (context) =>
               UikMembershipScreen().page,
           ScreenRoutes.searchScreen: (context) =>
           UikSearchCatalog().page,
