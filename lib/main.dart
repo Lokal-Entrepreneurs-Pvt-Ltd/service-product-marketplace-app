@@ -180,78 +180,78 @@ class _LokalAppState extends State<LokalApp> {
     // });
   }
 
-  // displayTextInputDialog(BuildContext context) async {
-  //   var tempLocalUrl = EnvironmentDataHandler.getLocalBaseUrl();
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         var _textFieldController = TextEditingController(
-  //             text: EnvironmentDataHandler.getLocalBaseUrl());
-  //         return AlertDialog(
-  //           title: Text('Set Ngrok URL'),
-  //           content: TextField(
-  //             onChanged: (value) {
-  //               setState(() {
-  //                 tempLocalUrl = value;
-  //               });
-  //             },
-  //             controller: _textFieldController,
-  //             decoration: InputDecoration(hintText: "Enter the local url"),
-  //           ),
-  //           actions: <Widget>[
-  //             MaterialButton(
-  //               color: Colors.red,
-  //               textColor: Colors.white,
-  //               child: const Text('Clear Data and Kill App'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   UiUtils.showToast("Data Cleared, Restart the app");
-  //                   PreferenceUtils.clearStorage();
-  //                   SystemNavigator.pop();
-  //                 });
-  //               },
-  //             ),
-  //             MaterialButton(
-  //               color: Colors.red,
-  //               textColor: Colors.white,
-  //               child: const Text('Set Prod'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   EnvUtils.setEnvironmentAndResetApp(
-  //                       context, Environment.PROD, "");
-  //                 });
-  //               },
-  //             ),
-  //             MaterialButton(
-  //               color: Colors.green,
-  //               textColor: Colors.white,
-  //               child: const Text('Set Dev'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   EnvUtils.setEnvironmentAndResetApp(
-  //                       context, Environment.DEV, "");
-  //                 });
-  //               },
-  //             ),
-  //             MaterialButton(
-  //               color: Colors.blue,
-  //               textColor: Colors.white,
-  //               child: Text('Set Lokal'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   if (tempLocalUrl.isNotEmpty &&
-  //                       tempLocalUrl.endsWith("ngrok.io")) {
-  //                     EnvUtils.setEnvironmentAndResetApp(
-  //                         context, Environment.LOCAL, tempLocalUrl);
-  //                   } else
-  //                     UiUtils.showToast("Invalid url");
-  //                 });
-  //               },
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
+  displayTextInputDialog(BuildContext context) async {
+    var tempLocalUrl = EnvironmentDataHandler.getLocalBaseUrl();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          var _textFieldController = TextEditingController(
+              text: EnvironmentDataHandler.getLocalBaseUrl());
+          return AlertDialog(
+            title: Text('Set Ngrok URL'),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  tempLocalUrl = value;
+                });
+              },
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Enter the local url"),
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                child: const Text('Clear Data and Kill App'),
+                onPressed: () {
+                  setState(() {
+                    UiUtils.showToast("Data Cleared, Restart the app");
+                    PreferenceUtils.clearStorage();
+                    SystemNavigator.pop();
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                child: const Text('Set Prod'),
+                onPressed: () {
+                  setState(() {
+                    EnvUtils.setEnvironmentAndResetApp(
+                        context, Environment.PROD, "");
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.green,
+                textColor: Colors.white,
+                child: const Text('Set Dev'),
+                onPressed: () {
+                  setState(() {
+                    EnvUtils.setEnvironmentAndResetApp(
+                        context, Environment.DEV, "");
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: Text('Set Lokal'),
+                onPressed: () {
+                  setState(() {
+                    if (tempLocalUrl.isNotEmpty &&
+                        tempLocalUrl.endsWith("ngrok.io")) {
+                      EnvUtils.setEnvironmentAndResetApp(
+                          context, Environment.LOCAL, tempLocalUrl);
+                    } else
+                      UiUtils.showToast("Invalid url");
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   // This widget is the root of your application.
   @override
