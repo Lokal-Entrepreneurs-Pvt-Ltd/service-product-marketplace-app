@@ -14,16 +14,19 @@ import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
+import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/bts/ConfirmTowers.dart';
+import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
@@ -31,6 +34,7 @@ import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:ui_sdk/components/UikMembership.dart';
+import 'package:ui_sdk/components/UikSearch.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
@@ -279,6 +283,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
+          ScreenRoutes.myAddressScreen: (context) =>  UikMyAddressScreen().page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -292,8 +297,11 @@ class _LokalAppState extends State<LokalApp> {
               UikBtsLocationFeasibilityScreen().page,
           ScreenRoutes.ispHome: (context) => UikIspHome().page,
           ScreenRoutes.couponScreen: (context) => UikCouponScreen().page,
+          ScreenRoutes.signUpScreen: (context) => const SignupScreen(),
           ScreenRoutes.membershipScreen: (context) =>
               UikMembershipScreen().page,
+          ScreenRoutes.searchScreen: (context) =>
+          UikSearchCatalog().page,
         },
       ),
     );
