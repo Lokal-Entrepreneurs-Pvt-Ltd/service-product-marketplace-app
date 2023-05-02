@@ -73,7 +73,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   };
   print("entering lavesh");
   final response = await http.get(
-    Uri.parse('http://demo7588460.mockable.io/ispHome'),
+    Uri.parse('http://demo7588460.mockable.io/games'),
     headers: {
       "ngrok-skip-browser-warning": "value",
     },
