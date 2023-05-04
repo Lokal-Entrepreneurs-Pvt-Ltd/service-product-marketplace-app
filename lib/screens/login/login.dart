@@ -12,7 +12,9 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../constants/strings.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
@@ -59,7 +61,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
         color: Colors.white,
         child: isLoading
             ? const Center(
-                child: CircularProgressIndicator( color: Colors.yellow),
+                child: CircularProgressIndicator(color: Colors.yellow),
               )
             : ListView(
                 children: [
@@ -88,12 +90,15 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     isPassword: true,
                     description: descPassword,
                   ),
+                  TextButton(
+                    onPressed: _launchURL,
+                    child: Text('Forgot Password'),
+                  ),
                   Container(
                     margin: const EdgeInsets.only(
                       left: 16,
                     ),
-                    child:
-                    UikButton(
+                    child: UikButton(
                       text: "Continue",
                       backgroundColor: const Color(0xffFEE440),
                       onClick: () async {
@@ -121,7 +126,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                 response.data[AUTH_TOKEN]);
 
                             var customerData = response.data[CUSTOMER_DATA];
-                            if(customerData!= null) {
+                            if (customerData != null) {
                               UserDataHandler.saveCustomerData(customerData);
                             }
 
@@ -173,5 +178,14 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);
+  }
+
+  _launchURL() async {
+    final uri = Uri.parse(FORGET_PASSWORD_URL);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      UiUtils.showToast("Cannot Launch Url");
+    }
   }
 }
