@@ -34,3 +34,5 @@ const String CONGRATULATIONS = "Congratulations";
 const String BTS_REQUEST_TAKEN = "Your BTS Location request has been taken";
 const String FORGET_PASSWORD_URL =
     "https://prod.localee.co.in/customer/account/forgotpassword/";
+const String YOU_HAVE_BEEN_LOGGED_OUT =
+    "You have been logged out, kindly login again!";
