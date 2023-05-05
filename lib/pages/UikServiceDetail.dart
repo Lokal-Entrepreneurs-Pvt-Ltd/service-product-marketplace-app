@@ -13,25 +13,24 @@ import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
 
-class UikServicesLanding extends StandardPage {
+class UikServiceDetail extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.OPEN_PAGE);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getServicesLandingScreen;
+    return ApiRepository.getServiceDetailScreen;
     // return getMockedApiResponse;
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_PAGE:
-        NavigationUtils.openPage(uikAction);
+      case UIK_ACTION.ADD_TO_CART:
+        addToCart(uikAction);
         break;
       default:
     }
@@ -44,7 +43,7 @@ class UikServicesLanding extends StandardPage {
 
   @override
   getPageContext() {
-    return UikServicesLanding;
+    return UikServiceDetail;
   }
 
   @override
@@ -69,4 +68,21 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   } else {
     throw Exception('Failed to load album');
   }
+}
+
+void addToCart(UikAction uikAction) async {
+  // var skuId = uikAction.tap.data.skuId;
+  //
+  // //api call to update cart
+  // final response =
+  //     await getHttp().post(Uri.parse('${baseUrl}/cart/update'), headers: {
+  //   "ngrok-skip-browser-warning": "value",
+  // }, body: {
+  //   "skuId": skuId,
+  //   "cartId": "",
+  //   "action": "add"
+  // });
+  //
+  // //displaying response from update cart
+  // print("statusCode ${response.body}");
 }
