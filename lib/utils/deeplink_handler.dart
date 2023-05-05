@@ -157,6 +157,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.myGames, args);
         }
         break;
+      case ScreenRoutes.serviceLandingScreen:
+        {
+          _pushScreen(context, ScreenRoutes.serviceLandingScreen, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }

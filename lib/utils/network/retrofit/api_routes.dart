@@ -1,5 +1,6 @@
 class ApiRoutes {
   static const String homeScreen = '/discovery/get';
+  static const String serviceLandingScreen = '/service/getAll';
   static const String catalogueScreen = '/products/get';
   static const String productScreen = "/products/getProductDetails";
   static const String updateCart = '/cart/update';

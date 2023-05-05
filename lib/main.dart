@@ -39,6 +39,7 @@ import 'package:ui_sdk/components/UikSearch.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
+import 'pages/UikServicesLanding.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
@@ -276,7 +277,6 @@ class _LokalAppState extends State<LokalApp> {
           "/": (context) => UserDataHandler.getUserToken().isEmpty
               ? OnboardingScreen()
               : UikBottomNavigationBar(),
-
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -284,7 +284,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) =>  UikMyAddressScreen().page,
+          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen().page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -301,8 +301,9 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.signUpScreen: (context) => const SignupScreen(),
           ScreenRoutes.membershipLanding: (context) =>
               UikMembershipScreen().page,
-          ScreenRoutes.searchScreen: (context) =>
-          UikSearchCatalog().page,
+          ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
+          ScreenRoutes.serviceLandingScreen: (context) =>
+              UikServicesLanding().page,
         },
       ),
     );
