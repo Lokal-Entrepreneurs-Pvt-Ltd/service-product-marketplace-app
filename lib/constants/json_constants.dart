@@ -47,6 +47,9 @@ const String BLOCK_NAME = "blockName";
 const String LATITUDE = "latitude";
 const String LONGITUDE = "longitude";
 
+const String TOKEN = "token";
+const String TOKEN_TYPE = "tokenType";
+const String FCM = "fcm";
 // ------Tap Action ------------
 
 const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";

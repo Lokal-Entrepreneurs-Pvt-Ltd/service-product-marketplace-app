@@ -19,8 +19,6 @@ import '../notifications//notificationController.dart';
      _initNotifications();
      WidgetsFlutterBinding.ensureInitialized();
      _initFirebase();
-
-
    }
 
     _initFirebase() async {
