@@ -39,6 +39,7 @@ import 'package:ui_sdk/components/UikSearch.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
+import 'pages/UikServiceDetail.dart';
 import 'pages/UikServicesLanding.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
@@ -304,6 +305,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
           ScreenRoutes.serviceLandingScreen: (context) =>
               UikServicesLanding().page,
+          ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
         },
       ),
     );

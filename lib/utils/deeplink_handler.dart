@@ -70,6 +70,14 @@ abstract class DeeplinkHandler {
           }
         }
         break;
+      case ScreenRoutes.serviceScreen:
+        {
+          if (args["serviceId"] != null) {
+            ProductDataHandler.saveProductSkuId(args['skuId']);
+            _pushScreen(context, ScreenRoutes.serviceScreen, args);
+          }
+        }
+        break;
       case ScreenRoutes.cartScreen:
         {
           String cartId = await CartDataHandler.getCartId();
