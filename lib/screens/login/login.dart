@@ -90,10 +90,11 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     isPassword: true,
                     description: descPassword,
                   ),
-                  TextButton(
-                    onPressed: _launchURL,
-                    child: Text('Forgot Password'),
-                  ),
+                  //...............................................Foret Password...............................
+                  // TextButton(
+                  //   onPressed: _launchURL(FORGET_PASSWORD_URL),
+                  //   child: Text('Forgot Password'),
+                  // ),
                   Container(
                     margin: const EdgeInsets.only(
                       left: 16,
@@ -178,14 +179,5 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);
-  }
-
-  _launchURL() async {
-    final uri = Uri.parse(FORGET_PASSWORD_URL);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      UiUtils.showToast("Cannot Launch Url");
-    }
   }
 }
