@@ -9,13 +9,12 @@ class NotificationController {
   static Future<void> mySilentDataHandle(FcmSilentData silentData) async {
     print('"SilentData": ${silentData.toString()}');
 
-    if (silentData.createdLifeCycle != NotificationLifeCycle.Foreground) {
-      print("bg");
-    } else {
-      print("FOREGROUND");
-    }
+    // if (silentData.createdLifeCycle != NotificationLifeCycle.Foreground) {
+    //   print("bg");
+    // } else {
+    //   print("FOREGROUND");
+    // }
 
-    print("starting long task");
     await Future.delayed(Duration(seconds: 4));
     final url = Uri.parse("http://google.com");
     final re = await http.get(url);

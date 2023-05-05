@@ -78,6 +78,7 @@ void addMembershipToCart(UikAction uikAction) async {
     DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
+    NavigationUtils.pop();
   }
 }
 

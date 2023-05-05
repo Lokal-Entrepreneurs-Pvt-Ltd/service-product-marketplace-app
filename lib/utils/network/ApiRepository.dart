@@ -36,7 +36,7 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.productScreen, args);
   }
 
-  static Future<ApiResponse> membershipUpdateCart(args) {
+  static Future<ApiResponse> membershipUpdateCart(args)  {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.membershipUpdateCart, args);
   }
@@ -158,6 +158,10 @@ class ApiRepository {
 
   static Future<ApiResponse> getAllGames(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getAllGames, args);
+  }
+
+  static Future<ApiResponse> saveNotificationToken(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.notificationAddUser, args);
   }
 }
 

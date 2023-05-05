@@ -237,7 +237,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       ),
     );
 
-    UiUtils.showToast("You selected $result");
+    UiUtils.showToast("You selected $result[1]");
 
     districtCode = result[0];
     districtName = result[1];
@@ -278,7 +278,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
       ),
     );
 
-    UiUtils.showToast("You selected $result");
+    UiUtils.showToast("You selected $result[1]");
 
     blockCode = result[0];
     blockName = result[1];
@@ -307,7 +307,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
     }
 
     Position position = await Geolocator.getCurrentPosition();
-
+    UiUtils.showToast("You selected $position");
     latitude = position.latitude;
     longitude = position.longitude;
   }
