@@ -57,11 +57,11 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case ScreenRoutes.searchScreen:
-        {
-          _pushScreen(context, ScreenRoutes.searchScreen, args);
-        }
-        break;
+      // case ScreenRoutes.searchScreen:
+      //   {
+      //     _pushScreen(context, ScreenRoutes.searchScreen, args);
+      //   }
+      //   break;
       case ScreenRoutes.productScreen:
         {
           if (args["skuId"] != null) {
@@ -73,7 +73,8 @@ abstract class DeeplinkHandler {
       case ScreenRoutes.serviceScreen:
         {
           if (args["serviceId"] != null) {
-            ProductDataHandler.saveProductSkuId(args['skuId']);
+            ProductDataHandler.saveProductSkuId(args['serviceId']);
+            args["serviceId"] = int.parse(args["serviceId"]);
             _pushScreen(context, ScreenRoutes.serviceScreen, args);
           }
         }
