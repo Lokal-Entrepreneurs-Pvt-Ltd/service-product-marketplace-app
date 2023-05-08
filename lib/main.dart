@@ -52,11 +52,11 @@ import 'package:provider/provider.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 
-var appInit;
+AppInitializer? appInit;
 
 void main() async {
   appInit = new AppInitializer();
-  await appInit.init();
+  await appInit?.init();
 
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceUtils.init();
@@ -91,8 +91,7 @@ void main() async {
     print("error");
     throw Exception(err);
   });
-  if(fcmToken!.isNotEmpty)
-  saveFCMForUser(fcmToken);
+  if (fcmToken!.isNotEmpty) saveFCMForUser(fcmToken);
 
   // SharedPreferences.getInstance().then((instance) {
   //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
@@ -102,8 +101,8 @@ void main() async {
 
 Future<void> saveFCMForUser(String fcmToken) async {
   dynamic response = await ApiRepository.saveNotificationToken(
-      ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken,FCM));
-  debugPrint(response);
+      ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken, FCM));
+  // debugPrint(response);
 }
 
 class NavigationService {
@@ -289,7 +288,6 @@ class _LokalAppState extends State<LokalApp> {
           "/": (context) => UserDataHandler.getUserToken().isEmpty
               ? OnboardingScreen()
               : UikBottomNavigationBar(),
-
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -297,7 +295,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) =>  UikMyAddressScreen().page,
+          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen().page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -314,8 +312,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.signUpScreen: (context) => const SignupScreen(),
           ScreenRoutes.membershipLanding: (context) =>
               UikMembershipScreen().page,
-          ScreenRoutes.searchScreen: (context) =>
-          UikSearchCatalog().page,
+          ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
         },
       ),
     );
