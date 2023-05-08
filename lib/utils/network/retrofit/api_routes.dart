@@ -47,4 +47,5 @@ class ApiRoutes {
   static const String confirmTower = "/isp/feasiblity/confirmTower";
   static const String membershipScreen = "/membership/getall";
   static const String serviceDetail = "/service/getById";
+  static const String notificationAddUser = "/notification/add/";
 }
