@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
+import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikBtsCheckLocation.dart';
@@ -30,6 +32,9 @@ import 'package:lokal/screens/bts/ConfirmTowers.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
+import 'package:lokal/utils/storage/preference_constants.dart';
 
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -77,22 +82,30 @@ void main() async {
   //   return true;
   // };
   //
-  // final fcmToken = await FirebaseMessaging.instance.getToken();
-  //
-  // print(fcmToken);
-  //
-  // FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-  //   fcmToken = fcmToken;
-  //   print(fcmToken);
-  // }).onError((err) {
-  //   print("error");
-  //   throw Exception(err);
-  // });
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+
+  print(fcmToken);
+
+  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+    fcmToken = fcmToken;
+    print(fcmToken);
+  }).onError((err) {
+    print("error");
+    throw Exception(err);
+  });
+  if(fcmToken!.isNotEmpty)
+  saveFCMForUser(fcmToken);
 
   // SharedPreferences.getInstance().then((instance) {
   //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
   //   runApp(MyApp());
   // });
+}
+
+Future<void> saveFCMForUser(String fcmToken) async {
+  dynamic response = await ApiRepository.saveNotificationToken(
+      ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken,FCM));
+  debugPrint(response);
 }
 
 class NavigationService {

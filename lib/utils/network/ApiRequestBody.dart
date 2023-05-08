@@ -51,6 +51,13 @@ class ApiRequestBody {
     };
   }
 
+  static getNotificationAddUserDetailsRequest(String token, String tokenType) {
+    return {
+      TOKEN: token,
+      TOKEN_TYPE: tokenType,
+    };
+  }
+
   static getSaveDetailsRequest(
       String name, String email, String gst, String dob, String phone) {
     return {
