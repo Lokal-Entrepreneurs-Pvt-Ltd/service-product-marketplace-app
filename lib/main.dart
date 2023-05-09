@@ -54,11 +54,11 @@ import 'package:provider/provider.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 
-var appInit;
+AppInitializer? appInit;
 
 void main() async {
   appInit = new AppInitializer();
-  await appInit.init();
+  await appInit?.init();
 
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceUtils.init();
@@ -93,8 +93,7 @@ void main() async {
     print("error");
     throw Exception(err);
   });
-  if(fcmToken!.isNotEmpty)
-  saveFCMForUser(fcmToken);
+  if (fcmToken!.isNotEmpty) saveFCMForUser(fcmToken);
 
   // SharedPreferences.getInstance().then((instance) {
   //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
@@ -104,8 +103,8 @@ void main() async {
 
 Future<void> saveFCMForUser(String fcmToken) async {
   dynamic response = await ApiRepository.saveNotificationToken(
-      ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken,FCM));
-  debugPrint(response);
+      ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken, FCM));
+  // debugPrint(response);
 }
 
 class NavigationService {
