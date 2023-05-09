@@ -41,6 +41,7 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:ui_sdk/components/UikMembership.dart';
 import 'package:ui_sdk/components/UikSearch.dart';
+import 'package:ui_sdk/standardScreenResponseMapProvider.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
@@ -278,8 +279,8 @@ class _LokalAppState extends State<LokalApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => DarkThemeProvider(),
-        ),
+        create: (context) => DarkThemeProvider()),
+        ChangeNotifierProvider(create: (context) => StandardScreenResponseMapProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
