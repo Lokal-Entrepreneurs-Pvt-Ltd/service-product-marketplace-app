@@ -9,6 +9,10 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password};
   }
 
+  static getOptinRequest(String serviceCode) {
+    return {SERVICE_CODE: serviceCode};
+  }
+
   static submitIspFormRequest(
       stateCode,
       districtCode,

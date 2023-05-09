@@ -7,10 +7,22 @@ abstract class ProductDataHandler {
     await prefs.setString("skuId", skuId);
   }
 
+  static void saveServiceCode(String serviceCode) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    await prefs.setString("serviceCode", serviceCode);
+  }
+
   static void saveServiceProductId(String serviceId) async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString("serviceId", serviceId);
+  }
+
+  static Future<String> getServiceCode() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString("serviceCode") ?? "";
   }
 
   static Future<String> getServiceProductId() async {

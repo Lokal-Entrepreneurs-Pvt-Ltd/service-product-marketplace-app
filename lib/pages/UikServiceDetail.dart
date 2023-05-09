@@ -12,11 +12,16 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../constants.dart';
 import '../main.dart';
 import '../actions.dart';
+import '../utils/network/ApiRequestBody.dart';
+import '../utils/network/http/http_screen_client.dart';
+import '../utils/storage/product_data_handler.dart';
 
 class UikServiceDetail extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
+    actionList.add(UIK_ACTION.SERVICE_OPTIN);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -29,8 +34,11 @@ class UikServiceDetail extends StandardPage {
   void onHomeScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
+      case UIK_ACTION.SERVICE_OPTIN:
+        obtinClick(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }
@@ -70,7 +78,16 @@ Future<ApiResponse> getMockedApiResponse(args) async {
   }
 }
 
-void addToCart(UikAction uikAction) async {
+void obtinClick(UikAction uikAction) async {
+  String serviceCode = await ProductDataHandler.getServiceCode();
+  NavigationUtils.showLoaderOnTop();
+  final response = await ApiRepository.submitOptin(
+      ApiRequestBody.getOptinRequest(serviceCode));
+  if (response.isSuccess!) {
+    HttpScreenClient.displayDialogBox(response.data["message"]);
+  }
+
+  // NavigationUtils.pop();
   // var skuId = uikAction.tap.data.skuId;
   //
   // //api call to update cart
