@@ -277,7 +277,6 @@ class _LokalAppState extends State<LokalApp> {
       DeviceOrientation.portraitDown,
     ]);
     return MultiProvider(
-
       providers: [
         ChangeNotifierProvider(
         create: (context) => DarkThemeProvider()),
