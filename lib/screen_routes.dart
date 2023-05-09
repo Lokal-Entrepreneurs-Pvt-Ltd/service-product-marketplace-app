@@ -39,4 +39,5 @@ class ScreenRoutes {
   static const String confirmTower = "/confirmTower";
   static const String isp = "/isp";
   static const String membershipLanding = "/membershipLanding";
+  static const String serviceLandingScreen = "/services";
 }

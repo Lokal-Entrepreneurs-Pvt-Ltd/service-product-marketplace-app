@@ -24,39 +24,36 @@ class HttpScreenClient {
     return ChuckerHttpClient(http.Client());
   }
 
-
- static  displayUserUnAuthorisedDialog() {
-
-   return showDialog(
-     barrierDismissible: false,
-     context: NavigationUtils.getCurrentContext()!,
-     builder: (BuildContext context) {
-       return WillPopScope(
-           onWillPop: () => Future.value(false),
-           child: AlertDialog(
-             title: Text(YOU_HAVE_BEEN_LOGGED_OUT),
-             actions: <Widget>[
-               MaterialButton(
-                 color: Colors.amberAccent,
-                 textColor: Colors.black,
-                 child: const Text(LOG_IN),
-                 onPressed: () {
-                   UserDataHandler.clearUserToken();
-                   Navigator.pushAndRemoveUntil(
-                     NavigationUtils.getCurrentContext()!,
-                     MaterialPageRoute(
-                       builder: (context) => OnboardingScreen(),
-                     ),
-                     // ModalRoute.withName(ScreenRoutes.homeScreen)
-                         (route) => false,
-                   );
-                 },
-               ),
-             ],
-           )
-       );
-     },
-   );
+  static displayUserUnAuthorisedDialog() {
+    return showDialog(
+      barrierDismissible: false,
+      context: NavigationUtils.getCurrentContext()!,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            onWillPop: () => Future.value(false),
+            child: AlertDialog(
+              title: Text(YOU_HAVE_BEEN_LOGGED_OUT),
+              actions: <Widget>[
+                MaterialButton(
+                  color: Colors.amberAccent,
+                  textColor: Colors.black,
+                  child: const Text(LOG_IN),
+                  onPressed: () {
+                    UserDataHandler.clearUserToken();
+                    Navigator.pushAndRemoveUntil(
+                      NavigationUtils.getCurrentContext()!,
+                      MaterialPageRoute(
+                        builder: (context) => OnboardingScreen(),
+                      ),
+                      // ModalRoute.withName(ScreenRoutes.homeScreen)
+                      (route) => false,
+                    );
+                  },
+                ),
+              ],
+            ));
+      },
+    );
   }
 
   static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
@@ -72,27 +69,27 @@ class HttpScreenClient {
           .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
 
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
-
-        ApiResponse apiResponse = ApiResponse.fromJson(jsonDecode(response.body));
-        if(apiResponse.isSuccess!)
+        ApiResponse apiResponse =
+            ApiResponse.fromJson(jsonDecode(response.body));
+        if (apiResponse.isSuccess!)
           return apiResponse;
         else {
           String errorCode = apiResponse.error![CODE].toString();
-          if( errorCode.isNotEmpty)
-         {
-           switch(errorCode){
-             case NetworkUtils.NETWORK_ERROR_USER_NOT_AUTHENTICATED : {
-               displayUserUnAuthorisedDialog();
-               throw Exception('Failed to load ' + pageRoute);
-             }
-             break;
-             default : {
-               UiUtils.showToast( apiResponse.error![MESSAGE]);
-               throw Exception('Failed to load ' + pageRoute);
-             }
-           }
-         }
-          else
+          if (errorCode.isNotEmpty) {
+            switch (errorCode) {
+              case NetworkUtils.NETWORK_ERROR_USER_NOT_AUTHENTICATED:
+                {
+                  displayUserUnAuthorisedDialog();
+                  throw Exception('Failed to load ' + pageRoute);
+                }
+                break;
+              default:
+                {
+                  UiUtils.showToast(apiResponse.error![MESSAGE]);
+                  throw Exception('Failed to load ' + pageRoute);
+                }
+            }
+          } else
             throw Exception('Failed to load ' + pageRoute);
         }
       } else {
