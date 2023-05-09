@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/screens/login/login.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
@@ -13,10 +14,17 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   List<String> images = [
-    "assets/images/onboard4.jpeg",
-    "assets/images/onboard2.jpeg",
-    "assets/images/onboard3.jpeg",
-    "assets/images/onboard1.jpeg"
+    "assets/images/Onboarding1.png",
+    "assets/images/Onboarding2.png",
+    "assets/images/Onboarding3.png",
+  ];
+  List<List<String>> texts = [
+    ["Brand that earn!", "Join 2000+ Lokal Partners across India"],
+    ["Internet that navigate", "Fast internet to unconnected corners of india"],
+    [
+      "Services that connect",
+      "Having services that helps to reach more people"
+    ],
   ];
   int _currentPage = 0;
   late Timer _timer;
@@ -48,8 +56,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 577,
+              Container(
+                margin: EdgeInsets.only(top: 100),
+                height: 520,
                 width: 375,
                 child: PageView.builder(
                     controller: _pageController,
@@ -62,49 +71,50 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             width: double.infinity,
                           ),
                           Container(
-                            decoration: const BoxDecoration(
-                                color: Color.fromRGBO(0, 0, 0, 0.1)),
-                            margin: const EdgeInsets.fromLTRB(0, 335, 0, 0),
+                            // decoration: const BoxDecoration(
+                            //     color: Color.fromRGBO(0, 0, 0, 0.1)),
+                            margin: const EdgeInsets.fromLTRB(0, 375, 0, 0),
                             width: double.infinity,
-                            padding: const EdgeInsets.all(15),
+
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Text(
-                                  "Apply Online",
-                                  style: TextStyle(
-                                    color: Colors.white,
+                                Text(
+                                  texts[index % texts.length][0],
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 32,
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 10,
+                                  height: 6,
                                 ),
-                                const Text(
-                                  "After you fill up the form, our onboarding team will reachout to you for further guidance and handholding",
-                                  style: TextStyle(
-                                    color: Colors.white,
+                                Text(
+                                  texts[index % texts.length][1],
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                   ),
                                 ),
                                 Container(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        137, 70, 0, 0),
-                                    child: SmoothPageIndicator(
-                                      axisDirection: Axis.horizontal,
-                                      controller: _pageController,
-                                      effect: const ExpandingDotsEffect(
-                                        spacing: 4,
-                                        radius: 5,
-                                        activeDotColor: Colors.yellow,
-                                        dotHeight: 5,
-                                        dotWidth: 5,
-                                        expansionFactor: 2,
-                                      ),
-                                      count: 4,
-                                    ))
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                  child: SmoothPageIndicator(
+                                    axisDirection: Axis.horizontal,
+                                    controller: _pageController,
+                                    effect: const ExpandingDotsEffect(
+                                      spacing: 4,
+                                      radius: 5,
+                                      activeDotColor: Colors.black,
+                                      dotHeight: 5,
+                                      dotWidth: 5,
+                                      expansionFactor: 2,
+                                    ),
+                                    count: 4,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -115,41 +125,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Column(
                 children: [
                   Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(18, 21, 18, 10),
-                          child: Text(
-                            "Earn More. Earn Respect. Become a Brand.",
-                            style: TextStyle(
-                              color: HexColor("#212121"),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 54),
-                          child: Text(
-                            "Join 2000+ plus Lokal Partners across India ",
-                            style: TextStyle(
-                              color: HexColor("#212121"),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(
-                    height: 40,
-                    width: 162,
+                    margin: EdgeInsets.only(left: 15, right: 15),
+                    height: 38,
+                    width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor:
@@ -173,33 +151,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already a Partner?",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              color: HexColor("#9E9E9E")),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPageScreen()));
-                            },
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: HexColor("#212121"),
-                              ),
-                            ))
-                      ],
+                  Container(
+                    margin: EdgeInsets.only(left: 15, right: 15),
+                    height: 38,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.yellow),
+                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(HexColor("#FFFFFF")),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPageScreen()));
+                      },
+                      child: Text(
+                        "Log In ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: HexColor("#000000")),
+                      ),
                     ),
                   ),
                 ],
