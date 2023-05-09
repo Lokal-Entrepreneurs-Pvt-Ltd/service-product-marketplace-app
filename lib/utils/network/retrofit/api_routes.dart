@@ -48,4 +48,5 @@ class ApiRoutes {
   static const String membershipScreen = "/membership/getall";
   static const String serviceDetail = "/service/getById";
   static const String notificationAddUser = "/notification/add/";
+  static const String submitOptin = "/optin/create";
 }

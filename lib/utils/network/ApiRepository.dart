@@ -45,7 +45,7 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.productScreen, args);
   }
 
-  static Future<ApiResponse> membershipUpdateCart(args)  {
+  static Future<ApiResponse> membershipUpdateCart(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.membershipUpdateCart, args);
   }
@@ -147,6 +147,10 @@ class ApiRepository {
 
   static Future<ApiResponse> getNearestTowers(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getNearestTowers, args);
+  }
+
+  static Future<ApiResponse> submitOptin(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.submitOptin, args);
   }
 
   static Future<ApiResponse> submitIspForm(args) {

@@ -74,6 +74,7 @@ abstract class DeeplinkHandler {
         {
           if (args["serviceId"] != null) {
             ProductDataHandler.saveProductSkuId(args['serviceId']);
+            ProductDataHandler.saveServiceCode(args['serviceCode']);
             args["serviceId"] = int.parse(args["serviceId"]);
             _pushScreen(context, ScreenRoutes.serviceScreen, args);
           }

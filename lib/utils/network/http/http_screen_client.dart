@@ -16,6 +16,7 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../../constants/environment.dart';
 import '../../../constants/json_constants.dart';
+import '../../../pages/UikBottomNavigationBar.dart';
 import '../../../screens/Onboarding/OnboardingScreen.dart';
 import '../../storage/user_data_handler.dart';
 
@@ -44,6 +45,37 @@ class HttpScreenClient {
                       NavigationUtils.getCurrentContext()!,
                       MaterialPageRoute(
                         builder: (context) => OnboardingScreen(),
+                      ),
+                      // ModalRoute.withName(ScreenRoutes.homeScreen)
+                      (route) => false,
+                    );
+                  },
+                ),
+              ],
+            ));
+      },
+    );
+  }
+
+  static displayDialogBox(String text) {
+    return showDialog(
+      barrierDismissible: false,
+      context: NavigationUtils.getCurrentContext()!,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            onWillPop: () => Future.value(false),
+            child: AlertDialog(
+              title: Text(text),
+              actions: <Widget>[
+                MaterialButton(
+                  color: Colors.amberAccent,
+                  textColor: Colors.black,
+                  child: const Text(CONTINUE),
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      NavigationUtils.getCurrentContext()!,
+                      MaterialPageRoute(
+                        builder: (context) => UikBottomNavigationBar(),
                       ),
                       // ModalRoute.withName(ScreenRoutes.homeScreen)
                       (route) => false,

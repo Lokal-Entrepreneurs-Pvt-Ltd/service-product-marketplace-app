@@ -18,6 +18,7 @@ class UikServicesLanding extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.OPEN_PAGE);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -32,6 +33,9 @@ class UikServicesLanding extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_PAGE:
         NavigationUtils.openPage(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }
