@@ -72,11 +72,13 @@ class HttpScreenClient {
                   textColor: Colors.black,
                   child: const Text(CONTINUE),
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
+                    Navigator.pushAndRemoveUntil(
+                      NavigationUtils.getCurrentContext()!,
                       MaterialPageRoute(
                         builder: (context) => UikBottomNavigationBar(),
                       ),
+                      // ModalRoute.withName(ScreenRoutes.homeScreen)
+                      (route) => false,
                     );
                   },
                 ),

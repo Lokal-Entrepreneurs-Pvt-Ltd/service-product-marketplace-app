@@ -21,6 +21,7 @@ class UikServiceDetail extends StandardPage {
   Set<String?> getActions() {
     Set<String?> actionList = Set();
     actionList.add(UIK_ACTION.SERVICE_OPTIN);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -35,6 +36,9 @@ class UikServiceDetail extends StandardPage {
     switch (uikAction.tap.type) {
       case UIK_ACTION.SERVICE_OPTIN:
         obtinClick(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       default:
     }
