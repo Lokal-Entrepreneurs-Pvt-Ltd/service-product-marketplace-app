@@ -56,4 +56,5 @@ class UIK_ACTION {
   static const String CHECK_FEASIBILITY = "CHECK_FEASIBILITY";
   static const String CONFIRM_TOWER = "CONFIRM_TOWER";
   static const String OPEN_PAGE = "OPEN_PAGE";
+  static const String SERVICE_OPTIN = "SERVICE_OPTIN";
 }
