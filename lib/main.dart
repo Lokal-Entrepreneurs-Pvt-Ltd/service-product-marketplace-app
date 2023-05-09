@@ -51,6 +51,7 @@ import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 
@@ -288,7 +289,7 @@ class _LokalAppState extends State<LokalApp> {
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           "/": (context) => UserDataHandler.getUserToken().isEmpty
-              ? OnboardingScreen()
+              ? LandingPage()
               : UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
