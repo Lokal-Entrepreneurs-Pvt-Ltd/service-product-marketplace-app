@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
-import '../../Widgets/UikTextField/UikTextField.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 
@@ -291,7 +287,7 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                       icon: Icon(Icons.arrow_drop_down),
                       onChanged: (value) {
                         setState(() {
-                          districtItems = const [
+                          districtItems = [
                             DropdownMenuItem(
                               value: 'none',
                               child: Text('None'),
