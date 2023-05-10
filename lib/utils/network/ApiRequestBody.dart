@@ -9,6 +9,10 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password};
   }
 
+  static getOptinRequest(String serviceCode) {
+    return {SERVICE_CODE: serviceCode};
+  }
+
   static submitIspFormRequest(
       stateCode,
       districtCode,
@@ -48,6 +52,13 @@ class ApiRequestBody {
     return {
       ID: value,
       TOWER_ID: towerId,
+    };
+  }
+
+  static getNotificationAddUserDetailsRequest(String token, String tokenType) {
+    return {
+      TOKEN: token,
+      TOKEN_TYPE: tokenType,
     };
   }
 

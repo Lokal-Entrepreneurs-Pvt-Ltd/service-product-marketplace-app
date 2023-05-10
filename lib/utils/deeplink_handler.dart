@@ -57,16 +57,26 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case ScreenRoutes.searchScreen:
-        {
-          _pushScreen(context, ScreenRoutes.searchScreen, args);
-        }
-        break;
+      // case ScreenRoutes.searchScreen:
+      //   {
+      //     _pushScreen(context, ScreenRoutes.searchScreen, args);
+      //   }
+      //   break;
       case ScreenRoutes.productScreen:
         {
           if (args["skuId"] != null) {
             ProductDataHandler.saveProductSkuId(args['skuId']);
             _pushScreen(context, ScreenRoutes.productScreen, args);
+          }
+        }
+        break;
+      case ScreenRoutes.serviceScreen:
+        {
+          if (args["serviceId"] != null) {
+            ProductDataHandler.saveProductSkuId(args['serviceId']);
+            ProductDataHandler.saveServiceCode(args['serviceCode']);
+            args["serviceId"] = int.parse(args["serviceId"]);
+            _pushScreen(context, ScreenRoutes.serviceScreen, args);
           }
         }
         break;
@@ -96,7 +106,7 @@ abstract class DeeplinkHandler {
         break;
       case ScreenRoutes.membershipLanding:
         {
-          _pushScreen(context, ScreenRoutes.membershipScreen, args);
+          _pushScreen(context, ScreenRoutes.membershipLanding, args);
         }
         break;
 
@@ -155,6 +165,11 @@ abstract class DeeplinkHandler {
       case ScreenRoutes.myGames:
         {
           _pushScreen(context, ScreenRoutes.myGames, args);
+        }
+        break;
+      case ScreenRoutes.serviceLandingScreen:
+        {
+          _pushScreen(context, ScreenRoutes.serviceLandingScreen, args);
         }
         break;
       default:

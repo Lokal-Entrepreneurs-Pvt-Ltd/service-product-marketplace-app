@@ -1,3 +1,4 @@
+const String CODE = "code";
 const String MESSAGE = "message";
 const String CONTENT_TYPE = "Content-Type";
 const String ACCEPT = "Accept";
@@ -46,9 +47,13 @@ const String BLOCK_NAME = "blockName";
 const String LATITUDE = "latitude";
 const String LONGITUDE = "longitude";
 
+const String TOKEN = "token";
+const String TOKEN_TYPE = "tokenType";
+const String FCM = "fcm";
 // ------Tap Action ------------
 
 const String TAP_ACTION_TYPE_KEY_ADDRESS_ID = "addressId";
 const String TAP_ACTION_TYPE_KEY_ORDER_NUMBER_ID = "orderNumberId";
 const String ID = "id";
 const String TOWER_ID = "towerId";
+const String SERVICE_CODE = "serviceCode";

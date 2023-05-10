@@ -15,12 +15,10 @@ import '../notifications//notificationController.dart';
 
  class AppInitializer {
 
-    init()  {
+    init() async {
+      await _initFirebase();
      _initNotifications();
      WidgetsFlutterBinding.ensureInitialized();
-     _initFirebase();
-
-
    }
 
     _initFirebase() async {
