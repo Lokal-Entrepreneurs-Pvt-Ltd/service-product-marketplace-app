@@ -1,16 +1,11 @@
 import 'dart:convert';
-import 'package:flutter/widgets.dart';
 import 'package:lokal/screen_routes.dart';
-import 'package:lokal/utils/NavigationUtils.dart';
-import 'package:lokal/utils/deeplink_handler.dart';
+
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../constants.dart';
-import '../main.dart';
 import '../actions.dart';
 
 class UikServiceDetail extends StandardPage {
@@ -43,7 +38,7 @@ class UikServiceDetail extends StandardPage {
 
   @override
   getPageContext() {
-    return UikServiceDetail;
+    return ScreenRoutes.serviceScreen;
   }
 
   @override

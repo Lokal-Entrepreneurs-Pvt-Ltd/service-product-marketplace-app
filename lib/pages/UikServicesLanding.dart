@@ -44,7 +44,7 @@ class UikServicesLanding extends StandardPage {
 
   @override
   getPageContext() {
-    return UikServicesLanding;
+    return ScreenRoutes.serviceLandingScreen;
   }
 
   @override

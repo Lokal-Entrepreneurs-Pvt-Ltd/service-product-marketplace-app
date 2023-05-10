@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/strings.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/payments/razorpay_payment.dart';
@@ -69,7 +70,7 @@ class UikPaymentDetailsScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikPaymentDetailsScreen;
+    return ScreenRoutes.paymentDetailsScreen;
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
@@ -42,7 +43,7 @@ class UikMyGames extends StandardPage {
 
   @override
   getPageContext() {
-    return UikMyGames;
+    return ScreenRoutes.myGames;
   }
   @override
   getConstructorArgs() {

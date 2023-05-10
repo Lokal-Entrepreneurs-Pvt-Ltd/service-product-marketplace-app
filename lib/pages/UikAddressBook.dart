@@ -56,7 +56,7 @@ class UikAddressBook extends StandardPage {
 
   @override
   getPageContext() {
-    return UikAddressBook;
+    return ScreenRoutes.addressBookScreen;
   }
 
   @override
