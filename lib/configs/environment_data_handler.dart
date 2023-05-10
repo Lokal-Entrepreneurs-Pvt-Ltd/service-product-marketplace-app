@@ -21,6 +21,6 @@ class EnvironmentDataHandler {
 // Set your url here
   static String getLocalBaseUrl() {
     return PreferenceUtils.getString(
-        LOCAL_BASE_URL, "https://prod.localee.co.in/api");
+        LOCAL_BASE_URL, "https://ab7a-42-108-162-82.ngrok.io");
   }
 }
