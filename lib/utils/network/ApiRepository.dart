@@ -12,6 +12,15 @@ class ApiRepository {
     return dio;
   }
 
+  static Future<ApiResponse> getServiceDetailScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.serviceDetail, args);
+  }
+
+  static Future<ApiResponse> getServicesLandingScreen(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.serviceLandingScreen, args);
+  }
+
   static Future<ApiResponse> getHomescreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.homeScreen, args);
   }
@@ -140,6 +149,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.getNearestTowers, args);
   }
 
+  static Future<ApiResponse> submitOptin(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.submitOptin, args);
+  }
+
   static Future<ApiResponse> submitIspForm(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.submitIspForm, args);
   }
@@ -158,6 +171,10 @@ class ApiRepository {
 
   static Future<ApiResponse> getAllGames(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getAllGames, args);
+  }
+
+  static Future<ApiResponse> saveNotificationToken(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.notificationAddUser, args);
   }
 }
 

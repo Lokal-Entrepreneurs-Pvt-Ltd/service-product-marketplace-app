@@ -1,5 +1,6 @@
 class ApiRoutes {
   static const String homeScreen = '/discovery/get';
+  static const String serviceLandingScreen = '/service/getAll';
   static const String catalogueScreen = '/products/get';
   static const String productScreen = "/products/getProductDetails";
   static const String updateCart = '/cart/update';
@@ -45,4 +46,7 @@ class ApiRoutes {
   static const String ispHomeScreen = "/isp/feasiblity/getIspHome";
   static const String confirmTower = "/isp/feasiblity/confirmTower";
   static const String membershipScreen = "/membership/getall";
+  static const String serviceDetail = "/service/getById";
+  static const String notificationAddUser = "/notification/add/";
+  static const String submitOptin = "/optin/create";
 }

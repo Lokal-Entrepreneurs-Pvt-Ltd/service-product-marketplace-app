@@ -1,18 +1,21 @@
 import 'dart:io';
 
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
+import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
+import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
@@ -29,6 +32,9 @@ import 'package:lokal/screens/bts/ConfirmTowers.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
+import 'package:lokal/utils/storage/preference_constants.dart';
 
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -38,19 +44,22 @@ import 'package:ui_sdk/components/UikSearch.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
+import 'pages/UikServiceDetail.dart';
+import 'pages/UikServicesLanding.dart';
 import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 
-var appInit;
+AppInitializer? appInit;
 
 void main() async {
   appInit = new AppInitializer();
-  await appInit.init();
+  await appInit?.init();
 
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceUtils.init();
@@ -74,22 +83,29 @@ void main() async {
   //   return true;
   // };
   //
-  // final fcmToken = await FirebaseMessaging.instance.getToken();
-  //
-  // print(fcmToken);
-  //
-  // FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-  //   fcmToken = fcmToken;
-  //   print(fcmToken);
-  // }).onError((err) {
-  //   print("error");
-  //   throw Exception(err);
-  // });
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+
+  print(fcmToken);
+
+  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+    fcmToken = fcmToken;
+    print(fcmToken);
+  }).onError((err) {
+    print("error");
+    throw Exception(err);
+  });
+  if (fcmToken!.isNotEmpty) saveFCMForUser(fcmToken);
 
   // SharedPreferences.getInstance().then((instance) {
   //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
   //   runApp(MyApp());
   // });
+}
+
+Future<void> saveFCMForUser(String fcmToken) async {
+  dynamic response = await ApiRepository.saveNotificationToken(
+      ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken, FCM));
+  // debugPrint(response);
 }
 
 class NavigationService {
@@ -180,78 +196,78 @@ class _LokalAppState extends State<LokalApp> {
     // });
   }
 
-  // displayTextInputDialog(BuildContext context) async {
-  //   var tempLocalUrl = EnvironmentDataHandler.getLocalBaseUrl();
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         var _textFieldController = TextEditingController(
-  //             text: EnvironmentDataHandler.getLocalBaseUrl());
-  //         return AlertDialog(
-  //           title: Text('Set Ngrok URL'),
-  //           content: TextField(
-  //             onChanged: (value) {
-  //               setState(() {
-  //                 tempLocalUrl = value;
-  //               });
-  //             },
-  //             controller: _textFieldController,
-  //             decoration: InputDecoration(hintText: "Enter the local url"),
-  //           ),
-  //           actions: <Widget>[
-  //             MaterialButton(
-  //               color: Colors.red,
-  //               textColor: Colors.white,
-  //               child: const Text('Clear Data and Kill App'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   UiUtils.showToast("Data Cleared, Restart the app");
-  //                   PreferenceUtils.clearStorage();
-  //                   SystemNavigator.pop();
-  //                 });
-  //               },
-  //             ),
-  //             MaterialButton(
-  //               color: Colors.red,
-  //               textColor: Colors.white,
-  //               child: const Text('Set Prod'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   EnvUtils.setEnvironmentAndResetApp(
-  //                       context, Environment.PROD, "");
-  //                 });
-  //               },
-  //             ),
-  //             MaterialButton(
-  //               color: Colors.green,
-  //               textColor: Colors.white,
-  //               child: const Text('Set Dev'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   EnvUtils.setEnvironmentAndResetApp(
-  //                       context, Environment.DEV, "");
-  //                 });
-  //               },
-  //             ),
-  //             MaterialButton(
-  //               color: Colors.blue,
-  //               textColor: Colors.white,
-  //               child: Text('Set Lokal'),
-  //               onPressed: () {
-  //                 setState(() {
-  //                   if (tempLocalUrl.isNotEmpty &&
-  //                       tempLocalUrl.endsWith("ngrok.io")) {
-  //                     EnvUtils.setEnvironmentAndResetApp(
-  //                         context, Environment.LOCAL, tempLocalUrl);
-  //                   } else
-  //                     UiUtils.showToast("Invalid url");
-  //                 });
-  //               },
-  //             ),
-  //           ],
-  //         );
-  //       });
-  // }
+  displayTextInputDialog(BuildContext context) async {
+    var tempLocalUrl = EnvironmentDataHandler.getLocalBaseUrl();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          var _textFieldController = TextEditingController(
+              text: EnvironmentDataHandler.getLocalBaseUrl());
+          return AlertDialog(
+            title: Text('Set Ngrok URL'),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  tempLocalUrl = value;
+                });
+              },
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Enter the local url"),
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                child: const Text('Clear Data and Kill App'),
+                onPressed: () {
+                  setState(() {
+                    UiUtils.showToast("Data Cleared, Restart the app");
+                    PreferenceUtils.clearStorage();
+                    SystemNavigator.pop();
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.red,
+                textColor: Colors.white,
+                child: const Text('Set Prod'),
+                onPressed: () {
+                  setState(() {
+                    EnvUtils.setEnvironmentAndResetApp(
+                        context, Environment.PROD, "");
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.green,
+                textColor: Colors.white,
+                child: const Text('Set Dev'),
+                onPressed: () {
+                  setState(() {
+                    EnvUtils.setEnvironmentAndResetApp(
+                        context, Environment.DEV, "");
+                  });
+                },
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: Text('Set Lokal'),
+                onPressed: () {
+                  setState(() {
+                    if (tempLocalUrl.isNotEmpty &&
+                        tempLocalUrl.endsWith("ngrok.io")) {
+                      EnvUtils.setEnvironmentAndResetApp(
+                          context, Environment.LOCAL, tempLocalUrl);
+                    } else
+                      UiUtils.showToast("Invalid url");
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   // This widget is the root of your application.
   @override
@@ -273,9 +289,8 @@ class _LokalAppState extends State<LokalApp> {
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           "/": (context) => UserDataHandler.getUserToken().isEmpty
-              ? OnboardingScreen()
+              ? LandingPage()
               : UikBottomNavigationBar(),
-
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -283,7 +298,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) =>  UikMyAddressScreen().page,
+          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen().page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -298,10 +313,12 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.ispHome: (context) => UikIspHome().page,
           ScreenRoutes.couponScreen: (context) => UikCouponScreen().page,
           ScreenRoutes.signUpScreen: (context) => const SignupScreen(),
-          ScreenRoutes.membershipScreen: (context) =>
+          ScreenRoutes.membershipLanding: (context) =>
               UikMembershipScreen().page,
-          ScreenRoutes.searchScreen: (context) =>
-          UikSearchCatalog().page,
+          ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
+          ScreenRoutes.serviceLandingScreen: (context) =>
+              UikServicesLanding().page,
+          ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
         },
       ),
     );

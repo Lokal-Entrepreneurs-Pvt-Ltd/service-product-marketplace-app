@@ -13,6 +13,7 @@ import 'package:ui_sdk/components/UikText.dart';
 import 'package:ui_sdk/components/WidgetType.dart';
 
 import '../../constants/json_constants.dart';
+import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/preference_constants.dart';
 import '../../utils/storage/user_data_handler.dart';
@@ -106,10 +107,15 @@ class _SignupScreenState extends State<SignupScreen> {
                           passwordController.text) {
                     // Creating a POST request with http client
                     // var client = http.Client();
-
+                    NavigationUtils.showLoaderOnTop();
                     final response = await ApiRepository.getSignUpScreen(
-                        ApiRequestBody.getSignUpRequest(
-                            emailController.text, passwordController.text));
+                            ApiRequestBody.getSignUpRequest(
+                                emailController.text, passwordController.text))
+                        .catchError((error) {
+                      NavigationUtils.pop();
+                    });
+
+                    NavigationUtils.pop();
 
                     if (response.isSuccess!) {
                       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
