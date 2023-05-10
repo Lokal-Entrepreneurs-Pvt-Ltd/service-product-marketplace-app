@@ -53,7 +53,7 @@ class UikMembershipScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikMembershipScreen;
+    return ScreenRoutes.membershipLanding;
   }
 
   @override

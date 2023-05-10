@@ -91,7 +91,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikBtsLocationFeasibilityScreen;
+    return ScreenRoutes.btsLocationFeasibility;
   }
 
   @override

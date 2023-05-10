@@ -48,7 +48,7 @@ class UikIspHome extends StandardPage {
 
   @override
   getPageContext() {
-    return UikIspHome;
+    return ScreenRoutes.ispHome;
   }
 
   @override

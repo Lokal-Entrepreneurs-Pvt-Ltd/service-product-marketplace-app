@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/StandardPage.dart';
@@ -54,7 +55,7 @@ class UikOrderScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikOrderScreen;
+    return ScreenRoutes.orderScreen;
   }
 
   @override

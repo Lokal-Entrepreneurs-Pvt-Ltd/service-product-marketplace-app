@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
@@ -52,7 +53,7 @@ class UikProductPage extends StandardPage {
 
   @override
   getPageContext() {
-    return UikProductPage;
+    return ScreenRoutes.productScreen;
   }
 
   @override
