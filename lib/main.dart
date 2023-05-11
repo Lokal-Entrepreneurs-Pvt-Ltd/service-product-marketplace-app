@@ -289,7 +289,9 @@ class _LokalAppState extends State<LokalApp> {
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => SamhitaDataCollector(),
+          "/": (context) => UserDataHandler.getUserToken().isEmpty
+              ? SamhitaDataCollector()
+              : UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -318,6 +320,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.serviceLandingScreen: (context) =>
               UikServicesLanding().page,
           ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
+          ScreenRoutes.samhitaScreen: (context) => SamhitaDataCollector(),
         },
       ),
     );

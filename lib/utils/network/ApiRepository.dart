@@ -176,6 +176,10 @@ class ApiRepository {
   static Future<ApiResponse> saveNotificationToken(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.notificationAddUser, args);
   }
+
+  static Future<ApiResponse> submitSamhitaForm(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.submitSamhitaForm, args);
+  }
 }
 
 // apirequestbody class 
