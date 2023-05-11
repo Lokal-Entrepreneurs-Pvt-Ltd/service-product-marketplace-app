@@ -290,7 +290,7 @@ class _LokalAppState extends State<LokalApp> {
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           "/": (context) => UserDataHandler.getUserToken().isEmpty
-              ? SamhitaDataCollector()
+              ? OnboardingScreen()
               : UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
@@ -320,7 +320,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.serviceLandingScreen: (context) =>
               UikServicesLanding().page,
           ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
-          ScreenRoutes.samhitaScreen: (context) => SamhitaDataCollector(),
+          ScreenRoutes.samhitaDataCollector: (context) => SamhitaDataCollector(),
+
         },
       ),
     );
