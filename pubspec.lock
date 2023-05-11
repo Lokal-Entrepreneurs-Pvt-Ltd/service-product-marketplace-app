@@ -534,6 +534,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  flutter_html:
+    dependency: transitive
+    description:
+      name: flutter_html
+      sha256: "342c7908f0a67bcec62b6e0f7cf23e23bafe7f64693665dd35be98d5e783bdfd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0-alpha.6"
   flutter_inappwebview:
     dependency: transitive
     description:
@@ -957,6 +965,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  numerus:
+    dependency: transitive
+    description:
+      name: numerus
+      sha256: "436759d84f233b40107d0cc31cfa92d24e0960afeb2e506be70926d4cddffd9e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   octo_image:
     dependency: transitive
     description:
@@ -1590,10 +1606,10 @@ packages:
     dependency: "direct main"
     description:
       name: ui_sdk
-      sha256: b9a29304e678b240b8199e6832d9ec832eb20fdb5238a489e921fee7fe066cd9
+      sha256: "80da4f9f8ca56900c5a0a6e088bd242c78764e77b2a520e8680aee43efa141ac"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.106+1"
+    version: "1.0.107+1"
   universal_io:
     dependency: transitive
     description:
