@@ -57,11 +57,11 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      // case ScreenRoutes.searchScreen:
-      //   {
-      //     _pushScreen(context, ScreenRoutes.searchScreen, args);
-      //   }
-      //   break;
+      case ScreenRoutes.searchScreen:
+        {
+          _pushScreen(context, ScreenRoutes.searchScreen, args);
+        }
+        break;
       case ScreenRoutes.productScreen:
         {
           if (args["skuId"] != null) {
@@ -172,9 +172,9 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.serviceLandingScreen, args);
         }
         break;
-      case ScreenRoutes.samhitaScreen:
+      case ScreenRoutes.samhitaDataCollector:
         {
-          _pushScreen(context, ScreenRoutes.samhitaScreen, args);
+          _pushScreen(context, ScreenRoutes.samhitaDataCollector, args);
         }
         break;
       default:
