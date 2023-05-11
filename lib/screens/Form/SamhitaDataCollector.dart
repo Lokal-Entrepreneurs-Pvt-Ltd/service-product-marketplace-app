@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import '../../constants/json_constants.dart';
 import '../../utils/NavigationUtils.dart';
+import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
+import '../../utils/network/ApiRequestBody.dart';
 
 class SamhitaDataCollector extends StatefulWidget {
   SamhitaDataCollector({super.key});
@@ -71,12 +76,14 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
   final _dobController = TextEditingController();
   final _onBoardingDateController = TextEditingController();
   final _phoneNumberController = TextEditingController();
+  final _emailController = TextEditingController();
   DateTime _dateOfBirth = DateTime.now();
   DateTime _onBoardingDate = DateTime.now();
   String? _selectedGender;
   String? _selectedState;
   String? _selectedDistrict;
   bool _phoneNumberValid = true;
+  bool _emailValid = true;
   bool _nameRequired = true;
   bool _lastNameRequired = true;
   bool _onBoardingDateRequired = true;
@@ -113,6 +120,18 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
           margin: EdgeInsets.only(left: 16, right: 16, top: 10),
           child: ListView(
             children: [
+              Image.asset("assets/images/Samhita.png"),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'ADD PARTICIPANTS',
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Text('Name'),
               TextField(
                 controller: _nameController,
@@ -154,6 +173,26 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
+              ),
+              SizedBox(height: 16.0),
+              Text('Email'),
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  errorText: _emailValid ? null : 'Please enter a valid email',
+                ),
+                onChanged: (value) {
+                  if (!isEmailValid(value)) {
+                    setState(() {
+                      _emailValid = false;
+                    });
+                  } else {
+                    setState(() {
+                      _emailValid = true;
+                    });
+                  }
+                },
               ),
               SizedBox(height: 16.0),
               Text('Phone Number'),
@@ -385,25 +424,82 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                 ),
               ),
               SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  if (_nameController.text.isEmpty) {
-                    _nameRequired = false;
-                  }
-                  if (_lastNameController.text.isEmpty) {
-                    _lastNameRequired = false;
-                  }
-                  if (_onBoardingDateController.text.isEmpty) {
-                    _onBoardingDateRequired = false;
-                  }
-                  setState(() {});
-                },
-                child: Text('Submit'),
+              Container(
+                height: 60,
+                margin: EdgeInsets.only(left: 5, right: 5, bottom: 20),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_nameController.text.isEmpty) {
+                      _nameRequired = false;
+                    }
+                    if (_lastNameController.text.isEmpty) {
+                      _lastNameRequired = false;
+                    }
+                    if (_onBoardingDateController.text.isEmpty) {
+                      _onBoardingDateRequired = false;
+                    }
+                    if (!isEmailValid(_emailController.text)) {
+                      _emailValid = false;
+                    }
+                    if (isEmailValid(_emailController.text) &&
+                        !_nameController.text.isEmpty &&
+                        !_lastNameController.text.isEmpty &&
+                        !_onBoardingDateController.text.isEmpty) {
+                      //Api Call
+                      NavigationUtils.showLoaderOnTop();
+                      final response = await ApiRepository.submitSamhitaForm(
+                          ApiRequestBody.submitSamhitaFormRequest(
+                        _nameController.text,
+                        _middleNameController.text,
+                        _lastNameController.text,
+                        _phoneNumberController.text,
+                        _ipIdController.text,
+                        _emailController.text,
+                        _onBoardingDateController.text,
+                        _dobController.text,
+                        _selectedGender,
+                        _aadharNumberController.text,
+                        _panNumberController.text,
+                        _address1Controller.text,
+                        _address2Controller.text,
+                        _villageController.text,
+                        _selectedState,
+                        _selectedDistrict,
+                        _cityController.text,
+                        _pincodeController.text,
+                      )).catchError((err) {
+                        NavigationUtils.pop();
+                        UiUtils.showToast(err);
+                      });
+
+                      NavigationUtils.pop();
+
+                      if (response.isSuccess!) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UikBottomNavigationBar()),
+                        );
+                      } else {
+                        UiUtils.showToast(response.error![MESSAGE]);
+                      }
+                    }
+                    setState(() {});
+                  },
+                  child: Text('Submit'),
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  bool isEmailValid(String email) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(email);
   }
 }

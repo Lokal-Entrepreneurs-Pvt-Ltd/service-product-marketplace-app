@@ -68,7 +68,8 @@ dependencies:
   sticky_headers: ^0.3.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^20.2.36
-  ui_sdk: ^1.0.106+1
+  ui_sdk:
+    path: ../ui_sdk
   platform_device_id: ^1.0.1
   url_launcher: ^6.1.7
 

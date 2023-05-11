@@ -172,6 +172,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.serviceLandingScreen, args);
         }
         break;
+      case ScreenRoutes.samhitaScreen:
+        {
+          _pushScreen(context, ScreenRoutes.samhitaScreen, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }
