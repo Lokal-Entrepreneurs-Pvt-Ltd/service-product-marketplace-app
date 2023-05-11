@@ -57,11 +57,11 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      // case ScreenRoutes.searchScreen:
-      //   {
-      //     _pushScreen(context, ScreenRoutes.searchScreen, args);
-      //   }
-      //   break;
+      case ScreenRoutes.searchScreen:
+        {
+          _pushScreen(context, ScreenRoutes.searchScreen, args);
+        }
+        break;
       case ScreenRoutes.productScreen:
         {
           if (args["skuId"] != null) {
