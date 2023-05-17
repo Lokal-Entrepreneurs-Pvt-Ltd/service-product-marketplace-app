@@ -51,6 +51,7 @@ import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/Excel/ExcelPage.dart';
 import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
@@ -289,9 +290,10 @@ class _LokalAppState extends State<LokalApp> {
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => UserDataHandler.getUserToken().isEmpty
-              ? OnboardingScreen()
-              : UikBottomNavigationBar(),
+          // "/": (context) => UserDataHandler.getUserToken().isEmpty
+          //     ? OnboardingScreen()
+          //     : UikBottomNavigationBar(),
+          "/": (context) => ExcelPage(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -320,8 +322,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.serviceLandingScreen: (context) =>
               UikServicesLanding().page,
           ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
-          ScreenRoutes.samhitaDataCollector: (context) => SamhitaDataCollector(),
-
+          ScreenRoutes.samhitaDataCollector: (context) =>
+              SamhitaDataCollector(),
         },
       ),
     );
