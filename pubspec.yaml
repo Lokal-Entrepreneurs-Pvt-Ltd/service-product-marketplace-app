@@ -31,7 +31,7 @@ dependencies:
   another_flushbar: ^1.10.29
   awesome_notifications: ^0.7.4+1
   awesome_notifications_fcm: ^0.7.4+1
-  badges: ^2.0.3
+  badges: ^3.1.1
   chucker_flutter: ^1.4.0
   country_icons: ^2.0.2
   dio: ^4.0.6
@@ -52,7 +52,7 @@ dependencies:
   geolocator: ^9.0.2
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.2.3
-  hexcolor: ^2.0.7
+  hexcolor: ^3.0.1
   http: ^0.13.5
   just_the_tooltip: ^0.0.3+6
   logger: ^1.1.0
@@ -67,8 +67,9 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   sticky_headers: ^0.3.0+2
   stop_watch_timer: ^2.0.0
-  syncfusion_flutter_sliders: ^20.2.36
-  ui_sdk: ^1.0.107+1
+  syncfusion_flutter_sliders: ^21.2.4
+  ui_sdk:
+    path: ../ui_sdk
   platform_device_id: ^1.0.1
   url_launcher: ^6.1.7
 
