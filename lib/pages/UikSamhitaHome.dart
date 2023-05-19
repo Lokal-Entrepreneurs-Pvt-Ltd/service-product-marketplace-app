@@ -24,8 +24,8 @@ class UikSamhitaHome extends StandardPage {
 
   @override
   dynamic getData() {
-    // return ApiRepository.getIspHomescreen;
-    return getMockedApiResponse;
+    return ApiRepository.getSamhitaHomescreen;
+    // return getMockedApiResponse;
   }
 
   void ispHomeScreenTapAction(UikAction uikAction) {
