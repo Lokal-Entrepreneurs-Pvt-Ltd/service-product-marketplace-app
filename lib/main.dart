@@ -324,6 +324,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
           ScreenRoutes.samhitaDataCollector: (context) =>
               SamhitaDataCollector(),
+          ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
         },
       ),
     );
