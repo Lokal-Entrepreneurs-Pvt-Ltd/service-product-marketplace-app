@@ -290,10 +290,10 @@ class _LokalAppState extends State<LokalApp> {
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => UikSamhitaHome().page,
-          // "/": (context) => UserDataHandler.getUserToken().isEmpty
-          //     ? OnboardingScreen()
-          //     : UikBottomNavigationBar(),
+          // "/": (context) => UikSamhitaHome().page,
+          "/": (context) => UserDataHandler.getUserToken().isEmpty
+              ? OnboardingScreen()
+              : UikBottomNavigationBar(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
