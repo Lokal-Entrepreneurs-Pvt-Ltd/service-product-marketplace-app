@@ -7,6 +7,7 @@ const String APPLICATION_JSON = "application/json";
 const String CUSTOMER_DATA = "customerData";
 const String CART_DATA = "cartData";
 const String EMAIL = "email";
+const String EMAIL_ID = "emailId";
 const String PASSWORD = "password";
 const String CART_ID = "cartId";
 const String SKU_ID = "skuId";
@@ -38,6 +39,7 @@ const String SUCCESS = "success";
 
 const String CUSTOMER_NAME = "customerName";
 const String ISP_PHONE_NUMBER = "phoneNo";
+const String MOBILE_NO = "mobileNo";
 const String STATE_CODE = "stateCode";
 const String STATE_NAME = "stateName";
 const String DISTRICT_CODE = "districtCode";
