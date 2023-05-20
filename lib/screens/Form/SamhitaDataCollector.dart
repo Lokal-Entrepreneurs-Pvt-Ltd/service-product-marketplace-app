@@ -6,6 +6,7 @@ import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
+import '../../utils/network/http/http_screen_client.dart';
 
 class SamhitaDataCollector extends StatefulWidget {
   SamhitaDataCollector({super.key});
@@ -432,6 +433,9 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                     if (_nameController.text.isEmpty) {
                       _nameRequired = false;
                     }
+                    if (_phoneNumberController.text.isEmpty) {
+                      _phoneNumberValid = false;
+                    }
                     // if (_lastNameController.text.isEmpty) {
                     //   _lastNameRequired = false;
                     // }
@@ -441,50 +445,35 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                     if (!isEmailValid(_emailController.text)) {
                       _emailValid = false;
                     }
-                    // if (isEmailValid(_emailController.text) &&
-                    //     !_nameController.text.isEmpty &&
-                    //     !_lastNameController.text.isEmpty &&
-                    //     !_onBoardingDateController.text.isEmpty) {
-                    //Api Call
-                    //   NavigationUtils.showLoaderOnTop();
-                    //   final response = await ApiRepository.submitSamhitaForm(
-                    //       ApiRequestBody.submitSamhitaFormRequest(
-                    //     _nameController.text,
-                    //     _middleNameController.text,
-                    //     _lastNameController.text,
-                    //     _phoneNumberController.text,
-                    //     _ipIdController.text,
-                    //     _emailController.text,
-                    //     _onBoardingDateController.text,
-                    //     _dobController.text,
-                    //     _selectedGender,
-                    //     _aadharNumberController.text,
-                    //     _panNumberController.text,
-                    //     _address1Controller.text,
-                    //     _address2Controller.text,
-                    //     _villageController.text,
-                    //     _selectedState,
-                    //     _selectedDistrict,
-                    //     _cityController.text,
-                    //     _pincodeController.text,
-                    //   )).catchError((err) {
-                    //     NavigationUtils.pop();
-                    //     UiUtils.showToast(err);
-                    //   });
+                    if (isEmailValid(_emailController.text) &&
+                        !_nameController.text.isEmpty &&
+                        _phoneNumberValid) {
+                      NavigationUtils.showLoaderOnTop();
+                      final response = await ApiRepository.submitSamhitaForm(
+                          ApiRequestBody.submitSamhitaFormRequest(
+                        _nameController.text,
+                        _emailController.text,
+                        _phoneNumberController.text,
+                      )).catchError((err) {
+                        NavigationUtils.pop();
+                        UiUtils.showToast(err);
+                      });
 
-                    //   NavigationUtils.pop();
+                      NavigationUtils.pop();
 
-                    //   if (response.isSuccess!) {
-                    //     // ignore: use_build_context_synchronously
-                    //     Navigator.pushReplacement(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => UikBottomNavigationBar()),
-                    //     );
-                    //   } else {
-                    //     UiUtils.showToast(response.error![MESSAGE]);
-                    //   }
-                    // }
+                      if (response.isSuccess!) {
+                        // ignore: use_build_context_synchronously
+                        HttpScreenClient.displayDialogBox(
+                            "You Have become the Champion");
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => UikBottomNavigationBar()),
+                        // );
+                      } else {
+                        UiUtils.showToast(response.error![MESSAGE]);
+                      }
+                    }
                     setState(() {});
                   },
                   child: Text('Submit'),
