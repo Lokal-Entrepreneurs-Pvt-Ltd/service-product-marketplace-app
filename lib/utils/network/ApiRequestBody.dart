@@ -13,6 +13,18 @@ class ApiRequestBody {
     return {SERVICE_CODE: serviceCode};
   }
 
+  static submitSamhitaFormRequest(
+    name,
+    emailId,
+    phoneNumber,
+  ) {
+    return {
+      NAME: name,
+      EMAIL_ID: emailId,
+      MOBILE_NO: phoneNumber,
+    };
+  }
+
   static submitIspFormRequest(
       stateCode,
       districtCode,

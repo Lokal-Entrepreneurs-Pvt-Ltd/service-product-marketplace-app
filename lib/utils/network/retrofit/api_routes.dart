@@ -49,4 +49,6 @@ class ApiRoutes {
   static const String serviceDetail = "/service/getById";
   static const String notificationAddUser = "/notification/add/";
   static const String submitOptin = "/optin/create";
+  static const String samhitaHome = "/samhita/home";
+  static const String submitSamhitaForm = "/samhita/campionOptIn";
 }
