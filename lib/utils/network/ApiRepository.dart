@@ -12,6 +12,14 @@ class ApiRepository {
     return dio;
   }
 
+  static Future<ApiResponse> getSamhitaHomescreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.samhitaHome, args);
+  }
+
+  static Future<ApiResponse> submitSamhitaForm(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.submitSamhitaForm, args);
+  }
+
   static Future<ApiResponse> getServiceDetailScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.serviceDetail, args);
   }

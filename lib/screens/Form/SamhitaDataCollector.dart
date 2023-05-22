@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import '../../constants/json_constants.dart';
 import '../../utils/NavigationUtils.dart';
+import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
+import '../../utils/network/ApiRequestBody.dart';
+import '../../utils/network/http/http_screen_client.dart';
 
 class SamhitaDataCollector extends StatefulWidget {
   SamhitaDataCollector({super.key});
@@ -71,12 +77,14 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
   final _dobController = TextEditingController();
   final _onBoardingDateController = TextEditingController();
   final _phoneNumberController = TextEditingController();
+  final _emailController = TextEditingController();
   DateTime _dateOfBirth = DateTime.now();
   DateTime _onBoardingDate = DateTime.now();
   String? _selectedGender;
   String? _selectedState;
   String? _selectedDistrict;
   bool _phoneNumberValid = true;
+  bool _emailValid = true;
   bool _nameRequired = true;
   bool _lastNameRequired = true;
   bool _onBoardingDateRequired = true;
@@ -113,6 +121,18 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
           margin: EdgeInsets.only(left: 16, right: 16, top: 10),
           child: ListView(
             children: [
+              Image.asset("assets/images/Samhita.png"),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Enter Your Details',
+                style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Text('Name'),
               TextField(
                 controller: _nameController,
@@ -122,38 +142,58 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                 ),
               ),
               SizedBox(height: 16.0),
-              Text('Last Name'),
+              // Text('Last Name'),
+              // TextField(
+              //   controller: _lastNameController,
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(),
+              //     errorText: _lastNameRequired ? null : 'This is Required',
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Middle Name'),
+              // TextField(
+              //   controller: _middleNameController,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('IP Id'),
+              // TextField(
+              //   controller: _ipIdController,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Password'),
+              // TextField(
+              //   controller: _passwordController,
+              //   obscureText: true,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              Text('Email'),
               TextField(
-                controller: _lastNameController,
+                controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  errorText: _lastNameRequired ? null : 'This is Required',
+                  errorText: _emailValid ? null : 'Please enter a valid email',
                 ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Middle Name'),
-              TextField(
-                controller: _middleNameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('IP Id'),
-              TextField(
-                controller: _ipIdController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Password'),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
+                onChanged: (value) {
+                  if (!isEmailValid(value)) {
+                    setState(() {
+                      _emailValid = false;
+                    });
+                  } else {
+                    setState(() {
+                      _emailValid = true;
+                    });
+                  }
+                },
               ),
               SizedBox(height: 16.0),
               Text('Phone Number'),
@@ -184,226 +224,271 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                 },
               ),
               SizedBox(height: 16.0),
-              Text('Date of Birth'),
-              TextField(
-                controller: _dobController,
-                readOnly: true,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-                onTap: () async {
-                  final DateTime? date = await showDatePicker(
-                    context: context,
-                    initialDate: _dateOfBirth ?? DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                  );
-                  if (date != null) {
-                    setState(() {
-                      _dateOfBirth = date;
-                      _dobController.text =
-                          '${_dateOfBirth.day}/${_dateOfBirth.month}/${_dateOfBirth.year}';
-                    });
-                  }
-                },
-              ),
-              SizedBox(height: 16.0),
-              Text('On boarding Date'),
-              TextField(
-                controller: _onBoardingDateController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  errorText:
-                      _onBoardingDateRequired ? null : 'This is Required',
-                ),
-                onTap: () async {
-                  final DateTime? date = await showDatePicker(
-                    context: context,
-                    initialDate: _onBoardingDate ?? DateTime.now(),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                  );
-                  if (date != null) {
-                    setState(() {
-                      _onBoardingDate = date;
-                      _onBoardingDateController.text =
-                          '${_onBoardingDate.day}/${_onBoardingDate.month}/${_onBoardingDate.year}';
-                    });
-                  }
-                },
-              ),
-              SizedBox(height: 16.0),
-              Text('Gender'),
+              // Text('Date of Birth'),
+              // TextField(
+              //   controller: _dobController,
+              //   readOnly: true,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              //   onTap: () async {
+              //     final DateTime? date = await showDatePicker(
+              //       context: context,
+              //       initialDate: _dateOfBirth ?? DateTime.now(),
+              //       firstDate: DateTime(1900),
+              //       lastDate: DateTime.now(),
+              //     );
+              //     if (date != null) {
+              //       setState(() {
+              //         _dateOfBirth = date;
+              //         _dobController.text =
+              //             '${_dateOfBirth.day}/${_dateOfBirth.month}/${_dateOfBirth.year}';
+              //       });
+              //     }
+              //   },
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('On boarding Date'),
+              // TextField(
+              //   controller: _onBoardingDateController,
+              //   readOnly: true,
+              //   decoration: InputDecoration(
+              //     border: OutlineInputBorder(),
+              //     errorText:
+              //         _onBoardingDateRequired ? null : 'This is Required',
+              //   ),
+              //   onTap: () async {
+              //     final DateTime? date = await showDatePicker(
+              //       context: context,
+              //       initialDate: _onBoardingDate ?? DateTime.now(),
+              //       firstDate: DateTime(1900),
+              //       lastDate: DateTime.now(),
+              //     );
+              //     if (date != null) {
+              //       setState(() {
+              //         _onBoardingDate = date;
+              //         _onBoardingDateController.text =
+              //             '${_onBoardingDate.day}/${_onBoardingDate.month}/${_onBoardingDate.year}';
+              //       });
+              //     }
+              //   },
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Gender'),
+              // Container(
+              //   height: 60,
+              //   child: InputDecorator(
+              //     decoration:
+              //         const InputDecoration(border: OutlineInputBorder()),
+              //     child: DropdownButtonHideUnderline(
+              //       child: DropdownButton<String>(
+              //         value: _selectedGender,
+              //         isExpanded: true,
+              //         icon: Icon(Icons.arrow_drop_down),
+              //         onChanged: (value) {
+              //           setState(() {
+              //             _selectedGender = value!;
+              //           });
+              //         },
+              //         items: const [
+              //           DropdownMenuItem(
+              //             value: 'male',
+              //             child: Text('Male'),
+              //           ),
+              //           DropdownMenuItem(
+              //             value: 'female',
+              //             child: Text('Female'),
+              //           ),
+              //           DropdownMenuItem(
+              //             value: 'other',
+              //             child: Text('Other'),
+              //           ),
+              //           DropdownMenuItem(
+              //             value: 'none',
+              //             child: Text('None'),
+              //           ),
+              //         ],
+              //         hint: Text('Select your gender'),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Select State'),
+              // Container(
+              //   height: 60,
+              //   child: InputDecorator(
+              //     decoration:
+              //         const InputDecoration(border: OutlineInputBorder()),
+              //     child: DropdownButtonHideUnderline(
+              //       child: DropdownButton<String>(
+              //         value: _selectedState,
+              //         isExpanded: true,
+              //         icon: Icon(Icons.arrow_drop_down),
+              //         onChanged: (value) {
+              //           setState(() {
+              //             districtItems = [
+              //               DropdownMenuItem(
+              //                 value: 'none',
+              //                 child: Text('None'),
+              //               ),
+              //             ];
+              //             _selectedDistrict = "none";
+              //             _selectedState = value;
+              //             _fetchDistricts(value!);
+              //           });
+              //         },
+              //         items: stateItems,
+              //         hint: Text('Select your State'),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Select District'),
+              // Container(
+              //   height: 60,
+              //   child: InputDecorator(
+              //     decoration:
+              //         const InputDecoration(border: OutlineInputBorder()),
+              //     child: DropdownButtonHideUnderline(
+              //       child: DropdownButton<String>(
+              //         value: _selectedDistrict,
+              //         isExpanded: true,
+              //         icon: Icon(Icons.arrow_drop_down),
+              //         onChanged: (value) {
+              //           setState(() {
+              //             _selectedDistrict = value!;
+              //           });
+              //         },
+              //         items: districtItems,
+              //         hint: Text('Select your District'),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Enter Aadhaar Number'),
+              // TextField(
+              //   controller: _aadharNumberController,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('PAN Number'),
+              // TextField(
+              //   controller: _panNumberController,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Address Line 1'),
+              // TextField(
+              //   controller: _address1Controller,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Address Line 2'),
+              // TextField(
+              //   controller: _address2Controller,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Village'),
+              // TextField(
+              //   controller: _villageController,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('City'),
+              // TextField(
+              //   controller: _cityController,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
+              // Text('Pincode'),
+              // TextField(
+              //   controller: _pincodeController,
+              //   keyboardType: TextInputType.number,
+              //   decoration: const InputDecoration(
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16.0),
               Container(
                 height: 60,
-                child: InputDecorator(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: _selectedGender,
-                      isExpanded: true,
-                      icon: Icon(Icons.arrow_drop_down),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedGender = value!;
-                        });
-                      },
-                      items: const [
-                        DropdownMenuItem(
-                          value: 'male',
-                          child: Text('Male'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'female',
-                          child: Text('Female'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'other',
-                          child: Text('Other'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'none',
-                          child: Text('None'),
-                        ),
-                      ],
-                      hint: Text('Select your gender'),
-                    ),
-                  ),
+                margin: EdgeInsets.only(left: 5, right: 5, bottom: 20),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_nameController.text.isEmpty) {
+                      _nameRequired = false;
+                    }
+                    if (_phoneNumberController.text.isEmpty) {
+                      _phoneNumberValid = false;
+                    }
+                    // if (_lastNameController.text.isEmpty) {
+                    //   _lastNameRequired = false;
+                    // }
+                    // if (_onBoardingDateController.text.isEmpty) {
+                    //   _onBoardingDateRequired = false;
+                    // }
+                    if (!isEmailValid(_emailController.text)) {
+                      _emailValid = false;
+                    }
+                    if (isEmailValid(_emailController.text) &&
+                        !_nameController.text.isEmpty &&
+                        _phoneNumberValid) {
+                      NavigationUtils.showLoaderOnTop();
+                      final response = await ApiRepository.submitSamhitaForm(
+                          ApiRequestBody.submitSamhitaFormRequest(
+                        _nameController.text,
+                        _emailController.text,
+                        _phoneNumberController.text,
+                      )).catchError((err) {
+                        NavigationUtils.pop();
+                        UiUtils.showToast(err);
+                      });
+
+                      NavigationUtils.pop();
+
+                      if (response.isSuccess!) {
+                        // ignore: use_build_context_synchronously
+                        HttpScreenClient.displayDialogBox(
+                            "You Have become the Champion");
+                        // Navigator.pushReplacement(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => UikBottomNavigationBar()),
+                        // );
+                      } else {
+                        UiUtils.showToast(response.error![MESSAGE]);
+                      }
+                    }
+                    setState(() {});
+                  },
+                  child: Text('Submit'),
                 ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Select State'),
-              Container(
-                height: 60,
-                child: InputDecorator(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: _selectedState,
-                      isExpanded: true,
-                      icon: Icon(Icons.arrow_drop_down),
-                      onChanged: (value) {
-                        setState(() {
-                          districtItems = [
-                            DropdownMenuItem(
-                              value: 'none',
-                              child: Text('None'),
-                            ),
-                          ];
-                          _selectedDistrict = "none";
-                          _selectedState = value;
-                          _fetchDistricts(value!);
-                        });
-                      },
-                      items: stateItems,
-                      hint: Text('Select your State'),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Select District'),
-              Container(
-                height: 60,
-                child: InputDecorator(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<String>(
-                      value: _selectedDistrict,
-                      isExpanded: true,
-                      icon: Icon(Icons.arrow_drop_down),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedDistrict = value!;
-                        });
-                      },
-                      items: districtItems,
-                      hint: Text('Select your District'),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Enter Aadhaar Number'),
-              TextField(
-                controller: _aadharNumberController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('PAN Number'),
-              TextField(
-                controller: _panNumberController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Address Line 1'),
-              TextField(
-                controller: _address1Controller,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Address Line 2'),
-              TextField(
-                controller: _address2Controller,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Village'),
-              TextField(
-                controller: _villageController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('City'),
-              TextField(
-                controller: _cityController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              Text('Pincode'),
-              TextField(
-                controller: _pincodeController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  if (_nameController.text.isEmpty) {
-                    _nameRequired = false;
-                  }
-                  if (_lastNameController.text.isEmpty) {
-                    _lastNameRequired = false;
-                  }
-                  if (_onBoardingDateController.text.isEmpty) {
-                    _onBoardingDateRequired = false;
-                  }
-                  setState(() {});
-                },
-                child: Text('Submit'),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  bool isEmailValid(String email) {
+    return RegExp(
+            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+        .hasMatch(email);
   }
 }

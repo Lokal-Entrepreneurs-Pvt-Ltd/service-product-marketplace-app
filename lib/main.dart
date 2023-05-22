@@ -44,6 +44,7 @@ import 'package:ui_sdk/components/UikSearch.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
+import 'pages/UikSamhitaHome.dart';
 import 'pages/UikServiceDetail.dart';
 import 'pages/UikServicesLanding.dart';
 import 'screen_routes.dart';
@@ -289,6 +290,7 @@ class _LokalAppState extends State<LokalApp> {
         navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
+          // "/": (context) => UikSamhitaHome().page,
           "/": (context) => UserDataHandler.getUserToken().isEmpty
               ? OnboardingScreen()
               : UikBottomNavigationBar(),
@@ -320,8 +322,9 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.serviceLandingScreen: (context) =>
               UikServicesLanding().page,
           ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
-          ScreenRoutes.samhitaDataCollector: (context) => SamhitaDataCollector(),
-
+          ScreenRoutes.samhitaDataCollector: (context) =>
+              SamhitaDataCollector(),
+          ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
         },
       ),
     );
