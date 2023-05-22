@@ -16,6 +16,11 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.samhitaHome, args);
   }
 
+  static Future<ApiResponse> submitSamhitaAddParticipantForm(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.submitSamhitaAddParticipantsForm, args);
+  }
+
   static Future<ApiResponse> submitSamhitaForm(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.submitSamhitaForm, args);
   }

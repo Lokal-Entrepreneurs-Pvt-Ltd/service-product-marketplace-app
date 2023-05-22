@@ -17,22 +17,22 @@ class UikSamhitaHome extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = Set();
-    actionList.add(UIK_ACTION.CHECK_FEASIBILITY);
+    actionList.add(UIK_ACTION.OPEN_PAGE);
     actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
   @override
   dynamic getData() {
-    return ApiRepository.getSamhitaHomescreen;
-    // return getMockedApiResponse;
+    // return ApiRepository.getSamhitaHomescreen;
+    return getMockedApiResponse;
   }
 
   void ispHomeScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
     switch (uikAction.tap.type) {
-      case UIK_ACTION.CHECK_FEASIBILITY:
-        submitCheckFeasibility(uikAction);
+      case UIK_ACTION.OPEN_PAGE:
+        NavigationUtils.openPage(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
         NavigationUtils.pop();
@@ -57,15 +57,15 @@ class UikSamhitaHome extends StandardPage {
   }
 }
 
-void submitCheckFeasibility(UikAction uikAction) async {
-  // NavigationUtils.openPage(uikAction);
-  final BuildContext context = NavigationService.navigatorKey.currentContext!;
+// void onClickCampionButton(UikAction uikAction) async {
+//   // NavigationUtils.openPage(uikAction);
+//   final BuildContext context = NavigationService.navigatorKey.currentContext!;
 
-  Navigator.pushNamed(
-    context,
-    ScreenRoutes.samhitaDataCollector,
-  );
-}
+//   Navigator.pushNamed(
+//     context,
+//     ScreenRoutes.samhitaDataCollector,
+//   );
+// }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
