@@ -36,6 +36,17 @@ const String STATE = "state";
 const String POSTCODE = "postcode";
 const String TELEPHONE = "telephone";
 const String SUCCESS = "success";
+const String MOBILE_NUMBER = "mobileNo";
+const String IP_ID = "ipId";
+const String ON_BOARDING_DATE = "onboardingDate";
+const String GENDER = "gender";
+const String AADHAR_NUMBER = "aadhaarNo";
+const String PAN_NUMBER = "panNo";
+const String VILLAGE = "village";
+const String DISTRICT = "district";
+const String PINCODE = "pincode";
+const String MIDDLE_NAME = "middleName";
+const String LAST_NAME_NEW = "lastName";
 
 const String CUSTOMER_NAME = "customerName";
 const String ISP_PHONE_NUMBER = "phoneNo";

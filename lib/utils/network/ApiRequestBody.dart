@@ -13,6 +13,47 @@ class ApiRequestBody {
     return {SERVICE_CODE: serviceCode};
   }
 
+  static submitSamhitaAddParticipantsFormRequest(
+      firstName,
+      middleName,
+      lastName,
+      mobileNo,
+      ipId,
+      emailId,
+      onboardingDate,
+      dob,
+      gender,
+      aadhaarNo,
+      panNo,
+      addressLine1,
+      addressLine2,
+      village,
+      state,
+      district,
+      city,
+      pincode) {
+    return {
+      FIRST_NAME: firstName,
+      MIDDLE_NAME: middleName,
+      LAST_NAME_NEW: lastName,
+      MOBILE_NUMBER: mobileNo,
+      IP_ID: ipId,
+      EMAIL_ID: emailId,
+      ON_BOARDING_DATE: onboardingDate,
+      DOB: dob,
+      GENDER: gender,
+      AADHAR_NUMBER: aadhaarNo,
+      PAN_NUMBER: panNo,
+      ADDRESS_LINE_1: addressLine1,
+      ADDRESS_LINE_2: addressLine2,
+      VILLAGE: village,
+      STATE: state,
+      DISTRICT: district,
+      CITY: city,
+      PINCODE: pincode
+    };
+  }
+
   static submitSamhitaFormRequest(
     name,
     emailId,

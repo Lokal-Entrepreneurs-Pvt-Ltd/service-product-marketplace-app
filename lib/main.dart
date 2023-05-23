@@ -52,6 +52,7 @@ import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/Form/SamhitaAddParticipants.dart';
 import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
@@ -325,6 +326,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaDataCollector: (context) =>
               SamhitaDataCollector(),
           ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
+          ScreenRoutes.samhitaAddParticipantForm: (context) =>
+              SamhitaAddParticipants(),
         },
       ),
     );
