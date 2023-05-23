@@ -42,4 +42,5 @@ class ScreenRoutes {
   static const String serviceLandingScreen = "/services";
   static const String samhitaDataCollector = "/samhitaDataCollector";
   static const String samhitaLandingPage = "/samhitaLandingPage";
+  static const String samhitaAddParticipantForm = "/samhitaAddParticipantForm";
 }

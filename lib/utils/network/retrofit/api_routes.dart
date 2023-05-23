@@ -51,4 +51,6 @@ class ApiRoutes {
   static const String submitOptin = "/optin/create";
   static const String samhitaHome = "/samhita/home";
   static const String submitSamhitaForm = "/samhita/campionOptIn";
+  static const String submitSamhitaAddParticipantsForm =
+      "/samhita/createParticipant";
 }
