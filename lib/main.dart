@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
+// import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -288,7 +288,7 @@ class _LokalAppState extends State<LokalApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: NavigationService.navigatorKey,
-        navigatorObservers: [ChuckerFlutter.navigatorObserver],
+        // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           // "/": (context) => UikSamhitaHome().page,

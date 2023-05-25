@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
+// import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lokal/configs/environment.dart';
@@ -21,9 +21,10 @@ import '../../../screens/Onboarding/OnboardingScreen.dart';
 import '../../storage/user_data_handler.dart';
 
 class HttpScreenClient {
-  static ChuckerHttpClient getHttp() {
-    return ChuckerHttpClient(http.Client());
-  }
+  // static HttpClient getHttp() {
+  //   return http.Client();
+  //  // return ChuckerHttpClient(http.Client());
+  // }
 
   static displayUserUnAuthorisedDialog() {
     return showDialog(
@@ -92,7 +93,7 @@ class HttpScreenClient {
     var bodyParams = (args != null) ? args : <String, dynamic>{};
     var header = NetworkUtils.getRequestHeaders();
     try {
-      final response = await getHttp()
+      final response = await http.Client()
           .post(
             Uri.parse(Environment().config.BASE_URL + pageRoute),
             headers: header,
