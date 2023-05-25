@@ -1,4 +1,4 @@
-import 'package:chucker_flutter/chucker_flutter.dart';
+// import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -8,7 +8,7 @@ import 'http/http_screen_client.dart';
 class ApiRepository {
   static Dio getDio() {
     Dio dio = Dio(BaseOptions(contentType: "application/json"));
-    dio.interceptors.add(ChuckerDioInterceptor());
+    // dio.interceptors.add(ChuckerDioInterceptor());
     return dio;
   }
 
