@@ -53,4 +53,6 @@ class ApiRoutes {
   static const String submitSamhitaForm = "/samhita/campionOptIn";
   static const String submitSamhitaAddParticipantsForm =
       "/samhita/createParticipant";
+  static const String odopScreen =
+      "/odop/getDistrictHome";
 }

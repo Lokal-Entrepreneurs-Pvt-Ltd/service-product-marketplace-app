@@ -15,10 +15,12 @@ import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
+import 'package:lokal/pages/UikDummyScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
+import 'package:lokal/pages/UikOdOpScreen.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
@@ -57,6 +59,7 @@ import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
+
 
 AppInitializer? appInit;
 
@@ -328,6 +331,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
           ScreenRoutes.samhitaAddParticipantForm: (context) =>
               SamhitaAddParticipants(),
+          ScreenRoutes.odOpHomeScreen: (context) =>
+              UikOdOpScreen().page,
         },
       ),
     );
