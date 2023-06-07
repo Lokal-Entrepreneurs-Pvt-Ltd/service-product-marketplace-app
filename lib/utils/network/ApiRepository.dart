@@ -189,6 +189,10 @@ class ApiRepository {
   static Future<ApiResponse> saveNotificationToken(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.notificationAddUser, args);
   }
+
+  static Future<ApiResponse> getOdOpScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.odopScreen, args);
+  }
 }
 
 // apirequestbody class 
