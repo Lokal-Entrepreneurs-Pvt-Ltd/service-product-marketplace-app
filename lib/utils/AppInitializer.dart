@@ -3,8 +3,8 @@
 
  import 'dart:ui';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
+// import 'package:awesome_notifications/awesome_notifications.dart';
+// import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ import '../notifications//notificationController.dart';
 
     init() async {
       await _initFirebase();
-     _initNotifications();
+     // _initNotifications();
      WidgetsFlutterBinding.ensureInitialized();
    }
 
@@ -27,43 +27,43 @@ import '../notifications//notificationController.dart';
        options: DefaultFirebaseOptions.currentPlatform,
      );
    }
-   _initNotifications(){
-     AwesomeNotificationsFcm().initialize(
-         onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
-         onFcmTokenHandle: NotificationController.myFcmTokenHandle,
-         onNativeTokenHandle: NotificationController.myNativeTokenHandle);
-     AwesomeNotifications().initialize(
-       // set the icon to null if you want to use the default app icon
-         '',
-         [
-           NotificationChannel(
-               channelGroupKey: 'basic_channel_group',
-               channelKey: 'basic_channel',
-               channelName: 'Basic notifications',
-               channelDescription: 'Notification channel for basic tests',
-               defaultColor: Color(0xFF9D50DD),
-               ledColor: Colors.white)
-         ],
-         // Channel groups are only visual and are not required
-         channelGroups: [
-           NotificationChannelGroup(
-               channelGroupKey: 'basic_channel_group',
-               channelGroupName: 'Basic group')
-         ],
-         debug: true);
-     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-       if (!isAllowed) {
-         AwesomeNotifications().requestPermissionToSendNotifications();
-       }
-     });
-     checkNotificationPermission() {
-       AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-         if (!isAllowed) {
-           AwesomeNotifications().requestPermissionToSendNotifications();
-         }
-       });
-     }
-   }
+   // _initNotifications(){
+   //   AwesomeNotificationsFcm().initialize(
+   //       onFcmSilentDataHandle: NotificationController.mySilentDataHandle,
+   //       onFcmTokenHandle: NotificationController.myFcmTokenHandle,
+   //       onNativeTokenHandle: NotificationController.myNativeTokenHandle);
+   //   AwesomeNotifications().initialize(
+   //     // set the icon to null if you want to use the default app icon
+   //       '',
+   //       [
+   //         NotificationChannel(
+   //             channelGroupKey: 'basic_channel_group',
+   //             channelKey: 'basic_channel',
+   //             channelName: 'Basic notifications',
+   //             channelDescription: 'Notification channel for basic tests',
+   //             defaultColor: Color(0xFF9D50DD),
+   //             ledColor: Colors.white)
+   //       ],
+   //       // Channel groups are only visual and are not required
+   //       channelGroups: [
+   //         NotificationChannelGroup(
+   //             channelGroupKey: 'basic_channel_group',
+   //             channelGroupName: 'Basic group')
+   //       ],
+   //       debug: true);
+   //   AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+   //     if (!isAllowed) {
+   //       AwesomeNotifications().requestPermissionToSendNotifications();
+   //     }
+   //   });
+   //   checkNotificationPermission() {
+   //     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+   //       if (!isAllowed) {
+   //         AwesomeNotifications().requestPermissionToSendNotifications();
+   //       }
+   //     });
+   //   }
+   // }
 
    launchHomescreen(){
 
