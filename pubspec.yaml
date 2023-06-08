@@ -29,10 +29,10 @@ environment:
 dependencies:
   adaptive_action_sheet: ^2.0.1
   another_flushbar: ^1.10.29
-  awesome_notifications: ^0.7.4+1
-  awesome_notifications_fcm: ^0.7.4+1
-  badges: ^2.0.3
-  intl: ^0.17.0
+#  awesome_notifications: ^0.7.4+1
+#  awesome_notifications_fcm: ^0.7.4+1
+  badges: ^3.1.1
+  intl: ^0.18.1
   country_icons: ^2.0.2
   dotted_border: ^2.0.0+2
   firebase_analytics: ^10.0.6
@@ -50,7 +50,7 @@ dependencies:
   geocoding: ^2.0.5
   geolocator: ^9.0.2
   google_maps_flutter: ^2.2.3
-  hexcolor: ^2.0.7
+  hexcolor: ^3.0.1
   http: ^0.13.5
   just_the_tooltip: ^0.0.3+6
   logger: ^1.1.0
@@ -65,7 +65,7 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   sticky_headers: ^0.3.0+2
   stop_watch_timer: ^2.0.0
-  syncfusion_flutter_sliders: ^20.2.36
+  syncfusion_flutter_sliders: ^21.2.9
   ui_sdk: ^1.0.109+1
   platform_device_id: ^1.0.1
   url_launcher: ^6.1.7
@@ -77,6 +77,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.5.4
+
+dependency_overrides:
+  package_info_plus: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
