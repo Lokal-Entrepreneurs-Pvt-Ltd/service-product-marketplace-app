@@ -21,6 +21,16 @@ class ApiRepository {
         ApiRoutes.submitSamhitaAddParticipantsForm, args);
   }
 
+  static Future<ApiResponse> submitSamhitaBecomeParticipantForm(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.submitSamhitaBecomeParticipantForm, args);
+  }
+
+  static Future<ApiResponse> submitSamhitaVerifyParticipantForm(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.submitSamhitaVerifyParticipantForm, args);
+  }
+
   static Future<ApiResponse> submitSamhitaForm(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.submitSamhitaForm, args);
   }
@@ -139,6 +149,10 @@ class ApiRepository {
 
   static Future<ApiResponse> verifyOtp(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.verifyOtp, args);
+  }
+
+  static Future<ApiResponse> verifySamhitaOtp(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifySamhitaOtp, args);
   }
 
   static Future<ApiResponse> addressNext(args) {

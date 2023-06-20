@@ -187,6 +187,21 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.samhitaAddParticipantForm, args);
         }
         break;
+      case ScreenRoutes.samhitaBecomeParticipantForm:
+        {
+          _pushScreen(context, ScreenRoutes.samhitaBecomeParticipantForm, args);
+        }
+        break;
+      case ScreenRoutes.samhitaVerifyParticipantForm:
+        {
+          _pushScreen(context, ScreenRoutes.samhitaVerifyParticipantForm, args);
+        }
+        break;
+      case ScreenRoutes.samhitaOtp:
+        {
+          _pushScreen(context, ScreenRoutes.samhitaOtp, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }

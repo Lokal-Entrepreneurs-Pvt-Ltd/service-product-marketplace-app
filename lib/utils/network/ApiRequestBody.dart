@@ -35,8 +35,8 @@ class ApiRequestBody {
     return {
       FIRST_NAME: firstName,
       MIDDLE_NAME: middleName,
-      LAST_NAME_NEW: lastName,
-      MOBILE_NUMBER: mobileNo,
+      LAST_NAME_C: lastName,
+      MOBILE_No: mobileNo,
       IP_ID: ipId,
       EMAIL_ID: emailId,
       ON_BOARDING_DATE: onboardingDate,
@@ -51,6 +51,41 @@ class ApiRequestBody {
       DISTRICT: district,
       CITY: city,
       PINCODE: pincode
+    };
+  }
+
+  static submitSamhitaBecomeParticipantFormRequest(
+    firstName,
+    lastName,
+    mobileNo,
+    email,
+    requestID,
+  ) {
+    return {
+      FIRST_NAME: firstName,
+      LAST_NAME_C: lastName,
+      MOBILE_No: mobileNo,
+      EMAIL_ID: email,
+      GROUP: "participant",
+      USERTYPE: "Participant",
+      ROLE: "PARTICIPANT",
+      REQUEST_ID: requestID,
+      onboardingDate: onboardingDate,
+      dob: dob,
+    };
+  }
+
+  static submitSamhitaVerifyParticipantFormRequest(
+    participantName,
+    mobile,
+    email,
+    samhitaId
+  ) {
+    return {
+      PARTICIPANT_NAME: participantName,
+      MOBILE: mobile,
+      EMAIL: email,
+      SAMHITA_ID: samhitaId,
     };
   }
 
@@ -132,6 +167,10 @@ class ApiRequestBody {
 
   static getVerifyOtpRequest(String phoneNumber, String otp) {
     return {PHONE_NUMBER: phoneNumber, OTP: otp};
+  }
+
+  static getVerifySamhitaOtpRequest(String mobileNo, String otp) {
+    return {MOBILE_No: mobileNo, OTP: otp};
   }
 
   static getAddressNextRequest(String cartId, num addressId) {
