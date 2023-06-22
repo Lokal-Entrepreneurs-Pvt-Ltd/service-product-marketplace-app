@@ -19,6 +19,7 @@ const String NAME = "name";
 const String TAX_VAT = "taxvat";
 const String DOB = "dob";
 const String PHONE = "phone";
+const String RESPONSE = "response";
 const String PHONE_NUMBER = "phoneNumber";
 const String OTP = "otp";
 const String ADDRESS_ID = "addressId";

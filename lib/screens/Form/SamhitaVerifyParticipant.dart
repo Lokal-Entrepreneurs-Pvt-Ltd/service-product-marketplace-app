@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/constants/strings.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/samhita_data_handler.dart';
 import '../../constants/json_constants.dart';
@@ -201,8 +202,10 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                       NavigationUtils.pop();
                       if (response.isSuccess!) {
                         // ignore: use_build_context_synchronously
-                        HttpScreenClient.displayDialogBox("Verification Successful");
-                        
+                        if( response.data[RESPONSE])
+                          HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_SUCCESSFUL);
+                        else
+                          HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_FAILED);
                       } else {
                         UiUtils.showToast(response.error![MESSAGE]);
                       }
