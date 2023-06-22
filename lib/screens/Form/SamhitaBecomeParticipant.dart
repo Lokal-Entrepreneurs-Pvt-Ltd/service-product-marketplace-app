@@ -107,7 +107,7 @@ class _SamhitaBecomeParticipantState extends State<SamhitaBecomeParticipant> {
               TextField(
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
-                maxLength: 13,
+                maxLength: 10,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   errorText: _phoneNumberValid
