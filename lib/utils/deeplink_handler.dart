@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/lokal_events.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,6 +29,7 @@ abstract class DeeplinkHandler {
     print(route);
     if (args["cartId"] == "") args["cartId"] = null;
     print(args);
+    LokalEvents.logEvent('open_page_event', {'url': url});
 
     // /checkout
     switch (route) {
