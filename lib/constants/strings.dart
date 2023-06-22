@@ -36,3 +36,5 @@ const String FORGET_PASSWORD_URL =
     "https://prod.localee.co.in/customer/account/forgotpassword/";
 const String YOU_HAVE_BEEN_LOGGED_OUT =
     "You have been logged out, kindly login again!";
+const String SAMHITA_VERIFICATION_SUCCESSFUL = "Samhita Verification Successful";
+const String SAMHITA_VERIFICATION_FAILED = "Samhita Verification Failed";
