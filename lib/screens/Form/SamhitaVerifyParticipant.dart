@@ -107,7 +107,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
               TextField(
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
-                maxLength: 13,
+                maxLength: 10,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   errorText: _phoneNumberValid
@@ -115,7 +115,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                       : 'Please enter a valid phone number starting with 7, 8, or 9',
                 ),
                 onChanged: (value) {
-                  if (value.length < 13) {
+                  if (value.length < 10) {
                     setState(() {
                       _phoneNumberValid = false;
                     });
