@@ -43,4 +43,10 @@ class ScreenRoutes {
   static const String samhitaDataCollector = "/samhitaDataCollector";
   static const String samhitaLandingPage = "/samhitaLandingPage";
   static const String samhitaAddParticipantForm = "/samhitaAddParticipantForm";
+  static const String samhitaBecomeParticipantForm =
+      "/samhitaBecomeParticipantForm";
+  static const String samhitaVerifyParticipantForm =
+      "/samhitaVerifyParticipantForm";
+  static const String samhitaOtp = "/samhitaOtp";
+  static const String odOpHomeScreen = "/odopHomeScreen";
 }
