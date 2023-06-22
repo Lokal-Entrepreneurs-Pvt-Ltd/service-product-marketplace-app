@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.10+11] - 2023-06-22
+Samhita release to verify
+
 ## [1.0.8+9] - 2023-05-25
 Samhita landing page
 
