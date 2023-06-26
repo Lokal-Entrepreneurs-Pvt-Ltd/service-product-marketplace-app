@@ -207,10 +207,7 @@ class _SamhitaBecomeParticipantState extends State<SamhitaBecomeParticipant> {
                         // ignore: use_build_context_synchronously
                         // HttpScreenClient.displayDialogBox("Sign up Successful");
                         Navigator.pushNamed(context!, ScreenRoutes.samhitaOtp);
-                        SamhitaOtp otp = SamhitaOtp(
-                          mobileNumber: MOBILE_No,
-                          requestIdReceived: requestIdReceived,
-                        );
+                        SamhitaOtp otp = SamhitaOtp();
                         // Navigator.pushReplacement(
                         //   context,
                         //   MaterialPageRoute(
