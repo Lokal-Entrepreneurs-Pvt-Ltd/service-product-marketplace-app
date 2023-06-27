@@ -169,8 +169,8 @@ class ApiRequestBody {
     return {PHONE_NUMBER: phoneNumber, OTP: otp};
   }
 
-  static getVerifySamhitaOtpRequest(String mobileNo, String otp) {
-    return {MOBILE_No: mobileNo, OTP: otp};
+  static getVerifySamhitaOtpRequest(String mobile, String otp) {
+    return {MOBILE: mobile, OTP: otp};
   }
 
   static getAddressNextRequest(String cartId, num addressId) {

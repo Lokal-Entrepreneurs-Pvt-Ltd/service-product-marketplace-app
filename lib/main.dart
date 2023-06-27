@@ -336,7 +336,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaBecomeParticipantForm: (context) => SamhitaBecomeParticipant(),
           ScreenRoutes.odOpHomeScreen: (context) =>
               UikOdOpScreen().page,
-          ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(requestIdReceived: REQUEST_ID,),
+          ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) => SamhitaVerifyParticipant(),
         },
       ),
