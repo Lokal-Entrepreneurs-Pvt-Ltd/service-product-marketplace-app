@@ -14,18 +14,10 @@ import 'package:otp_text_field/style.dart';
 import 'dart:async';
 import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
+import '../../utils/network/http/http_screen_client.dart';
 import '../../widgets/UikButton/UikButton.dart';
 
 class SamhitaOtp extends StatefulWidget {
-  final String mobileNumber;
-  final String requestIdReceived;
-
-  const SamhitaOtp({
-    super.key,
-    this.mobileNumber = "",
-    required this.requestIdReceived,
-  });
-
   @override
   State<SamhitaOtp> createState() => _SamhitaOtpState();
 }
@@ -36,7 +28,7 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
   Timer? timer;
   bool started = true;
 
-  String optPinEntered = "";
+  String otpPinEntered = "";
 
   @override
   void initState() {
@@ -104,7 +96,7 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
               onCompleted: (pin) {
-                optPinEntered = pin;
+                otpPinEntered = pin;
               },
             ),
             const SizedBox(height: 20.0),
@@ -121,22 +113,23 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                   widthSize: 327,
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
-                    if (optPinEntered.length == 6) {
-                      final response = await ApiRepository.verifySamhitaOtp(
-                        ApiRequestBody.getVerifySamhitaOtpRequest(
+                    if (otpPinEntered.length == 6) {
+                      final response = await ApiRepository.verifyOtp(
+                        ApiRequestBody.getVerifyOtpRequest(
                           args,
-                          optPinEntered,
-                          // "221300",
+                          otpPinEntered,
                         ),
                       );
-
                       if (response.isSuccess!) {
-                        UiUtils.showToast(OTP_VERIFIED);
-                        UserDataHandler.saveIsUserVerified(
-                            response.data[SUCCESS]);
-                        Navigator.pop(context);
+                        if (response.data[RESPONSE]) {
+                          HttpScreenClient.displayDialogBox(
+                              SAMHITA_VERIFICATION_SUCCESSFUL);
+                        } else {
+                          HttpScreenClient.displayDialogBox(
+                              SAMHITA_VERIFICATION_FAILED);
+                        }
                       } else {
-                        UiUtils.showToast("OTP verification ERROR!");
+                        UiUtils.showToast(response.error![MESSAGE]);
                       }
                     }
                   },
