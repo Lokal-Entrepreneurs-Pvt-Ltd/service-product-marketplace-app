@@ -39,8 +39,8 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
-    var phone = args['v1'];
-    var samId = args['v2'];
+    var phoneNo = args['phoneNo'];
+    var samhitaId = args['samhitaId'];
 
     print(args);
 
@@ -80,7 +80,7 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                 ),
                 Text(
                   // "We sent it to ${UserDataHandler.getUserPhone()}",
-                  "We sent it to $phone",
+                  "We sent it to $phoneNo",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -118,9 +118,9 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                     if (otpPinEntered.length == 6) {
                       final response = await ApiRepository.verifySamhitaOtp(
                         ApiRequestBody.getVerifySamhitaOtpRequest(
-                          phone,
+                          phoneNo,
                           otpPinEntered,
-                          samId,
+                          samhitaId,
                         ),
                       );
                       if (response.isSuccess!) {
