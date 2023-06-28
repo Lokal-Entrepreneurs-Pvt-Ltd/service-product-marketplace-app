@@ -45,7 +45,8 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
   bool _samhitaIdRequired = true;
   bool _nameRequired = true;
   bool _requiredFields = false;
-  String args = "";
+  String phoneNo = "";
+  String samhitaId = "";
 
   @override
   void dispose() {
@@ -103,6 +104,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   errorText: _samhitaIdRequired ? null : 'This is Required',
                 ),
                 onChanged: (value) {
+                  samhitaId = value;
                   if (value.length == 0) {
                     setState(() {
                       _samhitaIdRequired = false;
@@ -127,7 +129,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                       : 'Please enter a valid phone number starting with 7, 8, or 9',
                 ),
                 onChanged: (value) {
-                  args = value;
+                  phoneNo = value;
                   if (value.length < 10) {
                     setState(() {
                       _phoneNumberValid = false;
@@ -215,10 +217,10 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                       if (response.isSuccess!) {
                         // ignore: use_build_context_synchronously
                         // HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_SUCCESSFUL);
-                        if (response.data[RESPONSE]) {
+                        if (response.data) {
                           // HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_SUCCESSFUL);
                           Navigator.pushNamed(context, ScreenRoutes.samhitaOtp,
-                              arguments: args);
+                              arguments: {'phoneNo': phoneNo, 'samhitaId': samhitaId});
                         } else {
                           HttpScreenClient.displayDialogBox(
                               SAMHITA_VERIFICATION_FAILED);
