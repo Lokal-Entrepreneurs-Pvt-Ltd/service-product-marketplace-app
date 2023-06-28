@@ -38,10 +38,8 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
 
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  final _emailController = TextEditingController();
   final _samhitaIdController = TextEditingController();
   bool _phoneNumberValid = true;
-  bool _emailValid = true;
   bool _samhitaIdRequired = true;
   bool _nameRequired = true;
   bool _requiredFields = false;
@@ -148,26 +146,6 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                 },
               ),
               const SizedBox(height: 16.0),
-              const Text('Email'),
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  errorText: _emailValid ? null : 'Please enter a valid email',
-                ),
-                onChanged: (value) {
-                  if (!isEmailValid(value)) {
-                    setState(() {
-                      _emailValid = false;
-                    });
-                  } else {
-                    setState(() {
-                      _emailValid = true;
-                    });
-                  }
-                },
-              ),
-              const SizedBox(height: 16.0),
               _requiredFields
                   ? Container(
                       margin: const EdgeInsets.only(bottom: 10),
@@ -192,11 +170,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                     if (_samhitaIdController.text.isEmpty) {
                       _samhitaIdRequired = false;
                     }
-                    if (!isEmailValid(_emailController.text)) {
-                      _emailValid = false;
-                    }
-                    if (isEmailValid(_emailController.text) &&
-                        !_nameController.text.isEmpty &&
+                    if (!_nameController.text.isEmpty &&
                         !_samhitaIdController.text.isEmpty &&
                         _phoneNumberValid) {
                       _requiredFields = false;
@@ -206,7 +180,6 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                               .submitSamhitaVerifyParticipantFormRequest(
                         _nameController.text,
                         _phoneNumberController.text,
-                        _emailController.text,
                         _samhitaIdController.text,
                       )).catchError((err) {
                         NavigationUtils.pop();
@@ -241,11 +214,5 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
         ),
       ),
     );
-  }
-
-  bool isEmailValid(String email) {
-    return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(email);
   }
 }
