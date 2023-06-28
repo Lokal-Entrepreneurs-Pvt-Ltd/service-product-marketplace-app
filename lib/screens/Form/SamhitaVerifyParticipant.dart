@@ -46,6 +46,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
   bool _nameRequired = true;
   bool _requiredFields = false;
   String args = "";
+  String args2 = "";
 
   @override
   void dispose() {
@@ -103,6 +104,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   errorText: _samhitaIdRequired ? null : 'This is Required',
                 ),
                 onChanged: (value) {
+                  args2 = value;
                   if (value.length == 0) {
                     setState(() {
                       _samhitaIdRequired = false;
@@ -215,10 +217,10 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                       if (response.isSuccess!) {
                         // ignore: use_build_context_synchronously
                         // HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_SUCCESSFUL);
-                        if (response.data[RESPONSE]) {
+                        if (response.data) {
                           // HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_SUCCESSFUL);
                           Navigator.pushNamed(context, ScreenRoutes.samhitaOtp,
-                              arguments: args);
+                              arguments: {'v1': args, 'v2': args2});
                         } else {
                           HttpScreenClient.displayDialogBox(
                               SAMHITA_VERIFICATION_FAILED);
