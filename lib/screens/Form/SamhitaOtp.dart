@@ -38,7 +38,9 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String;
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    var phoneNo = args['phoneNo'];
+    var samhitaId = args['samhitaId'];
 
     print(args);
 
@@ -78,7 +80,7 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                 ),
                 Text(
                   // "We sent it to ${UserDataHandler.getUserPhone()}",
-                  "We sent it to $args",
+                  "We sent it to $phoneNo",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -114,14 +116,15 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
                     if (otpPinEntered.length == 6) {
-                      final response = await ApiRepository.verifyOtp(
-                        ApiRequestBody.getVerifyOtpRequest(
-                          args,
+                      final response = await ApiRepository.verifySamhitaOtp(
+                        ApiRequestBody.getVerifySamhitaOtpRequest(
+                          phoneNo,
                           otpPinEntered,
+                          samhitaId,
                         ),
                       );
                       if (response.isSuccess!) {
-                        if (response.data[RESPONSE]) {
+                        if (response.data) {
                           HttpScreenClient.displayDialogBox(
                               SAMHITA_VERIFICATION_SUCCESSFUL);
                         } else {

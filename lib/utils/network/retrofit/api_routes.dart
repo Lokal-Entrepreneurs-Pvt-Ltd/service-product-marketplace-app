@@ -55,7 +55,7 @@ class ApiRoutes {
       "/samhita/createParticipant";
   static const String submitSamhitaBecomeParticipantForm =
       "/samhita/createParticipantSendOtp";
-  static const String verifySamhitaOtp = "";
+  static const String verifySamhitaOtp = "/samhita/samhitaVerifyOtp";
   static const String submitSamhitaVerifyParticipantForm =
       "/samhita/verifyParticipant";
   static const String odopScreen =
