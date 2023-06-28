@@ -78,13 +78,11 @@ class ApiRequestBody {
   static submitSamhitaVerifyParticipantFormRequest(
     participantName,
     mobile,
-    email,
     samhitaId
   ) {
     return {
       PARTICIPANT_NAME: participantName,
       MOBILE: mobile,
-      EMAIL: email,
       SAMHITA_ID: samhitaId,
     };
   }
