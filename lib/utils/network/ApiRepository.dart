@@ -207,6 +207,14 @@ class ApiRepository {
   static Future<ApiResponse> getOdOpScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.odopScreen, args);
   }
+
+  static Future<ApiResponse> verifyAddFleetOtp(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAddFleetOtp, args);
+  }
+
+  static Future<ApiResponse> submitAddFleetScreenForm(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.addFleetScreen, args);
+  }
 }
 
 // apirequestbody class 

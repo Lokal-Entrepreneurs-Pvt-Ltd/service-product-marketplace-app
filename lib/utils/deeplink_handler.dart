@@ -204,6 +204,16 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.samhitaOtp, args);
         }
         break;
+      case ScreenRoutes.addFleetScreen:
+        {
+          _pushScreen(context, ScreenRoutes.addFleetScreen, args);
+        }
+        break;
+      case ScreenRoutes.addFleetOtp:
+        {
+          _pushScreen(context, ScreenRoutes.addFleetOtp, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }
