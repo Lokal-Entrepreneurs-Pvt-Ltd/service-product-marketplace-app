@@ -38,3 +38,5 @@ const String YOU_HAVE_BEEN_LOGGED_OUT =
     "You have been logged out, kindly login again!";
 const String SAMHITA_VERIFICATION_SUCCESSFUL = "Samhita Verification Successful";
 const String SAMHITA_VERIFICATION_FAILED = "Samhita Verification Failed";
+const String ADD_FLEET_SUCESSFULL = "Fleet added successfully";
+const String ADD_FLEET_FAILED = "Fleet failed to add";
