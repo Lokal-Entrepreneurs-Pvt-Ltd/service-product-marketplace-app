@@ -21,6 +21,16 @@ class ApiRepository {
         ApiRoutes.submitSamhitaAddParticipantsForm, args);
   }
 
+  static Future<ApiResponse> submitSamhitaBecomeParticipantForm(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.submitSamhitaBecomeParticipantForm, args);
+  }
+
+  static Future<ApiResponse> submitSamhitaVerifyParticipantForm(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.submitSamhitaVerifyParticipantForm, args);
+  }
+
   static Future<ApiResponse> submitSamhitaForm(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.submitSamhitaForm, args);
   }
@@ -141,6 +151,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.verifyOtp, args);
   }
 
+  static Future<ApiResponse> verifySamhitaOtp(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifySamhitaOtp, args);
+  }
+
   static Future<ApiResponse> addressNext(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.addressNext, args);
   }
@@ -188,6 +202,10 @@ class ApiRepository {
 
   static Future<ApiResponse> saveNotificationToken(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.notificationAddUser, args);
+  }
+
+  static Future<ApiResponse> getOdOpScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.odopScreen, args);
   }
 }
 
