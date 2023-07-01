@@ -15,14 +15,18 @@ import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
+import 'package:lokal/pages/UikDummyScreen.dart';
 import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
+import 'package:lokal/pages/UikOdOpScreen.dart';
 import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
+import 'package:lokal/screens/Form/SamhitaOtp.dart';
+import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -51,12 +55,13 @@ import 'screen_routes.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
-
+import 'screens/Form/SamhitaBecomeParticipant.dart';
 import 'screens/Form/SamhitaAddParticipants.dart';
 import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
+
 
 AppInitializer? appInit;
 
@@ -291,7 +296,7 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          // "/": (context) => UikSamhitaHome().page,
+          // "/": (context) => SamhitaVerifyParticipant(),
           "/": (context) => UserDataHandler.getUserToken().isEmpty
               ? OnboardingScreen()
               : UikBottomNavigationBar(),
@@ -328,6 +333,11 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
           ScreenRoutes.samhitaAddParticipantForm: (context) =>
               SamhitaAddParticipants(),
+          ScreenRoutes.samhitaBecomeParticipantForm: (context) => SamhitaBecomeParticipant(),
+          ScreenRoutes.odOpHomeScreen: (context) =>
+              UikOdOpScreen().page,
+          ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
+          ScreenRoutes.samhitaVerifyParticipantForm: (context) => SamhitaVerifyParticipant(),
         },
       ),
     );

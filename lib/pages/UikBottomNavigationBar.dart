@@ -40,6 +40,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     if (index == 1) {
       Navigator.pushNamed(context!, ScreenRoutes.myGames);
     }
+    // if (index ==2) {
+    //   Navigator.pushNamed(context!, ScreenRoutes.odOpHomeScreen);
+    // }
     if (index == 2) {
       Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
     }
@@ -95,6 +98,12 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               ),
               label: "",
             ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.map,
+            //   ),
+            //   label: "",
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,
