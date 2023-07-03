@@ -54,6 +54,15 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     //passwordController.text = await UserDataHandler.getUserPassword();
   }
 
+  void _launchURL(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+    throw 'Could not launch $url';
+  }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,10 +100,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     description: descPassword,
                   ),
                   //...............................................Foret Password...............................
-                  // TextButton(
-                  //   onPressed: _launchURL(FORGET_PASSWORD_URL),
-                  //   child: Text('Forgot Password'),
-                  // ),
+                  TextButton(
+                    onPressed: () => _launchURL(FORGET_PASSWORD_URL),
+                    child: Text('Forgot Password'),
+                  ),
                   Container(
                     margin: const EdgeInsets.only(
                       left: 16,
