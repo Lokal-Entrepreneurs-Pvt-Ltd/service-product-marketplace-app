@@ -175,20 +175,20 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(
               height: 16,
             ),
-            Center(
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    fontWeight: FontWeight.w500,
-                    color: const Color(0xFF9E9E9E),
-                  ),
-                ),
-              ),
-            ),
+            // Center(
+            //   child: TextButton(
+            //     onPressed: () {},
+            //     child: Text(
+            //       "Forgot Password?",
+            //       style: TextStyle(
+            //         fontSize: 14.0,
+            //         fontFamily: GoogleFonts.poppins().fontFamily,
+            //         fontWeight: FontWeight.w500,
+            //         color: const Color(0xFF9E9E9E),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
