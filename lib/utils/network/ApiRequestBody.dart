@@ -87,6 +87,14 @@ class ApiRequestBody {
     };
   }
 
+  static getVerifyAddFleetOtpRequest(String mobile, String otp) {
+    return {MOBILE: mobile, OTP: otp};
+  }
+
+  static submitAddFleetScreenFormRequest(String participantName, String mobile, String email) {
+    return {PARTICIPANT_NAME: participantName, MOBILE: mobile, EMAIL: email};
+  }
+
   static submitSamhitaFormRequest(
     name,
     emailId,

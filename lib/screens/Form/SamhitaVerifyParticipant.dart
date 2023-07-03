@@ -79,7 +79,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                 controller: _nameController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  errorText: _nameRequired ? null : 'This is Required',
+                  errorText: _nameRequired ? null : REQUIRED_FIELD,
                 ),
                 onChanged: (value) {
                   if (value.length == 0) {
@@ -99,7 +99,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                 controller: _samhitaIdController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  errorText: _samhitaIdRequired ? null : 'This is Required',
+                  errorText: _samhitaIdRequired ? null : REQUIRED_FIELD,
                 ),
                 onChanged: (value) {
                   samhitaId = value;
@@ -124,7 +124,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   border: const OutlineInputBorder(),
                   errorText: _phoneNumberValid
                       ? null
-                      : 'Please enter a valid phone number starting with 7, 8, or 9',
+                      : VALID_PHONE_NO,
                 ),
                 onChanged: (value) {
                   phoneNo = value;
@@ -133,11 +133,6 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                       _phoneNumberValid = false;
                     });
                   }
-                  // else if (!RegExp(r'^[+789]\d{9}$').hasMatch(value)) {
-                  //   setState(() {
-                  //     _phoneNumberValid = false;
-                  //   });
-                  // }
                   else {
                     setState(() {
                       _phoneNumberValid = true;
@@ -150,7 +145,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   ? Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       child: const Text(
-                        "Please Fill All required Fields",
+                        REQUIRED_FIELD,
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,
                       ),
