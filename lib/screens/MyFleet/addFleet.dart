@@ -115,7 +115,7 @@ class _AddFleetState extends State<AddFleet> {
               height: 20,
             ),
             Text(
-              'Partner with us to help grow our platform. Invite your friends to join and earn rewards for each person who signs up using your unique link.',
+              ADD_FLEET_MESSAGE,
               style: GoogleFonts.poppins(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
@@ -130,7 +130,7 @@ class _AddFleetState extends State<AddFleet> {
               controller: _nameController,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                errorText: _nameRequired ? null : 'This is Required',
+                errorText: _nameRequired ? null : REQUIRED_FIELD,
               ),
               onChanged: (value) {
                 if (value.length == 0) {
@@ -154,7 +154,7 @@ class _AddFleetState extends State<AddFleet> {
                 border: const OutlineInputBorder(),
                 errorText: _phoneNumberValid
                     ? null
-                    : 'Please enter a valid phone number starting with 7, 8, or 9',
+                    : VALID_PHONE_NO,
               ),
               onChanged: (value) {
                 phoneNo = value;
@@ -175,10 +175,10 @@ class _AddFleetState extends State<AddFleet> {
               controller: _emailController,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                errorText: _emailValid ? null : 'Please enter a valid email',
+                errorText: _emailValid ? null : VALID_EMAIL,
               ),
               onChanged: (value) {
-                if (!isEmailValid(value)) {
+                if (!UiUtils.isEmailValid(value)) {
                   setState(() {
                     _emailValid = false;
                   });
@@ -194,7 +194,7 @@ class _AddFleetState extends State<AddFleet> {
                 ? Container(
                     margin: const EdgeInsets.only(bottom: 10),
                     child: const Text(
-                      "Please Fill All required Fields",
+                      REQUIRED_FIELD,
                       style: TextStyle(color: Colors.red),
                       textAlign: TextAlign.center,
                     ),
@@ -211,10 +211,10 @@ class _AddFleetState extends State<AddFleet> {
                   if (_phoneNumberController.text.isEmpty) {
                     _phoneNumberValid = false;
                   }
-                  if (!isEmailValid(_emailController.text)) {
+                  if (!UiUtils.isEmailValid(_emailController.text)) {
                     _emailValid = false;
                   }
-                  if (isEmailValid(_emailController.text) &&
+                  if (UiUtils.isEmailValid(_emailController.text) &&
                       !_nameController.text.isEmpty &&
                       _phoneNumberValid) {
                     _requiredFields = false;
@@ -251,11 +251,5 @@ class _AddFleetState extends State<AddFleet> {
         ),
       ),
     );
-  }
-
-  bool isEmailValid(String email) {
-    return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(email);
   }
 }
