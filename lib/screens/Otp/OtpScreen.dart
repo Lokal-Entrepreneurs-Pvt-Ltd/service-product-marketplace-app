@@ -83,7 +83,6 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 8,
                 ),
                 Text(
-                  // "We sent it to ${UserDataHandler.getUserPhone()}",
                   "We sent it to $args",
                   style: TextStyle(
                     fontSize: 16,

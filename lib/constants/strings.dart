@@ -36,7 +36,13 @@ const String FORGET_PASSWORD_URL =
     "https://prod.localee.co.in/customer/account/forgotpassword/";
 const String YOU_HAVE_BEEN_LOGGED_OUT =
     "You have been logged out, kindly login again!";
-const String SAMHITA_VERIFICATION_SUCCESSFUL = "Samhita Verification Successful";
+const String SAMHITA_VERIFICATION_SUCCESSFUL =
+    "Samhita Verification Successful";
 const String SAMHITA_VERIFICATION_FAILED = "Samhita Verification Failed";
 const String ADD_FLEET_SUCESSFULL = "Fleet added successfully";
 const String ADD_FLEET_FAILED = "Fleet failed to add";
+const String ADD_FLEET_MESSAGE =
+    "Partner with us to help grow our platform. Invite your friends to join and earn rewards for each person who signs up using your unique link.";
+const String REQUIRED_FIELD = "Please fill the required field";
+const String VALID_PHONE_NO = "Please enter a valid phone number";
+const String VALID_EMAIL = "Please enter a valid email";

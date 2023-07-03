@@ -78,7 +78,6 @@ class _AddFleetOtpState extends State<AddFleetOtp> {
                   height: 8,
                 ),
                 Text(
-                  // "We sent it to ${UserDataHandler.getUserPhone()}",
                   "We sent it to $phoneNo",
                   style: TextStyle(
                     fontSize: 16,

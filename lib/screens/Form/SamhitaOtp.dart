@@ -79,7 +79,6 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                   height: 8,
                 ),
                 Text(
-                  // "We sent it to ${UserDataHandler.getUserPhone()}",
                   "We sent it to $phoneNo",
                   style: TextStyle(
                     fontSize: 16,
