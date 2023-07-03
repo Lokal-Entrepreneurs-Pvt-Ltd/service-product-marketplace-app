@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/constants/json_constants.dart';
@@ -12,8 +11,6 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../constants/strings.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/user_data_handler.dart';
@@ -91,10 +88,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     description: descPassword,
                   ),
                   //...............................................Foret Password...............................
-                  // TextButton(
-                  //   onPressed: _launchURL(FORGET_PASSWORD_URL),
-                  //   child: Text('Forgot Password'),
-                  // ),
+                  TextButton(
+                    onPressed: () => UiUtils.launchURL(FORGET_PASSWORD_URL),
+                    child: Text('Forgot Password'),
+                  ),
                   Container(
                     margin: const EdgeInsets.only(
                       left: 16,
@@ -110,7 +107,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                         // we use a POST API endpoint to send them to the backend
                         // The response will have authToken
                         // We are storing the authToken, userName and password locally using SharedPreferences
-                        if (isEmailValid(emailController.text) &&
+                        if (UiUtils.isEmailValid(emailController.text) &&
                             passwordController.text.length >= 6) {
                           // Creating a POST request with http client
                           // var client = http.Client();
@@ -144,7 +141,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           }
                         }
 
-                        if (isEmailValid(emailController.text)) {
+                        if (UiUtils.isEmailValid(emailController.text)) {
                           errorEmail = false;
                           descEmail = '';
                         } else {
@@ -173,11 +170,5 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               ),
       ),
     );
-  }
-
-  bool isEmailValid(String email) {
-    return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(email);
   }
 }

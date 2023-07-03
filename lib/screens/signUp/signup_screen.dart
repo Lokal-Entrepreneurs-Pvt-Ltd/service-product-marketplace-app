@@ -101,7 +101,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   // we use a POST API endpoint to send them to the backend
                   // The response will have authToken
                   // We are storing the authToken, userName and password locally using SharedPreferences
-                  if (isEmailValid(emailController.text) &&
+                  if (UiUtils.isEmailValid(emailController.text) &&
                       passwordController.text.length >= 6 &&
                       confirmPasswordController.text ==
                           passwordController.text) {
@@ -136,7 +136,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     }
                   }
 
-                  if (isEmailValid(emailController.text)) {
+                  if (UiUtils.isEmailValid(emailController.text)) {
                     errorEmail = false;
                     descEmail = '';
                   } else {
@@ -175,29 +175,9 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(
               height: 16,
             ),
-            Center(
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    fontWeight: FontWeight.w500,
-                    color: const Color(0xFF9E9E9E),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
     );
-  }
-
-  bool isEmailValid(String email) {
-    return RegExp(
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
-        .hasMatch(email);
   }
 }

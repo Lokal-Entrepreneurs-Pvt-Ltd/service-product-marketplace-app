@@ -17,7 +17,6 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../constants/strings.dart';
 import '../main.dart';
 
-
 class UikMyAccountScreen extends StandardPage {
   // final obj = Snack();
   @override
@@ -31,13 +30,14 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_SIGN_OUT);
     actionList.add(UIK_ACTION.OPEN_MY_ADDRESS);
     actionList.add(UIK_ACTION.OPEN_LOG_IN);
+    actionList.add(UIK_ACTION.OPEN_MY_FLEET);
 
     return actionList;
   }
 
   @override
   dynamic getData() {
-     return ApiRepository.getMyAccountScreen;
+    return ApiRepository.getMyAccountScreen;
   }
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
@@ -54,22 +54,27 @@ class UikMyAccountScreen extends StandardPage {
       case UIK_ACTION.OPEN_ADDRESS:
         openAddress(uikAction);
         break;
+      case UIK_ACTION.OPEN_MY_FLEET:
+        openMyFleet(uikAction);
+        break;
       case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
         break;
       case UIK_ACTION.OPEN_MY_ADDRESS:
         openAddress(uikAction);
         break;
-      case UIK_ACTION.OPEN_SIGN_OUT:{
-      UiUtils.showToast(LOG_OUT);
-      clearDataAndMoveToOnboarding(uikAction);
-       }
-       break;
-      case UIK_ACTION.OPEN_LOG_IN:{
-        UiUtils.showToast(LOG_IN);
-        clearDataAndMoveToOnboarding(uikAction);
-      }
-      break;
+      case UIK_ACTION.OPEN_SIGN_OUT:
+        {
+          UiUtils.showToast(LOG_OUT);
+          clearDataAndMoveToOnboarding(uikAction);
+        }
+        break;
+      case UIK_ACTION.OPEN_LOG_IN:
+        {
+          UiUtils.showToast(LOG_IN);
+          clearDataAndMoveToOnboarding(uikAction);
+        }
+        break;
       default:
     }
   }
@@ -86,12 +91,11 @@ class UikMyAccountScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
 void clearDataAndMoveToOnboarding(UikAction uikAction) {
-
   UserDataHandler.clearUserToken();
   Navigator.pushAndRemoveUntil(
     NavigationService.navigatorKey.currentContext!,
@@ -120,6 +124,11 @@ void openWishlist(UikAction uikAction) {
 void openDetails(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
+}
+
+void openMyFleet(UikAction uikAction) {
+  var context = NavigationService.navigatorKey.currentContext;
+  Navigator.pushNamed(context!, ScreenRoutes.addFleetScreen);
 }
 
 void openOrders(UikAction uikAction) {

@@ -12,29 +12,23 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'dart:async';
-import '../../constants/dimens.dart';
-import '../../constants/strings.dart';
-import '../../widgets/UikButton/UikButton.dart';
+import '../../../constants/dimens.dart';
+import '../../../constants/strings.dart';
+import '../../../utils/network/http/http_screen_client.dart';
+import '../../../widgets/UikButton/UikButton.dart';
 
-class OtpScreen extends StatefulWidget {
-  final String mobileNumber;
-
-  const OtpScreen({
-    super.key,
-    this.mobileNumber = "",
-  });
-
+class AddFleetOtp extends StatefulWidget {
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<AddFleetOtp> createState() => _AddFleetOtpState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _AddFleetOtpState extends State<AddFleetOtp> {
   int Seconds = 20;
   String digitSeconds = "20";
   Timer? timer;
   bool started = true;
 
-  String optPinEntered = "";
+  String otpPinEntered = "";
 
   @override
   void initState() {
@@ -44,7 +38,8 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String;
+    final args = ModalRoute.of(context)!.settings.arguments as Map;
+    var phoneNo = args['phoneNo'];
 
     print(args);
 
@@ -83,7 +78,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 8,
                 ),
                 Text(
-                  "We sent it to $args",
+                  "We sent it to $phoneNo",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -101,7 +96,7 @@ class _OtpScreenState extends State<OtpScreen> {
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
               onCompleted: (pin) {
-                optPinEntered = pin;
+                otpPinEntered = pin;
               },
             ),
             const SizedBox(height: 20.0),
@@ -118,22 +113,22 @@ class _OtpScreenState extends State<OtpScreen> {
                   widthSize: 327,
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
-                    if (optPinEntered.length == 6) {
-                      final response = await ApiRepository.verifyOtp(
-                        ApiRequestBody.getVerifyOtpRequest(
-                          args,
-                          optPinEntered,
-                          // "221300",
+                    if (otpPinEntered.length == 6) {
+                      final response = await ApiRepository.verifyAddFleetOtp(
+                        ApiRequestBody.getVerifyAddFleetOtpRequest(
+                          phoneNo,
+                          otpPinEntered,
                         ),
                       );
-
                       if (response.isSuccess!) {
-                        UiUtils.showToast(OTP_VERIFIED);
-                        UserDataHandler.saveIsUserVerified(
-                            response.data[SUCCESS]);
-                        Navigator.pop(context);
+                        if (response.data[RESPONSE]) {
+                          HttpScreenClient.displayDialogBox(
+                              ADD_FLEET_SUCESSFULL);
+                        } else {
+                          HttpScreenClient.displayDialogBox(ADD_FLEET_FAILED);
+                        }
                       } else {
-                        UiUtils.showToast("OTP verification ERROR!");
+                        UiUtils.showToast(response.error![MESSAGE]);
                       }
                     }
                   },
