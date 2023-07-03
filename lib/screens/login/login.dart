@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/constants/json_constants.dart';
@@ -12,8 +11,6 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../constants/strings.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/user_data_handler.dart';
@@ -27,6 +24,7 @@ class LoginPageScreen extends StatefulWidget {
 }
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
+  final UiUtils uiUtils = UiUtils();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -52,15 +50,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   void initialize() async {
     emailController.text = await UserDataHandler.getUserEmail();
     //passwordController.text = await UserDataHandler.getUserPassword();
-  }
-
-  void _launchURL(String url) async {
-    Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-    throw 'Could not launch $url';
-  }
   }
 
   @override
@@ -101,7 +90,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   ),
                   //...............................................Foret Password...............................
                   TextButton(
-                    onPressed: () => _launchURL(FORGET_PASSWORD_URL),
+                    onPressed: () => uiUtils.launchURL(FORGET_PASSWORD_URL),
                     child: Text('Forgot Password'),
                   ),
                   Container(
