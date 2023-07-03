@@ -24,7 +24,6 @@ class LoginPageScreen extends StatefulWidget {
 }
 
 class _LoginPageScreenState extends State<LoginPageScreen> {
-  final UiUtils uiUtils = UiUtils();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -90,7 +89,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   ),
                   //...............................................Foret Password...............................
                   TextButton(
-                    onPressed: () => uiUtils.launchURL(FORGET_PASSWORD_URL),
+                    onPressed: () => UiUtils.launchURL(FORGET_PASSWORD_URL),
                     child: Text('Forgot Password'),
                   ),
                   Container(

@@ -14,7 +14,7 @@ class UiUtils {
         fontSize: 16.0);
   }
 
-  void launchURL(String url) async {
+  static void launchURL(String url) async {
     Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
