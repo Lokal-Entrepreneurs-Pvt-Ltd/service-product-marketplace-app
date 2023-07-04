@@ -171,7 +171,7 @@ class _AddFleetState extends State<AddFleet> {
               },
             ),
             const SizedBox(height: 16.0),
-            const Text('Partner Id'),
+            const Text(PARTNER_ID),
               TextField(
                 controller: _partnerIdController,
                 decoration: InputDecoration(
