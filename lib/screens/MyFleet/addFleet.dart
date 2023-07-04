@@ -22,13 +22,14 @@ class _AddFleetState extends State<AddFleet> {
   bool isAddFleetSelected = true;
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  final _emailController = TextEditingController();
+  final _partnerIdController = TextEditingController();
   bool _phoneNumberValid = true;
-  bool _emailValid = true;
   bool _nameRequired = true;
+  bool _partnerIdRequired = true;
   bool _requiredFields = false;
   int? selected;
   String phoneNo = "";
+  String partnerId = "";
 
   @override
   Widget build(BuildContext context) {
@@ -170,26 +171,27 @@ class _AddFleetState extends State<AddFleet> {
               },
             ),
             const SizedBox(height: 16.0),
-            const Text('Email'),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                errorText: _emailValid ? null : VALID_EMAIL,
+            const Text('Partner Id'),
+              TextField(
+                controller: _partnerIdController,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  errorText: _partnerIdRequired ? null : REQUIRED_FIELD,
+                ),
+                onChanged: (value) {
+                  partnerId = value;
+                  if (value.length == 0) {
+                    setState(() {
+                      _partnerIdRequired = false;
+                    });
+                  } else {
+                    setState(() {
+                      _partnerIdRequired = true;
+                    });
+                  }
+                },
               ),
-              onChanged: (value) {
-                if (!UiUtils.isEmailValid(value)) {
-                  setState(() {
-                    _emailValid = false;
-                  });
-                } else {
-                  setState(() {
-                    _emailValid = true;
-                  });
-                }
-              },
-            ),
-            const SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
             _requiredFields
                 ? Container(
                     margin: const EdgeInsets.only(bottom: 10),
@@ -211,10 +213,10 @@ class _AddFleetState extends State<AddFleet> {
                   if (_phoneNumberController.text.isEmpty) {
                     _phoneNumberValid = false;
                   }
-                  if (!UiUtils.isEmailValid(_emailController.text)) {
-                    _emailValid = false;
-                  }
-                  if (UiUtils.isEmailValid(_emailController.text) &&
+                  if (_partnerIdController.text.isEmpty) {
+                      _partnerIdRequired = false;
+                    }
+                  if (!_partnerIdController.text.isEmpty &&
                       !_nameController.text.isEmpty &&
                       _phoneNumberValid) {
                     _requiredFields = false;
@@ -224,15 +226,15 @@ class _AddFleetState extends State<AddFleet> {
                             ApiRequestBody.submitAddFleetScreenFormRequest(
                       _nameController.text,
                       _phoneNumberController.text,
-                      _emailController.text,
+                      _partnerIdController.text,
                     )).catchError((err) {
                       NavigationUtils.pop();
                       UiUtils.showToast(err);
                     });
                     NavigationUtils.pop();
                     if (response.isSuccess!) {
-                      if (response.data[RESPONSE]) {
-                        Navigator.pushNamed(context, ScreenRoutes.addFleetOtp, arguments: {'phoneNo': phoneNo});
+                      if (response.data) {
+                        Navigator.pushNamed(context, ScreenRoutes.addFleetOtp, arguments: {'phoneNo': phoneNo, 'partnerId': partnerId});
                       } else {
                         HttpScreenClient.displayDialogBox("Error!!");
                       }
