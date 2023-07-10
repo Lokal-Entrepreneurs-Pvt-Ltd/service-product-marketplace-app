@@ -35,6 +35,7 @@ const String FIRST_NAME = "firstName";
 const String LAST_NAME = "lastname";
 const String PARTICIPANT_NAME = "participantName";
 const String PARTNER_NAME = "partnerName";
+const String USER_TYPE = "userType";
 const String PARTNER_ID = "partnerId";
 const String GROUP = "group";
 const String USERTYPE = "usertype";

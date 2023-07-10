@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:lokal/screens/login/login.dart';
-import 'package:lokal/screens/signUp/signup_screen.dart';
+import 'package:lokal/constants/strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../Widgets/UikButton/UikButton.dart';
+import 'NewOnboardingScreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -13,6 +12,9 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  int selectedIndex = 0;
+  String? selectedUserType;
+  List<String> userTypes = ['CUSTOMER', 'PARTNER', 'FLEET'];
   List<String> images = [
     "assets/images/Onboarding1.png",
     "assets/images/Onboarding2.png",
@@ -122,68 +124,178 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       );
                     }),
               ),
-              Column(
+              Text(
+                ACCOUNT_TYPE,
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
+              ),
+              const SizedBox(height: 7,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 15, right: 15),
-                    height: 38,
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(HexColor("#FEE440")),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignupScreen()));
-                      },
-                      child: Text(
-                        "Become Partner",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: HexColor("#212121")),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 15, right: 15),
-                    height: 38,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.yellow),
-                        borderRadius: BorderRadius.all(Radius.circular(4))),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(HexColor("#FFFFFF")),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPageScreen()));
-                      },
-                      child: Text(
-                        "Log In ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: HexColor("#000000")),
-                      ),
-                    ),
-                  ),
+                  buildUserTypeRectangle(0),
+                  buildUserTypeRectangle(1),
+                  buildUserTypeRectangle(2),
                 ],
-              )
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: UikButton(
+                  text: CONTINUE,
+                  backgroundColor: const Color(0xffFEE440),
+                  onClick: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewOnboardingScreen(
+                            selectedUserType: selectedUserType),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Widget buildUserTypeRectangle(int index) {
+    List<Widget> avatars = [
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+            selectedUserType = userTypes[index];
+          });
+        },
+        child: Column(
+          children: [
+            Container(
+              width: 90,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.person,
+                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    CUSTOMER,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color:
+                          index == selectedIndex ? Colors.black : Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+            selectedUserType = userTypes[index];
+          });
+        },
+        child: Column(
+          children: [
+            Container(
+              width: 90,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.business,
+                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    PARTNER,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color:
+                          index == selectedIndex ? Colors.black : Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
+      ),
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+            selectedUserType = userTypes[index];
+          });
+        },
+        child: Column(
+          children: [
+            Container(
+              width: 90,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.local_shipping,
+                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    AGENT,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color:
+                          index == selectedIndex ? Colors.black : Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
+      ),
+    ];
+
+    return avatars[index];
   }
 }

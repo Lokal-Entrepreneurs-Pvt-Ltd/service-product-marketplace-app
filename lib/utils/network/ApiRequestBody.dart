@@ -1,12 +1,12 @@
 import '../../constants/json_constants.dart';
 
 class ApiRequestBody {
-  static getLoginRequest(String email, password) {
-    return {EMAIL: email, PASSWORD: password};
+  static getLoginRequest(String email, password, userType) {
+    return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
-  static getSignUpRequest(String email, password) {
-    return {EMAIL: email, PASSWORD: password};
+  static getSignUpRequest(String email, password, userType) {
+    return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
   static getOptinRequest(String serviceCode) {
