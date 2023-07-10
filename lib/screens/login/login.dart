@@ -26,7 +26,7 @@ class LoginPageScreen extends StatefulWidget {
 class _LoginPageScreenState extends State<LoginPageScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  String? selectedUserType;
   var errorEmail = false;
   var descEmail = "";
 
@@ -116,7 +116,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           final response = await ApiRepository.getLoginScreen(
                               ApiRequestBody.getLoginRequest(
                                   emailController.text,
-                                  passwordController.text));
+                                  passwordController.text,
+                                  selectedUserType));
                           // print(response);
                           if (response.isSuccess!) {
                             print("LOGINSCREEN----------------");

@@ -29,6 +29,7 @@ import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/MyFleet/addFleet.dart';
 import 'package:lokal/screens/MyFleet/addFleetOtp.dart';
+import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -341,6 +342,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaVerifyParticipantForm: (context) => SamhitaVerifyParticipant(),
           ScreenRoutes.addFleetScreen: (context) => AddFleet(),
           ScreenRoutes.addFleetOtp: (context) => AddFleetOtp(),
+          ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen()
         },
       ),
     );

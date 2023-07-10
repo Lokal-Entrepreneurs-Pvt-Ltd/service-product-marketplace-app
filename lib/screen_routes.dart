@@ -51,4 +51,5 @@ class ScreenRoutes {
   static const String odOpHomeScreen = "/odopHomeScreen";
   static const String addFleetScreen = "/addFleetScreen";
   static const String addFleetOtp = "/addFleetOtp";
+  static const String newOnboardingScreen = "/newOnboardingScreen";
 }

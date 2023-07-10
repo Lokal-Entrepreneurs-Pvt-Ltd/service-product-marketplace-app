@@ -46,3 +46,7 @@ const String ADD_FLEET_MESSAGE =
 const String REQUIRED_FIELD = "Please fill the required field";
 const String VALID_PHONE_NO = "Please enter a valid phone number";
 const String VALID_EMAIL = "Please enter a valid email";
+const String ACCOUNT_TYPE = "Choose Account Type";
+const String CUSTOMER = "Customer";
+const String PARTNER = "Partner";
+const String AGENT = "Agent";

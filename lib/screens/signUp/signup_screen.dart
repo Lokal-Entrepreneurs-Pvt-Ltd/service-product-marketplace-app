@@ -27,6 +27,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  String? selectedUserType;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -110,7 +111,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     NavigationUtils.showLoaderOnTop();
                     final response = await ApiRepository.getSignUpScreen(
                             ApiRequestBody.getSignUpRequest(
-                                emailController.text, passwordController.text))
+                                emailController.text,
+                                passwordController.text,
+                                selectedUserType))
                         .catchError((error) {
                       NavigationUtils.pop();
                     });
