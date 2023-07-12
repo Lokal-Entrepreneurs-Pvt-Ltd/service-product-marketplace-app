@@ -73,7 +73,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
         body: Column(
           children: [
             Container(
-              color: Colors.white,
+              color: const Color(0xffFEE440),
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Column(
                 children: [
@@ -295,7 +295,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                               TextButton(
                                 onPressed: () =>
                                     UiUtils.launchURL(FORGET_PASSWORD_URL),
-                                child: Text('Forgot Password'),
+                                child: Text(FORGET_PASSWORD),
                               ),
                               const SizedBox(
                                 height: 16,
@@ -401,7 +401,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       descEmail = "Please enter a valid email";
                                     }
 
-                                    if (passwordController.text.length >= 6) {
+                                 if (passwordController.text.length >= 6) {
                                       errorPassword = false;
                                       descPassword = '';
                                     } else {
