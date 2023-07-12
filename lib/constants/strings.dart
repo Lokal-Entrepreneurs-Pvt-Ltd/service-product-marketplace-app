@@ -50,3 +50,4 @@ const String ACCOUNT_TYPE = "Choose Account Type";
 const String CUSTOMER = "Customer";
 const String PARTNER = "Partner";
 const String AGENT = "Agent";
+const String FORGET_PASSWORD = "Forgot Password?";
