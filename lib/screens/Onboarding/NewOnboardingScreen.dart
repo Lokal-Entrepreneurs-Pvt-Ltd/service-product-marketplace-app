@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/constants/dimens.dart';
 import '../../Widgets/UikButton/UikButton.dart';
 import '../../Widgets/UikNavbar/UikNavbar.dart';
 import '../../Widgets/UikTextField/UikTextField.dart';
@@ -27,7 +28,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
     with SingleTickerProviderStateMixin {
   bool isLoginSelected = true;
   int selectedIndex = 0;
-  List<String> userTypes = ['CUSTOMER', 'PARTNER', 'FLEET'];
+  List<String> userTypes = [CUSTOMER, PARTNER, AGENT];
   late TabController _tabController;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -55,7 +56,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
   void initState() {
     super.initState();
     initialize();
-    selectedIndex = userTypes.indexOf(widget.selectedUserType ?? 'User');
+    selectedIndex = userTypes.indexOf(widget.selectedUserType ?? CUSTOMER);
     _tabController = TabController(length: 2, vsync: this);
   }
 
@@ -74,19 +75,19 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
           children: [
             Container(
               color: const Color(0xffFEE440),
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: DIMEN_16),
               child: Column(
                 children: [
-                  SizedBox(height: 16),
+                  const SizedBox(height: DIMEN_16),
                   Text(
                     ACCOUNT_TYPE,
                     style: GoogleFonts.poppins(
-                        fontSize: 14,
+                        fontSize: DIMEN_14,
                         fontWeight: FontWeight.w500,
                         color: Colors.black),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: DIMEN_15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -96,7 +97,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                       buildUserTypeRectangle(2),
                     ],
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: DIMEN_24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -122,9 +123,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                 ),
                               ),
                               child: Text(
-                                'Login',
+                                LOGIN,
                                 style: GoogleFonts.poppins(
-                                  fontSize: 18,
+                                  fontSize: DIMEN_18,
                                   fontWeight: FontWeight.w500,
                                   color: isLoginSelected
                                       ? Colors.black
@@ -157,9 +158,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                 ),
                               ),
                               child: Text(
-                                'Sign up',
+                                SIGN_UP,
                                 style: GoogleFonts.poppins(
-                                  fontSize: 18,
+                                  fontSize: DIMEN_18,
                                   fontWeight: FontWeight.w500,
                                   color: isLoginSelected
                                       ? Colors.grey
@@ -195,23 +196,23 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             children: [
                               UikNavbar(
                                 size: "",
-                                titleText: "welcome back!\nLogin to continue",
+                                titleText: LOGIN_MSG,
                               ),
                               const SizedBox(
-                                height: 32,
+                                height: DIMEN_32,
                               ),
                               MyTextField(
-                                labelText: "Email",
-                                width: 343,
-                                height: 64,
+                                labelText: BTS_EMAIL,
+                                width: DIMEN_343,
+                                height: DIMEN_64,
                                 Controller: emailController,
                                 error: errorEmail,
                                 description: descEmail,
                               ),
                               MyTextField(
-                                labelText: "Password",
-                                width: 343,
-                                height: 64,
+                                labelText: BTS_PASSWORD,
+                                width: DIMEN_343,
+                                height: DIMEN_64,
                                 Controller: passwordController,
                                 error: errorPassword,
                                 isPassword: true,
@@ -219,10 +220,10 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                               ),
                               Container(
                                 margin: const EdgeInsets.only(
-                                  left: 16,
+                                  left: DIMEN_16,
                                 ),
                                 child: UikButton(
-                                  text: "Log In",
+                                  text: LOGIN,
                                   backgroundColor: const Color(0xffFEE440),
                                   onClick: () async {
                                     setState(() {
@@ -232,7 +233,6 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                     if (UiUtils.isEmailValid(
                                             emailController.text) &&
                                         passwordController.text.length >= 6) {
-                                      print("Inside Email Validation!");
                                       final response =
                                           await ApiRepository.getLoginScreen(
                                               ApiRequestBody.getLoginRequest(
@@ -241,7 +241,6 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                         selectedUserType
                                       ));
                                       if (response.isSuccess!) {
-                                        print("LOGINSCREEN----------------");
                                         UserDataHandler.saveUserToken(
                                             response.data[AUTH_TOKEN]);
 
@@ -273,7 +272,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       descEmail = '';
                                     } else {
                                       errorEmail = true;
-                                      descEmail = "Please enter a valid email";
+                                      descEmail = VALID_EMAIL;
                                     }
 
                                     if (passwordController.text.length >= 6) {
@@ -282,7 +281,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                     } else {
                                       errorPassword = true;
                                       descPassword =
-                                          "Password must be at least 6 characters long";
+                                          PASSWORD_LENGTH;
                                     }
 
                                     setState(() {
@@ -298,7 +297,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                 child: Text(FORGET_PASSWORD),
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: DIMEN_16,
                               ),
                             ],
                           ),
@@ -308,32 +307,32 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                               UikNavbar(
                                 size: "",
                                 titleText:
-                                    "enter your email\naddress to signup",
+                                    SIGNUP_MSG,
                               ),
                               const SizedBox(
-                                height: 32,
+                                height: DIMEN_32,
                               ),
                               MyTextField(
-                                labelText: "Email",
-                                width: 343,
-                                height: 64,
+                                labelText: BTS_EMAIL,
+                                width: DIMEN_343,
+                                height: DIMEN_64,
                                 Controller: emailController,
                                 error: errorEmail,
                                 description: descEmail,
                               ),
                               MyTextField(
-                                labelText: "Password",
-                                width: 343,
-                                height: 64,
+                                labelText: BTS_PASSWORD,
+                                width: DIMEN_343,
+                                height: DIMEN_64,
                                 Controller: passwordController,
                                 error: errorPassword,
                                 isPassword: true,
                                 description: descPassword,
                               ),
                               MyTextField(
-                                labelText: "Confirm Password",
-                                width: 343,
-                                height: 64,
+                                labelText: CONFIRM_PASSWORD,
+                                width: DIMEN_343,
+                                height: DIMEN_64,
                                 Controller: confirmPasswordController,
                                 error: errorConfirmPassword,
                                 isPassword: true,
@@ -341,15 +340,13 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                               ),
                               Container(
                                 margin: const EdgeInsets.only(
-                                  left: 16,
+                                  left: DIMEN_16,
                                 ),
                                 child: UikButton(
-                                  text: "Sign Up",
+                                  text: SIGN_UP,
                                   backgroundColor: const Color(0xffFEE440),
                                   onClick: () async {
                                     selectedUserType = userTypes[selectedIndex];
-                                    print(
-                                        'Selected User Type: $selectedUserType');
                                     if (UiUtils.isEmailValid(
                                             emailController.text) &&
                                         passwordController.text.length >= 6 &&
@@ -398,7 +395,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       descEmail = '';
                                     } else {
                                       errorEmail = true;
-                                      descEmail = "Please enter a valid email";
+                                      descEmail = VALID_EMAIL;
                                     }
 
                                  if (passwordController.text.length >= 6) {
@@ -407,14 +404,14 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                     } else {
                                       errorPassword = true;
                                       descPassword =
-                                          "Password must be at least 6 characters long";
+                                          PASSWORD_LENGTH;
                                     }
 
                                     if (confirmPasswordController.text !=
                                         passwordController.text) {
                                       errorConfirmPassword = true;
                                       descConfirmPassword =
-                                          "Passwords do not match";
+                                          PASSWORD_NOT_MATCH;
                                     } else {
                                       errorConfirmPassword = false;
                                       descConfirmPassword = '';
@@ -425,7 +422,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                 ),
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: DIMEN_16,
                               ),
                             ],
                           ),
@@ -450,13 +447,14 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
         child: Column(
           children: [
             Container(
-              width: 90,
-              height: 70,
+              width: DIMEN_90,
+              height: DIMEN_70,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  width: DIMEN_2,
                 ),
               ),
               child: Column(
@@ -464,22 +462,22 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 children: [
                   Icon(
                     Icons.person,
-                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: DIMEN_8),
                   Text(
                     CUSTOMER,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
                       color:
-                          index == selectedIndex ? Colors.black : Colors.grey,
+                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: DIMEN_16),
           ],
         ),
       ),
@@ -492,13 +490,14 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
         child: Column(
           children: [
             Container(
-              width: 90,
-              height: 70,
+              width: DIMEN_90,
+              height: DIMEN_70,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  width: DIMEN_2,
                 ),
               ),
               child: Column(
@@ -506,22 +505,22 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 children: [
                   Icon(
                     Icons.business,
-                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: DIMEN_8),
                   Text(
                     PARTNER,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
                       color:
-                          index == selectedIndex ? Colors.black : Colors.grey,
+                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: DIMEN_16),
           ],
         ),
       ),
@@ -534,13 +533,14 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
         child: Column(
           children: [
             Container(
-              width: 90,
-              height: 70,
+              width: DIMEN_90,
+              height: DIMEN_70,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  width: DIMEN_2,
                 ),
               ),
               child: Column(
@@ -548,22 +548,22 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 children: [
                   Icon(
                     Icons.local_shipping,
-                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: DIMEN_8),
                   Text(
                     AGENT,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
                       color:
-                          index == selectedIndex ? Colors.black : Colors.grey,
+                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: DIMEN_16),
           ],
         ),
       ),
