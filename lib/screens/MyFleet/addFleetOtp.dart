@@ -40,6 +40,7 @@ class _AddFleetOtpState extends State<AddFleetOtp> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     var phoneNo = args['phoneNo'];
+    var partnerId = args['partnerId'];
 
     print(args);
 
@@ -118,10 +119,11 @@ class _AddFleetOtpState extends State<AddFleetOtp> {
                         ApiRequestBody.getVerifyAddFleetOtpRequest(
                           phoneNo,
                           otpPinEntered,
+                          partnerId
                         ),
                       );
                       if (response.isSuccess!) {
-                        if (response.data[RESPONSE]) {
+                        if (response.data) {
                           HttpScreenClient.displayDialogBox(
                               ADD_FLEET_SUCESSFULL);
                         } else {
