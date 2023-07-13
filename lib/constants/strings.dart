@@ -39,9 +39,9 @@ const String YOU_HAVE_BEEN_LOGGED_OUT =
 const String SAMHITA_VERIFICATION_SUCCESSFUL =
     "Samhita Verification Successful";
 const String SAMHITA_VERIFICATION_FAILED = "Samhita Verification Failed";
-const String ADD_FLEET_SUCESSFULL = "Fleet added successfully";
-const String ADD_FLEET_FAILED = "Fleet failed to add";
-const String ADD_FLEET_MESSAGE =
+const String ADD_AGENT_SUCESSFULL = "Agent added successfully";
+const String ADD_AGENT_FAILED = "Agent failed to add";
+const String ADD_AGENT_MESSAGE =
     "Partner with us to help grow our platform. Invite your friends to join and earn rewards for each person who signs up using your unique link.";
 const String REQUIRED_FIELD = "Please fill the required field";
 const String VALID_PHONE_NO = "Please enter a valid phone number";
