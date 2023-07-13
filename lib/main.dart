@@ -27,27 +27,23 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
-import 'package:lokal/screens/MyFleet/addFleet.dart';
-import 'package:lokal/screens/MyFleet/addFleetOtp.dart';
+import 'package:lokal/screens/agents/AddAgentScreen.dart';
+import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
-import 'package:lokal/screens/bts/ConfirmTowers.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
-import 'package:lokal/utils/storage/preference_constants.dart';
 
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:platform_device_id/platform_device_id.dart';
-import 'package:ui_sdk/components/UikMembership.dart';
-import 'package:ui_sdk/components/UikSearch.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
@@ -340,8 +336,8 @@ class _LokalAppState extends State<LokalApp> {
               UikOdOpScreen().page,
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) => SamhitaVerifyParticipant(),
-          ScreenRoutes.addFleetScreen: (context) => AddFleet(),
-          ScreenRoutes.addFleetOtp: (context) => AddFleetOtp(),
+          ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
+          ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen()
         },
       ),

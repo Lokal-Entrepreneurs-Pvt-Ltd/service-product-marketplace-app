@@ -20,6 +20,7 @@ class ApiRoutes {
   static const String forgetPassword = "/forgetPassword";
   static const String myAccountScreen = "/customer/account";
   static const String checkoutInit = "/checkout/initiate";
+  static const String addNewAddressScreen = "/checkout/getAddressScreen";
   static const String addAddressScreen = "/addaddressScreen";
   static const String couponScreen = "/cart/coupon/getAll";
   static const String myAddressScreen = "/customer/address";
@@ -60,6 +61,6 @@ class ApiRoutes {
       "/samhita/verifyParticipant";
   static const String odopScreen =
       "/odop/getDistrictHome";
-  static const String addFleetScreen = "/fleet/verifyPartner";
-  static const String verifyAddFleetOtp = "/fleet/verifyOtp";
+  static const String verifyAgentForPartner = "/agent/verifyPartner";
+  static const String verifyAddAgentOtp = "/agent/verifyOtp";
 }

@@ -49,7 +49,7 @@ class ScreenRoutes {
       "/samhitaVerifyParticipantForm";
   static const String samhitaOtp = "/samhitaOtp";
   static const String odOpHomeScreen = "/odopHomeScreen";
-  static const String addFleetScreen = "/addFleetScreen";
-  static const String addFleetOtp = "/addFleetOtp";
+  static const String addAgentScreen = "/addAgentScreen";
+  static const String addAgentOtpScreen = "/addAgentOtpScreen";
   static const String newOnboardingScreen = "/newOnboardingScreen";
 }

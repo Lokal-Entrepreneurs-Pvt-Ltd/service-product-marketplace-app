@@ -17,12 +17,12 @@ import '../../../constants/strings.dart';
 import '../../../utils/network/http/http_screen_client.dart';
 import '../../../widgets/UikButton/UikButton.dart';
 
-class AddFleetOtp extends StatefulWidget {
+class AddAgentOtpScreen extends StatefulWidget {
   @override
-  State<AddFleetOtp> createState() => _AddFleetOtpState();
+  State<AddAgentOtpScreen> createState() => _AddAgentOtpScreenState();
 }
 
-class _AddFleetOtpState extends State<AddFleetOtp> {
+class _AddAgentOtpScreenState extends State<AddAgentOtpScreen> {
   int Seconds = 20;
   String digitSeconds = "20";
   Timer? timer;
@@ -115,8 +115,8 @@ class _AddFleetOtpState extends State<AddFleetOtp> {
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
                     if (otpPinEntered.length == 6) {
-                      final response = await ApiRepository.verifyAddFleetOtp(
-                        ApiRequestBody.getVerifyAddFleetOtpRequest(
+                      final response = await ApiRepository.verifyAddAgentOtp(
+                        ApiRequestBody.getVerifyAddAgentOtpRequest(
                           phoneNo,
                           otpPinEntered,
                           partnerId
@@ -125,9 +125,9 @@ class _AddFleetOtpState extends State<AddFleetOtp> {
                       if (response.isSuccess!) {
                         if (response.data) {
                           HttpScreenClient.displayDialogBox(
-                              ADD_FLEET_SUCESSFULL);
+                              ADD_AGENT_SUCESSFULL);
                         } else {
-                          HttpScreenClient.displayDialogBox(ADD_FLEET_FAILED);
+                          HttpScreenClient.displayDialogBox(ADD_AGENT_FAILED);
                         }
                       } else {
                         UiUtils.showToast(response.error![MESSAGE]);
