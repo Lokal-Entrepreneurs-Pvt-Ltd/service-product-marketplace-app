@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Widgets/UikButton/UikButton.dart';
@@ -14,7 +15,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int selectedIndex = 0;
   String? selectedUserType;
-  List<String> userTypes = ['CUSTOMER', 'PARTNER', 'FLEET'];
+  List<String> userTypes = [CUSTOMER, PARTNER, AGENT];
   List<String> images = [
     "assets/images/Onboarding1.png",
     "assets/images/Onboarding2.png",
@@ -59,9 +60,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 100),
-                height: 520,
-                width: 375,
+                margin: EdgeInsets.only(top: DIMEN_100),
+                height: DIMEN_520,
+                width: DIMEN_375,
                 child: PageView.builder(
                     controller: _pageController,
                     itemBuilder: (context, index) {
@@ -75,7 +76,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           Container(
                             // decoration: const BoxDecoration(
                             //     color: Color.fromRGBO(0, 0, 0, 0.1)),
-                            margin: const EdgeInsets.fromLTRB(0, 375, 0, 0),
+                            margin: const EdgeInsets.fromLTRB(0, DIMEN_375, 0, 0),
                             width: double.infinity,
 
                             child: Column(
@@ -86,33 +87,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   style: GoogleFonts.poppins(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 32,
+                                    fontSize: DIMEN_32,
                                   ),
                                 ),
                                 const SizedBox(
-                                  height: 6,
+                                  height: DIMEN_6,
                                 ),
                                 Text(
                                   texts[index % texts.length][1],
                                   style: GoogleFonts.poppins(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 14,
+                                    fontSize: DIMEN_14,
                                   ),
                                 ),
                                 Container(
                                   padding:
-                                      const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                      const EdgeInsets.fromLTRB(0, DIMEN_20, 0, 0),
                                   child: SmoothPageIndicator(
                                     axisDirection: Axis.horizontal,
                                     controller: _pageController,
                                     effect: const ExpandingDotsEffect(
-                                      spacing: 4,
-                                      radius: 5,
+                                      spacing: DIMEN_4,
+                                      radius: DIMEN_5,
                                       activeDotColor: Colors.black,
-                                      dotHeight: 5,
-                                      dotWidth: 5,
-                                      expansionFactor: 2,
+                                      dotHeight: DIMEN_5,
+                                      dotWidth: DIMEN_5,
+                                      expansionFactor: DIMEN_2,
                                     ),
                                     count: 4,
                                   ),
@@ -127,11 +128,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Text(
                 ACCOUNT_TYPE,
                 style: GoogleFonts.poppins(
-                    fontSize: 14,
+                    fontSize: DIMEN_14,
                     fontWeight: FontWeight.w500,
                     color: Colors.black),
               ),
-              const SizedBox(height: 7,),
+              const SizedBox(height: DIMEN_7,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -141,11 +142,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ],
               ),
               Container(
-                margin: const EdgeInsets.only(left: 10, right: 10),
+                margin: const EdgeInsets.only(left: DIMEN_10, right: DIMEN_10),
                 child: UikButton(
                   text: CONTINUE,
                   backgroundColor: const Color(0xffFEE440),
                   onClick: () async {
+                    selectedUserType = userTypes[selectedIndex];
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -169,19 +171,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         onTap: () {
           setState(() {
             selectedIndex = index;
-            selectedUserType = userTypes[index];
           });
         },
         child: Column(
           children: [
             Container(
-              width: 90,
-              height: 70,
+              width: DIMEN_90,
+              height: DIMEN_70,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  width: DIMEN_2,
                 ),
               ),
               child: Column(
@@ -189,22 +191,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   Icon(
                     Icons.person,
-                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: DIMEN_8),
                   Text(
                     CUSTOMER,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
                       color:
-                          index == selectedIndex ? Colors.black : Colors.grey,
+                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: DIMEN_16),
           ],
         ),
       ),
@@ -212,19 +214,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         onTap: () {
           setState(() {
             selectedIndex = index;
-            selectedUserType = userTypes[index];
           });
         },
         child: Column(
           children: [
             Container(
-              width: 90,
-              height: 70,
+              width: DIMEN_90,
+              height: DIMEN_70,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  width: DIMEN_2,
                 ),
               ),
               child: Column(
@@ -232,22 +234,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   Icon(
                     Icons.business,
-                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: DIMEN_8),
                   Text(
                     PARTNER,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
                       color:
-                          index == selectedIndex ? Colors.black : Colors.grey,
+                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: DIMEN_16),
           ],
         ),
       ),
@@ -255,19 +257,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         onTap: () {
           setState(() {
             selectedIndex = index;
-            selectedUserType = userTypes[index];
           });
         },
         child: Column(
           children: [
             Container(
-              width: 90,
-              height: 70,
+              width: DIMEN_90,
+              height: DIMEN_70,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Colors.black : Colors.grey,
+                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  width: DIMEN_2,
                 ),
               ),
               child: Column(
@@ -275,22 +277,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   Icon(
                     Icons.local_shipping,
-                    color: index == selectedIndex ? Colors.black : Colors.grey,
+                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: DIMEN_8),
                   Text(
                     AGENT,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
                       color:
-                          index == selectedIndex ? Colors.black : Colors.grey,
+                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: DIMEN_16),
           ],
         ),
       ),
