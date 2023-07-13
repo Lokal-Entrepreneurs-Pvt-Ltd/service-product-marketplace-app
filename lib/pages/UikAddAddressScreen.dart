@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -42,7 +43,8 @@ class UikAddAddressScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return getMockedApiResponse;
+    // return getMockedApiResponse;
+    return ApiRepository.addAddressScreen;
   }
 
   void onAddressBookTapAction(UikAction uikAction) {

@@ -309,7 +309,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen().page,
+          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen(context).page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,

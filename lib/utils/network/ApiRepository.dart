@@ -111,6 +111,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.myAccountScreen, args);
   }
 
+  static Future<ApiResponse> addAddressScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.addAddressScreen, args);
+  }
+
   static Future<ApiResponse> getAddressBookScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.addressBook, args);
   }
