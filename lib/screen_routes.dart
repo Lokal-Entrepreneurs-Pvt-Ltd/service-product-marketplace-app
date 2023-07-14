@@ -52,4 +52,5 @@ class ScreenRoutes {
   static const String addFleetScreen = "/addFleetScreen";
   static const String addFleetOtp = "/addFleetOtp";
   static const String newOnboardingScreen = "/newOnboardingScreen";
+  static const String extraPayOptInScreen = "/extraPayOptInScreen";
 }

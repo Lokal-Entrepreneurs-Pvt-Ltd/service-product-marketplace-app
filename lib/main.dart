@@ -27,6 +27,7 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
+import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/MyFleet/addFleet.dart';
 import 'package:lokal/screens/MyFleet/addFleetOtp.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
@@ -299,6 +300,7 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
+          // "/": (context) => extraPayOptIn(),
           "/": (context) => UserDataHandler.getUserToken().isEmpty
               ? OnboardingScreen()
               : UikBottomNavigationBar(),
@@ -342,7 +344,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaVerifyParticipantForm: (context) => SamhitaVerifyParticipant(),
           ScreenRoutes.addFleetScreen: (context) => AddFleet(),
           ScreenRoutes.addFleetOtp: (context) => AddFleetOtp(),
-          ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen()
+          ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
+          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
         },
       ),
     );

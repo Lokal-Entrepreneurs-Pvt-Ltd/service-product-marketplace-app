@@ -62,4 +62,6 @@ class ApiRoutes {
       "/odop/getDistrictHome";
   static const String addFleetScreen = "/fleet/verifyPartner";
   static const String verifyAddFleetOtp = "/fleet/verifyOtp";
+  static const String submitExtraPayOptInForm =
+      "forms/extraPayOptIn";
 }

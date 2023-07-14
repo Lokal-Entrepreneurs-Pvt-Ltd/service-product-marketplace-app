@@ -87,6 +87,26 @@ class ApiRequestBody {
     };
   }
 
+  static submitExtraPayOptInRequest(
+    participantName,
+    mobile,
+    city,
+    region,
+    state,
+    aadharNo,
+    panNo,
+  ) {
+    return {
+      PARTICIPANT_NAME: participantName,
+      MOBILE: mobile,
+      CITY: city,
+      STATE: state,
+      REGION: region,
+      AADHAR_NUMBER: aadharNo,
+      PAN_NUMBER: panNo,
+    };
+  }
+
   static getVerifyAddFleetOtpRequest(String mobile, String otp, String partnerId) {
     return {MOBILE: mobile, OTP: otp, PARTNER_ID: partnerId};
   }
