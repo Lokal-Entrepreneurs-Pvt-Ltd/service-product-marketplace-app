@@ -43,6 +43,7 @@ const String ROLE = "role";
 const String ADDRESS_LINE_1 = "addressLine1";
 const String ADDRESS_LINE_2 = "addressLine2";
 const String CITY = "city";
+const String REGION = "region";
 const String STATE = "state";
 const String POSTCODE = "postcode";
 const String TELEPHONE = "telephone";
