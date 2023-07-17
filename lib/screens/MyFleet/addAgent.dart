@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
+import '../../constants/dimens.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
 import '../../screen_routes.dart';
@@ -11,14 +12,14 @@ import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
 
-class AddFleet extends StatefulWidget {
-  const AddFleet({super.key});
+class AddAgent extends StatefulWidget {
+  const AddAgent({super.key});
 
   @override
-  State<AddFleet> createState() => _AddFleetState();
+  State<AddAgent> createState() => _AddAgentState();
 }
 
-class _AddFleetState extends State<AddFleet> {
+class _AddAgentState extends State<AddAgent> {
   bool isAddFleetSelected = true;
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
@@ -45,16 +46,16 @@ class _AddFleetState extends State<AddFleet> {
         ),
         centerTitle: true, // Center aligns the title
         title: Text(
-          "My Fleet",
+          MY_AGENT,
           style: GoogleFonts.poppins(
-            fontSize: 16,
+            fontSize: DIMEN_16,
             fontWeight: FontWeight.w500,
             color: const Color(0xff212121),
           ),
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
+        margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
         child: ListView(
           children: [
             Row(
@@ -70,9 +71,9 @@ class _AddFleetState extends State<AddFleet> {
                         });
                       },
                       child: Text(
-                        'Add Fleet',
+                        ADD_AGENT,
                         style: GoogleFonts.poppins(
-                          fontSize: 18,
+                          fontSize: DIMEN_18,
                           fontWeight: FontWeight.w500,
                           color:
                               isAddFleetSelected ? Colors.black : Colors.grey,
@@ -91,9 +92,9 @@ class _AddFleetState extends State<AddFleet> {
                         });
                       },
                       child: Text(
-                        'Manage Fleets',
+                        MANAGE_AGENT,
                         style: GoogleFonts.poppins(
-                          fontSize: 18,
+                          fontSize: DIMEN_18,
                           fontWeight: FontWeight.w500,
                           color:
                               isAddFleetSelected ? Colors.grey : Colors.black,
@@ -105,28 +106,28 @@ class _AddFleetState extends State<AddFleet> {
               ],
             ),
             Text(
-              'Become a Growth Partner',
+              GROWTH_PARTNER,
               style: GoogleFonts.poppins(
-                fontSize: 26,
+                fontSize: DIMEN_26,
                 fontWeight: FontWeight.w600,
                 color: const Color(0xff212121),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: DIMEN_20,
             ),
             Text(
-              ADD_FLEET_MESSAGE,
+              ADD_AGENT_MESSAGE,
               style: GoogleFonts.poppins(
-                fontSize: 20,
+                fontSize: DIMEN_20,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xff212121),
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: DIMEN_20,
             ),
-            const Text('Name'),
+            const Text(BTS_NAME),
             TextField(
               controller: _nameController,
               decoration: InputDecoration(
@@ -145,17 +146,15 @@ class _AddFleetState extends State<AddFleet> {
                 }
               },
             ),
-            const SizedBox(height: 16.0),
-            const Text('Phone Number'),
+            const SizedBox(height: DIMEN_16),
+            const Text(BTS_PHONE_NUMBER),
             TextField(
               controller: _phoneNumberController,
               keyboardType: TextInputType.phone,
               maxLength: 10,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                errorText: _phoneNumberValid
-                    ? null
-                    : VALID_PHONE_NO,
+                errorText: _phoneNumberValid ? null : VALID_PHONE_NO,
               ),
               onChanged: (value) {
                 phoneNo = value;
@@ -170,31 +169,31 @@ class _AddFleetState extends State<AddFleet> {
                 }
               },
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: DIMEN_16),
             const Text(PARTNER_ID),
-              TextField(
-                controller: _partnerIdController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  errorText: _partnerIdRequired ? null : REQUIRED_FIELD,
-                ),
-                onChanged: (value) {
-                  partnerId = value;
-                  if (value.length == 0) {
-                    setState(() {
-                      _partnerIdRequired = false;
-                    });
-                  } else {
-                    setState(() {
-                      _partnerIdRequired = true;
-                    });
-                  }
-                },
+            TextField(
+              controller: _partnerIdController,
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                errorText: _partnerIdRequired ? null : REQUIRED_FIELD,
               ),
-              const SizedBox(height: 16.0),
+              onChanged: (value) {
+                partnerId = value;
+                if (value.length == 0) {
+                  setState(() {
+                    _partnerIdRequired = false;
+                  });
+                } else {
+                  setState(() {
+                    _partnerIdRequired = true;
+                  });
+                }
+              },
+            ),
+            const SizedBox(height: DIMEN_16),
             _requiredFields
                 ? Container(
-                    margin: const EdgeInsets.only(bottom: 10),
+                    margin: const EdgeInsets.only(bottom: DIMEN_10),
                     child: const Text(
                       REQUIRED_FIELD,
                       style: TextStyle(color: Colors.red),
@@ -203,8 +202,8 @@ class _AddFleetState extends State<AddFleet> {
                   )
                 : const SizedBox(),
             Container(
-              height: 60,
-              margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
+              height: DIMEN_60,
+              margin: const EdgeInsets.only(left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
               child: ElevatedButton(
                 onPressed: () async {
                   if (_nameController.text.isEmpty) {
@@ -214,8 +213,8 @@ class _AddFleetState extends State<AddFleet> {
                     _phoneNumberValid = false;
                   }
                   if (_partnerIdController.text.isEmpty) {
-                      _partnerIdRequired = false;
-                    }
+                    _partnerIdRequired = false;
+                  }
                   if (!_partnerIdController.text.isEmpty &&
                       !_nameController.text.isEmpty &&
                       _phoneNumberValid) {
@@ -234,9 +233,13 @@ class _AddFleetState extends State<AddFleet> {
                     NavigationUtils.pop();
                     if (response.isSuccess!) {
                       if (response.data) {
-                        Navigator.pushNamed(context, ScreenRoutes.addFleetOtp, arguments: {'phoneNo': phoneNo, 'partnerId': partnerId});
+                        Navigator.pushNamed(context, ScreenRoutes.addFleetOtp,
+                            arguments: {
+                              'phoneNo': phoneNo,
+                              'partnerId': partnerId
+                            });
                       } else {
-                        HttpScreenClient.displayDialogBox("Error!!");
+                        HttpScreenClient.displayDialogBox(ADD_AGENT_FAILED);
                       }
                     } else {
                       UiUtils.showToast(response.error![MESSAGE]);
@@ -246,7 +249,7 @@ class _AddFleetState extends State<AddFleet> {
                   }
                   setState(() {});
                 },
-                child: const Text('Send Request'),
+                child: const Text(SUBMIT),
               ),
             ),
           ],

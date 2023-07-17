@@ -60,8 +60,8 @@ class ApiRoutes {
       "/samhita/verifyParticipant";
   static const String odopScreen =
       "/odop/getDistrictHome";
-  static const String addFleetScreen = "/fleet/verifyPartner";
-  static const String verifyAddFleetOtp = "/fleet/verifyOtp";
+  static const String addFleetScreen = "/agent/verifyPartner";
+  static const String verifyAddFleetOtp = "/agent/verifyOtp";
   static const String submitExtraPayOptInForm =
       "/easyOptIn/add";
 }

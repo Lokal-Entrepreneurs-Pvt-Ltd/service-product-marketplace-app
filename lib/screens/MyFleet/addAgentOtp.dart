@@ -17,12 +17,12 @@ import '../../../constants/strings.dart';
 import '../../../utils/network/http/http_screen_client.dart';
 import '../../../widgets/UikButton/UikButton.dart';
 
-class AddFleetOtp extends StatefulWidget {
+class AddAgentOtp extends StatefulWidget {
   @override
-  State<AddFleetOtp> createState() => _AddFleetOtpState();
+  State<AddAgentOtp> createState() => _AddAgentOtpState();
 }
 
-class _AddFleetOtpState extends State<AddFleetOtp> {
+class _AddAgentOtpState extends State<AddAgentOtp> {
   int Seconds = 20;
   String digitSeconds = "20";
   Timer? timer;
@@ -81,53 +81,50 @@ class _AddFleetOtpState extends State<AddFleetOtp> {
                 Text(
                   "We sent it to $phoneNo",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: DIMEN_16,
                     fontWeight: FontWeight.w400,
                     color: HexColor("#9E9E9E"),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: DIMEN_20),
             OTPTextField(
               length: 6,
               width: double.infinity,
-              fieldWidth: 40,
-              style: const TextStyle(fontSize: 18),
+              fieldWidth: DIMEN_40,
+              style: const TextStyle(fontSize: DIMEN_18),
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
               onCompleted: (pin) {
                 otpPinEntered = pin;
               },
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: DIMEN_20),
             const SizedBox(
-              height: 16,
+              height: DIMEN_16,
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DIMEN_16),
               child: SizedBox(
-                height: 64,
-                width: 327,
+                height: DIMEN_64,
+                width: DIMEN_327,
                 child: UikButton(
                   text: CONTINUE,
-                  widthSize: 327,
+                  widthSize: DIMEN_327,
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
                     if (otpPinEntered.length == 6) {
                       final response = await ApiRepository.verifyAddFleetOtp(
                         ApiRequestBody.getVerifyAddFleetOtpRequest(
-                          phoneNo,
-                          otpPinEntered,
-                          partnerId
-                        ),
+                            phoneNo, otpPinEntered, partnerId),
                       );
                       if (response.isSuccess!) {
                         if (response.data) {
                           HttpScreenClient.displayDialogBox(
-                              ADD_FLEET_SUCESSFULL);
+                              ADD_AGENT_SUCESSFULL);
                         } else {
-                          HttpScreenClient.displayDialogBox(ADD_FLEET_FAILED);
+                          HttpScreenClient.displayDialogBox(ADD_AGENT_FAILED);
                         }
                       } else {
                         UiUtils.showToast(response.error![MESSAGE]);
@@ -138,7 +135,7 @@ class _AddFleetOtpState extends State<AddFleetOtp> {
               ),
             ),
             const SizedBox(
-              height: 18,
+              height: DIMEN_18,
             ),
             Center(
               child: Text(

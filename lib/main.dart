@@ -28,8 +28,8 @@ import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
-import 'package:lokal/screens/MyFleet/addFleet.dart';
-import 'package:lokal/screens/MyFleet/addFleetOtp.dart';
+import 'package:lokal/screens/MyFleet/addAgent.dart';
+import 'package:lokal/screens/MyFleet/addAgentOtp.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
@@ -65,7 +65,6 @@ import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
-
 
 AppInitializer? appInit;
 
@@ -310,7 +309,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen(context).page,
+          ScreenRoutes.myAddressScreen: (context) =>
+              UikMyAddressScreen(context).page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -336,13 +336,14 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
           ScreenRoutes.samhitaAddParticipantForm: (context) =>
               SamhitaAddParticipants(),
-          ScreenRoutes.samhitaBecomeParticipantForm: (context) => SamhitaBecomeParticipant(),
-          ScreenRoutes.odOpHomeScreen: (context) =>
-              UikOdOpScreen().page,
+          ScreenRoutes.samhitaBecomeParticipantForm: (context) =>
+              SamhitaBecomeParticipant(),
+          ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
-          ScreenRoutes.samhitaVerifyParticipantForm: (context) => SamhitaVerifyParticipant(),
-          ScreenRoutes.addFleetScreen: (context) => AddFleet(),
-          ScreenRoutes.addFleetOtp: (context) => AddFleetOtp(),
+          ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
+              SamhitaVerifyParticipant(),
+          ScreenRoutes.addFleetScreen: (context) => AddAgent(),
+          ScreenRoutes.addFleetOtp: (context) => AddAgentOtp(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
         },
