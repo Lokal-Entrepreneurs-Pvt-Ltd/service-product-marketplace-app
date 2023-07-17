@@ -88,22 +88,24 @@ class ApiRequestBody {
   }
 
   static submitExtraPayOptInRequest(
-    participantName,
+    name,
     mobile,
     city,
     region,
     state,
-    aadharNo,
-    panNo,
+    aadhar,
+    pan,
   ) {
     return {
-      PARTICIPANT_NAME: participantName,
+      NAME: name,
       MOBILE: mobile,
-      CITY: city,
-      STATE: state,
-      REGION: region,
-      AADHAR_NUMBER: aadharNo,
-      PAN_NUMBER: panNo,
+      AADHAR: aadhar,
+      PAN: pan,
+      LOCATION: {
+        CITY: city,
+        REGION: region,
+        STATE: state,
+      }
     };
   }
 

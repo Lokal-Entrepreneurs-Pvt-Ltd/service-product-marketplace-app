@@ -300,7 +300,6 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          // "/": (context) => extraPayOptIn(),
           "/": (context) => UserDataHandler.getUserToken().isEmpty
               ? OnboardingScreen()
               : UikBottomNavigationBar(),
