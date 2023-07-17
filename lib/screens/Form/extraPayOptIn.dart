@@ -67,22 +67,22 @@ class _extraPayOptInState extends State<extraPayOptIn> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
+          margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
           child: ListView(
             children: [
               // Image.asset("assets/images/Samhita.png"),
               const SizedBox(
-                height: 10,
+                height: DIMEN_10,
               ),
               Text(
-                'Extra Pay OptIn',
+                EXTRA_PAY_OPT_IN,
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold, fontSize: 16),
+                    fontWeight: FontWeight.bold, fontSize: DIMEN_16),
               ),
               const SizedBox(
-                height: 10,
+                height: DIMEN_10,
               ),
-              const Text('Name'),
+              const Text(BTS_NAME),
               TextField(
                 controller: _nameController,
                 decoration: InputDecoration(
@@ -101,8 +101,8 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
-              const Text('Phone Number'),
+              const SizedBox(height: DIMEN_16),
+              const Text(BTS_PHONE_NUMBER),
               TextField(
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
@@ -127,7 +127,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   }
                 },
               ),
-              const Text('City'),
+              const Text(ENTER_CITY),
               TextField(
                 controller: _cityController,
                 decoration: InputDecoration(
@@ -146,8 +146,8 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
-              const Text('Region'),
+              const SizedBox(height: DIMEN_16),
+              const Text(ENTER_REGION),
               TextField(
                 controller: _regionController,
                 decoration: InputDecoration(
@@ -166,8 +166,8 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
-              const Text('State'),
+              const SizedBox(height: DIMEN_16),
+              const Text(ENTER_STATE),
               TextField(
                 controller: _stateController,
                 decoration: InputDecoration(
@@ -186,8 +186,8 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
-              const Text('Aadhar Number'),
+              const SizedBox(height: DIMEN_16),
+              const Text(ENTER_AADHAR),
               TextField(
                 controller: _aadharController,
                 decoration: InputDecoration(
@@ -206,8 +206,8 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
-              const Text('PAN Number'),
+              const SizedBox(height: DIMEN_16),
+              const Text(ENTER_PAN),
               TextField(
                 controller: _panController,
                 decoration: InputDecoration(
@@ -226,10 +226,10 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: DIMEN_16),
               _requiredFields
                   ? Container(
-                      margin: const EdgeInsets.only(bottom: 10),
+                      margin: const EdgeInsets.only(bottom: DIMEN_10),
                       child: const Text(
                         REQUIRED_FIELD,
                         style: TextStyle(color: Colors.red),
@@ -238,8 +238,8 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                     )
                   : const SizedBox(),
               Container(
-                height: 60,
-                margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
+                height: DIMEN_60,
+                margin: const EdgeInsets.only(left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_nameController.text.isEmpty) {
@@ -290,9 +290,11 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                       NavigationUtils.pop();
                       if (response.isSuccess!) {
                         if (response.data) {
+                          HttpScreenClient.displayDialogBox(
+                              EXTRAPAY_VERIFICATION_SUCCESSFUL);
                         } else {
                           HttpScreenClient.displayDialogBox(
-                              SAMHITA_VERIFICATION_FAILED);
+                              EXTRAPAY_VERIFICATION_FAILED);
                         }
                       } else {
                         UiUtils.showToast(response.error![MESSAGE]);
@@ -302,7 +304,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                     }
                     setState(() {});
                   },
-                  child: const Text('Submit'),
+                  child: const Text(SUBMIT),
                 ),
               ),
             ],
