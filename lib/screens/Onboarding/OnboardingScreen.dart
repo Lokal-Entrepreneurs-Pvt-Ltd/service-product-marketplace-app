@@ -22,11 +22,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     "assets/images/Onboarding3.png",
   ];
   List<List<String>> texts = [
-    ["Brand that earn!", "Join 2000+ Lokal Partners across India"],
-    ["Internet that navigate", "Fast internet to unconnected corners of india"],
+    [BRAND_THAT_EARN, JOIN_LOKAL],
+    [INTERNET_NAVIGATE, FAST_INTERNET],
     [
-      "Services that connect",
-      "Having services that helps to reach more people"
+      SERVICES_CONNECT,
+      SERVICES_MSG
     ],
   ];
   int _currentPage = 0;

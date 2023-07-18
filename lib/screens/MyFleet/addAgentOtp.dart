@@ -53,7 +53,7 @@ class _AddAgentOtpState extends State<AddAgentOtp> {
           icon: const Icon(
             Icons.arrow_back_outlined,
             color: Colors.black,
-            size: 34,
+            size: DIMEN_34,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -61,7 +61,7 @@ class _AddAgentOtpState extends State<AddAgentOtp> {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DIMEN_16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -141,7 +141,7 @@ class _AddAgentOtpState extends State<AddAgentOtp> {
               child: Text(
                 "New code 00:$digitSeconds",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: DIMEN_16,
                   fontWeight: FontWeight.w500,
                   color: HexColor(HEX_GRAY),
                 ),
