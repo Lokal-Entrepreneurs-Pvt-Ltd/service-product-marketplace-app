@@ -55,7 +55,8 @@ class _AddAgentState extends State<AddAgent> {
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
+        margin: const EdgeInsets.only(
+            left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
         child: ListView(
           children: [
             Row(
@@ -135,7 +136,8 @@ class _AddAgentState extends State<AddAgent> {
                 errorText: _nameRequired ? null : REQUIRED_FIELD,
               ),
               onChanged: (value) {
-                if (value.length == 0) {
+                final bool isValidName = UiUtils.isNameValid(value);
+                if (value.isEmpty || !isValidName) {
                   setState(() {
                     _nameRequired = false;
                   });
@@ -203,11 +205,19 @@ class _AddAgentState extends State<AddAgent> {
                 : const SizedBox(),
             Container(
               height: DIMEN_60,
-              margin: const EdgeInsets.only(left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
+              margin: const EdgeInsets.only(
+                  left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
               child: ElevatedButton(
                 onPressed: () async {
-                  if (_nameController.text.isEmpty) {
+                  if (_nameController.text.isEmpty || !_nameRequired) {
                     _nameRequired = false;
+                    setState(() {});
+                    return;
+                  }
+                  final bool isValidName =
+                      UiUtils.isNameValid(_nameController.text);
+                  if (!isValidName) {
+                    return; // Stop form submission
                   }
                   if (_phoneNumberController.text.isEmpty) {
                     _phoneNumberValid = false;
