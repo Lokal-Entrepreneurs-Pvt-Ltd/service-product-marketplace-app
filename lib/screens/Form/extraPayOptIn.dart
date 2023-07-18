@@ -26,8 +26,7 @@ class extraPayOptIn extends StatefulWidget {
   extraPayOptIn({super.key});
 
   @override
-  State<extraPayOptIn> createState() =>
-      _extraPayOptInState();
+  State<extraPayOptIn> createState() => _extraPayOptInState();
 }
 
 class _extraPayOptInState extends State<extraPayOptIn> {
@@ -51,8 +50,6 @@ class _extraPayOptInState extends State<extraPayOptIn> {
   bool _aadharRequired = true;
   bool _panRequired = true;
   bool _requiredFields = false;
-  String phoneNo = "";
-  String samhitaId = "";
 
   @override
   void dispose() {
@@ -67,17 +64,21 @@ class _extraPayOptInState extends State<extraPayOptIn> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
+          margin: const EdgeInsets.only(
+              left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
           child: ListView(
             children: [
-              // Image.asset("assets/images/Samhita.png"),
+              Image.asset("assets/images/extraPayFormImage.png"),
               const SizedBox(
-                height: DIMEN_10,
+                height: DIMEN_15,
               ),
               Text(
                 EXTRA_PAY_OPT_IN,
+                textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold, fontSize: DIMEN_16),
+                  fontWeight: FontWeight.bold,
+                  fontSize: DIMEN_24,
+                ),
               ),
               const SizedBox(
                 height: DIMEN_10,
@@ -87,7 +88,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                 controller: _nameController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  errorText: _nameRequired ? null : REQUIRED_FIELD,
+                  errorText: _nameRequired ? null : VALID_NAME,
                 ),
                 onChanged: (value) {
                   if (value.length == 0) {
@@ -109,18 +110,14 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                 maxLength: 10,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  errorText: _phoneNumberValid
-                      ? null
-                      : VALID_PHONE_NO,
+                  errorText: _phoneNumberValid ? null : VALID_PHONE_NO,
                 ),
                 onChanged: (value) {
-                  phoneNo = value;
                   if (value.length < 10) {
                     setState(() {
                       _phoneNumberValid = false;
                     });
-                  }
-                  else {
+                  } else {
                     setState(() {
                       _phoneNumberValid = true;
                     });
@@ -239,7 +236,8 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   : const SizedBox(),
               Container(
                 height: DIMEN_60,
-                margin: const EdgeInsets.only(left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
+                margin: const EdgeInsets.only(
+                    left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_nameController.text.isEmpty) {
@@ -272,9 +270,9 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                         _phoneNumberValid) {
                       _requiredFields = false;
                       NavigationUtils.showLoaderOnTop();
-                      final response = await ApiRepository
-                          .submitExtraPayOptInForm(ApiRequestBody
-                              .submitExtraPayOptInRequest(
+                      final response =
+                          await ApiRepository.submitExtraPayOptInForm(
+                              ApiRequestBody.submitExtraPayOptInRequest(
                         _nameController.text,
                         _phoneNumberController.text,
                         _cityController.text,
