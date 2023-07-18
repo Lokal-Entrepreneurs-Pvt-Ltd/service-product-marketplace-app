@@ -31,6 +31,10 @@ class UiUtils {
         .hasMatch(email);
   }
 
+  static bool isNameValid(String name) {
+    return RegExp(r'^[a-zA-Z ]+$').hasMatch(name);
+  }
+
   static void showFeedbackPanel(BuildContext context) {
     if (kDebugMode) {
       BetterFeedback.of(context).show((UserFeedback feedback) {
