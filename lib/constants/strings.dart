@@ -51,6 +51,7 @@ const String ADD_AGENT_FAILED = "Fleet failed to add";
 const String ADD_AGENT_MESSAGE =
     "Partner with us to help grow our platform. Invite your friends to join and earn rewards for each person who signs up using your unique link.";
 const String REQUIRED_FIELD = "Please fill the required field";
+const String VALID_NAME = "Kindly enter a valid name";
 const String VALID_PHONE_NO = "Please enter a valid phone number";
 const String VALID_EMAIL = "Please enter a valid email";
 const String ACCOUNT_TYPE = "Choose Account Type";
@@ -72,3 +73,6 @@ const String MY_AGENT = "My Agent";
 const String ADD_AGENT = "Add Agent";
 const String MANAGE_AGENT = "Manage Agent";
 const String GROWTH_PARTNER = "Become a Growth Partner";
+const String VERIFY_PARTICIPANT = "Verify Participant";
+const String BTS_SAMHITA_ID = "Samhita Id";
+const String PROVIDE_FEEDBACK = "Provide Feedback";
