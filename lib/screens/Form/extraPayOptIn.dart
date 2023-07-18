@@ -68,10 +68,6 @@ class _extraPayOptInState extends State<extraPayOptIn> {
               left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
           child: ListView(
             children: [
-              Image.asset("assets/images/extraPayFormImage.png"),
-              const SizedBox(
-                height: DIMEN_15,
-              ),
               Text(
                 EXTRA_PAY_OPT_IN,
                 textAlign: TextAlign.center,
@@ -81,7 +77,11 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                 ),
               ),
               const SizedBox(
-                height: DIMEN_10,
+                height: DIMEN_15,
+              ),
+              Image.asset("assets/images/extraPayFormImage.png"),
+              const SizedBox(
+                height: DIMEN_24,
               ),
               const Text(BTS_NAME),
               TextField(
