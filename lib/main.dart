@@ -65,6 +65,7 @@ import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
+import 'package:feedback/feedback.dart';
 
 AppInitializer? appInit;
 
@@ -81,7 +82,9 @@ void main() async {
   Environment().initConfig(environment);
 
   runApp(
-    LokalApp(),
+    BetterFeedback(
+      child: LokalApp(),
+    )
   );
 
   //
