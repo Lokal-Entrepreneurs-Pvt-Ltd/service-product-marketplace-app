@@ -1,3 +1,5 @@
+import 'package:feedback/feedback.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,5 +29,13 @@ class UiUtils {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
         .hasMatch(email);
+  }
+
+  static void showFeedbackPanel(BuildContext context) {
+    if (kDebugMode) {
+      BetterFeedback.of(context).show((UserFeedback feedback) {
+        print(feedback);
+      });
+    }
   }
 }
