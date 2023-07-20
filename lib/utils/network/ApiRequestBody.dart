@@ -87,6 +87,7 @@ class ApiRequestBody {
     };
   }
 
+
   static submitExtraPayOptInRequest(
     name,
     mobile,
@@ -109,11 +110,11 @@ class ApiRequestBody {
     };
   }
 
-  static getVerifyAddFleetOtpRequest(String mobile, String otp, String partnerId) {
+  static getVerifyAddAgentOtpRequest(String mobile, String otp, String partnerId) {
     return {MOBILE: mobile, OTP: otp, PARTNER_ID: partnerId};
   }
 
-  static submitAddFleetScreenFormRequest(String partnerName, String mobile, String partnerId) {
+  static submitAddAgentScreenFormRequest(String partnerName, String mobile, String partnerId) {
     return {PARTNER_NAME: partnerName, MOBILE: mobile, PARTNER_ID: partnerId};
   }
 
