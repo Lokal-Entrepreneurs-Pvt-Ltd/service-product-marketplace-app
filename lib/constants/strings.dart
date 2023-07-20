@@ -46,8 +46,8 @@ const String SAMHITA_VERIFICATION_SUCCESSFUL =
 const String SAMHITA_VERIFICATION_FAILED = "Samhita Verification Failed";
 const String EXTRAPAY_VERIFICATION_SUCCESSFUL = "Verification Successful";
 const String EXTRAPAY_VERIFICATION_FAILED = "Verification Failed";
-const String ADD_AGENT_SUCESSFULL = "Fleet added successfully";
-const String ADD_AGENT_FAILED = "Fleet failed to add";
+const String ADD_AGENT_SUCESSFULL = "Agent added successfully";
+const String ADD_AGENT_FAILED = "Agent failed to add";
 const String ADD_AGENT_MESSAGE =
     "Partner with us to help grow our platform. Invite your friends to join and earn rewards for each person who signs up using your unique link.";
 const String REQUIRED_FIELD = "Please fill the required field";
