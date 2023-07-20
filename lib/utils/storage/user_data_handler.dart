@@ -39,8 +39,8 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(EMAIL, email);
   }
 
-  static String getUserId() {
-    return PreferenceUtils.getString(USER_ID, "");
+  static int getUserId() {
+    return PreferenceUtils.getInt(USER_ID, 0);
   }
 
   static void saveUserId(int userId) {

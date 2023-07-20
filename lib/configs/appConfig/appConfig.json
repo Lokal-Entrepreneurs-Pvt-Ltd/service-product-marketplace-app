@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "userParams": {
+    "bottomTabs": {
+      "partner": [
+        "partnerHome",
+        "partnerProfile",
+        "games"
+      ],
+      "agent": [
+        "agentHome",
+        "agentProfile",
+        "games"
+      ],
+      "user": [
+        "userHome",
+        "userProfile",
+        "games"
+      ]
+    }
+  }
+}
