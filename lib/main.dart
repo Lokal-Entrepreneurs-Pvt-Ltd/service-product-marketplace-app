@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lokal/configs/appConfig/appConfigDataHandler.dart';
 import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
@@ -61,14 +62,14 @@ import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 
-
 AppInitializer? appInit;
 
 void main() async {
   appInit = new AppInitializer();
   await appInit?.init();
-
   WidgetsFlutterBinding.ensureInitialized();
+  final appConfigDataHandler = AppConfigDataHandler();
+  await appConfigDataHandler.init();
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(
     ENVIRONMENT_KEY,
@@ -331,11 +332,12 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
           ScreenRoutes.samhitaAddParticipantForm: (context) =>
               SamhitaAddParticipants(),
-          ScreenRoutes.samhitaBecomeParticipantForm: (context) => SamhitaBecomeParticipant(),
-          ScreenRoutes.odOpHomeScreen: (context) =>
-              UikOdOpScreen().page,
+          ScreenRoutes.samhitaBecomeParticipantForm: (context) =>
+              SamhitaBecomeParticipant(),
+          ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
-          ScreenRoutes.samhitaVerifyParticipantForm: (context) => SamhitaVerifyParticipant(),
+          ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
+              SamhitaVerifyParticipant(),
           ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen()
