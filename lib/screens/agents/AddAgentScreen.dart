@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 import '../../constants/json_constants.dart';
@@ -11,25 +12,21 @@ import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
 
-class AddFleet extends StatefulWidget {
-  const AddFleet({super.key});
+class AddAgentScreen extends StatefulWidget {
+  const AddAgentScreen({super.key});
 
   @override
-  State<AddFleet> createState() => _AddFleetState();
+  State<AddAgentScreen> createState() => _AddAgentScreenState();
 }
 
-class _AddFleetState extends State<AddFleet> {
-  bool isAddFleetSelected = true;
+class _AddAgentScreenState extends State<AddAgentScreen> {
+  bool isAddAgentSelected = true;
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
-  final _partnerIdController = TextEditingController();
   bool _phoneNumberValid = true;
   bool _nameRequired = true;
-  bool _partnerIdRequired = true;
-  bool _requiredFields = false;
   int? selected;
   String phoneNo = "";
-  String partnerId = "";
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class _AddFleetState extends State<AddFleet> {
         ),
         centerTitle: true, // Center aligns the title
         title: Text(
-          "My Fleet",
+          "My Agents",
           style: GoogleFonts.poppins(
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -66,16 +63,16 @@ class _AddFleetState extends State<AddFleet> {
                     child: TextButton(
                       onPressed: () {
                         setState(() {
-                          isAddFleetSelected = true;
+                          isAddAgentSelected = true;
                         });
                       },
                       child: Text(
-                        'Add Fleet',
+                        'Add Agent',
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           color:
-                              isAddFleetSelected ? Colors.black : Colors.grey,
+                              isAddAgentSelected ? Colors.black : Colors.grey,
                         ),
                       ),
                     ),
@@ -87,16 +84,16 @@ class _AddFleetState extends State<AddFleet> {
                     child: TextButton(
                       onPressed: () {
                         setState(() {
-                          isAddFleetSelected = false;
+                          isAddAgentSelected = false;
                         });
                       },
                       child: Text(
-                        'Manage Fleets',
+                        'Manage Agents',
                         style: GoogleFonts.poppins(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           color:
-                              isAddFleetSelected ? Colors.grey : Colors.black,
+                              isAddAgentSelected ? Colors.grey : Colors.black,
                         ),
                       ),
                     ),
@@ -116,7 +113,7 @@ class _AddFleetState extends State<AddFleet> {
               height: 20,
             ),
             Text(
-              ADD_FLEET_MESSAGE,
+              ADD_AGENT_MESSAGE,
               style: GoogleFonts.poppins(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
@@ -171,37 +168,6 @@ class _AddFleetState extends State<AddFleet> {
               },
             ),
             const SizedBox(height: 16.0),
-            const Text(PARTNER_ID),
-              TextField(
-                controller: _partnerIdController,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  errorText: _partnerIdRequired ? null : REQUIRED_FIELD,
-                ),
-                onChanged: (value) {
-                  partnerId = value;
-                  if (value.length == 0) {
-                    setState(() {
-                      _partnerIdRequired = false;
-                    });
-                  } else {
-                    setState(() {
-                      _partnerIdRequired = true;
-                    });
-                  }
-                },
-              ),
-              const SizedBox(height: 16.0),
-            _requiredFields
-                ? Container(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    child: const Text(
-                      REQUIRED_FIELD,
-                      style: TextStyle(color: Colors.red),
-                      textAlign: TextAlign.center,
-                    ),
-                  )
-                : const SizedBox(),
             Container(
               height: 60,
               margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
@@ -213,20 +179,13 @@ class _AddFleetState extends State<AddFleet> {
                   if (_phoneNumberController.text.isEmpty) {
                     _phoneNumberValid = false;
                   }
-                  if (_partnerIdController.text.isEmpty) {
-                      _partnerIdRequired = false;
-                    }
-                  if (!_partnerIdController.text.isEmpty &&
-                      !_nameController.text.isEmpty &&
-                      _phoneNumberValid) {
-                    _requiredFields = false;
                     NavigationUtils.showLoaderOnTop();
                     final response =
-                        await ApiRepository.submitAddFleetScreenForm(
-                            ApiRequestBody.submitAddFleetScreenFormRequest(
+                        await ApiRepository.verifyAgentForPartner(
+                            ApiRequestBody.submitAddAgentScreenFormRequest(
                       _nameController.text,
                       _phoneNumberController.text,
-                      _partnerIdController.text,
+                      UserDataHandler.getUserId().toString(),
                     )).catchError((err) {
                       NavigationUtils.pop();
                       UiUtils.showToast(err);
@@ -234,18 +193,16 @@ class _AddFleetState extends State<AddFleet> {
                     NavigationUtils.pop();
                     if (response.isSuccess!) {
                       if (response.data) {
-                        Navigator.pushNamed(context, ScreenRoutes.addFleetOtp, arguments: {'phoneNo': phoneNo, 'partnerId': partnerId});
+                        Navigator.pushNamed(context, ScreenRoutes.addAgentOtpScreen, arguments: {'phoneNo': phoneNo, 'partnerId':  UserDataHandler.getUserId().toString()});
                       } else {
                         HttpScreenClient.displayDialogBox("Error!!");
                       }
                     } else {
                       UiUtils.showToast(response.error![MESSAGE]);
                     }
-                  } else {
-                    _requiredFields = true;
+                     setState(() {});
                   }
-                  setState(() {});
-                },
+                ,
                 child: const Text('Send Request'),
               ),
             ),
