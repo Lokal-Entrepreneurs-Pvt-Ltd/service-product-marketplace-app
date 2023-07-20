@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lokal/configs/appConfig/appConfigDataHandler.dart';
 import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
@@ -28,27 +29,23 @@ import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
-import 'package:lokal/screens/MyFleet/addAgent.dart';
-import 'package:lokal/screens/MyFleet/addAgentOtp.dart';
+import 'package:lokal/screens/agents/AddAgentScreen.dart';
+import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
-import 'package:lokal/screens/bts/ConfirmTowers.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
-import 'package:lokal/utils/storage/preference_constants.dart';
 
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:platform_device_id/platform_device_id.dart';
-import 'package:ui_sdk/components/UikMembership.dart';
-import 'package:ui_sdk/components/UikSearch.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
@@ -67,13 +64,15 @@ import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 import 'package:feedback/feedback.dart';
 
+
 AppInitializer? appInit;
 
 void main() async {
   appInit = new AppInitializer();
   await appInit?.init();
-
   WidgetsFlutterBinding.ensureInitialized();
+  final appConfigDataHandler = AppConfigDataHandler();
+  await appConfigDataHandler.init();
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(
     ENVIRONMENT_KEY,
@@ -345,10 +344,10 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
               SamhitaVerifyParticipant(),
-          ScreenRoutes.addFleetScreen: (context) => AddAgent(),
-          ScreenRoutes.addFleetOtp: (context) => AddAgentOtp(),
-          ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
+          ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
+          ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
+          ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen()
         },
       ),
     );
