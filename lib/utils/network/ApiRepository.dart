@@ -217,13 +217,19 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.odopScreen, args);
   }
 
-  static Future<ApiResponse> verifyAddFleetOtp(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAddFleetOtp, args);
+  static Future<ApiResponse> verifyAddAgentOtp(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAddAgentOtp, args);
   }
 
-  static Future<ApiResponse> submitAddFleetScreenForm(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.addFleetScreen, args);
+  static Future<ApiResponse> verifyAgentForPartner(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAgentForPartner, args);
   }
+
+  static Future<ApiResponse> getAddNewAddressScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.addNewAddressScreen, args);
+  }
+
+
 }
 
 // apirequestbody class 

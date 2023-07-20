@@ -73,7 +73,8 @@ void removeAddress(UikAction uikAction) {
   UiUtils.showToast("REMOVE ADDRESS");
 }
 
-void addAddress(UikAction uikAction) {
+void
+addAddress(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   Navigator.pushNamed(context!, ScreenRoutes.addAddressScreen);
 }
