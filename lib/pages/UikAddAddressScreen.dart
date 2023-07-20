@@ -8,14 +8,10 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../constants.dart';
 import '../main.dart';
-
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
-
 import '../utils/NavigationUtils.dart';
-import '../utils/network/retrofit/api_routes.dart';
 import '../utils/storage/user_data_handler.dart';
 
 // add adress
@@ -29,7 +25,6 @@ class UikAddAddressScreen extends StandardPage {
   String houseNumber = "";
   String city = "";
   String postcode = "";
-
   String authToken = UserDataHandler.getUserToken();
 
   @override

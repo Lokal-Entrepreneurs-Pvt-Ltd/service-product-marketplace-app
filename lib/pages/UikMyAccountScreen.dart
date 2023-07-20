@@ -30,7 +30,7 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_SIGN_OUT);
     actionList.add(UIK_ACTION.OPEN_MY_ADDRESS);
     actionList.add(UIK_ACTION.OPEN_LOG_IN);
-    actionList.add(UIK_ACTION.OPEN_MY_FLEET);
+    actionList.add(UIK_ACTION.OPEN_MY_AGENT);
 
     return actionList;
   }
@@ -54,8 +54,8 @@ class UikMyAccountScreen extends StandardPage {
       case UIK_ACTION.OPEN_ADDRESS:
         openAddress(uikAction);
         break;
-      case UIK_ACTION.OPEN_MY_FLEET:
-        openMyFleet(uikAction);
+      case UIK_ACTION.OPEN_MY_AGENT:
+        openMyAgent(uikAction);
         break;
       case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
@@ -126,9 +126,9 @@ void openDetails(UikAction uikAction) {
   Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
 }
 
-void openMyFleet(UikAction uikAction) {
+void openMyAgent(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.addFleetScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.addAgentScreen);
 }
 
 void openOrders(UikAction uikAction) {
