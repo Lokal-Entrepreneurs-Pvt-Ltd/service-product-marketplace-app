@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -122,9 +123,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                 maxLength: 10,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  errorText: _phoneNumberValid
-                      ? null
-                      : VALID_PHONE_NO,
+                  errorText: _phoneNumberValid ? null : VALID_PHONE_NO,
                 ),
                 onChanged: (value) {
                   phoneNo = value;
@@ -132,8 +131,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                     setState(() {
                       _phoneNumberValid = false;
                     });
-                  }
-                  else {
+                  } else {
                     setState(() {
                       _phoneNumberValid = true;
                     });
@@ -188,7 +186,10 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                         if (response.data) {
                           // HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_SUCCESSFUL);
                           Navigator.pushNamed(context, ScreenRoutes.samhitaOtp,
-                              arguments: {'phoneNo': phoneNo, 'samhitaId': samhitaId});
+                              arguments: {
+                                'phoneNo': phoneNo,
+                                'samhitaId': samhitaId
+                              });
                         } else {
                           HttpScreenClient.displayDialogBox(
                               SAMHITA_VERIFICATION_FAILED);
@@ -203,6 +204,12 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   },
                   child: const Text('Verify Participant'),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  UiUtils.showFeedbackPanel(context);
+                },
+                child: Text('Provide Feedback'),
               ),
             ],
           ),
