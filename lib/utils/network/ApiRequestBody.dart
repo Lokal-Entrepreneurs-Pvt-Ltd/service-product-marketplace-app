@@ -87,7 +87,6 @@ class ApiRequestBody {
     };
   }
 
-
   static submitExtraPayOptInRequest(
     name,
     mobile,

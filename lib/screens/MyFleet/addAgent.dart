@@ -57,6 +57,7 @@ class _AddAgentState extends State<AddAgent> {
       body: Container(
         margin: const EdgeInsets.only(
             left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
+
         child: ListView(
           children: [
             Row(
@@ -138,6 +139,7 @@ class _AddAgentState extends State<AddAgent> {
               onChanged: (value) {
                 final bool isValidName = UiUtils.isNameValid(value);
                 if (value.isEmpty || !isValidName) {
+
                   setState(() {
                     _nameRequired = false;
                   });

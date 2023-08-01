@@ -341,6 +341,7 @@ class _LokalAppState extends State<LokalApp> {
               SamhitaBecomeParticipant(),
           ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
+          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
               SamhitaVerifyParticipant(),
           ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
