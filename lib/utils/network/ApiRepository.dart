@@ -31,6 +31,11 @@ class ApiRepository {
         ApiRoutes.submitSamhitaVerifyParticipantForm, args);
   }
 
+  static Future<ApiResponse> submitExtraPayOptInForm(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.submitExtraPayOptInForm, args);
+  }
+
   static Future<ApiResponse> submitSamhitaForm(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.submitSamhitaForm, args);
   }
@@ -109,6 +114,10 @@ class ApiRepository {
 
   static Future<ApiResponse> getMyAccountScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.myAccountScreen, args);
+  }
+
+  static Future<ApiResponse> addAddressScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.addAddressScreen, args);
   }
 
   static Future<ApiResponse> getAddressBookScreen(args) {

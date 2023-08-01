@@ -38,7 +38,8 @@ class UikAddAddressScreen extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getAddNewAddressScreen;
+    // return getMockedApiResponse;
+    return ApiRepository.addAddressScreen;
   }
 
   void onAddressBookTapAction(UikAction uikAction) {

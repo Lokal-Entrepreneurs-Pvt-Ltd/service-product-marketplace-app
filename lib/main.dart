@@ -28,6 +28,7 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
+import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
@@ -61,6 +62,8 @@ import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
+import 'package:feedback/feedback.dart';
+
 
 AppInitializer? appInit;
 
@@ -78,7 +81,9 @@ void main() async {
   Environment().initConfig(environment);
 
   runApp(
-    LokalApp(),
+    BetterFeedback(
+      child: LokalApp(),
+    )
   );
 
   //
@@ -306,7 +311,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen().page,
+          ScreenRoutes.myAddressScreen: (context) =>
+              UikMyAddressScreen(context).page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -336,8 +342,10 @@ class _LokalAppState extends State<LokalApp> {
               SamhitaBecomeParticipant(),
           ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
+          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
               SamhitaVerifyParticipant(),
+          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen()

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -59,27 +60,27 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
+          margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
           child: ListView(
             children: [
               Image.asset("assets/images/Samhita.png"),
               const SizedBox(
-                height: 10,
+                height: DIMEN_10,
               ),
               Text(
-                'Verify Participant',
+                VERIFY_PARTICIPANT,
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.bold, fontSize: 16),
+                    fontWeight: FontWeight.bold, fontSize: DIMEN_16),
               ),
               const SizedBox(
-                height: 10,
+                height: DIMEN_10,
               ),
-              const Text('Participant Name'),
+              const Text(BTS_NAME),
               TextField(
                 controller: _nameController,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  errorText: _nameRequired ? null : REQUIRED_FIELD,
+                  errorText: _nameRequired ? null : VALID_NAME,
                 ),
                 onChanged: (value) {
                   if (value.length == 0) {
@@ -93,8 +94,8 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
-              const Text('Samhita Id'),
+              const SizedBox(height: DIMEN_16),
+              const Text(BTS_SAMHITA_ID),
               TextField(
                 controller: _samhitaIdController,
                 decoration: InputDecoration(
@@ -114,17 +115,15 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
-              const Text('Phone Number'),
+              const SizedBox(height: DIMEN_16),
+              const Text(BTS_PHONE_NUMBER),
               TextField(
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
                 maxLength: 10,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  errorText: _phoneNumberValid
-                      ? null
-                      : VALID_PHONE_NO,
+                  errorText: _phoneNumberValid ? null : VALID_PHONE_NO,
                 ),
                 onChanged: (value) {
                   phoneNo = value;
@@ -132,18 +131,17 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                     setState(() {
                       _phoneNumberValid = false;
                     });
-                  }
-                  else {
+                  } else {
                     setState(() {
                       _phoneNumberValid = true;
                     });
                   }
                 },
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: DIMEN_16),
               _requiredFields
                   ? Container(
-                      margin: const EdgeInsets.only(bottom: 10),
+                      margin: const EdgeInsets.only(bottom: DIMEN_10),
                       child: const Text(
                         REQUIRED_FIELD,
                         style: TextStyle(color: Colors.red),
@@ -152,8 +150,8 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                     )
                   : const SizedBox(),
               Container(
-                height: 60,
-                margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
+                height: DIMEN_60,
+                margin: const EdgeInsets.only(left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_nameController.text.isEmpty) {
@@ -188,7 +186,10 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                         if (response.data) {
                           // HttpScreenClient.displayDialogBox(SAMHITA_VERIFICATION_SUCCESSFUL);
                           Navigator.pushNamed(context, ScreenRoutes.samhitaOtp,
-                              arguments: {'phoneNo': phoneNo, 'samhitaId': samhitaId});
+                              arguments: {
+                                'phoneNo': phoneNo,
+                                'samhitaId': samhitaId
+                              });
                         } else {
                           HttpScreenClient.displayDialogBox(
                               SAMHITA_VERIFICATION_FAILED);
@@ -201,8 +202,14 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                     }
                     setState(() {});
                   },
-                  child: const Text('Verify Participant'),
+                  child: const Text(VERIFY_PARTICIPANT),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  UiUtils.showFeedbackPanel(context);
+                },
+                child: const Text(PROVIDE_FEEDBACK),
               ),
             ],
           ),

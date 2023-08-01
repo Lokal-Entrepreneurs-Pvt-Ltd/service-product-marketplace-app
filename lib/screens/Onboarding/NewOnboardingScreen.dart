@@ -120,7 +120,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                     color: isLoginSelected
                                         ? Colors.black
                                         : Colors.transparent,
-                                    width: 2,
+                                    width: DIMEN_2,
                                   ),
                                 ),
                               ),
@@ -155,7 +155,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                     color: !isLoginSelected
                                         ? Colors.black
                                         : Colors.transparent,
-                                    width: 2,
+                                    width: DIMEN_2,
                                   ),
                                 ),
                               ),
@@ -179,7 +179,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
               ),
             ),
             Container(
-              height: 2,
+              height: DIMEN_2,
               width: double.infinity,
               color: Colors.grey, // Color of the unselected tab view line
             ),
