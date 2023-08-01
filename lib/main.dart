@@ -307,8 +307,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) =>
-              UikMyAddressScreen(context).page,
+          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen(context).page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -338,6 +337,7 @@ class _LokalAppState extends State<LokalApp> {
               SamhitaBecomeParticipant(),
           ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
+          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
               SamhitaVerifyParticipant(),
           ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
