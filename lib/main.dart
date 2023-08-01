@@ -340,6 +340,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
               SamhitaVerifyParticipant(),
+          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen()
