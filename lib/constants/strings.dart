@@ -39,6 +39,8 @@ const String CONGRATULATIONS = "Congratulations";
 const String BTS_REQUEST_TAKEN = "Your BTS Location request has been taken";
 const String FORGET_PASSWORD_URL =
     "https://prod.localee.co.in/customer/account/forgotpassword/";
+const String TERMS_AND_CONDITIONS_URL = "https://www.lokalcompany.in/tnc";
+const String PRIVACY_POLICY_URL = "https://www.lokalcompany.in/privacy-policy";
 const String YOU_HAVE_BEEN_LOGGED_OUT =
     "You have been logged out, kindly login again!";
 const String SAMHITA_VERIFICATION_SUCCESSFUL =
@@ -67,6 +69,11 @@ const String BTS_PASSWORD = "Password";
 const String CONFIRM_PASSWORD = "Confirm Password";
 const String PASSWORD_LENGTH = "Password must be at least 6 characters long";
 const String PASSWORD_NOT_MATCH = "Passwords do not match";
+const String SIGN_UP_MSG = "By signing up you agree to our ";
+const String LOG_IN_MSG = "By loging in you agree to our ";
+const String TnC = "Terms and Conditions";
+const String AND_OUR = " and our ";
+const String PRIVACY_POLICY = "Privacy Policy";
 const String EXTRA_PAY_OPT_IN = "Extra Pay OptIn";
 const String SUBMIT = "Submit";
 const String MY_AGENT = "My Agent";

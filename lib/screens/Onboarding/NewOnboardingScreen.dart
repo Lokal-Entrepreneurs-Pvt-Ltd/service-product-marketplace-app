@@ -1,3 +1,5 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
@@ -236,10 +238,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       final response =
                                           await ApiRepository.getLoginScreen(
                                               ApiRequestBody.getLoginRequest(
-                                        emailController.text,
-                                        passwordController.text,
-                                        selectedUserType
-                                      ));
+                                                  emailController.text,
+                                                  passwordController.text,
+                                                  selectedUserType));
                                       if (response.isSuccess!) {
                                         UserDataHandler.saveUserToken(
                                             response.data[AUTH_TOKEN]);
@@ -280,8 +281,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       descPassword = '';
                                     } else {
                                       errorPassword = true;
-                                      descPassword =
-                                          PASSWORD_LENGTH;
+                                      descPassword = PASSWORD_LENGTH;
                                     }
 
                                     setState(() {
@@ -296,8 +296,51 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                     UiUtils.launchURL(FORGET_PASSWORD_URL),
                                 child: Text(FORGET_PASSWORD),
                               ),
-                              const SizedBox(
-                                height: DIMEN_16,
+                              // const SizedBox(
+                              //   height: DIMEN_8,
+                              // ),
+                              Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: DIMEN_8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    UiUtils.launchURL(TERMS_AND_CONDITIONS_URL);
+                                  },
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: LOG_IN_MSG,
+                                      style: const TextStyle(color: Colors.black),
+                                      children: [
+                                        const TextSpan(
+                                          text: TnC,
+                                          style: TextStyle(
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                        const TextSpan(
+                                          text: AND_OUR,
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        TextSpan(
+                                          text: PRIVACY_POLICY,
+                                          style: const TextStyle(
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              UiUtils.launchURL(
+                                                  PRIVACY_POLICY_URL);
+                                            },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -306,8 +349,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             children: [
                               UikNavbar(
                                 size: "",
-                                titleText:
-                                    SIGNUP_MSG,
+                                titleText: SIGNUP_MSG,
                               ),
                               const SizedBox(
                                 height: DIMEN_32,
@@ -356,10 +398,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       final response =
                                           await ApiRepository.getSignUpScreen(
                                         ApiRequestBody.getSignUpRequest(
-                                          emailController.text,
-                                          passwordController.text,
-                                          selectedUserType
-                                        ),
+                                            emailController.text,
+                                            passwordController.text,
+                                            selectedUserType),
                                       ).catchError((error) {
                                         NavigationUtils.pop();
                                       });
@@ -398,20 +439,18 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       descEmail = VALID_EMAIL;
                                     }
 
-                                 if (passwordController.text.length >= 6) {
+                                    if (passwordController.text.length >= 6) {
                                       errorPassword = false;
                                       descPassword = '';
                                     } else {
                                       errorPassword = true;
-                                      descPassword =
-                                          PASSWORD_LENGTH;
+                                      descPassword = PASSWORD_LENGTH;
                                     }
 
                                     if (confirmPasswordController.text !=
                                         passwordController.text) {
                                       errorConfirmPassword = true;
-                                      descConfirmPassword =
-                                          PASSWORD_NOT_MATCH;
+                                      descConfirmPassword = PASSWORD_NOT_MATCH;
                                     } else {
                                       errorConfirmPassword = false;
                                       descConfirmPassword = '';
@@ -422,7 +461,50 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                 ),
                               ),
                               const SizedBox(
-                                height: DIMEN_16,
+                                height: DIMEN_5,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: DIMEN_8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    UiUtils.launchURL(TERMS_AND_CONDITIONS_URL);
+                                  },
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: SIGN_UP_MSG,
+                                      style: const TextStyle(color: Colors.black),
+                                      children: [
+                                        const TextSpan(
+                                          text: TnC,
+                                          style: TextStyle(
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                        ),
+                                        const TextSpan(
+                                          text: AND_OUR,
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        TextSpan(
+                                          text: PRIVACY_POLICY,
+                                          style: const TextStyle(
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () {
+                                              UiUtils.launchURL(
+                                                  PRIVACY_POLICY_URL);
+                                            },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -453,7 +535,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  color:
+                      index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   width: DIMEN_2,
                 ),
               ),
@@ -462,7 +545,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 children: [
                   Icon(
                     Icons.person,
-                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                    color: index == selectedIndex
+                        ? Color(0xFF4169E1)
+                        : Colors.grey,
                   ),
                   const SizedBox(height: DIMEN_8),
                   Text(
@@ -470,8 +555,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                     style: GoogleFonts.poppins(
                       fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
-                      color:
-                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                      color: index == selectedIndex
+                          ? Color(0xFF4169E1)
+                          : Colors.grey,
                     ),
                   ),
                 ],
@@ -496,7 +582,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  color:
+                      index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   width: DIMEN_2,
                 ),
               ),
@@ -505,7 +592,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 children: [
                   Icon(
                     Icons.business,
-                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                    color: index == selectedIndex
+                        ? Color(0xFF4169E1)
+                        : Colors.grey,
                   ),
                   const SizedBox(height: DIMEN_8),
                   Text(
@@ -513,8 +602,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                     style: GoogleFonts.poppins(
                       fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
-                      color:
-                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                      color: index == selectedIndex
+                          ? Color(0xFF4169E1)
+                          : Colors.grey,
                     ),
                   ),
                 ],
@@ -539,7 +629,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(DIMEN_10),
                 border: Border.all(
-                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                  color:
+                      index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
                   width: DIMEN_2,
                 ),
               ),
@@ -548,7 +639,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 children: [
                   Icon(
                     Icons.local_shipping,
-                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                    color: index == selectedIndex
+                        ? Color(0xFF4169E1)
+                        : Colors.grey,
                   ),
                   const SizedBox(height: DIMEN_8),
                   Text(
@@ -556,8 +649,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                     style: GoogleFonts.poppins(
                       fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500,
-                      color:
-                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
+                      color: index == selectedIndex
+                          ? Color(0xFF4169E1)
+                          : Colors.grey,
                     ),
                   ),
                 ],
