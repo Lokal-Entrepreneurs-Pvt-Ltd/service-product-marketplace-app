@@ -13,6 +13,7 @@ const double DIMEN_20 = 20;
 const double DIMEN_24 = 24;
 const double DIMEN_26 = 26;
 const double DIMEN_32 = 32;
+const double DIMEN_34 = 34;
 const double DIMEN_40 = 40;
 const double DIMEN_60 = 60;
 const double DIMEN_64 = 64;

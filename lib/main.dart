@@ -64,6 +64,7 @@ import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 import 'package:feedback/feedback.dart';
 
+
 AppInitializer? appInit;
 
 void main() async {

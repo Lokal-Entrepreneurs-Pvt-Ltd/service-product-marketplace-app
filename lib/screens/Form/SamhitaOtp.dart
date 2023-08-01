@@ -53,7 +53,7 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
           icon: const Icon(
             Icons.arrow_back_outlined,
             color: Colors.black,
-            size: 34,
+            size: DIMEN_34,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -61,7 +61,7 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
         ),
       ),
       body: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(DIMEN_16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -93,25 +93,25 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
               length: 6,
               width: double.infinity,
               fieldWidth: 40,
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: DIMEN_18),
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
               onCompleted: (pin) {
                 otpPinEntered = pin;
               },
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: DIMEN_20),
             const SizedBox(
-              height: 16,
+              height: DIMEN_16,
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(DIMEN_16),
               child: SizedBox(
-                height: 64,
-                width: 327,
+                height: DIMEN_64,
+                width: DIMEN_327,
                 child: UikButton(
                   text: CONTINUE,
-                  widthSize: 327,
+                  widthSize: DIMEN_327,
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
                     if (otpPinEntered.length == 6) {
@@ -139,13 +139,13 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
               ),
             ),
             const SizedBox(
-              height: 18,
+              height: DIMEN_18,
             ),
             Center(
               child: Text(
                 "New code 00:$digitSeconds",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: DIMEN_16,
                   fontWeight: FontWeight.w500,
                   color: HexColor(HEX_GRAY),
                 ),
