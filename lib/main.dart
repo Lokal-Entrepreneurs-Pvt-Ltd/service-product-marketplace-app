@@ -62,6 +62,7 @@ import 'screens/Form/SamhitaDataCollector.dart';
 import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
+import 'package:feedback/feedback.dart';
 
 AppInitializer? appInit;
 
@@ -79,7 +80,9 @@ void main() async {
   Environment().initConfig(environment);
 
   runApp(
-    LokalApp(),
+    BetterFeedback(
+      child: LokalApp(),
+    )
   );
 
   //
@@ -307,7 +310,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen(context).page,
+          ScreenRoutes.myAddressScreen: (context) =>
+              UikMyAddressScreen(context).page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
