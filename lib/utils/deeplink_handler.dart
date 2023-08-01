@@ -214,6 +214,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.addAgentOtpScreen, args);
         }
         break;
+      case ScreenRoutes.extraPayOptInScreen:
+        {
+          _pushScreen(context, ScreenRoutes.extraPayOptInScreen, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }
