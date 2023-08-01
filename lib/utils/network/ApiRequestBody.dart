@@ -86,6 +86,7 @@ class ApiRequestBody {
       SAMHITA_ID: samhitaId,
     };
   }
+
   static submitExtraPayOptInRequest(
     name,
     mobile,
@@ -107,6 +108,7 @@ class ApiRequestBody {
       }
     };
   }
+
   static getVerifyAddAgentOtpRequest(String mobile, String otp, String partnerId) {
     return {MOBILE: mobile, OTP: otp, PARTNER_ID: partnerId};
   }

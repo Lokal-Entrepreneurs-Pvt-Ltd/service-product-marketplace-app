@@ -68,3 +68,7 @@ const String PASSWORD_LENGTH = "Password must be at least 6 characters long";
 const String PASSWORD_NOT_MATCH = "Passwords do not match";
 const String EXTRA_PAY_OPT_IN = "Extra Pay OptIn";
 const String SUBMIT = "Submit";
+const String MY_AGENT = "My Agent";
+const String ADD_AGENT = "Add Agent";
+const String MANAGE_AGENT = "Manage Agent";
+const String GROWTH_PARTNER = "Become a Growth Partner";
