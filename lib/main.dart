@@ -28,6 +28,7 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
+import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
@@ -306,7 +307,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
           ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen().page,
+          ScreenRoutes.myAddressScreen: (context) => UikMyAddressScreen(context).page,
           ScreenRoutes.otpScreen: (context) => OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
@@ -336,6 +337,7 @@ class _LokalAppState extends State<LokalApp> {
               SamhitaBecomeParticipant(),
           ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
           ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
+          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
               SamhitaVerifyParticipant(),
           ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
