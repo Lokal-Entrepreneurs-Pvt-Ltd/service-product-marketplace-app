@@ -109,7 +109,6 @@ class ApiRequestBody {
     };
   }
 
-
   static getVerifyAddAgentOtpRequest(String mobile, String otp, String partnerId) {
     return {MOBILE: mobile, OTP: otp, PARTNER_ID: partnerId};
   }
