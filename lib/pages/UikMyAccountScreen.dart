@@ -31,7 +31,7 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_MY_ADDRESS);
     actionList.add(UIK_ACTION.OPEN_LOG_IN);
     actionList.add(UIK_ACTION.OPEN_MY_AGENT);
-
+    actionList.add(UIK_ACTION.OPEN_MY_REWARDS);
     return actionList;
   }
 
@@ -56,6 +56,9 @@ class UikMyAccountScreen extends StandardPage {
         break;
       case UIK_ACTION.OPEN_MY_AGENT:
         openMyAgent(uikAction);
+        break;
+      case UIK_ACTION.OPEN_MY_REWARDS:
+        openMyRewards(uikAction);
         break;
       case UIK_ACTION.OPEN_PAYMENT:
         openPayment(uikAction);
@@ -129,6 +132,11 @@ void openDetails(UikAction uikAction) {
 void openMyAgent(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
   Navigator.pushNamed(context!, ScreenRoutes.addAgentScreen);
+}
+
+void openMyRewards(UikAction uikAction) {
+  var context = NavigationService.navigatorKey.currentContext;
+  Navigator.pushNamed(context!, ScreenRoutes.myRewardsPage);
 }
 
 void openOrders(UikAction uikAction) {
