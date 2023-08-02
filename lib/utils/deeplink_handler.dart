@@ -219,6 +219,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.extraPayOptInScreen, args);
         }
         break;
+      case ScreenRoutes.myRewardsPage:
+        {
+          _pushScreen(context, ScreenRoutes.myRewardsPage, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }
