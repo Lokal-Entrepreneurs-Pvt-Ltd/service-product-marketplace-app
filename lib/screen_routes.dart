@@ -53,4 +53,5 @@ class ScreenRoutes {
   static const String addAgentOtpScreen = "/addAgentOtpScreen";
   static const String newOnboardingScreen = "/newOnboardingScreen";
   static const String extraPayOptInScreen = "/extraPayOptInScreen";
+  static const String myRewardsPage = "/myRewardsPage";
 }
