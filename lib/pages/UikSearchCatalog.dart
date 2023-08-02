@@ -17,6 +17,7 @@ class UikSearchCatalog extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_SEARCH);
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
@@ -33,6 +34,9 @@ class UikSearchCatalog extends StandardPage {
         break;
       case UIK_ACTION.OPEN_CATEGORY:
         NavigationUtils.openCategory(uikAction);
+        break;
+      case UIK_ACTION.BACK_PRESSED:
+        NavigationUtils.pop();
         break;
       case UIK_ACTION.ON_TEXT_EDIT_COMPLETE:
         print('search screen action');
