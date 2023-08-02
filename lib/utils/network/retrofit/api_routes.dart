@@ -63,6 +63,6 @@ class ApiRoutes {
       "/odop/getDistrictHome";
   static const String submitExtraPayOptInForm =
       "/easyOptIn/add";
-  static const String verifyAgentForPartner = "/agent/verifyPartner";
+  static const String verifyAgentForPartner = "/agent/add";
   static const String verifyAddAgentOtp = "/agent/verifyOtp";
 }

@@ -114,8 +114,8 @@ class ApiRequestBody {
     return {MOBILE: mobile, OTP: otp, PARTNER_ID: partnerId};
   }
 
-  static submitAddAgentScreenFormRequest(String partnerName, String mobile, String partnerId) {
-    return {PARTNER_NAME: partnerName, MOBILE: mobile, PARTNER_ID: partnerId};
+  static submitAddAgentScreenFormRequest(String name, String mobile, String partnerId, String email) {
+    return {NAME: name, MOBILE: mobile, PARTNER_ID: partnerId, EMAIL: email};
   }
 
   static submitSamhitaFormRequest(

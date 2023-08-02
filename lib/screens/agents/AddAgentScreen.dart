@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
@@ -23,7 +24,9 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
   bool isAddAgentSelected = true;
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
+  final _emailController = TextEditingController();
   bool _phoneNumberValid = true;
+  bool _emailValid = true;
   bool _nameRequired = true;
   int? selected;
   String phoneNo = "";
@@ -167,7 +170,28 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
                 }
               },
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: DIMEN_16),
+            const Text(BTS_EMAIL),
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  errorText: _emailValid ? null : VALID_EMAIL,
+                ),
+                onChanged: (value) {
+                  if (!UiUtils.isEmailValid(value)) {
+                    setState(() {
+                      _emailValid = false;
+                    });
+                  } else {
+                    setState(() {
+                      _emailValid = true;
+                    });
+                  }
+                },
+              ),
+              const SizedBox(height: DIMEN_16),
+              
             Container(
               height: 60,
               margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
@@ -179,6 +203,9 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
                   if (_phoneNumberController.text.isEmpty) {
                     _phoneNumberValid = false;
                   }
+                  if (_emailController.text.isEmpty) {
+                    _emailValid = false;
+                  }
                     NavigationUtils.showLoaderOnTop();
                     final response =
                         await ApiRepository.verifyAgentForPartner(
@@ -186,6 +213,7 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
                       _nameController.text,
                       _phoneNumberController.text,
                       UserDataHandler.getUserId().toString(),
+                      _emailController.text
                     )).catchError((err) {
                       NavigationUtils.pop();
                       UiUtils.showToast(err);
