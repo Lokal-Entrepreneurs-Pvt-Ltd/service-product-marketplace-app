@@ -28,6 +28,7 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
+import 'package:lokal/screens/Form/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
@@ -351,6 +352,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
+          ScreenRoutes.addServiceCustomer: (context) => AddServiceCustomerFlow()
         },
       ),
     );

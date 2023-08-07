@@ -224,6 +224,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.myRewardsPage, args);
         }
         break;
+      case ScreenRoutes.addServiceCustomer:
+        {
+          _pushScreen(context, ScreenRoutes.addServiceCustomer, args);
+        }
+        break;
       default:
         launchUrl(Uri.parse(url));
     }
