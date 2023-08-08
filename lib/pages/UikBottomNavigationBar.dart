@@ -82,7 +82,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.home_outlined,
               ),
               label: "",
             ),
@@ -94,7 +94,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             // ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.gamepad,
+                Icons.gamepad_outlined,
               ),
               label: "",
             ),
@@ -106,7 +106,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             // ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.person,
+                Icons.person_outline_sharp,
               ),
               label: "",
             )
