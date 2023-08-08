@@ -28,7 +28,7 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
-import 'package:lokal/screens/Form/addServiceCustomerFlow.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';

@@ -94,7 +94,9 @@ class ApiRequestBody {
     age,
     pincode,
     employment,
-    income
+    state,
+    district,
+    block
   ) {
     return {
       NAME: name,
@@ -103,7 +105,9 @@ class ApiRequestBody {
       AGE: age,
       PINCODE: pincode,
       EMPLOYMENT: employment,
-      INCOME: income
+      STATE: state,
+      DISTRICT: district,
+      BLOCK: block
     };
   }
 
