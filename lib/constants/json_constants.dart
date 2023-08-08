@@ -48,6 +48,7 @@ const String ADDRESS_LINE_2 = "addressLine2";
 const String CITY = "city";
 const String REGION = "region";
 const String STATE = "state";
+const String BLOCK = "block";
 const String POSTCODE = "postcode";
 const String TELEPHONE = "telephone";
 const String SUCCESS = "success";
