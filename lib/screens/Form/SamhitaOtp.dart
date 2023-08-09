@@ -39,13 +39,13 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
 
   void _listenOtp() async {
     await SmsAutoFill().listenForCode();
-    print("OTP Listen is called");
+    print(OTP_LISTEN);
   }
 
   @override
   void dispose() {
     SmsAutoFill().unregisterListener();
-    print("Unregistered Listener");
+    print(UNREGISTERED_LISTENER);
     super.dispose();
   }
 
@@ -102,18 +102,6 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
               ],
             ),
             const SizedBox(height: 20.0),
-            // OTPTextField(
-            //   controller: otpController,
-            //   length: 6,
-            //   width: double.infinity,
-            //   fieldWidth: 40,
-            //   style: const TextStyle(fontSize: DIMEN_18),
-            //   textFieldAlignment: MainAxisAlignment.spaceAround,
-            //   fieldStyle: FieldStyle.box,
-            //   onCompleted: (pin) {
-            //     otpPinEntered = pin;
-            //   },
-            // ),
             PinFieldAutoFill(
               currentCode: otpCode,
               decoration: BoxLooseDecoration(
@@ -121,11 +109,11 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                   strokeColorBuilder: FixedColorBuilder(Color(0xFF8C4A52))),
               codeLength: 6,
               onCodeChanged: (code) {
-                print("OnCodeChanged : $code");
+                print(code);
                 otpCode = code.toString();
               },
               onCodeSubmitted: (val) {
-                print("OnCodeSubmitted : $val");
+                print(val);
               },
             ),
             const SizedBox(height: DIMEN_20),
