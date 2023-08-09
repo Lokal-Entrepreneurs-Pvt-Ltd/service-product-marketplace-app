@@ -38,6 +38,7 @@ import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
+import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
@@ -66,7 +67,6 @@ import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 import 'package:feedback/feedback.dart';
 
-
 AppInitializer? appInit;
 
 void main() async {
@@ -82,11 +82,9 @@ void main() async {
   );
   Environment().initConfig(environment);
 
-  runApp(
-    BetterFeedback(
-      child: LokalApp(),
-    )
-  );
+  runApp(BetterFeedback(
+    child: LokalApp(),
+  ));
 
   //
   // FlutterError.onError = (errorDetails) {
@@ -349,6 +347,7 @@ class _LokalAppState extends State<LokalApp> {
               SamhitaVerifyParticipant(),
           ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
+          ScreenRoutes.manageAgentScreen: (context) => ManageAgentScreen().page,
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
