@@ -65,6 +65,6 @@ class ApiRoutes {
       "/easyOptIn/add";
   static const String verifyAgentForPartner = "/agent/add";
   static const String verifyAddAgentOtp = "/agent/verifyOtp";
-  static const String submitAddServiceCustomerForm =
+  static const String submitAddUserServiceCustomerForm =
       "/userCustomer/add";
 }

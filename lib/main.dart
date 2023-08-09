@@ -66,7 +66,6 @@ import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 import 'package:feedback/feedback.dart';
 
-
 AppInitializer? appInit;
 
 void main() async {
@@ -82,11 +81,9 @@ void main() async {
   );
   Environment().initConfig(environment);
 
-  runApp(
-    BetterFeedback(
-      child: LokalApp(),
-    )
-  );
+  runApp(BetterFeedback(
+    child: LokalApp(),
+  ));
 
   //
   // FlutterError.onError = (errorDetails) {
@@ -352,7 +349,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
-          ScreenRoutes.addServiceCustomer: (context) => AddServiceCustomerFlow()
+          ScreenRoutes.addUserServiceCustomer: (context) => addUserServiceCustomer()
         },
       ),
     );

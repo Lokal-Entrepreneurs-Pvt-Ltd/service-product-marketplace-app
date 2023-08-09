@@ -101,4 +101,14 @@ const String VALID_INCOME = 'ENTER PROPER INCOME AMOUNT';
 const String ENTER_DISTRICT = "District";
 const String ENTER_BLOCK = "Block";
 const String ADD_SERVICE_CUSTOMER_FAIL = "ERROR, in joining the service";
-const String ADD_SERVICE_CUSTOMER_SUCCESS = "CONGRATULATIONS, You have joined this service";
+const String ADD_SERVICE_CUSTOMER_SUCCESS =
+    "CONGRATULATIONS, You have joined this service";
+const String LOADING_LOTTIE =
+    "https://lottie.host/a058e846-9004-4a78-a673-6e1a06c2c1fc/5ubSCjXaMT.json";
+const String LOADING_TEXT = 'SAVING YOUR DETAILS';
+const String LOADING_SUB_TEXT =
+    'MORE THAN 1000 CUSTOMERS ADDED THEIR DETAILS FOR SERVICE';
+const String LOTTIE_SUCCESS =
+    'https://lottie.host/5434fd9a-89d5-4bdc-a341-14d67065de29/GuOKoWaTfQ.json';
+const String LOTTIE_ERROR =
+    'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json';
