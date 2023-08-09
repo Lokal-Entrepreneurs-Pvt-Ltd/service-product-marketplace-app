@@ -50,6 +50,7 @@ class ScreenRoutes {
   static const String samhitaOtp = "/samhitaOtp";
   static const String odOpHomeScreen = "/odopHomeScreen";
   static const String addAgentScreen = "/addAgentScreen";
+  static const String manageAgentScreen = "/manageAgentScreen";
   static const String addAgentOtpScreen = "/addAgentOtpScreen";
   static const String newOnboardingScreen = "/newOnboardingScreen";
   static const String extraPayOptInScreen = "/extraPayOptInScreen";

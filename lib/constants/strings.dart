@@ -101,4 +101,5 @@ const String VALID_INCOME = 'ENTER PROPER INCOME AMOUNT';
 const String ENTER_DISTRICT = "District";
 const String ENTER_BLOCK = "Block";
 const String ADD_SERVICE_CUSTOMER_FAIL = "ERROR, in joining the service";
-const String ADD_SERVICE_CUSTOMER_SUCCESS = "CONGRATULATIONS, You have joined this service";
+const String ADD_SERVICE_CUSTOMER_SUCCESS =
+    "CONGRATULATIONS, You have joined this service";

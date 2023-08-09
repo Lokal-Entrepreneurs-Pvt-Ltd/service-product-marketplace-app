@@ -209,6 +209,11 @@ abstract class DeeplinkHandler {
           _pushScreen(context, ScreenRoutes.addAgentScreen, args);
         }
         break;
+      case ScreenRoutes.manageAgentScreen:
+        {
+          _pushScreen(context, ScreenRoutes.manageAgentScreen, args);
+        }
+        break;
       case ScreenRoutes.addAgentOtpScreen:
         {
           _pushScreen(context, ScreenRoutes.addAgentOtpScreen, args);
