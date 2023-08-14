@@ -24,14 +24,14 @@ import '../../utils/network/http/http_screen_client.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../Form/SamhitaOtp.dart';
 
-class AddServiceCustomerFlow extends StatefulWidget {
-  AddServiceCustomerFlow({super.key});
+class addUserServiceCustomer extends StatefulWidget {
+  addUserServiceCustomer({super.key});
 
   @override
-  State<AddServiceCustomerFlow> createState() => _AddServiceCustomerFlowState();
+  State<addUserServiceCustomer> createState() => _addUserServiceCustomerState();
 }
 
-class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
+class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
   @override
   void initState() {
     super.initState();
@@ -96,21 +96,21 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Lottie.network(
-            'https://lottie.host/a058e846-9004-4a78-a673-6e1a06c2c1fc/5ubSCjXaMT.json',
+            LOADING_LOTTIE,
           ),
           const SizedBox(
-            height: 15,
+            height: DIMEN_15,
           ),
           const Text(
-            'SAVING YOUR DETAILS',
+            LOADING_TEXT,
             style: TextStyle(
-                fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: DIMEN_25, color: Colors.black, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
-            height: 15,
+            height: DIMEN_15,
           ),
           const Text(
-            'MORE THAN 1000 CUSTOMERS ADDED THEIR DETAILS FOR SERVICE',
+            LOADING_SUB_TEXT,
             style: TextStyle(color: Colors.grey),
           ),
         ],
@@ -368,8 +368,8 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
                 _requiredFields = false;
                 NavigationUtils.showLoaderOnTop();
                 final response =
-                    await ApiRepository.submitAddServiceCustomerForm(
-                            ApiRequestBody.submitAddServiceCustomerFormRequest(
+                    await ApiRepository.submitAddUserServiceCustomerForm(
+                            ApiRequestBody.submitAddUserServiceCustomerFormRequest(
                                 _nameController.text,
                                 _phoneNumberController.text,
                                 _pinCodeController.text,
@@ -385,13 +385,6 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
                 });
                 NavigationUtils.pop();
                 if (response.isSuccess!) {
-                  // if (response.data) {
-                  //   HttpScreenClient.displayDialogBox(
-                  //       ADD_SERVICE_CUSTOMER_SUCCESS);
-                  // } else {
-                  //   HttpScreenClient.displayDialogBox(
-                  //       ADD_SERVICE_CUSTOMER_FAIL);
-                  // }
                   if (response.data) {
                     setState(() {
                       _isLoading = false;
@@ -400,7 +393,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
                         isSuccess: true,
                         message: ADD_SERVICE_CUSTOMER_SUCCESS,
                         animationAsset:
-                            'https://lottie.host/5434fd9a-89d5-4bdc-a341-14d67065de29/GuOKoWaTfQ.json',
+                            LOTTIE_SUCCESS,
                       );
                     });
                   } else {
@@ -411,7 +404,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
                         isSuccess: false,
                         message: ADD_SERVICE_CUSTOMER_FAIL,
                         animationAsset:
-                            'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json',
+                            LOTTIE_ERROR,
                       );
                     });
                   }
@@ -445,7 +438,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
           children: [
             Lottie.network(_currentResult!.isSuccess
                 ? _currentResult!.animationAsset
-                : 'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json'),
+                : LOTTIE_ERROR),
             const SizedBox(height: 16),
             Text(_currentResult!.message),
           ],
@@ -456,13 +449,13 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
 }
 
 class ResultModel {
-    final bool isSuccess;
-    final String message;
-    final String animationAsset;
+  final bool isSuccess;
+  final String message;
+  final String animationAsset;
 
-    ResultModel({
-      required this.isSuccess,
-      required this.message,
-      required this.animationAsset,
-    });
-  }
+  ResultModel({
+    required this.isSuccess,
+    required this.message,
+    required this.animationAsset,
+  });
+}

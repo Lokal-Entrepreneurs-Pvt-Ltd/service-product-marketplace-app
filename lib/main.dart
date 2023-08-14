@@ -351,7 +351,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
-          ScreenRoutes.addServiceCustomer: (context) => AddServiceCustomerFlow()
+          ScreenRoutes.addUserServiceCustomer: (context) => addUserServiceCustomer()
         },
       ),
     );

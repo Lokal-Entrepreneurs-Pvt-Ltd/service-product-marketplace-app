@@ -11,6 +11,7 @@ const double DIMEN_16 = 16;
 const double DIMEN_18 = 18;
 const double DIMEN_20 = 20;
 const double DIMEN_24 = 24;
+const double DIMEN_25 = 25;
 const double DIMEN_26 = 26;
 const double DIMEN_32 = 32;
 const double DIMEN_34 = 34;
