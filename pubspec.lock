@@ -1109,6 +1109,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.3"
+  pin_input_text_field:
+    dependency: transitive
+    description:
+      name: pin_input_text_field
+      sha256: "8d6fc670aa673a4df5976086f0e8039972a5b2bcb783c8db8dd3b9b4b072ca90"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.1"
   pinput:
     dependency: "direct main"
     description:
@@ -1410,6 +1418,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
+  sms_autofill:
+    dependency: "direct main"
+    description:
+      name: sms_autofill
+      sha256: "2eb159f53ed7d76002d6c15cad99e14dbd5f997f3bb7f9bcad9bd44ba5fcd6c3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.0"
   source_gen:
     dependency: transitive
     description:

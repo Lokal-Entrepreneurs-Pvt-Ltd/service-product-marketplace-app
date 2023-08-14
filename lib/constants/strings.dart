@@ -89,3 +89,5 @@ const String INTERNET_NAVIGATE = "Internet that navigate";
 const String FAST_INTERNET = "Fast internet to unconnected corners of india";
 const String SERVICES_CONNECT = "Services that connect";
 const String SERVICES_MSG = "Having services that helps to reach more people";
+const String OTP_LISTEN = "OTP Listen is called";
+const String UNREGISTERED_LISTENER = "Unregistered Listener";
