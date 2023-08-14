@@ -16,6 +16,7 @@ import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
 import '../../utils/network/http/http_screen_client.dart';
 import '../../widgets/UikButton/UikButton.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 class SamhitaOtp extends StatefulWidget {
   @override
@@ -27,13 +28,25 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
   String digitSeconds = "20";
   Timer? timer;
   bool started = true;
-
-  String otpPinEntered = "";
+  String otpCode = "";
 
   @override
   void initState() {
     super.initState();
     start();
+    _listenOtp();
+  }
+
+  void _listenOtp() async {
+    await SmsAutoFill().listenForCode();
+    print(OTP_LISTEN);
+  }
+
+  @override
+  void dispose() {
+    SmsAutoFill().unregisterListener();
+    print(UNREGISTERED_LISTENER);
+    super.dispose();
   }
 
   @override
@@ -89,15 +102,18 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
               ],
             ),
             const SizedBox(height: 20.0),
-            OTPTextField(
-              length: 6,
-              width: double.infinity,
-              fieldWidth: 40,
-              style: const TextStyle(fontSize: DIMEN_18),
-              textFieldAlignment: MainAxisAlignment.spaceAround,
-              fieldStyle: FieldStyle.box,
-              onCompleted: (pin) {
-                otpPinEntered = pin;
+            PinFieldAutoFill(
+              currentCode: otpCode,
+              decoration: BoxLooseDecoration(
+                  radius: Radius.circular(12),
+                  strokeColorBuilder: FixedColorBuilder(Color(0xFF8C4A52))),
+              codeLength: 6,
+              onCodeChanged: (code) {
+                print(code);
+                otpCode = code.toString();
+              },
+              onCodeSubmitted: (val) {
+                print(val);
               },
             ),
             const SizedBox(height: DIMEN_20),
@@ -114,11 +130,11 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
                   widthSize: DIMEN_327,
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
-                    if (otpPinEntered.length == 6) {
+                    if (otpCode.length == 6) {
                       final response = await ApiRepository.verifySamhitaOtp(
                         ApiRequestBody.getVerifySamhitaOtpRequest(
                           phoneNo,
-                          otpPinEntered,
+                          otpCode,
                           samhitaId,
                         ),
                       );
