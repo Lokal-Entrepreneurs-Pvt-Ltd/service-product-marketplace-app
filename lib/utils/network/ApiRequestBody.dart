@@ -87,6 +87,30 @@ class ApiRequestBody {
     };
   }
 
+  static submitAddUserServiceCustomerFormRequest(
+    name,
+    mobile,
+    email,
+    age,
+    pincode,
+    employment,
+    state,
+    district,
+    block
+  ) {
+    return {
+      NAME: name,
+      MOBILE: mobile,
+      EMAIL: email,
+      AGE: age,
+      PINCODE: pincode,
+      EMPLOYMENT: employment,
+      STATE: state,
+      DISTRICT: district,
+      BLOCK: block
+    };
+  }
+
 
   static submitExtraPayOptInRequest(
     name,
