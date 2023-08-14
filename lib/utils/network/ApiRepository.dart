@@ -230,6 +230,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.verifyAgentForPartner, args);
   }
 
+  static Future<ApiResponse> manageAgent(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.manageAgent, args);
+  }
+
   static Future<ApiResponse> getAddNewAddressScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.addNewAddressScreen, args);
   }
