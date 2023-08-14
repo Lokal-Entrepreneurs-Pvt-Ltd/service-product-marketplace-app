@@ -28,6 +28,7 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
@@ -65,7 +66,6 @@ import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 import 'package:feedback/feedback.dart';
 
-
 AppInitializer? appInit;
 
 void main() async {
@@ -81,11 +81,9 @@ void main() async {
   );
   Environment().initConfig(environment);
 
-  runApp(
-    BetterFeedback(
-      child: LokalApp(),
-    )
-  );
+  runApp(BetterFeedback(
+    child: LokalApp(),
+  ));
 
   //
   // FlutterError.onError = (errorDetails) {
@@ -351,6 +349,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
+          ScreenRoutes.addUserServiceCustomer: (context) => addUserServiceCustomer()
         },
       ),
     );
