@@ -45,7 +45,7 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
   @override
   void dispose() {
     SmsAutoFill().unregisterListener();
-    print(UNREGISTERED_LISTENER);
+    // print(UNREGISTERED_LISTENER);
     super.dispose();
   }
 
