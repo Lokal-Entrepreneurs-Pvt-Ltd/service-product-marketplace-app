@@ -33,6 +33,7 @@ class UikAddAddressScreen extends StandardPage {
     actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);
     actionList.add(UIK_ACTION.SUBMIT_ADDRESS);
     actionList.add(UIK_ACTION.ADD_ADDRESS);
+    actionList.add(UIK_ACTION.BACK_PRESSED);
     return actionList;
   }
 
