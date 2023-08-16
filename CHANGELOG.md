@@ -12,6 +12,9 @@ Tinker Box Ui Sdk.
 This project is a starting point for a Lokal application.
 
 
+## [1.0.12+14] - 2023-08-17
+Fixes
+
 ## [1.0.12+13] - 2023-07-13
 New User types added
 
