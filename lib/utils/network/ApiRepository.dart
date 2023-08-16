@@ -122,7 +122,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> addAddressScreen(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.addAddressScreen, args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.addNewAddressScreen, args);
   }
 
   static Future<ApiResponse> getAddressBookScreen(args) {
