@@ -89,25 +89,30 @@ class ApiRequestBody {
 
   static submitAddServiceCustomerFormRequest(
     name,
-    mobile,
-    email,
+    phoneNumber,
     age,
-    pincode,
-    employment,
-    state,
-    district,
-    block
+    email,
+    stateCode,
+    districtCode,
+    blockCode,
+    pinCode,
+    employmentType,
   ) {
     return {
+      USERID: "91",
+      // ignore: equal_keys_in_map
+      SERVICE_ID: "1234",
       NAME: name,
-      MOBILE: mobile,
-      EMAIL: email,
+      PHONE_NUMBER: phoneNumber,
       AGE: age,
-      PINCODE: pincode,
-      EMPLOYMENT: employment,
-      STATE: state,
-      DISTRICT: district,
-      BLOCK: block
+      EMAIL: email,
+      STATE_CODE: stateCode,
+      DISTRICT_CODE: districtCode,
+      BLOCK_CODE: blockCode,
+      PINCODE: pinCode,
+      EMPLOYMENT_TYPE: employmentType,
+      ISVERIFIED: "false",
+      DELIVERY_STATUS: "IN_PROGRESS",
     };
   }
 

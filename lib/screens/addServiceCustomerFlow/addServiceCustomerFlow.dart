@@ -7,6 +7,9 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/screens/Onboarding/LandingPage.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/errorScreen.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/successScreen.dart';
 import 'package:lokal/utils/storage/samhita_data_handler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -57,9 +60,6 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   bool _blockRequired = true;
   bool _requiredFields = false;
   String phoneNo = "";
-  bool _isLoading = false;
-  bool _isResultVisible = false;
-  ResultModel? _currentResult;
 
   @override
   void dispose() {
@@ -78,43 +78,10 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
           Container(
             margin: const EdgeInsets.only(
                 left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
-            child: _isLoading
-                ? _buildLoadingScreen()
-                : _isResultVisible
-                    ? _buildResultScreen()
-                    : _buildInputForm(),
+            child: _buildInputForm(),
           ),
         ],
       )),
-    );
-  }
-
-  Widget _buildLoadingScreen() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Lottie.network(
-            'https://lottie.host/a058e846-9004-4a78-a673-6e1a06c2c1fc/5ubSCjXaMT.json',
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          const Text(
-            'SAVING YOUR DETAILS',
-            style: TextStyle(
-                fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          const Text(
-            'MORE THAN 1000 CUSTOMERS ADDED THEIR DETAILS FOR SERVICE',
-            style: TextStyle(color: Colors.grey),
-          ),
-        ],
-      ),
     );
   }
 
@@ -175,26 +142,6 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
           },
         ),
         const SizedBox(height: DIMEN_16),
-        const Text(BTS_EMAIL),
-        TextField(
-          controller: _emailController,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _emailValid ? null : VALID_EMAIL,
-          ),
-          onChanged: (value) {
-            if (!UiUtils.isEmailValid(value)) {
-              setState(() {
-                _emailValid = false;
-              });
-            } else {
-              setState(() {
-                _emailValid = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
         const Text(BTS_AGE),
         TextField(
           controller: _ageController,
@@ -216,9 +163,31 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             }
           },
         ),
-        const Text(ENTER_STATE),
+        const SizedBox(height: DIMEN_16),
+        const Text(BTS_EMAIL),
+        TextField(
+          controller: _emailController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            errorText: _emailValid ? null : VALID_EMAIL,
+          ),
+          onChanged: (value) {
+            if (!UiUtils.isEmailValid(value)) {
+              setState(() {
+                _emailValid = false;
+              });
+            } else {
+              setState(() {
+                _emailValid = true;
+              });
+            }
+          },
+        ),
+        const SizedBox(height: DIMEN_16),
+        const Text(ENTER_STATE_CODE),
         TextField(
           controller: _stateController,
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             errorText: _stateRequired ? null : REQUIRED_FIELD,
@@ -235,9 +204,11 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             }
           },
         ),
-        const Text(ENTER_DISTRICT),
+        const SizedBox(height: DIMEN_16),
+        const Text(ENTER_DISTRICT_CODE),
         TextField(
           controller: _districtController,
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             errorText: _districtRequired ? null : REQUIRED_FIELD,
@@ -254,9 +225,11 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             }
           },
         ),
-        const Text(ENTER_BLOCK),
+        const SizedBox(height: DIMEN_16),
+        const Text(ENTER_BLOCK_CODE),
         TextField(
           controller: _blockController,
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             errorText: _blockRequired ? null : REQUIRED_FIELD,
@@ -330,6 +303,9 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
           margin: const EdgeInsets.only(
               left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Color(0xFFFEE440), // Set the desired color
+              ),
             onPressed: () async {
               if (_nameController.text.isEmpty) {
                 _nameRequired = false;
@@ -361,63 +337,23 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
               if (!_nameController.text.isEmpty &&
                   !_pinCodeController.text.isEmpty &&
                   _phoneNumberValid) {
-                setState(() {
-                  _isLoading = true;
-                  _isResultVisible = false;
-                });
                 _requiredFields = false;
-                NavigationUtils.showLoaderOnTop();
-                final response =
-                    await ApiRepository.submitAddServiceCustomerForm(
-                            ApiRequestBody.submitAddServiceCustomerFormRequest(
-                                _nameController.text,
-                                _phoneNumberController.text,
-                                _pinCodeController.text,
-                                _ageController.text,
-                                _emailController.text,
-                                _employmentController.text,
-                                _stateController.text,
-                                _districtController.text,
-                                _blockController.text))
-                        .catchError((err) {
-                  NavigationUtils.pop();
-                  UiUtils.showToast(err);
-                });
-                NavigationUtils.pop();
-                if (response.isSuccess!) {
-                  // if (response.data) {
-                  //   HttpScreenClient.displayDialogBox(
-                  //       ADD_SERVICE_CUSTOMER_SUCCESS);
-                  // } else {
-                  //   HttpScreenClient.displayDialogBox(
-                  //       ADD_SERVICE_CUSTOMER_FAIL);
-                  // }
-                  if (response.data) {
-                    setState(() {
-                      _isLoading = false;
-                      _isResultVisible = true;
-                      _currentResult = ResultModel(
-                        isSuccess: true,
-                        message: ADD_SERVICE_CUSTOMER_SUCCESS,
-                        animationAsset:
-                            'https://lottie.host/5434fd9a-89d5-4bdc-a341-14d67065de29/GuOKoWaTfQ.json',
-                      );
-                    });
-                  } else {
-                    setState(() {
-                      _isLoading = false;
-                      _isResultVisible = true;
-                      _currentResult = ResultModel(
-                        isSuccess: false,
-                        message: ADD_SERVICE_CUSTOMER_FAIL,
-                        animationAsset:
-                            'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json',
-                      );
-                    });
-                  }
-                } else {
-                  UiUtils.showToast(response.error![MESSAGE]);
-                }
+                Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ApiCallerScreen(
+                    name: _nameController.text,
+                    phoneNumber: _phoneNumberController.text,
+                    age: _ageController.text,
+                    email: _emailController.text,
+                    state: _stateController.text,
+                    district: _districtController.text,
+                    block: _blockController.text,
+                    pinCode: _pinCodeController.text,
+                    employment: _employmentController.text,
+                  ),
+                ),
+              );
               } else {
                 _requiredFields = true;
               }
@@ -435,34 +371,4 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
       ],
     );
   }
-
-  Widget _buildResultScreen() {
-    return Container(
-      color: Colors.black54,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.network(_currentResult!.isSuccess
-                ? _currentResult!.animationAsset
-                : 'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json'),
-            const SizedBox(height: 16),
-            Text(_currentResult!.message),
-          ],
-        ),
-      ),
-    );
-  }
 }
-
-class ResultModel {
-    final bool isSuccess;
-    final String message;
-    final String animationAsset;
-
-    ResultModel({
-      required this.isSuccess,
-      required this.message,
-      required this.animationAsset,
-    });
-  }
