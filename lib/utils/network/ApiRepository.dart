@@ -31,9 +31,9 @@ class ApiRepository {
         ApiRoutes.submitSamhitaVerifyParticipantForm, args);
   }
 
-  static Future<ApiResponse> submitAddServiceCustomerForm(args) {
+  static Future<ApiResponse> submitAddUserServiceCustomerForm(args) {
     return HttpScreenClient.getApiResponse(
-        ApiRoutes.submitAddServiceCustomerForm, args);
+        ApiRoutes.submitAddUserServiceCustomerForm, args);
   }
 
   static Future<ApiResponse> submitExtraPayOptInForm(args) {
