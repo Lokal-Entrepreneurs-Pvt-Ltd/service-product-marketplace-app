@@ -112,3 +112,5 @@ const String ERROR_LOTTIE =
     'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json';
 const String LOADING_LOTTIE =
     'https://lottie.host/a058e846-9004-4a78-a673-6e1a06c2c1fc/5ubSCjXaMT.json';
+const String LOADING_SUB_TEXT =
+    'MORE THAN 1000 CUSTOMERS ADDED THEIR DETAILS FOR SERVICE';
