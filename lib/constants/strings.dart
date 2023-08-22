@@ -21,6 +21,7 @@ const String ENTER_EMAIL = "Enter your email";
 const String ENTER_CITY = "City";
 const String ENTER_REGION = "Region";
 const String ENTER_STATE = "State";
+const String ENTER_STATE_CODE = "State Code";
 const String ENTER_AADHAR = "Enter your Aadhar Number";
 const String ENTER_PAN = "Enter your PAN Number";
 const String ENTER_GST = "Enter your GST number";
@@ -91,7 +92,7 @@ const String INTERNET_NAVIGATE = "Internet that navigate";
 const String FAST_INTERNET = "Fast internet to unconnected corners of india";
 const String SERVICES_CONNECT = "Services that connect";
 const String SERVICES_MSG = "Having services that helps to reach more people";
-const String ADD_SERVICE_CUSTOMER = 'Add Service Customer';
+const String ADD_SERVICE_CUSTOMER = 'Add Customer Details';
 const String BTS_AGE = 'Age';
 const String VALID_AGE = 'Enter valid age';
 const String BTS_PINCODE = "Pincode";
@@ -101,13 +102,18 @@ const String EMPLOYMENT_STATUS = 'ENTER PROPER EMPLOYMENT STATUS';
 const String BTS_INCOME = 'Income';
 const String VALID_INCOME = 'ENTER PROPER INCOME AMOUNT';
 const String ENTER_DISTRICT = "District";
+const String ENTER_DISTRICT_CODE = "District Code";
 const String ENTER_BLOCK = "Block";
+const String ENTER_BLOCK_CODE = "Block Code";
 const String ADD_SERVICE_CUSTOMER_FAIL = "ERROR, in joining the service";
 const String ADD_SERVICE_CUSTOMER_SUCCESS =
     "CONGRATULATIONS, You have joined this service";
+const String SUCCESS_LOTTIE =
+    'https://lottie.host/5434fd9a-89d5-4bdc-a341-14d67065de29/GuOKoWaTfQ.json';
+const String ERROR_LOTTIE =
+    'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json';
 const String LOADING_LOTTIE =
-    "https://lottie.host/a058e846-9004-4a78-a673-6e1a06c2c1fc/5ubSCjXaMT.json";
-const String LOADING_TEXT = 'SAVING YOUR DETAILS';
+    'https://lottie.host/a058e846-9004-4a78-a673-6e1a06c2c1fc/5ubSCjXaMT.json';
 const String LOADING_SUB_TEXT =
     'MORE THAN 1000 CUSTOMERS ADDED THEIR DETAILS FOR SERVICE';
 const String LOTTIE_SUCCESS =
