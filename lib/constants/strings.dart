@@ -115,3 +115,4 @@ const String LOTTIE_SUCCESS =
 const String LOTTIE_ERROR =
     'https://lottie.host/942a1d23-d98a-49ff-8b48-2bd1ac66a358/RUhVdGmyVp.json';
 const String OTP_LISTEN = "OTP Listen is called";
+const String REGISTER = "Register?";
