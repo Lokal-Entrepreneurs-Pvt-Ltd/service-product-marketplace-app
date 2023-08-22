@@ -21,6 +21,7 @@ const double DIMEN_64 = 64;
 const double DIMEN_70 = 70;
 const double DIMEN_90 = 90;
 const double DIMEN_100 = 100;
+const double DIMEN_150 = 150;
 const double DIMEN_343 = 343;
 const double DIMEN_327 = 327;
 const double DIMEN_375 = 375;
