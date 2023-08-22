@@ -48,8 +48,8 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
 
   void _callApi() async {
     try {
-      final response = await ApiRepository.submitAddServiceCustomerForm(
-        ApiRequestBody.submitAddServiceCustomerFormRequest(
+      final response = await ApiRepository.submitUserServiceCreateCustomerForm(
+        ApiRequestBody.submitUserServiceCreateCustomerFormRequest(
           widget.name,
           widget.phoneNumber,
           widget.age,

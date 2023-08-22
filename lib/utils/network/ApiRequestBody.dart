@@ -87,7 +87,7 @@ class ApiRequestBody {
     };
   }
 
-  static submitAddUserServiceCustomerFormRequest(
+  static submitUserServiceCreateCustomerFormRequest(
     name,
     phoneNumber,
     age,

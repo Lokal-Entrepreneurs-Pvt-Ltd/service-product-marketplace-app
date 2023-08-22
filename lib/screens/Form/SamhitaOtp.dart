@@ -39,7 +39,6 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
 
   void _listenOtp() async {
     await SmsAutoFill().listenForCode();
-    print(OTP_LISTEN);
   }
 
   @override
