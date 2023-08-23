@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -63,9 +65,32 @@ class _SignupScreenState extends State<SignupScreen> {
                     top: 62.0,
                   ),
                   child: Image.asset(
-                    "assets/images/Login1.png",
+                    "assets/images/Signin1.png",
                     fit: BoxFit.cover,
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 292),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewOnboardingScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      LOGIN,
+                      style: TextStyle(
+                          color: Color(0XFF3F51B5),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: DIMEN_35,
                 ),
                 Expanded(
                   child: Container(
@@ -226,6 +251,57 @@ class _SignupScreenState extends State<SignupScreen> {
 
                               setState(() {});
                             },
+                          ),
+                        ),
+                        const SizedBox(
+                          height: DIMEN_15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "By continuing I agree with ",
+                                  style: TextStyle(
+                                    color: Color(0xFF9E9E9E),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "Lokal’s Privacy Policy",
+                                  style: TextStyle(
+                                    color:
+                                        Colors.black, // Make the link text blue
+                                    decoration: TextDecoration
+                                        .underline, // Add underline to the link text
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      UiUtils.launchURL(PRIVACY_POLICY_URL);
+                                    },
+                                ),
+                                TextSpan(
+                                  text: " and ",
+                                  style: TextStyle(
+                                    color: Color(0xFF9E9E9E),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "Terms of Use",
+                                  style: TextStyle(
+                                    color:
+                                        Colors.black, // Make the link text blue
+                                    decoration: TextDecoration
+                                        .underline, // Add underline to the link text
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      UiUtils.launchURL(
+                                          TERMS_AND_CONDITIONS_URL);
+                                    },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
