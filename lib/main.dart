@@ -35,6 +35,7 @@ import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
+import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
@@ -245,9 +246,13 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => UserDataHandler.getUserToken().isEmpty
-              ? OnboardingScreen()
-              : UikBottomNavigationBar(),
+          "/": (context) {
+            // return ServiceLandingScreen();
+            return UserDataHandler.getUserToken().isEmpty
+                ? OnboardingScreen()
+                : UikBottomNavigationBar();
+          },
+          ScreenRoutes.serviceLandingPageNew: (context) => const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -295,7 +300,10 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
+          ScreenRoutes.addUserServiceCustomer: (context) =>
+              addUserServiceCustomer()
           ScreenRoutes.addUserServiceCustomer: (context) => AddServiceCustomerFlow()
+
         },
       ),
     );
