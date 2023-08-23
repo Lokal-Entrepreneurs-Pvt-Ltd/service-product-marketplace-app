@@ -88,13 +88,13 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (widget.currentPage == 1) // Display only for the 2nd image
+                if (widget.currentPage == 1 || widget.currentPage == 2)
                   Image.asset(
                     widget.imagePath,
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
-                if (widget.currentPage != 1) // Display for other images
+                if (widget.currentPage == 0) // Display for other images
                   Padding(
                     padding: const EdgeInsets.only(top: 60.0),
                     child: Image.asset(
@@ -119,6 +119,10 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
                     ),
                   ),
                 ),
+                if (widget.currentPage == 1)
+                  const SizedBox(
+                    height: DIMEN_64,
+                  ),
                 const SizedBox(
                   height: DIMEN_32,
                 ),

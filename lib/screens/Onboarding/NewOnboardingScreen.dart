@@ -96,8 +96,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              SignupScreen(), 
+                          builder: (context) => SignupScreen(),
                         ),
                       );
                     },
@@ -191,7 +190,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                         ),
                         Container(
                           margin: const EdgeInsets.only(
-                            left: DIMEN_16,
+                            left: DIMEN_14,
                           ),
                           child: UikButton(
                             text: LOGIN,
@@ -265,7 +264,51 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             ),
                           ),
                         ),
-                      ],
+                        Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "By continuing I agree with ",
+                                style: TextStyle(
+                                  color: Color(0xFF9E9E9E),
+                                ),
+                              ),
+                              TextSpan(
+                                text: "Lokal’s Privacy Policy",
+                                style: TextStyle(
+                                  color: Colors.black, // Make the link text blue
+                                  decoration: TextDecoration
+                                      .underline, // Add underline to the link text
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    UiUtils.launchURL(PRIVACY_POLICY_URL);
+                                  },
+                              ),
+                              TextSpan(
+                                text: " and ",
+                                style: TextStyle(
+                                  color: Color(0xFF9E9E9E),
+                                ),
+                              ),
+                              TextSpan(
+                                text: "Terms of Use",
+                                style: TextStyle(
+                                  color: Colors.black, // Make the link text blue
+                                  decoration: TextDecoration
+                                      .underline, // Add underline to the link text
+                                ),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    UiUtils.launchURL(TERMS_AND_CONDITIONS_URL);
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),],
                     ),
                   ),
                 ),
