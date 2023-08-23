@@ -80,9 +80,8 @@ abstract class DeeplinkHandler {
       case ScreenRoutes.serviceScreen:
         {
           if (args["serviceId"] != null) {
-            ProductDataHandler.saveProductSkuId(args['serviceId']);
-            ProductDataHandler.saveServiceCode(args['serviceCode']);
-            args["serviceId"] = int.parse(args["serviceId"]);
+            // ProductDataHandler.saveProductSkuId(args['serviceId']);
+            // ProductDataHandler.saveServiceCode(args['serviceCode']);
             _pushScreen(context, ScreenRoutes.serviceScreen, args);
           }
         }
