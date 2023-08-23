@@ -303,7 +303,7 @@ class _LokalAppState extends State<LokalApp> {
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           "/": (context) {
-            return ServiceLandingScreen();
+            // return ServiceLandingScreen();
             return UserDataHandler.getUserToken().isEmpty
                 ? OnboardingScreen()
                 : UikBottomNavigationBar();
