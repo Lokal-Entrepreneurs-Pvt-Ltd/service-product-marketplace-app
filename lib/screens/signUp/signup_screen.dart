@@ -55,134 +55,251 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 62.0,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color(0xFFfafafa),
+          leading: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back_sharp,
+              color: Colors.black,
+            ),
+          ),
+          centerTitle: true,
+          title: Text(
+            REGISTER_NEW,
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w500,
+              fontSize: DIMEN_18,
+              color: Colors.black,
+            ),
+          ),
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NewOnboardingScreen(),
                   ),
-                  child: Image.asset(
-                    "assets/images/Signin1.png",
-                    fit: BoxFit.cover,
-                  ),
+                );
+              },
+              child: TextButton(
+                onPressed: null, // Use onPressed: null for InkWell
+                child: Text(
+                  LOGIN_NEW,
+                  style: GoogleFonts.poppins(
+                      color: Color(0XFF3F51B5),
+                      fontSize: DIMEN_14,
+                      fontWeight: FontWeight.w500),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 292),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NewOnboardingScreen(),
+              ),
+            ),
+          ],
+        ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: DIMEN_24,),
+              Padding(
+                padding: const EdgeInsets.only(left: DIMEN_21),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: REGISTER_NEW,
+                        style: GoogleFonts.poppins(
+                          fontSize: DIMEN_24,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF212121),
                         ),
-                      );
-                    },
-                    child: const Text(
-                      LOGIN,
-                      style: TextStyle(
-                          color: Color(0XFF3F51B5),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
-                    ),
+                      ),
+                      const TextSpan(text: '\n'), // Add a newline here
+                      TextSpan(
+                        text: PROVIDE_SERVICES,
+                        style: GoogleFonts.poppins(
+                          fontSize: DIMEN_24,
+                          color: const Color(0xFF212121),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: DIMEN_35,
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFF5F5F5),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(DIMEN_20),
-                        topRight: Radius.circular(DIMEN_20),
-                      ),
+              ),
+              const SizedBox(
+                height: DIMEN_35,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFF5F5F5),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(DIMEN_20),
+                      topRight: Radius.circular(DIMEN_20),
                     ),
+                  ),
+                  child: SingleChildScrollView(
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(
                           height: DIMEN_20,
                         ),
-                        Container(
-                          height: DIMEN_52,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFEEEEEE),
-                            borderRadius: BorderRadius.circular(DIMEN_24),
+                        Padding(
+                          padding: EdgeInsets.only(left: DIMEN_20),
+                          child: Text(
+                            REGISTER_AS,
+                            style: GoogleFonts.poppins(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF212121)),
                           ),
-                          child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceAround, // Equal spacing
-                            children: userTypes.map((type) {
-                              bool isSelected = type == selectedUserType;
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedUserType = type;
-                                  });
-                                },
-                                child: Container(
-                                  height: DIMEN_43,
-                                  width: DIMEN_108,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: isSelected
-                                        ? Colors.white
-                                        : null, // No background for unselected items
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                  child: Text(
-                                    type,
-                                    style: TextStyle(
+                        ),
+                        const SizedBox(
+                          height: DIMEN_20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: DIMEN_15, right: DIMEN_15),
+                          child: Container(
+                            height: DIMEN_52,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              borderRadius: BorderRadius.circular(DIMEN_24),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .spaceAround, // Equal spacing
+                              children: userTypes.map((type) {
+                                bool isSelected = type == selectedUserType;
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedUserType = type;
+                                    });
+                                  },
+                                  child: Container(
+                                    height: DIMEN_43,
+                                    width: DIMEN_108,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
                                       color: isSelected
-                                          ? Color(0xFF212121)
-                                          : Color(
-                                              0xFF9E9E9E), // Green text for unselected items
-                                      fontWeight: FontWeight.w500,
+                                          ? Colors.white
+                                          : null, // No background for unselected items
+                                      borderRadius: BorderRadius.circular(DIMEN_24),
+                                    ),
+                                    child: Text(
+                                      type,
+                                      style: GoogleFonts.poppins(
+                                        color: isSelected
+                                            ? Color(0xFF212121)
+                                            : Color(
+                                                0xFF9E9E9E), // Green text for unselected items
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: DIMEN_25,
                         ),
-                        MyTextField(
-                          labelText: BTS_EMAIL,
-                          width: DIMEN_343,
-                          height: DIMEN_64,
-                          Controller: emailController,
-                          error: errorEmail,
-                          description: descEmail,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
+                          child: TextField(
+                            controller: emailController,
+                            decoration: InputDecoration(
+                              hintText: EMAIL_INPUT,
+                              hintStyle: GoogleFonts.poppins(
+                                color: Color(0xFF9E9E9E),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: DIMEN_16,
+                                horizontal: DIMEN_16,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(DIMEN_12),
+                                borderSide: BorderSide.none,
+                              ),
+                              errorText: errorEmail ? descEmail : null,
+                            ),
+                          ),
                         ),
-                        MyTextField(
-                          labelText: BTS_PASSWORD,
-                          width: DIMEN_343,
-                          height: DIMEN_64,
-                          Controller: passwordController,
-                          error: errorPassword,
-                          isPassword: true,
-                          description: descPassword,
+                        const SizedBox(
+                          height: DIMEN_20,
                         ),
-                        MyTextField(
-                          labelText: CONFIRM_PASSWORD,
-                          width: DIMEN_343,
-                          height: DIMEN_64,
-                          Controller: confirmPasswordController,
-                          error: errorConfirmPassword,
-                          isPassword: true,
-                          description: descConfirmPassword,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
+                          child: TextField(
+                            controller: passwordController,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              hintText: PASSWORD_INPUT,
+                              hintStyle: GoogleFonts.poppins(
+                                color: Color(0xFF9E9E9E),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: DIMEN_16,
+                                horizontal: DIMEN_16, // Add horizontal padding here
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(DIMEN_12),
+                                borderSide: BorderSide.none,
+                              ),
+                              errorText: errorPassword ? descPassword : null,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: DIMEN_20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: TextField(
+                            controller: confirmPasswordController,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              hintText: CONFIRM_PASSWORD_INPUT,
+                              hintStyle: GoogleFonts.poppins(
+                                color: Color(0xFF9E9E9E),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: DIMEN_16,
+                                horizontal: DIMEN_16, // Add horizontal padding here
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(DIMEN_12),
+                                borderSide: BorderSide.none,
+                              ),
+                              errorText: errorConfirmPassword
+                                  ? descConfirmPassword
+                                  : null,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: DIMEN_20,
                         ),
                         Container(
                           margin: const EdgeInsets.only(
-                            left: DIMEN_16,
-                          ),
+                              left: DIMEN_20, right: DIMEN_20),
                           child: UikButton(
-                            text: SIGN_UP,
+                            text: CONTINUE,
+                            textWeight: FontWeight.w500,
+                            textSize: DIMEN_16,
+                            textColor: const Color(0xFF212121),
                             backgroundColor: const Color(0xffFEE440),
                             onClick: () async {
                               if (UiUtils.isEmailValid(emailController.text) &&
@@ -257,21 +374,21 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: DIMEN_15,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          padding: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
                           child: Text.rich(
                             TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "By continuing I agree with ",
-                                  style: TextStyle(
+                                  text: BY_CONTINUING,
+                                  style: GoogleFonts.poppins(
                                     color: Color(0xFF9E9E9E),
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "Lokal’s Privacy Policy",
-                                  style: TextStyle(
-                                    color:
-                                        Colors.black, // Make the link text blue
+                                  text: LOKAL_PRIVACY,
+                                  style: GoogleFonts.poppins(
+                                    color: Color(
+                                        0xFFBDBDBD), // Make the link text blue
                                     decoration: TextDecoration
                                         .underline, // Add underline to the link text
                                   ),
@@ -281,16 +398,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                     },
                                 ),
                                 TextSpan(
-                                  text: " and ",
-                                  style: TextStyle(
+                                  text: AND,
+                                  style: GoogleFonts.poppins(
                                     color: Color(0xFF9E9E9E),
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "Terms of Use",
-                                  style: TextStyle(
-                                    color:
-                                        Colors.black, // Make the link text blue
+                                  text: TERMS_OF_USE,
+                                  style: GoogleFonts.poppins(
+                                    color: Color(
+                                        0xFFBDBDBD), // Make the link text blue
                                     decoration: TextDecoration
                                         .underline, // Add underline to the link text
                                   ),
@@ -308,8 +425,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
