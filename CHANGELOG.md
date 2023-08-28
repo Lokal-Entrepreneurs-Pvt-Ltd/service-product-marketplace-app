@@ -12,6 +12,9 @@ Tinker Box Ui Sdk.
 This project is a starting point for a Lokal application.
 
 
+## [1.0.12+14] - 2023-08-28
+Login Revamp
+
 ## [1.0.12+14] - 2023-08-17
 Fixes
 
