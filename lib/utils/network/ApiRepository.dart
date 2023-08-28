@@ -36,6 +36,10 @@ class ApiRepository {
         ApiRoutes.submitUserServiceCreateCustomerForm, args);
   }
 
+  static Future<ApiResponse> apiCallerScreen(String apiRoute, Map<String, dynamic> args) {
+  return HttpScreenClient.getApiResponse(apiRoute, args);
+}
+
   static Future<ApiResponse> submitExtraPayOptInForm(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.submitExtraPayOptInForm, args);

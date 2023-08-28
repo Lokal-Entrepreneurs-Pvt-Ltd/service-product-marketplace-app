@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/errorScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/successScreen.dart';
+import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:lokal/utils/storage/product_data_handler.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,27 +14,10 @@ import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/storage/user_data_handler.dart';
 
 class ApiCallerScreen extends StatefulWidget {
-  final String name;
-  final String phoneNumber;
-  final String email;
-  final String age;
-  final String state;
-  final String district;
-  final String block;
-  final String pinCode;
-  final String employment;
+  String apiRoute;
+  final Map<String, dynamic> args;
 
-  ApiCallerScreen({
-    required this.name,
-    required this.phoneNumber,
-    required this.age,
-    required this.email,
-    required this.state,
-    required this.district,
-    required this.block,
-    required this.pinCode,
-    required this.employment,
-  });
+  ApiCallerScreen({required this.apiRoute, required this.args});
 
   @override
   _ApiCallerScreenState createState() => _ApiCallerScreenState();
@@ -48,19 +32,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
 
   void _callApi() async {
     try {
-      final response = await ApiRepository.submitUserServiceCreateCustomerForm(
-        ApiRequestBody.submitUserServiceCreateCustomerFormRequest(
-          widget.name,
-          widget.phoneNumber,
-          widget.age,
-          widget.email,
-          widget.state,
-          widget.district,
-          widget.block,
-          widget.pinCode,
-          widget.employment
-        ),
-      );
+      final response = await ApiRepository.apiCallerScreen(widget.apiRoute, widget.args);
       if (response.isSuccess!) {
         Navigator.pushReplacement(
           context,
