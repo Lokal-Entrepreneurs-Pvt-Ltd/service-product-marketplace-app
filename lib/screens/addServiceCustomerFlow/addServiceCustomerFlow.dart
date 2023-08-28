@@ -7,6 +7,10 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/screens/Onboarding/LandingPage.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/errorScreen.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/successScreen.dart';
+import 'package:lokal/utils/storage/product_data_handler.dart';
 import 'package:lokal/utils/storage/samhita_data_handler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -21,17 +25,18 @@ import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
+import '../../utils/network/retrofit/api_routes.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../Form/SamhitaOtp.dart';
 
-class addUserServiceCustomer extends StatefulWidget {
-  addUserServiceCustomer({super.key});
+class AddServiceCustomerFlow extends StatefulWidget {
+  AddServiceCustomerFlow({super.key});
 
   @override
-  State<addUserServiceCustomer> createState() => _addUserServiceCustomerState();
+  State<AddServiceCustomerFlow> createState() => _AddServiceCustomerFlowState();
 }
 
-class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
+class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   @override
   void initState() {
     super.initState();
@@ -57,9 +62,6 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
   bool _blockRequired = true;
   bool _requiredFields = false;
   String phoneNo = "";
-  bool _isLoading = false;
-  bool _isResultVisible = false;
-  ResultModel? _currentResult;
 
   @override
   void dispose() {
@@ -78,43 +80,10 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
           Container(
             margin: const EdgeInsets.only(
                 left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
-            child: _isLoading
-                ? _buildLoadingScreen()
-                : _isResultVisible
-                    ? _buildResultScreen()
-                    : _buildInputForm(),
+            child: _buildInputForm(),
           ),
         ],
       )),
-    );
-  }
-
-  Widget _buildLoadingScreen() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Lottie.network(
-            LOADING_LOTTIE,
-          ),
-          const SizedBox(
-            height: DIMEN_15,
-          ),
-          const Text(
-            LOADING_TEXT,
-            style: TextStyle(
-                fontSize: DIMEN_25, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: DIMEN_15,
-          ),
-          const Text(
-            LOADING_SUB_TEXT,
-            style: TextStyle(color: Colors.grey),
-          ),
-        ],
-      ),
     );
   }
 
@@ -175,26 +144,6 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
           },
         ),
         const SizedBox(height: DIMEN_16),
-        const Text(BTS_EMAIL),
-        TextField(
-          controller: _emailController,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _emailValid ? null : VALID_EMAIL,
-          ),
-          onChanged: (value) {
-            if (!UiUtils.isEmailValid(value)) {
-              setState(() {
-                _emailValid = false;
-              });
-            } else {
-              setState(() {
-                _emailValid = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
         const Text(BTS_AGE),
         TextField(
           controller: _ageController,
@@ -216,9 +165,31 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
             }
           },
         ),
-        const Text(ENTER_STATE),
+        const SizedBox(height: DIMEN_16),
+        const Text(BTS_EMAIL),
+        TextField(
+          controller: _emailController,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            errorText: _emailValid ? null : VALID_EMAIL,
+          ),
+          onChanged: (value) {
+            if (!UiUtils.isEmailValid(value)) {
+              setState(() {
+                _emailValid = false;
+              });
+            } else {
+              setState(() {
+                _emailValid = true;
+              });
+            }
+          },
+        ),
+        const SizedBox(height: DIMEN_16),
+        const Text(ENTER_STATE_CODE),
         TextField(
           controller: _stateController,
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             errorText: _stateRequired ? null : REQUIRED_FIELD,
@@ -235,9 +206,11 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
             }
           },
         ),
-        const Text(ENTER_DISTRICT),
+        const SizedBox(height: DIMEN_16),
+        const Text(ENTER_DISTRICT_CODE),
         TextField(
           controller: _districtController,
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             errorText: _districtRequired ? null : REQUIRED_FIELD,
@@ -254,9 +227,11 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
             }
           },
         ),
-        const Text(ENTER_BLOCK),
+        const SizedBox(height: DIMEN_16),
+        const Text(ENTER_BLOCK_CODE),
         TextField(
           controller: _blockController,
+          keyboardType: TextInputType.phone,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             errorText: _blockRequired ? null : REQUIRED_FIELD,
@@ -330,6 +305,9 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
           margin: const EdgeInsets.only(
               left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFFFEE440), // Set the desired color
+            ),
             onPressed: () async {
               if (_nameController.text.isEmpty) {
                 _nameRequired = false;
@@ -361,56 +339,32 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
               if (!_nameController.text.isEmpty &&
                   !_pinCodeController.text.isEmpty &&
                   _phoneNumberValid) {
-                setState(() {
-                  _isLoading = true;
-                  _isResultVisible = false;
-                });
                 _requiredFields = false;
-                NavigationUtils.showLoaderOnTop();
-                final response =
-                    await ApiRepository.submitAddUserServiceCustomerForm(
-                            ApiRequestBody.submitAddUserServiceCustomerFormRequest(
-                                _nameController.text,
-                                _phoneNumberController.text,
-                                _pinCodeController.text,
-                                _ageController.text,
-                                _emailController.text,
-                                _employmentController.text,
-                                _stateController.text,
-                                _districtController.text,
-                                _blockController.text))
-                        .catchError((err) {
-                  NavigationUtils.pop();
-                  UiUtils.showToast(err);
-                });
-                NavigationUtils.pop();
-                if (response.isSuccess!) {
-                  if (response.data) {
-                    setState(() {
-                      _isLoading = false;
-                      _isResultVisible = true;
-                      _currentResult = ResultModel(
-                        isSuccess: true,
-                        message: ADD_SERVICE_CUSTOMER_SUCCESS,
-                        animationAsset:
-                            LOTTIE_SUCCESS,
-                      );
-                    });
-                  } else {
-                    setState(() {
-                      _isLoading = false;
-                      _isResultVisible = true;
-                      _currentResult = ResultModel(
-                        isSuccess: false,
-                        message: ADD_SERVICE_CUSTOMER_FAIL,
-                        animationAsset:
-                            LOTTIE_ERROR,
-                      );
-                    });
-                  }
-                } else {
-                  UiUtils.showToast(response.error![MESSAGE]);
-                }
+                String apiRoute = ApiRoutes.submitUserServiceCreateCustomerForm;
+                Map<String, dynamic> apiArgs = {
+                  "userId": UserDataHandler.getUserId(),
+                  "serviceId": ProductDataHandler.getServiceProductId(),
+                  "name": _nameController.text,
+                  "phoneNumber": _phoneNumberController.text,
+                  "age": _ageController.text,
+                  "email": _emailController.text,
+                  "stateCode": _stateController.text,
+                  "districtCode": _districtController.text,
+                  "blockCode": _blockController.text,
+                  "pincodeCode": _pinCodeController.text,
+                  "employmentType": _employmentController.text,
+                  "isVerified": false,
+                  "deliveryStatus": "IN_PROGRESS",
+                };
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ApiCallerScreen(
+                      apiRoute: apiRoute,
+                      args: apiArgs,
+                    ),
+                  ),
+                );
               } else {
                 _requiredFields = true;
               }
@@ -428,34 +382,4 @@ class _addUserServiceCustomerState extends State<addUserServiceCustomer> {
       ],
     );
   }
-
-  Widget _buildResultScreen() {
-    return Container(
-      color: Colors.black54,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Lottie.network(_currentResult!.isSuccess
-                ? _currentResult!.animationAsset
-                : LOTTIE_ERROR),
-            const SizedBox(height: 16),
-            Text(_currentResult!.message),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ResultModel {
-  final bool isSuccess;
-  final String message;
-  final String animationAsset;
-
-  ResultModel({
-    required this.isSuccess,
-    required this.message,
-    required this.animationAsset,
-  });
 }

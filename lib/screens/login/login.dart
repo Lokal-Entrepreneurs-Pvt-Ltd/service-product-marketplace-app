@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/constants/json_constants.dart';
@@ -9,11 +8,8 @@ import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/preference_constants.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:http/http.dart' as http;
-import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../constants/strings.dart';
 import '../../utils/UiUtils/UiUtils.dart';
-import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
 class LoginPageScreen extends StatefulWidget {
@@ -29,10 +25,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   String? selectedUserType;
   var errorEmail = false;
   var descEmail = "";
-
   var errorPassword = false;
   var descPassword = "";
-
   var isAuthError = false;
   var authErrorCode = -1;
   var authErrorMessage = "";
@@ -42,7 +36,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   @override
   void initState() {
     super.initState();
-
     initialize();
   }
 

@@ -33,6 +33,11 @@ abstract class DeeplinkHandler {
 
     // /checkout
     switch (route) {
+      case ScreenRoutes.serviceLandingPageNew:
+        {
+          _pushScreen(context, ScreenRoutes.serviceLandingPageNew, args);
+        }
+        break;
       case ScreenRoutes.homeScreen:
         {
           _pushScreen(context, ScreenRoutes.homeScreen, args);
@@ -75,9 +80,8 @@ abstract class DeeplinkHandler {
       case ScreenRoutes.serviceScreen:
         {
           if (args["serviceId"] != null) {
-            ProductDataHandler.saveProductSkuId(args['serviceId']);
-            ProductDataHandler.saveServiceCode(args['serviceCode']);
-            args["serviceId"] = int.parse(args["serviceId"]);
+            // ProductDataHandler.saveProductSkuId(args['serviceId']);
+            // ProductDataHandler.saveServiceCode(args['serviceCode']);
             _pushScreen(context, ScreenRoutes.serviceScreen, args);
           }
         }

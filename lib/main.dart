@@ -1,6 +1,5 @@
-import 'dart:io';
 
-// import 'package:chucker_flutter/chucker_flutter.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +11,9 @@ import 'package:lokal/constants/environment.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
-import 'package:lokal/pages/UikBtsCheckLocation.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
-import 'package:lokal/pages/UikDummyScreen.dart';
-import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
@@ -28,8 +24,8 @@ import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
-import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
@@ -39,6 +35,7 @@ import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
+import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
@@ -108,17 +105,11 @@ void main() async {
     throw Exception(err);
   });
   if (fcmToken!.isNotEmpty) saveFCMForUser(fcmToken);
-
-  // SharedPreferences.getInstance().then((instance) {
-  //   StorageService().sharedPreferencesInstance = instance; // Storage service is a service to manage all shared preferences stuff. I keep the instance there and access it whenever i wanted.
-  //   runApp(MyApp());
-  // });
 }
 
 Future<void> saveFCMForUser(String fcmToken) async {
-  dynamic response = await ApiRepository.saveNotificationToken(
+      await ApiRepository.saveNotificationToken(
       ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken, FCM));
-  // debugPrint(response);
 }
 
 class NavigationService {
@@ -141,50 +132,12 @@ class _LokalAppState extends State<LokalApp> {
   void initState() {
     super.initState();
     initPlatformState();
-    // detector = ShakeDetector.autoStart(
-    //   onPhoneShake: () {
-    //     // Do stuff on phone shake
-    //     if (kDebugMode) displayTextInputDialog(context);
-    //   },
-    //   minimumShakeCount: 1,
-    //   shakeSlopTimeMS: 500,
-    //   shakeCountResetTime: 3000,
-    //   shakeThresholdGravity: 2.7,
-    // );
-    //AppInitializer.initDynamicLinks(context, FirebaseDynamicLinks.instance);
-
-    /*
-      // Postman -> Headers
-      Authorization - key=<Server Key>
-      Content-Type - application/json
-
-      // Postman -> Body -> RAW -> JSON
-      {
-        "to" : "dRuG1cAsR6ife4qFF_rA2w:APA91bGY4qI-Pv1-DWQIRsBMou6pwL9OXtzOmKSKcbAq82Tr6Xdk5I4vyTCechYS4NqbCF8qkeb2YC-j1GhjXMXlrJaaBbwCWjup5aIQKproS4B49Zzrte4HCW1ZhwoMxeNQpqH23N7g",
-        "notification" : {
-            "title": "Login Screen",
-            "body" : "Login Screen"
-        },
-        "data": {
-            "click_action": "FLUTTER_NOTIFICATION_CLICK",
-            "link": "https://localee.page.link/loginscreen"
-        }
-      }
-     */
-
-    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    //   // print(message.data["link"]);
-    //
-    //   DeeplinkHandler.openPage(
-    //       NavigationService.navigatorKey.currentContext!, message.data["link"]);
-    // });
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    // detector.stopListening();
   }
 
   Future<void> initPlatformState() async {
@@ -198,15 +151,7 @@ class _LokalAppState extends State<LokalApp> {
 
     PreferenceUtils.setString("device_id", deviceId.toString());
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
-
-    // setState(() {
-    //   _deviceId = deviceId;
-    //   print("deviceId->$_deviceId");
-    // });
   }
 
   displayTextInputDialog(BuildContext context) async {
@@ -301,9 +246,13 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => UserDataHandler.getUserToken().isEmpty
-              ? OnboardingScreen()
-              : UikBottomNavigationBar(),
+          "/": (context) {
+            // return ServiceLandingScreen();
+            return UserDataHandler.getUserToken().isEmpty
+                ? OnboardingScreen()
+                : UikBottomNavigationBar();
+          },
+          ScreenRoutes.serviceLandingPageNew: (context) => const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -351,7 +300,10 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
-          ScreenRoutes.addUserServiceCustomer: (context) => addUserServiceCustomer()
+          ScreenRoutes.addUserServiceCustomer: (context) =>
+              AddServiceCustomerFlow(),
+          ScreenRoutes.addUserServiceCustomer: (context) => AddServiceCustomerFlow()
+
         },
       ),
     );
