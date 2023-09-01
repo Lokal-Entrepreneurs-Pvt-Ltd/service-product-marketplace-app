@@ -245,6 +245,14 @@ class ApiRepository {
   static Future<ApiResponse> getServiceTabsScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.serviceTabs, args);
   }
+  static Future<ApiResponse> getAllCustomerForUserService(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getAllCustomerForUserService, args);
+  }
+
+  static Future<ApiResponse> getAllAgentsForUserService(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getAllAgentsForUserService, args);
+  }
+
 }
 
 // apirequestbody class 
