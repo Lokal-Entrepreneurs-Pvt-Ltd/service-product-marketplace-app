@@ -246,6 +246,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.getAllCustomerForUserService, args);
   }
 
+  static Future<ApiResponse> getAllAgentsForUserService(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getAllAgentsForUserService, args);
+  }
+
 }
 
 // apirequestbody class 
