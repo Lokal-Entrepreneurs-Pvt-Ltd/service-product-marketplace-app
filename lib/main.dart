@@ -14,6 +14,7 @@ import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
+import 'package:lokal/pages/UikCustomerForUserService.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
@@ -302,8 +303,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
           ScreenRoutes.addUserServiceCustomer: (context) =>
               AddServiceCustomerFlow(),
-          ScreenRoutes.addUserServiceCustomer: (context) => AddServiceCustomerFlow()
-
+          ScreenRoutes.addUserServiceCustomer: (context) => AddServiceCustomerFlow(),
+          ScreenRoutes.getAllCustomerForUserService: (context) => UikCustomerForUserService().page,
         },
       ),
     );
