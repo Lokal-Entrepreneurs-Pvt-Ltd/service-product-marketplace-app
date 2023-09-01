@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'dart:math';
 
 class DuoPolygonSliderThumb extends RangeSliderThumbShape {
   final double thumbRadius;

@@ -1,22 +1,21 @@
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
 import "package:flutter/material.dart";
-import "package:flutter/cupertino.dart";
 
 import '../UikButton/UikButton.dart';
 
 class ActionSheet extends StatelessWidget {
   final items;
-  ActionSheet({this.items});
+  const ActionSheet({super.key, this.items});
   void showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
         return Container(
           decoration: BoxDecoration(
-            color: Color(0xFF737373),
+            color: const Color(0xFF737373),
             border: Border.all(
               width: 0,
-              color: Color(0xFF737373),
+              color: const Color(0xFF737373),
             ),
           ),
           child: Container(
@@ -25,7 +24,7 @@ class ActionSheet extends StatelessWidget {
                 : (items.length == 2)
                     ? 300
                     : 400,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
@@ -37,12 +36,12 @@ class ActionSheet extends StatelessWidget {
                 //Title starts
 
                 Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     top: 40,
                     left: 10,
                     bottom: 10,
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
@@ -66,7 +65,7 @@ class ActionSheet extends StatelessWidget {
                     children: [
                       for (int i = 0; i < items.length; i++) ...[
                         ListTile(
-                          leading: Icon(Icons.star_border_outlined),
+                          leading: const Icon(Icons.star_border_outlined),
                           title: Text(items[i]),
                           onTap: () {},
                         ),
@@ -79,8 +78,8 @@ class ActionSheet extends StatelessWidget {
                 //cancel button starts
 
                 Container(
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: UikButton(
                     onClick: () {
                       Navigator.pop(context);
@@ -136,11 +135,11 @@ class ActionSheet extends StatelessWidget {
       context: context,
 
       title: Container(
-        margin: EdgeInsets.only(top: 40),
-        child: Row(
+        margin: const EdgeInsets.only(top: 40),
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Title',
               style: TextStyle(
                 fontSize: 30,
@@ -154,7 +153,7 @@ class ActionSheet extends StatelessWidget {
       actions: <BottomSheetAction>[
         for (int i = 0; i < items.length; i++) ...[
           BottomSheetAction(
-            leading: Icon(Icons.star_border_outlined),
+            leading: const Icon(Icons.star_border_outlined),
             title: Text(items[i]), onPressed: (BuildContext context) {  },
             //onPressed: () {},
           ),
@@ -165,20 +164,20 @@ class ActionSheet extends StatelessWidget {
           // color: Color(0xFFF5F5F5),
           width: double.infinity,
           height: 70,
-          padding: EdgeInsets.all(3),
+          padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Color(0xFFF5F5F5),
+            color: const Color(0xFFF5F5F5),
             border: Border.all(
               width: 1,
-              color: Color(0xFFF5F5F5),
+              color: const Color(0xFFF5F5F5),
             ),
           ),
-          child: Row(
+          child: const Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Cancel',
                 style: TextStyle(color: Colors.black),
               ),

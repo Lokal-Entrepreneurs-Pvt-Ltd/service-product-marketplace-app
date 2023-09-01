@@ -1,14 +1,14 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 // import "UikAvatar.dart";
 
 class Avatar extends StatelessWidget {
+  const Avatar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Row(
+        child: const Row(
       children: [
         UikAvatar(
           shape: UikAvatarShape.circle,

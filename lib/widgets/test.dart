@@ -1,17 +1,17 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var _token = "";
+  final _token = "";
   void fetchData() async {
     try {
       // var uri = Uri.parse("http://localhost:5000/user/get");
@@ -44,11 +44,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
             width: 100,
             height: 100,
             child: ElevatedButton(
-              child: Text('Tap me'),
+              child: const Text('Tap me'),
               onPressed: () {
                 fetchData();
               },

@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:lokal/widgets/UikAdminEcommCards/OrderDetailsCard/ProductPage.dart';
@@ -59,7 +58,7 @@ class InvoicePage extends ProductPage {
             ),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 size: 16.5,
                 Icons.edit_outlined,
                 color: Color(0xff9e9e9e),
@@ -75,7 +74,7 @@ class InvoicePage extends ProductPage {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                margin: EdgeInsets.only(left: 30, top: 11, right: 15),
+                margin: const EdgeInsets.only(left: 30, top: 11, right: 15),
                 child: Image.asset(img),
               ),
               Container(
@@ -119,9 +118,9 @@ class InvoicePage extends ProductPage {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 30, right: 32),
+            margin: const EdgeInsets.only(top: 30, right: 32),
             child: Text(
-              'Date:' + date,
+              'Date:$date',
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -134,13 +133,13 @@ class InvoicePage extends ProductPage {
       Container(
         // color: Colors.black,
         margin: const EdgeInsets.only(top: 40, left: 30, bottom: 12, right: 30),
-        child: Row(
+        child: const Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
+            SizedBox(
               width: 424,
               // margin: const EdgeInsets.only(right: 477),
-              child: const Text(
+              child: Text(
                 'Product',
                 style: TextStyle(
                     fontSize: 14,
@@ -148,10 +147,10 @@ class InvoicePage extends ProductPage {
                     color: Color(0xff9E9E9E)),
               ),
             ),
-            Container(
+            SizedBox(
               width: 212,
               // margin: const EdgeInsets.only(right: 198),
-              child: const Text(
+              child: Text(
                 'Price',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -160,10 +159,10 @@ class InvoicePage extends ProductPage {
                     color: Color(0xff9E9E9E)),
               ),
             ),
-            Container(
+            SizedBox(
               width: 212,
               // margin: const EdgeInsets.only(right: 199),
-              child: const Text(
+              child: Text(
                 'Quantity',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -172,10 +171,10 @@ class InvoicePage extends ProductPage {
                     color: Color(0xff9E9E9E)),
               ),
             ),
-            Container(
+            SizedBox(
               width: 212,
               // margin: EdgeInsets.only(right: 30),
-              child: const Text(
+              child: Text(
                 'Total',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -197,11 +196,11 @@ class InvoicePage extends ProductPage {
                 color: Color(0xffBDBDBD),
               ),
               Container(
-                padding: EdgeInsets.only(left: 30, right: 30),
+                padding: const EdgeInsets.only(left: 30, right: 30),
                 height: 50,
                 child: Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: 424,
                       child: Text(
                         products[i].productName,
@@ -209,17 +208,17 @@ class InvoicePage extends ProductPage {
                             fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       // margin: const EdgeInsets.only(left: 422),
                       width: 212,
                       child: Text(
-                        '\$' + products[i].price.toString(),
+                        '\$${products[i].price}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 212,
                       // margin: const EdgeInsets.only(left: 222),
                       child: Text(
@@ -229,11 +228,11 @@ class InvoicePage extends ProductPage {
                             fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 212,
                       // margin: const EdgeInsets.only(left: 222),
                       child: Text(
-                        '\$' + products[i].total.toString(),
+                        '\$${products[i].total}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w500),
@@ -249,16 +248,16 @@ class InvoicePage extends ProductPage {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-            margin: EdgeInsets.only(right: 31, top: 35, bottom: 35),
+            margin: const EdgeInsets.only(right: 31, top: 35, bottom: 35),
             child: Column(
               children: [
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(right: 110),
-                      child: Column(
+                      margin: const EdgeInsets.only(right: 110),
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
+                        children: [
                           Text(
                             'Subtotal',
                             style: TextStyle(
@@ -291,32 +290,32 @@ class InvoicePage extends ProductPage {
                     ),
                     Container(
                       // color: Colors.amber,
-                      margin: EdgeInsets.only(right: 31),
+                      margin: const EdgeInsets.only(right: 31),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '\$' + subtotalVal.toString(),
+                            '\$$subtotalVal',
                             style: const TextStyle(
                                 color: Color(0xff9E9E9E),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 11,
                           ),
                           Text(
-                            '-\$' + discountVal.toString(),
+                            '-\$$discountVal',
                             style: const TextStyle(
                                 color: Color(0xff9E9E9E),
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 11,
                           ),
                           Text(
-                            '\$' + VATval.toString(),
+                            '\$$VATval',
                             style: const TextStyle(
                                 color: Color(0xff9E9E9E),
                                 fontSize: 14,
@@ -329,7 +328,7 @@ class InvoicePage extends ProductPage {
                 ),
                 Container(
                   width: 215,
-                  margin: EdgeInsets.only(top: 18, right: 30),
+                  margin: const EdgeInsets.only(top: 18, right: 30),
                   child: const Divider(
                     height: 1,
                     color: Color(0xffBABFC5),
@@ -337,7 +336,7 @@ class InvoicePage extends ProductPage {
                 ),
                 Container(
                   // color: Colors.amber,
-                  margin: EdgeInsets.only(right: 30, top: 14),
+                  margin: const EdgeInsets.only(right: 30, top: 14),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -349,11 +348,11 @@ class InvoicePage extends ProductPage {
                             fontSize: 14,
                             fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 137,
                       ),
                       Text(
-                        '\$' + totalVal.toString(),
+                        '\$$totalVal',
                         style: const TextStyle(
                             color: Color(0xff212121),
                             fontSize: 14,

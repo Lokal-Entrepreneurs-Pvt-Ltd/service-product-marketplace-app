@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 
 import '../constants/json_constants.dart';
 import '../main.dart';
-import '../screen_routes.dart';
 import '../screens/bts/ConfirmTowers.dart';
 import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
@@ -26,7 +25,7 @@ class UikBtsCheckLocationScreen extends StandardPage {
 
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.SELECT_TOWER);
     actionList.add(UIK_ACTION.CONFIRM_TOWER);
     actionList.add(UIK_ACTION.BACK_PRESSED);
@@ -80,7 +79,7 @@ class UikBtsCheckLocationScreen extends StandardPage {
     final BuildContext context = NavigationService.navigatorKey.currentContext!;
     NavigationUtils.showLoaderOnTop();
     final response = await ApiRepository.confirmTower(
-        ApiRequestBody.confirmTowerRequest(userId, this.towerId));
+        ApiRequestBody.confirmTowerRequest(userId, towerId));
 
     NavigationUtils.pop();
     if (response.isSuccess == true) {
@@ -90,7 +89,7 @@ class UikBtsCheckLocationScreen extends StandardPage {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ConfirmTowers(),
+          builder: (context) => const ConfirmTowers(),
         ),
         // arguments: args,
       );

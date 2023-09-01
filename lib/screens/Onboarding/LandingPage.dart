@@ -47,7 +47,7 @@ class LandingPage extends StatelessWidget {
                           color: HexColor("#212121")),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+                      margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
                       height: 64,
                       width: MediaQuery.of(context).size.width,
                       child: ElevatedButton(
@@ -59,7 +59,7 @@ class LandingPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => OnboardingScreen()));
+                                  builder: (context) => const OnboardingScreen()));
                         },
                         child: Text(
                           "Get Started",

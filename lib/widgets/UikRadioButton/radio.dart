@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 class RadioButton extends StatefulWidget {
   final state;
   final borderRadius;
-  RadioButton({this.state, this.borderRadius = 180});
+  const RadioButton({super.key, this.state, this.borderRadius = 180});
 
   @override
   State<RadioButton> createState() => _RadioButtonState();

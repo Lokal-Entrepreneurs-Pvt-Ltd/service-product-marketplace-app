@@ -66,6 +66,7 @@ class ApiRoutes {
   static const String verifyAddAgentOtp = "/agent/verifyOtp";
   static const String submitUserServiceCreateCustomerForm =
       "/userServiceCustomer/create";
+  static const String serviceTabs = "/service/getTabs";
   static const String getAllCustomerForUserService =
       "/service/getAllCustomerForUserService";
   static const String getAllAgentsForUserService =

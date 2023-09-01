@@ -12,7 +12,7 @@ class SignIn extends StatelessWidget {
   final eliminateDasher;
   final eliminateSubheading;
 
-  SignIn({
+  const SignIn({super.key, 
     this.val = "signin",
     this.elevation = 10,
     this.eliminateDasher,
@@ -23,7 +23,7 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: 450,
           //height: ,
           child: Card(
@@ -38,8 +38,8 @@ class SignIn extends StatelessWidget {
               children: [
                 Container(
                   margin: (eliminateSubheading == null)
-                      ? EdgeInsets.fromLTRB(10, 15, 0, 48)
-                      : EdgeInsets.fromLTRB(0, 15, 0, 48),
+                      ? const EdgeInsets.fromLTRB(10, 15, 0, 48)
+                      : const EdgeInsets.fromLTRB(0, 15, 0, 48),
                   child: Row(
                     mainAxisAlignment: (eliminateSubheading == null)
                         ? MainAxisAlignment.start
@@ -47,7 +47,7 @@ class SignIn extends StatelessWidget {
                     children: [
                       Text(
                         (val == "signin") ? "Sign In" : "Sign Up",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xFF212121),
                           fontSize: 50,
                           fontWeight: FontWeight.bold,
@@ -58,23 +58,23 @@ class SignIn extends StatelessWidget {
                 ),
                 (eliminateSubheading == null)
                     ? Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 0, 48),
+                        margin: const EdgeInsets.fromLTRB(10, 0, 0, 48),
                         child: Row(
                           children: [
-                            Container(
+                            const SizedBox(
                               width: 90,
                               child: Divider(
                                 color: Colors.blue,
                                 thickness: 4,
                               ),
                             ),
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                             Container(
                               child: Text(
                                 (val == "signin")
                                     ? "Sign in with"
                                     : "Sign up with",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.blue,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
@@ -86,11 +86,11 @@ class SignIn extends StatelessWidget {
                       )
                     : Container(),
                 Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 0, 48),
+                  margin: const EdgeInsets.fromLTRB(10, 0, 0, 48),
                   child: Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
                           border: Border.all(
@@ -100,15 +100,15 @@ class SignIn extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            UikAvatar(
+                            const UikAvatar(
                               shape: UikAvatarShape.circle,
                               size: UikSize.SMALL,
                               backgroundImage: NetworkImage(
                                   "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                             ),
-                            SizedBox(width: 12.93),
+                            const SizedBox(width: 12.93),
                             Container(
-                              child: Text(
+                              child: const Text(
                                 "Sign in with Google",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
@@ -120,9 +120,9 @@ class SignIn extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: 50),
+                      const SizedBox(width: 50),
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
                           border: Border.all(
@@ -132,15 +132,15 @@ class SignIn extends StatelessWidget {
                         ),
                         child: Row(
                           children: [
-                            UikAvatar(
+                            const UikAvatar(
                               shape: UikAvatarShape.circle,
                               size: UikSize.SMALL,
                               backgroundImage: NetworkImage(
                                   "https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                             ),
-                            SizedBox(width: 12.93),
+                            const SizedBox(width: 12.93),
                             Container(
-                              child: Text(
+                              child: const Text(
                                 "Sign in with Facebook",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
@@ -157,26 +157,26 @@ class SignIn extends StatelessWidget {
                 ),
                 (eliminateDasher == null)
                     ? Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 0, 32),
+                        margin: const EdgeInsets.fromLTRB(10, 0, 0, 32),
                         child: Row(
                           children: [
-                            Container(
+                            const SizedBox(
                               width: 195,
                               child: Divider(
                                 color: Color(0xFFBDBDBD),
                               ),
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Container(
-                              child: Text(
+                              child: const Text(
                                 "Or",
                                 style: TextStyle(
                                   color: Color(0xFFBDBDBD),
                                 ),
                               ),
                             ),
-                            SizedBox(width: 5),
-                            Container(
+                            const SizedBox(width: 5),
+                            const SizedBox(
                               width: 195,
                               child: Divider(
                                 color: Color(0xFFBDBDBD),
@@ -190,7 +190,7 @@ class SignIn extends StatelessWidget {
                 //Name and password section........................
 
                 Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     bottom: 24,
                     left: 10,
                   ),
@@ -201,10 +201,10 @@ class SignIn extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                 bottom: 9,
                               ),
-                              child: Text(
+                              child: const Text(
                                 "Name",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -222,7 +222,7 @@ class SignIn extends StatelessWidget {
                                   width: 1.0,
                                 ),
                               ),
-                              child: TextField(
+                              child: const TextField(
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   fillColor: Color(0xFFF5F5F5),
@@ -235,18 +235,18 @@ class SignIn extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Container(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                 bottom: 9,
                               ),
                               child: Text(
                                 (val == 'signin') ? "Password" : "Email",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -262,7 +262,7 @@ class SignIn extends StatelessWidget {
                                   width: 1.0,
                                 ),
                               ),
-                              child: TextField(
+                              child: const TextField(
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   fillColor: Color(0xFFF5F5F5),
@@ -282,25 +282,25 @@ class SignIn extends StatelessWidget {
                 //optional field only in signUp
                 (val == "signup")
                     ? Container(
-                        margin: EdgeInsets.fromLTRB(10, 0, 0, 33),
+                        margin: const EdgeInsets.fromLTRB(10, 0, 0, 33),
                         child: Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                 bottom: 10,
                               ),
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Password",
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                  SizedBox(width: 240),
+                                  const SizedBox(width: 240),
                                   GestureDetector(
-                                    child: Text(
+                                    child: const Text(
                                       "Forget Password?",
                                       style: TextStyle(
                                         color: Colors.red,
@@ -311,7 +311,7 @@ class SignIn extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -325,7 +325,7 @@ class SignIn extends StatelessWidget {
                                         width: 1.0,
                                       ),
                                     ),
-                                    child: TextField(
+                                    child: const TextField(
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         fillColor: Color(0xFFF5F5F5),
@@ -339,11 +339,11 @@ class SignIn extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              child: Row(
+                              margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
+                                  SizedBox(
                                     width: 420,
                                     child: LinearProgressIndicator(
                                       value: 0.7,
@@ -355,7 +355,7 @@ class SignIn extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
@@ -380,11 +380,11 @@ class SignIn extends StatelessWidget {
                 // height: 100,
                 (val == "signup")
                     ? Container(
-                        margin: EdgeInsets.only(left: 10, bottom: 44),
-                        child: Row(
+                        margin: const EdgeInsets.only(left: 10, bottom: 44),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 30,
                               height: 30,
                               child: RadioButton(borderRadius: 10),
@@ -407,20 +407,20 @@ class SignIn extends StatelessWidget {
                 //Radio and forget password
                 (val == "signin")
                     ? Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           bottom: 24,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             UikSwitch(
-                              activebackgroundColor: Color(0xFFFEF2A0),
+                              activebackgroundColor: const Color(0xFFFEF2A0),
                               activetopColor: Colors.yellow,
                               inactivebackgroundColor: Colors.grey.shade400,
                               inactivetopColor: Colors.yellow,
                             ),
                             Container(
-                              child: Text(
+                              child: const Text(
                                 "Remember Me",
                                 style: TextStyle(
                                   color: Color(0xFF121625),
@@ -428,10 +428,10 @@ class SignIn extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 160),
+                            const SizedBox(width: 160),
                             Container(
                               child: GestureDetector(
-                                child: Text(
+                                child: const Text(
                                   "Forget Password?",
                                   style: TextStyle(
                                     color: Colors.red,
@@ -446,7 +446,7 @@ class SignIn extends StatelessWidget {
 
                 //button Sign in and SignUp button
                 Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                     bottom: 21,
                     left: 10,
                   ),
@@ -464,8 +464,8 @@ class SignIn extends StatelessWidget {
                 //create an account (clickable text)
                 (val == "signin")
                     ? Container(
-                        margin: EdgeInsets.only(bottom: 20),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        child: const Text(
                           "Create an account",
                           style: TextStyle(
                             color: Color(0xFF3F51B5),
@@ -477,8 +477,8 @@ class SignIn extends StatelessWidget {
                     : GestureDetector(
                         onTap: () {},
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 20),
-                          child: Row(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Do you already have an account?"),

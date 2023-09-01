@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:scratcher/widgets.dart';
 
 class MyRewardPage extends StatelessWidget {
+  const MyRewardPage({super.key});
+
   void _showScratchCardDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Scratch Card"),
-          content: ScratchCardContent(),
+          title: const Text("Scratch Card"),
+          content: const ScratchCardContent(),
           actions: [
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context); // Close the dialog
               },
-              child: Text("Close"),
+              child: const Text("Close"),
             ),
           ],
         );
@@ -26,7 +28,7 @@ class MyRewardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Rewards", style: TextStyle(color: Colors.black)),
+        title: const Text("My Rewards", style: TextStyle(color: Colors.black)),
         backgroundColor:
             Colors.white, // Set the background color of the app bar to white
       ),
@@ -35,10 +37,10 @@ class MyRewardPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
-              Padding(
+              const Padding(
                 padding:
                     EdgeInsets.only(left: 16), // Add left padding to the text
                 child: Align(
@@ -52,20 +54,20 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 "Join Loyalty Points and get rewarded while you shop. You'll get 250 points for signing up. What are you waiting for?",
                 style: TextStyle(fontSize: 18), // Increase font size
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: () {}, child: Text('Join Now')),
-                  ElevatedButton(onPressed: () {}, child: Text('Log in')),
+                  ElevatedButton(onPressed: () {}, child: const Text('Join Now')),
+                  ElevatedButton(onPressed: () {}, child: const Text('Log in')),
                 ],
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               //   children: [
@@ -107,7 +109,7 @@ class MyRewardPage extends StatelessWidget {
               //       Colors.grey, // Customize the color of the divider if needed
               //   thickness: 1.0, // Set the thickness of the divider if needed
               // ),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
               //   children: [
@@ -167,7 +169,7 @@ class MyRewardPage extends StatelessWidget {
               //   ],
               // ),
               // SizedBox(height: 25),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
@@ -180,7 +182,7 @@ class MyRewardPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       "Earn Points",
                       style: TextStyle(fontSize: 18),
@@ -197,7 +199,7 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25), // Add some spacing below the divider
+              const SizedBox(height: 25), // Add some spacing below the divider
               _buildEarnPointsRow(
                 [
                   _buildEarnPointsCard(
@@ -214,7 +216,7 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               _buildEarnPointsRow(
                 [
                   _buildEarnPointsCard(
@@ -231,8 +233,8 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25),
-              Row(
+              const SizedBox(height: 25),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
@@ -245,7 +247,7 @@ class MyRewardPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       "Rewards",
                       style: TextStyle(fontSize: 18),
@@ -262,7 +264,7 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25), // Add some spacing below the divider
+              const SizedBox(height: 25), // Add some spacing below the divider
               _buildRewardsRow(
                 [
                   _buildRewardsCard(
@@ -281,8 +283,8 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25),
-              Row(
+              const SizedBox(height: 25),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
@@ -295,7 +297,7 @@ class MyRewardPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       "Tiers",
                       style: TextStyle(fontSize: 18),
@@ -312,7 +314,7 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25), // Add some spacing below the divider
+              const SizedBox(height: 25), // Add some spacing below the divider
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -324,8 +326,8 @@ class MyRewardPage extends StatelessWidget {
                       "3", "Gold", "Spend \$1000", "4 points per \$1"),
                 ],
               ),
-              SizedBox(height: 25),
-              Row(
+              const SizedBox(height: 25),
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
@@ -338,7 +340,7 @@ class MyRewardPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       "History",
                       style: TextStyle(fontSize: 18),
@@ -355,13 +357,13 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25), // Add some spacing below the divider
+              const SizedBox(height: 25), // Add some spacing below the divider
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SingleChildScrollView(
                   child: Center(
                     child: DataTable(
-                      columns: [
+                      columns: const [
                         DataColumn(label: Text("DATE")),
                         DataColumn(label: Text("TYPE")),
                         DataColumn(label: Text("ACTION")),
@@ -407,20 +409,20 @@ class MyRewardPage extends StatelessWidget {
               Row(
                 children: [
                   Icon(icon),
-                  SizedBox(width: 8.0),
+                  const SizedBox(width: 8.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         title,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         subtitle,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12.0,
                           fontWeight: FontWeight.w200,
                         ),
@@ -429,7 +431,7 @@ class MyRewardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(Icons.chevron_right),
+              const Icon(Icons.chevron_right),
             ],
           ),
         ),
@@ -461,23 +463,23 @@ class MyRewardPage extends StatelessWidget {
         child: Column(
           children: [
             Icon(icon, size: 48, color: Colors.blue),
-            SizedBox(height: 12.0),
+            const SizedBox(height: 12.0),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               subtitle,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.w300,
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 // Add your action for the button here
@@ -516,23 +518,23 @@ class MyRewardPage extends StatelessWidget {
         child: Column(
           children: [
             Icon(icon, size: 48, color: Colors.blue),
-            SizedBox(height: 12.0),
+            const SizedBox(height: 12.0),
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               subtitle,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.w300,
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 _showScratchCardDialog(context);
@@ -547,6 +549,8 @@ class MyRewardPage extends StatelessWidget {
 }
 
 class ScratchCardContent extends StatelessWidget {
+  const ScratchCardContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -561,7 +565,7 @@ class ScratchCardContent extends StatelessWidget {
           height: 300,
           width: 300,
           color: Colors.green,
-          child: Center(
+          child: const Center(
             child: Text(
               "You earned 100\$",
               style: TextStyle(
@@ -583,43 +587,43 @@ Widget _buildTierWidget(
     children: [
       Text(
         number,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w700,
         ),
       ),
-      SizedBox(height: 8),
+      const SizedBox(height: 8),
       Text(
         tierName,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
       ),
-      SizedBox(height: 8),
+      const SizedBox(height: 8),
       Text(
         amount,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14,
           color: Colors.grey,
         ),
       ),
-      SizedBox(height: 40),
-      Container(
+      const SizedBox(height: 40),
+      const SizedBox(
         width: 100,
         child: Divider(
           color: Colors.grey, // Customize the color of the divider if needed
           thickness: 1.0, // Set the thickness of the divider if needed
         ),
       ),
-      SizedBox(height: 15),
+      const SizedBox(height: 15),
       Text(
         desc,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14,
           color: Colors.grey,
         ),
       ),
-      SizedBox(height: 15),
-      Container(
+      const SizedBox(height: 15),
+      const SizedBox(
         width: 100,
         child: Divider(
           color: Colors.grey, // Customize the color of the divider if needed

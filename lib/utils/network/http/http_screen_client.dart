@@ -10,11 +10,9 @@ import 'package:lokal/constants/strings.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/network_utils.dart';
-import 'package:lokal/utils/network/retrofit/api_routes.dart';
 
 import 'package:ui_sdk/props/ApiResponse.dart';
 
-import '../../../constants/environment.dart';
 import '../../../constants/json_constants.dart';
 import '../../../pages/UikBottomNavigationBar.dart';
 import '../../../screens/Onboarding/OnboardingScreen.dart';
@@ -34,7 +32,7 @@ class HttpScreenClient {
         return WillPopScope(
             onWillPop: () => Future.value(false),
             child: AlertDialog(
-              title: Text(YOU_HAVE_BEEN_LOGGED_OUT),
+              title: const Text(YOU_HAVE_BEEN_LOGGED_OUT),
               actions: <Widget>[
                 MaterialButton(
                   color: Colors.amberAccent,
@@ -45,7 +43,7 @@ class HttpScreenClient {
                     Navigator.pushAndRemoveUntil(
                       NavigationUtils.getCurrentContext()!,
                       MaterialPageRoute(
-                        builder: (context) => OnboardingScreen(),
+                        builder: (context) => const OnboardingScreen(),
                       ),
                       // ModalRoute.withName(ScreenRoutes.homeScreen)
                       (route) => false,
@@ -76,7 +74,7 @@ class HttpScreenClient {
                     Navigator.pushAndRemoveUntil(
                       NavigationUtils.getCurrentContext()!,
                       MaterialPageRoute(
-                        builder: (context) => UikBottomNavigationBar(),
+                        builder: (context) => const UikBottomNavigationBar(),
                       ),
                       // ModalRoute.withName(ScreenRoutes.homeScreen)
                       (route) => false,
@@ -104,34 +102,35 @@ class HttpScreenClient {
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
         ApiResponse apiResponse =
             ApiResponse.fromJson(jsonDecode(response.body));
-        if (apiResponse.isSuccess!)
+        if (apiResponse.isSuccess!) {
           return apiResponse;
-        else {
+        } else {
           String errorCode = apiResponse.error![CODE].toString();
           if (errorCode.isNotEmpty) {
             switch (errorCode) {
               case NetworkUtils.NETWORK_ERROR_USER_NOT_AUTHENTICATED:
                 {
                   displayUserUnAuthorisedDialog();
-                  throw Exception('Failed to load ' + pageRoute);
+                  throw Exception('Failed to load $pageRoute');
                 }
                 break;
               default:
                 {
                   UiUtils.showToast(apiResponse.error![MESSAGE]);
-                  throw Exception('Failed to load ' + pageRoute);
+                  throw Exception('Failed to load $pageRoute');
                 }
             }
-          } else
-            throw Exception('Failed to load ' + pageRoute);
+          } else {
+            throw Exception('Failed to load $pageRoute');
+          }
         }
       } else {
-        throw Exception('Failed to load ' + pageRoute);
+        throw Exception('Failed to load $pageRoute');
       }
     } on TimeoutException catch (_) {
-      throw Exception('Timeout Error to load ' + pageRoute);
+      throw Exception('Timeout Error to load $pageRoute');
     } on SocketException catch (_) {
-      throw Exception('Socket Error to load ' + pageRoute);
+      throw Exception('Socket Error to load $pageRoute');
     }
   }
 }

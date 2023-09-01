@@ -1,13 +1,10 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 // import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
-import '../UikButton/UikButton.dart';
 import '../UikiIcon/uikIcon.dart';
 import "./snackbar.dart";
 
 class Snack extends StatelessWidget {
-  final obj = SnackBarPage(
+  final obj = const SnackBarPage(
     title: "Snackbar",
     //description: "yuvraj",
     //action: "Action",
@@ -30,6 +27,8 @@ class Snack extends StatelessWidget {
     //secondIcon: Icons.notifications_none_rounded,
   );
   final _messangerKey = GlobalKey<ScaffoldMessengerState>();
+
+  Snack({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,7 +40,7 @@ class Snack extends StatelessWidget {
               onPressed: () {
                 _messangerKey.currentState!.showSnackBar(obj.snackWidget());
               },
-              child: Text('Show My'),
+              child: const Text('Show My'),
             )
           ]),
         ),

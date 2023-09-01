@@ -9,7 +9,7 @@ class SelectUtil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MySelect(
+    return const MySelect(
       Corner: "Rounded",
       noIcon: true,
       Heading: true,

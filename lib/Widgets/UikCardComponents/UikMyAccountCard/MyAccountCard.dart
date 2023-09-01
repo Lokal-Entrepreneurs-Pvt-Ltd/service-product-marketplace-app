@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class MyAccountCard extends StatelessWidget {
+  const MyAccountCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           // color: Colors.blue,
           width: 307,
           height: 700,
@@ -16,8 +18,10 @@ class MyAccountCard extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                child: Center(
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                width: 281,
+                height: 42,
+                child: const Center(
                   child: Text(
                     "My Account Card",
                     style: TextStyle(
@@ -27,10 +31,8 @@ class MyAccountCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                width: 281,
-                height: 42,
               ),
-              Container(
+              SizedBox(
                 width: 307,
                 height: 518,
                 child: Card(
@@ -42,13 +44,13 @@ class MyAccountCard extends StatelessWidget {
                       Container(
                         width: 62,
                         height: 62,
-                        margin: EdgeInsets.fromLTRB(0, 30, 0, 7),
-                        child: UikAvatar(
+                        margin: const EdgeInsets.fromLTRB(0, 30, 0, 7),
+                        child: const UikAvatar(
                           backgroundColor: Colors.purple,
                           radius: 20,
                         ),
                       ),
-                      Container(
+                      const SizedBox(
                         width: 75,
                         height: 17,
                         child: Center(
@@ -66,8 +68,8 @@ class MyAccountCard extends StatelessWidget {
                       Container(
                         width: 61,
                         height: 11,
-                        margin: EdgeInsets.only(bottom: 20),
-                        child: Center(
+                        margin: const EdgeInsets.only(bottom: 20),
+                        child: const Center(
                           child: Text(
                             "My Account",
                             style: TextStyle(
@@ -81,7 +83,7 @@ class MyAccountCard extends StatelessWidget {
 
                       //Divider 1
 
-                      Divider(
+                      const Divider(
                         height: 10,
                         color: Color(0xFFBDBDBD),
                       ),
@@ -116,13 +118,13 @@ class MyAccountCard extends StatelessWidget {
                       Container(
                         width: 307,
                         height: 30,
-                        margin: EdgeInsets.only(bottom: 15, top: 10),
+                        margin: const EdgeInsets.only(bottom: 15, top: 10),
                         child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
-                            Container(
+                            const SizedBox(
                               width: 81,
                               height: 16,
                               child: Text(
@@ -134,16 +136,16 @@ class MyAccountCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Container(
                               width: 29,
                               height: 19,
                               // color: Colors.grey,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Color(0xFFEDEDED),
+                                color: const Color(0xFFEDEDED),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "12",
                                   style: TextStyle(
@@ -154,14 +156,14 @@ class MyAccountCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                           ],
                         ),
                       ),
 
-                      Container(
+                      SizedBox(
                         // decoration: BoxDecoration(
                         //   border: Border.all(color: Colors.black),
                         // ),
@@ -171,29 +173,29 @@ class MyAccountCard extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           children: [
                             Container(
-                              margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                              child: UikAvatar(
+                              margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                              child: const UikAvatar(
                                 backgroundColor: Colors.red,
                                 radius: 14,
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              child: UikAvatar(
+                              margin: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                              child: const UikAvatar(
                                 backgroundColor: Colors.red,
                                 radius: 14,
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              child: UikAvatar(
+                              margin: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                              child: const UikAvatar(
                                 backgroundColor: Colors.red,
                                 radius: 14,
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              child: UikAvatar(
+                              margin: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                              child: const UikAvatar(
                                 backgroundColor: Colors.red,
                                 radius: 14,
                               ),
@@ -201,21 +203,21 @@ class MyAccountCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
 
                       // Divider 2
-                      Divider(
+                      const Divider(
                         height: 20,
                         color: Color(0xFFBDBDBD),
                       ),
-                      Container(
+                      SizedBox(
                         height: 230,
                         child: ListView(
                           scrollDirection: Axis.vertical,
                           children: [
-                            ListTile(
+                            const ListTile(
                               leading: Text(
                                 "Recent Chats",
                                 style: TextStyle(
@@ -228,13 +230,13 @@ class MyAccountCard extends StatelessWidget {
                             ListTile(
                               dense: true,
                               leading: Container(
-                                margin: EdgeInsets.all(0),
-                                child: UikAvatar(
+                                margin: const EdgeInsets.all(0),
+                                child: const UikAvatar(
                                   backgroundColor: Colors.red,
                                   radius: 14,
                                 ),
                               ),
-                              title: Text(
+                              title: const Text(
                                 "Shubham Jacob",
                                 style: TextStyle(
                                   fontSize: 13,
@@ -242,8 +244,8 @@ class MyAccountCard extends StatelessWidget {
                                   color: Color(0xFF9E9E9E),
                                 ),
                               ),
-                              subtitle: Text("Hi Our Deadline are.."),
-                              trailing: Column(
+                              subtitle: const Text("Hi Our Deadline are.."),
+                              trailing: const Column(
                                 children: [
                                   SizedBox(
                                     height: 5,
@@ -259,19 +261,19 @@ class MyAccountCard extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Divider(
+                            const Divider(
                               height: 1,
                             ),
                             ListTile(
                               dense: true,
                               leading: Container(
-                                margin: EdgeInsets.all(0),
-                                child: UikAvatar(
+                                margin: const EdgeInsets.all(0),
+                                child: const UikAvatar(
                                   backgroundColor: Colors.red,
                                   radius: 14,
                                 ),
                               ),
-                              title: Text(
+                              title: const Text(
                                 "Shubham Jacob",
                                 style: TextStyle(
                                   fontSize: 13,
@@ -279,8 +281,8 @@ class MyAccountCard extends StatelessWidget {
                                   color: Color(0xFF9E9E9E),
                                 ),
                               ),
-                              subtitle: Text("Hi Our Deadline are.."),
-                              trailing: Column(
+                              subtitle: const Text("Hi Our Deadline are.."),
+                              trailing: const Column(
                                 children: [
                                   SizedBox(
                                     height: 5,
@@ -296,19 +298,19 @@ class MyAccountCard extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Divider(
+                            const Divider(
                               height: 1,
                             ),
                             ListTile(
                               dense: true,
                               leading: Container(
-                                margin: EdgeInsets.all(0),
-                                child: UikAvatar(
+                                margin: const EdgeInsets.all(0),
+                                child: const UikAvatar(
                                   backgroundColor: Colors.red,
                                   radius: 14,
                                 ),
                               ),
-                              title: Text(
+                              title: const Text(
                                 "Shubham Jacob",
                                 style: TextStyle(
                                   fontSize: 13,
@@ -316,8 +318,8 @@ class MyAccountCard extends StatelessWidget {
                                   color: Color(0xFF9E9E9E),
                                 ),
                               ),
-                              subtitle: Text("Hi Our Deadline are.."),
-                              trailing: Column(
+                              subtitle: const Text("Hi Our Deadline are.."),
+                              trailing: const Column(
                                 children: [
                                   SizedBox(
                                     height: 5,
@@ -333,19 +335,19 @@ class MyAccountCard extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Divider(
+                            const Divider(
                               height: 1,
                             ),
                             ListTile(
                               dense: true,
                               leading: Container(
-                                margin: EdgeInsets.all(0),
-                                child: UikAvatar(
+                                margin: const EdgeInsets.all(0),
+                                child: const UikAvatar(
                                   backgroundColor: Colors.red,
                                   radius: 14,
                                 ),
                               ),
-                              title: Text(
+                              title: const Text(
                                 "Shubham Jacob",
                                 style: TextStyle(
                                   fontSize: 13,
@@ -353,8 +355,8 @@ class MyAccountCard extends StatelessWidget {
                                   color: Color(0xFF9E9E9E),
                                 ),
                               ),
-                              subtitle: Text("Hi Our Deadline are.."),
-                              trailing: Column(
+                              subtitle: const Text("Hi Our Deadline are.."),
+                              trailing: const Column(
                                 children: [
                                   SizedBox(
                                     height: 5,
@@ -370,19 +372,19 @@ class MyAccountCard extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Divider(
+                            const Divider(
                               height: 1,
                             ),
                             ListTile(
                               dense: true,
                               leading: Container(
-                                margin: EdgeInsets.all(0),
-                                child: UikAvatar(
+                                margin: const EdgeInsets.all(0),
+                                child: const UikAvatar(
                                   backgroundColor: Colors.red,
                                   radius: 14,
                                 ),
                               ),
-                              title: Text(
+                              title: const Text(
                                 "Shubham Jacob",
                                 style: TextStyle(
                                   fontSize: 13,
@@ -390,8 +392,8 @@ class MyAccountCard extends StatelessWidget {
                                   color: Color(0xFF9E9E9E),
                                 ),
                               ),
-                              subtitle: Text("Hi Our Deadline are.."),
-                              trailing: Column(
+                              subtitle: const Text("Hi Our Deadline are.."),
+                              trailing: const Column(
                                 children: [
                                   SizedBox(
                                     height: 5,

@@ -1,11 +1,10 @@
 import "package:flutter/material.dart";
-import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class CartCard extends StatelessWidget {
   final productName;
   final productPrice;
 
-  CartCard({
+  const CartCard({super.key, 
     this.productName = "lavesh",
     this.productPrice = "215",
   });
@@ -14,7 +13,7 @@ class CartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 653,
           height: 147,
           child: Card(
@@ -28,7 +27,7 @@ class CartCard extends StatelessWidget {
                     right: 25,
                   ),
                   child: CircleAvatar(
-                    backgroundColor: Color(0xFFF5F5F5),
+                    backgroundColor: const Color(0xFFF5F5F5),
                     radius: 45,
                     child: Image.asset("assets/images/blue 1.png"),
                   ),
@@ -38,7 +37,7 @@ class CartCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 38,
                         ),
                         child: Text(

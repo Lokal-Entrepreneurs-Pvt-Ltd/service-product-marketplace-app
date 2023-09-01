@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/gestures/events.dart';
 import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
-import 'help.dart';
 
 class Lavesh extends StatefulWidget {
   final list;
   final bullet;
   final width;
   final height;
-  Lavesh({
+  const Lavesh({super.key, 
     required this.list,
     this.bullet,
     this.width = 358,
@@ -25,7 +24,7 @@ class _LaveshState extends State<Lavesh> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         //color: Colors.white,
         width: widget.width,
         // decoration: BoxDecoration(border: Border.all(width: 3)),
@@ -44,7 +43,7 @@ class _LaveshState extends State<Lavesh> {
                     index = -1;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   height: widget.height,
                   // decoration: BoxDecoration(
                   //   border: Border.all(width: 3),
@@ -60,7 +59,7 @@ class _LaveshState extends State<Lavesh> {
                             ? Container(
                                 height: 12.0,
                                 width: 12.0,
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                   color:
                                       (i == index) ? Colors.blue : Colors.black,
                                   shape: BoxShape.circle,
@@ -69,7 +68,7 @@ class _LaveshState extends State<Lavesh> {
                             : null,
                     title: Text(
                       widget.list[i]["text"],
-                      style: TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15),
                     ),
                     textColor: (i == index) ? Colors.blue : Colors.black,
                     onTap: () {},

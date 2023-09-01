@@ -1,13 +1,14 @@
 import "package:flutter/material.dart";
 import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
-import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 import './chips.dart';
 
 class ChipUtil extends StatelessWidget {
+  const ChipUtil({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Chips(
+    return const Chips(
       text: "mukul",
       backgroundColor: Colors.black,
       textColor: Colors.white,

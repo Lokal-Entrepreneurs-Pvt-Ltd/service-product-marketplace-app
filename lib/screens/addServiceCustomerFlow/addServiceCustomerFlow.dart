@@ -1,12 +1,6 @@
-import 'dart:async';
-
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/strings.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
-import 'package:lokal/screens/Onboarding/LandingPage.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/errorScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/successScreen.dart';
@@ -18,9 +12,6 @@ import 'package:otp_text_field/style.dart';
 import '../../Widgets/UikButton/UikButton.dart';
 import '../../constants/colors.dart';
 import '../../constants/dimens.dart';
-import '../../constants/json_constants.dart';
-import '../../screen_routes.dart';
-import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
@@ -30,7 +21,7 @@ import '../../utils/storage/user_data_handler.dart';
 import '../Form/SamhitaOtp.dart';
 
 class AddServiceCustomerFlow extends StatefulWidget {
-  AddServiceCustomerFlow({super.key});
+  const AddServiceCustomerFlow({super.key});
 
   @override
   State<AddServiceCustomerFlow> createState() => _AddServiceCustomerFlowState();
@@ -154,7 +145,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             errorText: _ageRequired ? null : VALID_AGE,
           ),
           onChanged: (value) {
-            if (value.length < 1) {
+            if (value.isEmpty) {
               setState(() {
                 _ageRequired = false;
               });
@@ -195,7 +186,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             errorText: _stateRequired ? null : REQUIRED_FIELD,
           ),
           onChanged: (value) {
-            if (value.length == 0) {
+            if (value.isEmpty) {
               setState(() {
                 _stateRequired = false;
               });
@@ -216,7 +207,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             errorText: _districtRequired ? null : REQUIRED_FIELD,
           ),
           onChanged: (value) {
-            if (value.length == 0) {
+            if (value.isEmpty) {
               setState(() {
                 _districtRequired = false;
               });
@@ -237,7 +228,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             errorText: _blockRequired ? null : REQUIRED_FIELD,
           ),
           onChanged: (value) {
-            if (value.length == 0) {
+            if (value.isEmpty) {
               setState(() {
                 _blockRequired = false;
               });
@@ -258,7 +249,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             errorText: _pinCodeRequired ? null : VALID_PINCODE,
           ),
           onChanged: (value) {
-            if (value.length == 0) {
+            if (value.isEmpty) {
               setState(() {
                 _pinCodeRequired = false;
               });
@@ -278,7 +269,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             errorText: _employmentRequired ? null : EMPLOYMENT_STATUS,
           ),
           onChanged: (value) {
-            if (value.length == 0) {
+            if (value.isEmpty) {
               setState(() {
                 _employmentRequired = false;
               });
@@ -336,8 +327,8 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
               if (_blockController.text.isEmpty) {
                 _blockRequired = false;
               }
-              if (!_nameController.text.isEmpty &&
-                  !_pinCodeController.text.isEmpty &&
+              if (_nameController.text.isNotEmpty &&
+                  _pinCodeController.text.isNotEmpty &&
                   _phoneNumberValid) {
                 _requiredFields = false;
                 String apiRoute = ApiRoutes.submitUserServiceCreateCustomerForm;

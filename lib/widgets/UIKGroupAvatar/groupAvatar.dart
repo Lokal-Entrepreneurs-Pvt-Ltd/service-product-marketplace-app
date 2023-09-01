@@ -5,7 +5,7 @@ class GroupAvatar extends StatelessWidget {
   final list;
   final leftIcon;
   final rightIcon;
-  GroupAvatar({
+  GroupAvatar({super.key, 
     required this.list,
     this.leftIcon,
     this.rightIcon,
@@ -22,7 +22,7 @@ class GroupAvatar extends StatelessWidget {
               Container(
                 child: (leftIcon != null)
                     ? GestureDetector(
-                        child: UikIcon(
+                        child: const UikIcon(
                           iconSize: 42,
                           valIcon: Icons.add_circle_outline,
                           iconColor: Color(0xFF82868C),
@@ -60,7 +60,7 @@ class GroupAvatar extends StatelessWidget {
               Container(
                 child: (rightIcon != null)
                     ? GestureDetector(
-                        child: UikIcon(
+                        child: const UikIcon(
                           iconSize: 42,
                           valIcon: Icons.add_circle_outline,
                           iconColor: Color(0xFF82868C),

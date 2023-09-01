@@ -6,12 +6,9 @@ import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:lokal/utils/storage/product_data_handler.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
-import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
-import '../../utils/storage/user_data_handler.dart';
 
 class ApiCallerScreen extends StatefulWidget {
   String apiRoute;
@@ -32,12 +29,13 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
 
   void _callApi() async {
     try {
-      final response = await ApiRepository.apiCallerScreen(widget.apiRoute, widget.args);
+      final response =
+          await ApiRepository.apiCallerScreen(widget.apiRoute, widget.args);
       if (response.isSuccess!) {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => SuccessScreen(
+            builder: (context) => const SuccessScreen(
               animationAsset: SUCCESS_LOTTIE,
               message: ADD_SERVICE_CUSTOMER_SUCCESS,
             ),
@@ -47,7 +45,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => ErrorScreen(
+            builder: (context) => const ErrorScreen(
               animationAsset: ERROR_LOTTIE,
               message: ADD_SERVICE_CUSTOMER_FAIL,
             ),
@@ -58,7 +56,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ErrorScreen(
+          builder: (context) => const ErrorScreen(
             animationAsset: ERROR_LOTTIE,
             message: ADD_SERVICE_CUSTOMER_FAIL,
           ),

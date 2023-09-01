@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:another_flushbar/flushbar.dart';
-import 'package:another_flushbar/flushbar_helper.dart';
-import 'package:another_flushbar/flushbar_route.dart';
 
 class SnackBarPage extends StatelessWidget {
   final title;
@@ -9,7 +6,7 @@ class SnackBarPage extends StatelessWidget {
   final Trigger;
   final backgroundColor;
   final leftElement;
-  SnackBarPage({
+  const SnackBarPage({super.key, 
     required this.title,
     this.description,
     this.leftElement,
@@ -18,17 +15,17 @@ class SnackBarPage extends StatelessWidget {
   });
   SnackBar snackWidget() {
     final snackBar = SnackBar(
-      content: Container(
+      content: SizedBox(
         height: 50,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               child: (leftElement != null) ? leftElement : null,
               height: 40,
             ),
 
-            SizedBox(width: 10),
-            Container(
+            const SizedBox(width: 10),
+            SizedBox(
               height: 40,
               child: description != null
                   ? Column(
@@ -36,22 +33,22 @@ class SnackBarPage extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 20),
                         ),
                         // if (description != null)
                         Text(
                           description,
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          style: const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
                       ],
                     )
                   : Text(
                       title,
-                      style: TextStyle(fontSize: 28),
+                      style: const TextStyle(fontSize: 28),
                     ),
             ),
             // SizedBox(width: 120),
-            Spacer(),
+            const Spacer(),
             Container(
               child: Trigger,
             )
@@ -61,7 +58,7 @@ class SnackBarPage extends StatelessWidget {
       backgroundColor: backgroundColor,
       behavior: SnackBarBehavior.floating,
       width: 300,
-      duration: Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 5000),
       // action: SnackBarAction(
       //   label: "Action",
       //   disabledTextColor: Colors.white,
@@ -76,6 +73,6 @@ class SnackBarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center();
+    return const Center();
   }
 }

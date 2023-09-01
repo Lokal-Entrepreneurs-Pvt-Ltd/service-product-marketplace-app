@@ -5,7 +5,7 @@ class ProductCard extends StatelessWidget {
   final productName;
   final productPrice;
 
-  ProductCard({
+  const ProductCard({super.key, 
     this.productName = "Nike airmax 170",
     this.productPrice = "215",
   });
@@ -14,7 +14,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 240,
           height: 224,
           child: Card(
@@ -77,7 +77,7 @@ class ProductCard extends StatelessWidget {
                         margin: const EdgeInsets.only(
                           top: 11,
                         ),
-                        child: Text(
+                        child: const Text(
                           "(4.5)",
                           style: TextStyle(
                             fontSize: 13,
@@ -95,9 +95,9 @@ class ProductCard extends StatelessWidget {
                   margin: const EdgeInsets.only(
                     left: 20,
                   ),
-                  child: Text(
+                  child: const Text(
                     "Rave BD",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: Color(0xFF9E9E9E),

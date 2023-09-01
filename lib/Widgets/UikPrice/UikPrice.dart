@@ -3,37 +3,39 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 
 class Price extends StatelessWidget {
+  const Price({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(16, 10, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
       child: Row(
         children: [
-          Text(
+          const Text(
             "₹",
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 24,
             ),
           ),
-          Text(
+          const Text(
             "5000",
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 32,
             ),
           ),
-          Text(
+          const Text(
             "/year",
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 20,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 60,
           ),
-          Container(
+          SizedBox(
             height: 41,
             width: 101,
             child: ElevatedButton(
@@ -41,10 +43,14 @@ class Price extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UikBottomNavigationBar(),
+                    builder: (context) => const UikBottomNavigationBar(),
                   ),
                 );
               },
+              style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all(const Size.fromWidth(100)),
+                  backgroundColor:
+                      MaterialStateProperty.all(HexColor("#FEE440"))),
               child: Text(
                 "Pay Now",
                 style: TextStyle(
@@ -52,10 +58,6 @@ class Price extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              style: ButtonStyle(
-                  fixedSize: MaterialStateProperty.all(Size.fromWidth(100)),
-                  backgroundColor:
-                      MaterialStateProperty.all(HexColor("#FEE440"))),
             ),
           )
         ],
