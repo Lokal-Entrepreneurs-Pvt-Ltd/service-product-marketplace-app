@@ -7,7 +7,7 @@ class Chips extends StatelessWidget {
   final rightElement;
   final leftElement;
 
-  Chips({
+  const Chips({super.key, 
     required this.text,
     this.rightElement,
     this.leftElement,
@@ -28,7 +28,7 @@ class Chips extends StatelessWidget {
             elevation: 5,
             labelStyle: TextStyle(color: textColor, fontSize: 20),
             onDeleted: (rightElement != null) ? () {} : null,
-            deleteIcon: Icon(Icons.close),
+            deleteIcon: const Icon(Icons.close),
             backgroundColor:
                 (backgroundColor != null) ? backgroundColor : Colors.white,
             //shape: StadiumBorder(side: BorderSide(color: Colors.black)),
@@ -39,7 +39,7 @@ class Chips extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),
             ),
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
           ),
         ),
       ),

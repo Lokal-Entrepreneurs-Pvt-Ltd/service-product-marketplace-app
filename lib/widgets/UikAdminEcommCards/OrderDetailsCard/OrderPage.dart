@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../UikAvatar/uikAvatar.dart';
 // import '../../UikAvatar/UikAvatar.dart';
-import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class OrderPage extends StatelessWidget {
   final orderId;
@@ -17,23 +15,23 @@ class OrderPage extends StatelessWidget {
 
   const OrderPage({
     super.key,
-    this.orderId: '#UY3769',
-    this.username: 'Mark ruffalo',
-    this.location: 'Arizona, USA',
-    this.contact: '0098-23456',
-    this.avatarImage:
+    this.orderId = '#UY3769',
+    this.username = 'Mark ruffalo',
+    this.location = 'Arizona, USA',
+    this.contact = '0098-23456',
+    this.avatarImage =
         'https://thumbs.dreamstime.com/b/female-avatar-profile-picture-vector-female-avatar-profile-picture-vector-102690279.jpg',
-    this.occupation: 'Product Manager',
-    this.paymentMethod: 'Paypal',
-    this.paymentDate: '02-12-2021',
-    this.paymentId: '00000-XH3453',
-    this.amount: '728',
-    this.paymentStatus: 'Paid',
-    this.BillingAddressLandmark: 'Corner view',
-    this.BillingAddress: 'Corner view,Sylhet zindabazar',
-    this.emailId: 'xyz@gmail.com',
-    this.number: '0100-293042',
-    this.postalCode: '30290',
+    this.occupation = 'Product Manager',
+    this.paymentMethod = 'Paypal',
+    this.paymentDate = '02-12-2021',
+    this.paymentId = '00000-XH3453',
+    this.amount = '728',
+    this.paymentStatus = 'Paid',
+    this.BillingAddressLandmark = 'Corner view',
+    this.BillingAddress = 'Corner view,Sylhet zindabazar',
+    this.emailId = 'xyz@gmail.com',
+    this.number = '0100-293042',
+    this.postalCode = '30290',
   });
 
   @override
@@ -83,10 +81,10 @@ class OrderPage extends StatelessWidget {
                   ),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       size: 16.5,
                       Icons.edit_outlined,
-                      color: const Color(0xff9e9e9e),
+                      color: Color(0xff9e9e9e),
                     ),
                   ),
                 )
@@ -110,7 +108,7 @@ class OrderPage extends StatelessWidget {
                           margin: const EdgeInsets.only(bottom: 15),
                           child: const Text(
                             'Order from',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                         ),
@@ -153,7 +151,7 @@ class OrderPage extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           height: 21,
                                           child: Text(
                                             username,
@@ -166,7 +164,7 @@ class OrderPage extends StatelessWidget {
                                                 color: const Color(0xff3A3C40)),
                                           ),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           height: 16,
                                           child: Text(
                                             occupation,
@@ -197,7 +195,7 @@ class OrderPage extends StatelessWidget {
                           margin: const EdgeInsets.only(bottom: 15),
                           child: const Text(
                             'Payment Method',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                         ),

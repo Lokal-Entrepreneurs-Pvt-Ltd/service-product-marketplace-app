@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 class UikInput extends StatelessWidget {
   final leftElement;
@@ -14,7 +10,7 @@ class UikInput extends StatelessWidget {
   double widthSize;
   double heightSize;
 
-   UikInput({
+   UikInput({super.key, 
     this.leftElement,
     this.rightElement,
     this.labelText,
@@ -29,7 +25,7 @@ class UikInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.only(left: 16),
+        margin: const EdgeInsets.only(left: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -37,10 +33,10 @@ class UikInput extends StatelessWidget {
               width: widthSize,
               height: heightSize,
               decoration: BoxDecoration(
-                color: Color(0xffF5F5F5),
+                color: const Color(0xffF5F5F5),
                 border: (error == true)
-                    ? Border.all(color: Color(0xffEF5350))
-                    : Border.all(color: Color(0xffE0E0E0)),
+                    ? Border.all(color: const Color(0xffEF5350))
+                    : Border.all(color: const Color(0xffE0E0E0)),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -51,15 +47,15 @@ class UikInput extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(16, 9.5, 16, 0),
+                          margin: const EdgeInsets.fromLTRB(16, 9.5, 16, 0),
                           child: Text(
                             (labelText != null) ? labelText : (""),
                             textAlign: TextAlign.start,
-                            style: TextStyle(color: Color(0xff9E9E9E)),
+                            style: const TextStyle(color: Color(0xff9E9E9E)),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(16, 0, 16, 9.5),
+                          margin: const EdgeInsets.fromLTRB(16, 0, 16, 9.5),
                           child: TextField(
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
@@ -68,8 +64,8 @@ class UikInput extends StatelessWidget {
                               //fillColor: Colors.redAccent,
                               isDense: true,
                               contentPadding: (labelText == null)
-                                  ? EdgeInsets.symmetric(vertical: 0)
-                                  : EdgeInsets.symmetric(vertical: 5),
+                                  ? const EdgeInsets.symmetric(vertical: 0)
+                                  : const EdgeInsets.symmetric(vertical: 5),
                             ),
                           ),
                         ),
@@ -81,13 +77,13 @@ class UikInput extends StatelessWidget {
               ),
             ),
             Container(
-                margin: EdgeInsets.fromLTRB(16, 8, 0, 0),
+                margin: const EdgeInsets.fromLTRB(16, 8, 0, 0),
                 child: Text(
                   (desText != null) ? desText : (""),
                   style: TextStyle(
                     color: (error == true)
-                        ? Color(0xffEF5350)
-                        : Color(0xff9E9E9E),
+                        ? const Color(0xffEF5350)
+                        : const Color(0xff9E9E9E),
                   ),
                 )),
           ],
@@ -101,7 +97,7 @@ Widget _buildTrailingIcon(final leftElement) {
   if (leftElement != null) {
     return Row(
       children: <Widget>[
-        SizedBox(width: 19),
+        const SizedBox(width: 19),
         //Spacer(),
         leftElement,
       ],
@@ -115,7 +111,7 @@ Widget _buildLeadingIcon(final rightElement) {
     return Row(
       children: <Widget>[
         rightElement,
-        SizedBox(width: 22),
+        const SizedBox(width: 22),
       ],
     );
   }

@@ -20,7 +20,7 @@ import '../utils/storage/cart_data_handler.dart';
 class UikEmptyCartScreen extends StandardPage {
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     return actionList;
   }
 
@@ -51,7 +51,7 @@ class UikEmptyCartScreen extends StandardPage {
 class UikCartScreen extends StandardPage {
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.OPEN_ADDRESS);
     actionList.add(UIK_ACTION.REMOVE_FROM_CART);
     actionList.add(UIK_ACTION.REMOVE_CART_ITEM);

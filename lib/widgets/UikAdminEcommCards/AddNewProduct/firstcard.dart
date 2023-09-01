@@ -29,19 +29,19 @@ class FirstCard extends StatelessWidget {
           children: [
             // second container ( product name and store name)
             Container(
-              margin: EdgeInsets.only(top: 4, left: 30),
+              margin: const EdgeInsets.only(top: 4, left: 30),
               child: Row(
                 children: [
                   // product name-------------
                   Container(
-                    margin: EdgeInsets.only(right: 11),
+                    margin: const EdgeInsets.only(right: 11),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           width: 101,
                           height: 21,
-                          margin: EdgeInsets.only(bottom: 8.5),
+                          margin: const EdgeInsets.only(bottom: 8.5),
                           child: Text(
                             'Product name',
                             style: GoogleFonts.poppins(
@@ -55,7 +55,7 @@ class FirstCard extends StatelessWidget {
                           width: 306,
                           height: 39,
                           padding:
-                              EdgeInsets.only(left: 15, top: 11, bottom: 8),
+                              const EdgeInsets.only(left: 15, top: 11, bottom: 8),
                           decoration: const BoxDecoration(
                             color: Color(0xffEEEEEE),
                             borderRadius: BorderRadius.all(
@@ -69,7 +69,7 @@ class FirstCard extends StatelessWidget {
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.never,
                                 hintStyle: GoogleFonts.poppins(
-                                    color: Color(0xff9e9e9e),
+                                    color: const Color(0xff9e9e9e),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     textStyle: Theme.of(context)
@@ -88,7 +88,7 @@ class FirstCard extends StatelessWidget {
                         Container(
                           width: 101,
                           height: 21,
-                          margin: EdgeInsets.only(bottom: 8.5),
+                          margin: const EdgeInsets.only(bottom: 8.5),
                           child: Text(
                             'Store name',
                             style: GoogleFonts.poppins(
@@ -102,7 +102,7 @@ class FirstCard extends StatelessWidget {
                           width: 306,
                           height: 39,
                           padding:
-                              EdgeInsets.only(left: 15, top: 10, bottom: 8),
+                              const EdgeInsets.only(left: 15, top: 10, bottom: 8),
                           decoration: const BoxDecoration(
                             color: Color(0xffEEEEEE),
                             borderRadius: BorderRadius.all(
@@ -116,7 +116,7 @@ class FirstCard extends StatelessWidget {
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never,
                               hintStyle: GoogleFonts.poppins(
-                                  color: Color(0xff9e9e9e),
+                                  color: const Color(0xff9e9e9e),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   textStyle:
@@ -133,7 +133,7 @@ class FirstCard extends StatelessWidget {
 
             //third container - description------------
             Container(
-              margin: EdgeInsets.only(top: 23),
+              margin: const EdgeInsets.only(top: 23),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -141,7 +141,7 @@ class FirstCard extends StatelessWidget {
                   Container(
                     width: 80,
                     height: 21,
-                    margin: EdgeInsets.only(bottom: 6.3),
+                    margin: const EdgeInsets.only(bottom: 6.3),
                     child: Text(
                       'Description',
                       style: GoogleFonts.poppins(
@@ -152,9 +152,9 @@ class FirstCard extends StatelessWidget {
                   ),
 
                   //for text area
-                  Container(
+                  const SizedBox(
                     width: 623,
-                    child: const TextArea(
+                    child: TextArea(
                       background: true,
                       widthVal: 623,
                       heightVal: 171,
@@ -171,19 +171,19 @@ class FirstCard extends StatelessWidget {
 
             // 4th container - category and store name
             Container(
-              margin: EdgeInsets.only(top: 20, left: 30),
+              margin: const EdgeInsets.only(top: 20, left: 30),
               child: Row(
                 children: [
                   // category-------------
                   Container(
-                    margin: EdgeInsets.only(right: 11),
+                    margin: const EdgeInsets.only(right: 11),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           width: 67,
                           height: 21,
-                          margin: EdgeInsets.only(bottom: 8.5),
+                          margin: const EdgeInsets.only(bottom: 8.5),
                           child: Text(
                             'Category',
                             style: GoogleFonts.poppins(
@@ -197,7 +197,7 @@ class FirstCard extends StatelessWidget {
                           width: 306,
                           height: 39,
                           padding:
-                              EdgeInsets.only(left: 15, top: 11, bottom: 8),
+                              const EdgeInsets.only(left: 15, top: 11, bottom: 8),
                           decoration: const BoxDecoration(
                             color: Color(0xffEEEEEE),
                             borderRadius: BorderRadius.all(
@@ -223,7 +223,7 @@ class FirstCard extends StatelessWidget {
                         Container(
                           width: 101,
                           height: 21,
-                          margin: EdgeInsets.only(bottom: 8.5),
+                          margin: const EdgeInsets.only(bottom: 8.5),
                           child: Text(
                             'Store name',
                             style: GoogleFonts.poppins(
@@ -237,7 +237,7 @@ class FirstCard extends StatelessWidget {
                             width: 306,
                             height: 39,
                             padding:
-                                EdgeInsets.only(left: 6, top: 5.5, bottom: 4.5),
+                                const EdgeInsets.only(left: 6, top: 5.5, bottom: 4.5),
                             decoration: const BoxDecoration(
                               color: Color(0xffEEEEEE),
                               borderRadius: BorderRadius.all(
@@ -248,22 +248,22 @@ class FirstCard extends StatelessWidget {
                               children: [
                                 if (storeName != null) ...[
                                   Chip(
-                                    padding: EdgeInsets.fromLTRB(10, 4, 10, 4),
+                                    padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                                     label: Text(storeName!),
                                     labelStyle: GoogleFonts.poppins(
-                                        color: Color(0xffffffff),
+                                        color: const Color(0xffffffff),
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                         textStyle: Theme.of(context)
                                             .textTheme
                                             .bodyMedium),
-                                    backgroundColor: Color(0xff9e9e9e),
+                                    backgroundColor: const Color(0xff9e9e9e),
                                     elevation: 0.0,
-                                    deleteIcon: Icon(
+                                    deleteIcon: const Icon(
                                       Icons.close,
                                       size: 15,
                                     ),
-                                    deleteIconColor: Color(0xffffffff),
+                                    deleteIconColor: const Color(0xffffffff),
                                     onDeleted: () {},
                                   ),
                                 ],
@@ -278,19 +278,19 @@ class FirstCard extends StatelessWidget {
 
             // 5th container - stock and sku
             Container(
-              margin: EdgeInsets.only(top: 19.5, left: 30),
+              margin: const EdgeInsets.only(top: 19.5, left: 30),
               child: Row(
                 children: [
                   // STOCK-------------
                   Container(
-                    margin: EdgeInsets.only(right: 11),
+                    margin: const EdgeInsets.only(right: 11),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           width: 39,
                           height: 21,
-                          margin: EdgeInsets.only(bottom: 8.5),
+                          margin: const EdgeInsets.only(bottom: 8.5),
                           child: Text(
                             'Stock',
                             style: GoogleFonts.poppins(
@@ -304,7 +304,7 @@ class FirstCard extends StatelessWidget {
                           width: 306,
                           height: 39,
                           padding:
-                              EdgeInsets.only(left: 15, top: 11, bottom: 8),
+                              const EdgeInsets.only(left: 15, top: 11, bottom: 8),
                           decoration: const BoxDecoration(
                             color: Color(0xffEEEEEE),
                             borderRadius: BorderRadius.all(
@@ -318,7 +318,7 @@ class FirstCard extends StatelessWidget {
                               labelStyle: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xff9E9E9E),
+                                  color: const Color(0xff9E9E9E),
                                   textStyle:
                                       Theme.of(context).textTheme.bodyMedium),
                               border: InputBorder.none,
@@ -338,7 +338,7 @@ class FirstCard extends StatelessWidget {
                         Container(
                           width: 101,
                           height: 21,
-                          margin: EdgeInsets.only(bottom: 8.5),
+                          margin: const EdgeInsets.only(bottom: 8.5),
                           child: Text(
                             'Sku',
                             style: GoogleFonts.poppins(
@@ -352,7 +352,7 @@ class FirstCard extends StatelessWidget {
                           width: 306,
                           height: 39,
                           padding:
-                              EdgeInsets.only(left: 15, top: 10, bottom: 8),
+                              const EdgeInsets.only(left: 15, top: 10, bottom: 8),
                           decoration: const BoxDecoration(
                             color: Color(0xffEEEEEE),
                             borderRadius: BorderRadius.all(
@@ -365,7 +365,7 @@ class FirstCard extends StatelessWidget {
                               labelStyle: GoogleFonts.poppins(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xff9E9E9E),
+                                  color: const Color(0xff9E9E9E),
                                   textStyle:
                                       Theme.of(context).textTheme.bodyMedium),
                               border: InputBorder.none,
@@ -387,7 +387,7 @@ class FirstCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 105,
                     height: 21,
                     child: Text(
@@ -399,15 +399,15 @@ class FirstCard extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 6),
+                    margin: const EdgeInsets.only(top: 6),
                     width: 624,
                     height: 149,
                     child: DottedBorder(
                       color: const Color(0xff212121),
                       strokeWidth: 1,
-                      dashPattern: [10, 6],
+                      dashPattern: const [10, 6],
                       child: Container(
-                        padding: EdgeInsets.only(left: 11, top: 9, bottom: 9),
+                        padding: const EdgeInsets.only(left: 11, top: 9, bottom: 9),
                         color: const Color(0xffE0E0E0),
                         height: double.infinity,
                         width: double.infinity,
@@ -419,11 +419,11 @@ class FirstCard extends StatelessWidget {
                                 Stack(
                                   children: <Widget>[
                                     Container(
-                                      margin: EdgeInsets.only(right: 11),
+                                      margin: const EdgeInsets.only(right: 11),
                                       width: 142,
                                       height: 131,
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.all(
+                                        borderRadius: const BorderRadius.all(
                                             Radius.circular(8)),
                                         child: Image.network(
                                           imageURLs![i],
@@ -453,7 +453,7 @@ class FirstCard extends StatelessWidget {
                             Container(
                                 width: 142,
                                 height: 131,
-                                color: Color(0xffbdbdbd),
+                                color: const Color(0xffbdbdbd),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -469,7 +469,7 @@ class FirstCard extends StatelessWidget {
                                         Text(
                                           'Choose a file',
                                           style: GoogleFonts.poppins(
-                                              color: Color(0xff212121),
+                                              color: const Color(0xff212121),
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
                                               textStyle: Theme.of(context)
@@ -479,7 +479,7 @@ class FirstCard extends StatelessWidget {
                                         Text(
                                           'or drag it here',
                                           style: GoogleFonts.poppins(
-                                              color: Color(0xff9E9E9E),
+                                              color: const Color(0xff9E9E9E),
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
                                               textStyle: Theme.of(context)
@@ -502,25 +502,25 @@ class FirstCard extends StatelessWidget {
             // 7th container - buttons
             Container(
               width: 624,
-              margin: EdgeInsets.only(top: 24),
+              margin: const EdgeInsets.only(top: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   UikButton(
-                      textColor: Color(0xff9E9E9E),
-                      backgroundColor: Color(0xffffffff),
-                      borderColor: Color(0xffEEEEEE),
+                      textColor: const Color(0xff9E9E9E),
+                      backgroundColor: const Color(0xffffffff),
+                      borderColor: const Color(0xffEEEEEE),
                       text: 'Cancel',
                       widthSize: 136,
                       heightSize: 38),
-                  SizedBox(
+                  const SizedBox(
                     width: 11,
                   ),
                   UikButton(
-                      textColor: Color(0xff212121),
-                      backgroundColor: Color(0xffFEE440),
-                      borderColor: Color(0xffFEE440),
+                      textColor: const Color(0xff212121),
+                      backgroundColor: const Color(0xffFEE440),
+                      borderColor: const Color(0xffFEE440),
                       text: 'Save',
                       widthSize: 136,
                       heightSize: 38)

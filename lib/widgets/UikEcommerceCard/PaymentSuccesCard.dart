@@ -10,7 +10,7 @@ class PaymentSuccessCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 1121,
           height: 428,
           child: Card(
@@ -56,7 +56,7 @@ class PaymentSuccessCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 271,
                   height: 38,
                   child: UikButton(

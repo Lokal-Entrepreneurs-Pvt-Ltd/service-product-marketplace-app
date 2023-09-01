@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/colors.dart';
 import 'package:lokal/constants/json_constants.dart';
-import 'package:lokal/screen_routes.dart';
-import 'package:lokal/screens/otp.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';

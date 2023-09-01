@@ -10,7 +10,7 @@ class ToolTip extends StatefulWidget {
   final bulletPoint;
   final NoBackground;
 
-  const ToolTip({
+  const ToolTip({super.key, 
     required this.ll,
     this.direction = AxisDirection.down,
     this.child,
@@ -28,7 +28,7 @@ String callForLoop(List<String> ll) {
   String toReturn = "";
   for (int i = 0; i < ll.length - 1; i++) {
     String s = ll[i];
-    toReturn = toReturn + s + "\n";
+    toReturn = "$toReturn$s\n";
   }
   toReturn = toReturn + ll[ll.length - 1];
 
@@ -53,15 +53,10 @@ class _MyHomePageState extends State<ToolTip> {
       body: JustTheTooltip(
         tailLength: 7,
         backgroundColor: textColor,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
+        borderRadius: const BorderRadius.all(Radius.circular(5)),
         tailBaseWidth: 12,
         preferredDirection: widget.direction,
         elevation: Elevation,
-        child: Container(
-          width: widget.childwidth,
-          height: widget.childheight,
-          child: widget.child,
-        ),
         content: Container(
           width: 84,
           height: Cheight,
@@ -73,7 +68,7 @@ class _MyHomePageState extends State<ToolTip> {
             children: [
               if (widget.bulletPoint) ...[
                 Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 0, 5),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 5),
                   alignment: Alignment.topLeft,
                   child: Text(
                     "ToolTip",
@@ -82,30 +77,30 @@ class _MyHomePageState extends State<ToolTip> {
                       fontWeight: FontWeight.w600,
                       color: widget.NoBackground == false
                           ? Colors.black
-                          : Color(0xFF9E9E9E),
+                          : const Color(0xFF9E9E9E),
                     ),
                   ),
                 ),
                 for (int i = 0; i < widget.ll.length; i++) ...[
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 10.8,
                       ),
                       Container(
                         height: 10.4,
                         width: 10.4,
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                           color: widget.NoBackground == false
                               ? Colors.black
-                              : Color(0xFF9E9E9E),
+                              : const Color(0xFF9E9E9E),
                           shape: BoxShape.circle,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10.8,
                       ),
-                      Container(
+                      SizedBox(
                         width: 42,
                         height: 15,
                         child: Text(
@@ -113,11 +108,11 @@ class _MyHomePageState extends State<ToolTip> {
                           style: TextStyle(
                             color: widget.NoBackground == false
                                 ? Colors.black
-                                : Color(0xFF9E9E9E),
+                                : const Color(0xFF9E9E9E),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                     ],
@@ -132,17 +127,22 @@ class _MyHomePageState extends State<ToolTip> {
                       style: TextStyle(
                         color: widget.NoBackground == false
                             ? Colors.black
-                            : Color(0xFF9E9E9E),
+                            : const Color(0xFF9E9E9E),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   )
                 ],
               ],
             ],
           ),
+        ),
+        child: SizedBox(
+          width: widget.childwidth,
+          height: widget.childheight,
+          child: widget.child,
         ),
       ),
     );

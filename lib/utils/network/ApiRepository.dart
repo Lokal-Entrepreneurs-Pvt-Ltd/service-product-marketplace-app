@@ -2,7 +2,6 @@
 import 'package:dio/dio.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import '../storage/user_data_handler.dart';
 import 'http/http_screen_client.dart';
 
 class ApiRepository {
@@ -31,9 +30,9 @@ class ApiRepository {
         ApiRoutes.submitSamhitaVerifyParticipantForm, args);
   }
 
-  static Future<ApiResponse> submitAddUserServiceCustomerForm(args) {
+  static Future<ApiResponse> submitUserServiceCreateCustomerForm(args) {
     return HttpScreenClient.getApiResponse(
-        ApiRoutes.submitAddUserServiceCustomerForm, args);
+        ApiRoutes.submitUserServiceCreateCustomerForm, args);
   }
 
   static Future<ApiResponse> submitExtraPayOptInForm(args) {
@@ -227,7 +226,8 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> verifyAgentForPartner(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAgentForPartner, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.verifyAgentForPartner, args);
   }
 
   static Future<ApiResponse> manageAgent(args) {
@@ -238,7 +238,9 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.addNewAddressScreen, args);
   }
 
-
+  static Future<ApiResponse> getServiceTabsScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.serviceTabs, args);
+  }
 }
 
 // apirequestbody class 

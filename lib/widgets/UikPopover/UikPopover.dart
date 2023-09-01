@@ -32,13 +32,13 @@ class ListItems extends StatelessWidget {
                 image: inputimg,
                 fit: BoxFit.fill,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
           )
         ],
 
         //FOR HEADLINE AND DESC
-        Container(
+        SizedBox(
           width: 310,
           child: InkWell(
             onTap: () {
@@ -46,7 +46,7 @@ class ListItems extends StatelessWidget {
             },
             child: Column(children: [
               if (desc == true) ...[
-                Container(
+                SizedBox(
                     width: 279,
                     height: 70,
                     child: Column(
@@ -55,7 +55,7 @@ class ListItems extends StatelessWidget {
                             child: Text(
                           'Headline',
                           style: GoogleFonts.poppins(
-                              textStyle: Theme.of(context).textTheme.headline4,
+                              textStyle: Theme.of(context).textTheme.headlineMedium,
                               fontSize: 24,
                               fontWeight: FontWeight.w600,
                               color: Colors.black),
@@ -64,7 +64,7 @@ class ListItems extends StatelessWidget {
                             child: Text(
                           'Description',
                           style: GoogleFonts.poppins(
-                            textStyle: Theme.of(context).textTheme.headline4,
+                            textStyle: Theme.of(context).textTheme.headlineMedium,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
@@ -72,14 +72,14 @@ class ListItems extends StatelessWidget {
                       ],
                     ))
               ] else ...[
-                Container(
+                SizedBox(
                   width: 279,
                   height: 55,
                   child: Center(
                     child: Text(
                       'Headline',
                       style: GoogleFonts.poppins(
-                          textStyle: Theme.of(context).textTheme.headline4,
+                          textStyle: Theme.of(context).textTheme.headlineMedium,
                           fontSize: 24,
                           fontWeight: FontWeight.w600,
                           color: Colors.black),

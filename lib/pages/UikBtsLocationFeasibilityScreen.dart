@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikStateList.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 // import 'package:ui_sdk/Renderer.dart';
@@ -16,7 +15,6 @@ import 'package:http/http.dart' as http;
 import '../constants/json_constants.dart';
 import '../constants/strings.dart';
 import '../main.dart';
-import '../screen_routes.dart';
 import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
 import '../utils/network/ApiRequestBody.dart';
@@ -39,7 +37,7 @@ class UikBtsLocationFeasibilityScreen extends StandardPage {
 
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);
     actionList.add(UIK_ACTION.SELECT_STATE);
     actionList.add(UIK_ACTION.SELECT_DISTRICT);
