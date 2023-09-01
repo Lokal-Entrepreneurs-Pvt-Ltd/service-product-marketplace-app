@@ -59,13 +59,13 @@ class ApiRoutes {
   static const String verifySamhitaOtp = "/samhita/samhitaVerifyOtp";
   static const String submitSamhitaVerifyParticipantForm =
       "/samhita/verifyParticipant";
-  static const String odopScreen =
-      "/odop/getDistrictHome";
-  static const String submitExtraPayOptInForm =
-      "/easyOptIn/add";
+  static const String odopScreen = "/odop/getDistrictHome";
+  static const String submitExtraPayOptInForm = "/easyOptIn/add";
   static const String verifyAgentForPartner = "/agent/add";
   static const String manageAgent = "/agent/manage";
   static const String verifyAddAgentOtp = "/agent/verifyOtp";
   static const String submitUserServiceCreateCustomerForm =
       "/userServiceCustomer/create";
+  static const String getAllCustomerForUserService =
+      "/service/getAllCustomerForUserService";
 }
