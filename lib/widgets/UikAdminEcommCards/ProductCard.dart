@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +16,7 @@ class ProductCard extends StatefulWidget {
   final ratingVal;
   final ratingDesc;
 
-  ProductCard(
+  const ProductCard(
       {Key? key,
       this.productName = 'Nike Air Max 270',
       this.productDesc = 'Rave BD',
@@ -47,14 +46,14 @@ class _ProductCardState extends State<ProductCard> {
         width: 1121,
         height: 85,
         decoration: BoxDecoration(
-          border: Border.all(color: Color(0xffBABFC5), width: 1.0),
+          border: Border.all(color: const Color(0xffBABFC5), width: 1.0),
           borderRadius: const BorderRadius.all(
             Radius.circular(8.0),
           ),
         ),
         child: Card(
           elevation: 10,
-          margin: EdgeInsets.all(0),
+          margin: const EdgeInsets.all(0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -98,7 +97,7 @@ class _ProductCardState extends State<ProductCard> {
               //PRODUCT DESCRIPTION CONTAINER
               Container(
                 // color: Colors.blue,
-                margin: EdgeInsets.only(left: 16),
+                margin: const EdgeInsets.only(left: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +109,7 @@ class _ProductCardState extends State<ProductCard> {
                           widget.productName,
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              textStyle: Theme.of(context).textTheme.bodyText2,
+                              textStyle: Theme.of(context).textTheme.bodyMedium,
                               fontSize: 14,
                               fontWeight: FontWeight.w500),
                         ),
@@ -122,7 +121,7 @@ class _ProductCardState extends State<ProductCard> {
                         Text(
                           widget.productDesc,
                           style: GoogleFonts.poppins(
-                              color: Color(0xff82868C),
+                              color: const Color(0xff82868C),
                               textStyle: Theme.of(context).textTheme.bodyMedium,
                               fontSize: 12,
                               fontWeight: FontWeight.w500),
@@ -137,11 +136,11 @@ class _ProductCardState extends State<ProductCard> {
               Container(
                 // color: Colors.amber,
                 // padding: EdgeInsets.fromLTRB(5, 20, 5, 20),
-                margin: EdgeInsets.only(left: 160, top: 31),
+                margin: const EdgeInsets.only(left: 160, top: 31),
                 child: UikButton(
-                  textColor: Color(0xff9E9E9E),
-                  backgroundColor: Color(0xffF5F5F5),
-                  borderColor: Color(0xffF5F5F5),
+                  textColor: const Color(0xff9E9E9E),
+                  backgroundColor: const Color(0xffF5F5F5),
+                  borderColor: const Color(0xffF5F5F5),
                   text: widget.buttonText,
                   widthSize: 66,
                   heightSize: 24,
@@ -156,7 +155,7 @@ class _ProductCardState extends State<ProductCard> {
                 child: Text(
                   widget.productSize.toString(),
                   style: GoogleFonts.poppins(
-                      color: Color(0xff9E9E9E),
+                      color: const Color(0xff9E9E9E),
                       textStyle: Theme.of(context).textTheme.bodyMedium,
                       fontSize: 12,
                       fontWeight: FontWeight.w500),
@@ -245,7 +244,7 @@ class _ProductCardState extends State<ProductCard> {
                 ),
                 child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       size: 16.5,
                       Icons.edit_outlined,
                       color: Color(0xff9e9e9e),

@@ -28,7 +28,7 @@ class UikAddAddressScreen extends StandardPage {
 
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);
     actionList.add(UIK_ACTION.SUBMIT_ADDRESS);
     actionList.add(UIK_ACTION.ADD_ADDRESS);

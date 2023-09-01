@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/UikImage/uikImage.dart';
 import 'package:lokal/widgets/UikSwitch/UikSwitch.dart';
 import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
@@ -14,7 +11,7 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 360,
           height: 438,
           child: Card(
@@ -26,18 +23,18 @@ class ProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(286, 20, 20, 0),
+                  margin: const EdgeInsets.fromLTRB(286, 20, 20, 0),
                   child: UikButton(
                     text: "Active",
-                    textColor: Color(0xffE57373),
-                    backgroundColor: Color(0xffFEF2A0),
+                    textColor: const Color(0xffE57373),
+                    backgroundColor: const Color(0xffFEF2A0),
                     widthSize: 52,
                     heightSize: 19,
                     textSize: 12,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 19),
+                  margin: const EdgeInsets.only(top: 19),
                   child: Stack(
                     children: [
                       Container(
@@ -51,17 +48,17 @@ class ProfileCard extends StatelessWidget {
                         left: 70,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xffE57373),
+                            color: const Color(0xffE57373),
                             border: Border.all(
                               color: Colors.white,
                             ),
-                            borderRadius: BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(20),
                             ),
                           ),
                           width: 30,
                           height: 30,
-                          child: UikIcon(
+                          child: const UikIcon(
                             valIcon: Icons.camera_alt_rounded,
                             iconColor: Colors.white,
                             //backgroundColor: Color(0xffE57373),
@@ -73,10 +70,10 @@ class ProfileCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 18),
+                  margin: const EdgeInsets.only(top: 18),
                   width: 189,
                   height: 32,
-                  child: Text(
+                  child: const Text(
                     "Allowed *.jpeg, *.jpg, *.png, *.gif max size of 3.1 MB",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -90,8 +87,8 @@ class ProfileCard extends StatelessWidget {
                     //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 80, right: 89, top: 30),
-                        child: Row(
+                        margin: const EdgeInsets.only(left: 80, right: 89, top: 30),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
@@ -106,7 +103,7 @@ class ProfileCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           right: 145,
                           left: 70,
                         ),
@@ -126,8 +123,8 @@ class ProfileCard extends StatelessWidget {
                     //crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 80, right: 89, top: 32),
-                        child: Row(
+                        margin: const EdgeInsets.only(left: 80, right: 89, top: 32),
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
@@ -142,7 +139,7 @@ class ProfileCard extends StatelessWidget {
                       Container(
                         width: 222,
                         height: 32,
-                        margin: EdgeInsets.only(left: 80, right: 58),
+                        margin: const EdgeInsets.only(left: 80, right: 58),
                         child: const Text(
                           "Disabling this will automatically send the user a verification email",
                           style: TextStyle(

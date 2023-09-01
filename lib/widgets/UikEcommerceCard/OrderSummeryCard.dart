@@ -5,7 +5,7 @@ class OrderSummeryCard extends StatelessWidget {
   final subTotal;
   final discount;
   final shippingCost;
-  OrderSummeryCard({
+  const OrderSummeryCard({super.key, 
     this.subTotal = "dummy",
     this.discount = "dummy",
     this.shippingCost = "dummy",
@@ -15,7 +15,7 @@ class OrderSummeryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 446,
           height: 485,
           child: Card(

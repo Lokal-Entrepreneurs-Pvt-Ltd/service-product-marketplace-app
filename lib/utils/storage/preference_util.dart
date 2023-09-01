@@ -14,8 +14,8 @@ class PreferenceUtils {
   }
 
   static Future<bool> setString(String key, String value) async {
-    var prefs = await _prefsInstance;
-    return prefs?.setString(key, value) ?? Future.value(false);
+    var prefs = _prefsInstance;
+    return prefs.setString(key, value) ?? Future.value(false);
   }
 
   static bool getBool(String key, [bool? defValue]) {
@@ -23,8 +23,8 @@ class PreferenceUtils {
   }
 
   static Future<bool> setBool(String key, bool value) async {
-    var prefs = await _prefsInstance;
-    return prefs?.setBool(key, value) ?? Future.value(false);
+    var prefs = _prefsInstance;
+    return prefs.setBool(key, value) ?? Future.value(false);
   }
 
   static int getInt(String key, [int? defValue]) {
@@ -32,8 +32,8 @@ class PreferenceUtils {
   }
 
   static Future<bool> setInt(String key, int value) async {
-    var prefs = await _prefsInstance;
-    return prefs?.setInt(key, value) ?? Future.value(false);
+    var prefs = _prefsInstance;
+    return prefs.setInt(key, value) ?? Future.value(false);
   }
 
   static List<String> getStringList(String key, [List<String>? defValue]) {
@@ -41,12 +41,12 @@ class PreferenceUtils {
   }
 
   static Future<bool> setStringList(String key, List<String> value) async {
-    var prefs = await _prefsInstance;
-    return prefs?.setStringList(key, value) ?? Future.value(false);
+    var prefs = _prefsInstance;
+    return prefs.setStringList(key, value) ?? Future.value(false);
   }
 
   static Future<bool> clearStorage() async {
-    var prefs = await _prefsInstance;
+    var prefs = _prefsInstance;
     return prefs.clear();
   }
 }

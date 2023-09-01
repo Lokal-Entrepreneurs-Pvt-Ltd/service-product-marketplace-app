@@ -34,9 +34,9 @@ class MembershipPlan extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                         width: double.infinity,
                         color:  const Color.fromRGBO(255,193,7,1),
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text("Lokal Membership",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -66,7 +66,7 @@ class MembershipPlan extends StatelessWidget {
                     ],
                   ),
                 ),
-                Price(),
+                const Price(),
               ],
             ),
           ),

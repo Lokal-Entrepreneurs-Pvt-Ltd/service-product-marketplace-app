@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/UikAvatar/uikAvatar.dart';
 // import 'package:lokal/Widgets/UikAvatar/UikAvatar.dart';
-import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class UikTags extends StatelessWidget {
   const UikTags({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class UikTags extends StatelessWidget {
           child: Container(
             width: 102,
             height: 36,
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
               color: Colors.black,
@@ -27,15 +26,15 @@ class UikTags extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  child: UikAvatar(
+                  child: const UikAvatar(
                     shape: UikAvatarShape.circle,
                     size: UikSize.SMALL,
                     backgroundColor: Colors.brown,
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 Container(
-                  child: Text("Brown", style: TextStyle(color: Colors.white)),
+                  child: const Text("Brown", style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),

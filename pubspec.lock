@@ -567,10 +567,17 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_onboarding_slider
+<<<<<<< HEAD
+      sha256: "88fbbb3db593f4171cc8fa17814d83de80d0d04d3265ad8e384ba21ab8d5681a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.9"
+=======
       sha256: "09c060ced4b6b519709e5c7909f78a0d0a4107187130c4adc7414ceb83b81e6d"
       url: "https://pub.dev"
     source: hosted
     version: "1.0.10"
+>>>>>>> d5fae9b2c13cb9471ceb429936aaa424a4bb8984
   flutter_otp_text_field:
     dependency: "direct main"
     description:

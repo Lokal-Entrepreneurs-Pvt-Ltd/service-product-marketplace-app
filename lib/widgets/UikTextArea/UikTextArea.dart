@@ -32,7 +32,7 @@ class TextArea extends StatelessWidget {
         children: [
           // CONTAINER FOR LABEL
           if (label == true) ...[
-            Container(
+            SizedBox(
               width: 37,
               height: 16,
               child: Text(
@@ -41,13 +41,13 @@ class TextArea extends StatelessWidget {
                     textStyle: Theme.of(context).textTheme.bodyMedium,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xff212121)),
+                    color: const Color(0xff212121)),
               ),
             ),
           ],
 
           //CONTAINER FOR TEXT AREA
-          Container(
+          SizedBox(
             height: heightVal,
             width: widthVal,
             child: TextField(
@@ -56,7 +56,7 @@ class TextArea extends StatelessWidget {
               textAlign: TextAlign.start,
               textAlignVertical: TextAlignVertical.top,
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(15, 10, 5, 15),
+                  contentPadding: const EdgeInsets.fromLTRB(15, 10, 5, 15),
                   hintText: hinttext,
                   hintStyle: GoogleFonts.montserrat(
                       textStyle: Theme.of(context).textTheme.bodyMedium,

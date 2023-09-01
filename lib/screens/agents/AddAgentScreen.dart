@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
-import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
 import '../../screen_routes.dart';
@@ -126,7 +124,7 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
                               errorText: _nameRequired ? null : REQUIRED_FIELD,
                             ),
                             onChanged: (value) {
-                              if (value.length == 0) {
+                              if (value.isEmpty) {
                                 setState(() {
                                   _nameRequired = false;
                                 });
@@ -192,7 +190,7 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Color(0xFFFEE440)),
+                                        const Color(0xFFFEE440)),
                               ),
                               onPressed: () async {
                                 if (_nameController.text.isEmpty) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import '../../constants/json_constants.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
@@ -9,7 +8,7 @@ import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
 
 class SamhitaDataCollector extends StatefulWidget {
-  SamhitaDataCollector({super.key});
+  const SamhitaDataCollector({super.key});
 
   @override
   State<SamhitaDataCollector> createState() => _SamhitaDataCollectorState();
@@ -78,27 +77,27 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
   final _onBoardingDateController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _emailController = TextEditingController();
-  DateTime _dateOfBirth = DateTime.now();
-  DateTime _onBoardingDate = DateTime.now();
+  final DateTime _dateOfBirth = DateTime.now();
+  final DateTime _onBoardingDate = DateTime.now();
   String? _selectedGender;
   String? _selectedState;
   String? _selectedDistrict;
   bool _phoneNumberValid = true;
   bool _emailValid = true;
   bool _nameRequired = true;
-  bool _lastNameRequired = true;
-  bool _onBoardingDateRequired = true;
+  final bool _lastNameRequired = true;
+  final bool _onBoardingDateRequired = true;
   List<dynamic> stateList = [];
   List<dynamic> stateCodeList = [];
   List<DropdownMenuItem<String>>? stateItems = [
-    DropdownMenuItem(
+    const DropdownMenuItem(
       value: 'none',
       child: Text('None'),
     ),
   ];
   List<dynamic> districtList = [];
   List<DropdownMenuItem<String>>? districtItems = [
-    DropdownMenuItem(
+    const DropdownMenuItem(
       value: 'none',
       child: Text('None'),
     ),
@@ -118,11 +117,11 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          margin: EdgeInsets.only(left: 16, right: 16, top: 10),
+          margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
           child: ListView(
             children: [
               Image.asset("assets/images/Samhita.png"),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -130,18 +129,18 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text('Name'),
+              const Text('Name'),
               TextField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _nameRequired ? null : 'This is Required',
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               // Text('Last Name'),
               // TextField(
               //   controller: _lastNameController,
@@ -176,11 +175,11 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
               //   ),
               // ),
               // SizedBox(height: 16.0),
-              Text('Email'),
+              const Text('Email'),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _emailValid ? null : 'Please enter a valid email',
                 ),
                 onChanged: (value) {
@@ -195,14 +194,14 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
-              Text('Phone Number'),
+              const SizedBox(height: 16.0),
+              const Text('Phone Number'),
               TextField(
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
                 maxLength: 10,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _phoneNumberValid
                       ? null
                       : 'Please enter a valid phone number starting with 7, 8, or 9',
@@ -223,7 +222,7 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               // Text('Date of Birth'),
               // TextField(
               //   controller: _dobController,
@@ -427,7 +426,7 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
               // SizedBox(height: 16.0),
               Container(
                 height: 60,
-                margin: EdgeInsets.only(left: 5, right: 5, bottom: 20),
+                margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_nameController.text.isEmpty) {
@@ -446,7 +445,7 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                       _emailValid = false;
                     }
                     if (isEmailValid(_emailController.text) &&
-                        !_nameController.text.isEmpty &&
+                        _nameController.text.isNotEmpty &&
                         _phoneNumberValid) {
                       NavigationUtils.showLoaderOnTop();
                       final response = await ApiRepository.submitSamhitaForm(
@@ -476,7 +475,7 @@ class _SamhitaDataCollectorState extends State<SamhitaDataCollector> {
                     }
                     setState(() {});
                   },
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
               ),
             ],

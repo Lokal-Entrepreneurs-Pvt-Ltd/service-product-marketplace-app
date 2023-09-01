@@ -7,7 +7,7 @@ class SuccessScreen extends StatelessWidget {
   final String animationAsset;
   final String message;
 
-  SuccessScreen({required this.animationAsset, required this.message});
+  const SuccessScreen({super.key, required this.animationAsset, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class SuccessScreen extends StatelessWidget {
                         builder: (context) => UikHome().page));
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFEE440), // Set the desired color
+                backgroundColor: const Color(0xFFFEE440), // Set the desired color
               ),
               child: const Text(
                 "Home",

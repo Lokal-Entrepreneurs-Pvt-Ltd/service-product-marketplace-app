@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import '../../constants/json_constants.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
@@ -9,7 +8,7 @@ import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
 
 class SamhitaAddParticipants extends StatefulWidget {
-  SamhitaAddParticipants({super.key});
+  const SamhitaAddParticipants({super.key});
 
   @override
   State<SamhitaAddParticipants> createState() => _SamhitaAddParticipantsState();
@@ -93,14 +92,14 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
   List<dynamic> stateList = [];
   List<dynamic> stateCodeList = [];
   List<DropdownMenuItem<String>>? stateItems = [
-    DropdownMenuItem(
+    const DropdownMenuItem(
       value: 'none',
       child: Text('None'),
     ),
   ];
   List<dynamic> districtList = [];
   List<DropdownMenuItem<String>>? districtItems = [
-    DropdownMenuItem(
+    const DropdownMenuItem(
       value: 'none',
       child: Text('None'),
     ),
@@ -120,11 +119,11 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          margin: EdgeInsets.only(left: 16, right: 16, top: 10),
+          margin: const EdgeInsets.only(left: 16, right: 16, top: 10),
           child: ListView(
             children: [
               Image.asset("assets/images/Samhita.png"),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -132,18 +131,18 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text('Name'),
+              const Text('Name'),
               TextField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _nameRequired ? null : 'This is Required',
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _nameRequired = false;
                     });
@@ -154,16 +153,16 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
-              Text('Last Name'),
+              const SizedBox(height: 16.0),
+              const Text('Last Name'),
               TextField(
                 controller: _lastNameController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _lastNameRequired ? null : 'This is Required',
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _lastNameRequired = false;
                     });
@@ -174,24 +173,24 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
-              Text('Middle Name'),
+              const SizedBox(height: 16.0),
+              const Text('Middle Name'),
               TextField(
                 controller: _middleNameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('IP Id'),
+              const SizedBox(height: 16.0),
+              const Text('IP Id'),
               TextField(
                 controller: _ipIdController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Password'),
+              const SizedBox(height: 16.0),
+              const Text('Password'),
               TextField(
                 controller: _passwordController,
                 obscureText: true,
@@ -199,12 +198,12 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Email'),
+              const SizedBox(height: 16.0),
+              const Text('Email'),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _emailValid ? null : 'Please enter a valid email',
                 ),
                 onChanged: (value) {
@@ -219,14 +218,14 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
-              Text('Phone Number'),
+              const SizedBox(height: 16.0),
+              const Text('Phone Number'),
               TextField(
                 controller: _phoneNumberController,
                 keyboardType: TextInputType.phone,
                 maxLength: 10,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _phoneNumberValid
                       ? null
                       : 'Please enter a valid phone number starting with 7, 8, or 9',
@@ -247,13 +246,13 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
-              Text('Date of Birth'),
+              const SizedBox(height: 16.0),
+              const Text('Date of Birth'),
               TextField(
                 controller: _dobController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText: _dateOfBirthRequired ? null : 'This is Required',
                 ),
                 onTap: () async {
@@ -273,13 +272,13 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
-              Text('On boarding Date'),
+              const SizedBox(height: 16.0),
+              const Text('On boarding Date'),
               TextField(
                 controller: _onBoardingDateController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(),
+                  border: const OutlineInputBorder(),
                   errorText:
                       _onBoardingDateRequired ? null : 'This is Required',
                 ),
@@ -300,9 +299,9 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   }
                 },
               ),
-              SizedBox(height: 16.0),
-              Text('Gender'),
-              Container(
+              const SizedBox(height: 16.0),
+              const Text('Gender'),
+              SizedBox(
                 height: 60,
                 child: InputDecorator(
                   decoration:
@@ -311,7 +310,7 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                     child: DropdownButton<String>(
                       value: _selectedGender,
                       isExpanded: true,
-                      icon: Icon(Icons.arrow_drop_down),
+                      icon: const Icon(Icons.arrow_drop_down),
                       onChanged: (value) {
                         setState(() {
                           _selectedGender = value!;
@@ -335,14 +334,14 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                           child: Text('None'),
                         ),
                       ],
-                      hint: Text('Select your gender'),
+                      hint: const Text('Select your gender'),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Select State'),
-              Container(
+              const SizedBox(height: 16.0),
+              const Text('Select State'),
+              SizedBox(
                 height: 60,
                 child: InputDecorator(
                   decoration:
@@ -351,11 +350,11 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                     child: DropdownButton<String>(
                       value: _selectedState,
                       isExpanded: true,
-                      icon: Icon(Icons.arrow_drop_down),
+                      icon: const Icon(Icons.arrow_drop_down),
                       onChanged: (value) {
                         setState(() {
                           districtItems = [
-                            DropdownMenuItem(
+                            const DropdownMenuItem(
                               value: 'none',
                               child: Text('None'),
                             ),
@@ -366,14 +365,14 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                         });
                       },
                       items: stateItems,
-                      hint: Text('Select your State'),
+                      hint: const Text('Select your State'),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Select District'),
-              Container(
+              const SizedBox(height: 16.0),
+              const Text('Select District'),
+              SizedBox(
                 height: 60,
                 child: InputDecorator(
                   decoration:
@@ -382,68 +381,68 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                     child: DropdownButton<String>(
                       value: _selectedDistrict,
                       isExpanded: true,
-                      icon: Icon(Icons.arrow_drop_down),
+                      icon: const Icon(Icons.arrow_drop_down),
                       onChanged: (value) {
                         setState(() {
                           _selectedDistrict = value!;
                         });
                       },
                       items: districtItems,
-                      hint: Text('Select your District'),
+                      hint: const Text('Select your District'),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Enter Aadhaar Number'),
+              const SizedBox(height: 16.0),
+              const Text('Enter Aadhaar Number'),
               TextField(
                 controller: _aadharNumberController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('PAN Number'),
+              const SizedBox(height: 16.0),
+              const Text('PAN Number'),
               TextField(
                 controller: _panNumberController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Address Line 1'),
+              const SizedBox(height: 16.0),
+              const Text('Address Line 1'),
               TextField(
                 controller: _address1Controller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Address Line 2'),
+              const SizedBox(height: 16.0),
+              const Text('Address Line 2'),
               TextField(
                 controller: _address2Controller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Village'),
+              const SizedBox(height: 16.0),
+              const Text('Village'),
               TextField(
                 controller: _villageController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('City'),
+              const SizedBox(height: 16.0),
+              const Text('City'),
               TextField(
                 controller: _cityController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
-              Text('Pincode'),
+              const SizedBox(height: 16.0),
+              const Text('Pincode'),
               TextField(
                 controller: _pincodeController,
                 keyboardType: TextInputType.number,
@@ -451,20 +450,20 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               _requiredFields
                   ? Container(
-                      margin: EdgeInsets.only(bottom: 10),
-                      child: Text(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: const Text(
                         "Please Fill All required Fields",
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,
                       ),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
               Container(
                 height: 60,
-                margin: EdgeInsets.only(left: 5, right: 5, bottom: 20),
+                margin: const EdgeInsets.only(left: 5, right: 5, bottom: 20),
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_nameController.text.isEmpty) {
@@ -486,10 +485,10 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                       _emailValid = false;
                     }
                     if (isEmailValid(_emailController.text) &&
-                        !_nameController.text.isEmpty &&
-                        !_lastNameController.text.isEmpty &&
-                        !_onBoardingDateController.text.isEmpty &&
-                        !_dobController.text.isEmpty &&
+                        _nameController.text.isNotEmpty &&
+                        _lastNameController.text.isNotEmpty &&
+                        _onBoardingDateController.text.isNotEmpty &&
+                        _dobController.text.isNotEmpty &&
                         _phoneNumberValid) {
                       _requiredFields = false;
                       NavigationUtils.showLoaderOnTop();
@@ -539,7 +538,7 @@ class _SamhitaAddParticipantsState extends State<SamhitaAddParticipants> {
                     }
                     setState(() {});
                   },
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
               ),
             ],

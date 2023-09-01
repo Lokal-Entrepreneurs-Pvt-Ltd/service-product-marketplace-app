@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class UikIcon extends StatelessWidget {
@@ -15,7 +12,7 @@ class UikIcon extends StatelessWidget {
   final backgroundColor;
   final padding;
   const UikIcon(
-      {this.rad,
+      {super.key, this.rad,
       this.valIcon,
       this.iconColor,
       this.wid,

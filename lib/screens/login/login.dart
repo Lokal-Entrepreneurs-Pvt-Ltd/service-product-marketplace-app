@@ -40,7 +40,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   }
 
   void initialize() async {
-    emailController.text = await UserDataHandler.getUserEmail();
+    emailController.text = UserDataHandler.getUserEmail();
     //passwordController.text = await UserDataHandler.getUserPassword();
   }
 
@@ -83,7 +83,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   //...............................................Foret Password...............................
                   TextButton(
                     onPressed: () => UiUtils.launchURL(FORGET_PASSWORD_URL),
-                    child: Text('Forgot Password'),
+                    child: const Text('Forgot Password'),
                   ),
                   Container(
                     margin: const EdgeInsets.only(
@@ -126,7 +126,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      UikBottomNavigationBar(),
+                                      const UikBottomNavigationBar(),
                                 ),
                                 ModalRoute.withName(ScreenRoutes.loginScreen));
                           } else {

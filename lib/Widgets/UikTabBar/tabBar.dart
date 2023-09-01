@@ -10,7 +10,7 @@ class MyTabBar extends StatefulWidget {
   final backgroundColor;
   final iconSize;
   final topMargin;
-  MyTabBar({
+  const MyTabBar({super.key, 
     this.topMargin = 18.74,
     this.iconSize = 27.0,
     this.backgroundColor = Colors.white,

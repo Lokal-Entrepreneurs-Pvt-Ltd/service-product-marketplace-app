@@ -1,5 +1,3 @@
-
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +22,7 @@ import 'package:lokal/pages/UikOrderHistoryScreen.dart';
 import 'package:lokal/pages/UikOrderScreen.dart';
 import 'package:lokal/pages/UikPaymentDetailsScreen.dart';
 import 'package:lokal/pages/UikSearchCatalog.dart';
+import 'package:lokal/pages/UikServiceDetailsPage.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
@@ -61,7 +60,6 @@ import 'package:provider/provider.dart';
 import 'screens/Form/SamhitaBecomeParticipant.dart';
 import 'screens/Form/SamhitaAddParticipants.dart';
 import 'screens/Form/SamhitaDataCollector.dart';
-import 'screens/Onboarding/LandingPage.dart';
 import 'screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:shake/shake.dart';
 import 'package:feedback/feedback.dart';
@@ -69,11 +67,11 @@ import 'package:feedback/feedback.dart';
 AppInitializer? appInit;
 
 void main() async {
-  appInit = new AppInitializer();
+  appInit = AppInitializer();
   await appInit?.init();
   WidgetsFlutterBinding.ensureInitialized();
-  final appConfigDataHandler = AppConfigDataHandler();
-  await appConfigDataHandler.init();
+  // final appConfigDataHandler = AppConfigDataHandler();
+  // await appConfigDataHandler.init();
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(
     ENVIRONMENT_KEY,
@@ -81,7 +79,7 @@ void main() async {
   );
   Environment().initConfig(environment);
 
-  runApp(BetterFeedback(
+  runApp(const BetterFeedback(
     child: LokalApp(),
   ));
 
@@ -110,7 +108,7 @@ void main() async {
 }
 
 Future<void> saveFCMForUser(String fcmToken) async {
-      await ApiRepository.saveNotificationToken(
+  await ApiRepository.saveNotificationToken(
       ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken, FCM));
 }
 
@@ -121,7 +119,7 @@ class NavigationService {
 class LokalApp extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
-  LokalApp({Key? key}) : super(key: key);
+  const LokalApp({Key? key}) : super(key: key);
 
   @override
   State<LokalApp> createState() => _LokalAppState();
@@ -161,18 +159,19 @@ class _LokalAppState extends State<LokalApp> {
     return showDialog(
         context: context,
         builder: (context) {
-          var _textFieldController = TextEditingController(
+          var textFieldController = TextEditingController(
               text: EnvironmentDataHandler.getLocalBaseUrl());
           return AlertDialog(
-            title: Text('Set Ngrok URL'),
+            title: const Text('Set Ngrok URL'),
             content: TextField(
               onChanged: (value) {
                 setState(() {
                   tempLocalUrl = value;
                 });
               },
-              controller: _textFieldController,
-              decoration: InputDecoration(hintText: "Enter the local url"),
+              controller: textFieldController,
+              decoration:
+                  const InputDecoration(hintText: "Enter the local url"),
             ),
             actions: <Widget>[
               MaterialButton(
@@ -212,15 +211,16 @@ class _LokalAppState extends State<LokalApp> {
               MaterialButton(
                 color: Colors.blue,
                 textColor: Colors.white,
-                child: Text('Set Lokal'),
+                child: const Text('Set Lokal'),
                 onPressed: () {
                   setState(() {
                     if (tempLocalUrl.isNotEmpty &&
                         tempLocalUrl.endsWith("ngrok.io")) {
                       EnvUtils.setEnvironmentAndResetApp(
                           context, Environment.LOCAL, tempLocalUrl);
-                    } else
+                    } else {
                       UiUtils.showToast("Invalid url");
+                    }
                   });
                 },
               ),
@@ -248,13 +248,16 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) {
-            // return ServiceLandingScreen();
-            return UserDataHandler.getUserToken().isEmpty
-                ? OnboardingScreen()
-                : UikBottomNavigationBar();
-          },
-          ScreenRoutes.serviceLandingPageNew: (context) => const ServiceLandingScreen(),
+          "/": (context) => ServiceLandingScreen(),
+
+          // "/": (context) {
+          //   // return ServiceLandingScreen();
+          //   return UserDataHandler.getUserToken().isEmpty
+          //       ? const OnboardingScreen()
+          //       : const UikBottomNavigationBar();
+          // },
+          ScreenRoutes.serviceLandingPageNew: (context) =>
+              const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
@@ -264,7 +267,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
           ScreenRoutes.myAddressScreen: (context) =>
               UikMyAddressScreen(context).page,
-          ScreenRoutes.otpScreen: (context) => OtpScreen(),
+          ScreenRoutes.otpScreen: (context) => const OtpScreen(),
           ScreenRoutes.paymentDetailsScreen: (context) =>
               UikPaymentDetailsScreen().page,
           ScreenRoutes.orderScreen: (context) => UikOrderScreen().page,
@@ -285,19 +288,18 @@ class _LokalAppState extends State<LokalApp> {
               UikServicesLanding().page,
           ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
           ScreenRoutes.samhitaDataCollector: (context) =>
-              SamhitaDataCollector(),
+              const SamhitaDataCollector(),
           ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
           ScreenRoutes.samhitaAddParticipantForm: (context) =>
-              SamhitaAddParticipants(),
+              const SamhitaAddParticipants(),
           ScreenRoutes.samhitaBecomeParticipantForm: (context) =>
-              SamhitaBecomeParticipant(),
+              const SamhitaBecomeParticipant(),
           ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
-          ScreenRoutes.samhitaOtp: (context) => SamhitaOtp(),
+          ScreenRoutes.samhitaOtp: (context) => const SamhitaOtp(),
           ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
           ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
-              SamhitaVerifyParticipant(),
-          ScreenRoutes.extraPayOptInScreen: (context) => extraPayOptIn(),
-          ScreenRoutes.addAgentScreen: (context) => AddAgentScreen(),
+              const SamhitaVerifyParticipant(),
+          ScreenRoutes.addAgentScreen: (context) => const AddAgentScreen(),
           ScreenRoutes.manageAgentScreen: (context) => ManageAgentScreen().page,
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
           ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
