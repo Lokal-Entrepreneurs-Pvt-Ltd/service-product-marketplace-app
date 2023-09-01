@@ -11,6 +11,7 @@ import 'package:lokal/constants/environment.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
+import 'package:lokal/pages/UikAgentsForUserService.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
@@ -305,6 +306,7 @@ class _LokalAppState extends State<LokalApp> {
               AddServiceCustomerFlow(),
           ScreenRoutes.addUserServiceCustomer: (context) => AddServiceCustomerFlow(),
           ScreenRoutes.getAllCustomerForUserService: (context) => UikCustomerForUserService().page,
+          ScreenRoutes.getAllAgentsForUserService: (context) => UikAgentsForUserService().page,
         },
       ),
     );
