@@ -14,22 +14,22 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? triggerButton;
   final Widget? triggerAction;
 
-  UikNavbar({
+  const UikNavbar({super.key, 
     required this.size,
     this.transparency,
     this.triggerIcon,
     this.triggerButton,
     this.triggerAction,
     this.backgroundColor = const Color(0xfffefefe),
-    this.titleText = null,
-    this.subtitleText = null,
+    this.titleText,
+    this.subtitleText,
     this.leftIcon = const Icon(null),
-    this.triggerElementType = null,
+    this.triggerElementType,
   });
 
   @override
   Widget build(BuildContext context) => (size == 'small')
-      ? Container(
+      ? SizedBox(
           // color: (transparent==true)?,
           height: 56,
           child: AppBar(
@@ -41,14 +41,14 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
             // foregroundColor: Colors.black,
             // backgroundColor: bg,
             leading: Container(
-              margin: EdgeInsets.only(left: 16, top: 16),
+              margin: const EdgeInsets.only(left: 16, top: 16),
               // color: Colors.amber,
               child: IconButton(
                 padding: const EdgeInsets.all(0.0),
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: leftIcon!,
+                icon: leftIcon,
                 // iconSize: 60,
                 color: Colors.black,
               ),
@@ -56,15 +56,15 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
             actions: [
               Container(
                 // color: Colors.amber,
-                margin: EdgeInsets.only(right: 16),
-                padding: EdgeInsets.only(right: 7),
+                margin: const EdgeInsets.only(right: 16),
+                padding: const EdgeInsets.only(right: 7),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (triggerElementType == 'icon') ...[
                       triggerIcon!
                     ] else if (triggerElementType == 'button') ...[
-                      Container(height: 36, child: triggerButton!),
+                      SizedBox(height: 36, child: triggerButton!),
                     ] else if (triggerElementType == 'action') ...[
                       Container(
                         child: triggerAction!,
@@ -108,7 +108,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                       textStyle: Theme.of(context).textTheme.bodyMedium,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff3e3e3e),
+                      color: const Color(0xff3e3e3e),
                     ),
                   )
                 ]
@@ -142,7 +142,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                         height: 56,
                       ))
                     : Container(
-                        padding: EdgeInsets.only(top: 10, left: 5),
+                        padding: const EdgeInsets.only(top: 10, left: 5),
                         // color: Colors.amber,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -160,7 +160,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                 //second element
                 actions: [
                   Container(
-                    padding: EdgeInsets.only(top: 10, right: 7),
+                    padding: const EdgeInsets.only(top: 10, right: 7),
                     // color: Colors.amber,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -214,7 +214,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   Container(
                       // color: Colors.red,
-                      margin: EdgeInsets.only(left: 16),
+                      margin: const EdgeInsets.only(left: 16),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +250,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                             ),
                             Container(
                               // color: Colors.red,
-                              margin: EdgeInsets.only(top: 4),
+                              margin: const EdgeInsets.only(top: 4),
                               child: Text(
                                 subtitleText!,
                                 style: GoogleFonts.poppins(
@@ -258,7 +258,7 @@ class UikNavbar extends StatelessWidget implements PreferredSizeWidget {
                                       Theme.of(context).textTheme.bodyMedium,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w400,
-                                  color: Color(0xff3e3e3e),
+                                  color: const Color(0xff3e3e3e),
                                 ),
                               ),
                             )

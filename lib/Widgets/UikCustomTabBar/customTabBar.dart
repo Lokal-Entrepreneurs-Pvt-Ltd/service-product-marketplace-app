@@ -3,7 +3,6 @@
 
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,7 +28,7 @@ class _TabElementState extends State<TabElement> {
       child: Text(
         widget.text,
         style: GoogleFonts.poppins(
-          color: widget.isSelected ? Color(0xFF3F51B5) : Colors.black,
+          color: widget.isSelected ? const Color(0xFF3F51B5) : Colors.black,
           fontWeight: FontWeight.w500,
         ),
       ),

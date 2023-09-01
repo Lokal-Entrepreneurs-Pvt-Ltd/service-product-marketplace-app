@@ -19,7 +19,7 @@ class UikButton extends StatelessWidget {
   bool? disabled;
   bool? stuck;
 
-  UikButton({
+  UikButton({super.key, 
     this.borderColor = Colors.transparent,
     this.backgroundColor = Colors.yellow,
     this.textWeight,
@@ -80,10 +80,10 @@ class UikButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: _buildLeadingIcon(leftElement),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Expanded(
                             child: Center(
                               child: Text(
@@ -95,9 +95,9 @@ class UikButton extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
-                            margin: EdgeInsets.only(right: 22),
+                            margin: const EdgeInsets.only(right: 22),
                             child: _buildTrailingIcon(rightElement),
                           ),
                         ],
@@ -137,10 +137,10 @@ class UikButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: _buildLeadingIcon(leftElement),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Expanded(
                             child: Center(
                               child: Text(
@@ -152,9 +152,9 @@ class UikButton extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
-                            margin: EdgeInsets.only(right: 2),
+                            margin: const EdgeInsets.only(right: 2),
                             child: _buildTrailingIcon(rightElement),
                           ),
                         ],
@@ -194,10 +194,10 @@ class UikButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: _buildLeadingIcon(leftElement),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Expanded(
                             child: Center(
                               child: Text(
@@ -209,9 +209,9 @@ class UikButton extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
-                            margin: EdgeInsets.only(right: 22),
+                            margin: const EdgeInsets.only(right: 22),
                             child: _buildTrailingIcon(rightElement),
                           ),
                         ],
@@ -252,10 +252,10 @@ class UikButton extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: 20),
+                            margin: const EdgeInsets.only(left: 20),
                             child: _buildLeadingIcon(leftElement),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Expanded(
                             child: Center(
                               child: Text(
@@ -267,9 +267,9 @@ class UikButton extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
-                            margin: EdgeInsets.only(right: 22),
+                            margin: const EdgeInsets.only(right: 22),
                             child: _buildTrailingIcon(rightElement),
                           ),
                         ],
@@ -287,7 +287,7 @@ Widget _buildTrailingIcon(final rightElement) {
   if (rightElement != null) {
     return Row(
       children: <Widget>[
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
         rightElement,
       ],
     );
@@ -300,7 +300,7 @@ Widget _buildLeadingIcon(final leftElement) {
     return Row(
       children: <Widget>[
         leftElement,
-        SizedBox(width: 5),
+        const SizedBox(width: 5),
       ],
     );
   }

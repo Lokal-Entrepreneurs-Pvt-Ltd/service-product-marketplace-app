@@ -23,13 +23,13 @@ class MyProductCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Card(
-            margin: EdgeInsets.all(0.0),
+            margin: const EdgeInsets.all(0.0),
             child: Container(
               // color: Colors.amber,
               // constraints: BoxConstraints(maxWidth: double.infinity),
               width: MediaQuery.of(context).size.width * 0.5,
               // width: 155,
-              padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
               child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -44,7 +44,7 @@ class MyProductCard extends StatelessWidget {
                         fit: BoxFit.fill,
                       )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Column(
@@ -62,7 +62,7 @@ class MyProductCard extends StatelessWidget {
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
+                                    Theme.of(context).textTheme.bodyMedium,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -86,7 +86,7 @@ class MyProductCard extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 12.5),
+                          margin: const EdgeInsets.only(top: 12.5),
                           // color: Colors.brown,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -95,17 +95,17 @@ class MyProductCard extends StatelessWidget {
                                 // color: Colors.black,
                                 // width: 9.17,
                                 // height: 8.72,
-                                child: Icon(
+                                child: const Icon(
                                   size: 10,
                                   Icons.star,
                                   color: Color(0xffFFC120),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 3.91,
                               ),
                               Container(
-                                padding: EdgeInsets.only(top: 0.92),
+                                padding: const EdgeInsets.only(top: 0.92),
                                 child: Text(
                                   ratingValue,
                                   style: GoogleFonts.poppins(
@@ -115,11 +115,11 @@ class MyProductCard extends StatelessWidget {
                                       fontWeight: FontWeight.w400),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Container(
-                                padding: EdgeInsets.only(top: 0.92),
+                                padding: const EdgeInsets.only(top: 0.92),
                                 child: Text(
                                   reviewText,
                                   style: GoogleFonts.poppins(
@@ -128,7 +128,7 @@ class MyProductCard extends StatelessWidget {
                                       fontWeight: FontWeight.w400),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 10,
                               ),
                               Container(
@@ -137,7 +137,7 @@ class MyProductCard extends StatelessWidget {
                                 // Colors.amber,
                                 // width: 18,
                                 height: 22,
-                                child: Icon(
+                                child: const Icon(
                                   size: 18,
                                   color: Color(0xff7f7f7f),
                                   Icons.more_vert,

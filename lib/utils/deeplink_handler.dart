@@ -50,13 +50,6 @@ abstract class DeeplinkHandler {
           }
         }
         break;
-      case ScreenRoutes.homeScreen:
-        {
-          if (args.isEmpty) {
-            _pushScreen(context, ScreenRoutes.homeScreen);
-          }
-        }
-        break;
       case ScreenRoutes.catalogueScreen:
         {
           if (args["categoryId"] != null) {
@@ -80,16 +73,15 @@ abstract class DeeplinkHandler {
       case ScreenRoutes.serviceScreen:
         {
           if (args["serviceId"] != null) {
-            ProductDataHandler.saveProductSkuId(args['serviceId']);
-            ProductDataHandler.saveServiceCode(args['serviceCode']);
-            args["serviceId"] = int.parse(args["serviceId"]);
+            // ProductDataHandler.saveProductSkuId(args['serviceId']);
+            // ProductDataHandler.saveServiceCode(args['serviceCode']);
             _pushScreen(context, ScreenRoutes.serviceScreen, args);
           }
         }
         break;
       case ScreenRoutes.cartScreen:
         {
-          String cartId = await CartDataHandler.getCartId();
+          String cartId = CartDataHandler.getCartId();
           args = {"cartId": cartId};
           _pushScreen(context, ScreenRoutes.cartScreen, args);
         }
@@ -128,11 +120,6 @@ abstract class DeeplinkHandler {
         }
         break;
 
-      case ScreenRoutes.orderScreen:
-        {
-          _pushScreen(context, ScreenRoutes.orderScreen, args);
-        }
-        break;
       case ScreenRoutes.orderHistoryScreen:
         {
           _pushScreen(context, ScreenRoutes.orderHistoryScreen, args);
@@ -246,8 +233,8 @@ abstract class DeeplinkHandler {
 
   static void _pushScreen(BuildContext context, String route,
       [Map<String, dynamic>? args]) {
-    print("pushed route ${route}");
-    print("pushed args ${args}");
+    print("pushed route $route");
+    print("pushed args $args");
     Navigator.pushNamed(context, route, arguments: args);
   }
 }

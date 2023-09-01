@@ -5,6 +5,8 @@ import 'package:lokal/widgets/UikAdminEcommCards/OrderDetailsCard/ProductPage.da
 import 'InvoicePage.dart';
 
 class orderDetails extends StatefulWidget {
+  const orderDetails({super.key});
+
   @override
   State<orderDetails> createState() => _orderDetailsState();
 }
@@ -20,7 +22,7 @@ class _orderDetailsState extends State<orderDetails>
       width: 1122,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: Color(0XFFBABFC5)),
+        border: Border.all(color: const Color(0XFFBABFC5)),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: ListView(
@@ -29,12 +31,12 @@ class _orderDetailsState extends State<orderDetails>
           children: [
             Card(
               elevation: 10,
-              margin: EdgeInsets.all(0),
+              margin: const EdgeInsets.all(0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // TAB-BAR CONTAINER
-                  Container(
+                  SizedBox(
                     height: 85,
                     // margin: EdgeInsets.only(right: 800),
                     // width: 260,
@@ -51,13 +53,13 @@ class _orderDetailsState extends State<orderDetails>
                             });
                           },
                           controller: tabController,
-                          indicatorColor: Color(0xffEF5350),
+                          indicatorColor: const Color(0xffEF5350),
                           indicatorSize: TabBarIndicatorSize.label,
                           isScrollable: true,
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 15, right: 15, bottom: 23, top: 15),
-                          labelColor: Color(0xffEF5350),
-                          unselectedLabelColor: Color(0xff212121),
+                          labelColor: const Color(0xffEF5350),
+                          unselectedLabelColor: const Color(0xff212121),
                           // controller: _tabController,
                           tabs: <Widget>[
                             Tab(
@@ -102,7 +104,7 @@ class _orderDetailsState extends State<orderDetails>
                     height: 1,
                     color: Color(0xffBDBDBD),
                   ),
-                  Container(
+                  SizedBox(
                     height: (_selectedTabBar == 0)
                         ? (328)
                         : ((_selectedTabBar == 1) ? (328) : (611)),
@@ -114,7 +116,7 @@ class _orderDetailsState extends State<orderDetails>
 
                     child: TabBarView(
                       controller: tabController,
-                      children: [OrderPage(), ProductPage(), InvoicePage()],
+                      children: [const OrderPage(), const ProductPage(), InvoicePage()],
                     ),
                   ),
                 ],

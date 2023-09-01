@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/colors.dart';
 import 'package:lokal/constants/json_constants.dart';
-import 'package:lokal/screen_routes.dart';
-import 'package:lokal/screens/otp.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
-import 'package:lokal/utils/storage/user_data_handler.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
 import 'dart:async';
 import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
@@ -19,6 +13,8 @@ import '../../widgets/UikButton/UikButton.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class SamhitaOtp extends StatefulWidget {
+  const SamhitaOtp({super.key});
+
   @override
   State<SamhitaOtp> createState() => _SamhitaOtpState();
 }
@@ -39,7 +35,6 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
 
   void _listenOtp() async {
     await SmsAutoFill().listenForCode();
-    print(OTP_LISTEN);
   }
 
   @override
@@ -105,8 +100,8 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
             PinFieldAutoFill(
               currentCode: otpCode,
               decoration: BoxLooseDecoration(
-                  radius: Radius.circular(12),
-                  strokeColorBuilder: FixedColorBuilder(Color(0xFF8C4A52))),
+                  radius: const Radius.circular(12),
+                  strokeColorBuilder: const FixedColorBuilder(Color(0xFF8C4A52))),
               codeLength: 6,
               onCodeChanged: (code) {
                 print(code);

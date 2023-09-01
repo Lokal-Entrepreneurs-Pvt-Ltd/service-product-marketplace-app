@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 // 
 import '../../../../widgets/UikAvatar/uikAvatar.dart';
-import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 
 class MyProfileCard extends StatelessWidget {
+  const MyProfileCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +15,8 @@ class MyProfileCard extends StatelessWidget {
               Container(
                 width: 190,
                 height: 42,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 42),
-                child: Text(
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 42),
+                child: const Text(
                   "Profile Card",
                   style: TextStyle(
                     fontSize: 32,
@@ -23,7 +24,7 @@ class MyProfileCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 581,
                 width: 218,
                 // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
@@ -33,8 +34,8 @@ class MyProfileCard extends StatelessWidget {
                       Container(
                         width: 62,
                         height: 62,
-                        margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                        child: UikAvatar(
+                        margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                        child: const UikAvatar(
                           backgroundColor: Colors.purple,
                           radius: 20,
                         ),
@@ -42,8 +43,8 @@ class MyProfileCard extends StatelessWidget {
                       Container(
                         width: 81,
                         height: 17,
-                        margin: EdgeInsets.fromLTRB(0, 12, 0, 0),
-                        child: Center(
+                        margin: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                        child: const Center(
                           child: Text(
                             "Tom Cruise",
                             style: TextStyle(
@@ -56,8 +57,8 @@ class MyProfileCard extends StatelessWidget {
                       Container(
                         width: 67,
                         height: 12,
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                        child: Center(
+                        margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: const Center(
                           child: Text(
                             "Ui Designer",
                             style: TextStyle(
@@ -67,18 +68,18 @@ class MyProfileCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         color: Color(0xFFBABFC5),
                         height: 1,
                       ),
-                      Container(
+                      SizedBox(
                         width: 218,
                         height: 231,
                         child: ListView(
                           scrollDirection: Axis.vertical,
                           children: [
-                            ListTile(
-                              leading: Container(
+                            const ListTile(
+                              leading: SizedBox(
                                 width: 82,
                                 height: 15,
                                 child: Text(
@@ -89,7 +90,7 @@ class MyProfileCard extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              trailing: Container(
+                              trailing: SizedBox(
                                 width: 33,
                                 height: 12,
                                 child: Text(
@@ -106,7 +107,7 @@ class MyProfileCard extends StatelessWidget {
                               Container(
                                 height: 50,
                                 width: 150,
-                                margin: EdgeInsets.only(top: 0),
+                                margin: const EdgeInsets.only(top: 0),
                                 child: Column(
                                   children: [
                                     Row(
@@ -115,18 +116,18 @@ class MyProfileCard extends StatelessWidget {
                                           width: 26,
                                           height: 20,
                                           margin:
-                                              EdgeInsets.fromLTRB(12, 5, 9, 0),
-                                          child: Icon(
+                                              const EdgeInsets.fromLTRB(12, 5, 9, 0),
+                                          child: const Icon(
                                             Icons.folder_outlined,
                                             color: Color(0xFF9E9E9E),
                                           ),
                                         ),
-                                        Column(
+                                        const Column(
                                           children: [
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 71,
                                               height: 12,
                                               child: Text(
@@ -137,7 +138,7 @@ class MyProfileCard extends StatelessWidget {
                                                     color: Colors.black),
                                               ),
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 71,
                                               height: 12,
                                               child: Text(
@@ -151,18 +152,18 @@ class MyProfileCard extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Column(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Container(
                                               width: 29,
                                               height: 19,
                                               margin:
-                                                  EdgeInsets.only(right: 10),
-                                              child: Text(
+                                                  const EdgeInsets.only(right: 10),
+                                              child: const Text(
                                                 "1.8MB",
                                                 style: TextStyle(
                                                   fontSize: 10,
@@ -182,10 +183,10 @@ class MyProfileCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         height: 1,
                       ),
-                      Container(
+                      SizedBox(
                         width: 218,
                         height: 165,
                         // decoration: BoxDecoration(
@@ -194,8 +195,8 @@ class MyProfileCard extends StatelessWidget {
                           controller: ScrollController(),
                           scrollDirection: Axis.vertical,
                           children: [
-                            ListTile(
-                              leading: Container(
+                            const ListTile(
+                              leading: SizedBox(
                                 width: 82,
                                 height: 16,
                                 child: Text(
@@ -206,7 +207,7 @@ class MyProfileCard extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              trailing: Container(
+                              trailing: SizedBox(
                                 width: 33,
                                 height: 12,
                                 child: Text(
@@ -223,17 +224,17 @@ class MyProfileCard extends StatelessWidget {
                               Container(
                                 height: 50,
                                 width: 150,
-                                margin: EdgeInsets.only(top: 0),
+                                margin: const EdgeInsets.only(top: 0),
                                 child: Column(
                                   children: [
                                     Row(
                                       children: [
                                         Column(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
-                                            Container(
+                                            const SizedBox(
                                               width: 38,
                                               height: 12,
                                               child: Text(
@@ -247,8 +248,8 @@ class MyProfileCard extends StatelessWidget {
                                             Container(
                                               width: 58,
                                               height: 12,
-                                              margin: EdgeInsets.only(left: 20),
-                                              child: Text(
+                                              margin: const EdgeInsets.only(left: 20),
+                                              child: const Text(
                                                 "Oct 21,2021",
                                                 style: TextStyle(
                                                   fontSize: 10,
@@ -259,18 +260,18 @@ class MyProfileCard extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         Column(
                                           children: [
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Container(
                                               width: 29,
                                               height: 19,
                                               margin:
-                                                  EdgeInsets.only(right: 10),
-                                              child: Text(
+                                                  const EdgeInsets.only(right: 10),
+                                              child: const Text(
                                                 "1.8MB",
                                                 style: TextStyle(
                                                   fontSize: 10,

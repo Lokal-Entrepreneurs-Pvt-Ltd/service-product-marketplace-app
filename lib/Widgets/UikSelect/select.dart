@@ -12,7 +12,7 @@ class MySelect extends StatefulWidget {
   final size;
 
   const MySelect(
-      {this.Corner = "Recktangle",
+      {super.key, this.Corner = "Recktangle",
       this.Border = false,
       this.Disable = false,
       this.avtar,
@@ -34,27 +34,27 @@ class _MySelectState extends State<MySelect> {
   Widget build(BuildContext context) {
     if (widget.size == "Small") ContainerHeight = 31.0;
     if (widget.size == "Large") ContainerHeight = 51.0;
-    if (widget.Border == true) ContainerBorderColor = Color(0xFF9E9E9E);
+    if (widget.Border == true) ContainerBorderColor = const Color(0xFF9E9E9E);
     if (widget.Corner == "Recktangle") ContainerRadius = 8.0;
     if (widget.Corner == "Rounded") ContainerRadius = 30.0;
-    if (widget.Disable == true) ContainerBackgroundColor = Color(0xFFE5E5E5);
+    if (widget.Disable == true) ContainerBackgroundColor = const Color(0xFFE5E5E5);
 
     return Scaffold(
       // Outer Container 1 with Label
       body: AbsorbPointer(
         absorbing: widget.Disable,
-        child: Container(
+        child: SizedBox(
           height: 200,
           child: Column(
             children: [
               if (widget.Heading)
-                Container(
+                SizedBox(
                   width: 200,
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
-                      child: Text(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+                      child: const Text(
                         "LABEL",
                         textAlign: TextAlign.left,
                         style: TextStyle(
@@ -65,7 +65,7 @@ class _MySelectState extends State<MySelect> {
                     ),
                   ),
                 ),
-              SizedBox(
+              const SizedBox(
                 width: 17,
               ),
               // Select Box Container
@@ -81,26 +81,28 @@ class _MySelectState extends State<MySelect> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 11),
+                    const SizedBox(width: 11),
                     if (widget.noIcon == false)
                       Container(
-                        child: widget.avtar == null
-                            ? Container(
+                        child: widget.avtar ?? Container(
                                 height: 13.0,
                                 width: 13.0,
-                                decoration: new BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Color(0xFF9E9E9E),
                                   shape: BoxShape.circle,
                                 ),
-                              )
-                            : widget.avtar,
+                              ),
                         decoration: BoxDecoration(
                             border:
                                 Border.all(color: ContainerBackgroundColor)),
                       ),
-                    if (widget.noIcon == false) SizedBox(width: 11),
+                    if (widget.noIcon == false) const SizedBox(width: 11),
                     Container(
-                      child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: ContainerBackgroundColor)),
+                      child: const SizedBox(
+                        width: 41,
+                        height: 16,
                         child: Text(
                           "Search",
                           style: TextStyle(
@@ -109,29 +111,25 @@ class _MySelectState extends State<MySelect> {
                             color: Color(0xFF9E9E9E),
                           ),
                         ),
-                        width: 41,
-                        height: 16,
                       ),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: ContainerBackgroundColor)),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     MouseRegion(
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () => {},
                         child: Container(
-                          child: Icon(
-                            Icons.expand_more_outlined,
-                            color: Color(0xFF9E9E9E),
-                          ),
                           decoration: BoxDecoration(
                               border:
                                   Border.all(color: ContainerBackgroundColor)),
+                          child: const Icon(
+                            Icons.expand_more_outlined,
+                            color: Color(0xFF9E9E9E),
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     )
                   ],

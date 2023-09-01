@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class MyTextField extends StatefulWidget {
   // const MyTextField({super.key});
@@ -19,14 +17,14 @@ class MyTextField extends StatefulWidget {
   var error;
   final TextEditingController Controller;
 
-  MyTextField({
+  MyTextField({super.key, 
     this.description = "",
-    this.labelText = null,
+    this.labelText,
     this.hintText = "",
-    this.rightElement = null,
+    this.rightElement,
     this.width = 0.0,
     this.height = 0.0,
-    this.leftElement = null,
+    this.leftElement,
     this.isPassword = false,
     this.error = false,
     this.isSignUpField = false,
@@ -42,7 +40,7 @@ class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 16),
+      margin: const EdgeInsets.only(left: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,10 +48,10 @@ class _MyTextFieldState extends State<MyTextField> {
             width: widget.width,
             height: widget.height,
             decoration: BoxDecoration(
-              color: Color(0xffF5F5F5),
+              color: const Color(0xffF5F5F5),
               border: (widget.error == true)
-                  ? Border.all(color: Color(0xffEF5350))
-                  : Border.all(color: Color(0xffF5F5F5)),
+                  ? Border.all(color: const Color(0xffEF5350))
+                  : Border.all(color: const Color(0xffF5F5F5)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -67,17 +65,17 @@ class _MyTextFieldState extends State<MyTextField> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(16, 9.5, 16, 0),
+                        margin: const EdgeInsets.fromLTRB(16, 9.5, 16, 0),
                         child: (widget.labelText != null)
                             ? Text(
                                 widget.labelText!,
                                 textAlign: TextAlign.start,
-                                style: TextStyle(color: Color(0xff9E9E9E)),
+                                style: const TextStyle(color: Color(0xff9E9E9E)),
                               )
                             : null,
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(16, 0, 16, 9.5),
+                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 9.5),
                         child: TextField(
                           onChanged: (text) {
                             if (!isEmailValid(text) &&
@@ -132,15 +130,15 @@ class _MyTextFieldState extends State<MyTextField> {
                           obscureText: widget.isPassword,
                           cursorColor: Colors.black,
                           controller: widget.Controller,
-                          style: TextStyle(fontSize: 14),
+                          style: const TextStyle(fontSize: 14),
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: widget.hintText,
                             //fillColor: Colors.redAccent,
                             isDense: true,
                             contentPadding: (widget.labelText == null)
-                                ? EdgeInsets.symmetric(vertical: 10)
-                                : EdgeInsets.symmetric(vertical: 5),
+                                ? const EdgeInsets.symmetric(vertical: 10)
+                                : const EdgeInsets.symmetric(vertical: 5),
                           ),
                         ),
                       ),
@@ -154,13 +152,13 @@ class _MyTextFieldState extends State<MyTextField> {
             ),
           ),
           Container(
-              margin: EdgeInsets.fromLTRB(16, 8, 0, 0),
+              margin: const EdgeInsets.fromLTRB(16, 8, 0, 0),
               child: Text(
                 (widget.description != null) ? widget.description : (""),
                 style: TextStyle(
                   color: (widget.error == true)
-                      ? Color(0xffEF5350)
-                      : Color(0xff9E9E9E),
+                      ? const Color(0xffEF5350)
+                      : const Color(0xff9E9E9E),
                 ),
               )),
         ],
@@ -176,15 +174,15 @@ class _MyTextFieldState extends State<MyTextField> {
 }
 
 bool isPasswordCompliant(String password, [int minLength = 6]) {
-  if (password == null || password.isEmpty) {
+  if (password.isEmpty) {
     return false;
   }
 
-  bool hasUppercase = password.contains(new RegExp(r'[A-Z]'));
-  bool hasDigits = password.contains(new RegExp(r'[0-9]'));
-  bool hasLowercase = password.contains(new RegExp(r'[a-z]'));
+  bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
+  bool hasDigits = password.contains(RegExp(r'[0-9]'));
+  bool hasLowercase = password.contains(RegExp(r'[a-z]'));
   bool hasSpecialCharacters =
-      password.contains(new RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+      password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   bool hasMinLength = password.length > minLength;
 
   return hasDigits &
@@ -198,7 +196,7 @@ Widget _buildTrailingIcon(Widget? leftElement) {
   if (leftElement != null) {
     return Row(
       children: <Widget>[
-        SizedBox(width: 19),
+        const SizedBox(width: 19),
         //Spacer(),
         leftElement,
       ],

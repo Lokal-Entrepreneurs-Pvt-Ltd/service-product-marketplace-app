@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 
-import '../storage/user_data_handler.dart';
 
 class NetworkInterceptor extends Interceptor {
   @override

@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -8,296 +6,166 @@ import '../../Widgets/UikButton/UikButton.dart';
 import 'NewOnboardingScreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  int selectedIndex = 0;
-  String? selectedUserType;
-  List<String> userTypes = [CUSTOMER, PARTNER, AGENT];
+  final PageController _pageController = PageController(initialPage: 0);
   List<String> images = [
-    "assets/images/Onboarding1.png",
-    "assets/images/Onboarding2.png",
-    "assets/images/Onboarding3.png",
+    "assets/images/NewOnborading1.png",
+    "assets/images/NewOnboarding2.png",
+    "assets/images/NewOnboarding3.png",
   ];
-  List<List<String>> texts = [
-    [BRAND_THAT_EARN, JOIN_LOKAL],
-    [INTERNET_NAVIGATE, FAST_INTERNET],
-    [
-      SERVICES_CONNECT,
-      SERVICES_MSG
-    ],
-  ];
-  int _currentPage = 0;
-  late Timer _timer;
-  final PageController _pageController = PageController(
-    initialPage: 0,
-  );
 
   @override
-  void initState() {
-    super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPage < 4) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(seconds: 1),
-        curve: Curves.ease,
-      );
-    });
-  }
-
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: DIMEN_100),
-                height: DIMEN_520,
-                width: DIMEN_375,
-                child: PageView.builder(
-                    controller: _pageController,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Stack(children: [
-                          Image.asset(
-                            images[index % images.length],
-                            width: double.infinity,
-                          ),
-                          Container(
-                            // decoration: const BoxDecoration(
-                            //     color: Color.fromRGBO(0, 0, 0, 0.1)),
-                            margin: const EdgeInsets.fromLTRB(0, DIMEN_375, 0, 0),
-                            width: double.infinity,
-
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  texts[index % texts.length][0],
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: DIMEN_32,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: DIMEN_6,
-                                ),
-                                Text(
-                                  texts[index % texts.length][1],
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: DIMEN_14,
-                                  ),
-                                ),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, DIMEN_20, 0, 0),
-                                  child: SmoothPageIndicator(
-                                    axisDirection: Axis.horizontal,
-                                    controller: _pageController,
-                                    effect: const ExpandingDotsEffect(
-                                      spacing: DIMEN_4,
-                                      radius: DIMEN_5,
-                                      activeDotColor: Colors.black,
-                                      dotHeight: DIMEN_5,
-                                      dotWidth: DIMEN_5,
-                                      expansionFactor: DIMEN_2,
-                                    ),
-                                    count: 4,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]),
-                      );
-                    }),
-              ),
-              Text(
-                ACCOUNT_TYPE,
-                style: GoogleFonts.poppins(
-                    fontSize: DIMEN_14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-              const SizedBox(height: DIMEN_7,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  buildUserTypeRectangle(0),
-                  buildUserTypeRectangle(1),
-                  buildUserTypeRectangle(2),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: DIMEN_10, right: DIMEN_10),
-                child: UikButton(
-                  text: CONTINUE,
-                  backgroundColor: const Color(0xffFEE440),
-                  onClick: () async {
-                    selectedUserType = userTypes[selectedIndex];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NewOnboardingScreen(
-                            selectedUserType: selectedUserType),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
+        body: PageView.builder(
+          controller: _pageController,
+          itemCount: images.length,
+          itemBuilder: (context, index) {
+            return OnboardingSlider(
+              imagePath: images[index],
+              currentPage: index, // Pass the index as currentPage
+              totalImages: images.length,
+              lastPage: index == images.length - 1,
+              pageController: _pageController,
+            );
+          },
         ),
       ),
     );
   }
+}
 
-  Widget buildUserTypeRectangle(int index) {
-    List<Widget> avatars = [
-      GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        child: Column(
-          children: [
-            Container(
-              width: DIMEN_90,
-              height: DIMEN_70,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(DIMEN_10),
-                border: Border.all(
-                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                  width: DIMEN_2,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.person,
-                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                  ),
-                  const SizedBox(height: DIMEN_8),
-                  Text(
-                    CUSTOMER,
-                    style: GoogleFonts.poppins(
-                      fontSize: DIMEN_14,
-                      fontWeight: FontWeight.w500,
-                      color:
-                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: DIMEN_16),
-          ],
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        child: Column(
-          children: [
-            Container(
-              width: DIMEN_90,
-              height: DIMEN_70,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(DIMEN_10),
-                border: Border.all(
-                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                  width: DIMEN_2,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.business,
-                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                  ),
-                  const SizedBox(height: DIMEN_8),
-                  Text(
-                    PARTNER,
-                    style: GoogleFonts.poppins(
-                      fontSize: DIMEN_14,
-                      fontWeight: FontWeight.w500,
-                      color:
-                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: DIMEN_16),
-          ],
-        ),
-      ),
-      GestureDetector(
-        onTap: () {
-          setState(() {
-            selectedIndex = index;
-          });
-        },
-        child: Column(
-          children: [
-            Container(
-              width: DIMEN_90,
-              height: DIMEN_70,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(DIMEN_10),
-                border: Border.all(
-                  color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                  width: DIMEN_2,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.local_shipping,
-                    color: index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                  ),
-                  const SizedBox(height: DIMEN_8),
-                  Text(
-                    AGENT,
-                    style: GoogleFonts.poppins(
-                      fontSize: DIMEN_14,
-                      fontWeight: FontWeight.w500,
-                      color:
-                          index == selectedIndex ? Color(0xFF4169E1) : Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: DIMEN_16),
-          ],
-        ),
-      ),
-    ];
+class OnboardingSlider extends StatefulWidget {
+  final String imagePath;
+  final int currentPage;
+  final int totalImages;
+  final bool lastPage;
+  final PageController pageController;
 
-    return avatars[index];
+  const OnboardingSlider({super.key, 
+    required this.imagePath,
+    required this.currentPage,
+    required this.totalImages,
+    required this.lastPage,
+    required this.pageController,
+  });
+
+  @override
+  _OnboardingSliderState createState() => _OnboardingSliderState();
+}
+
+class _OnboardingSliderState extends State<OnboardingSlider> {
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPage = widget.currentPage;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.currentPage == 1) // Display only for the 2nd image
+                  Image.asset(
+                    widget.imagePath,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                  ),
+                if (widget.currentPage != 1) // Display for other images
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60.0),
+                    child: Image.asset(
+                      widget.imagePath,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                const SizedBox(
+                  height: DIMEN_32,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24.0),
+                  child: SmoothPageIndicator(
+                    controller: widget.pageController,
+                    count: widget.totalImages,
+                    effect: const ExpandingDotsEffect(
+                      dotHeight: 5, // Customize dot height
+                      dotWidth: 6, // Customize dot width
+                      spacing: 8, // Customize spacing between dots
+                      dotColor: Colors.grey,
+                      activeDotColor: Colors.black,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: DIMEN_32,
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: TextButton(
+                        onPressed: () {
+                          widget.pageController.animateToPage(
+                            widget.totalImages - 1,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                        child: const Text(
+                          SKIP,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 24.0),
+                      child: UikButton(
+                        heightSize: 36,
+                        widthSize: 113,
+                        text: GET_STARTED,
+                        backgroundColor: const Color(0xffFEE440),
+                        onClick: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NewOnboardingScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,5 +1,3 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import './uikIcon.dart';
 
@@ -11,8 +9,8 @@ class Icone extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          child: Row(
-            children: const [
+          child: const Row(
+            children: [
               UikIcon(
                 valIcon: Icons.arrow_back,
                 wid: 2,

@@ -1,4 +1,3 @@
-import 'dart:convert';
 // import 'dart:js';
 
 // import 'package:lokal/Widgets/UikSnackbar/snack.dart';
@@ -10,8 +9,6 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:http/http.dart' as http;
-import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 
 import '../constants/strings.dart';
@@ -21,7 +18,7 @@ class UikMyAccountScreen extends StandardPage {
   // final obj = Snack();
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.OPEN_ORDER_HISTORY);
     actionList.add(UIK_ACTION.OPEN_MY_DETAILS);
     actionList.add(UIK_ACTION.OPEN_WISHLIST);
@@ -103,7 +100,7 @@ void clearDataAndMoveToOnboarding(UikAction uikAction) {
   Navigator.pushAndRemoveUntil(
     NavigationService.navigatorKey.currentContext!,
     MaterialPageRoute(
-      builder: (context) => OnboardingScreen(),
+      builder: (context) => const OnboardingScreen(),
     ),
     // ModalRoute.withName(ScreenRoutes.homeScreen)
     (route) => false,

@@ -14,7 +14,7 @@ class OrderDetails extends StatelessWidget {
   final rightSubtitle;
   final leftSubtitleColor;
 
-  OrderDetails({
+  const OrderDetails({super.key, 
     this.leftSubtitleColor = Colors.green,
     this.leftSubtitle,
     @required this.rightTitle,

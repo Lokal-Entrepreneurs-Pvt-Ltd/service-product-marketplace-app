@@ -24,7 +24,7 @@ class ChatBubble extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             child: Text(
               text,
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: isCurrentUser ? Colors.white : Colors.black87),
             ),
           ),

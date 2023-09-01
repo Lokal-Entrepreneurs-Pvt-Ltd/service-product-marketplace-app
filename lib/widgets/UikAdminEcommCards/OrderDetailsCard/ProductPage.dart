@@ -61,7 +61,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       size: 16.5,
                       Icons.edit_outlined,
                       color: Color(0xff9e9e9e),
@@ -74,13 +74,13 @@ class ProductPage extends StatelessWidget {
               // color: Colors.black,
               margin: const EdgeInsets.only(
                   top: 20, left: 30, bottom: 12, right: 30),
-              child: Row(
+              child: const Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 424,
                     // margin: const EdgeInsets.only(right: 477),
-                    child: const Text(
+                    child: Text(
                       'Product',
                       style: TextStyle(
                           fontSize: 14,
@@ -88,10 +88,10 @@ class ProductPage extends StatelessWidget {
                           color: Color(0xff9E9E9E)),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 212,
                     // margin: const EdgeInsets.only(right: 198),
-                    child: const Text(
+                    child: Text(
                       'Price',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -100,10 +100,10 @@ class ProductPage extends StatelessWidget {
                           color: Color(0xff9E9E9E)),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 212,
                     // margin: const EdgeInsets.only(right: 199),
-                    child: const Text(
+                    child: Text(
                       'Quantity',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -112,10 +112,10 @@ class ProductPage extends StatelessWidget {
                           color: Color(0xff9E9E9E)),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 212,
                     // margin: EdgeInsets.only(right: 30),
-                    child: const Text(
+                    child: Text(
                       'Total',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -137,11 +137,11 @@ class ProductPage extends StatelessWidget {
                       color: Color(0xffBDBDBD),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30, right: 30),
+                      padding: const EdgeInsets.only(left: 30, right: 30),
                       height: 50,
                       child: Row(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 424,
                             child: Text(
                               products[i].productName,
@@ -149,17 +149,17 @@ class ProductPage extends StatelessWidget {
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             // margin: const EdgeInsets.only(left: 422),
                             width: 212,
                             child: Text(
-                              '\$' + products[i].price.toString(),
+                              '\$${products[i].price}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: 212,
                             // margin: const EdgeInsets.only(left: 222),
                             child: Text(
@@ -169,11 +169,11 @@ class ProductPage extends StatelessWidget {
                                   fontSize: 14, fontWeight: FontWeight.w500),
                             ),
                           ),
-                          Container(
+                          SizedBox(
                             width: 212,
                             // margin: const EdgeInsets.only(left: 222),
                             child: Text(
-                              '\$' + products[i].total.toString(),
+                              '\$${products[i].total}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w500),

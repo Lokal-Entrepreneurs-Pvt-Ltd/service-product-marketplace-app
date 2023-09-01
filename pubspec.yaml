@@ -74,6 +74,9 @@ dependencies:
   scratcher: ^2.3.0
   sms_autofill: ^2.3.0
   lottie: ^2.5.0
+  flutter_onboarding_slider: ^1.0.9
+  flutter_native_splash: ^2.3.2
+
 
 
 dev_dependencies:

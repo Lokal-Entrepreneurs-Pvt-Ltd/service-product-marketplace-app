@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 class NewUserCard extends StatelessWidget {
   const NewUserCard({Key? key}) : super(key: key);
@@ -11,7 +7,7 @@ class NewUserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 1121,
           height: 101,
           child: Card(
@@ -25,8 +21,8 @@ class NewUserCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(30, 20, 0, 0),
-                        child: Text(
+                        margin: const EdgeInsets.fromLTRB(30, 20, 0, 0),
+                        child: const Text(
                           "Create a new user",
                           style: TextStyle(
                             fontSize: 18,
@@ -34,29 +30,29 @@ class NewUserCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 9),
+                      const SizedBox(height: 9),
                       Container(
-                        margin: EdgeInsets.fromLTRB(30, 0, 0, 16),
+                        margin: const EdgeInsets.fromLTRB(30, 0, 0, 16),
                         child: Row(
                           children: [
                             Container(
-                              child: Text("Dashboard",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
+                              child: const Text("Dashboard",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
+                              child: const Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("User",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
+                              child: const Text("User",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
+                              child: const Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("New User",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
+                              child: const Text("New User",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
                             ),
                           ],
                         ),
