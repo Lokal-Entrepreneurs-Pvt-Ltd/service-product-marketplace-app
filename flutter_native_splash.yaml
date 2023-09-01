@@ -1,4 +1,4 @@
 flutter_native_splash:
-  image: assets/images/LokalPhone.png
+  image: assets/images/splash1.png
   color: "ffffff"
   fill: true

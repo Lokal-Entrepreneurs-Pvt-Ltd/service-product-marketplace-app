@@ -1,10 +1,24 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/errorScreen.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/successScreen.dart';
+import 'package:lokal/utils/storage/product_data_handler.dart';
+import 'package:lokal/utils/storage/samhita_data_handler.dart';
+import 'package:lottie/lottie.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/style.dart';
+import '../../Widgets/UikButton/UikButton.dart';
+import '../../constants/colors.dart';
 import '../../constants/dimens.dart';
 import '../../utils/UiUtils/UiUtils.dart';
+import '../../utils/network/ApiRepository.dart';
+import '../../utils/network/ApiRequestBody.dart';
+import '../../utils/network/http/http_screen_client.dart';
+import '../../utils/network/retrofit/api_routes.dart';
+import '../../utils/storage/user_data_handler.dart';
+import '../Form/SamhitaOtp.dart';
 
 class AddServiceCustomerFlow extends StatefulWidget {
   const AddServiceCustomerFlow({super.key});
@@ -283,8 +297,8 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
               left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFEE440), // Set the desired color
-              ),
+              primary: Color(0xFFFEE440), // Set the desired color
+            ),
             onPressed: () async {
               if (_nameController.text.isEmpty) {
                 _nameRequired = false;
@@ -317,22 +331,31 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
                   _pinCodeController.text.isNotEmpty &&
                   _phoneNumberValid) {
                 _requiredFields = false;
+                String apiRoute = ApiRoutes.submitUserServiceCreateCustomerForm;
+                Map<String, dynamic> apiArgs = {
+                  "userId": UserDataHandler.getUserId(),
+                  "serviceId": ProductDataHandler.getServiceProductId(),
+                  "name": _nameController.text,
+                  "phoneNumber": _phoneNumberController.text,
+                  "age": _ageController.text,
+                  "email": _emailController.text,
+                  "stateCode": _stateController.text,
+                  "districtCode": _districtController.text,
+                  "blockCode": _blockController.text,
+                  "pincodeCode": _pinCodeController.text,
+                  "employmentType": _employmentController.text,
+                  "isVerified": false,
+                  "deliveryStatus": "IN_PROGRESS",
+                };
                 Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ApiCallerScreen(
-                    name: _nameController.text,
-                    phoneNumber: _phoneNumberController.text,
-                    age: _ageController.text,
-                    email: _emailController.text,
-                    state: _stateController.text,
-                    district: _districtController.text,
-                    block: _blockController.text,
-                    pinCode: _pinCodeController.text,
-                    employment: _employmentController.text,
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ApiCallerScreen(
+                      apiRoute: apiRoute,
+                      args: apiArgs,
+                    ),
                   ),
-                ),
-              );
+                );
               } else {
                 _requiredFields = true;
               }

@@ -299,13 +299,13 @@ class _LokalAppState extends State<LokalApp> {
               const SamhitaVerifyParticipant(),
           ScreenRoutes.addAgentScreen: (context) => const AddAgentScreen(),
           ScreenRoutes.manageAgentScreen: (context) => ManageAgentScreen().page,
-          ScreenRoutes.addAgentOtpScreen: (context) =>
-              const AddAgentOtpScreen(),
-          ScreenRoutes.newOnboardingScreen: (context) =>
-              const NewOnboardingScreen(),
-          ScreenRoutes.myRewardsPage: (context) => const MyRewardPage(),
+          ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
+          ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
+          ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
           ScreenRoutes.addUserServiceCustomer: (context) =>
-              const AddServiceCustomerFlow()
+              AddServiceCustomerFlow(),
+          ScreenRoutes.addUserServiceCustomer: (context) =>
+              AddServiceCustomerFlow()
         },
       ),
     );

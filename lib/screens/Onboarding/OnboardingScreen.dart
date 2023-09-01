@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/dimens.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Widgets/UikButton/UikButton.dart';
@@ -15,33 +16,137 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   List<String> images = [
-    "assets/images/NewOnborading1.png",
+    "assets/images/NewOnboarding1.png",
     "assets/images/NewOnboarding2.png",
     "assets/images/NewOnboarding3.png",
   ];
+  int _currentPage = 0;
+  int totalImages = 3;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: PageView.builder(
-          controller: _pageController,
-          itemCount: images.length,
-          itemBuilder: (context, index) {
-            return OnboardingSlider(
-              imagePath: images[index],
-              currentPage: index, // Pass the index as currentPage
-              totalImages: images.length,
-              lastPage: index == images.length - 1,
-              pageController: _pageController,
-            );
-          },
+        body: Stack(
+          children: [
+            PageView.builder(
+              controller: _pageController,
+              itemCount: images.length,
+              itemBuilder: (context, index) {
+                return OnboardingSlider(
+                  imagePath: images[index],
+                  currentPage: index,
+                  totalImages: images.length,
+                  pageController: _pageController,
+                  lastPage: index == images.length - 1,
+                );
+              },
+              onPageChanged: (int page) {
+                setState(() {
+                  _currentPage = page;
+                });
+              },
+            ),
+            Positioned(
+              bottom: 100,
+              left: 25,
+              right: 0,
+              child: SmoothPageIndicator(
+                controller: _pageController,
+                count: totalImages,
+                effect: const ExpandingDotsEffect(
+                  dotHeight: 5,
+                  dotWidth: 6,
+                  spacing: 8,
+                  dotColor: Colors.grey,
+                  activeDotColor: Colors.black,
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 30,
+              left: 5,
+              right: 0,
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      _pageController.animateToPage(
+                        images.length - 1,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.easeOut,
+                      );
+                    },
+                    child: TextButton(
+                      onPressed: null,
+                      child: Text(
+                        SKIP,
+                        style: GoogleFonts.poppins(
+                          color: Color(0xFF212121),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 24.0),
+                    child: InkWell(
+                      onTap: () {
+                        if (_currentPage < images.length - 1) {
+                          _pageController.nextPage(
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeOut,
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NewOnboardingScreen(),
+                            ),
+                          );
+                        }
+                      },
+                      child: ElevatedButton(
+                        onPressed: null,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: DIMEN_8, horizontal: DIMEN_16),
+                          child: Text(
+                            _currentPage < images.length - 1
+                                ? NEXT
+                                : GET_STARTED,
+                            style: GoogleFonts.poppins(
+                              color: Color(0xFF212121),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color(0xffFEE440),
+                          ),
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
+// Rest of your code remains the same...
 
 class OnboardingSlider extends StatefulWidget {
   final String imagePath;
@@ -50,7 +155,8 @@ class OnboardingSlider extends StatefulWidget {
   final bool lastPage;
   final PageController pageController;
 
-  const OnboardingSlider({super.key, 
+  const OnboardingSlider({
+    super.key,
     required this.imagePath,
     required this.currentPage,
     required this.totalImages,
@@ -87,80 +193,16 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (widget.currentPage == 1) // Display only for the 2nd image
-                  Image.asset(
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 0,
+                  ),
+                  child: Image.asset(
                     widget.imagePath,
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
-                if (widget.currentPage != 1) // Display for other images
-                  Padding(
-                    padding: const EdgeInsets.only(top: 60.0),
-                    child: Image.asset(
-                      widget.imagePath,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                const SizedBox(
-                  height: DIMEN_32,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 24.0),
-                  child: SmoothPageIndicator(
-                    controller: widget.pageController,
-                    count: widget.totalImages,
-                    effect: const ExpandingDotsEffect(
-                      dotHeight: 5, // Customize dot height
-                      dotWidth: 6, // Customize dot width
-                      spacing: 8, // Customize spacing between dots
-                      dotColor: Colors.grey,
-                      activeDotColor: Colors.black,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: DIMEN_32,
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
-                      child: TextButton(
-                        onPressed: () {
-                          widget.pageController.animateToPage(
-                            widget.totalImages - 1,
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeOut,
-                          );
-                        },
-                        child: const Text(
-                          SKIP,
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 24.0),
-                      child: UikButton(
-                        heightSize: 36,
-                        widthSize: 113,
-                        text: GET_STARTED,
-                        backgroundColor: const Color(0xffFEE440),
-                        onClick: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NewOnboardingScreen(),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
           ),
