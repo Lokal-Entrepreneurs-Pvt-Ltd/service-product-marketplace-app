@@ -68,4 +68,6 @@ class ApiRoutes {
       "/userServiceCustomer/create";
   static const String getAllCustomerForUserService =
       "/service/getAllCustomerForUserService";
+  static const String getAllAgentsForUserService =
+      "/service/getAllAgentsForUserService";
 }
