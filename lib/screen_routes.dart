@@ -40,6 +40,7 @@ class ScreenRoutes {
   static const String isp = "/isp";
   static const String membershipLanding = "/membershipLanding";
   static const String serviceLandingScreen = "/services";
+  static const String serviceDetailsScreen = "/serviceDetailsScreen";
   static const String samhitaDataCollector = "/samhitaDataCollector";
   static const String samhitaLandingPage = "/samhitaLandingPage";
   static const String samhitaAddParticipantForm = "/samhitaAddParticipantForm";
@@ -57,4 +58,8 @@ class ScreenRoutes {
   static const String myRewardsPage = "/myRewardsPage";
   static const String addUserServiceCustomer = "/addUserServiceCustomer";
   static const String serviceLandingPageNew = "/serviceLandingPageNew";
+  static const String getAllCustomerForUserService =
+      "/getAllCustomerForUserService";
+  static const String getAllAgentsForUserService =
+      "/getAllAgentsForUserService";
 }

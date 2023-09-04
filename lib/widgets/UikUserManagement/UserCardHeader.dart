@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 class UserCardHeader extends StatelessWidget {
   const UserCardHeader({Key? key}) : super(key: key);
@@ -11,7 +8,7 @@ class UserCardHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 1121,
           height: 101,
           child: Card(
@@ -25,8 +22,8 @@ class UserCardHeader extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.fromLTRB(30, 20, 0, 0),
-                        child: Text(
+                        margin: const EdgeInsets.fromLTRB(30, 20, 0, 0),
+                        child: const Text(
                           "User Cards",
                           style: TextStyle(
                             fontSize: 18,
@@ -34,29 +31,29 @@ class UserCardHeader extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 9),
+                      const SizedBox(height: 9),
                       Container(
-                        margin: EdgeInsets.fromLTRB(30, 0, 0, 16),
+                        margin: const EdgeInsets.fromLTRB(30, 0, 0, 16),
                         child: Row(
                           children: [
                             Container(
-                              child: Text("Dashboard",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
+                              child: const Text("Dashboard",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
+                              child: const Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("User",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
+                              child: const Text("User",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
+                              child: const Text("•",style: TextStyle(fontSize: 22,color: Color(0xff82868C)),),
                             ),
-                            SizedBox(width: 14.33),
+                            const SizedBox(width: 14.33),
                             Container(
-                              child: Text("Cards",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
+                              child: const Text("Cards",style: TextStyle(fontSize: 14,color: Color(0xff82868C)),),
                             ),
                           ],
                         ),
@@ -65,7 +62,7 @@ class UserCardHeader extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 27, 30, 28),
+                  margin: const EdgeInsets.fromLTRB(0, 27, 30, 28),
                   child: UikButton(
                     text: "Add new user",
                     widthSize: 124,

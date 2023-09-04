@@ -4,6 +4,8 @@ import '../../main.dart';
 import '../../utils/network/retrofit/api_routes.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
+  const OrderSuccessScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,9 +14,9 @@ class OrderSuccessScreen extends StatelessWidget {
         // backgroundColor: Colors.red,
         body: Stack(
           children: <Widget>[
-            Column(
+            const Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
+              children: <Widget>[
                 Icon(
                   Icons.person_outline_sharp,
                   size: 50,

@@ -1,29 +1,17 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/strings.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
-import 'package:lokal/screens/Onboarding/LandingPage.dart';
-import 'package:lokal/utils/storage/samhita_data_handler.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:otp_text_field/style.dart';
-import '../../Widgets/UikButton/UikButton.dart';
-import '../../constants/colors.dart';
 import '../../constants/dimens.dart';
 import '../../constants/json_constants.dart';
-import '../../screen_routes.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
-import '../../utils/storage/user_data_handler.dart';
-import 'SamhitaOtp.dart';
 
 class extraPayOptIn extends StatefulWidget {
-  extraPayOptIn({super.key});
+  const extraPayOptIn({super.key});
 
   @override
   State<extraPayOptIn> createState() => _extraPayOptInState();
@@ -91,7 +79,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   errorText: _nameRequired ? null : VALID_NAME,
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _nameRequired = false;
                     });
@@ -132,7 +120,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   errorText: _cityRequired ? null : REQUIRED_FIELD,
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _cityRequired = false;
                     });
@@ -152,7 +140,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   errorText: _regionRequired ? null : REQUIRED_FIELD,
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _regionRequired = false;
                     });
@@ -172,7 +160,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   errorText: _stateRequired ? null : REQUIRED_FIELD,
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _stateRequired = false;
                     });
@@ -192,7 +180,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   errorText: _aadharRequired ? null : REQUIRED_FIELD,
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _aadharRequired = false;
                     });
@@ -212,7 +200,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                   errorText: _panRequired ? null : REQUIRED_FIELD,
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _panRequired = false;
                     });
@@ -261,12 +249,12 @@ class _extraPayOptInState extends State<extraPayOptIn> {
                     if (_panController.text.isEmpty) {
                       _panRequired = false;
                     }
-                    if (!_nameController.text.isEmpty &&
-                        !_cityController.text.isEmpty &&
-                        !_regionController.text.isEmpty &&
-                        !_stateController.text.isEmpty &&
-                        !_aadharController.text.isEmpty &&
-                        !_panController.text.isEmpty &&
+                    if (_nameController.text.isNotEmpty &&
+                        _cityController.text.isNotEmpty &&
+                        _regionController.text.isNotEmpty &&
+                        _stateController.text.isNotEmpty &&
+                        _aadharController.text.isNotEmpty &&
+                        _panController.text.isNotEmpty &&
                         _phoneNumberValid) {
                       _requiredFields = false;
                       NavigationUtils.showLoaderOnTop();

@@ -32,7 +32,7 @@ class _OrderListCardState extends State<OrderListCard> {
       width: 1121,
       height: 85,
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xffBABFC5), width: 1.0),
+        border: Border.all(color: const Color(0xffBABFC5), width: 1.0),
         borderRadius: const BorderRadius.all(
           Radius.circular(8.0),
         ),
@@ -66,7 +66,7 @@ class _OrderListCardState extends State<OrderListCard> {
           ),
 
           //product id container
-          Container(
+          SizedBox(
             width: 53,
             height: 21,
             // margin: EdgeInsets.only(top: 34, bottom: 30),
@@ -76,75 +76,75 @@ class _OrderListCardState extends State<OrderListCard> {
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
                 textStyle: Theme.of(context).textTheme.bodyMedium,
-                color: Color(0xff212121),
+                color: const Color(0xff212121),
               ),
             ),
           ),
 
-          Flexible(
+          const Flexible(
             child: SizedBox(width: 168),
           ),
 
           // name container
           Container(
             height: 21,
-            margin: EdgeInsets.only(right: 92),
+            margin: const EdgeInsets.only(right: 92),
             child: Text(
               widget.customerName,
               style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  textStyle: Theme.of(context).textTheme.bodyText2,
-                  color: Color(0xff9E9E9E)),
+                  textStyle: Theme.of(context).textTheme.bodyMedium,
+                  color: const Color(0xff9E9E9E)),
             ),
           ),
 
           //date container
           Container(
             height: 21,
-            margin: EdgeInsets.only(right: 93),
+            margin: const EdgeInsets.only(right: 93),
             child: Text(
               widget.date,
               style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  textStyle: Theme.of(context).textTheme.bodyText2,
-                  color: Color(0xff9E9E9E)),
+                  textStyle: Theme.of(context).textTheme.bodyMedium,
+                  color: const Color(0xff9E9E9E)),
             ),
           ),
 
           // price container
           Container(
             height: 21,
-            margin: EdgeInsets.only(right: 93),
+            margin: const EdgeInsets.only(right: 93),
             child: Text(
               '\$' + widget.price,
               style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  textStyle: Theme.of(context).textTheme.bodyText2,
-                  color: Color(0xff9E9E9E)),
+                  textStyle: Theme.of(context).textTheme.bodyMedium,
+                  color: const Color(0xff9E9E9E)),
             ),
           ),
 
           // Payment options
           Container(
             height: 21,
-            margin: EdgeInsets.only(right: 108),
+            margin: const EdgeInsets.only(right: 108),
             child: Text(
               widget.paymentMode,
               style: GoogleFonts.poppins(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  textStyle: Theme.of(context).textTheme.bodyText2,
-                  color: Color(0xff9E9E9E)),
+                  textStyle: Theme.of(context).textTheme.bodyMedium,
+                  color: const Color(0xff9E9E9E)),
             ),
           ),
 
           // payment status
           Container(
             height: 25,
-            margin: EdgeInsets.only(right: 98),
+            margin: const EdgeInsets.only(right: 98),
             padding: const EdgeInsets.fromLTRB(17, 5, 17, 5),
             decoration: const BoxDecoration(
                 color: Color(0xffFEE440),
@@ -157,14 +157,14 @@ class _OrderListCardState extends State<OrderListCard> {
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   textStyle: Theme.of(context).textTheme.bodyMedium,
-                  color: Color(0xff212121)),
+                  color: const Color(0xff212121)),
             ),
           ),
 
           Container(
             height: 40,
             width: 40,
-            margin: EdgeInsets.only(right: 20),
+            margin: const EdgeInsets.only(right: 20),
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xffbdbdbd), width: 1.0),
               borderRadius: const BorderRadius.all(
@@ -173,7 +173,7 @@ class _OrderListCardState extends State<OrderListCard> {
             ),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 size: 16.5,
                 Icons.edit_outlined,
                 color: Color(0xff9e9e9e),

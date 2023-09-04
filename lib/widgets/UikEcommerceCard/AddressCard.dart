@@ -7,7 +7,7 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 653,
           height: 220,
           child: Card(

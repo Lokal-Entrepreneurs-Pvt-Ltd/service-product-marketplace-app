@@ -4,7 +4,7 @@ import 'package:lokal/Widgets/UikCardComponents/UikChatCard/ChatBubble.dart';
 class ChatCard extends StatelessWidget {
   final avtar;
 
-  ChatCard({Key? key, this.avtar}) : super(key: key);
+  const ChatCard({Key? key, this.avtar}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +22,29 @@ class ChatCard extends StatelessWidget {
               children: [
                 Container(
                   height: 95,
-                  margin: EdgeInsets.only(bottom: 5),
+                  margin: const EdgeInsets.only(bottom: 5),
                   child: Center(
                     child: ListTile(
                       leading: avtar,
-                      trailing: Icon(Icons.more_horiz),
-                      title: Text("Tom Cruise"),
-                      subtitle: Text("Last Seen"),
+                      trailing: const Icon(Icons.more_horiz),
+                      title: const Text("Tom Cruise"),
+                      subtitle: const Text("Last Seen"),
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   height: 1,
                 ),
                 Center(
                   child: Container(
                     width: 69,
                     height: 16,
-                    margin: EdgeInsets.fromLTRB(0, 22, 0, 31),
+                    margin: const EdgeInsets.fromLTRB(0, 22, 0, 31),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFFEEEEEE),
+                      color: const Color(0xFFEEEEEE),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "Augest 21",
                         style: TextStyle(
@@ -55,7 +55,7 @@ class ChatCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: 340,
                   child: ListView(
                     children: const [
@@ -82,34 +82,34 @@ class ChatCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(
+                const Divider(
                   height: 1,
                 ),
-                Container(
+                SizedBox(
                   height: 70,
                   child: Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
-                      Icon(Icons.link),
-                      SizedBox(
+                      const Icon(Icons.link),
+                      const SizedBox(
                         width: 10,
                       ),
-                      Flexible(
+                      const Flexible(
                         child: TextField(
-                          decoration: new InputDecoration.collapsed(
+                          decoration: InputDecoration.collapsed(
                             hintText: "Write a message",
                           ),
                           style: TextStyle(color: Colors.black),
                         ),
                       ),
-                      Icon(Icons.emoji_emotions),
-                      SizedBox(
+                      const Icon(Icons.emoji_emotions),
+                      const SizedBox(
                         width: 15,
                       ),
-                      Icon(Icons.mic),
-                      SizedBox(
+                      const Icon(Icons.mic),
+                      const SizedBox(
                         width: 15,
                       ),
                       Container(
@@ -117,7 +117,7 @@ class ChatCard extends StatelessWidget {
                         height: 31,
                         color: Colors.blue,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       Container(
@@ -127,9 +127,9 @@ class ChatCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(200),
                           color: Colors.yellow,
                         ),
-                        child: Icon(Icons.send),
+                        child: const Icon(Icons.send),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                     ],

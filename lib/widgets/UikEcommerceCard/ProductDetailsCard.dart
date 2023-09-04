@@ -1,16 +1,14 @@
 import "package:flutter/material.dart";
 import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../UikAvatar/uikAvatar.dart';
 // import '../UikAvatar/UikAvatar.dart';
-import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 import '../UikButton/UikButton.dart';
 
 class ProductDetailsCard extends StatefulWidget {
   final productName;
   final productPrice;
 
-  ProductDetailsCard({
+  const ProductDetailsCard({super.key, 
     this.productName = "Lamp Light",
     this.productPrice = "215",
   });
@@ -27,7 +25,7 @@ class _ProductDetailsCardState extends State<ProductDetailsCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 751,
           height: 550,
           child: Card(
@@ -320,7 +318,7 @@ class _ProductDetailsCardState extends State<ProductDetailsCard> {
                                 margin: const EdgeInsets.only(
                                   top: 31.67,
                                 ),
-                                child: UikIcon(
+                                child: const UikIcon(
                                   valIcon: Icons.arrow_drop_down,
                                 ),
                               ),
@@ -384,7 +382,7 @@ class _ProductDetailsCardState extends State<ProductDetailsCard> {
                                 margin: const EdgeInsets.only(
                                   top: 18,
                                 ),
-                                child: UikIcon(
+                                child: const UikIcon(
                                   valIcon: Icons.arrow_drop_down,
                                 ),
                               ),
@@ -436,7 +434,7 @@ class _ProductDetailsCardState extends State<ProductDetailsCard> {
                                   allowHalfRating: true,
                                   itemCount: 5,
                                   itemSize: 18,
-                                  itemBuilder: (context, _) => Icon(
+                                  itemBuilder: (context, _) => const Icon(
                                     Icons.star,
                                     color: Colors.amber,
                                   ),

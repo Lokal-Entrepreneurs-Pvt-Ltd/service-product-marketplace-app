@@ -1,5 +1,3 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 enum UikShape {
@@ -28,7 +26,7 @@ class UikImage extends StatelessWidget {
   final BorderRadius? borderRadius;
 
   const UikImage(
-      {this.iHeight,
+      {super.key, this.iHeight,
       this.iOpacity,
       this.iFit,
       this.rad,
@@ -52,13 +50,6 @@ class UikImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Image(
-        image: valImage,
-        height: iHeight,
-        width: iWidth,
-        fit: iFit,
-        opacity: iOpacity,
-      ),
       decoration: BoxDecoration(
         borderRadius: (rad != null) ? BorderRadius.circular(rad) : null,
         border: (wid != null)
@@ -67,6 +58,13 @@ class UikImage extends StatelessWidget {
                 width: wid,
               )
             : null,
+      ),
+      child: Image(
+        image: valImage,
+        height: iHeight,
+        width: iWidth,
+        fit: iFit,
+        opacity: iOpacity,
       ),
     );
   }

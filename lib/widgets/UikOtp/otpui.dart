@@ -21,16 +21,16 @@ class OtpUi extends StatelessWidget {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFFF5F5F5),
+                  fillColor: const Color(0xFFF5F5F5),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.blue,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFE0E0E0),
                       width: 1,
                     ),
@@ -38,7 +38,7 @@ class OtpUi extends StatelessWidget {
                   ),
                 ),
                 onSaved: (pin1) {},
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 inputFormatters: [
@@ -47,7 +47,7 @@ class OtpUi extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             SizedBox(
               height: 64,
               width: 48,
@@ -59,16 +59,16 @@ class OtpUi extends StatelessWidget {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFFF5F5F5),
+                  fillColor: const Color(0xFFF5F5F5),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.blue,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFE0E0E0),
                       width: 1,
                     ),
@@ -76,7 +76,7 @@ class OtpUi extends StatelessWidget {
                   ),
                 ),
                 onSaved: (pin1) {},
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 inputFormatters: [
@@ -85,7 +85,7 @@ class OtpUi extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             SizedBox(
               height: 64,
               width: 48,
@@ -97,16 +97,16 @@ class OtpUi extends StatelessWidget {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFFF5F5F5),
+                  fillColor: const Color(0xFFF5F5F5),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.blue,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFE0E0E0),
                       width: 1,
                     ),
@@ -114,7 +114,7 @@ class OtpUi extends StatelessWidget {
                   ),
                 ),
                 onSaved: (pin1) {},
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 inputFormatters: [
@@ -123,7 +123,7 @@ class OtpUi extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             SizedBox(
               height: 64,
               width: 48,
@@ -135,16 +135,16 @@ class OtpUi extends StatelessWidget {
                 },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFFF5F5F5),
+                  fillColor: const Color(0xFFF5F5F5),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.blue,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFE0E0E0),
                       width: 1,
                     ),
@@ -152,7 +152,7 @@ class OtpUi extends StatelessWidget {
                   ),
                 ),
                 onSaved: (pin1) {},
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 inputFormatters: [
@@ -161,7 +161,7 @@ class OtpUi extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             SizedBox(
               height: 64,
               width: 48,
@@ -173,16 +173,16 @@ class OtpUi extends StatelessWidget {
                 // },
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Color(0xFFF5F5F5),
+                  fillColor: const Color(0xFFF5F5F5),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.blue,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Color(0xFFE0E0E0),
                       width: 1,
                     ),
@@ -190,7 +190,7 @@ class OtpUi extends StatelessWidget {
                   ),
                 ),
                 onSaved: (pin1) {},
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 inputFormatters: [

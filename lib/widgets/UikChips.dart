@@ -8,7 +8,7 @@ class Chips extends StatelessWidget {
   final iconColor;
   final avatar;
 
-  Chips({
+  const Chips({super.key, 
     required this.text,
     this.iconVal,
     this.iconColor,
@@ -26,7 +26,7 @@ class Chips extends StatelessWidget {
           //margin: EdgeInsets.only(top: 20),
           child: Chip(
             avatar: (avatar != null)
-                ? CircleAvatar(
+                ? const CircleAvatar(
                     child: Icon(Icons.account_circle),
                   )
                 : null,
@@ -50,7 +50,7 @@ class Chips extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),
             ),
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
           ),
         ),
       ),

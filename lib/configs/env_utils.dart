@@ -5,7 +5,6 @@ import 'environment.dart';
 import 'environment_data_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lokal/utils/storage/preference_util.dart';
 
 
 class EnvUtils {
@@ -23,10 +22,11 @@ class EnvUtils {
           if (localUrl.isNotEmpty) {
             EnvironmentDataHandler.setLocalBaseUrl(localUrl);
             UiUtils.showToast(
-                "Local Url set: " + localUrl + " Restart the app");
+                "Local Url set: $localUrl Restart the app");
           }
-          else
+          else {
             UiUtils.showToast("invalid url");
+          }
         }
         break;
       default :

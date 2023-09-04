@@ -13,7 +13,7 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 class UikSearchCatalog extends StandardPage {
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.OPEN_SEARCH);
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.ON_TEXT_EDIT_COMPLETE);

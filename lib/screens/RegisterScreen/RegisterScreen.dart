@@ -3,10 +3,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 
 void main() {
-  runApp(RegisterScreen());
+  runApp(const RegisterScreen());
 }
 
 class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

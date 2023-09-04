@@ -1,16 +1,6 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:http/http.dart' as http;
-import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../constants.dart';
-import '../main.dart';
-import '../utils/deeplink_handler.dart';
-import '../constants.dart';
-import '../main.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
@@ -19,7 +9,7 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 class UikCouponScreen extends StandardPage {
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.REMOVE_COUPON);
     actionList.add(UIK_ACTION.APPLY_COUPON);
     return actionList;

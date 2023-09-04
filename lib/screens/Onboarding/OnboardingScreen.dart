@@ -1,20 +1,20 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Widgets/UikButton/UikButton.dart';
 import 'NewOnboardingScreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
   List<String> images = [
     "assets/images/NewOnboarding1.png",
     "assets/images/NewOnboarding2.png",
@@ -111,8 +111,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         onPressed: null,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: DIMEN_8,
-                              horizontal: DIMEN_16), 
+                              vertical: DIMEN_8, horizontal: DIMEN_16),
                           child: Text(
                             _currentPage < images.length - 1
                                 ? NEXT
@@ -156,7 +155,8 @@ class OnboardingSlider extends StatefulWidget {
   final bool lastPage;
   final PageController pageController;
 
-  OnboardingSlider({
+  const OnboardingSlider({
+    super.key,
     required this.imagePath,
     required this.currentPage,
     required this.totalImages,
@@ -184,7 +184,7 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
