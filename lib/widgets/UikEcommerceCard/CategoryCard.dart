@@ -7,7 +7,7 @@ import '../UikSlidder/slidder.dart';
 class CategoryCard extends StatefulWidget {
   final list;
   final sortByList;
-  CategoryCard({
+  const CategoryCard({super.key, 
     required this.list,
     required this.sortByList,
   });
@@ -23,7 +23,7 @@ class _CategoryCardState extends State<CategoryCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 267,
           height: 608,
           child: Card(
@@ -54,7 +54,7 @@ class _CategoryCardState extends State<CategoryCard> {
                     ),
                   ),
                   //Categories...........
-                  Container(
+                  SizedBox(
                     height: 170,
                     child: SingleChildScrollView(
                       primary: false,
@@ -74,7 +74,7 @@ class _CategoryCardState extends State<CategoryCard> {
                                         });
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.only(
+                                        margin: const EdgeInsets.only(
                                           left: 20.6,
                                           top: 13.6,
                                         ),
@@ -88,10 +88,10 @@ class _CategoryCardState extends State<CategoryCard> {
                                               ),
                                               decoration: BoxDecoration(
                                                 color: (index != i)
-                                                    ? Color(
+                                                    ? const Color(
                                                         0xFF3A3C40,
                                                       )
-                                                    : Color(
+                                                    : const Color(
                                                         0xFFEF5350,
                                                       ),
                                                 shape: BoxShape.circle,
@@ -104,10 +104,10 @@ class _CategoryCardState extends State<CategoryCard> {
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
                                                   color: (index != i)
-                                                      ? Color(
+                                                      ? const Color(
                                                           0xFF3A3C40,
                                                         )
-                                                      : Color(
+                                                      : const Color(
                                                           0xFFEF5350,
                                                         ),
                                                 ),
@@ -118,7 +118,7 @@ class _CategoryCardState extends State<CategoryCard> {
                                       ),
                                     ),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
 
                                   //not Clickable this is the stock
                                   Container(
@@ -170,7 +170,7 @@ class _CategoryCardState extends State<CategoryCard> {
                     ),
                   ),
                   //sort by.................
-                  Container(
+                  SizedBox(
                     height: 150,
                     child: SingleChildScrollView(
                       primary: false,
@@ -192,7 +192,7 @@ class _CategoryCardState extends State<CategoryCard> {
                                         });
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.only(
+                                        margin: const EdgeInsets.only(
                                           left: 20.6,
                                           top: 13.6,
                                         ),
@@ -206,10 +206,10 @@ class _CategoryCardState extends State<CategoryCard> {
                                               ),
                                               decoration: BoxDecoration(
                                                 color: (sortByIndex != i)
-                                                    ? Color(
+                                                    ? const Color(
                                                         0xFF3A3C40,
                                                       )
-                                                    : Color(
+                                                    : const Color(
                                                         0xFFEF5350,
                                                       ),
                                                 shape: BoxShape.circle,
@@ -222,10 +222,10 @@ class _CategoryCardState extends State<CategoryCard> {
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w400,
                                                   color: (sortByIndex != i)
-                                                      ? Color(
+                                                      ? const Color(
                                                           0xFF3A3C40,
                                                         )
-                                                      : Color(
+                                                      : const Color(
                                                           0xFFEF5350,
                                                         ),
                                                 ),
@@ -273,7 +273,7 @@ class _CategoryCardState extends State<CategoryCard> {
                             top: 9,
                             left: 10,
                           ),
-                          child: Slidder(
+                          child: const Slidder(
                             isRange: true,
                             isRounded: true,
                           ),
@@ -283,7 +283,7 @@ class _CategoryCardState extends State<CategoryCard> {
                   ),
                   //button...........
                   Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       top: 20,
                       left: 20,
                     ),
@@ -291,7 +291,7 @@ class _CategoryCardState extends State<CategoryCard> {
                       widthSize: 230,
                       text: "View Cart",
                       stuck: true,
-                      rightElement: UikIcon(valIcon: Icons.card_travel),
+                      rightElement: const UikIcon(valIcon: Icons.card_travel),
                     ),
                   ),
                 ],

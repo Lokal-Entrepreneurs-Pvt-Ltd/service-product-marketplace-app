@@ -18,7 +18,7 @@ import '../utils/network/retrofit/api_routes.dart';
 class UikOrderScreen extends StandardPage {
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.OPEN_CATEGORY);
     actionList.add(UIK_ACTION.OPEN_ISP);
     actionList.add(UIK_ACTION.ADD_TO_CART);

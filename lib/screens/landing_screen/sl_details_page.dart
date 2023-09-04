@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
+// todo: naming of this screen in screenroutes
 class Sl_DetailsPage extends StatefulWidget {
-  Sl_DetailsPage({super.key});
+  const Sl_DetailsPage({super.key});
 
   @override
   State<Sl_DetailsPage> createState() => _Sl_DetailsPageState();
@@ -11,13 +13,13 @@ class Sl_DetailsPage extends StatefulWidget {
 class _Sl_DetailsPageState extends State<Sl_DetailsPage>
     with TickerProviderStateMixin {
   late final TabController _tabController;
-  late final ScrollController _scrollController;
+  late final AutoScrollController _scrollController;
   int _currentTabNumber = 0;
 
   @override
   void initState() {
     _tabController = TabController(length: 5, vsync: this);
-    _scrollController = ScrollController();
+    _scrollController = AutoScrollController();
     super.initState();
   }
 
@@ -42,7 +44,6 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                   _currentTabNumber = ind;
                 });
 
-                _scrollController.offset;
                 switch (ind) {
                   case 0:
                     _scrollController.jumpTo(ind * 100);
@@ -50,13 +51,7 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                   case 1:
                     _scrollController.jumpTo(ind * 400);
                     break;
-                  case 2:
-                    _scrollController.jumpTo(ind * 320);
-                    break;
-                  case 3:
-                    _scrollController.jumpTo(ind * 320);
-                    break;
-                  case 4:
+                  default:
                     _scrollController.jumpTo(ind * 320);
                     break;
                 }
@@ -65,14 +60,8 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
               isScrollable: true,
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                color: Color(0xFF3F51B5),
+                color: const Color(0xFF3F51B5),
               ),
-
-              // indicatorPadding:
-              //     EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-              // labelPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-              // padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-
               tabs: [
                 Tab(
                   child: Text(
@@ -111,7 +100,7 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              physics: BouncingScrollPhysics(
+              physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
               controller: _scrollController,
               children: [
@@ -137,12 +126,13 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            SizedBox(height: 8),
-                            ArrowDetailsWidget(
+                            const SizedBox(height: 8),
+                            const ArrowDetailsWidget(
                                 point: "Earn ₹2300 per registration"),
-                            ArrowDetailsWidget(point: "8000+ buyers "),
-                            ArrowDetailsWidget(point: "12000+ sellers"),
-                            ArrowDetailsWidget(point: "Build your Network"),
+                            const ArrowDetailsWidget(point: "8000+ buyers "),
+                            const ArrowDetailsWidget(point: "12000+ sellers"),
+                            const ArrowDetailsWidget(
+                                point: "Build your Network"),
                           ],
                         ),
                       ),
@@ -173,13 +163,13 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 8),
-                      ArrowDetailsWidget(
+                      const SizedBox(height: 8),
+                      const ArrowDetailsWidget(
                           point: "Earn ₹2300 per registration", fontSize: 16),
-                      ArrowDetailsWidget(
+                      const ArrowDetailsWidget(
                           point: "Track your profit within 7 days ",
                           fontSize: 16),
-                      ArrowDetailsWidget(
+                      const ArrowDetailsWidget(
                           point:
                               "You will receive money to your PayTM / Bank Account within 7 days",
                           fontSize: 16),
@@ -204,14 +194,14 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 8),
-                      ArrowDetailsWidget(
+                      const SizedBox(height: 8),
+                      const ArrowDetailsWidget(
                           point: "Customers Over the age group of 21 Years",
                           fontSize: 16),
-                      ArrowDetailsWidget(
+                      const ArrowDetailsWidget(
                           point: "Customers with a valid PAN & Aadhaar card",
                           fontSize: 16),
-                      ArrowDetailsWidget(
+                      const ArrowDetailsWidget(
                           point:
                               "Customers Aadhaar card should be linked to mobile number",
                           fontSize: 16),
@@ -237,7 +227,7 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: Image.asset(
@@ -247,7 +237,7 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                           fit: BoxFit.cover,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
 
                       Row(
                         children: [
@@ -337,15 +327,15 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 8),
-                      ArrowDetailsWidget(
+                      const SizedBox(height: 8),
+                      const ArrowDetailsWidget(
                           point: "You must watch all the training videos",
                           fontSize: 16),
-                      ArrowDetailsWidget(
+                      const ArrowDetailsWidget(
                           point:
                               "You shall then share the product link with everyone in your network(Friends/Family)",
                           fontSize: 16),
-                      ArrowDetailsWidget(
+                      const ArrowDetailsWidget(
                           point:
                               "Your customer shall click on the link shared by you to get redirected to the Samhita website",
                           fontSize: 16),
@@ -370,10 +360,10 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 8),
-                      ArrowDetailsWidget(
+                      const SizedBox(height: 8),
+                      const ArrowDetailsWidget(
                           point: "Available only for new users", fontSize: 16),
-                      ArrowDetailsWidget(
+                      const ArrowDetailsWidget(
                           point:
                               "Your customer will have to open the Zyapaar web page using the lokal link (Available on Lokal App)",
                           fontSize: 16),

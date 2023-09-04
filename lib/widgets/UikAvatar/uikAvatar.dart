@@ -1,5 +1,3 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 enum UikAvatarShape {
@@ -84,7 +82,7 @@ class UikAvatar extends StatelessWidget {
     final Color? foregroundColor = this.foregroundColor;
 
     final ThemeData theme = Theme.of(context);
-    TextStyle? textStyle = theme.primaryTextTheme.subtitle1?.copyWith(
+    TextStyle? textStyle = theme.primaryTextTheme.titleMedium?.copyWith(
       color: foregroundColor,
     );
     Color? effectiveBackgroundColor = backgroundColor;

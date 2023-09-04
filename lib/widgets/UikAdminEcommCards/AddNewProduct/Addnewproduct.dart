@@ -4,6 +4,8 @@ import 'package:lokal/widgets/UikAdminEcommCards/AddNewProduct/secondcard.dart';
 import 'package:lokal/widgets/UikAdminEcommCards/AddNewProduct/thirdcard.dart';
 
 class Addnewproduct extends StatefulWidget {
+  const Addnewproduct({super.key});
+
   @override
   State<Addnewproduct> createState() => _AddnewproductState();
 }
@@ -19,17 +21,17 @@ class _AddnewproductState extends State<Addnewproduct>
       width: 683,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: Color(0XFFBABFC5)),
+        border: Border.all(color: const Color(0XFFBABFC5)),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Card(
         elevation: 10,
-        margin: EdgeInsets.all(0),
+        margin: const EdgeInsets.all(0),
         child: ListView(
           shrinkWrap: true,
           children: [
             // TAB-BAR CONTAINER
-            Container(
+            SizedBox(
               // color: Colors.amber,
               height: 68,
               child: Row(
@@ -37,8 +39,8 @@ class _AddnewproductState extends State<Addnewproduct>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 30, top: 30, right: 177),
-                    child: Text(
+                    margin: const EdgeInsets.only(left: 30, top: 30, right: 177),
+                    child: const Text(
                       'Add new product',
                       style: TextStyle(
                         fontSize: 24,
@@ -48,7 +50,7 @@ class _AddnewproductState extends State<Addnewproduct>
                   ),
                   Container(
                     // height: 37,
-                    margin: EdgeInsets.only(top: 20, bottom: 4, right: 10),
+                    margin: const EdgeInsets.only(top: 20, bottom: 4, right: 10),
                     // color: Colors.brown,
 
                     child: DefaultTabController(
@@ -63,12 +65,12 @@ class _AddnewproductState extends State<Addnewproduct>
                                 });
                               },
                               controller: tabController,
-                              indicatorColor: Color(0xffEF5350),
+                              indicatorColor: const Color(0xffEF5350),
                               indicatorSize: TabBarIndicatorSize.label,
-                              indicatorPadding: EdgeInsets.only(top: 15),
+                              indicatorPadding: const EdgeInsets.only(top: 15),
                               isScrollable: true,
-                              labelColor: Color(0xffEF5350),
-                              unselectedLabelColor: Color(0xff212121),
+                              labelColor: const Color(0xffEF5350),
+                              unselectedLabelColor: const Color(0xff212121),
                               tabs: const <Widget>[
                                 Tab(
                                   child: Text(
@@ -104,7 +106,7 @@ class _AddnewproductState extends State<Addnewproduct>
               ),
             ),
 
-            Container(
+            SizedBox(
               height: (_selectedTabBar == 0)
                   ? (762)
                   : ((_selectedTabBar == 1) ? (258) : (350)),
@@ -112,7 +114,7 @@ class _AddnewproductState extends State<Addnewproduct>
               //762 258 350
               child: TabBarView(
                 controller: tabController,
-                children: [FirstCard(), secondCard(), thirdCard()],
+                children: [const FirstCard(), secondCard(), thirdCard()],
               ),
             ),
           ],

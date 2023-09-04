@@ -32,6 +32,12 @@ class DefaultPageExample extends StatelessWidget {
             margin: margin,
             borderRadius: BorderRadius.circular(16.0),
             offset: 0,
+            content: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Bacon ipsum dolor amet kevin turducken brisket pastrami, salami ribeye spare ribs tri-tip sirloin shoulder venison shank burgdoggen chicken pork belly. ',
+              ),
+            ),
             child: Material(
               color: Colors.grey.shade800,
               shape: const CircleBorder(),
@@ -42,12 +48,6 @@ class DefaultPageExample extends StatelessWidget {
                   Icons.add,
                   color: Colors.white,
                 ),
-              ),
-            ),
-            content: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Bacon ipsum dolor amet kevin turducken brisket pastrami, salami ribeye spare ribs tri-tip sirloin shoulder venison shank burgdoggen chicken pork belly. ',
               ),
             ),
           ),

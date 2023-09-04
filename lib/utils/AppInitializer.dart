@@ -1,7 +1,6 @@
 
 
 
- import 'dart:ui';
 
 // import 'package:awesome_notifications/awesome_notifications.dart';
 // import 'package:awesome_notifications_fcm/awesome_notifications_fcm.dart';
@@ -10,7 +9,6 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 
 import 'firebase/firebase_options.dart';
-import '../notifications//notificationController.dart';
 
 
  class AppInitializer {
@@ -71,9 +69,9 @@ import '../notifications//notificationController.dart';
 
 
 
-   static Future<void> initDynamicLinks(BuildContext context, FirebaseDynamicLinks _dynamicLinks) async {
+   static Future<void> initDynamicLinks(BuildContext context, FirebaseDynamicLinks dynamicLinks) async {
 
-      _dynamicLinks.onLink.listen((dynamicLinkData) {
+      dynamicLinks.onLink.listen((dynamicLinkData) {
         final Uri uri = dynamicLinkData.link;
         final queryParameter = uri.queryParameters;
 

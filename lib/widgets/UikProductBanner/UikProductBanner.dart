@@ -19,11 +19,11 @@ class MyProductBanner extends StatelessWidget {
           Card(
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(20, 24, 20, 24),
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
+                  SizedBox(
                     // color: Colors.cyan,
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: Column(
@@ -34,19 +34,19 @@ class MyProductBanner extends StatelessWidget {
                           // width: 151,
                           // color: Colors.blue,
                           constraints:
-                              BoxConstraints(maxHeight: double.infinity),
+                              const BoxConstraints(maxHeight: double.infinity),
                           child: Text(
                             productName,
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 textStyle:
-                                    Theme.of(context).textTheme.headline2,
+                                    Theme.of(context).textTheme.displayMedium,
                                 fontSize: 24,
                                 fontWeight: FontWeight.w600),
                           ),
                         ),
-                        SizedBox(height: 28),
-                        Container(
+                        const SizedBox(height: 28),
+                        SizedBox(
                           width: 151,
                           // color: Colors.blue,
                           // constraints: BoxConstraints(maxHeight: double.infinity),
@@ -71,7 +71,7 @@ class MyProductBanner extends StatelessWidget {
                                 width: 15,
                                 // height: 21,
                               ),
-                              Container(
+                              SizedBox(
                                   width: 11,
                                   child: IconButton(
                                     onPressed: () {},
@@ -79,7 +79,7 @@ class MyProductBanner extends StatelessWidget {
                                       Icons.arrow_forward,
                                       size: 20,
                                     ),
-                                    color: Color(0xffE57373),
+                                    color: const Color(0xffE57373),
                                   )),
                             ],
                           ),

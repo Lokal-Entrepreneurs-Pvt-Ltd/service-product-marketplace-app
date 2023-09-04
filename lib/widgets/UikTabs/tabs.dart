@@ -11,9 +11,9 @@ class Tabs extends StatefulWidget {
   final indicatorColor;
   final gapBetweenTabs;
 
-  Tabs({
+  const Tabs({super.key, 
     required this.ll,
-    this.isBorder = null,
+    this.isBorder,
     this.gapBetweenTabs = 50,
     this.indicatorColor = Colors.yellow,
     this.borderRadius,
@@ -71,7 +71,7 @@ class _MyTabBarState extends State<Tabs> with TickerProviderStateMixin {
             //indicatorPadding: (widget.isBorder == true) ? EdgeInsets.zero : null,
             labelPadding: (widget.isBorder == true) ? EdgeInsets.zero : null,
             physics: (widget.isBorder == true)
-                ? NeverScrollableScrollPhysics()
+                ? const NeverScrollableScrollPhysics()
                 : null,
             isScrollable: (widget.isBorder == true) ? true : false,
 

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class UikColor {
   static const String black = '#212121';

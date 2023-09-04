@@ -1,27 +1,24 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
 import '../../Widgets/UikButton/UikButton.dart';
-import '../../Widgets/UikNavbar/UikNavbar.dart';
 import '../../Widgets/UikTextField/UikTextField.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
 import '../../pages/UikBottomNavigationBar.dart';
 import '../../screen_routes.dart';
-import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/storage/preference_constants.dart';
 import '../../utils/storage/user_data_handler.dart';
 import '../signUp/signup_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NewOnboardingScreen extends StatefulWidget {
   final String? selectedUserType;
 
-  NewOnboardingScreen({this.selectedUserType});
+  const NewOnboardingScreen({super.key, this.selectedUserType});
 
   @override
   _NewOnboardingScreenState createState() => _NewOnboardingScreenState();
@@ -52,7 +49,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
   String selectedUserType = CUSTOMER;
 
   void initialize() async {
-    emailController.text = await UserDataHandler.getUserEmail();
+    emailController.text = UserDataHandler.getUserEmail();
     //passwordController.text = await UserDataHandler.getUserPassword();
   }
 
@@ -121,7 +118,9 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: DIMEN_24,),
+              const SizedBox(
+                height: DIMEN_24,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: DIMEN_21),
                 child: RichText(
@@ -181,7 +180,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             height: DIMEN_20,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: DIMEN_15, right: DIMEN_15),
+                            padding: const EdgeInsets.only(
+                                left: DIMEN_15, right: DIMEN_15),
                             child: Container(
                               height: DIMEN_52,
                               decoration: BoxDecoration(
@@ -207,7 +207,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                         color: isSelected
                                             ? Colors.white
                                             : null, // No background for unselected items
-                                        borderRadius: BorderRadius.circular(DIMEN_24),
+                                        borderRadius:
+                                            BorderRadius.circular(DIMEN_24),
                                       ),
                                       child: Text(
                                         type,
@@ -229,7 +230,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             height: DIMEN_25,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: DIMEN_16),
                             child: TextField(
                               controller: emailController,
                               decoration: InputDecoration(
@@ -255,7 +257,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             height: DIMEN_16,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: DIMEN_16),
                             child: TextField(
                               controller: passwordController,
                               obscureText: true,
@@ -268,7 +271,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                 fillColor: Colors.white,
                                 contentPadding: EdgeInsets.symmetric(
                                   vertical: DIMEN_16,
-                                  horizontal: DIMEN_16, // Add horizontal padding here
+                                  horizontal:
+                                      DIMEN_16, // Add horizontal padding here
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(DIMEN_8),
@@ -376,7 +380,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             height: DIMEN_25,
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
+                            padding: const EdgeInsets.only(
+                                left: DIMEN_16, right: DIMEN_16),
                             child: Text.rich(
                               TextSpan(
                                 children: [

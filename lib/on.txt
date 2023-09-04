@@ -1,0 +1,12 @@
+
+
+main.dart -> renderes the Screens , also handles the deeplinking
+
+Now Screens are two types: 1) Frontend Powered
+                           2) Backend Powered
+
+From Frontend Powered screen we can call use backend Powered screens as a subWidget/Separated by using ApiRepository functions;
+Backend Powered Ui come from the Ui_Sdk as package dependency as we build in ui_sdk
+
+
+

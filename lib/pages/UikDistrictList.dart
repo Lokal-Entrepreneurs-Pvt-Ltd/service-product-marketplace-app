@@ -1,18 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:ui_sdk/Renderer.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
-import '../utils/storage/cart_data_handler.dart';
 
 class UikDistrictList extends StandardPage {
   List<dynamic> selectedValue = [-1, "district"];
@@ -25,7 +21,7 @@ class UikDistrictList extends StandardPage {
 
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.SELECT_DISTRICT);
     actionList.add(UIK_ACTION.CONFIRM_DISTRICT);
     return actionList;

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/UikInput/UikInput.dart';
 
 class NewUserInfo extends StatelessWidget {
   const NewUserInfo({Key? key}) : super(key: key);
@@ -17,13 +14,13 @@ class NewUserInfo extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: Color(0xffBABFC5),
+              color: const Color(0xffBABFC5),
             ),
           ),
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 27.5),
+                margin: const EdgeInsets.only(top: 27.5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -32,7 +29,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -47,7 +44,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -61,7 +58,7 @@ class NewUserInfo extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 22),
+                margin: const EdgeInsets.only(top: 22),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -70,7 +67,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -85,7 +82,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -99,7 +96,7 @@ class NewUserInfo extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 22),
+                margin: const EdgeInsets.only(top: 22),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -108,7 +105,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -123,7 +120,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -137,7 +134,7 @@ class NewUserInfo extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 22),
+                margin: const EdgeInsets.only(top: 22),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -146,7 +143,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -161,7 +158,7 @@ class NewUserInfo extends StatelessWidget {
                       height: 45,
                       decoration: BoxDecoration(
                         //color: Color(0xffF5F5F5),
-                        border: Border.all(color: Color(0xffBDBDBD)),
+                        border: Border.all(color: const Color(0xffBDBDBD)),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const TextField(
@@ -175,12 +172,12 @@ class NewUserInfo extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 24.5),
+                margin: const EdgeInsets.only(top: 24.5),
                 width: 611,
                 height: 140,
                 decoration: BoxDecoration(
                   //color: Color(0xffF5F5F5),
-                  border: Border.all(color: Color(0xffBDBDBD)),
+                  border: Border.all(color: const Color(0xffBDBDBD)),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const TextField(
@@ -191,7 +188,7 @@ class NewUserInfo extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(517, 30, 30, 32),
+                margin: const EdgeInsets.fromLTRB(517, 30, 30, 32),
                 child: UikButton(
                     text: "Create User",
                     widthSize: 124,

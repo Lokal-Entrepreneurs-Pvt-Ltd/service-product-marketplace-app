@@ -1,17 +1,7 @@
-import 'dart:async';
 
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/strings.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
-import 'package:lokal/screens/Onboarding/LandingPage.dart';
-import 'package:lokal/utils/storage/samhita_data_handler.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:otp_text_field/style.dart';
-import '../../Widgets/UikButton/UikButton.dart';
-import '../../constants/colors.dart';
 import '../../constants/dimens.dart';
 import '../../constants/json_constants.dart';
 import '../../screen_routes.dart';
@@ -20,11 +10,9 @@ import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
-import '../../utils/storage/user_data_handler.dart';
-import 'SamhitaOtp.dart';
 
 class SamhitaVerifyParticipant extends StatefulWidget {
-  SamhitaVerifyParticipant({super.key});
+  const SamhitaVerifyParticipant({super.key});
 
   @override
   State<SamhitaVerifyParticipant> createState() =>
@@ -83,7 +71,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                   errorText: _nameRequired ? null : VALID_NAME,
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _nameRequired = false;
                     });
@@ -104,7 +92,7 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                 ),
                 onChanged: (value) {
                   samhitaId = value;
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _samhitaIdRequired = false;
                     });
@@ -163,8 +151,8 @@ class _SamhitaVerifyParticipantState extends State<SamhitaVerifyParticipant> {
                     if (_samhitaIdController.text.isEmpty) {
                       _samhitaIdRequired = false;
                     }
-                    if (!_nameController.text.isEmpty &&
-                        !_samhitaIdController.text.isEmpty &&
+                    if (_nameController.text.isNotEmpty &&
+                        _samhitaIdController.text.isNotEmpty &&
                         _phoneNumberValid) {
                       _requiredFields = false;
                       NavigationUtils.showLoaderOnTop();

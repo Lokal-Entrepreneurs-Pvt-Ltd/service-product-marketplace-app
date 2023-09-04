@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import "./ActionSheet.dart";
 
@@ -18,7 +17,7 @@ class ActionSheetUtil extends StatelessWidget {
           onTap: () {
             obj.showBottomSheet(context);
           },
-          child: Text("click me"),
+          child: const Text("click me"),
         ),
       ),
     );

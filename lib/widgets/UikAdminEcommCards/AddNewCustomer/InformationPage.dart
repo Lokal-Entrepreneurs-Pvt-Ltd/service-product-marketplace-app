@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 
@@ -18,15 +17,15 @@ class InformationPage extends StatelessWidget {
 
   InformationPage({
     Key? key,
-    this.firstName: 'shahria',
-    this.lastName: 'xyz',
-    this.email: 'xyz@gmail.com',
-    this.location: 'corner street',
-    this.phone: '73645382',
-    this.city: 'Sydney',
-    this.country: 'Australia',
-    this.state: 'wales',
-    this.status: 'active',
+    this.firstName = 'shahria',
+    this.lastName = 'xyz',
+    this.email = 'xyz@gmail.com',
+    this.location = 'corner street',
+    this.phone = '73645382',
+    this.city = 'Sydney',
+    this.country = 'Australia',
+    this.state = 'wales',
+    this.status = 'active',
   }) : super(key: key);
 
   @override
@@ -36,7 +35,7 @@ class InformationPage extends StatelessWidget {
         children: [
           //avatar image
           Container(
-            margin: EdgeInsets.only(top: 40),
+            margin: const EdgeInsets.only(top: 40),
             child: Stack(
               children: [
                 Container(
@@ -49,11 +48,11 @@ class InformationPage extends StatelessWidget {
                   left: 70,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Color(0xffE57373),
+                      color: const Color(0xffE57373),
                       border: Border.all(
                         color: Colors.white,
                       ),
-                      borderRadius: BorderRadius.all(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(20),
                       ),
                     ),
@@ -73,19 +72,19 @@ class InformationPage extends StatelessWidget {
 
           // 2nd container
           Container(
-            margin: EdgeInsets.only(left: 30, right: 30, top: 25),
+            margin: const EdgeInsets.only(left: 30, right: 30, top: 25),
             child: Row(
               children: [
                 //left container
                 Container(
-                  margin: EdgeInsets.only(right: 9),
+                  margin: const EdgeInsets.only(right: 9),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'First Name',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -97,7 +96,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
                           borderRadius: BorderRadius.all(
@@ -127,8 +126,8 @@ class InformationPage extends StatelessWidget {
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'Last Name',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -140,7 +139,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
                           borderRadius: BorderRadius.all(
@@ -168,19 +167,19 @@ class InformationPage extends StatelessWidget {
 
           //3rd container
           Container(
-            margin: EdgeInsets.only(left: 30, right: 30, top: 19.5),
+            margin: const EdgeInsets.only(left: 30, right: 30, top: 19.5),
             child: Row(
               children: [
                 //left container
                 Container(
-                  margin: EdgeInsets.only(right: 9),
+                  margin: const EdgeInsets.only(right: 9),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'Email',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -192,7 +191,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
                           borderRadius: BorderRadius.all(
@@ -222,8 +221,8 @@ class InformationPage extends StatelessWidget {
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'Location',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -235,7 +234,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
                           borderRadius: BorderRadius.all(
@@ -263,19 +262,19 @@ class InformationPage extends StatelessWidget {
 
           // 4th container
           Container(
-            margin: EdgeInsets.only(left: 30, right: 30, top: 19.5),
+            margin: const EdgeInsets.only(left: 30, right: 30, top: 19.5),
             child: Row(
               children: [
                 //left container
                 Container(
-                  margin: EdgeInsets.only(right: 9),
+                  margin: const EdgeInsets.only(right: 9),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'Phone',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -287,7 +286,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         // padding: EdgeInsets.only(left: 10, bottom: 13),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
@@ -299,11 +298,11 @@ class InformationPage extends StatelessWidget {
                           textAlignVertical: TextAlignVertical.center,
                           textInputAction: TextInputAction.done,
                           keyboardType: TextInputType.number,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Color(0xff9E9E9E)),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                           ),
@@ -320,8 +319,8 @@ class InformationPage extends StatelessWidget {
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'City',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -333,7 +332,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
                           borderRadius: BorderRadius.all(
@@ -361,19 +360,19 @@ class InformationPage extends StatelessWidget {
 
           // 5th container
           Container(
-            margin: EdgeInsets.only(left: 30, right: 30, top: 19.5),
+            margin: const EdgeInsets.only(left: 30, right: 30, top: 19.5),
             child: Row(
               children: [
                 //left container
                 Container(
-                  margin: EdgeInsets.only(right: 9),
+                  margin: const EdgeInsets.only(right: 9),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'Country',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -385,7 +384,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
                           borderRadius: BorderRadius.all(
@@ -415,8 +414,8 @@ class InformationPage extends StatelessWidget {
                     children: [
                       //label container
                       Container(
-                        margin: EdgeInsets.only(bottom: 8.5),
-                        child: Text(
+                        margin: const EdgeInsets.only(bottom: 8.5),
+                        child: const Text(
                           'State / Region',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
@@ -428,7 +427,7 @@ class InformationPage extends StatelessWidget {
                         width: 306,
                         height: 39,
                         padding:
-                            EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                            const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                         decoration: const BoxDecoration(
                           color: Color(0xffEEEEEE),
                           borderRadius: BorderRadius.all(
@@ -456,14 +455,14 @@ class InformationPage extends StatelessWidget {
 
           // 6th container
           Container(
-            margin: EdgeInsets.only(top: 19.5),
+            margin: const EdgeInsets.only(top: 19.5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //label container
                 Container(
-                  margin: EdgeInsets.only(bottom: 8.5),
-                  child: Text(
+                  margin: const EdgeInsets.only(bottom: 8.5),
+                  child: const Text(
                     'Status',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
@@ -473,14 +472,14 @@ class InformationPage extends StatelessWidget {
                 Container(
                   width: 623,
                   height: 39,
-                  padding: EdgeInsets.only(left: 10, bottom: 13, right: 10),
+                  padding: const EdgeInsets.only(left: 10, bottom: 13, right: 10),
                   decoration: const BoxDecoration(
                     color: Color(0xffEEEEEE),
                     borderRadius: BorderRadius.all(
                       Radius.circular(8),
                     ),
                   ),
-                  child: Stack(children: const [
+                  child: const Stack(children: [
                     TextField(
                       textAlignVertical: TextAlignVertical.center,
                       style: TextStyle(
@@ -510,7 +509,7 @@ class InformationPage extends StatelessWidget {
 
           //7th container -> button
           Container(
-            margin: EdgeInsets.only(left: 517, top: 27.5, right: 30),
+            margin: const EdgeInsets.only(left: 517, top: 27.5, right: 30),
             child: UikButton(
               text: "Next",
               widthSize: 136,

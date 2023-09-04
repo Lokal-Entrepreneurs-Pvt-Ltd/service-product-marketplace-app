@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/utils/storage/samhita_data_handler.dart';
 import '../../constants/json_constants.dart';
 import '../../screen_routes.dart';
@@ -8,11 +7,10 @@ import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
-import '../../utils/network/http/http_screen_client.dart';
 import 'SamhitaOtp.dart';
 
 class SamhitaBecomeParticipant extends StatefulWidget {
-  SamhitaBecomeParticipant({super.key});
+  const SamhitaBecomeParticipant({super.key});
 
   @override
   State<SamhitaBecomeParticipant> createState() =>
@@ -71,7 +69,7 @@ class _SamhitaBecomeParticipantState extends State<SamhitaBecomeParticipant> {
                   errorText: _nameRequired ? null : 'This is Required',
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _nameRequired = false;
                     });
@@ -91,7 +89,7 @@ class _SamhitaBecomeParticipantState extends State<SamhitaBecomeParticipant> {
                   errorText: _lastNameRequired ? null : 'This is Required',
                 ),
                 onChanged: (value) {
-                  if (value.length == 0) {
+                  if (value.isEmpty) {
                     setState(() {
                       _lastNameRequired = false;
                     });
@@ -181,8 +179,8 @@ class _SamhitaBecomeParticipantState extends State<SamhitaBecomeParticipant> {
                       _emailValid = false;
                     }
                     if (isEmailValid(_emailController.text) &&
-                        !_nameController.text.isEmpty &&
-                        !_lastNameController.text.isEmpty &&
+                        _nameController.text.isNotEmpty &&
+                        _lastNameController.text.isNotEmpty &&
                         _phoneNumberValid) {
                       _requiredFields = false;
                       NavigationUtils.showLoaderOnTop();
@@ -206,8 +204,8 @@ class _SamhitaBecomeParticipantState extends State<SamhitaBecomeParticipant> {
                         print(requestIdReceived);
                         // ignore: use_build_context_synchronously
                         // HttpScreenClient.displayDialogBox("Sign up Successful");
-                        Navigator.pushNamed(context!, ScreenRoutes.samhitaOtp);
-                        SamhitaOtp otp = SamhitaOtp();
+                        Navigator.pushNamed(context, ScreenRoutes.samhitaOtp);
+                        SamhitaOtp otp = const SamhitaOtp();
                         // Navigator.pushReplacement(
                         //   context,
                         //   MaterialPageRoute(

@@ -1,18 +1,14 @@
 // ignore_for_file: avoid_unnecessary_containers
 
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:lokal/widgets/UikAvatar/uikAvatar.dart';
 import 'package:lokal/widgets/UikDivider/UikDivider.dart';
 import 'package:lokal/widgets/UikiIcon/uikIcon.dart';
 
 class UserCard extends StatelessWidget {
   final userName;
   final designation;
-  const UserCard({
+  const UserCard({super.key, 
     this.userName = "Natalie Dormer",
     this.designation = "Marketing Manager",
   });
@@ -21,7 +17,7 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 359,
           height: 299,
           child: Card(
@@ -64,30 +60,30 @@ class UserCard extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(128, 31, 128, 0),
+                  margin: const EdgeInsets.fromLTRB(128, 31, 128, 0),
                   width: 103,
                   height: 16,
                   child: Text(
                     userName,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff3A3C40),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(129, 0, 129, 0),
+                  margin: const EdgeInsets.fromLTRB(129, 0, 129, 0),
                   width: 101,
                   height: 12,
                   child: Text(
                     designation,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff82868C),
@@ -96,8 +92,8 @@ class UserCard extends StatelessWidget {
                 ),
                 Container(
                   margin:
-                      EdgeInsets.only(bottom: 18.47, top: 18.47, left: 129.33),
-                  child: Row(
+                      const EdgeInsets.only(bottom: 18.47, top: 18.47, left: 129.33),
+                  child: const Row(
                     children: [
                       UikIcon(valIcon: Icons.favorite),
                       UikIcon(valIcon: Icons.favorite),
@@ -108,20 +104,20 @@ class UserCard extends StatelessWidget {
                 ),
                 UikDivider(
                   corner: "rectangle",
-                  dividerColor: Color(0xffE3E6EB),
+                  dividerColor: const Color(0xffE3E6EB),
                   dividerSize: "small",
                   widthSize: 359,
                 ),
-                SizedBox(height: 17),
+                const SizedBox(height: 17),
                 Container(
-                  margin: EdgeInsets.only(bottom: 18),
+                  margin: const EdgeInsets.only(bottom: 18),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               "121",
                               style: TextStyle(
@@ -133,9 +129,9 @@ class UserCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               "575",
                               style: TextStyle(
@@ -147,9 +143,9 @@ class UserCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        child: Column(
+                        child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               "632",
                               style: TextStyle(

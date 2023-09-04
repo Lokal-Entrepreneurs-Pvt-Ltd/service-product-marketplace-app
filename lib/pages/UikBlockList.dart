@@ -1,11 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:ui_sdk/Renderer.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:ui_sdk/props/StandardScreenResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../actions.dart';
@@ -15,16 +12,16 @@ import '../main.dart';
 
 class UikBlockList extends StandardPage {
   List<dynamic> selectedValue = [-1, "block"];
+  final int? districtCode;
 
   UikBlockList({
     required this.districtCode,
   });
 
-  final int? districtCode;
 
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = Set();
+    Set<String?> actionList = {};
     actionList.add(UIK_ACTION.SELECT_BLOCK);
     actionList.add(UIK_ACTION.CONFIRM_BLOCK);
     return actionList;

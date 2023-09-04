@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
@@ -10,9 +7,7 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:http/http.dart' as http;
-import 'package:ui_sdk/components/UikText.dart';
-import 'package:ui_sdk/components/WidgetType.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/dimens.dart';
 import '../../constants/json_constants.dart';
@@ -21,7 +16,6 @@ import '../../screen_routes.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/preference_constants.dart';
-import '../../utils/storage/user_data_handler.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -104,7 +98,9 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: DIMEN_24,),
+              const SizedBox(
+                height: DIMEN_24,
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: DIMEN_21),
                 child: RichText(
@@ -163,7 +159,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: DIMEN_20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: DIMEN_15, right: DIMEN_15),
+                          padding: const EdgeInsets.only(
+                              left: DIMEN_15, right: DIMEN_15),
                           child: Container(
                             height: DIMEN_52,
                             decoration: BoxDecoration(
@@ -189,7 +186,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       color: isSelected
                                           ? Colors.white
                                           : null, // No background for unselected items
-                                      borderRadius: BorderRadius.circular(DIMEN_24),
+                                      borderRadius:
+                                          BorderRadius.circular(DIMEN_24),
                                     ),
                                     child: Text(
                                       type,
@@ -211,7 +209,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: DIMEN_25,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: DIMEN_16),
                           child: TextField(
                             controller: emailController,
                             decoration: InputDecoration(
@@ -237,7 +236,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: DIMEN_20,
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: DIMEN_16),
                           child: TextField(
                             controller: passwordController,
                             obscureText: true,
@@ -250,7 +250,8 @@ class _SignupScreenState extends State<SignupScreen> {
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: DIMEN_16,
-                                horizontal: DIMEN_16, // Add horizontal padding here
+                                horizontal:
+                                    DIMEN_16, // Add horizontal padding here
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(DIMEN_12),
@@ -277,7 +278,8 @@ class _SignupScreenState extends State<SignupScreen> {
                               fillColor: Colors.white,
                               contentPadding: EdgeInsets.symmetric(
                                 vertical: DIMEN_16,
-                                horizontal: DIMEN_16, // Add horizontal padding here
+                                horizontal:
+                                    DIMEN_16, // Add horizontal padding here
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(DIMEN_12),
@@ -374,7 +376,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: DIMEN_15,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
+                          padding: const EdgeInsets.only(
+                              left: DIMEN_16, right: DIMEN_16),
                           child: Text.rich(
                             TextSpan(
                               children: [

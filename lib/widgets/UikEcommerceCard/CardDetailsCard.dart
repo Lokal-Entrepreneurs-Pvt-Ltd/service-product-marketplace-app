@@ -9,7 +9,7 @@ class CardDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 653,
           height: 302,
           child: Card(
@@ -73,7 +73,7 @@ class CardDetailCard extends StatelessWidget {
                                       width: 30,
                                     ),
                                   ),
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   hintText: '**** **** **** ****',
                                   counterText: "",
                                 ),

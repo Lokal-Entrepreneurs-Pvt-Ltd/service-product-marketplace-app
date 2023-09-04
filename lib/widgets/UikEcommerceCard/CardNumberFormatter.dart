@@ -1,4 +1,3 @@
-import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
 class CardNumberFormatter extends TextInputFormatter {
@@ -13,7 +12,7 @@ class CardNumberFormatter extends TextInputFormatter {
       return nextValue;
     }
 
-    var bufferString = new StringBuffer();
+    var bufferString = StringBuffer();
     for (int i = 0; i < inputText.length; i++) {
       bufferString.write(inputText[i]);
       var nonZeroIndexValue = i + 1;
@@ -25,7 +24,7 @@ class CardNumberFormatter extends TextInputFormatter {
     var string = bufferString.toString();
     return nextValue.copyWith(
       text: string,
-      selection: new TextSelection.collapsed(
+      selection: TextSelection.collapsed(
         offset: string.length,
       ),
     );

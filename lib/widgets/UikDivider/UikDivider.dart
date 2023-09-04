@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class UikDivider extends StatelessWidget {
   final corner;
   final dividerSize;
   final widthSize;
   final dividerColor;
-  UikDivider({
+  const UikDivider({super.key, 
     this.corner,
     this.dividerSize = "Small",
     this.widthSize = 343,
