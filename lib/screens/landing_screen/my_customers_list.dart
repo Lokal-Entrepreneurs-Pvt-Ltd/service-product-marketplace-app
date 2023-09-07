@@ -36,7 +36,7 @@ class _Sl_DetailsPageState extends State<Sl_MyCustomersList>
 
   // Function to fetch customer data from the API
   Future<void> _fetchCustomerData() async {
-
+    // final dynamic args = ModalRoute.of(context)!.settings.arguments ?? {};
     final response = await ApiRepository.getAllCustomerForUserService({ "serviceId": "16"});
     if (response.isSuccess!) {
 

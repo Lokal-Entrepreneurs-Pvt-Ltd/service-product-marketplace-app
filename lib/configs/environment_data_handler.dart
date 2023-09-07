@@ -21,6 +21,6 @@ class EnvironmentDataHandler {
 // Set your url here
   static String  getLocalBaseUrl() {
     return PreferenceUtils.getString(
-        LOCAL_BASE_URL, "https://df8f-2401-4900-1c68-d51a-f8ec-16cd-1055-dcfd.ngrok-free.app");
+        LOCAL_BASE_URL, "https://d17f-182-69-179-202.ngrok-free.app");
   }
 }
