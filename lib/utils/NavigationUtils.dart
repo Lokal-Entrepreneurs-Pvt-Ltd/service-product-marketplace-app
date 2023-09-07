@@ -43,4 +43,9 @@ abstract class NavigationUtils {
   static void openPage(UikAction uikAction) {
     DeeplinkHandler.openPage(getCurrentContext()!, uikAction.tap.data.url!);
   }
+
+  static void openScreen(String routeName) {
+    var context = NavigationService.navigatorKey.currentContext;
+    Navigator.pushNamed(context!, routeName);
+  }
 }
