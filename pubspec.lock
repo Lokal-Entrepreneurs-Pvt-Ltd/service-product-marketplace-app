@@ -1621,11 +1621,10 @@ packages:
   ui_sdk:
     dependency: "direct main"
     description:
-      name: ui_sdk
-      sha256: ebf056041b3eb77d25a3a69ff5caa1be794c90e5c8812ad9250ddc4e916f2563
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.112+1"
+      path: "/Users/anupamsingh/Desktop/Digia/ui_sdk"
+      relative: false
+    source: path
+    version: "1.0.113+1"
   universal_io:
     dependency: transitive
     description:

@@ -4,6 +4,9 @@ import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screens/landing_screen/agent_details.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
+import '../../screen_routes.dart';
+import '../../utils/NavigationUtils.dart';
+
 // todo: naming of this screen in screenroutes
 class Sl_MyAgentsList extends StatefulWidget {
   const Sl_MyAgentsList({super.key});
@@ -80,13 +83,16 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
         ),
       ),
       persistentFooterButtons: [
-        Container(
-          child: UikButton(
-            text: "Add Agent",
-            textColor: Colors.black,
-            textSize: 16.0,
-            textWeight: FontWeight.w500,
-          ),
+        InkWell(
+           onTap: () {
+               NavigationUtils.openScreen(ScreenRoutes.addAgentScreen);
+             },
+            child: UikButton(
+              text: "Add Agent",
+              textColor: Colors.black,
+              textSize: 16.0,
+              textWeight: FontWeight.w500,
+            )
         ),
       ],
     );
