@@ -1,14 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:lokal/pages/UikCustomerForUserService.dart';
-import 'package:lokal/pages/UikServicesLanding.dart';
 import 'package:lokal/screens/landing_screen/my_agents_list.dart';
 import 'package:lokal/screens/landing_screen/my_customers_list.dart';
 import 'package:lokal/screens/landing_screen/sl_details_page.dart';
-import 'package:lokal/screens/landing_screen/sl_earnings_page.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../Widgets/UikCustomTabBar/customTabBar.dart';
-import '../../pages/UikServiceDetailsPage.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class ServiceLandingScreen extends StatefulWidget {
@@ -23,12 +19,18 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
   late TabController _tabController;
   int _currentIndex = 0;
 
-  late Future<ApiResponse> _serviceTabsFuture; // Add this line to store the future
+  late Future<ApiResponse> _serviceTabsFuture;
 
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
-    _serviceTabsFuture = ApiRepository.getServiceTabsScreen(null); // Make the API call here
+    _serviceTabsFuture = ApiRepository.getServiceTabsScreen(null);
+    // Add a listener to the TabController to update the selected tab when scrolled
+    _tabController.addListener(() {
+      setState(() {
+        _currentIndex = _tabController.index;
+      });
+    });
     super.initState();
   }
 
@@ -111,7 +113,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
           (data["tabs"] as List).length,
               (index) {
             dynamic tab = data["tabs"][index];
-            return TabElement(text: tab["text"], index: index);
+            return TabElement(text: tab["text"], index: index, isSelected: index == _currentIndex,);
           },
         ),
       ),
