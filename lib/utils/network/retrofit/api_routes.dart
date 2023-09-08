@@ -71,4 +71,6 @@ class ApiRoutes {
       "/service/getAllCustomerForUserService";
   static const String getAllAgentsForUserService =
       "/service/getAllAgentsForUserService";
+  static const String getServiceDetailsById =
+      "/service/getDetailsById";
 }
