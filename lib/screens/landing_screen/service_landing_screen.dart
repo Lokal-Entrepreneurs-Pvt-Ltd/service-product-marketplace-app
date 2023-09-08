@@ -34,15 +34,23 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
     super.initState();
   }
 
+
+
+  Widget _buildLoadingIndicator() {
+    return Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _serviceTabsFuture, // Use the stored future
       builder: (context, AsyncSnapshot<ApiResponse> snap) {
         if (snap.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return _buildLoadingIndicator();
         } else if (snap.hasError) {
           return Center(
             child: Text("Something went wrong\t ${snap.error}"),
