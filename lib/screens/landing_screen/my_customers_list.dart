@@ -127,40 +127,42 @@ class _Sl_DetailsPageState extends State<Sl_MyCustomersList>
   };
 
   Widget _buildCustomerListItem(Map<String, dynamic> customer) {
-    return ListTile(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (ctx) => Sl_CustomerDetails(),
-          ),
-        );
-      },
-      leading: CircleAvatar(
-        backgroundColor: Colors.yellow,
-        child: Text("S"),
-      ),
-      title: Text(
-        customer['name']['text'] ?? '',
-        style: GoogleFonts.poppins(
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          color: Colors.black,
+    return InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (ctx) => Sl_CustomerDetails(),
+            ),
+          );
+        },
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: Colors.yellow,
+          child: Text("S"),
         ),
-      ),
-      subtitle: Text(
-        customer['phone']['text'] ?? '',
-        style: GoogleFonts.poppins(
+        title: Text(
+          customer['name']['text'] ?? '',
+          style: GoogleFonts.poppins(
             fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey),
-      ),
-      trailing: Text(
-        customer['date']['text'] ?? '',
-        style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey),
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          ),
+        ),
+        subtitle: Text(
+          customer['phone']['text'] ?? '',
+          style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey),
+        ),
+        trailing: Text(
+          customer['date']['text'] ?? '',
+          style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Colors.grey),
+        ),
       ),
     );
   }
