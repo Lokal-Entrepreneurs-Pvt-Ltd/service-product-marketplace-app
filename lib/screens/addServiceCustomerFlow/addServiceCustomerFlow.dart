@@ -1,38 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/constants/strings.dart';
-import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
-import 'package:lokal/screens/addServiceCustomerFlow/errorScreen.dart';
-import 'package:lokal/screens/addServiceCustomerFlow/successScreen.dart';
-import 'package:lokal/utils/storage/product_data_handler.dart';
-import 'package:lokal/utils/storage/samhita_data_handler.dart';
-import 'package:lottie/lottie.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:otp_text_field/style.dart';
-import '../../Widgets/UikButton/UikButton.dart';
-import '../../constants/colors.dart';
-import '../../constants/dimens.dart';
-import '../../utils/UiUtils/UiUtils.dart';
-import '../../utils/network/ApiRepository.dart';
-import '../../utils/network/ApiRequestBody.dart';
-import '../../utils/network/http/http_screen_client.dart';
-import '../../utils/network/retrofit/api_routes.dart';
-import '../../utils/storage/user_data_handler.dart';
-import '../Form/SamhitaOtp.dart';
+
+const ADD_SERVICE_CUSTOMER = "Add Service Customer";
+const BTS_NAME = "Name";
+const BTS_PHONE_NUMBER = "Phone Number";
+const BTS_AGE = "Age";
+const BTS_EMAIL = "Email";
+const ENTER_STATE_CODE = "Enter State";
+const ENTER_DISTRICT_CODE = "Enter District";
+const ENTER_BLOCK_CODE = "Enter Block";
+const BTS_PINCODE = "Pincode";
+const BTS_EMPLOYMENT = "Employment Status";
+const CONTINUE = "Continue";
+const REQUIRED_FIELD = "Required Field";
+
+void main() {
+  runApp(const AddServiceCustomerFlow());
+}
 
 class AddServiceCustomerFlow extends StatefulWidget {
-  const AddServiceCustomerFlow({super.key});
+  const AddServiceCustomerFlow({Key? key}) : super(key: key);
 
   @override
   State<AddServiceCustomerFlow> createState() => _AddServiceCustomerFlowState();
 }
 
 class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _pinCodeController = TextEditingController();
@@ -42,6 +35,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   final _stateController = TextEditingController();
   final _districtController = TextEditingController();
   final _blockController = TextEditingController();
+
   bool _phoneNumberValid = true;
   bool _emailValid = true;
   bool _pinCodeRequired = true;
@@ -52,12 +46,18 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   bool _districtRequired = true;
   bool _blockRequired = true;
   bool _requiredFields = false;
-  String phoneNo = "";
 
   @override
   void dispose() {
-    //dispose method used to release the memory allocated to variables when state object is removed.
     _nameController.dispose();
+    _phoneNumberController.dispose();
+    _pinCodeController.dispose();
+    _emailController.dispose();
+    _ageController.dispose();
+    _employmentController.dispose();
+    _stateController.dispose();
+    _districtController.dispose();
+    _blockController.dispose();
     super.dispose();
   }
 
@@ -66,311 +66,164 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          body: Stack(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-                left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
-            child: _buildInputForm(),
-          ),
-        ],
-      )),
+        appBar: _buildAppBar(),
+        body: _buildBody(),
+        persistentFooterButtons: _buildFooter(),
+      ),
     );
   }
 
-  Widget _buildInputForm() {
-    return ListView(
-      children: [
-        const SizedBox(
-          height: DIMEN_10,
-        ),
-        Text(
-          ADD_SERVICE_CUSTOMER,
-          style: GoogleFonts.poppins(
-              fontWeight: FontWeight.bold, fontSize: DIMEN_16),
-        ),
-        const SizedBox(
-          height: DIMEN_10,
-        ),
-        const Text(BTS_NAME),
-        TextField(
-          controller: _nameController,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _nameRequired ? null : VALID_NAME,
-          ),
-          onChanged: (value) {
-            if (!UiUtils.isNameValid(value)) {
-              setState(() {
-                _nameRequired = false;
-              });
-            } else {
-              setState(() {
-                _nameRequired = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(BTS_PHONE_NUMBER),
-        TextField(
-          controller: _phoneNumberController,
-          keyboardType: TextInputType.phone,
-          maxLength: 10,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _phoneNumberValid ? null : VALID_PHONE_NO,
-          ),
-          onChanged: (value) {
-            phoneNo = value;
-            if (value.length < 10) {
-              setState(() {
-                _phoneNumberValid = false;
-              });
-            } else {
-              setState(() {
-                _phoneNumberValid = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(BTS_AGE),
-        TextField(
-          controller: _ageController,
-          keyboardType: TextInputType.phone,
-          maxLength: 2,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _ageRequired ? null : VALID_AGE,
-          ),
-          onChanged: (value) {
-            if (value.isEmpty) {
-              setState(() {
-                _ageRequired = false;
-              });
-            } else {
-              setState(() {
-                _ageRequired = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(BTS_EMAIL),
-        TextField(
-          controller: _emailController,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _emailValid ? null : VALID_EMAIL,
-          ),
-          onChanged: (value) {
-            if (!UiUtils.isEmailValid(value)) {
-              setState(() {
-                _emailValid = false;
-              });
-            } else {
-              setState(() {
-                _emailValid = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(ENTER_STATE_CODE),
-        TextField(
-          controller: _stateController,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _stateRequired ? null : REQUIRED_FIELD,
-          ),
-          onChanged: (value) {
-            if (value.isEmpty) {
-              setState(() {
-                _stateRequired = false;
-              });
-            } else {
-              setState(() {
-                _stateRequired = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(ENTER_DISTRICT_CODE),
-        TextField(
-          controller: _districtController,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _districtRequired ? null : REQUIRED_FIELD,
-          ),
-          onChanged: (value) {
-            if (value.isEmpty) {
-              setState(() {
-                _districtRequired = false;
-              });
-            } else {
-              setState(() {
-                _districtRequired = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(ENTER_BLOCK_CODE),
-        TextField(
-          controller: _blockController,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _blockRequired ? null : REQUIRED_FIELD,
-          ),
-          onChanged: (value) {
-            if (value.isEmpty) {
-              setState(() {
-                _blockRequired = false;
-              });
-            } else {
-              setState(() {
-                _blockRequired = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(BTS_PINCODE),
-        TextField(
-          controller: _pinCodeController,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _pinCodeRequired ? null : VALID_PINCODE,
-          ),
-          onChanged: (value) {
-            if (value.isEmpty) {
-              setState(() {
-                _pinCodeRequired = false;
-              });
-            } else {
-              setState(() {
-                _pinCodeRequired = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        const Text(BTS_EMPLOYMENT),
-        TextField(
-          controller: _employmentController,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(),
-            errorText: _employmentRequired ? null : EMPLOYMENT_STATUS,
-          ),
-          onChanged: (value) {
-            if (value.isEmpty) {
-              setState(() {
-                _employmentRequired = false;
-              });
-            } else {
-              setState(() {
-                _employmentRequired = true;
-              });
-            }
-          },
-        ),
-        const SizedBox(height: DIMEN_16),
-        _requiredFields
-            ? Container(
-                margin: const EdgeInsets.only(bottom: DIMEN_10),
-                child: const Text(
-                  REQUIRED_FIELD,
-                  style: TextStyle(color: Colors.red),
-                  textAlign: TextAlign.center,
-                ),
-              )
-            : const SizedBox(),
-        Container(
-          height: DIMEN_60,
-          margin: const EdgeInsets.only(
-              left: DIMEN_5, right: DIMEN_5, bottom: DIMEN_20),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xFFFEE440), // Set the desired color
-            ),
-            onPressed: () async {
-              if (_nameController.text.isEmpty) {
-                _nameRequired = false;
-              }
-              if (_phoneNumberController.text.isEmpty) {
-                _phoneNumberValid = false;
-              }
-              if (_emailController.text.isEmpty) {
-                _emailValid = false;
-              }
-              if (_pinCodeController.text.isEmpty) {
-                _pinCodeRequired = false;
-              }
-              if (_ageController.text.isEmpty) {
-                _ageRequired = false;
-              }
-              if (_employmentController.text.isEmpty) {
-                _employmentRequired = false;
-              }
-              if (_stateController.text.isEmpty) {
-                _stateRequired = false;
-              }
-              if (_districtController.text.isEmpty) {
-                _districtRequired = false;
-              }
-              if (_blockController.text.isEmpty) {
-                _blockRequired = false;
-              }
-              if (_nameController.text.isNotEmpty &&
-                  _pinCodeController.text.isNotEmpty &&
-                  _phoneNumberValid) {
-                _requiredFields = false;
-                String apiRoute = ApiRoutes.submitUserServiceCreateCustomerForm;
-                Map<String, dynamic> apiArgs = {
-                  "userId": UserDataHandler.getUserId(),
-                  "serviceId": ProductDataHandler.getServiceProductId(),
-                  "name": _nameController.text,
-                  "phoneNumber": _phoneNumberController.text,
-                  "age": _ageController.text,
-                  "email": _emailController.text,
-                  "stateCode": _stateController.text,
-                  "districtCode": _districtController.text,
-                  "blockCode": _blockController.text,
-                  "pincodeCode": _pinCodeController.text,
-                  "employmentType": _employmentController.text,
-                  "isVerified": false,
-                  "deliveryStatus": "IN_PROGRESS",
-                };
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ApiCallerScreen(
-                      apiRoute: apiRoute,
-                      args: apiArgs,
-                    ),
-                  ),
-                );
-              } else {
-                _requiredFields = true;
-              }
-              setState(() {});
-            },
-            child: const Text(CONTINUE),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            UiUtils.showFeedbackPanel(context);
-          },
-          child: const Text(PROVIDE_FEEDBACK),
-        ),
-      ],
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0.0,
+      centerTitle: true,
+      title: Text(
+        ADD_SERVICE_CUSTOMER,
+        style: TextStyle(color: Colors.black),
+      ),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        color: Colors.black,
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
     );
+  }
+
+  Widget _buildBody() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildTextField(BTS_NAME, _nameController, _nameRequired),
+            const SizedBox(height: 16),
+            _buildTextField(
+              BTS_PHONE_NUMBER,
+              _phoneNumberController,
+              _phoneNumberValid,
+            ),
+            const SizedBox(height: 16),
+            _buildTextField(BTS_AGE, _ageController, _ageRequired),
+            const SizedBox(height: 16),
+            _buildTextField(BTS_EMAIL, _emailController, _emailValid),
+            const SizedBox(height: 16),
+            _buildTextField(
+              ENTER_STATE_CODE,
+              _stateController,
+              _stateRequired,
+            ),
+            const SizedBox(height: 16),
+            _buildTextField(
+              ENTER_DISTRICT_CODE,
+              _districtController,
+              _districtRequired,
+            ),
+            const SizedBox(height: 16),
+            _buildTextField(
+              ENTER_BLOCK_CODE,
+              _blockController,
+              _blockRequired,
+            ),
+            const SizedBox(height: 16),
+            _buildTextField(
+              BTS_PINCODE,
+              _pinCodeController,
+              _pinCodeRequired,
+            ),
+            const SizedBox(height: 16),
+            _buildTextField(
+              BTS_EMPLOYMENT,
+              _employmentController,
+              _employmentRequired,
+            ),
+            const SizedBox(height: 16)
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _buildFooter() {
+    final footerWidgets = <Widget>[
+      if (_requiredFields) _buildRequiredFieldMessage(),
+      _buildContinueButton(),
+    ];
+
+    return footerWidgets;
+  }
+
+  Widget _buildTextField(
+      String label,
+      TextEditingController controller,
+      bool isError,
+      ) {
+    return TextField(
+      controller: controller,
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(),
+        errorText: isError ? null : REQUIRED_FIELD,
+      ),
+    );
+  }
+
+  Widget _buildRequiredFieldMessage() {
+    return Text(
+      REQUIRED_FIELD,
+      style: TextStyle(color: Colors.red),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _buildContinueButton() {
+    return Container(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () async {
+          if (!_isFormValid()) {
+            setState(() {
+              _requiredFields = true;
+            });
+          } else {
+            setState(() {
+              _requiredFields = false;
+            });
+            // Your logic for continuing here
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Text(
+            CONTINUE,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: Colors.yellow,
+        ),
+      ),
+    );
+  }
+
+  bool _isFormValid() {
+    return _nameController.text.isNotEmpty &&
+        _phoneNumberController.text.isNotEmpty &&
+        _phoneNumberValid &&
+        _emailController.text.isNotEmpty &&
+        _emailValid &&
+        _ageController.text.isNotEmpty &&
+        _stateController.text.isNotEmpty &&
+        _districtController.text.isNotEmpty &&
+        _blockController.text.isNotEmpty &&
+        _pinCodeController.text.isNotEmpty &&
+        _employmentController.text.isNotEmpty;
   }
 }

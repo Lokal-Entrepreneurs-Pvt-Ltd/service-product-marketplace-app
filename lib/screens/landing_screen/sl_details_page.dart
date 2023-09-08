@@ -249,10 +249,10 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
       },
       controller: _tabController,
       isScrollable: true,
-      indicator: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: const Color(0xFF3F51B5),
-      ),
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: const Color(0xFF3F51B5),
+        ),
       tabs: _tabs.map((tabData) {
         return Tab(
           child: Text(
