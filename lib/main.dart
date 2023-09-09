@@ -255,7 +255,7 @@ class _LokalAppState extends State<LokalApp> {
                 ? const OnboardingScreen()
                 : const UikBottomNavigationBar();
           },
-          ScreenRoutes.userServiceDetailScreen: (context) =>
+          ScreenRoutes.userServiceTabsScreen: (context) =>
               const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,

@@ -21,19 +21,27 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
 
   late Future<ApiResponse> _serviceTabsFuture;
 
+
+  late dynamic args;
+
   @override
-  void initState() {
+  void didChangeDependencies() {
     _tabController = TabController(length: 3, vsync: this);
-    _serviceTabsFuture = ApiRepository.getServiceTabsScreen(null);
+    args = ModalRoute.of(context)?.settings.arguments;
+    _serviceTabsFuture = ApiRepository.getServiceTabsScreen(args);
     // Add a listener to the TabController to update the selected tab when scrolled
     _tabController.addListener(() {
       setState(() {
         _currentIndex = _tabController.index;
       });
     });
+    super.didChangeDependencies();
+  }
+  @override
+  void initState() {
+
     super.initState();
   }
-
 
 
   Widget _buildLoadingIndicator() {
@@ -72,7 +80,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                     controller: _tabController,
                     children: [
                       Sl_DetailsPage(),
-                      Sl_MyCustomersList(),
+                      SlMyCustomersList(),
                       Sl_MyAgentsList(),
                     ],
                   ),

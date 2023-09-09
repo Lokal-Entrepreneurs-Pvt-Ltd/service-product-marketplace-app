@@ -1,44 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/screens/landing_screen/customer_details.dart';
-import 'package:lokal/utils/NavigationUtils.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
-
-import '../../utils/network/ApiRepository.dart';
-
+import 'package:lokal/utils/network/ApiRepository.dart';
 
 enum WidgetType {
   UikListItemType1,
   UikContainerText,
 }
 
-class Sl_MyCustomersList extends StatefulWidget {
-  const Sl_MyCustomersList({super.key});
+class SlMyCustomersList extends StatefulWidget {
+  const SlMyCustomersList({Key? key}) : super(key: key);
 
   @override
-  State<Sl_MyCustomersList> createState() => _Sl_DetailsPageState();
+  State<SlMyCustomersList> createState() => _SlDetailsPageState();
 }
 
-class _Sl_DetailsPageState extends State<Sl_MyCustomersList>
+class _SlDetailsPageState extends State<SlMyCustomersList>
     with TickerProviderStateMixin {
   late final AutoScrollController _scrollController;
   List<Map<String, dynamic>> _customerListDataStore = [];
   List<dynamic> _customerWidgets = [];
   bool _isLoading = true;
   bool _showAddCustomerButton = false;
+  late dynamic args;
 
   @override
   void initState() {
     _scrollController = AutoScrollController();
-    _fetchCustomerData();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    args = ModalRoute.of(context)?.settings.arguments;
+    _fetchCustomerData();
+    // Trigger a redraw
+    setState(() {});
   }
 
   Future<void> _fetchCustomerData() async {
     try {
-      final response = await ApiRepository.getAllCustomerForUserService({"serviceId": "16"});
+      final response =
+      await ApiRepository.getAllCustomerForUserService(args);
       if (response.isSuccess!) {
         _updateCustomerData(response.data);
       } else {
@@ -59,7 +67,7 @@ class _Sl_DetailsPageState extends State<Sl_MyCustomersList>
 
     setState(() {
       _customerListDataStore = customerDataList;
-      _customerWidgets= customerWidgets;
+      _customerWidgets = customerWidgets;
       _isLoading = false;
       _showAddCustomerButton = true;
     });
@@ -109,6 +117,7 @@ class _Sl_DetailsPageState extends State<Sl_MyCustomersList>
       ),
     );
   }
+
   Widget buildWidgetByType(String uiType, Map<String, dynamic> customer) {
     final widgetType = uiTypeMapping[uiType];
     switch (widgetType) {
@@ -128,14 +137,14 @@ class _Sl_DetailsPageState extends State<Sl_MyCustomersList>
 
   Widget _buildCustomerListItem(Map<String, dynamic> customer) {
     return InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (ctx) => Sl_CustomerDetails(),
-            ),
-          );
-        },
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => Sl_CustomerDetails(),
+          ),
+        );
+      },
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: Colors.yellow,
@@ -152,16 +161,12 @@ class _Sl_DetailsPageState extends State<Sl_MyCustomersList>
         subtitle: Text(
           customer['phone']['text'] ?? '',
           style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Colors.grey),
+              fontSize: 14, fontWeight: FontWeight.w400, color: Colors.grey),
         ),
         trailing: Text(
           customer['date']['text'] ?? '',
           style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Colors.grey),
+              fontSize: 14, fontWeight: FontWeight.w400, color: Colors.grey),
         ),
       ),
     );

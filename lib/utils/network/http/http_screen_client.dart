@@ -40,6 +40,7 @@ class HttpScreenClient {
                   child: const Text(LOG_IN),
                   onPressed: () {
                     UserDataHandler.clearUserToken();
+                    NavigationUtils.pop();
                     Navigator.pushAndRemoveUntil(
                       NavigationUtils.getCurrentContext()!,
                       MaterialPageRoute(
