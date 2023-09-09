@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:ui_sdk/components/UikVideoPlayer.dart';
+import 'package:ui_sdk/components/UikVideoPlayerNew.dart';
+import 'package:ui_sdk/components/UikWidget.dart';
+import 'package:ui_sdk/components/WidgetType.dart';
+import 'package:ui_sdk/props/UikVideoPlayerNewProps.dart';
+import 'package:ui_sdk/props/UikVideoPlayerProps.dart';
 
 import '../../utils/network/ApiRepository.dart';
 
@@ -121,6 +127,13 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
               final String videoUrl = template['videoUrl'];
               // Handle video template
               // You can create a widget for displaying videos here.
+              final UikVideoPlayerNewProps uikVideoPlayerProps = UikVideoPlayerNewProps();
+              uikVideoPlayerProps.id="123";
+              uikVideoPlayerProps.videoUrl= videoUrl;
+              uikVideoPlayerProps.showVideoProgressIndicator= true;
+              uikVideoPlayerProps.aspectRatio= 1.77;
+              uikVideoPlayerProps.progressIndicatorColor= Colors.red;
+
               return  Container(
                 padding:
                 const EdgeInsets.symmetric(horizontal: 12, vertical: 21),
@@ -139,17 +152,8 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                       ),
                     ),
                     const SizedBox(height: 8),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: Image.asset(
-                        "assets/images/image 72.png",
-                        width: double.infinity,
-                        height: 175,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    UikVideoPlayerNew(WidgetType.UikVideoPlayer,uikVideoPlayerProps ),
                     const SizedBox(height: 10),
-
                     Row(
                       children: [
                         ClipRRect(
