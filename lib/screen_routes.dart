@@ -57,7 +57,7 @@ class ScreenRoutes {
   static const String extraPayOptInScreen = "/extraPayOptInScreen";
   static const String myRewardsPage = "/myRewardsPage";
   static const String addUserServiceCustomer = "/addUserServiceCustomer";
-  static const String userServiceDetailScreen = "/userServiceDetailScreen";
+  static const String userServiceTabsScreen = "/userServiceTabsScreen";
   static const String getAllCustomerForUserService =
       "/getAllCustomerForUserService";
   static const String getAllAgentsForUserService =

@@ -33,13 +33,21 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
   @override
   void initState() {
     _scrollController = AutoScrollController();
-    _fetchAgentData();
     super.initState();
+  }
+
+  late dynamic args;
+
+  @override
+  void didChangeDependencies() {
+    args = ModalRoute.of(context)?.settings.arguments;
+    _fetchAgentData();
+    super.didChangeDependencies();
   }
 
   Future<void> _fetchAgentData() async {
     try {
-      final response = await ApiRepository.getAllAgentsForUserService(null);
+      final response = await ApiRepository.getAllAgentsForUserService(args);
       if (response.isSuccess!) {
         _updateAgentData(response.data);
       } else {

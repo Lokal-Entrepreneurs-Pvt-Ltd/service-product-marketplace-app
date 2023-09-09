@@ -20,20 +20,28 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
   List<dynamic> _tabs = [];
   bool _isLoading = true;
   List<dynamic> _templates = [];
+
+
+  late dynamic args;
+
+  @override
+  void didChangeDependencies() {
+    args = ModalRoute.of(context)?.settings.arguments;
+    _fetchServiceDetails();
+    super.didChangeDependencies();
+  }
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
     _scrollController = AutoScrollController();
-    _fetchServiceDetails();
+
     super.initState();
   }
 
 
   Future<void> _fetchServiceDetails() async {
     try {
-      final response = await ApiRepository.getServiceDetailsById({
-        "serviceId": "16",
-      });
+      final response = await ApiRepository.getServiceDetailsById(args);
       if (response.isSuccess!) {
         _updateServiceDetails(response.data);
       } else {

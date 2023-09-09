@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../utils/network/retrofit/api_routes.dart';
+import '../../utils/storage/user_data_handler.dart';
+import 'apiCallerScreen.dart';
+
 const ADD_SERVICE_CUSTOMER = "Add Service Customer";
 const BTS_NAME = "Name";
 const BTS_PHONE_NUMBER = "Phone Number";
@@ -12,7 +16,7 @@ const ENTER_BLOCK_CODE = "Enter Block";
 const BTS_PINCODE = "Pincode";
 const BTS_EMPLOYMENT = "Employment Status";
 const CONTINUE = "Continue";
-const REQUIRED_FIELD = "Required Field";
+const REQUIRED_FIELD = "Enter Required Field";
 
 void main() {
   runApp(const AddServiceCustomerFlow());
@@ -140,7 +144,8 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
               _employmentController,
               _employmentRequired,
             ),
-            const SizedBox(height: 16)
+            const SizedBox(height: 16),
+            if (_requiredFields) _buildRequiredFieldMessage()
           ],
         ),
       ),
@@ -149,7 +154,6 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
 
   List<Widget> _buildFooter() {
     final footerWidgets = <Widget>[
-      if (_requiredFields) _buildRequiredFieldMessage(),
       _buildContinueButton(),
     ];
 
@@ -173,10 +177,13 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   }
 
   Widget _buildRequiredFieldMessage() {
-    return Text(
-      REQUIRED_FIELD,
-      style: TextStyle(color: Colors.red),
-      textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.all(8.0), // Adjust the padding as needed
+      child: Text(
+        REQUIRED_FIELD,
+        style: TextStyle(color: Colors.red),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 
@@ -193,7 +200,31 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
             setState(() {
               _requiredFields = false;
             });
-            // Your logic for continuing here
+            String apiRoute = ApiRoutes.submitUserServiceCreateCustomerForm;
+            Map<String, dynamic> apiArgs = {
+              "userId": UserDataHandler.getUserId(),
+              "serviceId": "16",
+              "name": _nameController.text,
+              "phoneNumber": _phoneNumberController.text,
+              "age": _ageController.text,
+              "email": _emailController.text,
+              "stateCode": _stateController.text,
+              "districtCode": _districtController.text,
+              "blockCode": _blockController.text,
+              "pincodeCode": _pinCodeController.text,
+              "employmentType": _employmentController.text,
+              "isVerified": false,
+              "deliveryStatus": "IN_PROGRESS",
+            };
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ApiCallerScreen(
+                  apiRoute: apiRoute,
+                  args: apiArgs,
+                ),
+              ),
+            );
           }
         },
         child: Padding(
