@@ -15,7 +15,7 @@ class ServiceLandingScreen extends StatefulWidget {
 }
 
 class _ServiceLandingScreenState extends State<ServiceLandingScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late TabController _tabController;
   int _currentIndex = 0;
 
@@ -26,6 +26,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
 
   @override
   void didChangeDependencies() {
+    _tabController = TabController(length: 3, vsync: this);
     _tabController = TabController(length: 3, vsync: this);
     args = ModalRoute.of(context)?.settings.arguments;
     _serviceTabsFuture = ApiRepository.getServiceTabsScreen(args);
@@ -114,6 +115,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
           ),
         )
       ],
+      iconTheme: IconThemeData(color: Colors.black), // Change the back button color here
       bottom: TabBar(
         onTap: (ind) {
           setState(() {
