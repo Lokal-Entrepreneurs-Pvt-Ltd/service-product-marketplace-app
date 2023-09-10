@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../screen_routes.dart';
+import '../../utils/NavigationUtils.dart';
 import '../../utils/network/retrofit/api_routes.dart';
 import '../../utils/storage/user_data_handler.dart';
 import 'apiCallerScreen.dart';
-
-void main() {
-  runApp(const AddServiceCustomerFlow());
-}
 
 const ADD_SERVICE_CUSTOMER = "Add Service Customer";
 const BTS_NAME = "Name";
@@ -229,8 +227,11 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             // Form is valid, proceed with your logic
-            String apiRoute = ApiRoutes.submitUserServiceCreateCustomerForm;
             Map<String, dynamic> apiArgs = {
+              "apiRoute":  ApiRoutes.submitUserServiceCreateCustomerForm,
+              "loadingText":  'Saving Customer Details',
+              "successText":  'Customer Details Saved',
+              "failureText":  'Saving Details Failed',
               "userId": UserDataHandler.getUserId(),
               "serviceId": args['serviceId'],
               "name": _nameController.text,
@@ -245,15 +246,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
               "isVerified": false,
               "deliveryStatus": "IN_PROGRESS",
             };
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ApiCallerScreen(
-                  apiRoute: apiRoute,
-                  args: apiArgs,
-                ),
-              ),
-            );
+            NavigationUtils.openScreenUntil(ScreenRoutes.apiCallerScreen, apiArgs);
           } else {
             // Form is invalid, SnackBar will be shown as validation errors
             ScaffoldMessenger.of(context).showSnackBar(

@@ -48,4 +48,11 @@ abstract class NavigationUtils {
     var context = NavigationService.navigatorKey.currentContext;
     Navigator.pushNamed(context!, routeName, arguments: args );
   }
+
+  static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
+    var context = NavigationService.navigatorKey.currentContext;
+    Navigator.pushNamedAndRemoveUntil(
+        context!,routeName, ModalRoute.withName('/'),
+        arguments: args);
+  }
 }

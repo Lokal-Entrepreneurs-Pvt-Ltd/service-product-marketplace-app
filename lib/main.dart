@@ -27,6 +27,7 @@ import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
@@ -307,6 +308,7 @@ class _LokalAppState extends State<LokalApp> {
               AddServiceCustomerFlow(),
           ScreenRoutes.getAllCustomerForUserService: (context) => UikCustomerForUserService().page,
           ScreenRoutes.getAllAgentsForUserService: (context) => UikAgentsForUserService().page,
+          ScreenRoutes.apiCallerScreen: (context) =>  const ApiCallerScreen()
         },
       ),
     );
