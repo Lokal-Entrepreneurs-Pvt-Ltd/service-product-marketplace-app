@@ -236,7 +236,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
     return Container(
       child: InkWell(
         onTap: () {
-          NavigationUtils.openScreen(ScreenRoutes.addUserServiceCustomer, args);
+          NavigationUtils.openScreenUntil(ScreenRoutes.addUserServiceCustomer, args);
         },
         child: UikButton(
           text: "Add Customer",
