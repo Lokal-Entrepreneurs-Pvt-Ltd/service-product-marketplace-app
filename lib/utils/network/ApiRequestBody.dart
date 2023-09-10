@@ -9,8 +9,8 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
-  static getOptinRequest(String serviceCode) {
-    return {SERVICE_CODE: serviceCode};
+  static getOptinRequest(String serviceId) {
+    return {SERVICE_ID: serviceId};
   }
 
   static submitSamhitaAddParticipantsFormRequest(
@@ -140,12 +140,34 @@ class ApiRequestBody {
   }
 
   static getVerifyAddAgentOtpRequest(String mobile, String otp, String partnerId) {
-    return {MOBILE: mobile, OTP: otp, PARTNER_ID: partnerId};
+    return {MOBILE: mobile, OTP: otp, PARTNERID: partnerId};
   }
 
   static submitAddAgentScreenFormRequest(String name, String mobile, String partnerId, String email) {
-    return {NAME: name, MOBILE: mobile, PARTNER_ID: partnerId, EMAIL: email};
+    return {NAME: name, MOBILE: mobile, PARTNERID: partnerId, EMAIL: email};
   }
+
+  static submitAddPartnerAgentRequest(String partnerId, String name, String mobile, String email) {
+    return {
+      PARTNER_ID: partnerId,
+     "agentData": {
+       FIRST_NAME: name,
+       LAST_NAME_C: "",
+       PHONE_NUMBER: mobile,
+       EMAIL: email,
+       LATITUDE:"40.71277600",
+       LONGITUDE:"-74.00597400",
+       GENDER:"MALE",
+       DISTRICT:"DELHI",
+       STATE:"DELHI",
+       BLOCK:"DELHI",
+       TAX_VAT:"12345",
+       USER_TYPE:"AGENT"
+      }
+    };
+  }
+
+
 
   static submitSamhitaFormRequest(
     name,
