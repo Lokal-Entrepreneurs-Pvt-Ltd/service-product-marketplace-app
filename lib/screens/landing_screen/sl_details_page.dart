@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:ui_sdk/components/UikVideoPlayer.dart';
 import 'package:ui_sdk/components/UikVideoPlayerNew.dart';
-import 'package:ui_sdk/components/UikWidget.dart';
 import 'package:ui_sdk/components/WidgetType.dart';
 import 'package:ui_sdk/props/UikVideoPlayerNewProps.dart';
-import 'package:ui_sdk/props/UikVideoPlayerProps.dart';
 
 import '../../utils/network/ApiRepository.dart';
 
@@ -153,72 +150,6 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                     ),
                     const SizedBox(height: 8),
                     UikVideoPlayerNew(WidgetType.UikVideoPlayer,uikVideoPlayerProps ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(
-                            "assets/images/image 1.png",
-                            height: 36,
-                            width: 36,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "How to use Samhita as an agent",
-                              style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Lokal Company",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey),
-                                ),
-                                const SizedBox(width: 8),
-                                const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.grey,
-                                  size: 15,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "7.1 Lakh views",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey),
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  "4 months ago",
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
                     // const SizedBox(height: 10),
                   ],
                 ),
