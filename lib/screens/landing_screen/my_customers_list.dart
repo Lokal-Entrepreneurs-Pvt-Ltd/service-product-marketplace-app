@@ -76,7 +76,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   void _handleApiError() {
     setState(() {
       _isLoading = false;
-      // Handle error, e.g., display an error message
+      _showAddCustomerButton = true; // Show the "Add Customer" button
     });
   }
 
@@ -101,6 +101,9 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   }
 
   Widget _buildCustomerList() {
+    if (!_isLoading && _customerListDataStore.isEmpty) {
+      return _buildRetryView(); // Display the retry view
+    }
     return Container(
       child: ListView.builder(
         shrinkWrap: true,
@@ -117,6 +120,49 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
       ),
     );
   }
+
+  Widget _buildRetryView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          "No Customer Added Yet. Kindly Add a Customer! ",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+          textAlign: TextAlign.center, // Center-align the text
+        ),
+        SizedBox(height: 20), // Add some vertical spacing
+        ElevatedButton(
+          onPressed: () {
+            // Call the retry method here
+            setState(() {
+              _isLoading= true;
+              _fetchCustomerData();
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.yellow, // Set button background color to yellow
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20), // Add horizontal padding
+            child: Text(
+              "Retry",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black, // Set text color to black
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+
 
   Widget buildWidgetByType(String uiType, Map<String, dynamic> customer) {
     final widgetType = uiTypeMapping[uiType];
@@ -190,7 +236,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
     return Container(
       child: InkWell(
         onTap: () {
-          NavigationUtils.openScreen(ScreenRoutes.addUserServiceCustomer);
+          NavigationUtils.openScreen(ScreenRoutes.addUserServiceCustomer, args);
         },
         child: UikButton(
           text: "Add Customer",

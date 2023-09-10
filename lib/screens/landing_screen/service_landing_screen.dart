@@ -107,13 +107,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
         ),
       ),
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.info_outline_rounded,
-            color: Colors.black,
-          ),
-        )
+
       ],
       iconTheme: IconThemeData(color: Colors.black), // Change the back button color here
       bottom: TabBar(
