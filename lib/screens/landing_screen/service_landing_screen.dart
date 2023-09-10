@@ -80,7 +80,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      Sl_DetailsPage(),
+                      SlDetailsPage(),
                       SlMyCustomersList(),
                       Sl_MyAgentsList(),
                     ],

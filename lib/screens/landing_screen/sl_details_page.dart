@@ -7,15 +7,32 @@ import 'package:ui_sdk/props/UikVideoPlayerNewProps.dart';
 
 import '../../utils/network/ApiRepository.dart';
 
-// todo: naming of this screen in screenroutes
-class Sl_DetailsPage extends StatefulWidget {
-  const Sl_DetailsPage({super.key});
-
-  @override
-  State<Sl_DetailsPage> createState() => _Sl_DetailsPageState();
+enum TemplateType {
+  Image,
+  BulletPoints,
+  Video,
+  Unknown,
 }
 
-class _Sl_DetailsPageState extends State<Sl_DetailsPage>
+class Args {
+  static const String typeImage = 'IMAGE';
+  static const String typeBulletPoints = 'BULLET_POINTS';
+  static const String typeVideo = 'VIDEO';
+
+  // Add other constants for keys used in the template data here
+  static const String headingKey = 'heading';
+  static const String bulletPointsKey = 'bulletPoints';
+  static const String videoUrlKey = 'videoUrl';
+}
+
+class SlDetailsPage extends StatefulWidget {
+  const SlDetailsPage({super.key});
+
+  @override
+  State<SlDetailsPage> createState() => _SlDetailsPageState();
+}
+
+class _SlDetailsPageState extends State<SlDetailsPage>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   late final AutoScrollController _scrollController;
@@ -23,7 +40,6 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
   List<dynamic> _tabs = [];
   bool _isLoading = true;
   List<dynamic> _templates = [];
-
 
   late dynamic args;
 
@@ -33,6 +49,7 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
     _fetchServiceDetails();
     super.didChangeDependencies();
   }
+
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
@@ -40,7 +57,6 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
 
     super.initState();
   }
-
 
   Future<void> _fetchServiceDetails() async {
     try {
@@ -64,13 +80,13 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
     final templates = data['templates'] as List<dynamic>;
     setState(() {
       _tabs = tabs;
-      _templates= templates;
+      _templates = templates;
       _isLoading = false;
     });
   }
+
   @override
   void dispose() {
-    // TODO: implement dispose
     _tabController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -78,18 +94,17 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
 
   @override
   Widget build(BuildContext context) {
-      if (_isLoading) {
-      return _buildLoadingIndicator(); // Or any other loading indicator/widget you prefer
+    if (_isLoading) {
+      return _buildLoadingIndicator();
     } else {
       return _buildServiceDetailsList();
     }
   }
 
-  Widget _buildServiceDetailsList(){
+  Widget _buildServiceDetailsList() {
     return Container(
       child: Column(
         children: [
-          // TabBar
           Container(
             child: _buildTabBar(),
           ),
@@ -110,30 +125,32 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
         controller: _scrollController,
         children: templates.map<Widget>((template) {
           final String type = template['type'];
+          final TemplateType templateType = _getTemplateType(type);
 
-          switch (type) {
-            case 'IMAGE':
+          switch (templateType) {
+            case TemplateType.Image:
               final String imageUrl = template['imageUrl'];
-              return Image.network(imageUrl); // You can use NetworkImage to load the image.
-            case 'BULLET_POINTS':
-              final String heading = template['heading'];
-              final List<Map<String, dynamic>> bulletPoints = (template['bulletPoints'] as List<dynamic>)
-                  .cast<Map<String, dynamic>>(); // Explicitly cast the dynamic list to the correct type
-              return BulletPointsCard(heading: heading, bulletPoints: bulletPoints);
-            case 'VIDEO':
-              final String videoUrl = template['videoUrl'];
-              // Handle video template
-              // You can create a widget for displaying videos here.
-              final UikVideoPlayerNewProps uikVideoPlayerProps = UikVideoPlayerNewProps();
-              uikVideoPlayerProps.id="123";
-              uikVideoPlayerProps.videoUrl= videoUrl;
-              uikVideoPlayerProps.showVideoProgressIndicator= true;
-              uikVideoPlayerProps.aspectRatio= 1.77;
-              uikVideoPlayerProps.progressIndicatorColor= Colors.red;
+              return Image.network(imageUrl);
 
-              return  Container(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 21),
+            case TemplateType.BulletPoints:
+              final String heading = template[Args.headingKey];
+              final List<Map<String, dynamic>> bulletPoints =
+              (template[Args.bulletPointsKey] as List<dynamic>)
+                  .cast<Map<String, dynamic>>();
+              return BulletPointsCard(heading: heading, bulletPoints: bulletPoints);
+
+            case TemplateType.Video:
+              final String videoUrl = template[Args.videoUrlKey];
+              final UikVideoPlayerNewProps uikVideoPlayerProps =
+              UikVideoPlayerNewProps();
+              uikVideoPlayerProps.id = "123";
+              uikVideoPlayerProps.videoUrl = videoUrl;
+              uikVideoPlayerProps.showVideoProgressIndicator = true;
+              uikVideoPlayerProps.aspectRatio = 1.77;
+              uikVideoPlayerProps.progressIndicatorColor = Colors.red;
+
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 21),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.white,
@@ -149,19 +166,31 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
                       ),
                     ),
                     const SizedBox(height: 8),
-                    UikVideoPlayerNew(WidgetType.UikVideoPlayer,uikVideoPlayerProps ),
-                    // const SizedBox(height: 10),
+                    UikVideoPlayerNew(WidgetType.UikVideoPlayer, uikVideoPlayerProps),
                   ],
                 ),
-              ); // Placeholder for video, replace with your video widget.
-            default:
-              return SizedBox(); // Placeholder for unsupported template types.
+              );
+
+            case TemplateType.Unknown:
+              return SizedBox();
           }
         }).toList(),
       ),
     );
   }
 
+  TemplateType _getTemplateType(String type) {
+    switch (type.toUpperCase()) {
+      case Args.typeImage:
+        return TemplateType.Image;
+      case Args.typeBulletPoints:
+        return TemplateType.BulletPoints;
+      case Args.typeVideo:
+        return TemplateType.Video;
+      default:
+        return TemplateType.Unknown;
+    }
+  }
 
   Widget _buildLoadingIndicator() {
     return Center(
@@ -192,10 +221,10 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
       },
       controller: _tabController,
       isScrollable: true,
-        indicator: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: const Color(0xFF3F51B5),
-        ),
+      indicator: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: const Color(0xFF3F51B5),
+      ),
       tabs: _tabs.map((tabData) {
         return Tab(
           child: Text(
@@ -206,7 +235,6 @@ class _Sl_DetailsPageState extends State<Sl_DetailsPage>
       }).toList(),
     );
   }
-
 
   TextStyle _getTabItemTextStyle(int index) {
     bool isSelected = _currentTabNumber == index;
@@ -263,6 +291,7 @@ class ArrowDetailsWidget extends StatelessWidget {
   const ArrowDetailsWidget(
       {super.key, required this.point, this.fontSize = 12});
   final double fontSize;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -270,14 +299,17 @@ class ArrowDetailsWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            Icons.chevron_right,
-            size: fontSize,
-          ),
+        Align(
+        alignment: Alignment.topCenter, // Align chevron to the top
+        child: Icon(
+          Icons.chevron_right,
+          size: fontSize,
+        ),
+      ),
+          SizedBox(width: 8), // Add some spacing between the icon and text
           Expanded(
             child: Text(
               point,
-              textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
                 fontSize: fontSize,
                 fontWeight: FontWeight.w400,
@@ -289,6 +321,8 @@ class ArrowDetailsWidget extends StatelessWidget {
     );
   }
 }
+
+
 
 class TabBarDetailsElement extends StatelessWidget {
   final String text;
@@ -314,5 +348,3 @@ class TabBarDetailsElement extends StatelessWidget {
     );
   }
 }
-
-
