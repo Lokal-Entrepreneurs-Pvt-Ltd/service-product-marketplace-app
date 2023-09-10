@@ -26,7 +26,7 @@ class NewOnboardingScreen extends StatefulWidget {
 
 class _NewOnboardingScreenState extends State<NewOnboardingScreen>
     with SingleTickerProviderStateMixin {
-  List<String> userTypes = [CUSTOMER, PARTNER, AGENT];
+  List<String> userTypes = [PARTNER, AGENT];
   late TabController _tabController;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -46,7 +46,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
   var authErrorMessage = "";
   bool isLoading = false;
 
-  String selectedUserType = CUSTOMER;
+  String selectedUserType = PARTNER;
 
   void initialize() async {
     emailController.text = UserDataHandler.getUserEmail();

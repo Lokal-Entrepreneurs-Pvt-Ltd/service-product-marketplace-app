@@ -26,7 +26,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  List<String> userTypes = [CUSTOMER, PARTNER, AGENT];
+  List<String> userTypes = [PARTNER, AGENT];
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -43,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
   var isAuthError = false;
   var authErrorCode = -1;
   var authErrorMessage = "";
-  String selectedUserType = CUSTOMER;
+  String selectedUserType = PARTNER;
 
   @override
   Widget build(BuildContext context) {
