@@ -9,8 +9,8 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
-  static getOptinRequest(String serviceCode) {
-    return {SERVICE_CODE: serviceCode};
+  static getOptinRequest(String serviceId) {
+    return {SERVICE_ID: serviceId};
   }
 
   static submitSamhitaAddParticipantsFormRequest(
