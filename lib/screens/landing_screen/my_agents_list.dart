@@ -104,6 +104,10 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
 
 
   Widget _buildAgentList() {
+
+    if (!_isLoading && _agentListDataStore.isEmpty) {
+      return _buildRetryView(); // Display the retry view
+    }
     return Container(
       child: ListView.builder(
         shrinkWrap: true,
@@ -118,6 +122,47 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
           return buildWidgetByType(uiType, agent);
         },
       ),
+    );
+  }
+
+  Widget _buildRetryView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          "No Agents Found. Would you like to retry?",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {
+            // Call the retry method here
+            setState(() {
+              _isLoading = true;
+              _fetchAgentData(); // Replace with your API call method
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.yellow,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "Retry",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -140,17 +185,20 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
     'UikContainerText': WidgetType.UikContainerText,
   };
   Widget _buildAgentListItem(Map<String, dynamic> agent) {
+
+    String agentName = agent['name']['text'] ?? '';
+    String firstCharacter = agentName.isNotEmpty ? agentName[0].toUpperCase() : ''; // Get the first character
+
     return ListTile(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (ctx) => Sl_AgentDetails()));
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (ctx) => Sl_AgentDetails()));
       },
       leading: CircleAvatar(
         backgroundColor: Colors.yellow,
-        child: Text("S"),
+        child: Text(firstCharacter),
       ),
-      title: Text(
-        agent['name']['text'] ?? '',
+      title: Text(agentName,
         style: GoogleFonts.poppins(
           fontSize: 14,
           fontWeight: FontWeight.w500,
@@ -192,7 +240,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
     return Container(
       child: InkWell(
         onTap: () {
-          NavigationUtils.openScreen(ScreenRoutes.addAgentScreen);
+          NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
         },
         child: UikButton(
           text: "Add Agent",

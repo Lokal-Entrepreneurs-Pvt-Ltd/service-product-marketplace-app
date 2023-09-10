@@ -182,22 +182,26 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   };
 
   Widget _buildCustomerListItem(Map<String, dynamic> customer) {
+
+    String customerName = customer['name']['text'] ?? '';
+    String firstCharacter = customerName.isNotEmpty ? customerName[0].toUpperCase() : ''; // Get the first character
+
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (ctx) => Sl_CustomerDetails(),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (ctx) => Sl_CustomerDetails(),
+        //   ),
+        // );
       },
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: Colors.yellow,
-          child: Text("S"),
+          child: Text(firstCharacter),
         ),
         title: Text(
-          customer['name']['text'] ?? '',
+          customerName,
           style: GoogleFonts.poppins(
             fontSize: 14,
             fontWeight: FontWeight.w500,
