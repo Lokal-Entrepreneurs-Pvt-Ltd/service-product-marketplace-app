@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:lokal/screens/landing_screen/my_agents_list.dart';
 import 'package:lokal/screens/landing_screen/my_customers_list.dart';
 import 'package:lokal/screens/landing_screen/sl_details_page.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
+import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import '../../Widgets/UikCustomTabBar/customTabBar.dart';
+import '../../constants/json_constants.dart';
 import '../../utils/network/ApiRepository.dart';
+import '../../utils/network/ApiRequestBody.dart';
 
 class ServiceLandingScreen extends StatefulWidget {
   const ServiceLandingScreen({Key? key});
@@ -18,10 +22,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
   int _currentIndex = 0;
-
   late Future<ApiResponse> _serviceTabsFuture;
-
-
   late dynamic args;
 
   @override
@@ -65,8 +66,6 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
             child: Text("Something went wrong\t ${snap.error}"),
           );
         }
-
-        JsonEncoder encoder = const JsonEncoder.withIndent('  ');
         dynamic data = snap.data?.data;
 
         return Scaffold(

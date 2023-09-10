@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:ui_sdk/components/UikVideoPlayerNew.dart';
 import 'package:ui_sdk/components/WidgetType.dart';
 import 'package:ui_sdk/props/UikVideoPlayerNewProps.dart';
 
+import '../../Widgets/UikButton/UikButton.dart';
 import '../../utils/network/ApiRepository.dart';
+import '../../utils/network/ApiRequestBody.dart';
 
 enum TemplateType {
   Image,
@@ -40,7 +44,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   List<dynamic> _tabs = [];
   bool _isLoading = true;
   List<dynamic> _templates = [];
-
+  bool _isOptedIn = false;
   late dynamic args;
 
   @override
@@ -78,10 +82,12 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   void _updateServiceDetails(Map<String, dynamic> data) {
     final tabs = data['tabs'] as List<dynamic>;
     final templates = data['templates'] as List<dynamic>;
+    final isOptedIn = data['isOptedIn'] as bool;
     setState(() {
       _tabs = tabs;
       _templates = templates;
       _isLoading = false;
+      _isOptedIn = isOptedIn;
     });
   }
 
@@ -94,12 +100,50 @@ class _SlDetailsPageState extends State<SlDetailsPage>
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return _buildLoadingIndicator();
-    } else {
-      return _buildServiceDetailsList();
-    }
+    return Scaffold(
+      body: _isLoading
+          ? _buildLoadingIndicator()
+          : _buildServiceDetailsList(),
+      persistentFooterButtons: _isOptedIn
+          ? [_buildAlreadyOptedButton()]
+          : [_buildOptInButton()],
+    );
   }
+
+  Widget _buildAlreadyOptedButton() {
+    return UikButton(
+      text: "Already Opted In",
+      textColor: Colors.white,
+      textSize: 16.0,
+      textWeight: FontWeight.w500,
+      backgroundColor: Colors.grey,
+    );
+  }
+
+  Widget _buildOptInButton() {
+    return Container(
+      child: InkWell(
+        onTap: () async {
+          final response = await ApiRepository.submitOptin(args);
+          if (response.isSuccess!) {
+              UiUtils.showToast("You Have Opted in");
+              setState(() {
+                _isOptedIn = true;
+              });
+          }else
+            UiUtils.showToast(response.error![MESSAGE]);
+        },
+        child: UikButton(
+          text: "OPT In",
+          textColor: Colors.black,
+          textSize: 16.0,
+          textWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+
 
   Widget _buildServiceDetailsList() {
     return Container(
