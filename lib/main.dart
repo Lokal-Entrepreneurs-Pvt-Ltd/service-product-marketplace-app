@@ -9,9 +9,11 @@ import 'package:lokal/constants/environment.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
+import 'package:lokal/pages/UikAgentsForUserService.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
+import 'package:lokal/pages/UikCustomerForUserService.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
@@ -25,6 +27,7 @@ import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
+import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
@@ -246,15 +249,14 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => ServiceLandingScreen(),
+          // "/": (context) => ServiceLandingScreen(),
 
-          // "/": (context) {
-          //   // return ServiceLandingScreen();
-          //   return UserDataHandler.getUserToken().isEmpty
-          //       ? const OnboardingScreen()
-          //       : const UikBottomNavigationBar();
-          // },
-          ScreenRoutes.serviceLandingPageNew: (context) =>
+          "/": (context) {
+            return UserDataHandler.getUserToken().isEmpty
+                ? const OnboardingScreen()
+                : const UikBottomNavigationBar();
+          },
+          ScreenRoutes.userServiceTabsScreen: (context) =>
               const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
@@ -304,8 +306,9 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
           ScreenRoutes.addUserServiceCustomer: (context) =>
               AddServiceCustomerFlow(),
-          ScreenRoutes.addUserServiceCustomer: (context) =>
-              AddServiceCustomerFlow()
+          ScreenRoutes.getAllCustomerForUserService: (context) => UikCustomerForUserService().page,
+          ScreenRoutes.getAllAgentsForUserService: (context) => UikAgentsForUserService().page,
+          ScreenRoutes.apiCallerScreen: (context) =>  const ApiCallerScreen()
         },
       ),
     );

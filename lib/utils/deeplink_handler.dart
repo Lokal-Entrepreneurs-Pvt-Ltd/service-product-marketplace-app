@@ -33,9 +33,9 @@ abstract class DeeplinkHandler {
 
     // /checkout
     switch (route) {
-      case ScreenRoutes.serviceLandingPageNew:
+      case ScreenRoutes.userServiceTabsScreen:
         {
-          _pushScreen(context, ScreenRoutes.serviceLandingPageNew, args);
+          _pushScreen(context, ScreenRoutes.userServiceTabsScreen, args);
         }
         break;
       case ScreenRoutes.homeScreen:
