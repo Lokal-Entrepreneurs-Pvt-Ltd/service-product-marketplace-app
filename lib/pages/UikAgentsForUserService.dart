@@ -22,7 +22,7 @@ class UikAgentsForUserService extends StandardPage {
 
   @override
   dynamic getData() {
-    return ApiRepository.getAllCustomerForUserService;
+    return ApiRepository.getAllAgentsForUserService;
   }
 
   void onAgentsForUserServiceTapAction(UikAction uikAction) {
@@ -48,8 +48,7 @@ class UikAgentsForUserService extends StandardPage {
   @override
   getConstructorArgs() {
     return {
-      "serviceId": "16",
-      "serviceCode": "b2b_commerce"
+      
     };
   }
 }
