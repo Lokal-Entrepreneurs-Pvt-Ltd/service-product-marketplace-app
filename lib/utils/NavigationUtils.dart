@@ -43,4 +43,16 @@ abstract class NavigationUtils {
   static void openPage(UikAction uikAction) {
     DeeplinkHandler.openPage(getCurrentContext()!, uikAction.tap.data.url!);
   }
+
+  static void openScreen(String routeName, [Map<String, dynamic>? args]) {
+    var context = NavigationService.navigatorKey.currentContext;
+    Navigator.pushNamed(context!, routeName, arguments: args );
+  }
+
+  static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
+    var context = NavigationService.navigatorKey.currentContext;
+    Navigator.pushNamedAndRemoveUntil(
+        context!,routeName, ModalRoute.withName('/'),
+        arguments: args);
+  }
 }

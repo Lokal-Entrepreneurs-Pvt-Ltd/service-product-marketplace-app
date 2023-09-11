@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import '../../Widgets/UikButton/UikButton.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
 import '../../screen_routes.dart';
@@ -10,244 +11,244 @@ import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 import '../../utils/network/http/http_screen_client.dart';
-import 'manageAgentScreen.dart';
 
 class AddAgentScreen extends StatefulWidget {
-  const AddAgentScreen({super.key});
+  const AddAgentScreen({Key? key}) : super(key: key);
 
   @override
   State<AddAgentScreen> createState() => _AddAgentScreenState();
 }
 
 class _AddAgentScreenState extends State<AddAgentScreen> {
-  bool isAddAgentSelected = true;
   final _nameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _emailController = TextEditingController();
-  bool _phoneNumberValid = true;
-  bool _emailValid = true;
-  bool _nameRequired = true;
-  int? selected;
+  bool _phoneNumberValid = false;
+  bool _emailValid = false;
+  bool _nameRequired = false;
+  bool _isApiCallInProgress = false;
   String phoneNo = "";
+
+  late dynamic args;
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    args = ModalRoute.of(context)?.settings.arguments;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
+      appBar: _buildAppBar(),
+      body: Stack(
+        children: [
+          _buildAddAgentContent(),
+          if (_isApiCallInProgress) _buildProgressBar(),
+        ],
+      ),
+      persistentFooterButtons: [
+        _buildContinueButton()
+      ],
+    );
+  }
+
+  Widget _buildProgressBar() {
+    return Container(
+      color: Colors.black.withOpacity(0.5), // Add a semi-transparent background
+      child: Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContinueButton() {
+    return Container(
+      width: double.infinity, // Match full screen width
+      margin: EdgeInsets.zero, // Remove any margins
+      padding: EdgeInsets.zero, // Remove any padding
+      child: InkWell(
+        onTap: () {
+          if (!_isApiCallInProgress) {
+            if (_nameRequired && _phoneNumberValid && _emailValid) {
+              _handleContinueButtonPress();
+            }
+            else {
+                UiUtils.showToast("Please fix the validation errors.");
+                return;
+              }
+
+          }
+        },
+        child: UikButton(
+          text: CONTINUE,
+          textColor: Colors.black,
+          textSize: 16.0,
+          textWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.white,
+      leading: IconButton(
+        onPressed: () {},
+        icon: const Icon(
+          Icons.arrow_back_ios_new,
+          color: Colors.black,
+        ),
+      ),
+      centerTitle: true,
+      title: Text(
+        ADD_AGENT,
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: const Color(0xff212121),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAddAgentContent() {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            margin: const EdgeInsets.only(
+              left: DIMEN_16,
+              right: DIMEN_16,
+              top: DIMEN_10,
             ),
-          ),
-          centerTitle: true, // Center aligns the title
-          title: Text(
-            MY_AGENT,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xff212121),
+            child: ListView(
+              children: [
+                const SizedBox(height: DIMEN_20),
+                Text(
+                  GROWTH_PARTNER,
+                  style: GoogleFonts.poppins(
+                    fontSize: DIMEN_26,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff212121),
+                  ),
+                ),
+                const SizedBox(height: DIMEN_20),
+                Text(
+                  ADD_AGENT_MESSAGE,
+                  style: GoogleFonts.poppins(
+                    fontSize: DIMEN_20,
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xff212121),
+                  ),
+                ),
+                const SizedBox(height: DIMEN_20),
+                const Text(BTS_NAME),
+                TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    errorText: _nameRequired ? null : REQUIRED_FIELD,
+                  ),
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        _nameRequired = false;
+                      });
+                    } else {
+                      setState(() {
+                        _nameRequired = true;
+                      });
+                    }
+                  },
+                ),
+                const SizedBox(height: DIMEN_16),
+                const Text(BTS_PHONE_NUMBER),
+                TextField(
+                  controller: _phoneNumberController,
+                  keyboardType: TextInputType.phone,
+                  maxLength: 10,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    errorText: _phoneNumberValid ? null : VALID_PHONE_NO,
+                  ),
+                  onChanged: (value) {
+                    phoneNo = value;
+                    if (value.length < 10) {
+                      setState(() {
+                        _phoneNumberValid = false;
+                      });
+                    } else {
+                      setState(() {
+                        _phoneNumberValid = true;
+                      });
+                    }
+                  },
+                ),
+                const SizedBox(height: DIMEN_16),
+                const Text(BTS_EMAIL),
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    errorText: _emailValid ? null : VALID_EMAIL,
+                  ),
+                  onChanged: (value) {
+                    if (!UiUtils.isEmailValid(value)) {
+                      setState(() {
+                        _emailValid = false;
+                      });
+                    } else {
+                      setState(() {
+                        _emailValid = true;
+                      });
+                    }
+                  },
+                ),
+                const SizedBox(height: DIMEN_16),
+              ],
             ),
           ),
         ),
-        body: DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                TabBar(
-                  indicatorColor: Colors.black,
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        ADD_AGENT,
-                        style: GoogleFonts.poppins(
-                          fontSize: DIMEN_18,
-                          fontWeight: FontWeight.w500,
-                          color:
-                              isAddAgentSelected ? Colors.black : Colors.grey,
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        MANAGE_AGENT,
-                        style: GoogleFonts.poppins(
-                          fontSize: DIMEN_18,
-                          fontWeight: FontWeight.w500,
-                          color:
-                              isAddAgentSelected ? Colors.black : Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                    child: TabBarView(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(
-                          left: DIMEN_16, right: DIMEN_16, top: DIMEN_10),
-                      child: ListView(
-                        children: [
-                          const SizedBox(
-                            height: DIMEN_20,
-                          ),
-                          Text(
-                            GROWTH_PARTNER,
-                            style: GoogleFonts.poppins(
-                              fontSize: DIMEN_26,
-                              fontWeight: FontWeight.w600,
-                              color: const Color(0xff212121),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: DIMEN_20,
-                          ),
-                          Text(
-                            ADD_AGENT_MESSAGE,
-                            style: GoogleFonts.poppins(
-                              fontSize: DIMEN_20,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xff212121),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: DIMEN_20,
-                          ),
-                          const Text(BTS_NAME),
-                          TextField(
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              errorText: _nameRequired ? null : REQUIRED_FIELD,
-                            ),
-                            onChanged: (value) {
-                              if (value.isEmpty) {
-                                setState(() {
-                                  _nameRequired = false;
-                                });
-                              } else {
-                                setState(() {
-                                  _nameRequired = true;
-                                });
-                              }
-                            },
-                          ),
-                          const SizedBox(height: DIMEN_16),
-                          const Text(BTS_PHONE_NUMBER),
-                          TextField(
-                            controller: _phoneNumberController,
-                            keyboardType: TextInputType.phone,
-                            maxLength: 10,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              errorText:
-                                  _phoneNumberValid ? null : VALID_PHONE_NO,
-                            ),
-                            onChanged: (value) {
-                              phoneNo = value;
-                              if (value.length < 10) {
-                                setState(() {
-                                  _phoneNumberValid = false;
-                                });
-                              } else {
-                                setState(() {
-                                  _phoneNumberValid = true;
-                                });
-                              }
-                            },
-                          ),
-                          const SizedBox(height: DIMEN_16),
-                          const Text(BTS_EMAIL),
-                          TextField(
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              errorText: _emailValid ? null : VALID_EMAIL,
-                            ),
-                            onChanged: (value) {
-                              if (!UiUtils.isEmailValid(value)) {
-                                setState(() {
-                                  _emailValid = false;
-                                });
-                              } else {
-                                setState(() {
-                                  _emailValid = true;
-                                });
-                              }
-                            },
-                          ),
-                          const SizedBox(height: DIMEN_16),
-                          Container(
-                            height: DIMEN_60,
-                            margin: const EdgeInsets.only(
-                                left: DIMEN_5,
-                                right: DIMEN_5,
-                                bottom: DIMEN_20),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color(0xFFFEE440)),
-                              ),
-                              onPressed: () async {
-                                if (_nameController.text.isEmpty) {
-                                  _nameRequired = false;
-                                }
-                                if (_phoneNumberController.text.isEmpty) {
-                                  _phoneNumberValid = false;
-                                }
-                                if (_emailController.text.isEmpty) {
-                                  _emailValid = false;
-                                }
-                                NavigationUtils.showLoaderOnTop();
-                                final response = await ApiRepository
-                                        .verifyAgentForPartner(ApiRequestBody
-                                            .submitAddAgentScreenFormRequest(
-                                                _nameController.text,
-                                                _phoneNumberController.text,
-                                                UserDataHandler.getUserId()
-                                                    .toString(),
-                                                _emailController.text))
-                                    .catchError((err) {
-                                  NavigationUtils.pop();
-                                  UiUtils.showToast(err);
-                                });
-                                NavigationUtils.pop();
-                                if (response.isSuccess!) {
-                                  if (response.data) {
-                                    Navigator.pushNamed(
-                                        context, ScreenRoutes.addAgentOtpScreen,
-                                        arguments: {
-                                          'phoneNo': phoneNo,
-                                          'partnerId':
-                                              UserDataHandler.getUserId()
-                                                  .toString()
-                                        });
-                                  } else {
-                                    HttpScreenClient.displayDialogBox(
-                                        ADD_AGENT_FAILED);
-                                  }
-                                } else {
-                                  UiUtils.showToast(response.error![MESSAGE]);
-                                }
-                                setState(() {});
-                              },
-                              child: const Text(
-                                CONTINUE,
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    ManageAgentScreen().page,
-                  ],
-                ))
-              ],
-            )));
+      ],
+    );
+  }
+
+
+  void _handleContinueButtonPress() async {
+    setState(() {
+      _isApiCallInProgress = true; // Set this flag to true when the API call starts.
+    });
+
+    final response = await ApiRepository.addPartnerAgent(
+      ApiRequestBody.submitAddPartnerAgentRequest(
+        UserDataHandler.getUserId().toString(),
+        _nameController.text,
+        _phoneNumberController.text,
+        _emailController.text,
+      ),
+    ).catchError((err) {
+      setState(() {
+        _isApiCallInProgress = false; // Set this flag to false if an error occurs.
+      });
+      NavigationUtils.pop();
+      UiUtils.showToast(err);
+    });
+
+    setState(() {
+      _isApiCallInProgress = false; // Set this flag to false when the API call completes.
+    });
+
+    if (response.isSuccess!) {
+      UiUtils.showToast("Agent Added");
+      NavigationUtils.openScreenUntil(ScreenRoutes.userServiceTabsScreen, args);
+    } else {
+      UiUtils.showToast(response.error![MESSAGE]);
+      NavigationUtils.pop();
+    }
   }
 }
