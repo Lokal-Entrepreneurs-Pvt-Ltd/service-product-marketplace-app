@@ -63,4 +63,6 @@ class ScreenRoutes {
   static const String getAllAgentsForUserService =
       "/getAllAgentsForUserService";
   static const String apiCallerScreen = "/apiCallerScreen";
+
+  static const String notifyAllAgentsScreen = "notifyAllAgentsScreen";
 }
