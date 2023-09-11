@@ -75,4 +75,10 @@ class ApiRoutes {
   static const String addPartnerAgent = "/partnerAgent/add";
 
   static const String notifyAllAgents = "/notifyAllAgents";
+
+  static const String getAllUserAgentByPartnerId =
+      "/user/getAllUserAgentByPartnerId";
+
+  static const String createOrUpdateForAgents =
+      "/userService/createOrUpdateForAgents";
 }
