@@ -35,7 +35,7 @@ class UikServiceDetailsPage extends StandardPage {
   }
 
   void onServiceDetailScreenTapAction(UikAction uikAction) {
-    // print(uikAction.tap.type);
+    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case UIK_ACTION.BACK_PRESSED:
         NavigationUtils.pop();
