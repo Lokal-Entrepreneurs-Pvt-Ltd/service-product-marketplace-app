@@ -853,6 +853,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.17"
+  internet_connection_checker:
+    dependency: "direct main"
+    description:
+      name: internet_connection_checker
+      sha256: "1c683e63e89c9ac66a40748b1b20889fd9804980da732bf2b58d6d5456c8e876"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0+1"
   intl:
     dependency: "direct main"
     description:
@@ -1624,7 +1632,7 @@ packages:
       path: "/Users/anupamsingh/Desktop/Digia/ui_sdk"
       relative: false
     source: path
-    version: "1.0.113+1"
+    version: "1.0.114+1"
   universal_io:
     dependency: transitive
     description:
