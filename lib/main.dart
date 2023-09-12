@@ -37,6 +37,7 @@ import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
+import 'package:lokal/screens/agents/notifyAllAgents.dart';
 import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
@@ -249,13 +250,12 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          // "/": (context) => ServiceLandingScreen(),
-
-          "/": (context) {
-            return UserDataHandler.getUserToken().isEmpty
-                ? const OnboardingScreen()
-                : const UikBottomNavigationBar();
-          },
+          "/": (context) => NotifyAgentsScreen(),
+          // "/": (context) {
+          //   return UserDataHandler.getUserToken().isEmpty
+          //       ? const OnboardingScreen()
+          //       : const UikBottomNavigationBar();
+          // },
           ScreenRoutes.userServiceTabsScreen: (context) =>
               const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
@@ -306,9 +306,11 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
           ScreenRoutes.addUserServiceCustomer: (context) =>
               AddServiceCustomerFlow(),
-          ScreenRoutes.getAllCustomerForUserService: (context) => UikCustomerForUserService().page,
-          ScreenRoutes.getAllAgentsForUserService: (context) => UikAgentsForUserService().page,
-          ScreenRoutes.apiCallerScreen: (context) =>  const ApiCallerScreen()
+          ScreenRoutes.getAllCustomerForUserService: (context) =>
+              UikCustomerForUserService().page,
+          ScreenRoutes.getAllAgentsForUserService: (context) =>
+              UikAgentsForUserService().page,
+          ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen()
         },
       ),
     );

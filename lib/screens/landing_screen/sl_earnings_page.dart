@@ -154,9 +154,7 @@ class _Sl_EarningsPageState extends State<Sl_Earnings_Page>
           Expanded(
             child: ListView.builder(
               itemCount: 10,
-              itemBuilder: (ctx, index) {
-                
-              },
+              itemBuilder: (ctx, index) {},
             ),
           ),
         ],
