@@ -260,6 +260,21 @@ class ApiRepository {
   static Future<ApiResponse> addPartnerAgent(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.addPartnerAgent, args);
   }
+
+  static Future<ApiResponse> notifyAllAgents(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.notifyAllAgents, args);
+  }
+
+  static Future<ApiResponse> getAllUserAgentByPartnerId(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAllUserAgentByPartnerId, args);
+  }
+
+  static Future<ApiResponse> createOrUpdateForAgents(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.createOrUpdateForAgents, args);
+  }
+
 }
 
 // apirequestbody class 
