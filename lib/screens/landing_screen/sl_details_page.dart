@@ -104,7 +104,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       body: _isLoading
           ? _buildLoadingIndicator()
           : _buildServiceDetailsList(),
-      persistentFooterButtons: _isOptedIn
+      persistentFooterButtons: _isLoading ? []: _isOptedIn
           ? [_buildAlreadyOptedButton()]
           : [_buildOptInButton()],
     );
