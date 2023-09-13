@@ -28,7 +28,6 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
   @override
   void didChangeDependencies() {
     _tabController = TabController(length: 3, vsync: this);
-    _tabController = TabController(length: 3, vsync: this);
     args = ModalRoute.of(context)?.settings.arguments;
     _serviceTabsFuture = ApiRepository.getServiceTabsScreen(args);
     // Add a listener to the TabController to update the selected tab when scrolled
@@ -39,15 +38,14 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
     });
     super.didChangeDependencies();
   }
+
   @override
   void initState() {
-
     super.initState();
   }
 
-
   Widget _buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
       ),
@@ -105,10 +103,9 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
           color: Colors.black,
         ),
       ),
-      actions: [
-
-      ],
-      iconTheme: IconThemeData(color: Colors.black), // Change the back button color here
+      actions: [],
+      iconTheme: IconThemeData(
+          color: Colors.black), // Change the back button color here
       bottom: TabBar(
         onTap: (ind) {
           setState(() {
@@ -118,13 +115,18 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
         controller: _tabController,
         indicatorColor: const Color(0xFF3F51B5),
         indicatorWeight: 2.5,
-        indicatorPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        indicatorPadding:
+            const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         labelPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         tabs: List.generate(
           (data["tabs"] as List).length,
-              (index) {
+          (index) {
             dynamic tab = data["tabs"][index];
-            return TabElement(text: tab["text"], index: index, isSelected: index == _currentIndex,);
+            return TabElement(
+              text: tab["text"],
+              index: index,
+              isSelected: index == _currentIndex,
+            );
           },
         ),
       ),
