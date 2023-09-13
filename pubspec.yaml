@@ -76,6 +76,7 @@ dependencies:
   lottie: ^2.5.0
   flutter_onboarding_slider: ^1.0.9
   flutter_native_splash: ^2.3.2
+  internet_connection_checker: ^1.0.0+1
 
 
 dev_dependencies:
