@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.16+17] - 2023-09-10
+Partner Notify flow
+
 ## [1.0.15+16] - 2023-09-10
 Project RaktBeej Phase 1
 
