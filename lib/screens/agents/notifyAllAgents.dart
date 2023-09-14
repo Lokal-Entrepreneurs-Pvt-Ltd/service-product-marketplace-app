@@ -228,7 +228,7 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
       padding: EdgeInsets.symmetric(vertical: 0),
       itemCount: agentsList.length,
       itemBuilder: (ctx, index) {
-        var agent = agentsList[index];
+        var agent = agentsList[index]['agentDetails'];
         bool isSelectedForNotify = _agentsNotifyList
             .indexWhere((element) => element == agent['id'].toString()) ==
             -1
