@@ -67,7 +67,7 @@ class _extraPayOptInState extends State<extraPayOptIn> {
               const SizedBox(
                 height: DIMEN_15,
               ),
-              Image.asset("assets/images/extraPayFormImage.png"),
+              // Image.asset("assets/images/extraPayFormImage.png"),
               const SizedBox(
                 height: DIMEN_24,
               ),

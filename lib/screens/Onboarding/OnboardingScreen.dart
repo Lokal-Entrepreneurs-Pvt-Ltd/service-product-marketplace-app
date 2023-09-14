@@ -16,9 +16,9 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   List<String> images = [
-    "assets/images/NewOnboarding1.png",
-    "assets/images/NewOnboarding2.png",
     "assets/images/NewOnboarding3.png",
+    "assets/images/NewOnboarding2.png",
+    "assets/images/NewOnboarding1.png",
   ];
   int _currentPage = 0;
   int totalImages = 3;
@@ -102,7 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => NewOnboardingScreen(),
+                              builder: (context) => LoginScreen(),
                             ),
                           );
                         }
