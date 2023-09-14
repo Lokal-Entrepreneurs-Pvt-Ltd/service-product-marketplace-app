@@ -8,9 +8,6 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../utils/network/ApiRepository.dart';
 
-
-
-
 enum WidgetType {
   UikListItemType1,
   UikContainerText,
@@ -87,9 +84,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
       body: _isLoading
           ? _buildLoadingIndicator()
           : _buildAgentList(),
-      persistentFooterButtons: _showAddAgentButton
-          ? [_buildAddAgentButton()]
-          : [],
+      persistentFooterButtons: _buildFooterButtons(),
     );
   }
 
@@ -236,8 +231,98 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
     );
   }
 
+
+
+  List<Widget> _buildFooterButtons() {
+    final footerButtons = <Widget>[];
+
+    // if (_agentListDataStore.isNotEmpty) {
+    //   footerButtons.add(
+    //     Expanded(
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: [
+    //           _buildAddAgentButton(),
+    //           const SizedBox(width: 16.0), // Add spacing between buttons
+    //           _buildNotifyAgentButton(),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // } else {
+    //   footerButtons.add(
+    //     _buildAddAndNotifyButtons(),
+    //   );
+    // }
+    footerButtons.add(
+    _buildAddAndNotifyButtons(),
+    );
+
+    return footerButtons;
+  }
+
+  Widget _buildAddAndNotifyButtons() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center, // Split the screen space equally
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0), // Add margin around the button
+            width: MediaQuery.of(context).size.width / 2, // Half of the screen width
+            child: InkWell(
+              onTap: () {
+                NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
+              },
+              child: UikButton(
+                text: "Add Agent",
+                textColor: Colors.black,
+                textSize: 16.0,
+                textWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(8.0), // Add margin around the button
+            width: MediaQuery.of(context).size.width / 2, // Half of the screen width
+            child: InkWell(
+              onTap: () {
+                NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, args);
+              },
+              child: UikButton(
+                text: "Notify Agent",
+                textColor: Colors.black,
+                textSize: 16.0,
+                textWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+
+  Widget _buildNotifyAgentButton() {
+    return Container(
+      child: InkWell(
+        onTap: () {
+          // Add your logic for notifying agents here
+        },
+        child: UikButton(
+          text: "Notify Agent",
+          textColor: Colors.black,
+          textSize: 16.0,
+          textWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
   Widget _buildAddAgentButton() {
     return Container(
+      width: 100,
       child: InkWell(
         onTap: () {
           NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);

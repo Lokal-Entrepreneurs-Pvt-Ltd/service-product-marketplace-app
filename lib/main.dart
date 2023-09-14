@@ -250,12 +250,11 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => NotifyAgentsScreen(),
-          // "/": (context) {
-          //   return UserDataHandler.getUserToken().isEmpty
-          //       ? const OnboardingScreen()
-          //       : const UikBottomNavigationBar();
-          // },
+          "/": (context) {
+            return UserDataHandler.getUserToken().isEmpty
+                ? const OnboardingScreen()
+                : const UikBottomNavigationBar();
+          },
           ScreenRoutes.userServiceTabsScreen: (context) =>
               const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
@@ -310,7 +309,8 @@ class _LokalAppState extends State<LokalApp> {
               UikCustomerForUserService().page,
           ScreenRoutes.getAllAgentsForUserService: (context) =>
               UikAgentsForUserService().page,
-          ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen()
+          ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen(),
+          ScreenRoutes.notifyAgentsScreen: (context) => NotifyAgentsScreen(),
         },
       ),
     );
