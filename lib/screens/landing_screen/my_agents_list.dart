@@ -44,7 +44,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
 
   Future<void> _fetchAgentData() async {
     try {
-      final response = await ApiRepository.getAllAgentsForUserService(args);
+      final response = await ApiRepository.getAllCustomerForUserService(args);
       if (response.isSuccess!) {
         _updateAgentData(response.data);
       } else {
@@ -235,29 +235,13 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
 
   List<Widget> _buildFooterButtons() {
     final footerButtons = <Widget>[];
-
-    // if (_agentListDataStore.isNotEmpty) {
-    //   footerButtons.add(
-    //     Expanded(
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [
-    //           _buildAddAgentButton(),
-    //           const SizedBox(width: 16.0), // Add spacing between buttons
-    //           _buildNotifyAgentButton(),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // } else {
-    //   footerButtons.add(
-    //     _buildAddAndNotifyButtons(),
-    //   );
-    // }
-    footerButtons.add(
-    _buildAddAndNotifyButtons(),
-    );
-
+    if (_agentListDataStore.isEmpty) {
+      footerButtons.add(_buildAddAgentButton());
+    } else {
+      footerButtons.add(
+        _buildAddAndNotifyButtons(),
+      );
+    }
     return footerButtons;
   }
 
@@ -267,8 +251,8 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
         mainAxisAlignment: MainAxisAlignment.center, // Split the screen space equally
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 0), // Add margin around the button
-            width: MediaQuery.of(context).size.width / 2, // Half of the screen width
+            margin: const EdgeInsets.all(8.0), // Add margin around the button
+            width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
                 NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
@@ -283,7 +267,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
           ),
           Container(
             margin: const EdgeInsets.all(8.0), // Add margin around the button
-            width: MediaQuery.of(context).size.width / 2, // Half of the screen width
+            width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
                 NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, args);
@@ -322,7 +306,6 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
 
   Widget _buildAddAgentButton() {
     return Container(
-      width: 100,
       child: InkWell(
         onTap: () {
           NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
