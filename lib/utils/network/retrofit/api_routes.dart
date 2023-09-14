@@ -81,4 +81,7 @@ class ApiRoutes {
 
   static const String createOrUpdateForAgents =
       "/userService/createOrUpdateForAgents";
+
+  // todo : change this route
+  static const String partnerTrainingHome = "/partnerTrainingHome";
 }

@@ -279,7 +279,13 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.createOrUpdateForAgents, args);
   }
+
+  // TODO: UPDATE WHEN ORIGINAL
+  static Future<ApiResponse> partnerTrainingHomeData(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.createOrUpdateForAgents, args);
+  }
 }
 
-// apirequestbody class 
+// apirequestbody class
 // make get login request body function

@@ -55,10 +55,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               )
             : ListView(
                 children: [
-                  UikNavbar(
+                  const UikNavbar(
                     size: "",
                     titleText: "welcome back!\nLogin to continue",
-                    leftIcon: const Icon(Icons.arrow_back),
+                    leftIcon: Icon(Icons.arrow_back),
                   ),
                   const SizedBox(
                     height: 32,
