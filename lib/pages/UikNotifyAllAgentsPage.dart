@@ -1,15 +1,8 @@
-import 'package:lokal/constants/json_constants.dart';
-import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/ApiRequestBody.dart';
-import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../main.dart';
 import '../actions.dart';
 import '../utils/NavigationUtils.dart';
-import '../utils/UiUtils/UiUtils.dart';
-import '../utils/storage/product_data_handler.dart';
 
 class UikNotifyAllAgentsPage extends StandardPage {
   @override

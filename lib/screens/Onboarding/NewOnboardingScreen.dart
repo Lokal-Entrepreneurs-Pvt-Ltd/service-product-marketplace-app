@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/dimens.dart';
 import '../../Widgets/UikButton/UikButton.dart';
-import '../../Widgets/UikTextField/UikTextField.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
 import '../../pages/UikBottomNavigationBar.dart';
@@ -71,7 +70,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color(0xFFfafafa),
+          backgroundColor: const Color(0xFFfafafa),
           leading: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -96,7 +95,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SignupScreen(),
+                    builder: (context) => const SignupScreen(),
                   ),
                 );
               },
@@ -105,7 +104,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                 child: Text(
                   REGISTER,
                   style: GoogleFonts.poppins(
-                      color: Color(0XFF3F51B5),
+                      color: const Color(0XFF3F51B5),
                       fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500),
                 ),
@@ -113,7 +112,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
             ),
           ],
         ),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +184,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                             child: Container(
                               height: DIMEN_52,
                               decoration: BoxDecoration(
-                                color: Color(0xFFEEEEEE),
+                                color: const Color(0xFFEEEEEE),
                                 borderRadius: BorderRadius.circular(DIMEN_24),
                               ),
                               child: Row(
@@ -214,8 +213,8 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                         type,
                                         style: GoogleFonts.poppins(
                                           color: isSelected
-                                              ? Color(0xFF212121)
-                                              : Color(
+                                              ? const Color(0xFF212121)
+                                              : const Color(
                                                   0xFF9E9E9E), // Green text for unselected items
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -237,11 +236,11 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                               decoration: InputDecoration(
                                 hintText: EMAIL_INPUT,
                                 hintStyle: GoogleFonts.poppins(
-                                  color: Color(0xFF9E9E9E),
+                                  color: const Color(0xFF9E9E9E),
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   vertical: DIMEN_16,
                                   horizontal: DIMEN_16,
                                 ),
@@ -265,11 +264,11 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                               decoration: InputDecoration(
                                 hintText: PASSWORD_INPUT,
                                 hintStyle: GoogleFonts.poppins(
-                                  color: Color(0xFF9E9E9E),
+                                  color: const Color(0xFF9E9E9E),
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                   vertical: DIMEN_16,
                                   horizontal:
                                       DIMEN_16, // Add horizontal padding here
@@ -343,7 +342,7 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            UikBottomNavigationBar(),
+                                            const UikBottomNavigationBar(),
                                       ),
                                       ModalRoute.withName(
                                           ScreenRoutes.loginScreen),
@@ -388,13 +387,13 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                   TextSpan(
                                     text: BY_CONTINUING,
                                     style: GoogleFonts.poppins(
-                                      color: Color(0xFF9E9E9E),
+                                      color: const Color(0xFF9E9E9E),
                                     ),
                                   ),
                                   TextSpan(
                                     text: LOKAL_PRIVACY,
                                     style: GoogleFonts.poppins(
-                                      color: Color(
+                                      color: const Color(
                                           0xFFBDBDBD), // Make the link text blue
                                       decoration: TextDecoration
                                           .underline, // Add underline to the link text
@@ -407,13 +406,13 @@ class _NewOnboardingScreenState extends State<NewOnboardingScreen>
                                   TextSpan(
                                     text: AND,
                                     style: GoogleFonts.poppins(
-                                      color: Color(0xFF9E9E9E),
+                                      color: const Color(0xFF9E9E9E),
                                     ),
                                   ),
                                   TextSpan(
                                     text: TERMS_OF_USE,
                                     style: GoogleFonts.poppins(
-                                      color: Color(
+                                      color: const Color(
                                           0xFFBDBDBD), // Make the link text blue
                                       decoration: TextDecoration
                                           .underline, // Add underline to the link text

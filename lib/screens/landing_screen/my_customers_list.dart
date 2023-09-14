@@ -4,7 +4,6 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screen_routes.dart';
-import 'package:lokal/screens/landing_screen/customer_details.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 
 enum WidgetType {
@@ -93,7 +92,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   }
 
   Widget _buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
       ),
@@ -126,7 +125,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           "No Customer Added Yet. Kindly Add a Customer! ",
           style: TextStyle(
             fontSize: 18,
@@ -134,7 +133,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
           ),
           textAlign: TextAlign.center, // Center-align the text
         ),
-        SizedBox(height: 20), // Add some vertical spacing
+        const SizedBox(height: 20), // Add some vertical spacing
         ElevatedButton(
           onPressed: () {
             // Call the retry method here
@@ -144,10 +143,10 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
             });
           },
           style: ElevatedButton.styleFrom(
-            primary: Colors.yellow, // Set button background color to yellow
+            backgroundColor: Colors.yellow, // Set button background color to yellow
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20), // Add horizontal padding
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20), // Add horizontal padding
             child: Text(
               "Retry",
               style: TextStyle(
@@ -172,7 +171,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
       case WidgetType.UikContainerText:
         return _buildContainerText(customer);
       default:
-        return SizedBox();
+        return const SizedBox();
     }
   }
 
@@ -224,7 +223,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
 
   Widget _buildContainerText(Map<String, dynamic> customer) {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Text(
         customer['text'] ?? '',
         style: GoogleFonts.poppins(

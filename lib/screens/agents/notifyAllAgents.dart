@@ -1,15 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:lokal/screens/landing_screen/my_agents_list.dart';
-import 'package:lokal/screens/landing_screen/my_customers_list.dart';
-import 'package:lokal/screens/landing_screen/sl_details_page.dart';
-import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
-import '../../Widgets/UikCustomTabBar/customTabBar.dart';
-import '../../constants/json_constants.dart';
+import 'package:ui_sdk/utils/UiSdkUtils.dart';
 import '../../utils/network/ApiRepository.dart';
-import '../../utils/network/ApiRequestBody.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NotifyAgentsScreen extends StatefulWidget {
@@ -28,9 +21,10 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
   @override
   void didChangeDependencies() {
     args = ModalRoute.of(context)?.settings.arguments;
-    _agentsList = ApiRepository.getAllUserAgentByPartnerId({
-      "id": 7,
-    });
+    _agentsList = ApiRepository.getAllUserAgentByPartnerId(args ??
+        {
+          "id": 7,
+        });
 
     super.didChangeDependencies();
   }
@@ -89,19 +83,20 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
           );
         } else {}
       } catch (e) {
-        debugPrint(e.toString());
+        // debugPrint(e.toString());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              backgroundColor: Colors.red,
-              content: Center(
-                  child: Text(
-                "Something went wrong",
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              ))),
+            backgroundColor: Colors.red,
+            content: Center(
+                child: Text(
+              "Something went wrong",
+              style: GoogleFonts.poppins(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            )),
+          ),
         );
       }
     });
@@ -120,10 +115,11 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
           );
         }
         dynamic data = snap.data?.data;
-        // debugPrint(data.toString());
+        // UiSdkUtils.prettyPrintJson(data);
         List<dynamic> agentsList = data;
         return Scaffold(
           backgroundColor: Colors.white.withOpacity(0.90),
+          appBar: _buildAppBar(data),
           body: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             child: Column(
@@ -131,13 +127,12 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
               children: [
                 const SizedBox(height: 15),
                 ListTile(
-                  // contentPadding: EdgeInsets.symmetric(vertical: 0),
+                  contentPadding: EdgeInsets.zero,
                   onTap: () {
                     _notifyAllTheAgentsPressed(agentsList);
                     setState(() {
                       _agentsNotifyList;
                     });
-                    // debugPrint(_agentsNotifyList.toString());
                   },
                   leading: agentsList.length == _agentsNotifyList.length
                       ? const Icon(
@@ -160,7 +155,6 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
                 ),
                 Expanded(
                   child: ListView.builder(
-                    padding: EdgeInsets.symmetric(vertical: 0),
                     itemCount: agentsList.length,
                     itemBuilder: (ctx, index) {
                       var agent = agentsList[index];
@@ -173,6 +167,7 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
                       // debugPrint(
                       //     "id: ${agent['id']}, selected: ${isSelectedForNotify}");
                       return ListTile(
+                        contentPadding: EdgeInsets.zero,
                         onTap: () {
                           _updateNotifyList(agent["id"].toString());
                           setState(() {
@@ -242,6 +237,23 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
           ],
         );
       },
+    );
+  }
+
+  AppBar _buildAppBar(dynamic data) {
+    return AppBar(
+      toolbarHeight: 60,
+      backgroundColor: Colors.white,
+      elevation: 0.5,
+      centerTitle: true,
+      title: Text(
+        "${data["heading"]}",
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+        ),
+      ),
     );
   }
 

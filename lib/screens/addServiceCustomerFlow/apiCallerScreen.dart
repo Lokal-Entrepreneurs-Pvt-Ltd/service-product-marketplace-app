@@ -5,12 +5,7 @@ import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../constants/strings.dart';
-import '../../pages/UikHome.dart';
 import '../../utils/network/ApiRepository.dart';
-import '../../utils/network/ApiRequestBody.dart';
-import 'addServiceCustomerFlow.dart';
-import 'errorScreen.dart';
-import 'successScreen.dart';
 
 class ApiCallerScreen extends StatefulWidget {
 
@@ -86,7 +81,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
         ),
         const SizedBox(height: DIMEN_15),
         Text(args['loadingText'],
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: DIMEN_25,
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -137,7 +132,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
         const SizedBox(height: DIMEN_16),
         Text(
           args['successText'],
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: DIMEN_25,
             color: Colors.black,
             fontWeight: FontWeight.bold, // Add FontWeight.bold for a bolder text
@@ -151,7 +146,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFFEE440), // Set the desired color
           ),
-          child: Text(
+          child: const Text(
             " Move to Service Details ",
             style: TextStyle(
               fontSize: DIMEN_12,

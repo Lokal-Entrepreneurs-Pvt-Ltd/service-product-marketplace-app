@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
@@ -16,7 +15,7 @@ class _Sl_DetailsPageState extends State<Sl_AgentDetails>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   late final AutoScrollController _scrollController;
-  int _currentTabNumber = 0;
+  final int _currentTabNumber = 0;
 
   @override
   void initState() {
@@ -62,7 +61,7 @@ class _Sl_DetailsPageState extends State<Sl_AgentDetails>
             controller: _scrollController,
             children: [
               ListTile(
-                leading: CircleAvatar(
+                leading: const CircleAvatar(
                   radius: 18,
                   backgroundColor: Colors.yellow,
                   child: Text("S"),
@@ -91,10 +90,10 @@ class _Sl_DetailsPageState extends State<Sl_AgentDetails>
                 ),
               ),
               const SizedBox(height: 15),
-              CustomersDetailsWidget(point: "Full Name", value: "Satendra Pal"),
+              const CustomersDetailsWidget(point: "Full Name", value: "Satendra Pal"),
               const SizedBox(height: 10),
-              CustomersDetailsWidget(point: "Mobile", value: "9876543210"),
-              CustomersDetailsWidget(point: "Email", value: "digia@tech.com"),
+              const CustomersDetailsWidget(point: "Mobile", value: "9876543210"),
+              const CustomersDetailsWidget(point: "Email", value: "digia@tech.com"),
               const SizedBox(height: 10),
             ],
           ),

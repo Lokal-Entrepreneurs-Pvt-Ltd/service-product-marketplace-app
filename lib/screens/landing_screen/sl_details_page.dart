@@ -9,7 +9,6 @@ import 'package:ui_sdk/props/UikVideoPlayerNewProps.dart';
 
 import '../../Widgets/UikButton/UikButton.dart';
 import '../../utils/network/ApiRepository.dart';
-import '../../utils/network/ApiRequestBody.dart';
 
 enum TemplateType {
   Image,
@@ -130,8 +129,9 @@ class _SlDetailsPageState extends State<SlDetailsPage>
               setState(() {
                 _isOptedIn = true;
               });
-          }else
+          }else {
             UiUtils.showToast(response.error![MESSAGE]);
+          }
         },
         child: UikButton(
           text: "OPT In",
@@ -216,7 +216,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
               );
 
             case TemplateType.Unknown:
-              return SizedBox();
+              return const SizedBox();
           }
         }).toList(),
       ),
@@ -237,7 +237,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   }
 
   Widget _buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
       ),
@@ -253,13 +253,13 @@ class _SlDetailsPageState extends State<SlDetailsPage>
 
         switch (ind) {
           case 0:
-            _scrollController!.jumpTo(ind * 100);
+            _scrollController.jumpTo(ind * 100);
             break;
           case 1:
-            _scrollController!.jumpTo(ind * 400);
+            _scrollController.jumpTo(ind * 400);
             break;
           default:
-            _scrollController!.jumpTo(ind * 320);
+            _scrollController.jumpTo(ind * 320);
             break;
         }
       },
@@ -293,7 +293,7 @@ class BulletPointsCard extends StatelessWidget {
   final String heading;
   final List<Map<String, dynamic>> bulletPoints;
 
-  BulletPointsCard({required this.heading, required this.bulletPoints});
+  const BulletPointsCard({super.key, required this.heading, required this.bulletPoints});
 
   @override
   Widget build(BuildContext context) {
@@ -350,7 +350,7 @@ class ArrowDetailsWidget extends StatelessWidget {
           size: fontSize,
         ),
       ),
-          SizedBox(width: 8), // Add some spacing between the icon and text
+          const SizedBox(width: 8), // Add some spacing between the icon and text
           Expanded(
             child: Text(
               point,

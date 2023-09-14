@@ -51,7 +51,7 @@ class UikSearchBar extends StatelessWidget {
                   controller: textEditingController,
                   enabled: false,
                   decoration: InputDecoration.collapsed(
-                    hintText: "${searchText}",
+                    hintText: searchText,
                   ),
                 ),
               ),
