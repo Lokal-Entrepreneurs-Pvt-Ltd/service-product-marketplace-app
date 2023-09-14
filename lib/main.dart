@@ -250,12 +250,11 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => NotifyAgentsScreen(),
-          // "/": (context) {
-          //   return UserDataHandler.getUserToken().isEmpty
-          //       ? const OnboardingScreen()
-          //       : const UikBottomNavigationBar();
-          // },
+          "/": (context) {
+            return UserDataHandler.getUserToken().isEmpty
+                ? const OnboardingScreen()
+                : const UikBottomNavigationBar();
+          },
           ScreenRoutes.userServiceTabsScreen: (context) =>
               const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
@@ -302,7 +301,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.addAgentScreen: (context) => const AddAgentScreen(),
           ScreenRoutes.manageAgentScreen: (context) => ManageAgentScreen().page,
           ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
-          ScreenRoutes.newOnboardingScreen: (context) => NewOnboardingScreen(),
+          ScreenRoutes.newOnboardingScreen: (context) => LoginScreen(),
           ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
           ScreenRoutes.addUserServiceCustomer: (context) =>
               AddServiceCustomerFlow(),
@@ -310,7 +309,8 @@ class _LokalAppState extends State<LokalApp> {
               UikCustomerForUserService().page,
           ScreenRoutes.getAllAgentsForUserService: (context) =>
               UikAgentsForUserService().page,
-          ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen()
+          ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen(),
+          ScreenRoutes.notifyAgentsScreen: (context) => NotifyAgentsScreen(),
         },
       ),
     );

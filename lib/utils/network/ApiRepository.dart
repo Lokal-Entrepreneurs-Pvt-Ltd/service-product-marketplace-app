@@ -275,6 +275,11 @@ class ApiRepository {
         ApiRoutes.createOrUpdateForAgents, args);
   }
 
+  static Future<ApiResponse> getAgentDetailsByPartnerIdAndServiceId(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAgentDetailsByPartnerIdAndServiceId, args);
+  }
+
 }
 
 // apirequestbody class 

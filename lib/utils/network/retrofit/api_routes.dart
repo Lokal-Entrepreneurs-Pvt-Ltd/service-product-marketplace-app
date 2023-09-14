@@ -78,5 +78,7 @@ class ApiRoutes {
       "/user/getAllUserAgentByPartnerId";
   static const String createOrUpdateForAgents =
       "/userService/createOrUpdateForAgents";
+  static const String getAgentDetailsByPartnerIdAndServiceId =
+      "/partnerAgent/getAgentDetailsByPartnerIdAndServiceId";
 
 }
