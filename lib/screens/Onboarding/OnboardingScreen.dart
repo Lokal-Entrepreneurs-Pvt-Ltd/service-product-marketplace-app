@@ -3,7 +3,6 @@ import 'package:lokal/constants/dimens.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../Widgets/UikButton/UikButton.dart';
 import 'NewOnboardingScreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -74,7 +73,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     onTap: () {
                       _pageController.animateToPage(
                         images.length - 1,
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         curve: Curves.easeOut,
                       );
                     },
@@ -83,7 +82,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Text(
                         SKIP,
                         style: GoogleFonts.poppins(
-                          color: Color(0xFF212121),
+                          color: const Color(0xFF212121),
                         ),
                       ),
                     ),
@@ -95,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onTap: () {
                         if (_currentPage < images.length - 1) {
                           _pageController.nextPage(
-                            duration: Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 500),
                             curve: Curves.easeOut,
                           );
                         } else {
@@ -109,6 +108,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       child: ElevatedButton(
                         onPressed: null,
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xffFEE440),
+                          ),
+                          shape: MaterialStateProperty.all<OutlinedBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                          ),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: DIMEN_8, horizontal: DIMEN_16),
@@ -117,19 +126,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ? NEXT
                                 : GET_STARTED,
                             style: GoogleFonts.poppins(
-                              color: Color(0xFF212121),
+                              color: const Color(0xFF212121),
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xffFEE440),
-                          ),
-                          shape: MaterialStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
                             ),
                           ),
                         ),
@@ -194,7 +193,7 @@ class _OnboardingSliderState extends State<OnboardingSlider> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 0,
                   ),
                   child: Image.asset(

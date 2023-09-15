@@ -102,9 +102,9 @@ class UserCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                UikDivider(
+                const UikDivider(
                   corner: "rectangle",
-                  dividerColor: const Color(0xffE3E6EB),
+                  dividerColor: Color(0xffE3E6EB),
                   dividerSize: "small",
                   widthSize: 359,
                 ),

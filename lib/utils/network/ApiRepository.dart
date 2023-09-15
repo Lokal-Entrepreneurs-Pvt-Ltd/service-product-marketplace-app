@@ -35,9 +35,10 @@ class ApiRepository {
         ApiRoutes.submitUserServiceCreateCustomerForm, args);
   }
 
-  static Future<ApiResponse> apiCallerScreen(String apiRoute, Map<String, dynamic> args) {
-  return HttpScreenClient.getApiResponse(apiRoute, args);
-}
+  static Future<ApiResponse> apiCallerScreen(
+      String apiRoute, Map<String, dynamic> args) {
+    return HttpScreenClient.getApiResponse(apiRoute, args);
+  }
 
   static Future<ApiResponse> submitExtraPayOptInForm(args) {
     return HttpScreenClient.getApiResponse(
@@ -245,16 +246,20 @@ class ApiRepository {
   static Future<ApiResponse> getServiceTabsScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.serviceTabs, args);
   }
+
   static Future<ApiResponse> getAllCustomerForUserService(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.getAllCustomerForUserService, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAllCustomerForUserService, args);
   }
 
   static Future<ApiResponse> getAllAgentsForUserService(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.getAllAgentsForUserService, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAllAgentsForUserService, args);
   }
 
   static Future<ApiResponse> getServiceDetailsById(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.getServiceDetailsById, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getServiceDetailsById, args);
   }
 
   static Future<ApiResponse> addPartnerAgent(args) {
@@ -279,8 +284,7 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.getAgentDetailsByPartnerIdAndServiceId, args);
   }
-
 }
 
-// apirequestbody class 
+// apirequestbody class
 // make get login request body function

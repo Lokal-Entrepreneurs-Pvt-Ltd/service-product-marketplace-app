@@ -38,10 +38,10 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
         color: Colors.white,
         child: ListView(
           children: [
-            UikNavbar(
+            const UikNavbar(
               size: "",
               titleText: "Set new password",
-              leftIcon: const Icon(Icons.arrow_back),
+              leftIcon: Icon(Icons.arrow_back),
             ),
             MyTextField(
               labelText: "Password",

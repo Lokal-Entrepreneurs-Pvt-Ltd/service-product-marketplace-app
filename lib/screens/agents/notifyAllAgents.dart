@@ -80,7 +80,8 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
       debugPrint(response.data.toString());
       if (response.isSuccess != null && response.isSuccess == true) {
         _showSuccessSnackBar();
-        NavigationUtils.openScreenUntil(ScreenRoutes.userServiceTabsScreen, args);
+        NavigationUtils.openScreenUntil(
+            ScreenRoutes.userServiceTabsScreen, args);
       } else {
         _showErrorSnackBar();
       }
@@ -129,15 +130,15 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:_buildAppBar(),
-      body: _buildBodyContainer() ,
+      appBar: _buildAppBar(),
+      body: _buildBodyContainer(),
       persistentFooterButtons: [
         _buildNotifyButton(),
       ],
     );
   }
 
-  Widget _buildBodyContainer(){
+  Widget _buildBodyContainer() {
     return FutureBuilder(
       future: _agentsList,
       builder: (context, AsyncSnapshot<ApiResponse> snap) {
@@ -155,8 +156,8 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
     );
   }
 
-  AppBar _buildAppBar(){
-    return  AppBar(
+  AppBar _buildAppBar() {
+    return AppBar(
       backgroundColor: Colors.white,
       leading: IconButton(
         icon: Icon(
@@ -204,14 +205,14 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
       },
       leading: agentsList.length == _agentsNotifyList.length
           ? Icon(
-        Icons.check_box,
-        size: 24,
-        color: Colors.red,
-      )
+              Icons.check_box,
+              size: 24,
+              color: Colors.red,
+            )
           : Icon(
-        Icons.check_box_outline_blank_rounded,
-        size: 24,
-      ),
+              Icons.check_box_outline_blank_rounded,
+              size: 24,
+            ),
       title: Text(
         "Notify All Agents",
         style: GoogleFonts.poppins(
@@ -229,9 +230,9 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
       itemCount: agentsList.length,
       itemBuilder: (ctx, index) {
         var agent = agentsList[index]['agentDetails'];
-        bool isSelectedForNotify = _agentsNotifyList
-            .indexWhere((element) => element == agent['id'].toString()) ==
-            -1
+        bool isSelectedForNotify = _agentsNotifyList.indexWhere(
+                    (element) => element == agent['id'].toString()) ==
+                -1
             ? false
             : true;
         return ListTile(
@@ -243,13 +244,13 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
           },
           leading: isSelectedForNotify
               ? Icon(
-            Icons.check_box,
-            size: 24,
-          )
+                  Icons.check_box,
+                  size: 24,
+                )
               : Icon(
-            Icons.check_box_outline_blank_rounded,
-            size: 24,
-          ),
+                  Icons.check_box_outline_blank_rounded,
+                  size: 24,
+                ),
           title: Text(
             "${agent["firstName"]} ${agent["lastName"]}",
             style: GoogleFonts.poppins(
@@ -261,18 +262,14 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
           subtitle: Text(
             agent['phoneNumber'].toString() ?? '',
             style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey),
+                fontSize: 14, fontWeight: FontWeight.w400, color: Colors.grey),
           ),
           trailing: Text(
             agent['isOpted'] == false ? "not opted" : "opted",
             style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w400,
-              color: agent['isSubscribed'] == 0
-                  ? Colors.grey
-                  : Colors.green,
+              color: agent['isSubscribed'] == 0 ? Colors.grey : Colors.green,
             ),
           ),
         );
