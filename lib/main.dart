@@ -36,6 +36,7 @@ import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
 import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
+import 'package:lokal/screens/partnerTraining/PartnerTrainingArchive.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';

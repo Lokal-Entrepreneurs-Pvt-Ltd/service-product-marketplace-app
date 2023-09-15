@@ -4,15 +4,15 @@ import '../../Widgets/UikMaterialListTile/UikMaterialListTile.dart';
 import '../../utils/network/ApiRepository.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PartnerTrainingHomeScreen extends StatefulWidget {
-  const PartnerTrainingHomeScreen({Key? key});
+class PartnerTrainingArchiveScreen extends StatefulWidget {
+  const PartnerTrainingArchiveScreen({Key? key});
 
   @override
-  State<PartnerTrainingHomeScreen> createState() =>
+  State<PartnerTrainingArchiveScreen> createState() =>
       _ServiceLandingScreenState();
 }
 
-class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen> {
+class _ServiceLandingScreenState extends State<PartnerTrainingArchiveScreen> {
   late Future<ApiResponse> _trainingData;
   late dynamic args;
 
@@ -20,7 +20,6 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen> {
   void didChangeDependencies() {
     args = ModalRoute.of(context)?.settings.arguments;
     _trainingData = ApiRepository.getServiceTabsScreen(args);
-    // Add a listener to the TabController to update the selected tab when scrolled
 
     super.didChangeDependencies();
   }

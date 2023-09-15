@@ -73,15 +73,9 @@ class ApiRoutes {
       "/service/getAllAgentsForUserService";
   static const String getServiceDetailsById = "/service/getDetailsById";
   static const String addPartnerAgent = "/partnerAgent/add";
-
   static const String notifyAllAgents = "/notifyAllAgents";
-
   static const String getAllUserAgentByPartnerId =
       "/user/getAllUserAgentByPartnerId";
-
   static const String createOrUpdateForAgents =
       "/userService/createOrUpdateForAgents";
-
-  // todo : change this route
-  static const String partnerTrainingHome = "/partnerTrainingHome";
 }
