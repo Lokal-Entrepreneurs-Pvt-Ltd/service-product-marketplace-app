@@ -100,12 +100,12 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _isLoading
-          ? _buildLoadingIndicator()
-          : _buildServiceDetailsList(),
-      persistentFooterButtons: _isOptedIn
-          ? [_buildAlreadyOptedButton()]
-          : [_buildOptInButton()],
+      body: _isLoading ? _buildLoadingIndicator() : _buildServiceDetailsList(),
+      persistentFooterButtons: _isLoading
+          ? []
+          : _isOptedIn
+              ? [_buildAlreadyOptedButton()]
+              : [_buildOptInButton()],
     );
   }
 
@@ -125,11 +125,11 @@ class _SlDetailsPageState extends State<SlDetailsPage>
         onTap: () async {
           final response = await ApiRepository.submitOptin(args);
           if (response.isSuccess!) {
-              UiUtils.showToast("You Have Opted in");
-              setState(() {
-                _isOptedIn = true;
-              });
-          }else {
+            UiUtils.showToast("You Have Opted in");
+            setState(() {
+              _isOptedIn = true;
+            });
+          } else {
             UiUtils.showToast(response.error![MESSAGE]);
           }
         },
@@ -142,8 +142,6 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       ),
     );
   }
-
-
 
   Widget _buildServiceDetailsList() {
     return Container(
@@ -179,14 +177,15 @@ class _SlDetailsPageState extends State<SlDetailsPage>
             case TemplateType.BulletPoints:
               final String heading = template[Args.headingKey];
               final List<Map<String, dynamic>> bulletPoints =
-              (template[Args.bulletPointsKey] as List<dynamic>)
-                  .cast<Map<String, dynamic>>();
-              return BulletPointsCard(heading: heading, bulletPoints: bulletPoints);
+                  (template[Args.bulletPointsKey] as List<dynamic>)
+                      .cast<Map<String, dynamic>>();
+              return BulletPointsCard(
+                  heading: heading, bulletPoints: bulletPoints);
 
             case TemplateType.Video:
               final String videoUrl = template[Args.videoUrlKey];
               final UikVideoPlayerNewProps uikVideoPlayerProps =
-              UikVideoPlayerNewProps();
+                  UikVideoPlayerNewProps();
               uikVideoPlayerProps.id = "123";
               uikVideoPlayerProps.videoUrl = videoUrl;
               uikVideoPlayerProps.showVideoProgressIndicator = true;
@@ -194,7 +193,8 @@ class _SlDetailsPageState extends State<SlDetailsPage>
               uikVideoPlayerProps.progressIndicatorColor = Colors.red;
 
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 21),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 21),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: Colors.white,
@@ -210,7 +210,8 @@ class _SlDetailsPageState extends State<SlDetailsPage>
                       ),
                     ),
                     const SizedBox(height: 8),
-                    UikVideoPlayerNew(WidgetType.UikVideoPlayer, uikVideoPlayerProps),
+                    UikVideoPlayerNew(
+                        WidgetType.UikVideoPlayer, uikVideoPlayerProps),
                   ],
                 ),
               );
@@ -293,7 +294,8 @@ class BulletPointsCard extends StatelessWidget {
   final String heading;
   final List<Map<String, dynamic>> bulletPoints;
 
-  const BulletPointsCard({super.key, required this.heading, required this.bulletPoints});
+  const BulletPointsCard(
+      {super.key, required this.heading, required this.bulletPoints});
 
   @override
   Widget build(BuildContext context) {
@@ -343,14 +345,15 @@ class ArrowDetailsWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-        Align(
-        alignment: Alignment.topCenter, // Align chevron to the top
-        child: Icon(
-          Icons.chevron_right,
-          size: fontSize,
-        ),
-      ),
-          const SizedBox(width: 8), // Add some spacing between the icon and text
+          Align(
+            alignment: Alignment.topCenter, // Align chevron to the top
+            child: Icon(
+              Icons.chevron_right,
+              size: fontSize,
+            ),
+          ),
+          const SizedBox(
+              width: 8), // Add some spacing between the icon and text
           Expanded(
             child: Text(
               point,
@@ -361,33 +364,6 @@ class ArrowDetailsWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-
-
-class TabBarDetailsElement extends StatelessWidget {
-  final String text;
-  final int index;
-  bool isSelected;
-  TabBarDetailsElement({
-    super.key,
-    required this.text,
-    required this.index,
-    this.isSelected = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Tab(
-      child: Text(
-        text,
-        style: TextStyle(
-          color: isSelected ? Colors.white : Colors.black,
-          fontWeight: FontWeight.w600,
-        ),
       ),
     );
   }
