@@ -359,34 +359,33 @@ class _LoginScreenState extends State<LoginScreen>
       margin: const EdgeInsets.only(left: DIMEN_20, right: DIMEN_20),
       child: isLoading
           ? CircularProgressIndicator(
-        color: Colors.yellow,
-      )
+              color: Colors.yellow,
+            )
           : UikButton(
-        text: CONTINUE,
-        textWeight: FontWeight.w500,
-        textSize: DIMEN_16,
-        textColor: const Color(0xFF212121),
-        backgroundColor: const Color(0xffFEE440),
-        onClick: () async {
-          setState(() {
-            isLoading = true;
-          });
-          if (_isInputValid()) {
-            final response = await _performLogin();
-            if (response.isSuccess!) {
-              _handleSuccessfulLogin(response);
-            } else {
-              _handleLoginError(response);
-            }
-          }
-          setState(() {
-            isLoading = false;
-          });
-        },
-      ),
+              text: CONTINUE,
+              textWeight: FontWeight.w500,
+              textSize: DIMEN_16,
+              textColor: const Color(0xFF212121),
+              backgroundColor: const Color(0xffFEE440),
+              onClick: () async {
+                setState(() {
+                  isLoading = true;
+                });
+                if (_isInputValid()) {
+                  final response = await _performLogin();
+                  if (response.isSuccess!) {
+                    _handleSuccessfulLogin(response);
+                  } else {
+                    _handleLoginError(response);
+                  }
+                }
+                setState(() {
+                  isLoading = false;
+                });
+              },
+            ),
     );
   }
-
 
   bool _isInputValid() {
     final emailValid = UiUtils.isEmailValid(emailController.text);
@@ -409,8 +408,8 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   Future<ApiResponse> _performLogin() async {
-    return ApiRepository.getLoginScreen(
-        ApiRequestBody.getLoginRequest(emailController.text, passwordController.text, selectedUserType));
+    return ApiRepository.getLoginScreen(ApiRequestBody.getLoginRequest(
+        emailController.text, passwordController.text, selectedUserType));
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {

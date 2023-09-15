@@ -10,7 +10,6 @@ import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
-import '../../utils/network/http/http_screen_client.dart';
 
 class AddAgentScreen extends StatefulWidget {
   const AddAgentScreen({Key? key}) : super(key: key);
@@ -58,7 +57,7 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
   Widget _buildProgressBar() {
     return Container(
       color: Colors.black.withOpacity(0.5), // Add a semi-transparent background
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
         ),

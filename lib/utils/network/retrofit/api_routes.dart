@@ -80,5 +80,4 @@ class ApiRoutes {
       "/userService/createOrUpdateForAgents";
   static const String getAgentDetailsByPartnerIdAndServiceId =
       "/partnerAgent/getAgentDetailsByPartnerIdAndServiceId";
-
 }

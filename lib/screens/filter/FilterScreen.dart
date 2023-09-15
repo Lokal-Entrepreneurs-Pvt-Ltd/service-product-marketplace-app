@@ -41,7 +41,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   )
                 ],
               ),
-              Slidder(
+              const Slidder(
                 maximum: 500000.0,
                 isRange: false,
               ),

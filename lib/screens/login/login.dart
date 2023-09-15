@@ -50,9 +50,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     return Scaffold(
       body: Container(
         color: Colors.white,
-        child: isLoading
-            ? _buildLoadingIndicator()
-            : _buildLoginForm(),
+        child: isLoading ? _buildLoadingIndicator() : _buildLoginForm(),
       ),
     );
   }
@@ -162,8 +160,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   }
 
   Future<ApiResponse> _performLogin() async {
-    return ApiRepository.getLoginScreen(
-        ApiRequestBody.getLoginRequest(emailController.text, passwordController.text, selectedUserType));
+    return ApiRepository.getLoginScreen(ApiRequestBody.getLoginRequest(
+        emailController.text, passwordController.text, selectedUserType));
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {

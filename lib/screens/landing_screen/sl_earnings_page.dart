@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/Widgets/UikListTile/UikListTile.dart';
 
 import '../../Widgets/UikSearchBar/searchbar.dart';
 
@@ -16,7 +15,7 @@ class _Sl_EarningsPageState extends State<Sl_Earnings_Page>
   late final TabController _tabController;
   late final ScrollController _scrollController;
   late final TextEditingController _textEditingController;
-  int _currentTabNumber = 0;
+  final int _currentTabNumber = 0;
 
   @override
   void initState() {
@@ -37,7 +36,7 @@ class _Sl_EarningsPageState extends State<Sl_Earnings_Page>
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         children: [
           /// SEARCH BAR
@@ -94,7 +93,7 @@ class _Sl_EarningsPageState extends State<Sl_Earnings_Page>
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(Icons.arrow_downward_rounded),
+                              const Icon(Icons.arrow_downward_rounded),
                               const SizedBox(height: 5),
                               Text(
                                 "Self",
@@ -154,7 +153,9 @@ class _Sl_EarningsPageState extends State<Sl_Earnings_Page>
           Expanded(
             child: ListView.builder(
               itemCount: 10,
-              itemBuilder: (ctx, index) {},
+              itemBuilder: (ctx, index) {
+                return null;
+              },
             ),
           ),
         ],

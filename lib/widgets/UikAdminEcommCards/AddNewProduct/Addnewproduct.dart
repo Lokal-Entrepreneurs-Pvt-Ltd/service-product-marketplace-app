@@ -114,7 +114,7 @@ class _AddnewproductState extends State<Addnewproduct>
               //762 258 350
               child: TabBarView(
                 controller: tabController,
-                children: [const FirstCard(), secondCard(), thirdCard()],
+                children: const [FirstCard(), secondCard(), thirdCard()],
               ),
             ),
           ],

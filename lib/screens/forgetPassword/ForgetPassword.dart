@@ -33,11 +33,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         color: Colors.white,
         child: ListView(
           children: [
-            UikNavbar(
+            const UikNavbar(
               size: "",
               titleText: "Forget Password?",
               subtitleText: "enter your registered email address\nbelow",
-              leftIcon: const Icon(Icons.arrow_back),
+              leftIcon: Icon(Icons.arrow_back),
             ),
             MyTextField(
               labelText: "Email",
