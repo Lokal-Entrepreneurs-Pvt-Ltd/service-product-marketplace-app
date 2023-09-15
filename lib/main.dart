@@ -8,6 +8,7 @@ import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikAgentsForUserService.dart';
+import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
@@ -23,6 +24,7 @@ import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
+import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
@@ -45,6 +47,7 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 
 import 'package:lokal/utils/storage/preference_util.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
@@ -246,14 +249,11 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
-          "/": (context) => const PartnerTrainingHomeScreen(),
-          // "/": (context) => const NotifyAgentsScreen(),
-
-          // "/": (context) {
-          //   return UserDataHandler.getUserToken().isEmpty
-          //       ? const OnboardingScreen()
-          //       : const UikBottomNavigationBar();
-          // },
+          "/": (context) {
+            return UserDataHandler.getUserToken().isEmpty
+                ? const OnboardingScreen()
+                : const UikBottomNavigationBar();
+          },
           ScreenRoutes.userServiceTabsScreen: (context) =>
               const ServiceLandingScreen(),
           ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
@@ -299,18 +299,17 @@ class _LokalAppState extends State<LokalApp> {
               const SamhitaVerifyParticipant(),
           ScreenRoutes.addAgentScreen: (context) => const AddAgentScreen(),
           ScreenRoutes.manageAgentScreen: (context) => ManageAgentScreen().page,
-          ScreenRoutes.addAgentOtpScreen: (context) =>
-              const AddAgentOtpScreen(),
-          ScreenRoutes.newOnboardingScreen: (context) =>
-              const NewOnboardingScreen(),
-          ScreenRoutes.myRewardsPage: (context) => const MyRewardPage(),
+          ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
+          ScreenRoutes.newOnboardingScreen: (context) => LoginScreen(),
+          ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
           ScreenRoutes.addUserServiceCustomer: (context) =>
               const AddServiceCustomerFlow(),
           ScreenRoutes.getAllCustomerForUserService: (context) =>
               UikCustomerForUserService().page,
           ScreenRoutes.getAllAgentsForUserService: (context) =>
               UikAgentsForUserService().page,
-          ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen()
+          ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen(),
+          ScreenRoutes.notifyAgentsScreen: (context) => NotifyAgentsScreen(),
         },
       ),
     );
