@@ -37,6 +37,7 @@ import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
 import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
+import 'package:lokal/screens/locationScreen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingArchive.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
@@ -250,6 +251,7 @@ class _LokalAppState extends State<LokalApp> {
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           "/": (context) {
+            return LocationScreen();
             return UserDataHandler.getUserToken().isEmpty
                 ? const OnboardingScreen()
                 : const UikBottomNavigationBar();
