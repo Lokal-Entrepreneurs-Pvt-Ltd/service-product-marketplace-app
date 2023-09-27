@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screen_routes.dart';
-import 'package:lokal/screens/landing_screen/agent_details.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../utils/network/ApiRepository.dart';
-
-
-
 
 enum WidgetType {
   UikListItemType1,
@@ -47,7 +43,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
 
   Future<void> _fetchAgentData() async {
     try {
-      final response = await ApiRepository.getAllAgentsForUserService(args);
+      final response = await ApiRepository.getAllCustomerForUserService(args);
       if (response.isSuccess!) {
         _updateAgentData(response.data);
       } else {
@@ -87,14 +83,12 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
       body: _isLoading
           ? _buildLoadingIndicator()
           : _buildAgentList(),
-      persistentFooterButtons: _showAddAgentButton
-          ? [_buildAddAgentButton()]
-          : [],
+      persistentFooterButtons: _buildFooterButtons(),
     );
   }
 
   Widget _buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
       ),
@@ -130,7 +124,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           "No Agents Found. Would you like to retry?",
           style: TextStyle(
             fontSize: 18,
@@ -138,7 +132,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
           ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () {
             // Call the retry method here
@@ -148,10 +142,10 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
             });
           },
           style: ElevatedButton.styleFrom(
-            primary: Colors.yellow,
+            backgroundColor: Colors.yellow,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               "Retry",
               style: TextStyle(
@@ -175,7 +169,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
       case WidgetType.UikContainerText:
         return _buildContainerText(agent);
       default:
-        return SizedBox();
+        return const SizedBox();
     }
   }
 
@@ -224,13 +218,86 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
 
   Widget _buildContainerText(Map<String, dynamic> agent) {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Text(
         agent['text'] ?? '',
         style: GoogleFonts.poppins(
           fontSize: 12,
           fontWeight: FontWeight.w600,
           color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+
+
+  List<Widget> _buildFooterButtons() {
+    final footerButtons = <Widget>[];
+    if (_agentListDataStore.isEmpty) {
+      footerButtons.add(_buildAddAgentButton());
+    } else {
+      footerButtons.add(
+        _buildAddAndNotifyButtons(),
+      );
+    }
+    return footerButtons;
+  }
+
+  Widget _buildAddAndNotifyButtons() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center, // Split the screen space equally
+        children: [
+          Container(
+            margin: const EdgeInsets.all(8.0), // Add margin around the button
+            width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
+            child: InkWell(
+              onTap: () {
+                NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
+              },
+              child: UikButton(
+                text: "Add Agent",
+                textColor: Colors.black,
+                textSize: 16.0,
+                textWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(8.0), // Add margin around the button
+            width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
+            child: InkWell(
+              onTap: () {
+                NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, args);
+              },
+              child: UikButton(
+                text: "Notify Agent",
+                textColor: Colors.black,
+                textSize: 16.0,
+                textWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+
+  Widget _buildNotifyAgentButton() {
+    return Container(
+      child: InkWell(
+        onTap: () {
+          // Add your logic for notifying agents here
+        },
+        child: UikButton(
+          text: "Notify Agent",
+          textColor: Colors.black,
+          textSize: 16.0,
+          textWeight: FontWeight.w500,
         ),
       ),
     );
