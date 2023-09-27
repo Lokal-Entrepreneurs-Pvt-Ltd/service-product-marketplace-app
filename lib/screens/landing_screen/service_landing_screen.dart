@@ -71,7 +71,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                 Expanded(
                   child: TabBarView(
                     controller: _tabController,
-                    children: [
+                    children: const [
                       SlDetailsPage(),
                       SlMyCustomersList(),
                       Sl_MyAgentsList(),
@@ -98,8 +98,8 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
           color: Colors.black,
         ),
       ),
-      actions: [],
-      iconTheme: IconThemeData(
+      actions: const [],
+      iconTheme: const IconThemeData(
           color: Colors.black), // Change the back button color here
       bottom: TabBar(
         onTap: (ind) {
