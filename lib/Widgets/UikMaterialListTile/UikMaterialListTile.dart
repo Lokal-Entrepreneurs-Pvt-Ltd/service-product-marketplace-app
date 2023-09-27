@@ -30,7 +30,9 @@ class TrainingCourseMaterialListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        _actionHandler(tileData["material_data"]["action"], context);
+      },
       isThreeLine: false,
       leading: Image.network(
         tileData["material_data"]["logo"],
@@ -44,12 +46,17 @@ class TrainingCourseMaterialListTile extends StatelessWidget {
   }
 
   Widget _getTitle() {
+
     switch (tileData["material_type"]) {
       case "VIDEO":
         return Text(
-          'Lesson ${tileData["materialId"]}',
+          'Service Training',
           style: _textStyle(12.0, "#BDBDBD".toColor()),
         );
+        // return Text(
+        //   'Lesson ${tileData["materialId"]}',
+        //   style: _textStyle(12.0, "#BDBDBD".toColor()),
+        // );
       default:
         return Text(
           '${tileData["material_data"]["title"]}',

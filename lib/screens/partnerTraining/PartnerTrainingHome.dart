@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/screens/partnerTraining/partnerTrainingListDetails.dart';
+import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../Widgets/UikCustomTabBar/customTabBar.dart';
@@ -54,7 +55,7 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
             TabController(length: (data["tabs"] as List).length, vsync: this);
 
         return Scaffold(
-          backgroundColor: Colors.white.withOpacity(0.90),
+          backgroundColor: Colors.white,
           appBar: _buildAppBar(data),
           body: Column(
             children: [
@@ -90,6 +91,7 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
                             text: tab["text"],
                             index: index,
                             isSelected: index == _currentIndex,
+
                           );
                         },
                       ),
@@ -98,9 +100,10 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
                 ),
               ),
               Expanded(
-                child: Padding(
+                child: Container(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  color: Color(0xFFF7F6FA),
                   child: TabBarView(
                     controller: _tabController,
                     physics: const NeverScrollableScrollPhysics(
