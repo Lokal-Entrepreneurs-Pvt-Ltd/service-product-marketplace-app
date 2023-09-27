@@ -284,6 +284,14 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.getAgentDetailsByPartnerIdAndServiceId, args);
   }
+
+  static Future<ApiResponse> getAcademyTabsScreen(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getAcademyTabs, args);
+  }
+
+  static Future<ApiResponse> getAcademyDataByType(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getAcademyDataByType, args);
+  }
 }
 
 // apirequestbody class
