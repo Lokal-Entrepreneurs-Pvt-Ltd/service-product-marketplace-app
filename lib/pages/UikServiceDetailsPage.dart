@@ -1,14 +1,7 @@
-import 'dart:convert';
-import 'package:flutter/widgets.dart';
-import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
-import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:http/http.dart' as http;
-import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../main.dart';
 import '../actions.dart';
 
 class UikServiceDetailsPage extends StandardPage {
@@ -35,7 +28,7 @@ class UikServiceDetailsPage extends StandardPage {
   }
 
   void onServiceDetailScreenTapAction(UikAction uikAction) {
-    // print(uikAction.tap.type);
+    print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case UIK_ACTION.BACK_PRESSED:
         NavigationUtils.pop();

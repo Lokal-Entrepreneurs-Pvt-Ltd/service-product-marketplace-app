@@ -59,4 +59,6 @@ class UIK_ACTION {
   static const String OPEN_PAGE = "OPEN_PAGE";
   static const String SERVICE_OPTIN = "SERVICE_OPTIN";
   static const String OPEN_MY_REWARDS = "OPEN_MY_REWARDS";
+
+  static const String OPEN_VIDEO = "OPEN_VIDEO";
 }

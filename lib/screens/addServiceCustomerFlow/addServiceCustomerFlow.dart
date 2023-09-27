@@ -4,7 +4,6 @@ import '../../screen_routes.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/network/retrofit/api_routes.dart';
 import '../../utils/storage/user_data_handler.dart';
-import 'apiCallerScreen.dart';
 
 const ADD_SERVICE_CUSTOMER = "Add Service Customer";
 const BTS_NAME = "Name";
@@ -38,15 +37,15 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   final _districtController = TextEditingController();
   final _blockController = TextEditingController();
 
-  bool _phoneNumberValid = true;
-  bool _emailValid = true;
-  bool _pinCodeRequired = true;
-  bool _nameRequired = true;
-  bool _ageRequired = true;
-  bool _employmentRequired = true;
-  bool _stateRequired = true;
-  bool _districtRequired = true;
-  bool _blockRequired = true;
+  final bool _phoneNumberValid = true;
+  final bool _emailValid = true;
+  final bool _pinCodeRequired = true;
+  final bool _nameRequired = true;
+  final bool _ageRequired = true;
+  final bool _employmentRequired = true;
+  final bool _stateRequired = true;
+  final bool _districtRequired = true;
+  final bool _blockRequired = true;
 
   @override
   void dispose() {
@@ -87,12 +86,12 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
       backgroundColor: Colors.white,
       elevation: 0.0,
       centerTitle: true,
-      title: Text(
+      title: const Text(
         ADD_SERVICE_CUSTOMER,
         style: TextStyle(color: Colors.black),
       ),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         color: Colors.black,
         onPressed: () {
           Navigator.of(context).pop();
@@ -202,7 +201,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
       keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         errorText: isError ? null : REQUIRED_FIELD,
       ),
       validator: validator,
@@ -210,8 +209,8 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   }
 
   Widget _buildRequiredFieldMessage() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0), // Adjust the padding as needed
+    return const Padding(
+      padding: EdgeInsets.all(8.0), // Adjust the padding as needed
       child: Text(
         REQUIRED_FIELD,
         style: TextStyle(color: Colors.red),
@@ -221,7 +220,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   }
 
   Widget _buildContinueButton() {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () async {
@@ -250,15 +249,18 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
           } else {
             // Form is invalid, SnackBar will be shown as validation errors
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Form is Not valid'),
                 backgroundColor: Colors.red, // You can change this color
               ),
             );
           }
         },
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.yellow,
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(18.0),
           child: Text(
             CONTINUE,
             style: TextStyle(
@@ -266,9 +268,6 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
               color: Colors.black,
             ),
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          primary: Colors.yellow,
         ),
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -12,11 +11,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants/dimens.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
-import '../../screen_routes.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/preference_constants.dart';
-import '../../widgets/UikNavbar/UikNavbar.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -51,7 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color(0xFFfafafa),
+          backgroundColor: const Color(0xFFfafafa),
           leading: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -76,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NewOnboardingScreen(),
+                    builder: (context) => LoginScreen(),
                   ),
                 );
               },
@@ -85,7 +82,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Text(
                   LOGIN_NEW,
                   style: GoogleFonts.poppins(
-                      color: Color(0XFF3F51B5),
+                      color: const Color(0XFF3F51B5),
                       fontSize: DIMEN_14,
                       fontWeight: FontWeight.w500),
                 ),
@@ -93,7 +90,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ],
         ),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,13 +143,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: DIMEN_20,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: DIMEN_20),
+                          padding: const EdgeInsets.only(left: DIMEN_20),
                           child: Text(
                             REGISTER_AS,
                             style: GoogleFonts.poppins(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xFF212121)),
+                                color: const Color(0xFF212121)),
                           ),
                         ),
                         const SizedBox(
@@ -164,7 +161,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: Container(
                             height: DIMEN_52,
                             decoration: BoxDecoration(
-                              color: Color(0xFFEEEEEE),
+                              color: const Color(0xFFEEEEEE),
                               borderRadius: BorderRadius.circular(DIMEN_24),
                             ),
                             child: Row(
@@ -193,8 +190,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                       type,
                                       style: GoogleFonts.poppins(
                                         color: isSelected
-                                            ? Color(0xFF212121)
-                                            : Color(
+                                            ? const Color(0xFF212121)
+                                            : const Color(
                                                 0xFF9E9E9E), // Green text for unselected items
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -216,11 +213,11 @@ class _SignupScreenState extends State<SignupScreen> {
                             decoration: InputDecoration(
                               hintText: EMAIL_INPUT,
                               hintStyle: GoogleFonts.poppins(
-                                color: Color(0xFF9E9E9E),
+                                color: const Color(0xFF9E9E9E),
                               ),
                               filled: true,
                               fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                 vertical: DIMEN_16,
                                 horizontal: DIMEN_16,
                               ),
@@ -244,11 +241,11 @@ class _SignupScreenState extends State<SignupScreen> {
                             decoration: InputDecoration(
                               hintText: PASSWORD_INPUT,
                               hintStyle: GoogleFonts.poppins(
-                                color: Color(0xFF9E9E9E),
+                                color: const Color(0xFF9E9E9E),
                               ),
                               filled: true,
                               fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                 vertical: DIMEN_16,
                                 horizontal:
                                     DIMEN_16, // Add horizontal padding here
@@ -272,11 +269,11 @@ class _SignupScreenState extends State<SignupScreen> {
                             decoration: InputDecoration(
                               hintText: CONFIRM_PASSWORD_INPUT,
                               hintStyle: GoogleFonts.poppins(
-                                color: Color(0xFF9E9E9E),
+                                color: const Color(0xFF9E9E9E),
                               ),
                               filled: true,
                               fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                 vertical: DIMEN_16,
                                 horizontal:
                                     DIMEN_16, // Add horizontal padding here
@@ -335,7 +332,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          UikBottomNavigationBar(),
+                                          const UikBottomNavigationBar(),
                                     ),
                                   );
                                 } else {
@@ -384,13 +381,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                 TextSpan(
                                   text: BY_CONTINUING,
                                   style: GoogleFonts.poppins(
-                                    color: Color(0xFF9E9E9E),
+                                    color: const Color(0xFF9E9E9E),
                                   ),
                                 ),
                                 TextSpan(
                                   text: LOKAL_PRIVACY,
                                   style: GoogleFonts.poppins(
-                                    color: Color(
+                                    color: const Color(
                                         0xFFBDBDBD), // Make the link text blue
                                     decoration: TextDecoration
                                         .underline, // Add underline to the link text
@@ -403,13 +400,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                 TextSpan(
                                   text: AND,
                                   style: GoogleFonts.poppins(
-                                    color: Color(0xFF9E9E9E),
+                                    color: const Color(0xFF9E9E9E),
                                   ),
                                 ),
                                 TextSpan(
                                   text: TERMS_OF_USE,
                                   style: GoogleFonts.poppins(
-                                    color: Color(
+                                    color: const Color(
                                         0xFFBDBDBD), // Make the link text blue
                                     decoration: TextDecoration
                                         .underline, // Add underline to the link text

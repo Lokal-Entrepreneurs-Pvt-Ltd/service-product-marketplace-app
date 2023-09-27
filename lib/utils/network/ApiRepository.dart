@@ -279,7 +279,12 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.createOrUpdateForAgents, args);
   }
+
+  static Future<ApiResponse> getAgentDetailsByPartnerIdAndServiceId(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAgentDetailsByPartnerIdAndServiceId, args);
+  }
 }
 
-// apirequestbody class 
+// apirequestbody class
 // make get login request body function
