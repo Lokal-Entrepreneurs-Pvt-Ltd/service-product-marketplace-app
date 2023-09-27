@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
+
 import '../main.dart';
 
 class UikBottomNavigationBar extends StatefulWidget {
@@ -16,8 +18,6 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const UikHomeWrapper(),
-    // UikCartScreen().page,
-    // UikMyAccountScreen().page,
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
@@ -26,23 +26,14 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     var context = NavigationService.navigatorKey.currentContext;
     if (index == _selectedIndex) return;
     if (index == 1) {
-      Navigator.pushNamed(context!, ScreenRoutes.myGames);
+      Map<String, dynamic>? args = {
+        "academyId": 3
+      };
+      NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
-    // if (index ==2) {
-    //   Navigator.pushNamed(context!, ScreenRoutes.odOpHomeScreen);
-    // }
     if (index == 2) {
       Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
     }
-
-    // if (index == 1) {
-    //   Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
-    // } else if (index == 2) {
-    //   Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
-    // }
-    // setState(() {
-    //   _selectedIndex = index;
-    // });
   }
 
   @override
@@ -74,24 +65,12 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               ),
               label: "",
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(
-            //     Icons.shopping_bag,
-            //   ),
-            //   label: "",
-            // ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.gamepad_outlined,
+                Icons.menu_book,
               ),
               label: "",
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(
-            //     Icons.map,
-            //   ),
-            //   label: "",
-            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.person_outline_sharp,
@@ -117,7 +96,6 @@ class BottomCartDetails extends StatelessWidget {
 
   void openCartScreen() {
     var context = NavigationService.navigatorKey.currentContext;
-    // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
     Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
   }
 
