@@ -1,18 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../Widgets/UikButton/UikButton.dart';
-import '../../constants/json_constants.dart';
 import '../../screen_routes.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class NotifyAgentsScreen extends StatefulWidget {
-  const NotifyAgentsScreen({Key? key});
+  const NotifyAgentsScreen({super.key, Key? key});
 
   @override
   State<NotifyAgentsScreen> createState() => _NotifyAgentsScreenState();
@@ -160,7 +157,7 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
     return AppBar(
       backgroundColor: Colors.white,
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.arrow_back,
           color: Colors.black,
         ),
@@ -204,12 +201,12 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
         });
       },
       leading: agentsList.length == _agentsNotifyList.length
-          ? Icon(
+          ? const Icon(
               Icons.check_box,
               size: 24,
               color: Colors.red,
             )
-          : Icon(
+          : const Icon(
               Icons.check_box_outline_blank_rounded,
               size: 24,
             ),
@@ -226,7 +223,7 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
 
   Widget _buildAgentsListView(List<dynamic> agentsList) {
     return ListView.builder(
-      padding: EdgeInsets.symmetric(vertical: 0),
+      padding: const EdgeInsets.symmetric(vertical: 0),
       itemCount: agentsList.length,
       itemBuilder: (ctx, index) {
         var agent = agentsList[index]['agentDetails'];
@@ -243,11 +240,11 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
             });
           },
           leading: isSelectedForNotify
-              ? Icon(
+              ? const Icon(
                   Icons.check_box,
                   size: 24,
                 )
-              : Icon(
+              : const Icon(
                   Icons.check_box_outline_blank_rounded,
                   size: 24,
                 ),
@@ -298,7 +295,7 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
   }
 
   Widget _buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
       ),

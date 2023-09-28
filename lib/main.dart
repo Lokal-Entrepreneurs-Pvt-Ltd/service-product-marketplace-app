@@ -39,8 +39,6 @@ import 'package:lokal/screens/agents/notifyAllAgents.dart';
 import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
 import 'package:lokal/screens/locationScreen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
-import 'package:lokal/screens/partnerTraining/PartnerTrainingArchive.dart';
-import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
@@ -251,7 +249,7 @@ class _LokalAppState extends State<LokalApp> {
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           "/": (context) {
-            return LocationScreen();
+            return const LocationScreen();
             return UserDataHandler.getUserToken().isEmpty
                 ? const OnboardingScreen()
                 : const UikBottomNavigationBar();
@@ -301,9 +299,9 @@ class _LokalAppState extends State<LokalApp> {
               const SamhitaVerifyParticipant(),
           ScreenRoutes.addAgentScreen: (context) => const AddAgentScreen(),
           ScreenRoutes.manageAgentScreen: (context) => ManageAgentScreen().page,
-          ScreenRoutes.addAgentOtpScreen: (context) => AddAgentOtpScreen(),
-          ScreenRoutes.newOnboardingScreen: (context) => LoginScreen(),
-          ScreenRoutes.myRewardsPage: (context) => MyRewardPage(),
+          ScreenRoutes.addAgentOtpScreen: (context) => const AddAgentOtpScreen(),
+          ScreenRoutes.newOnboardingScreen: (context) => const LoginScreen(),
+          ScreenRoutes.myRewardsPage: (context) => const MyRewardPage(),
           ScreenRoutes.addUserServiceCustomer: (context) =>
               const AddServiceCustomerFlow(),
           ScreenRoutes.getAllCustomerForUserService: (context) =>
@@ -311,7 +309,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.getAllAgentsForUserService: (context) =>
               UikAgentsForUserService().page,
           ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen(),
-          ScreenRoutes.notifyAgentsScreen: (context) => NotifyAgentsScreen(),
+          ScreenRoutes.notifyAgentsScreen: (context) => const NotifyAgentsScreen(),
         },
       ),
     );

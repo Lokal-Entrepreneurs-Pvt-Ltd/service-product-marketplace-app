@@ -7,7 +7,7 @@ import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class ServiceLandingScreen extends StatefulWidget {
-  const ServiceLandingScreen({Key? key});
+  const ServiceLandingScreen({super.key, Key? key});
 
   @override
   State<ServiceLandingScreen> createState() => _ServiceLandingScreenState();

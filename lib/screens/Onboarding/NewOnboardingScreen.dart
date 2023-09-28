@@ -6,7 +6,6 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/UikTextField/UikTextField.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../utils/storage/preference_constants.dart';
 import '../signUp/signup_screen.dart';
@@ -19,7 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 class LoginScreen extends StatefulWidget {
   final String? selectedUserType;
 
-  const LoginScreen({Key? key, this.selectedUserType});
+  const LoginScreen({super.key, Key? key, this.selectedUserType});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -71,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen>
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen>
   AppBar _buildAppBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: Color(0xFFfafafa),
+      backgroundColor: const Color(0xFFfafafa),
       leading: _buildAppBarLeading(),
       centerTitle: true,
       title: _buildAppBarTitle(),
@@ -138,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SignupScreen(),
+            builder: (context) => const SignupScreen(),
           ),
         );
       },
@@ -147,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen>
         child: Text(
           REGISTER,
           style: GoogleFonts.poppins(
-              color: Color(0XFF3F51B5),
+              color: const Color(0XFF3F51B5),
               fontSize: DIMEN_14,
               fontWeight: FontWeight.w500),
         ),
@@ -244,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen>
       child: Container(
         height: DIMEN_52,
         decoration: BoxDecoration(
-          color: Color(0xFFEEEEEE),
+          color: const Color(0xFFEEEEEE),
           borderRadius: BorderRadius.circular(DIMEN_24),
         ),
         child: Row(
@@ -268,7 +267,7 @@ class _LoginScreenState extends State<LoginScreen>
                 child: Text(
                   type,
                   style: GoogleFonts.poppins(
-                    color: isSelected ? Color(0xFF212121) : Color(0xFF9E9E9E),
+                    color: isSelected ? const Color(0xFF212121) : const Color(0xFF9E9E9E),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -288,11 +287,11 @@ class _LoginScreenState extends State<LoginScreen>
         decoration: InputDecoration(
           hintText: EMAIL_INPUT,
           hintStyle: GoogleFonts.poppins(
-            color: Color(0xFF9E9E9E),
+            color: const Color(0xFF9E9E9E),
           ),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             vertical: DIMEN_16,
             horizontal: DIMEN_16,
           ),
@@ -315,11 +314,11 @@ class _LoginScreenState extends State<LoginScreen>
         decoration: InputDecoration(
           hintText: PASSWORD_INPUT,
           hintStyle: GoogleFonts.poppins(
-            color: Color(0xFF9E9E9E),
+            color: const Color(0xFF9E9E9E),
           ),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             vertical: DIMEN_16,
             horizontal: DIMEN_16,
           ),
@@ -358,7 +357,7 @@ class _LoginScreenState extends State<LoginScreen>
     return Container(
       margin: const EdgeInsets.only(left: DIMEN_20, right: DIMEN_20),
       child: isLoading
-          ? CircularProgressIndicator(
+          ? const CircularProgressIndicator(
               color: Colors.yellow,
             )
           : UikButton(
@@ -421,7 +420,7 @@ class _LoginScreenState extends State<LoginScreen>
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => UikBottomNavigationBar(),
+        builder: (context) => const UikBottomNavigationBar(),
       ),
       ModalRoute.withName(ScreenRoutes.loginScreen),
     );
@@ -440,13 +439,13 @@ class _LoginScreenState extends State<LoginScreen>
             TextSpan(
               text: BY_CONTINUING,
               style: GoogleFonts.poppins(
-                color: Color(0xFF9E9E9E),
+                color: const Color(0xFF9E9E9E),
               ),
             ),
             TextSpan(
               text: LOKAL_PRIVACY,
               style: GoogleFonts.poppins(
-                color: Color(0xFFBDBDBD),
+                color: const Color(0xFFBDBDBD),
                 decoration: TextDecoration.underline,
               ),
               recognizer: TapGestureRecognizer()
@@ -457,13 +456,13 @@ class _LoginScreenState extends State<LoginScreen>
             TextSpan(
               text: AND,
               style: GoogleFonts.poppins(
-                color: Color(0xFF9E9E9E),
+                color: const Color(0xFF9E9E9E),
               ),
             ),
             TextSpan(
               text: TERMS_OF_USE,
               style: GoogleFonts.poppins(
-                color: Color(0xFFBDBDBD),
+                color: const Color(0xFFBDBDBD),
                 decoration: TextDecoration.underline,
               ),
               recognizer: TapGestureRecognizer()

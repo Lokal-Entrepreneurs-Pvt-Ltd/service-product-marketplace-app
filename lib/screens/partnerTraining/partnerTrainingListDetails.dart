@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../Widgets/UikMaterialListTile/UikMaterialListTile.dart';
 import '../../utils/network/ApiRepository.dart';
@@ -9,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingListDetailsWidget extends StatefulWidget {
   final dynamic args;
-  const PartnerTrainingListDetailsWidget({this.args, Key? key});
+  const PartnerTrainingListDetailsWidget({super.key, this.args, Key? key});
 
   @override
   State<PartnerTrainingListDetailsWidget> createState() =>
@@ -64,7 +62,7 @@ class _ServiceLandingScreenState
 
         return SingleChildScrollView(
           physics:
-              BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           child: Column(
             children: [
               Padding(
