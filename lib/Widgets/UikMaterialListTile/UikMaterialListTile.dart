@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import 'package:ui_sdk/utils/UiSdkUtils.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../UikButton/UikButton.dart';

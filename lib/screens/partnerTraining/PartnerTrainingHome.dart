@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/screens/landing_screen/my_agents_list.dart';
-import 'package:lokal/screens/landing_screen/my_customers_list.dart';
-import 'package:lokal/screens/landing_screen/sl_details_page.dart';
 import 'package:lokal/screens/partnerTraining/partnerTrainingListDetails.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../Widgets/UikCustomTabBar/customTabBar.dart';
@@ -9,7 +6,7 @@ import '../../utils/network/ApiRepository.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingHomeScreen extends StatefulWidget {
-  const PartnerTrainingHomeScreen({Key? key});
+  const PartnerTrainingHomeScreen({super.key, Key? key});
 
   @override
   State<PartnerTrainingHomeScreen> createState() =>

@@ -139,8 +139,8 @@ class HttpScreenClient {
       throw Exception('Socket Error');
     } catch (e, stackTrace) {
       // Log the error for debugging and monitoring
-      debugPrint('API request failed: $e'+ stackTrace.toString());
-      throw e;
+      debugPrint('API request failed: $e$stackTrace');
+      rethrow;
      }
   }
 
