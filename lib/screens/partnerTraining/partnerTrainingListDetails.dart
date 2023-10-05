@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingListDetailsWidget extends StatefulWidget {
   final dynamic args;
-  const PartnerTrainingListDetailsWidget({this.args, Key? key});
+  const PartnerTrainingListDetailsWidget({super.key, this.args, Key? key});
 
   @override
   State<PartnerTrainingListDetailsWidget> createState() =>
@@ -42,7 +42,7 @@ class _PartnerTrainingListDetailsWidgetState
         dynamic data = snap.data?.data;
         return SingleChildScrollView(
           physics:
-          BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
           child: Column(
             children: [
               _buildHeaderImage(data),

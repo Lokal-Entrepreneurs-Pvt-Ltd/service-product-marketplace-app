@@ -14,7 +14,7 @@ import '../../utils/UiUtils/UiUtils.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
 class LoginPageScreen extends StatefulWidget {
-  const LoginPageScreen({Key? key});
+  const LoginPageScreen({super.key, Key? key});
 
   @override
   State<LoginPageScreen> createState() => _LoginPageScreenState();
@@ -56,7 +56,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   }
 
   Widget _buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         color: Colors.yellow,
       ),
@@ -66,10 +66,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   Widget _buildLoginForm() {
     return ListView(
       children: [
-        UikNavbar(
+        const UikNavbar(
           size: "",
           titleText: "welcome back!\nLogin to continue",
-          leftIcon: const Icon(Icons.arrow_back),
+          leftIcon: Icon(Icons.arrow_back),
         ),
         const SizedBox(height: 32),
         _buildEmailField(),
