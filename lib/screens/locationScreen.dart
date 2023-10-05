@@ -1,19 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import '../../Widgets/UikButton/UikButton.dart';
-import '../../constants/json_constants.dart';
-import '../../screen_routes.dart';
-import '../../utils/NavigationUtils.dart';
-import '../../utils/network/ApiRepository.dart';
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({Key? key});
+  const LocationScreen({super.key, Key? key});
 
   @override
   State<LocationScreen> createState() => _LocationScreenScreenState();
