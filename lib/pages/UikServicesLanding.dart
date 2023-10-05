@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
@@ -11,8 +14,11 @@ class UikServicesLanding extends StandardPage {
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
+
     actionList.add(UIK_ACTION.OPEN_PAGE);
     actionList.add(UIK_ACTION.BACK_PRESSED);
+    actionList.add(UIK_ACTION.SELECT_LOCATION);
+
     return actionList;
   }
 
@@ -23,13 +29,16 @@ class UikServicesLanding extends StandardPage {
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
+    // print(uikAction.tap.type);
     switch (uikAction.tap.type) {
       case UIK_ACTION.OPEN_PAGE:
         NavigationUtils.openPage(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
         NavigationUtils.pop();
+        break;
+      case UIK_ACTION.SELECT_LOCATION:
+        LocationUtils.getCurrentPosition();
         break;
       default:
     }
