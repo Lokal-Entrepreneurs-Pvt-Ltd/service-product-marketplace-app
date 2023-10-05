@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/screens/partnerTraining/partnerTrainingListDetails.dart';
+import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import '../../utils/network/ApiRepository.dart';
+import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingHomeScreen extends StatefulWidget {
@@ -22,23 +23,9 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
 
   @override
   void didChangeDependencies() {
-    // _tabController = TabController(length: 2, vsync: this);
     args = ModalRoute.of(context)?.settings.arguments;
-    // _tabController.addListener(() {
-    // setState(() {
-    //   _currentIndex = _tabController.index;
-    // });
-    // });
-
-    _partnerTrainingApiData = ApiRepository.getServiceTabsScreen(args);
-    // Add a listener to the TabController to update the selected tab when scrolled
-
+    _partnerTrainingApiData = ApiRepository.getAcademyTabsScreen(args);
     super.didChangeDependencies();
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   Widget _buildLoadingIndicator() {
@@ -52,7 +39,7 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: null, // Use the stored future
+      future: _partnerTrainingApiData, // Use the actual future
       builder: (context, AsyncSnapshot<ApiResponse> snap) {
         if (snap.connectionState == ConnectionState.waiting) {
           return _buildLoadingIndicator();
@@ -61,36 +48,32 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
             child: Text("Something went wrong\t ${snap.error}"),
           );
         }
-        // dynamic data = snap.data?.data;
-        dynamic data = sampleData['data']['response'];
+
+        dynamic data = snap.data?.data; // Use the actual data
 
         _tabController ??=
             TabController(length: (data["tabs"] as List).length, vsync: this);
 
         return Scaffold(
-          backgroundColor: Colors.white.withOpacity(0.90),
+          backgroundColor: Colors.white,
           appBar: _buildAppBar(data),
           body: Column(
             children: [
-              // Image
               Image.network(
                 data["image"],
                 fit: BoxFit.cover,
                 height: 153,
                 width: double.infinity,
               ),
-
-              // Tabbar
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Column(
                   children: [
                     TabBar(
                       onTap: (ind) {
                         setState(() {
                           _currentIndex = ind;
-                          // debugPrint(_tabController!.index.toString());
                         });
                       },
                       controller: _tabController,
@@ -102,12 +85,13 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
                           horizontal: 0, vertical: 0),
                       tabs: List.generate(
                         (data["tabs"] as List).length,
-                        (index) {
+                            (index) {
                           dynamic tab = data["tabs"][index];
                           return TabElement(
                             text: tab["text"],
                             index: index,
                             isSelected: index == _currentIndex,
+
                           );
                         },
                       ),
@@ -115,24 +99,23 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
                   ],
                 ),
               ),
-
-              // TabBarView
               Expanded(
-                child: Padding(
+                child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  color: Color(0xFFF7F6FA),
                   child: TabBarView(
                     controller: _tabController,
                     physics: const NeverScrollableScrollPhysics(
                         parent: NeverScrollableScrollPhysics()),
                     children: List.generate(
                       (data["tabs"] as List).length,
-                      (index) {
+                          (index) {
                         dynamic tab = data["tabs"][index];
                         return PartnerTrainingListDetailsWidget(
                           args: {
-                            "academyId": "${data["academyId"]}",
-                            "id": tab["id"],
+                            "academyId": "${args["academyId"]}",
+                            "materialType": tab["id"],
                           },
                         );
                       },
@@ -154,7 +137,7 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
       elevation: 0.0,
       centerTitle: true,
       title: Text(
-        "${data["academyName"]}",
+        "${data["heading"]}",
         style: GoogleFonts.poppins(
           color: Colors.black,
           fontWeight: FontWeight.w500,
@@ -162,132 +145,6 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
         ),
       ),
       iconTheme: const IconThemeData(color: Colors.black),
-      // Change the back button color here
     );
   }
 }
-
-dynamic sampleData = {
-  "isSuccess": true,
-  "data": {
-    "response": {
-      "academyId": 1,
-      "academyName": "Paras Defence",
-      "academyType": "Defence",
-      "image": "https://i.ytimg.com/vi/TLacepiMuqk/maxresdefault.jpg",
-      "tabs": [
-        {
-          "id": "training",
-          "text": "Training",
-        },
-        {
-          "id": "archive",
-          "text": "Archive",
-        }
-      ]
-    }
-  }
-};
-
-dynamic day = {
-  "isSuccess": true,
-  "data": {
-    "response": {
-      "name": "Archive",
-      "image": "https://images.indianexpress.com/2022/10/Kohli-30.jpg",
-      "title": "How to Become Fingpay agent",
-      "description":
-          "A Practical Guide to understand the Step by Step process to sell Credit Card Smartly",
-      "materials": [
-        {
-          "material_id": 1,
-          "material_data": {
-            "title": "Credit Card v/s Debit Card",
-            "description": "Learn the basics of designing efficient databases.",
-            "duration": "4 weeks",
-            "date_time": "5 Sep 5 pm",
-            "instructor": "David Johnson",
-            "logo":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "thumbnail":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "action_text": "PLAY",
-            "action": {
-              "type": "OPEN_PAGE",
-              "data": {"url": "https://www.lokalcompany.in/samhitaLandingPage"}
-            }
-          },
-          "material_type": "Course Material",
-          "service_id": 1,
-          "academy_id": 2
-        },
-        {
-          "material_id": 1,
-          "material_data": {
-            "title": "Credit Card v/s Debit Card",
-            "description": "Learn the basics of designing efficient databases.",
-            "duration": "4 weeks",
-            "date_time": "5 Sep 5 pm",
-            "instructor": "David Johnson",
-            "logo":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "thumbnail":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "action_text": "PLAY",
-            "action": {
-              "type": "OPEN_PAGE",
-              "data": {"url": "https://www.lokalcompany.in/samhitaLandingPage"}
-            }
-          },
-          "material_type": "Course Material",
-          "service_id": 1,
-          "academy_id": 2
-        },
-        {
-          "material_id": 1,
-          "material_data": {
-            "title": "Credit Card v/s Debit Card",
-            "description": "Learn the basics of designing efficient databases.",
-            "duration": "4 weeks",
-            "date_time": "5 Sep 5 pm",
-            "instructor": "David Johnson",
-            "logo":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "thumbnail":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "action_text": "PLAY",
-            "action": {
-              "type": "OPEN_PAGE",
-              "data": {"url": "https://www.lokalcompany.in/samhitaLandingPage"}
-            }
-          },
-          "material_type": "Course Material",
-          "service_id": 1,
-          "academy_id": 2
-        },
-        {
-          "material_id": 1,
-          "material_data": {
-            "title": "Credit Card v/s Debit Card",
-            "description": "Learn the basics of designing efficient databases.",
-            "duration": "4 weeks",
-            "date_time": "5 Sep 5 pm",
-            "instructor": "David Johnson",
-            "logo":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "thumbnail":
-                "https://www.pngitem.com/pimgs/m/255-2550411_404-error-images-free-png-transparent-png.png",
-            "action_text": "PLAY",
-            "action": {
-              "type": "OPEN_PAGE",
-              "data": {"url": "https://www.lokalcompany.in/samhitaLandingPage"}
-            }
-          },
-          "material_type": "Course Material",
-          "service_id": 1,
-          "academy_id": 2
-        },
-      ]
-    }
-  }
-};
