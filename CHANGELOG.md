@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.17+18] - 2023-09-26
+Local Academy Phase 1
+
 ## [1.0.16+17] - 2023-09-10
 Partner Notify flow
 

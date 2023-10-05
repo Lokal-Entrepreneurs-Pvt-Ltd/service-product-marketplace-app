@@ -9,17 +9,17 @@ class PartnerTrainingArchiveScreen extends StatefulWidget {
 
   @override
   State<PartnerTrainingArchiveScreen> createState() =>
-      _ServiceLandingScreenState();
+      _PartnerTrainingArchiveScreenState();
 }
 
-class _ServiceLandingScreenState extends State<PartnerTrainingArchiveScreen> {
+class _PartnerTrainingArchiveScreenState extends State<PartnerTrainingArchiveScreen> {
   late Future<ApiResponse> _trainingData;
   late dynamic args;
 
   @override
   void didChangeDependencies() {
     args = ModalRoute.of(context)?.settings.arguments;
-    _trainingData = ApiRepository.getServiceTabsScreen(args);
+    _trainingData = ApiRepository.getAcademyDataByType(args);
 
     super.didChangeDependencies();
   }
