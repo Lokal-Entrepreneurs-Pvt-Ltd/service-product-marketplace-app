@@ -37,6 +37,7 @@ import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
+import 'package:lokal/screens/landing_screen/my_agents_list_screen.dart';
 import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
 import 'package:lokal/screens/locationScreen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
@@ -315,6 +316,7 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.notifyAgentsScreen: (context) => NotifyAgentsScreen(),
           ScreenRoutes.partnerTrainingHome: (context) => const PartnerTrainingHomeScreen(),
           ScreenRoutes.webScreenView: (context) =>  WebViewScreen(),
+          ScreenRoutes.myAgentListScreen: (context) =>  MyAgentListScreen(),
         },
       ),
     );

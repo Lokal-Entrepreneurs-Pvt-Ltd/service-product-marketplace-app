@@ -11,14 +11,14 @@ enum WidgetType {
   UikListItemType1,
   UikContainerText,
 }
-class Sl_MyAgentsList extends StatefulWidget {
-  const Sl_MyAgentsList({super.key});
+class MyAgentListServiceScreen extends StatefulWidget {
+  const MyAgentListServiceScreen({super.key});
 
   @override
-  State<Sl_MyAgentsList> createState() => _Sl_DetailsPageState();
+  State<MyAgentListServiceScreen> createState() => _Sl_DetailsPageState();
 }
 
-class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
+class _Sl_DetailsPageState extends State<MyAgentListServiceScreen>
     with TickerProviderStateMixin {
   late final AutoScrollController _scrollController;
   List<Map<String, dynamic>> _agentListDataStore = [];
@@ -43,7 +43,7 @@ class _Sl_DetailsPageState extends State<Sl_MyAgentsList>
 
   Future<void> _fetchAgentData() async {
     try {
-      final response = await ApiRepository.getAllCustomerForUserService(args);
+      final response = await ApiRepository.getAllAgentsForUserService(args);
       if (response.isSuccess!) {
         _updateAgentData(response.data);
       } else {
