@@ -9,7 +9,7 @@ import '../../utils/NavigationUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class NotifyAgentsScreen extends StatefulWidget {
-  const NotifyAgentsScreen({super.key, Key? key});
+  const NotifyAgentsScreen({super.key});
 
   @override
   State<NotifyAgentsScreen> createState() => _NotifyAgentsScreenState();

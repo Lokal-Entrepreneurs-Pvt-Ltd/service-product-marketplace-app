@@ -14,7 +14,7 @@ import '../../utils/UiUtils/UiUtils.dart';
 import '../../widgets/UikNavbar/UikNavbar.dart';
 
 class LoginPageScreen extends StatefulWidget {
-  const LoginPageScreen({super.key, Key? key});
+  const LoginPageScreen({super.key});
 
   @override
   State<LoginPageScreen> createState() => _LoginPageScreenState();
