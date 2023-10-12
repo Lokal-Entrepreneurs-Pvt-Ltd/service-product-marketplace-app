@@ -45,8 +45,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_xlider: ^3.4.0
   fluttertoast: ^8.1.2
-  geocoding: ^2.0.5
-  geolocator: ^9.0.2
+#  geocoding: ^2.0.5
+#  geolocator: ^9.0.2
   google_maps_flutter: ^2.2.3
   hexcolor: ^3.0.1
   http: ^0.13.5

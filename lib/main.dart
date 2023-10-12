@@ -278,8 +278,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.orderHistoryScreen: (context) =>
               UikOrderHistoryScreen().page,
           ScreenRoutes.myGames: (context) => UikMyGames().page,
-          ScreenRoutes.btsLocationFeasibility: (context) =>
-              UikBtsLocationFeasibilityScreen().page,
+          // ScreenRoutes.btsLocationFeasibility: (context) =>
+          //     UikBtsLocationFeasibilityScreen().page,
           ScreenRoutes.ispHome: (context) => UikIspHome().page,
           ScreenRoutes.couponScreen: (context) => UikCouponScreen().page,
           ScreenRoutes.signUpScreen: (context) => const SignupScreen(),
