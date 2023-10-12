@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.18+19] - 2023-10-12
+Extra pe and Manage Agents flow
+
 ## [1.0.17+18] - 2023-09-26
 Local Academy Phase 1
 
