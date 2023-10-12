@@ -128,7 +128,7 @@ void openDetails(UikAction uikAction) {
 
 void openMyAgent(UikAction uikAction) {
   var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.addAgentScreen);
+  Navigator.pushNamed(context!, ScreenRoutes.manageAgentScreen);
 }
 
 void openMyRewards(UikAction uikAction) {

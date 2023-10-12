@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({super.key, Key? key});
+  const LocationScreen({super.key});
 
   @override
   State<LocationScreen> createState() => _LocationScreenScreenState();
