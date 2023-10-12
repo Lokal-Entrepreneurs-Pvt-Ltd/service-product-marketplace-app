@@ -32,6 +32,12 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
     if (index == 2) {
+      Map<String, dynamic>? args = {
+        "url": "https://www.extrape.com/blog/category/start-here/"
+      };
+      NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
+    }
+    if (index == 3) {
       Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
     }
   }
@@ -55,28 +61,45 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: _onItemTapped,
-          currentIndex: _selectedIndex,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
-              ),
-              label: "",
+        bottomNavigationBar: BottomAppBar(
+          elevation: 0.0, // Remove shadow
+          child: SizedBox(
+            height: 56, // Adjust the height as needed
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                buildNavItem(Icons.home, 'Home', 0),
+                buildNavItem(Icons.menu_book, 'Academy', 1),
+                buildNavItem(Icons.payment, 'ExtraPe', 2),
+                buildNavItem(Icons.person_outline_sharp, 'Account', 3),
+                // Add more items as needed
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.menu_book,
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_outline_sharp,
-              ),
-              label: "",
-            )
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildNavItem(IconData icon, String label, int index) {
+    return InkWell(
+      onTap: () => _onItemTapped(index),
+      child: Container(
+        margin: const EdgeInsets.only(top: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(icon,
+                color: _selectedIndex == index
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey),
+            Text(label,
+                style: TextStyle(
+                  color: _selectedIndex == index
+                      ? Theme.of(context).primaryColor
+                      : Colors.grey,
+                )),
           ],
         ),
       ),

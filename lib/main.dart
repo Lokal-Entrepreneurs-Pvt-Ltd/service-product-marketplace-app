@@ -25,6 +25,7 @@ import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptin.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
+import 'package:lokal/screens/WebViewScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
@@ -36,9 +37,11 @@ import 'package:lokal/pages/UikCatalogScreen.dart';
 import 'package:lokal/pages/UikProductPage.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
+import 'package:lokal/screens/landing_screen/my_agents_list_screen.dart';
 import 'package:lokal/screens/landing_screen/service_landing_screen.dart';
 import 'package:lokal/screens/locationScreen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
+import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
@@ -249,7 +252,7 @@ class _LokalAppState extends State<LokalApp> {
         theme: ThemeData(fontFamily: 'Georgia'),
         routes: {
           "/": (context) {
-            return const LocationScreen();
+            //return const LocationScreen();
             return UserDataHandler.getUserToken().isEmpty
                 ? const OnboardingScreen()
                 : const UikBottomNavigationBar();
@@ -312,6 +315,8 @@ class _LokalAppState extends State<LokalApp> {
           ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen(),
           ScreenRoutes.notifyAgentsScreen: (context) => NotifyAgentsScreen(),
           ScreenRoutes.partnerTrainingHome: (context) => const PartnerTrainingHomeScreen(),
+          ScreenRoutes.webScreenView: (context) =>  WebViewScreen(),
+          ScreenRoutes.myAgentListScreen: (context) =>  MyAgentListScreen(),
         },
       ),
     );

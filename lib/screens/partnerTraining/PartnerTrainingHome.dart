@@ -7,7 +7,7 @@ import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingHomeScreen extends StatefulWidget {
-  const PartnerTrainingHomeScreen({super.key, Key? key});
+  const PartnerTrainingHomeScreen({super.key});
 
   @override
   State<PartnerTrainingHomeScreen> createState() =>

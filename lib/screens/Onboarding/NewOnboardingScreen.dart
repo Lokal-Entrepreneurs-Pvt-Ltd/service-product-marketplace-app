@@ -18,7 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 class LoginScreen extends StatefulWidget {
   final String? selectedUserType;
 
-  const LoginScreen({super.key, Key? key, this.selectedUserType});
+  const LoginScreen({super.key, this.selectedUserType});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -27,7 +27,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   List<String> userTypes = [PARTNER, AGENT];
-  late TabController _tabController;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -61,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -367,20 +365,27 @@ class _LoginScreenState extends State<LoginScreen>
               textColor: const Color(0xFF212121),
               backgroundColor: const Color(0xffFEE440),
               onClick: () async {
-                setState(() {
-                  isLoading = true;
-                });
                 if (_isInputValid()) {
-                  final response = await _performLogin();
-                  if (response.isSuccess!) {
-                    _handleSuccessfulLogin(response);
-                  } else {
-                    _handleLoginError(response);
+                  setState(() {
+                    isLoading = true;
+                  });
+                  try{
+                    final response = await _performLogin();
+                    if (response.isSuccess!) {
+                      _handleSuccessfulLogin(response);
+                    } else {
+                      _handleLoginError(response);
+                    }
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
+                  catch (e){
+                    setState(() {
+                      isLoading = false;
+                    });
                   }
                 }
-                setState(() {
-                  isLoading = false;
-                });
               },
             ),
     );
@@ -428,6 +433,7 @@ class _LoginScreenState extends State<LoginScreen>
 
   void _handleLoginError(ApiResponse response) {
     UiUtils.showToast(response.error![MESSAGE]);
+
   }
 
   Widget _buildPrivacyAndTermsText() {
