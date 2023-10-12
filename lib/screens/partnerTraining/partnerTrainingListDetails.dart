@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingListDetailsWidget extends StatefulWidget {
   final dynamic args;
-  const PartnerTrainingListDetailsWidget({super.key, this.args, Key? key});
+  const PartnerTrainingListDetailsWidget({super.key, this.args});
 
   @override
   State<PartnerTrainingListDetailsWidget> createState() =>

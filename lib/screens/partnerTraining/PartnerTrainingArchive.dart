@@ -5,7 +5,7 @@ import '../../utils/network/ApiRepository.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingArchiveScreen extends StatefulWidget {
-  const PartnerTrainingArchiveScreen({super.key, Key? key});
+  const PartnerTrainingArchiveScreen({super.key});
 
   @override
   State<PartnerTrainingArchiveScreen> createState() =>

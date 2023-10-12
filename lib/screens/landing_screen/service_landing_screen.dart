@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/screens/landing_screen/my_agents_list.dart';
+import 'package:lokal/screens/landing_screen/my_agents_list_screen.dart';
+import 'package:lokal/screens/landing_screen/my_agents_list_service_screen.dart';
 import 'package:lokal/screens/landing_screen/my_customers_list.dart';
 import 'package:lokal/screens/landing_screen/sl_details_page.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -7,7 +8,7 @@ import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class ServiceLandingScreen extends StatefulWidget {
-  const ServiceLandingScreen({super.key, Key? key});
+  const ServiceLandingScreen({super.key});
 
   @override
   State<ServiceLandingScreen> createState() => _ServiceLandingScreenState();
@@ -74,7 +75,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                     children: const [
                       SlDetailsPage(),
                       SlMyCustomersList(),
-                      Sl_MyAgentsList(),
+                      MyAgentListServiceScreen(),
                     ],
                   ),
                 ),

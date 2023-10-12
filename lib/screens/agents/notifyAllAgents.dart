@@ -9,7 +9,7 @@ import '../../utils/NavigationUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class NotifyAgentsScreen extends StatefulWidget {
-  const NotifyAgentsScreen({super.key, Key? key});
+  const NotifyAgentsScreen({super.key});
 
   @override
   State<NotifyAgentsScreen> createState() => _NotifyAgentsScreenState();
@@ -24,7 +24,7 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
   @override
   void didChangeDependencies() {
     args = ModalRoute.of(context)?.settings.arguments;
-    _agentsList = ApiRepository.getAgentDetailsByPartnerIdAndServiceId({
+    _agentsList = ApiRepository.getAllUserAgentByPartnerId({
       "serviceId": args['serviceId'],
     });
     super.didChangeDependencies();
