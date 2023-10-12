@@ -35,9 +35,9 @@ class UikServicesLanding extends StandardPage {
       case UIK_ACTION.BACK_PRESSED:
         NavigationUtils.pop();
         break;
-      case UIK_ACTION.SELECT_LOCATION:
-        LocationUtils.getCurrentPosition();
-        break;
+      // case UIK_ACTION.SELECT_LOCATION:
+      //   LocationUtils.getCurrentPosition();
+      //   break;
       default:
     }
   }
