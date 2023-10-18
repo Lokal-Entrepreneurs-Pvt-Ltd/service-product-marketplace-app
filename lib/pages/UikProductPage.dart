@@ -56,13 +56,13 @@ class UikProductPage extends StandardPage {
 
 void showCartScreen(UikAction uikAction) async {
   String skuId = await ProductDataHandler.getProductSkuId();
-  NavigationUtils.showLoaderOnTop();
+  //NavigationUtils.showLoaderOnTop();
 
   dynamic response = await ApiRepository.updateCart(
       ApiRequestBody.getUpdateCartRequest(
           skuId, "add", CartDataHandler.getCartId()));
 
-  NavigationUtils.pop();
+ // NavigationUtils.pop();
 
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
