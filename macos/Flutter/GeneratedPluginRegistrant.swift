@@ -10,7 +10,7 @@ import firebase_core
 import firebase_crashlytics
 import firebase_database
 import firebase_messaging
-import package_info_plus
+import package_info_plus_macos
 import path_provider_foundation
 import platform_device_id
 import platform_device_id_macos
