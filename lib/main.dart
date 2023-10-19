@@ -255,7 +255,7 @@ class _LokalAppState extends State<LokalApp> {
         //       const SamhitaDataCollector(),
         //   ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
         //   ScreenRoutes.samhitaAddParticipantForm: (context) =>
-        //       const SamhitaAddParticipants(),
+          //       const SamhitaAddParticipants(),
         //   ScreenRoutes.samhitaBecomeParticipantForm: (context) =>
         //       const SamhitaBecomeParticipant(),
         //   ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,

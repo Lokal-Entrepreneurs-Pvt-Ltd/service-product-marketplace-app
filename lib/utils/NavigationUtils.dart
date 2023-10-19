@@ -10,7 +10,7 @@ import '../screen_routes.dart';
 abstract class NavigationUtils {
   static void openCategory(UikAction uikAction) {
     //Navigation to the next screen through deepLink Handler
-    var context = NavigationService.navigatorKey.currentContext;
+    var context = AppRoutes.rootNavigatorKey.currentContext;
     DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   }
 
@@ -49,13 +49,14 @@ abstract class NavigationUtils {
   static void openScreen(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     // Navigator.pushNamed(context!, routeName, arguments: args );
-    context!.go(routeName,extra: args);
+    context?.go(routeName,extra: args);
   }
 
   static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
-    var context = NavigationService.navigatorKey.currentContext;
-    Navigator.pushNamedAndRemoveUntil(
-        context!,routeName, ModalRoute.withName('/'),
-        arguments: args);
+    var context = AppRoutes.rootNavigatorKey.currentContext;
+    // Navigator.pushNamedAndRemoveUntil(
+    //     context!,routeName, ModalRoute.withName('/'),
+    //     arguments: args);
+    context?.go(routeName,extra: args);
   }
 }
