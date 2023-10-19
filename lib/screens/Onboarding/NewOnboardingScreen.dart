@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -65,29 +67,27 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: DIMEN_24,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: DIMEN_21),
-                child: _buildTitle(),
-              ),
-              const SizedBox(
-                height: DIMEN_35,
-              ),
-              Expanded(
-                child: _buildBody(),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: DIMEN_24,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: DIMEN_21),
+              child: _buildTitle(),
+            ),
+            const SizedBox(
+              height: DIMEN_35,
+            ),
+            Expanded(
+              child: _buildBody(),
+            ),
+          ],
         ),
       ),
     );
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen>
   Widget _buildAppBarLeading() {
     return InkWell(
       onTap: () {
-        Navigator.pop(context);
+        context.go(ScreenRoutes.onboardingScreen);
       },
       child: const Icon(
         Icons.arrow_back_sharp,
@@ -132,12 +132,7 @@ class _LoginScreenState extends State<LoginScreen>
   Widget _buildAppBarAction() {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SignupScreen(),
-          ),
-        );
+       context.go(ScreenRoutes.signUpScreen);
       },
       child: TextButton(
         onPressed: null, // Use onPressed: null for InkWell
@@ -422,13 +417,7 @@ class _LoginScreenState extends State<LoginScreen>
     if (customerData != null) {
       UserDataHandler.saveCustomerData(customerData);
     }
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const UikBottomNavigationBar(),
-      ),
-      ModalRoute.withName(ScreenRoutes.loginScreen),
-    );
+   context.go(ScreenRoutes.uikBottomNavigationBar);
   }
 
   void _handleLoginError(ApiResponse response) {
