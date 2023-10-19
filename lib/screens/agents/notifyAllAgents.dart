@@ -9,7 +9,8 @@ import '../../utils/NavigationUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class NotifyAgentsScreen extends StatefulWidget {
-  const NotifyAgentsScreen({super.key});
+  const NotifyAgentsScreen({super.key, this.args});
+  final dynamic args;
 
   @override
   State<NotifyAgentsScreen> createState() => _NotifyAgentsScreenState();
@@ -18,14 +19,14 @@ class NotifyAgentsScreen extends StatefulWidget {
 class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
     with TickerProviderStateMixin {
   late Future<ApiResponse> _agentsList;
-  late dynamic args;
+
   late final List<String> _agentsNotifyList;
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
+
     _agentsList = ApiRepository.getAgentDetailsByPartnerIdAndServiceId({
-      "serviceId": args['serviceId'],
+      "serviceId": widget.args['serviceId'],
     });
     super.didChangeDependencies();
   }
@@ -68,7 +69,7 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
   Future<ApiResponse> _sendNotificationToAgents() async {
     return ApiRepository.createOrUpdateForAgents({
       'agentId': _agentsNotifyList,
-      'serviceId': args['serviceId'],
+      'serviceId': widget.args['serviceId'],
     });
   }
 
@@ -78,7 +79,8 @@ class _NotifyAgentsScreenState extends State<NotifyAgentsScreen>
       if (response.isSuccess != null && response.isSuccess == true) {
         _showSuccessSnackBar();
         NavigationUtils.openScreenUntil(
-            ScreenRoutes.userServiceTabsScreen, args);
+            ScreenRoutes.userServiceTabsScreen, widget.args
+        );
       } else {
         _showErrorSnackBar();
       }

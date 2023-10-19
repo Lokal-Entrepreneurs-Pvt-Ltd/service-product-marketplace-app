@@ -98,6 +98,7 @@ class UikMyAccountScreen extends StandardPage {
 void clearDataAndMoveToOnboarding(UikAction uikAction) {
   UserDataHandler.clearUserToken();
   Navigator.pushAndRemoveUntil(
+    // todo @premansh material page route
     NavigationService.navigatorKey.currentContext!,
     MaterialPageRoute(
       builder: (context) => const OnboardingScreen(),
