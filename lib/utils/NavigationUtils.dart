@@ -1,3 +1,5 @@
+import 'package:go_router/go_router.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../main.dart';
@@ -45,8 +47,9 @@ abstract class NavigationUtils {
   }
 
   static void openScreen(String routeName, [Map<String, dynamic>? args]) {
-    var context = NavigationService.navigatorKey.currentContext;
-    Navigator.pushNamed(context!, routeName, arguments: args );
+    var context = AppRoutes.rootNavigatorKey.currentContext;
+    // Navigator.pushNamed(context!, routeName, arguments: args );
+    context!.go(routeName,extra: args);
   }
 
   static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 
 import '../main.dart';
@@ -23,7 +25,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   int totalCartItems = CartDataHandler.getCartItems().length;
 
   void _onItemTapped(int index) {
-    var context = NavigationService.navigatorKey.currentContext;
+    var context = AppRoutes.rootNavigatorKey.currentContext;
     if (index == _selectedIndex) return;
     if (index == 1) {
       Map<String, dynamic>? args = {
@@ -38,7 +40,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
     }
     if (index == 3) {
-      Navigator.pushNamed(context!, ScreenRoutes.myAccountScreen);
+      context!.go(ScreenRoutes.myAccountScreen);
     }
   }
 
