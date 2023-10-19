@@ -7,7 +7,8 @@ import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PartnerTrainingHomeScreen extends StatefulWidget {
-  const PartnerTrainingHomeScreen({super.key});
+  const PartnerTrainingHomeScreen({super.key, this.args});
+  final dynamic args;
 
   @override
   State<PartnerTrainingHomeScreen> createState() =>
@@ -19,12 +20,12 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
   TabController? _tabController;
   int _currentIndex = 0;
   late Future<ApiResponse> _partnerTrainingApiData;
-  late dynamic args;
+  // late dynamic args;
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
-    _partnerTrainingApiData = ApiRepository.getAcademyTabsScreen(args);
+    // args = ModalRoute.of(context)?.settings.arguments;
+    _partnerTrainingApiData = ApiRepository.getAcademyTabsScreen(widget.args);
     super.didChangeDependencies();
   }
 
@@ -114,7 +115,7 @@ class _ServiceLandingScreenState extends State<PartnerTrainingHomeScreen>
                         dynamic tab = data["tabs"][index];
                         return PartnerTrainingListDetailsWidget(
                           args: {
-                            "academyId": "${args["academyId"]}",
+                            "academyId": "${widget.args["academyId"]}",
                             "materialType": tab["id"],
                           },
                         );
