@@ -4,24 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
+  const WebViewScreen({super.key, this.args});
+  final dynamic args;
+
   @override
-  _WebViewScreenState createState() => _WebViewScreenState();
+  State<WebViewScreen> createState() => _WebViewScreenState();
 }
-late dynamic args;
+// late dynamic args;
 
 
 class _WebViewScreenState extends State<WebViewScreen> {
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
+    // args = ModalRoute.of(context)?.settings.arguments;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return WebView(
-      initialUrl: args['url'], // Replace with your desired URL
+      initialUrl: widget.args['url'], // Replace with your desired URL
     );
   }
 }
