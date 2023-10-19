@@ -13,7 +13,8 @@ import '../../widgets/UikButton/UikButton.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class SamhitaOtp extends StatefulWidget {
-  const SamhitaOtp({super.key});
+  const SamhitaOtp({super.key, this.args});
+  final dynamic args;
 
   @override
   State<SamhitaOtp> createState() => _SamhitaOtpState();
@@ -46,11 +47,11 @@ class _SamhitaOtpState extends State<SamhitaOtp> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    var phoneNo = args['phoneNo'];
-    var samhitaId = args['samhitaId'];
+    // final args = ModalRoute.of(context)!.settings.arguments as Map;
+    var phoneNo = widget.args['phoneNo'];
+    var samhitaId = widget.args['samhitaId'];
 
-    print(args);
+    print(widget.args);
 
     return MaterialApp(
         home: Scaffold(
