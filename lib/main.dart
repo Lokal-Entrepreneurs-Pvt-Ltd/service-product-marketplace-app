@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
@@ -13,6 +14,7 @@ import 'package:lokal/pages/UikBtsLocationFeasibilityScreen.dart';
 import 'package:lokal/pages/UikCartScreen.dart';
 import 'package:lokal/pages/UikCouponScreen.dart';
 import 'package:lokal/pages/UikCustomerForUserService.dart';
+import 'package:lokal/pages/UikHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/pages/UikMyAddressScreen.dart';
 import 'package:lokal/pages/UikMyGames.dart';
@@ -51,6 +53,7 @@ import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:platform_device_id/platform_device_id.dart';
+import 'package:ui_sdk/ApiResponseState.dart';
 import 'configs/environment.dart';
 import 'pages/UikIspHome.dart';
 import 'pages/UikMembershipScreen.dart';
@@ -82,9 +85,18 @@ void main() async {
   );
   Environment().initConfig(environment);
 
-  runApp(const BetterFeedback(
-    child: LokalApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<ApiResponseCubit>(
+          create: (context) => ApiResponseCubit(),
+        ),
+        // Add other Cubits if needed
+      ],
+      child: const LokalApp(),
+    ),
+  );
+
 
   //
   // FlutterError.onError = (errorDetails) {
@@ -109,6 +121,7 @@ void main() async {
   });
   if (fcmToken!.isNotEmpty) saveFCMForUser(fcmToken);
 }
+
 
 Future<void> saveFCMForUser(String fcmToken) async {
   await ApiRepository.saveNotificationToken(
@@ -259,7 +272,7 @@ class _LokalAppState extends State<LokalApp> {
           },
           ScreenRoutes.userServiceTabsScreen: (context) =>
               const ServiceLandingScreen(),
-          ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
+          ScreenRoutes.homeScreen: (context) =>  UikHome().page,
           ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
           ScreenRoutes.productScreen: (context) => UikProductPage().page,
           ScreenRoutes.cartScreen: (context) => UikCartScreen().page,
