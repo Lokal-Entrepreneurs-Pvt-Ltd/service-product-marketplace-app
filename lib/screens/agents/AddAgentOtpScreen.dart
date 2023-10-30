@@ -14,7 +14,8 @@ import '../../../utils/network/http/http_screen_client.dart';
 import '../../../widgets/UikButton/UikButton.dart';
 
 class AddAgentOtpScreen extends StatefulWidget {
-  const AddAgentOtpScreen({super.key});
+  const AddAgentOtpScreen({super.key, this.args});
+  final dynamic args;
 
   @override
   State<AddAgentOtpScreen> createState() => _AddAgentOtpScreenState();
@@ -36,11 +37,11 @@ class _AddAgentOtpScreenState extends State<AddAgentOtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    var phoneNo = args['phoneNo'];
-    var partnerId = args['partnerId'];
+    // final args = ModalRoute.of(context)!.settings.arguments as Map;
+    var phoneNo = widget.args['phoneNo'];
+    var partnerId = widget.args['partnerId'];
 
-    print(args);
+    print(widget.args);
 
     return MaterialApp(
         home: Scaffold(

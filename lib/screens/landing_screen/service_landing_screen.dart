@@ -8,7 +8,8 @@ import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import '../../utils/network/ApiRepository.dart';
 
 class ServiceLandingScreen extends StatefulWidget {
-  const ServiceLandingScreen({super.key});
+  const ServiceLandingScreen({super.key, this.args});
+  final dynamic args;
 
   @override
   State<ServiceLandingScreen> createState() => _ServiceLandingScreenState();
@@ -19,13 +20,12 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
   late TabController _tabController;
   int _currentIndex = 0;
   late Future<ApiResponse> _serviceTabsFuture;
-  late dynamic args;
+
 
   @override
   void didChangeDependencies() {
     _tabController = TabController(length: 3, vsync: this);
-    args = ModalRoute.of(context)?.settings.arguments;
-    _serviceTabsFuture = ApiRepository.getServiceTabsScreen(args);
+    _serviceTabsFuture = ApiRepository.getServiceTabsScreen(widget.args);
     // Add a listener to the TabController to update the selected tab when scrolled
     _tabController.addListener(() {
       setState(() {
@@ -72,10 +72,10 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                 Expanded(
                   child: TabBarView(
                     controller: _tabController,
-                    children: const [
-                      SlDetailsPage(),
-                      SlMyCustomersList(),
-                      MyAgentListServiceScreen(),
+                    children: [
+                      SlDetailsPage(args: widget.args,),
+                      SlMyCustomersList(args: widget.args,),
+                      MyAgentListServiceScreen(args: widget.args,),
                     ],
                   ),
                 ),

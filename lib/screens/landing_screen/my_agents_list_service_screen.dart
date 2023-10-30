@@ -12,7 +12,8 @@ enum WidgetType {
   UikContainerText,
 }
 class MyAgentListServiceScreen extends StatefulWidget {
-  const MyAgentListServiceScreen({super.key});
+  const MyAgentListServiceScreen({super.key, this.args});
+  final dynamic args;
 
   @override
   State<MyAgentListServiceScreen> createState() => _Sl_DetailsPageState();
@@ -32,18 +33,18 @@ class _Sl_DetailsPageState extends State<MyAgentListServiceScreen>
     super.initState();
   }
 
-  late dynamic args;
+
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
+
     _fetchAgentData();
     super.didChangeDependencies();
   }
 
   Future<void> _fetchAgentData() async {
     try {
-      final response = await ApiRepository.getAllAgentsForUserService(args);
+      final response = await ApiRepository.getAllAgentsForUserService(widget.args);
       if (response.isSuccess!) {
         _updateAgentData(response.data);
       } else {
@@ -254,7 +255,7 @@ class _Sl_DetailsPageState extends State<MyAgentListServiceScreen>
             width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
-                NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
+                NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, widget.args);
               },
               child: UikButton(
                 text: "Add Agent",
@@ -269,7 +270,7 @@ class _Sl_DetailsPageState extends State<MyAgentListServiceScreen>
             width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
-                NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, args);
+                NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, widget.args);
               },
               child: UikButton(
                 text: "Notify Agent",
@@ -307,7 +308,7 @@ class _Sl_DetailsPageState extends State<MyAgentListServiceScreen>
     return Container(
       child: InkWell(
         onTap: () {
-          NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
+          NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, widget.args);
         },
         child: UikButton(
           text: "Add Agent",

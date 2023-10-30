@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/constants/dimens.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/strings.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'NewOnboardingScreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -98,12 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             curve: Curves.easeOut,
                           );
                         } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
-                            ),
-                          );
+                          NavigationUtils.openScreen(ScreenRoutes.loginScreen);
                         }
                       },
                       child: ElevatedButton(

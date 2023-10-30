@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 
 class Price extends StatelessWidget {
   const Price({super.key});
@@ -40,12 +43,7 @@ class Price extends StatelessWidget {
             width: 101,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UikBottomNavigationBar(),
-                  ),
-                );
+                NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
               },
               style: ButtonStyle(
                   fixedSize: MaterialStateProperty.all(const Size.fromWidth(100)),

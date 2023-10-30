@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -185,9 +187,9 @@ void removeCartItem(UikAction uikAction) async {
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
+  var context = AppRoutes.rootNavigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ScreenRoutes.catalogueScreen);
+  context!.go(ScreenRoutes.catalogueScreen);
 }
 
 void openProduct(UikAction uikAction) {

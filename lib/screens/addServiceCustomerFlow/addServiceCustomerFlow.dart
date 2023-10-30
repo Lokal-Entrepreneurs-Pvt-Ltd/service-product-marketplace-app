@@ -19,7 +19,8 @@ const CONTINUE = "Continue";
 const REQUIRED_FIELD = "Enter Required Field";
 
 class AddServiceCustomerFlow extends StatefulWidget {
-  const AddServiceCustomerFlow({Key? key}) : super(key: key);
+  const AddServiceCustomerFlow({Key? key, this.args}) : super(key: key);
+  final dynamic args;
 
   @override
   State<AddServiceCustomerFlow> createState() => _AddServiceCustomerFlowState();
@@ -62,11 +63,10 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
   }
 
 
-  late dynamic args;
+
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
     super.didChangeDependencies();
   }
   @override
@@ -232,7 +232,7 @@ class _AddServiceCustomerFlowState extends State<AddServiceCustomerFlow> {
               "successText":  'Customer Details Saved',
               "failureText":  'Saving Details Failed',
               "userId": UserDataHandler.getUserId(),
-              "serviceId": args['serviceId'],
+              "serviceId": widget.args['serviceId'],
               "name": _nameController.text,
               "phoneNumber": _phoneNumberController.text,
               "age": _ageController.text,

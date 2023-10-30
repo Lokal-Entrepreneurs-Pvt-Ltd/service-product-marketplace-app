@@ -12,7 +12,8 @@ enum WidgetType {
 }
 
 class SlMyCustomersList extends StatefulWidget {
-  const SlMyCustomersList({Key? key}) : super(key: key);
+  final dynamic args;
+  const SlMyCustomersList({Key? key, this.args}) : super(key: key);
 
   @override
   State<SlMyCustomersList> createState() => _SlDetailsPageState();
@@ -25,7 +26,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   List<dynamic> _customerWidgets = [];
   bool _isLoading = true;
   bool _showAddCustomerButton = false;
-  late dynamic args;
+
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    args = ModalRoute.of(context)?.settings.arguments;
+
     _fetchCustomerData();
     // Trigger a redraw
     setState(() {});
@@ -45,7 +46,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   Future<void> _fetchCustomerData() async {
     try {
       final response =
-      await ApiRepository.getAllCustomerForUserService(args);
+      await ApiRepository.getAllCustomerForUserService(widget.args);
       if (response.isSuccess!) {
         _updateCustomerData(response.data);
       } else {
@@ -239,7 +240,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
     return Container(
       child: InkWell(
         onTap: () {
-          NavigationUtils.openScreenUntil(ScreenRoutes.addUserServiceCustomer, args);
+          NavigationUtils.openScreenUntil(ScreenRoutes.addUserServiceCustomer, widget.args);
         },
         child: UikButton(
           text: "Add Customer",

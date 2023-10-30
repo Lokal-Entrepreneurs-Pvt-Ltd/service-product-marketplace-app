@@ -15,10 +15,10 @@ import '../../widgets/UikButton/UikButton.dart';
 
 class OtpScreen extends StatefulWidget {
   final String mobileNumber;
-
+  final dynamic args;
   const OtpScreen({
     super.key,
-    this.mobileNumber = "",
+    this.mobileNumber = "", this.args,
   });
 
   @override
@@ -41,9 +41,9 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String;
+    // final args = ModalRoute.of(context)!.settings.arguments as String;
 
-    print(args);
+    // print(args);
 
     return MaterialApp(
         home: Scaffold(
@@ -80,7 +80,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 8,
                 ),
                 Text(
-                  "We sent it to $args",
+                  "We sent it to ${widget.args}",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -118,7 +118,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     if (optPinEntered.length == 6) {
                       final response = await ApiRepository.verifyOtp(
                         ApiRequestBody.getVerifyOtpRequest(
-                          args,
+                          widget.args,
                           optPinEntered,
                           // "221300",
                         ),
