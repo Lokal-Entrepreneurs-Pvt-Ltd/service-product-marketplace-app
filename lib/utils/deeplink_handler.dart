@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/lokal_events.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
@@ -240,6 +241,6 @@ abstract class DeeplinkHandler {
       [Map<String, dynamic>? args]) {
     print("pushed route $route");
     print("pushed args $args");
-    Navigator.pushNamed(context, route, arguments: args);
+    context.go(route,extra: args);
   }
 }

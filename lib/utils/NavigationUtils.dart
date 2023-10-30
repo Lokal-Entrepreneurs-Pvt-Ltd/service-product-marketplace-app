@@ -15,7 +15,7 @@ abstract class NavigationUtils {
   }
 
   static BuildContext? getCurrentContext() {
-    return NavigationService.navigatorKey.currentContext;
+    return AppRoutes.rootNavigatorKey.currentContext;
   }
 
   static Future showLoaderOnTop() {

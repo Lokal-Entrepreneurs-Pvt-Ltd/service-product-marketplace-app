@@ -218,7 +218,9 @@ class AppRoutes {
   static final GoRoute _orderScreen = GoRoute(
     path: ScreenRoutes.orderScreen,
     builder: (context, state) {
-      return UikOrderScreen().page;
+      return UikOrderScreen(
+        args: state.extra
+      ).page;
     },
   );
   static final GoRoute _addAddressScreen = GoRoute(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screen_routes.dart';
@@ -88,7 +89,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
           icon: Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
-            Navigator.of(context).pop();
+            context.go(ScreenRoutes.uikBottomNavigationBar);
           },
         ),
       ),

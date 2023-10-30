@@ -29,7 +29,8 @@ class Args {
 }
 
 class SlDetailsPage extends StatefulWidget {
-  const SlDetailsPage({super.key});
+  const SlDetailsPage({super.key, this.args});
+  final dynamic args;
 
   @override
   State<SlDetailsPage> createState() => _SlDetailsPageState();
@@ -44,11 +45,11 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   bool _isLoading = true;
   List<dynamic> _templates = [];
   bool _isOptedIn = false;
-  late dynamic args;
+
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
+
     _fetchServiceDetails();
     super.didChangeDependencies();
   }
@@ -63,7 +64,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
 
   Future<void> _fetchServiceDetails() async {
     try {
-      final response = await ApiRepository.getServiceDetailsById(args);
+      final response = await ApiRepository.getServiceDetailsById(widget.args);
       if (response.isSuccess!) {
         _updateServiceDetails(response.data);
       } else {
@@ -123,7 +124,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
     return Container(
       child: InkWell(
         onTap: () async {
-          final response = await ApiRepository.submitOptin(args);
+          final response = await ApiRepository.submitOptin(widget.args);
           if (response.isSuccess!) {
             UiUtils.showToast("You Have Opted in");
             setState(() {
