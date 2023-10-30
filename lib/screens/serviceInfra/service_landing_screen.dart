@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/screens/landing_screen/my_agents_list_screen.dart';
-import 'package:lokal/screens/landing_screen/my_agents_list_service_screen.dart';
-import 'package:lokal/screens/landing_screen/my_customers_list.dart';
-import 'package:lokal/screens/landing_screen/sl_details_page.dart';
+import 'package:lokal/screens/serviceInfra//my_agents_list_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
+import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import '../../utils/network/ApiRepository.dart';
@@ -66,7 +66,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
           backgroundColor: Colors.white.withOpacity(0.90),
           appBar: _buildAppBar(data),
           body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
             child: Column(
               children: [
                 Expanded(

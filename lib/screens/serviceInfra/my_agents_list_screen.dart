@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
-import '../../utils/network/ApiRepository.dart';
 
 enum WidgetType {
   UikListItemType1,
