@@ -88,9 +88,16 @@ class FirebaseMessagingController {
     }
     var kFcmToken = await _firebaseMessaging.getToken();
 
+    print('________FCM1_______');
+    print(kFcmToken);
+    print('________FCM1 ENDS_______');
+
     FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
       kFcmToken = fcmToken;
+      print('________FCM2_______');
       print(kFcmToken);
+      print('________FCM2 ENDS_______');
+
     }).onError((err) {
       print("error");
       throw Exception(err);
