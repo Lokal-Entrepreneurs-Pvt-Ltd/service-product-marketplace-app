@@ -64,7 +64,7 @@ class UikAddAddressScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikAddAddressScreen;
+    return ScreenRoutes.addAddressScreen;
   }
 
   void onTextEditComplete(UikAction uikAction) {
