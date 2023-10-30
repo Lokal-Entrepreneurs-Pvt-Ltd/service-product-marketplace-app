@@ -58,7 +58,7 @@ class UikHome extends StandardPage {
 
   @override
   getPageContext() {
-    return "UikHomeScreen";
+    return ScreenRoutes.homeScreen;
   }
 
   @override

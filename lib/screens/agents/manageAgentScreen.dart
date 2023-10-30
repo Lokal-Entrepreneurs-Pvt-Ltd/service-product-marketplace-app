@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -37,7 +38,7 @@ class ManageAgentScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return ManageAgentScreen;
+    return ScreenRoutes.manageAgentScreen;
   }
 
   @override

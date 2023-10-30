@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -49,7 +50,7 @@ class UikServicesLanding extends StandardPage {
 
   @override
   getPageContext() {
-    return UikServicesLanding;
+    return ScreenRoutes.serviceLandingScreen;
   }
 
   @override
