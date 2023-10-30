@@ -1,4 +1,5 @@
 
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -50,7 +51,7 @@ class UikOdOpScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikOdOpScreen;
+    return ScreenRoutes.odOpHomeScreen;
   }
 
   @override
