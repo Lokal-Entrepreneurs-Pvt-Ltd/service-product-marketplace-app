@@ -1,5 +1,7 @@
 class ScreenRoutes {
   static const String homeScreen = '/discovery/get';
+  static const String onboardingScreen = '/onboardingScreen';
+  static const String uikBottomNavigationBar = '/uikBottomNavigationBar';
   static const String catalogueScreen = '/products';
   static const String productScreen = "/product_detail";
   static const String cartScreen = '/cart';

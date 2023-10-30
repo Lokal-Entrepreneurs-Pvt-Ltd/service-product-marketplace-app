@@ -12,7 +12,8 @@ import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
 
 class AddAgentScreen extends StatefulWidget {
-  const AddAgentScreen({Key? key}) : super(key: key);
+  const AddAgentScreen({Key? key, this.args}) : super(key: key);
+  final dynamic args;
 
   @override
   State<AddAgentScreen> createState() => _AddAgentScreenState();
@@ -28,13 +29,13 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
   bool _isApiCallInProgress = false;
   String phoneNo = "";
 
-  late dynamic args;
+
 
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    args = ModalRoute.of(context)?.settings.arguments;
+
   }
 
 
@@ -244,7 +245,7 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
 
     if (response.isSuccess!) {
       UiUtils.showToast("Agent Added");
-      NavigationUtils.openScreenUntil(ScreenRoutes.userServiceTabsScreen, args);
+      NavigationUtils.openScreenUntil(ScreenRoutes.userServiceTabsScreen, widget.args);
     } else {
       UiUtils.showToast(response.error![MESSAGE]);
       NavigationUtils.pop();

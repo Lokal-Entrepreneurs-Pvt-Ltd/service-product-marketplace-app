@@ -1,18 +1,17 @@
 // import 'dart:js';
 
-// import 'package:lokal/Widgets/UikSnackbar/snack.dart';
-import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/screen_routes.dart';
-import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
-import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 
 import '../constants/strings.dart';
-import '../main.dart';
 
 class UikMyAccountScreen extends StandardPage {
   // final obj = Snack();
@@ -97,14 +96,7 @@ class UikMyAccountScreen extends StandardPage {
 
 void clearDataAndMoveToOnboarding(UikAction uikAction) {
   UserDataHandler.clearUserToken();
-  Navigator.pushAndRemoveUntil(
-    NavigationService.navigatorKey.currentContext!,
-    MaterialPageRoute(
-      builder: (context) => const OnboardingScreen(),
-    ),
-    // ModalRoute.withName(ScreenRoutes.homeScreen)
-    (route) => false,
-  );
+  AppRoutes.rootNavigatorKey.currentContext!.go(ScreenRoutes.onboardingScreen);
   // todo mano recreate the main.dart by adding listners
 }
 
@@ -113,8 +105,7 @@ void openPayment(UikAction uikAction) {
 }
 
 void openAddress(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.myAddressScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myAddressScreen);
 }
 
 void openWishlist(UikAction uikAction) {
@@ -122,24 +113,19 @@ void openWishlist(UikAction uikAction) {
 }
 
 void openDetails(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen);
 }
 
 void openMyAgent(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.myAgentListScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen);
 }
 
 void openMyRewards(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.myRewardsPage);
+  NavigationUtils.openScreen(ScreenRoutes.myRewardsPage);
 }
 
 void openOrders(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ScreenRoutes.orderHistoryScreen);
+  NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen);
 }
 
 // Future<ApiResponse> getMockedApiResponse(args) async {

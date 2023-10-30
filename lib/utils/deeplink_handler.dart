@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/lokal_events.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
@@ -7,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'storage/product_data_handler.dart';
 
 abstract class DeeplinkHandler {
-  static void openPage(BuildContext context, String url) async {
+  static void openPage(BuildContext? context, String url) async {
     //https://localee.co.in/routName?args1=10&arg2=20
     print("__________________url____________________");
     print(url);
@@ -236,10 +237,10 @@ abstract class DeeplinkHandler {
     }
   }
 
-  static void _pushScreen(BuildContext context, String route,
+  static void _pushScreen(BuildContext? context, String route,
       [Map<String, dynamic>? args]) {
     print("pushed route $route");
     print("pushed args $args");
-    Navigator.pushNamed(context, route, arguments: args);
+    context?.go(route,extra: args);
   }
 }

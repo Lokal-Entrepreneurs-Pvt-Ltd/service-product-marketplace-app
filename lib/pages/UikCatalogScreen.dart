@@ -1,14 +1,20 @@
 import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
-import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../main.dart';
+
 import '../actions.dart';
+import '../main.dart';
 
 class UikCatalogScreen extends StandardPage {
   @override
@@ -36,7 +42,8 @@ class UikCatalogScreen extends StandardPage {
         openProduct(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
+        BuildContext context = AppRoutes.rootNavigatorKey.currentContext!;
+        NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
         break;
       default:
     }
@@ -54,7 +61,7 @@ class UikCatalogScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 

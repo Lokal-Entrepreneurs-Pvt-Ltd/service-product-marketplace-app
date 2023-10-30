@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screen_routes.dart';
@@ -12,7 +13,8 @@ enum WidgetType {
   UikContainerText,
 }
 class MyAgentListScreen extends StatefulWidget {
-  const MyAgentListScreen({super.key});
+  const MyAgentListScreen({super.key, this.args});
+  final dynamic args;
 
   @override
   State<MyAgentListScreen> createState() => _Sl_DetailsPageState();
@@ -32,18 +34,18 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
     super.initState();
   }
 
-  late dynamic args;
+
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
+
     _fetchAgentData();
     super.didChangeDependencies();
   }
 
   Future<void> _fetchAgentData() async {
     try {
-      final response = await ApiRepository.getAllAgentsForUserService(args);
+      final response = await ApiRepository.getAllAgentsForUserService(widget.args);
       if (response.isSuccess!) {
         _updateAgentData(response.data);
       } else {
@@ -87,7 +89,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
           icon: Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
-            Navigator.of(context).pop();
+            NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar,);
           },
         ),
       ),
@@ -264,7 +266,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
             width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
-                NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
+                NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, widget.args);
               },
               child: UikButton(
                 text: "Add Agent",
@@ -279,7 +281,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
             width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
-                NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, args);
+                NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, widget.args);
               },
               child: UikButton(
                 text: "Notify Agent",
@@ -317,7 +319,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
     return Container(
       child: InkWell(
         onTap: () {
-          NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, args);
+          NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, widget.args);
         },
         child: UikButton(
           text: "Add Agent",

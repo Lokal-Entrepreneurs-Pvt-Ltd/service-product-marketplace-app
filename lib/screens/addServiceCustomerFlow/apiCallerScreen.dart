@@ -9,7 +9,8 @@ import '../../utils/network/ApiRepository.dart';
 
 class ApiCallerScreen extends StatefulWidget {
 
-  const ApiCallerScreen({Key? key}) : super(key: key);
+  const ApiCallerScreen({Key? key, this.args}) : super(key: key);
+  final dynamic args;
 
   @override
   _ApiCallerScreenState createState() => _ApiCallerScreenState();
@@ -25,11 +26,10 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
 
   }
 
-  late dynamic args;
+
 
   @override
   void didChangeDependencies() {
-    args = ModalRoute.of(context)?.settings.arguments;
     _callApi();
     super.didChangeDependencies();
   }
@@ -37,8 +37,8 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
   Future<void> _callApi() async {
     try {
       final response = await ApiRepository.apiCallerScreen(
-        args['apiRoute'],
-        args,
+        widget.args['apiRoute'],
+        widget.args,
       );
 
       setState(() {
@@ -80,7 +80,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
           width: 150, // Adjust the width as needed
         ),
         const SizedBox(height: DIMEN_15),
-        Text(args['loadingText'],
+        Text(widget.args['loadingText'],
           style: const TextStyle(
             fontSize: DIMEN_25,
             color: Colors.black,
@@ -104,11 +104,11 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
       children: [
         Lottie.network(ERROR_LOTTIE),
         const SizedBox(height: DIMEN_16),
-        Text(args['failureText']),
+        Text(widget.args['failureText']),
         const SizedBox(height: DIMEN_25,),
         ElevatedButton(
           onPressed: () {
-            NavigationUtils.openScreenUntil(ScreenRoutes.addUserServiceCustomer,args);
+            NavigationUtils.openScreenUntil(ScreenRoutes.addUserServiceCustomer,widget.args);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFFEE440), // Set the desired color
@@ -131,7 +131,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
         Lottie.network(SUCCESS_LOTTIE),
         const SizedBox(height: DIMEN_16),
         Text(
-          args['successText'],
+          widget.args['successText'],
           style: const TextStyle(
             fontSize: DIMEN_25,
             color: Colors.black,
@@ -141,7 +141,7 @@ class _ApiCallerScreenState extends State<ApiCallerScreen> {
         const SizedBox(height: DIMEN_25),
         ElevatedButton(
           onPressed: () {
-            NavigationUtils.openScreenUntil(ScreenRoutes.userServiceTabsScreen,args);
+            NavigationUtils.openScreenUntil(ScreenRoutes.userServiceTabsScreen,widget.args);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFFEE440), // Set the desired color
