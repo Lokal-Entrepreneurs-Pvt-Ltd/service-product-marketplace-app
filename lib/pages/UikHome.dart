@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
@@ -39,7 +41,7 @@ class UikHome extends StandardPage {
         NavigationUtils.openCategory(uikAction);
         break;
       case UIK_ACTION.OPEN_PRODUCT:
-        openProduct(uikAction);
+        NavigationUtils.openCategory(uikAction);
         break;
       case UIK_ACTION.OPEN_ISP:
         openIsp(uikAction);
@@ -68,19 +70,15 @@ class UikHome extends StandardPage {
 }
 
 void openIsp(UikAction uikAction) {
-  final BuildContext context = NavigationService.navigatorKey.currentContext!;
-  Navigator.pushNamed(
-    context,
-    ScreenRoutes.ispHome,
-    // arguments: args,
-  );
+  final BuildContext context = AppRoutes.rootNavigatorKey.currentContext!;
+  context.go(ScreenRoutes.ispHome);
 }
 
-void openProduct(UikAction uikAction) {
-  //Navigation to the product screen
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-}
+// void openProduct(UikAction uikAction) {
+//   //Navigation to the product screen
+//   var context = NavigationService.navigatorKey.currentContext;
+//   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+// }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {

@@ -1,21 +1,25 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/models/Action.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import '../actions.dart';
-import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
-import '../main.dart';
+import '../actions.dart';
 import '../utils/NavigationUtils.dart';
-import '../utils/network/retrofit/api_routes.dart';
 
 // view order details
 
 class UikOrderScreen extends StandardPage {
+  final dynamic args;
+
+  UikOrderScreen({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -41,7 +45,9 @@ class UikOrderScreen extends StandardPage {
         openCategory(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
+        NavigationUtils.openScreen(
+          ScreenRoutes.uikBottomNavigationBar,
+        );
         break;
       default:
     }
@@ -59,7 +65,7 @@ class UikOrderScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+    return {};
   }
 }
 
@@ -108,7 +114,7 @@ void addToCart(UikAction uikAction) async {
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
   print("Category call");
-  var context = NavigationService.navigatorKey.currentContext;
+  var context = AppRoutes.rootNavigatorKey.currentContext;
   // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ApiRoutes.catalogueScreen);
+  context!.go(ScreenRoutes.catalogueScreen);
 }

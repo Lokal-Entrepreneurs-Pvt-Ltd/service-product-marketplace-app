@@ -72,10 +72,10 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                 Expanded(
                   child: TabBarView(
                     controller: _tabController,
-                    children: const [
-                      SlDetailsPage(),
-                      SlMyCustomersList(),
-                      MyAgentListServiceScreen(),
+                    children: [
+                      SlDetailsPage(args: widget.args,),
+                      SlMyCustomersList(args: widget.args,),
+                      MyAgentListServiceScreen(args: widget.args,),
                     ],
                   ),
                 ),
