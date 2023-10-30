@@ -89,7 +89,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
           icon: Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
-            context.go(ScreenRoutes.uikBottomNavigationBar);
+            NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar,);
           },
         ),
       ),

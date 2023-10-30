@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/screens/membership/MembershipScreen.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -335,11 +338,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       width: 343,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const MembershipPlan()));
+                          //todo check route
+                        NavigationUtils.openScreen(ScreenRoutes.membershipLanding);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(

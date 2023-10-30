@@ -61,7 +61,7 @@ class _SignupScreenState extends State<SignupScreen> {
         actions: [
           InkWell(
             onTap: () {
-              context.go(ScreenRoutes.loginScreen);
+              NavigationUtils.openScreen(ScreenRoutes.loginScreen);
             },
             child: TextButton(
               onPressed: null, // Use onPressed: null for InkWell
@@ -312,7 +312,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   UserDataHandler.saveCustomerData(
                                       customerData);
                                 }
-                               context.go(ScreenRoutes.uikBottomNavigationBar);
+                                NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
                               } else {
                                 UiUtils.showToast(response.error![MESSAGE]);
                               }

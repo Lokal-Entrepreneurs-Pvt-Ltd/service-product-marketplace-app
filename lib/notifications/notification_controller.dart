@@ -70,8 +70,13 @@
 //   }
 // }
 
+import 'dart:convert';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -79,6 +84,15 @@ import 'package:lokal/utils/network/ApiRequestBody.dart';
 
 class FirebaseMessagingController {
   final _firebaseMessaging = FirebaseMessaging.instance;
+
+  final _androidChanel = const AndroidNotificationChannel(
+    'high_importance_channel',
+    'High Importance Notification',
+    description: 'This channel is used for important notification',
+    importance: Importance.defaultImportance,
+  );
+
+  final _localNotification = FlutterLocalNotificationsPlugin();
 
   Future<void> initNotifications() async {
     NotificationSettings settings =
@@ -97,7 +111,6 @@ class FirebaseMessagingController {
       print('________FCM2_______');
       print(kFcmToken);
       print('________FCM2 ENDS_______');
-
     }).onError((err) {
       print("error");
       throw Exception(err);
@@ -105,14 +118,17 @@ class FirebaseMessagingController {
 
     if (kFcmToken!.isNotEmpty) saveFCMForUser(kFcmToken!);
     initPushNotifications();
+    initLocalNotification();
   }
 
   void handleMessageTap(RemoteMessage? message) {
     if (message == null) return;
     //todo handle navigation
     print('_________Notification tapped________');
-    DeeplinkHandler.openPage(
-        AppRoutes.rootNavigatorKey.currentContext, message.data['URL']);
+    NavigationUtils.openScreen(ScreenRoutes.myAccountScreen);
+    //todo set url by notification!
+    // DeeplinkHandler.openPage(
+    //     AppRoutes.rootNavigatorKey.currentContext, message.data['URL']);
   }
 
   Future initPushNotifications() async {
@@ -124,6 +140,39 @@ class FirebaseMessagingController {
     _firebaseMessaging.getInitialMessage().then(handleMessageTap);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessageTap);
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onMessage.listen((event) {
+      final notification = event.notification;
+      if (notification == null) return;
+      _localNotification.show(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+              _androidChanel.id, _androidChanel.name,
+              channelDescription: _androidChanel.description,
+              icon: '@drawable/ic_launcher'),
+        ),
+        payload: jsonEncode(
+          event.toMap(),
+        ),
+      );
+    });
+  }
+
+  Future initLocalNotification() async {
+    const ios = DarwinInitializationSettings();
+    const anddroid = AndroidInitializationSettings('@drawable/ic_launcher');
+    const setting = InitializationSettings(android: anddroid, iOS: ios);
+
+    await _localNotification.initialize(setting,
+        onDidReceiveNotificationResponse: (payload) {
+      final message = RemoteMessage.fromMap(jsonDecode(payload.payload!));
+      handleMessageTap(message);
+    });
+    final platform = _localNotification.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    await platform?.createNotificationChannel(_androidChanel);
   }
 
   Future<void> saveFCMForUser(String fcmToken) async {

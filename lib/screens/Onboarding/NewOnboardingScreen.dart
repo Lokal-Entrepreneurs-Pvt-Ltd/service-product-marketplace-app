@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/constants/dimens.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -109,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen>
   Widget _buildAppBarLeading() {
     return InkWell(
       onTap: () {
-        context.go(ScreenRoutes.onboardingScreen);
+        NavigationUtils.openScreen(ScreenRoutes.onboardingScreen);
       },
       child: const Icon(
         Icons.arrow_back_sharp,
@@ -132,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen>
   Widget _buildAppBarAction() {
     return InkWell(
       onTap: () {
-       context.go(ScreenRoutes.signUpScreen);
+        NavigationUtils.openScreen(ScreenRoutes.signUpScreen);
       },
       child: TextButton(
         onPressed: null, // Use onPressed: null for InkWell
@@ -417,7 +418,7 @@ class _LoginScreenState extends State<LoginScreen>
     if (customerData != null) {
       UserDataHandler.saveCustomerData(customerData);
     }
-   context.go(ScreenRoutes.uikBottomNavigationBar);
+    NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
   }
 
   void _handleLoginError(ApiResponse response) {

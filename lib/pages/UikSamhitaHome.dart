@@ -36,7 +36,7 @@ class UikSamhitaHome extends StandardPage {
         break;
       case UIK_ACTION.BACK_PRESSED:
         BuildContext context = AppRoutes.rootNavigatorKey.currentContext!;
-        context.go(ScreenRoutes.uikBottomNavigationBar);
+        NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
         break;
       default:
     }
