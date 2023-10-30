@@ -1,16 +1,13 @@
 import 'package:feedback/feedback.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
-import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/notifications/notification_controller.dart';
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
-import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:platform_device_id/platform_device_id.dart';
@@ -54,23 +51,7 @@ void main() async {
   //   return true;
   // };
   //
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-
-  print(fcmToken);
-
-  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-    fcmToken = fcmToken;
-    print(fcmToken);
-  }).onError((err) {
-    print("error");
-    throw Exception(err);
-  });
-  if (fcmToken!.isNotEmpty) saveFCMForUser(fcmToken);
-}
-
-Future<void> saveFCMForUser(String fcmToken) async {
-  await ApiRepository.saveNotificationToken(
-      ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken, FCM));
+  await FirebaseMessagingController().initNotifications();
 }
 
 class NavigationService {
@@ -255,7 +236,7 @@ class _LokalAppState extends State<LokalApp> {
         //       const SamhitaDataCollector(),
         //   ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
         //   ScreenRoutes.samhitaAddParticipantForm: (context) =>
-          //       const SamhitaAddParticipants(),
+        //       const SamhitaAddParticipants(),
         //   ScreenRoutes.samhitaBecomeParticipantForm: (context) =>
         //       const SamhitaBecomeParticipant(),
         //   ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,

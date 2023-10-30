@@ -69,3 +69,64 @@
 //         arguments: receivedAction);
 //   }
 // }
+
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/utils/deeplink_handler.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
+
+class FirebaseMessagingController {
+  final _firebaseMessaging = FirebaseMessaging.instance;
+
+  Future<void> initNotifications() async {
+    NotificationSettings settings =
+        await _firebaseMessaging.requestPermission();
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('Permission granted');
+    }
+    var kFcmToken = await _firebaseMessaging.getToken();
+
+    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+      kFcmToken = fcmToken;
+      print(kFcmToken);
+    }).onError((err) {
+      print("error");
+      throw Exception(err);
+    });
+
+    if (kFcmToken!.isNotEmpty) saveFCMForUser(kFcmToken!);
+    initPushNotifications();
+  }
+
+  void handleMessageTap(RemoteMessage? message) {
+    if (message == null) return;
+    //todo handle navigation
+    DeeplinkHandler.openPage(
+        AppRoutes.rootNavigatorKey.currentContext, message.data['URL']);
+  }
+
+  Future initPushNotifications() async {
+    await _firebaseMessaging.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+    _firebaseMessaging.getInitialMessage().then(handleMessageTap);
+    FirebaseMessaging.onMessageOpenedApp.listen(handleMessageTap);
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
+
+  Future<void> saveFCMForUser(String fcmToken) async {
+    await ApiRepository.saveNotificationToken(
+        ApiRequestBody.getNotificationAddUserDetailsRequest(fcmToken, FCM));
+  }
+}
+
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('______________-laaaaaaaaaa-_____________');
+  print('Handling a background message: ${message.messageId}');
+  print(message.data);
+  print(message.notification?.body ?? '');
+}
