@@ -38,7 +38,7 @@ class ConfirmTowers extends StatelessWidget {
                 textSize: 16.0,
                 textColor: const Color(0xff212121),
                 backgroundColor: const Color(0xffFEEB70),
-                type: "outline",
+                type: UikButtonType.outline,
                 borderColor: const Color(0xff212121),
                 onClick: () {
                   // NavigationUtils.pop();
