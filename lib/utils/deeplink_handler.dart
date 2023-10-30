@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'storage/product_data_handler.dart';
 
 abstract class DeeplinkHandler {
-  static void openPage(BuildContext context, String url) async {
+  static void openPage(BuildContext? context, String url) async {
     //https://localee.co.in/routName?args1=10&arg2=20
     print("__________________url____________________");
     print(url);
@@ -237,10 +237,10 @@ abstract class DeeplinkHandler {
     }
   }
 
-  static void _pushScreen(BuildContext context, String route,
+  static void _pushScreen(BuildContext? context, String route,
       [Map<String, dynamic>? args]) {
     print("pushed route $route");
     print("pushed args $args");
-    context.go(route,extra: args);
+    context?.go(route,extra: args);
   }
 }
