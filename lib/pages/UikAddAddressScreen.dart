@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
@@ -64,7 +65,7 @@ class UikAddAddressScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikAddAddressScreen;
+    return ScreenRoutes.addAddressScreen;
   }
 
   void onTextEditComplete(UikAction uikAction) {

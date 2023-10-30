@@ -88,10 +88,14 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider<ApiResponseCubit>(
-          create: (context) => ApiResponseCubit(),
+        BlocProvider<StandardScreenResponseCubit>(
+          create: (context) => StandardScreenResponseCubit(),
         ),
-        // Add other Cubits if needed
+        BlocProvider<ApiResponseCubit>(
+          create: (context) => ApiResponseCubit(
+            BlocProvider.of<StandardScreenResponseCubit>(context),
+          ),
+        ),
       ],
       child: const LokalApp(),
     ),

@@ -3,6 +3,7 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
+import '../screen_routes.dart';
 import '../utils/NavigationUtils.dart';
 import '../utils/network/ApiRepository.dart';
 import '../actions.dart';
@@ -52,7 +53,7 @@ class UikSearchCatalog extends StandardPage {
 
   @override
   getPageContext() {
-    return UikSearchCatalog;
+    return ScreenRoutes.searchScreen;
   }
   @override
   getConstructorArgs() {
