@@ -71,7 +71,7 @@ class UikHome extends StandardPage {
 
 void openIsp(UikAction uikAction) {
   final BuildContext context = AppRoutes.rootNavigatorKey.currentContext!;
-  context.go(ScreenRoutes.ispHome);
+  NavigationUtils.openScreen(ScreenRoutes.ispHome);
 }
 
 // void openProduct(UikAction uikAction) {
