@@ -110,6 +110,7 @@ class FirebaseMessagingController {
   void handleMessageTap(RemoteMessage? message) {
     if (message == null) return;
     //todo handle navigation
+    print('_________Notification tapped________');
     DeeplinkHandler.openPage(
         AppRoutes.rootNavigatorKey.currentContext, message.data['URL']);
   }
