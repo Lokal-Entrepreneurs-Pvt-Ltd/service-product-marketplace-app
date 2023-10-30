@@ -1,3 +1,4 @@
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -33,7 +34,7 @@ class UikCustomerForUserService extends StandardPage {
 
   @override
   getPageContext() {
-    return UikCustomerForUserService;
+    return ScreenRoutes.getAllCustomerForUserService;
   }
 
   @override

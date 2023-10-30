@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -49,7 +50,7 @@ class UikSamhitaHome extends StandardPage {
 
   @override
   getPageContext() {
-    return UikSamhitaHome;
+    return ScreenRoutes.samhitaLandingPage;
   }
 
   @override

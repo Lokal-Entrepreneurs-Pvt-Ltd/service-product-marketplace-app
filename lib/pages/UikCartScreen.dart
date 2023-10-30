@@ -100,7 +100,7 @@ class UikCartScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikCartScreen;
+    return ScreenRoutes.cartScreen;
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -40,7 +41,7 @@ class UikCouponScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikCouponScreen;
+    return ScreenRoutes.couponScreen;
   }
   @override
   getConstructorArgs() {

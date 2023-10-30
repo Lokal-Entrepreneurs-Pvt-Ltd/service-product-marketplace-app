@@ -1,14 +1,20 @@
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
 import 'package:lokal/notifications/notification_controller.dart';
+
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:platform_device_id/platform_device_id.dart';
+import 'package:ui_sdk/ApiResponseState.dart';
+import 'configs/environment.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +43,22 @@ void main() async {
   );
   Environment().initConfig(environment);
 
-  runApp(const BetterFeedback(
-    child: LokalApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<StandardScreenResponseCubit>(
+          create: (context) => StandardScreenResponseCubit(),
+        ),
+        BlocProvider<ApiResponseCubit>(
+          create: (context) => ApiResponseCubit(
+            BlocProvider.of<StandardScreenResponseCubit>(context),
+          ),
+        ),
+      ],
+      child: const LokalApp(),
+    ),
+  );
+
 
   //
   // FlutterError.onError = (errorDetails) {

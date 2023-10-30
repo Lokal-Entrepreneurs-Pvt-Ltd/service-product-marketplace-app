@@ -45,7 +45,7 @@ class UikOrderHistoryScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikOrderHistoryScreen;
+    return ScreenRoutes.orderHistoryScreen;
   }
 
   @override

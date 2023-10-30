@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
+import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 
 import '../main.dart';
+import 'UikHome.dart';
 
 class UikBottomNavigationBar extends StatefulWidget {
   const UikBottomNavigationBar({super.key});
@@ -19,7 +21,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   final int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const UikHomeWrapper(),
+     UikHome().getPage(),
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
@@ -48,21 +50,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Stack(
-          children: [
-            _widgetOptions.elementAt(0),
-            if (totalCartItems > 0)
-              Positioned(
-                bottom: 0.0,
-                left: 0.0,
-                right: 0.0,
-                child: BottomCartDetails(
-                  totalItems: totalCartItems,
-                  totalCost: 1000.0,
-                ),
-              ),
-          ],
-        ),
+        body: UikHome().page,
         bottomNavigationBar: BottomAppBar(
           elevation: 0.0, // Remove shadow
           child: SizedBox(
