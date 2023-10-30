@@ -85,7 +85,7 @@ class UikMyAccountScreen extends StandardPage {
 
   @override
   getPageContext() {
-    return UikMyAccountScreen;
+    return ScreenRoutes.myAccountScreen;
   }
 
   @override
