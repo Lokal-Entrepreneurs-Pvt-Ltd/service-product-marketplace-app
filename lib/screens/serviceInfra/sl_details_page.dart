@@ -3,9 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:ui_sdk/components/UikCard.dart';
 import 'package:ui_sdk/components/UikVideoPlayerNew.dart';
 import 'package:ui_sdk/components/WidgetType.dart';
+import 'package:ui_sdk/props/UikButtonProps.dart';
 import 'package:ui_sdk/props/UikVideoPlayerNewProps.dart';
+import 'package:ui_sdk/utils/UikActionListner.dart';
 
 import '../../Widgets/UikButton/UikButton.dart';
 import '../../utils/network/ApiRepository.dart';
@@ -44,6 +47,8 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   List<dynamic> _tabs = [];
   bool _isLoading = true;
   List<dynamic> _templates = [];
+  Map<String,dynamic> _metaData = Map();
+  List<dynamic> _ctas = [];
   bool _isOptedIn = false;
 
 
@@ -83,11 +88,14 @@ class _SlDetailsPageState extends State<SlDetailsPage>
     final tabs = data['tabs'] as List<dynamic>;
     final templates = data['templates'] as List<dynamic>;
     final isOptedIn = data['isOptedIn'] as bool;
+    final metaData = data['metaData'] as Map<String,dynamic>;
+    final ctas = metaData['ctas'] as List<dynamic>;
     setState(() {
       _tabs = tabs;
       _templates = templates;
       _isLoading = false;
       _isOptedIn = isOptedIn;
+      _ctas = ctas;
     });
   }
 
@@ -104,11 +112,14 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       body: _isLoading ? _buildLoadingIndicator() : _buildServiceDetailsList(),
       persistentFooterButtons: _isLoading
           ? []
+          : _ctas.isNotEmpty && _ctas.any((cta) => cta['text'].isNotEmpty)
+          ? [_buildCtas()]
           : _isOptedIn
-              ? [_buildAlreadyOptedButton()]
-              : [_buildOptInButton()],
+          ? [_buildAlreadyOptedButton()]
+          : [_buildOptInButton()],
     );
   }
+
 
   Widget _buildAlreadyOptedButton() {
     return UikButton(
@@ -139,8 +150,58 @@ class _SlDetailsPageState extends State<SlDetailsPage>
           textColor: Colors.black,
           textSize: 16.0,
           textWeight: FontWeight.w500,
+          stuck: true,
         ),
       ),
+    );
+  }
+
+
+  Widget _buildCtas() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: _ctas.asMap().entries.map<Widget>((entry) {
+        int index = entry.key;
+        Map<String, dynamic> cta = entry.value;
+
+        final String text = cta['text'];
+        if (text.isEmpty) {
+          return const SizedBox.shrink();
+        }
+
+        final Color textColor = Color(int.parse(cta['textColor'].substring(1), radix: 16) + 0xFF000000);
+        final Color backgroundColor = index == 1
+            ? Colors.grey
+            : Color(int.parse(cta['backgroundColor'].substring(1), radix: 16) + 0xFF000000);
+        final Map<String, dynamic> action = cta['action'];
+        final Map<String, dynamic> tap = action['tap'];
+        final String actionType = tap['type'];
+        final Map<String, dynamic> actionData = tap['data'];
+
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              onTap: () async {
+                switch (actionType) {
+                  case "UIK_OPEN_WEB":
+                    launchURL(actionData['url']);
+                    break;
+                  default:
+                    break;
+                }
+              },
+              child: UikButton(
+                text: text,
+                textColor: textColor,
+                textSize: 16.0,
+                textWeight: FontWeight.w500,
+                backgroundColor: backgroundColor,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 

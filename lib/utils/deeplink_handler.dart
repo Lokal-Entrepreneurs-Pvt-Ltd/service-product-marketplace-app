@@ -241,6 +241,6 @@ abstract class DeeplinkHandler {
       [Map<String, dynamic>? args]) {
     print("pushed route $route");
     print("pushed args $args");
-    context?.go(route,extra: args);
+    context?.push(route,extra: args);
   }
 }
