@@ -193,7 +193,7 @@ class NewUserInfo extends StatelessWidget {
                     text: "Create User",
                     widthSize: 124,
                     heightSize: 38,
-                    type: "primary",
+                    type: UikButtonType.primary,
                     stuck: true,
                     textWeight: FontWeight.w500),
               )
