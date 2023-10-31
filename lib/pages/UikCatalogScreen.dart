@@ -17,6 +17,11 @@ import '../actions.dart';
 import '../main.dart';
 
 class UikCatalogScreen extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikCatalogScreen({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -61,7 +66,7 @@ class UikCatalogScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 
