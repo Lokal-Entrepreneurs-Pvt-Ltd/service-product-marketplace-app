@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:lokal/configs/environment.dart';
-
 import '../utils/storage/preference_constants.dart';
 import '../utils/storage/preference_util.dart';
 
@@ -21,6 +20,6 @@ class EnvironmentDataHandler {
 // Set your url here
   static String  getLocalBaseUrl() {
     return PreferenceUtils.getString(
-        LOCAL_BASE_URL,"https://prod.localee.co.in/api");
+        LOCAL_BASE_URL,"https://0457-182-69-180-244.ngrok-free.app");
   }
 }
