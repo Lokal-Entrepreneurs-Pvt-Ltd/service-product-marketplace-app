@@ -12,7 +12,6 @@ class WebViewScreen extends StatefulWidget {
 }
 // late dynamic args;
 
-
 class _WebViewScreenState extends State<WebViewScreen> {
 
   @override
