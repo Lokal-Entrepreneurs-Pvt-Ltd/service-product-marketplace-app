@@ -514,7 +514,7 @@ class InformationPage extends StatelessWidget {
               text: "Next",
               widthSize: 136,
               heightSize: 38,
-              type: "primary",
+              type: UikButtonType.primary,
               stuck: true,
               textWeight: FontWeight.w600,
               textSize: 13,
