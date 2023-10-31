@@ -68,7 +68,7 @@ class LoginPage extends StatelessWidget {
           const SizedBox(height: 20),
           Container(
             child: UikButton(
-                type: "primary",
+                type: UikButtonType.primary,
                 disabled: false,
                 rightElement: const UikIcon(valIcon: Icons.favorite_border),
                 leftElement: const UikIcon(valIcon: Icons.location_on),
