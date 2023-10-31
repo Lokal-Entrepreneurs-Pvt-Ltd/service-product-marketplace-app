@@ -102,15 +102,12 @@ class FirebaseMessagingController {
     }
     var kFcmToken = await _firebaseMessaging.getToken();
 
-    print('________FCM1_______');
     print(kFcmToken);
-    print('________FCM1 ENDS_______');
 
     FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
       kFcmToken = fcmToken;
-      print('________FCM2_______');
+
       print(kFcmToken);
-      print('________FCM2 ENDS_______');
     }).onError((err) {
       print("error");
       throw Exception(err);
@@ -123,12 +120,10 @@ class FirebaseMessagingController {
 
   void handleMessageTap(RemoteMessage? message) {
     if (message == null) return;
-    //todo handle navigation
-    print('_________Notification tapped________');
-    NavigationUtils.openScreen(ScreenRoutes.myAccountScreen);
-    //todo set url by notification!
-    // DeeplinkHandler.openPage(
-    //     AppRoutes.rootNavigatorKey.currentContext, message.data['URL']);
+
+    DeeplinkHandler.openPage(
+        AppRoutes.rootNavigatorKey.currentContext, message.data['deepLink']);
+
   }
 
   Future initPushNotifications() async {

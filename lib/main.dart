@@ -213,73 +213,7 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorKey: NavigationService.navigatorKey,
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
-        // routes: {
-        //   "/": (context) {
-        //     //return const LocationScreen();
-        //     return UserDataHandler.getUserToken().isEmpty
-        //         ? const OnboardingScreen()
-        //         : const UikBottomNavigationBar();
-        //   },
-        //   ScreenRoutes.userServiceTabsScreen: (context) =>
-        //       const ServiceLandingScreen(),
-        //   ScreenRoutes.homeScreen: (context) => const UikHomeWrapper(),
-        //   ScreenRoutes.catalogueScreen: (context) => UikCatalogScreen().page,
-        //   ScreenRoutes.productScreen: (context) => UikProductPage().page,
-        //   ScreenRoutes.cartScreen: (context) => UikCartScreen().page,
-        //   ScreenRoutes.addressBookScreen: (context) => UikAddressBook().page,
-        //   ScreenRoutes.myAccountScreen: (context) => UikMyAccountScreen().page,
-        //   ScreenRoutes.myDetailsScreen: (context) => const MyDetailsScreen(),
-        //   ScreenRoutes.myAddressScreen: (context) =>
-        //       UikMyAddressScreen(context).page,
-        //   ScreenRoutes.otpScreen: (context) => const OtpScreen(),
-        //   ScreenRoutes.paymentDetailsScreen: (context) =>
-        //       UikPaymentDetailsScreen().page,
-        //   ScreenRoutes.orderScreen: (context) => UikOrderScreen().page,
-        //   ScreenRoutes.addAddressScreen: (context) =>
-        //       UikAddAddressScreen().page,
-        //   ScreenRoutes.orderHistoryScreen: (context) =>
-        //       UikOrderHistoryScreen().page,
-        //   ScreenRoutes.myGames: (context) => UikMyGames().page,
-        //   // ScreenRoutes.btsLocationFeasibility: (context) =>
-        //   //     UikBtsLocationFeasibilityScreen().page,
-        //   ScreenRoutes.ispHome: (context) => UikIspHome().page,
-        //   ScreenRoutes.couponScreen: (context) => UikCouponScreen().page,
-        //   ScreenRoutes.signUpScreen: (context) => const SignupScreen(),
-        //   ScreenRoutes.membershipLanding: (context) =>
-        //       UikMembershipScreen().page,
-        //   ScreenRoutes.searchScreen: (context) => UikSearchCatalog().page,
-        //   ScreenRoutes.serviceLandingScreen: (context) =>
-        //       UikServicesLanding().page,
-        //   ScreenRoutes.serviceScreen: (context) => UikServiceDetail().page,
-        //   ScreenRoutes.samhitaDataCollector: (context) =>
-        //       const SamhitaDataCollector(),
-        //   ScreenRoutes.samhitaLandingPage: (context) => UikSamhitaHome().page,
-        //   ScreenRoutes.samhitaAddParticipantForm: (context) =>
-        //       const SamhitaAddParticipants(),
-        //   ScreenRoutes.samhitaBecomeParticipantForm: (context) =>
-        //       const SamhitaBecomeParticipant(),
-        //   ScreenRoutes.odOpHomeScreen: (context) => UikOdOpScreen().page,
-        //   ScreenRoutes.samhitaOtp: (context) => const SamhitaOtp(),
-        //   ScreenRoutes.extraPayOptInScreen: (context) => const extraPayOptIn(),
-        //   ScreenRoutes.samhitaVerifyParticipantForm: (context) =>
-        //       const SamhitaVerifyParticipant(),
-        //   ScreenRoutes.addAgentScreen: (context) => const AddAgentScreen(),
-        //   ScreenRoutes.manageAgentScreen: (context) => ManageAgentScreen().page,
-        //   ScreenRoutes.addAgentOtpScreen: (context) => const AddAgentOtpScreen(),
-        //   ScreenRoutes.newOnboardingScreen: (context) => const LoginScreen(),
-        //   ScreenRoutes.myRewardsPage: (context) => const MyRewardPage(),
-        //   ScreenRoutes.addUserServiceCustomer: (context) =>
-        //       const AddServiceCustomerFlow(),
-        //   ScreenRoutes.getAllCustomerForUserService: (context) =>
-        //       UikCustomerForUserService().page,
-        //   ScreenRoutes.getAllAgentsForUserService: (context) =>
-        //       UikAgentsForUserService().page,
-        //   ScreenRoutes.apiCallerScreen: (context) => const ApiCallerScreen(),
-        //   ScreenRoutes.notifyAgentsScreen: (context) => NotifyAgentsScreen(),
-        //   ScreenRoutes.partnerTrainingHome: (context) => const PartnerTrainingHomeScreen(),
-        //   ScreenRoutes.webScreenView: (context) =>  WebViewScreen(),
-        //   ScreenRoutes.myAgentListScreen: (context) =>  MyAgentListScreen(),
-        // },
+
       ),
     );
   }

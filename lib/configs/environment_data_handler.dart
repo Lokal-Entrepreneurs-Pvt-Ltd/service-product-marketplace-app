@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:lokal/configs/environment.dart';
-
 import '../utils/storage/preference_constants.dart';
 import '../utils/storage/preference_util.dart';
 
