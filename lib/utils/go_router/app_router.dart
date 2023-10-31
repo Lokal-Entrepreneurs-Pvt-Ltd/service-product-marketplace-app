@@ -155,7 +155,8 @@ class AppRoutes {
   static final GoRoute _myAccountScreen = GoRoute(
     path: ScreenRoutes.myAccountScreen,
     builder: (context, state) {
-      return UikMyAccountScreen().page;
+      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      return UikMyAccountScreen(args:extraArgs).page;
     },
   );
   static final GoRoute _partnerTrainingHome = GoRoute(
@@ -188,7 +189,8 @@ class AppRoutes {
   static final GoRoute _catalogueScreen = GoRoute(
     path: ScreenRoutes.catalogueScreen,
     builder: (context, state) {
-      return UikCatalogScreen().page;
+      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      return UikCatalogScreen(args: extraArgs).page;
     },
   );
   static final GoRoute _productScreen = GoRoute(

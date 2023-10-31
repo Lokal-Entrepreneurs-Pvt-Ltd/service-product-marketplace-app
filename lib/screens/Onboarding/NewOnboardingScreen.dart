@@ -277,6 +277,7 @@ class _LoginScreenState extends State<LoginScreen>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: TextField(
+        enableSuggestions: true,
         controller: emailController,
         decoration: InputDecoration(
           hintText: EMAIL_INPUT,
@@ -303,6 +304,7 @@ class _LoginScreenState extends State<LoginScreen>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: TextField(
+        enableSuggestions: true,
         controller: passwordController,
         obscureText: true,
         decoration: InputDecoration(
