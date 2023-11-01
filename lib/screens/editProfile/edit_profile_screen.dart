@@ -339,8 +339,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               activeColor: kblack,
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text('Account'),
+              icon: const Icon(Icons.account_circle),
+              title: const Text('Account'),
               inactiveColor: Colors.grey[300],
               activeColor: kblack,
             ),
