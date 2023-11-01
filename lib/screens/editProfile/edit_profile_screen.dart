@@ -57,7 +57,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Container(
                   height: MediaQuery.of(context).size.height *
                       0.3, // Adjust the height as needed
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/img_group2 (2).jpg'),
                       fit: BoxFit.cover,
@@ -96,7 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           // Handle back button press
                         },
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Text(
                           "Edit Profile",
                           style: TextStyle(
@@ -118,7 +118,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           Container(
                             width: 380,
                             margin: EdgeInsets.only(top: 11, right: 2),
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 14),
                             decoration: BoxDecoration(
                               color: Colors.grey[100],
@@ -161,7 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         style: theme.textTheme.bodyLarge,
                                       ),
                                       Container(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 6, vertical: 1),
                                         decoration: BoxDecoration(
                                           border: Border.all(
@@ -267,7 +267,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         left: 45, top: 26, bottom: 3),
                                     child: Text(
                                       "update",
@@ -294,7 +294,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   width: 1,
                                 ),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "Save Details",
                                   style: TextStyle(
@@ -333,8 +333,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               activeColor: kblack,
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.settings_rounded),
-              title: Text('Settings'),
+              icon: const Icon(Icons.settings_rounded),
+              title: const Text('Settings'),
               inactiveColor: Colors.grey[300],
               activeColor: kblack,
             ),
