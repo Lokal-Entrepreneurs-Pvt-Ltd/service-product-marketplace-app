@@ -17,6 +17,12 @@ import '../constants/json_constants.dart';
 
 
 class UikOrderHistoryScreen extends StandardPage {
+
+
+  Map<String, dynamic>? args;
+
+  UikOrderHistoryScreen({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -50,7 +56,7 @@ class UikOrderHistoryScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+   return args;
   }
 }
 

@@ -6,6 +6,10 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 
 class UikAgentsForUserService extends StandardPage {
+  Map<String, dynamic>? args;
+
+  UikAgentsForUserService({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -39,8 +43,6 @@ class UikAgentsForUserService extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {
-      
-    };
+    return args;
   }
 }

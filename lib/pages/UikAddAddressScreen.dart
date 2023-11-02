@@ -18,6 +18,12 @@ import '../utils/storage/user_data_handler.dart';
 // delete address
 
 class UikAddAddressScreen extends StandardPage {
+
+
+  Map<String, dynamic>? args;
+
+  UikAddAddressScreen({this.args});
+
   String name = "";
   String phone = "";
   String street = "";
@@ -132,7 +138,7 @@ class UikAddAddressScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 

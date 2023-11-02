@@ -12,6 +12,11 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 // search product action
 
 class UikSearchCatalog extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikSearchCatalog({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -57,7 +62,7 @@ class UikSearchCatalog extends StandardPage {
   }
   @override
   getConstructorArgs() {
-   return {};
+   return args;
   }
 }
 

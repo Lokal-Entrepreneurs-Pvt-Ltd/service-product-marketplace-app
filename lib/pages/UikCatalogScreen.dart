@@ -9,6 +9,7 @@ import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/storage/product_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -93,6 +94,5 @@ Future<ApiResponse> getMockedApiResponse(args) async {
 
 void openProduct(UikAction uikAction) {
   //Navigation to the product screen
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  NavigationUtils.openPage(uikAction);
 }

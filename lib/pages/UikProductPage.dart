@@ -13,6 +13,11 @@ import '../utils/UiUtils/UiUtils.dart';
 import '../utils/storage/product_data_handler.dart';
 
 class UikProductPage extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikProductPage({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -51,7 +56,7 @@ class UikProductPage extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 
@@ -61,15 +66,14 @@ void showCartScreen(UikAction uikAction) async {
 
   dynamic response = await ApiRepository.updateCart(
       ApiRequestBody.getUpdateCartRequest(
-          skuId, "add", CartDataHandler.getCartId()));
+          skuId, "add", ""));
 
  // NavigationUtils.pop();
 
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
     CartDataHandler.saveCartId(cartIdReceived);
-    var context = NavigationService.navigatorKey.currentContext;
-    DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+    NavigationUtils.openPage(uikAction);
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
   }
