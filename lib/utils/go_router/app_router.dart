@@ -231,8 +231,8 @@ class AppRoutes {
   static final GoRoute _addAddressScreen = GoRoute(
     path: ScreenRoutes.addAddressScreen,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
-      return UikAddAddressScreen(args: extraArgs).page;
+
+      return UikAddAddressScreen().page;
     },
   );
   static final GoRoute _orderHistoryScreen = GoRoute(
