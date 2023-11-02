@@ -133,7 +133,7 @@ class UikAddAddressScreen extends StandardPage {
 
     print(args);
 
-   NavigationUtils.openScreen(ScreenRoutes.paymentDetailsScreen);
+   NavigationUtils.openScreen(ScreenRoutes.paymentDetailsScreen,args);
   }
 
   @override
