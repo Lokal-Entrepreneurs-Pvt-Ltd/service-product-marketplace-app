@@ -51,6 +51,11 @@ class UikEmptyCartScreen extends StandardPage {
 }
 
 class UikCartScreen extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikCartScreen({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -105,7 +110,7 @@ class UikCartScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 
@@ -131,8 +136,7 @@ Future<ApiResponse> getMockedApiResponse(args) async {
 }
 
 void openAddress(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  NavigationUtils.openPage(uikAction);
 }
 
 void openMyDetails() {
@@ -177,9 +181,7 @@ void removeCartItem(UikAction uikAction) async {
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_DATA][CART_ID];
     CartDataHandler.saveCartId(cartIdReceived);
-
-    var context = NavigationService.navigatorKey.currentContext;
-    DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+    NavigationUtils.openPage(uikAction);
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
   }
@@ -187,30 +189,19 @@ void removeCartItem(UikAction uikAction) async {
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
-  var context = AppRoutes.rootNavigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  context!.go(ScreenRoutes.catalogueScreen);
+  NavigationUtils.openScreen(ScreenRoutes.catalogueScreen);
+
 }
 
 void openProduct(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ScreenRoutes.productScreen);
+  NavigationUtils.openScreen(ScreenRoutes.productScreen);
 }
 
 void openCoupon(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  print("Coupon OPEN");
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ScreenRoutes.couponScreen);
+  NavigationUtils.openScreen(ScreenRoutes.couponScreen);
 }
 
 void openCheckout(UikAction uikAction) {
-  //Navigation to the next screen through deepLink Handler
-  var context = NavigationService.navigatorKey.currentContext;
-  print("checkout");
-  // DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-  Navigator.pushNamed(context!, ScreenRoutes.addressBookScreen);
+
+  NavigationUtils.openScreen(ScreenRoutes.addressBookScreen);
 }

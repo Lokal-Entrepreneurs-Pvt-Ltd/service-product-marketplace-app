@@ -41,7 +41,12 @@ class RazorpayPayment {
   }
 
   void openPaymentPage() {
-    _razorpay.open(options);
+   try{
+     _razorpay.open(options);
+   }
+   catch(e){
+     print(e);
+   }
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {

@@ -6,6 +6,11 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 
 class UikCustomerForUserService extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikCustomerForUserService({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -39,9 +44,6 @@ class UikCustomerForUserService extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {
-      "serviceId": "16",
-      "serviceCode": "b2b_commerce"
-    };
+    return args;
   }
 }

@@ -14,6 +14,11 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import '../utils/NavigationUtils.dart';
 
 class UikAddressBook extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikAddressBook({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -56,7 +61,7 @@ class UikAddressBook extends StandardPage {
 
   @override
   getConstructorArgs() {
-   return {};
+   return args;
   }
 }
 
@@ -70,19 +75,16 @@ void removeAddress(UikAction uikAction) {
 
 void
 addAddress(UikAction uikAction) {
-  var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.addAddressScreen);
+  NavigationUtils.openScreen(ScreenRoutes.addAddressScreen);
 }
 
 Future<void> openPayment(UikAction uikAction) async {
-  var context = NavigationService.navigatorKey.currentContext;
 
   if (uikAction.tap.data.key == TAP_ACTION_TYPE_KEY_ADDRESS_ID) {
     Map<String, dynamic>? args = {
       ADDRESS_ID: uikAction.tap.data.value,
       CART_ID: CartDataHandler.getCartId()
     };
-    Navigator.pushNamed(context!, ScreenRoutes.paymentDetailsScreen,
-        arguments: args);
+    NavigationUtils.openScreen(ScreenRoutes.paymentDetailsScreen,args);
   }
 }

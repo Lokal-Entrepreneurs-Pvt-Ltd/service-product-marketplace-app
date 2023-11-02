@@ -9,6 +9,11 @@ import '../utils/NavigationUtils.dart';
 import '../utils/deeplink_handler.dart';
 
 class UikOdOpScreen extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikOdOpScreen({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -56,16 +61,16 @@ class UikOdOpScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {
-      "state": "UTTAR PRADESH",
-      "district": "AGRA"
-    };
+    // return {
+    //   "state": "UTTAR PRADESH",
+    //   "district": "AGRA"
+    // };
+    return args;
   }
 }
 
 void openProduct(UikAction uikAction) {
   //Navigation to the product screen
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  NavigationUtils.openPage(uikAction);
 }
 
