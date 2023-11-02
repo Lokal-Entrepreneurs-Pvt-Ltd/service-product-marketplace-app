@@ -11,6 +11,11 @@ import '../actions.dart';
 import '../utils/NavigationUtils.dart';
 
 class UikMyGames extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikMyGames({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -44,14 +49,13 @@ class UikMyGames extends StandardPage {
   }
   @override
   getConstructorArgs() {
-   return {};
+   return args;
   }
 }
 
 void openProduct(UikAction uikAction) {
   //Navigation to the product screen
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  NavigationUtils.openPage(uikAction);
 }
 
 Future<ApiResponse> getMockedApiResponse(args) async {
@@ -96,6 +100,5 @@ void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
   print(
       "_____________________________Catalogue call___________________________");
-  var context = NavigationService.navigatorKey.currentContext;
-  DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+  NavigationUtils.openPage(uikAction);
 }

@@ -15,6 +15,11 @@ import '../utils/network/ApiRequestBody.dart';
 import '../utils/storage/cart_data_handler.dart';
 
 class UikMembershipScreen extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikMembershipScreen({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -55,7 +60,7 @@ class UikMembershipScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 
@@ -71,8 +76,7 @@ void addMembershipToCart(UikAction uikAction) async {
   if (response.isSuccess!) {
     var cartIdReceived = response.data[CART_ID];
     CartDataHandler.saveCartId(cartIdReceived);
-    var context = NavigationService.navigatorKey.currentContext;
-    DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
+    NavigationUtils.openPage(uikAction);
   } else {
     UiUtils.showToast(response.error![MESSAGE]);
     NavigationUtils.pop();

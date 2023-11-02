@@ -11,7 +11,11 @@ import 'package:ui_sdk/props/UikAction.dart';
 class UikMyAddressScreen extends StandardPage {
   final BuildContext context;
 
-  UikMyAddressScreen(this.context);
+  UikMyAddressScreen(this.context, {this.args});
+
+
+  Map<String, dynamic>? args;
+
   // final obj = Snack();
   @override
   Set<String?> getActions() {
@@ -52,6 +56,6 @@ class UikMyAddressScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }

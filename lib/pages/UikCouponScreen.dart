@@ -8,6 +8,11 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 // apply and rmeove coupon
 
 class UikCouponScreen extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikCouponScreen({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -45,7 +50,7 @@ class UikCouponScreen extends StandardPage {
   }
   @override
   getConstructorArgs() {
-   return {};
+   return args;
   }
 }
 
