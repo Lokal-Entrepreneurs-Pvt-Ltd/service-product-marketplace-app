@@ -11,6 +11,10 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+
+## [1.0.19+20] - 2023-10-12
+New Renderer
+
 ## [1.0.18+19] - 2023-10-12
 Extra pe and Manage Agents flow
 
