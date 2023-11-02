@@ -12,6 +12,9 @@ import '../utils/network/http/http_screen_client.dart';
 import '../utils/storage/product_data_handler.dart';
 
 class UikServiceDetail extends StandardPage {
+  Map<String, dynamic>? args;
+
+  UikServiceDetail({this.args});
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -51,7 +54,7 @@ class UikServiceDetail extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 

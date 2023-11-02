@@ -1,6 +1,7 @@
 // import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:dio/dio.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
+import 'package:lokal/utils/storage/product_data_handler.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'http/http_screen_client.dart';
 
@@ -79,6 +80,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getProductScreen(args) {
+    ProductDataHandler.saveProductSkuId(args['skuId']);
     return HttpScreenClient.getApiResponse(ApiRoutes.productScreen, args);
   }
 

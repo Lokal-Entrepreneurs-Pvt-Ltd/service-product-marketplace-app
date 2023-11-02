@@ -10,6 +10,11 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 
 class UikServicesLanding extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikServicesLanding({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -55,7 +60,7 @@ class UikServicesLanding extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 

@@ -15,6 +15,11 @@ import '../utils/network/ApiRequestBody.dart';
 import '../utils/network/retrofit/api_routes.dart';
 
 class UikPaymentDetailsScreen extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikPaymentDetailsScreen({this.args});
+
   String paymentMethod = "";
   String orderNumberId = "";
   String rzpPaymentId = "";
@@ -73,7 +78,7 @@ class UikPaymentDetailsScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 
   void setPaymentMode(String paymentMethod) {

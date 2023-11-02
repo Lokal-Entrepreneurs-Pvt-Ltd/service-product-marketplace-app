@@ -11,6 +11,11 @@ import '../main.dart';
 import '../actions.dart';
 
 class UikIspHome extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikIspHome({this.args});
+
   @override
   Set<String?> getActions() {
     Set<String?> actionList = {};
@@ -50,7 +55,7 @@ class UikIspHome extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 
