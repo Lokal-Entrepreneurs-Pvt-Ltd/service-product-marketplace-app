@@ -32,14 +32,13 @@ abstract class NavigationUtils {
 
   static void openOrderScreen(Map<String, dynamic> args) {
     CartDataHandler.clearCart();
-    var context = NavigationService.navigatorKey.currentContext;
-    Navigator.pushNamedAndRemoveUntil(
-        context!, ScreenRoutes.orderScreen, ModalRoute.withName('/'),
-        arguments: args);
+    var context = getCurrentContext();
+    context!.push(ScreenRoutes.orderScreen,extra: args);
+
   }
 
   static void pop() {
-    Navigator.maybePop(getCurrentContext()!);
+    getCurrentContext()!.pop();
   }
 
   static void openPage(UikAction uikAction) {

@@ -15,7 +15,7 @@ import '../constants/strings.dart';
 
 class UikMyAccountScreen extends StandardPage {
   // final obj = Snack();
-  Map<String, dynamic>? args;
+  final dynamic args;
   UikMyAccountScreen({this.args});
   @override
   Set<String?> getActions() {

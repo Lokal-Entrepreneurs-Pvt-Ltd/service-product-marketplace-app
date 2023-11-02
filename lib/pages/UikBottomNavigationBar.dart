@@ -42,7 +42,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
     }
     if (index == 3) {
-      context!.go(ScreenRoutes.myAccountScreen);
+      context!.go(ScreenRoutes.myAccountScreen,extra: {});
     }
   }
 
@@ -109,7 +109,7 @@ class BottomCartDetails extends StatelessWidget {
 
   void openCartScreen() {
     var context = NavigationService.navigatorKey.currentContext;
-    Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
+    NavigationUtils.openScreen(ScreenRoutes.cartScreen,{});
   }
 
   @override
