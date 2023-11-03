@@ -75,7 +75,7 @@ void removeAddress(UikAction uikAction) {
 
 void
 addAddress(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.addAddressScreen);
+  NavigationUtils.openScreen(ScreenRoutes.addAddressScreen,{});
 }
 
 Future<void> openPayment(UikAction uikAction) async {
