@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import '../../constants/json_constants.dart';
@@ -130,7 +131,9 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             Icons.arrow_back_outlined,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            NavigationUtils.pop();
+          },
         ),
       ),
       body: Container(

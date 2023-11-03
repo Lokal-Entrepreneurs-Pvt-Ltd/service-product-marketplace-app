@@ -48,7 +48,6 @@ class UikCatalogScreen extends StandardPage {
         openProduct(uikAction);
         break;
       case UIK_ACTION.BACK_PRESSED:
-        BuildContext context = AppRoutes.rootNavigatorKey.currentContext!;
         NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
         break;
       default:

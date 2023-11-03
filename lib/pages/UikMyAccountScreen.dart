@@ -98,7 +98,7 @@ class UikMyAccountScreen extends StandardPage {
 
 void clearDataAndMoveToOnboarding(UikAction uikAction) {
   UserDataHandler.clearUserToken();
-  AppRoutes.rootNavigatorKey.currentContext!.go(ScreenRoutes.onboardingScreen);
+  NavigationUtils.openScreen(ScreenRoutes.onboardingScreen, {});
   // todo mano recreate the main.dart by adding listners
 }
 
@@ -107,7 +107,7 @@ void openPayment(UikAction uikAction) {
 }
 
 void openAddress(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.myAddressScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myAddressScreen, {});
 }
 
 void openWishlist(UikAction uikAction) {
@@ -115,19 +115,19 @@ void openWishlist(UikAction uikAction) {
 }
 
 void openDetails(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen, {});
 }
 
 void openMyAgent(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen, {});
 }
 
 void openMyRewards(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.myRewardsPage);
+  NavigationUtils.openScreen(ScreenRoutes.myRewardsPage,{});
 }
 
 void openOrders(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen);
+  NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen,{});
 }
 
 // Future<ApiResponse> getMockedApiResponse(args) async {
