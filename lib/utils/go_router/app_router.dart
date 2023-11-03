@@ -39,10 +39,10 @@ import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
 import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
-import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
-import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
+import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 
@@ -155,7 +155,7 @@ class AppRoutes {
   static final GoRoute _myAccountScreen = GoRoute(
     path: ScreenRoutes.myAccountScreen,
     builder: (context, state) {
-      return UikMyAccountScreen().page;
+      return UikMyAccountScreen(args: state.extra).page;
     },
   );
   static final GoRoute _partnerTrainingHome = GoRoute(
@@ -188,120 +188,135 @@ class AppRoutes {
   static final GoRoute _catalogueScreen = GoRoute(
     path: ScreenRoutes.catalogueScreen,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
       return UikCatalogScreen(args: extraArgs).page;
     },
   );
   static final GoRoute _productScreen = GoRoute(
     path: ScreenRoutes.productScreen,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
-      return UikProductPage(args:extraArgs).page;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
+      return UikProductPage(args: extraArgs).page;
     },
   );
   static final GoRoute _cartScreen = GoRoute(
     path: ScreenRoutes.cartScreen,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
       return UikCartScreen(args: extraArgs).page;
     },
   );
   static final GoRoute _addressBookScreen = GoRoute(
     path: ScreenRoutes.addressBookScreen,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
       return UikAddressBook(args: extraArgs).page;
     },
   );
   static final GoRoute _paymentDetailsScreen = GoRoute(
     path: ScreenRoutes.paymentDetailsScreen,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
       return UikPaymentDetailsScreen(args: extraArgs).page;
     },
   );
   static final GoRoute _orderScreen = GoRoute(
     path: ScreenRoutes.orderScreen,
     builder: (context, state) {
-      return UikOrderScreen(
-        args: state.extra
-      ).page;
+      return UikOrderScreen(args: state.extra).page;
     },
   );
   static final GoRoute _addAddressScreen = GoRoute(
     path: ScreenRoutes.addAddressScreen,
     builder: (context, state) {
-
-      return UikAddAddressScreen().page;
+      return UikAddAddressScreen(
+        args: state.extra as Map<String, dynamic>?,
+      ).page;
     },
   );
   static final GoRoute _orderHistoryScreen = GoRoute(
     path: ScreenRoutes.orderHistoryScreen,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
       return UikOrderHistoryScreen(args: extraArgs).page;
     },
   );
   static final GoRoute _myGames = GoRoute(
     path: ScreenRoutes.myGames,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
       return UikMyGames(args: extraArgs).page;
     },
   );
   static final GoRoute _ispHome = GoRoute(
     path: ScreenRoutes.ispHome,
     builder: (context, state) {
-      final Map<String, dynamic>? extraArgs = state.extra as Map<String, dynamic>?;
-      return UikIspHome(args:extraArgs).page;
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
+      return UikIspHome(args: extraArgs).page;
     },
   );
   static final GoRoute _couponScreen = GoRoute(
     path: ScreenRoutes.couponScreen,
     builder: (context, state) {
-      return UikCouponScreen(args:state.extra as Map<String, dynamic>? ).page;
+      return UikCouponScreen(args: state.extra as Map<String, dynamic>?).page;
     },
   );
   static final GoRoute _membershipLanding = GoRoute(
     path: ScreenRoutes.membershipLanding,
     builder: (context, state) {
-      return UikMembershipScreen(args:state.extra as Map<String, dynamic>? ).page;
+      return UikMembershipScreen(args: state.extra as Map<String, dynamic>?)
+          .page;
     },
   );
   static final GoRoute _searchScreen = GoRoute(
     path: ScreenRoutes.searchScreen,
     builder: (context, state) {
-      return UikSearchCatalog(args:state.extra as Map<String, dynamic>? ).page;
+      return UikSearchCatalog(args: state.extra as Map<String, dynamic>?).page;
     },
   );
   static final GoRoute _serviceLandingScreen = GoRoute(
     path: ScreenRoutes.serviceLandingScreen,
     builder: (context, state) {
-      return UikServicesLanding(args:state.extra as Map<String, dynamic>? ).page;
+      return UikServicesLanding(args: state.extra as Map<String, dynamic>?)
+          .page;
     },
   );
   static final GoRoute _odOpHomeScreen = GoRoute(
     path: ScreenRoutes.odOpHomeScreen,
     builder: (context, state) {
-      return UikOdOpScreen(args:state.extra as Map<String, dynamic>? ).page;
+      return UikOdOpScreen(args: state.extra as Map<String, dynamic>?).page;
     },
   );
   static final GoRoute _serviceScreen = GoRoute(
     path: ScreenRoutes.serviceScreen,
     builder: (context, state) {
-      return UikServiceDetail(args:state.extra as Map<String, dynamic>? ).page;
+      return UikServiceDetail(args: state.extra as Map<String, dynamic>?).page;
     },
   );
   static final GoRoute _samhitaLandingPage = GoRoute(
     path: ScreenRoutes.samhitaLandingPage,
     builder: (context, state) {
-      return UikSamhitaHome(args:state.extra as Map<String, dynamic>? ).page;
+      return UikSamhitaHome(args: state.extra as Map<String, dynamic>?).page;
     },
   );
+
+  // todo check route
+
   static final GoRoute _myAddressScreen = GoRoute(
     path: ScreenRoutes.addressBookScreen,
     builder: (context, state) {
-      return UikMyAddressScreen(rootNavigatorKey.currentContext!).page;
+      return UikMyAddressScreen(
+        rootNavigatorKey.currentContext!,
+        args: state.extra as Map<String, dynamic>?,
+      ).page;
     },
   );
   static final GoRoute _myDetailsScreen = GoRoute(
@@ -449,13 +464,16 @@ class AppRoutes {
   static final GoRoute _getAllCustomerForUserService = GoRoute(
     path: ScreenRoutes.getAllCustomerForUserService,
     builder: (context, state) {
-      return UikCustomerForUserService(args:state.extra as Map<String, dynamic>? ).page;
+      return UikCustomerForUserService(
+              args: state.extra as Map<String, dynamic>?)
+          .page;
     },
   );
   static final GoRoute _getAllAgentsForUserService = GoRoute(
     path: ScreenRoutes.getAllAgentsForUserService,
     builder: (context, state) {
-      return UikAgentsForUserService(args:state.extra as Map<String, dynamic>? ).page;
+      return UikAgentsForUserService(args: state.extra as Map<String, dynamic>?)
+          .page;
     },
   );
 }
