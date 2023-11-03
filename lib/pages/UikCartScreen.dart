@@ -160,9 +160,8 @@ void addToCart(UikAction uikAction) async {
   //displaying response from update cart
   // print("statusCode ${response.body}");
 
-  var context = NavigationService.navigatorKey.currentContext;
 
-  Navigator.pushNamed(context!, ScreenRoutes.cartScreen);
+  NavigationUtils.openScreen(ScreenRoutes.cartScreen,{});
 }
 
 void removeCartItem(UikAction uikAction) async {
@@ -189,7 +188,7 @@ void removeCartItem(UikAction uikAction) async {
 
 void openCategory(UikAction uikAction) {
   //Navigation to the next screen through deepLink Handler
-  NavigationUtils.openScreen(ScreenRoutes.catalogueScreen);
+  NavigationUtils.openScreen(ScreenRoutes.catalogueScreen,{});
 
 }
 
@@ -198,10 +197,10 @@ void openProduct(UikAction uikAction) {
 }
 
 void openCoupon(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.couponScreen);
+  NavigationUtils.openScreen(ScreenRoutes.couponScreen,{});
 }
 
 void openCheckout(UikAction uikAction) {
 
-  NavigationUtils.openScreen(ScreenRoutes.addressBookScreen);
+  NavigationUtils.openScreen(ScreenRoutes.addressBookScreen,{});
 }
