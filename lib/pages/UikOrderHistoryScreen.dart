@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:lokal/actions.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
@@ -62,11 +63,10 @@ class UikOrderHistoryScreen extends StandardPage {
 
 void openOrder(UikAction uikAction) {
 
-  var context = AppRoutes.rootNavigatorKey.currentContext;
   if(uikAction.tap.data.key == TAP_ACTION_TYPE_KEY_ORDER_NUMBER_ID) {
     Map<String, dynamic>? args = {
       ORDER_NUMBER_ID: uikAction.tap.data.value,
     };
-    context!.go(ScreenRoutes.orderScreen,extra: args);
+    NavigationUtils.openScreen(ScreenRoutes.orderScreen,args);
   }
 }

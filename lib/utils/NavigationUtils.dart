@@ -34,7 +34,6 @@ abstract class NavigationUtils {
     CartDataHandler.clearCart();
     var context = getCurrentContext();
     context!.push(ScreenRoutes.orderScreen,extra: args);
-
   }
 
   static void pop() {
@@ -48,7 +47,7 @@ abstract class NavigationUtils {
   static void openScreen(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     // Navigator.pushNamed(context!, routeName, arguments: args );
-    context?.go(routeName,extra: args);
+    context?.push(routeName,extra: args);
   }
 
   static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
@@ -56,6 +55,6 @@ abstract class NavigationUtils {
     // Navigator.pushNamedAndRemoveUntil(
     //     context!,routeName, ModalRoute.withName('/'),
     //     arguments: args);
-    context?.go(routeName,extra: args);
+    context?.push(routeName,extra: args);
   }
 }
