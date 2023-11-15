@@ -42,7 +42,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
     }
     if (index == 3) {
-      context!.go(ScreenRoutes.myAccountScreen,extra: {});
+      context!.push(ScreenRoutes.myAccountScreen,extra: {});
     }
   }
 

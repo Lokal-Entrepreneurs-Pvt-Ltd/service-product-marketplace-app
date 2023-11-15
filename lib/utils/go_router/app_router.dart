@@ -144,6 +144,15 @@ class AppRoutes {
       );
     },
   );
+
+  static final GoRoute _uikMyAddress = GoRoute(
+    path: ScreenRoutes.myAddressScreen,
+    builder: (context, state) {
+      return UikMyAddressScreen(
+           context,  args: state.extra as Map<String, dynamic>?
+      ).page;
+    },
+  );
   static final GoRoute _loginScreen = GoRoute(
     path: ScreenRoutes.loginScreen,
     builder: (context, state) {
@@ -155,7 +164,9 @@ class AppRoutes {
   static final GoRoute _myAccountScreen = GoRoute(
     path: ScreenRoutes.myAccountScreen,
     builder: (context, state) {
-      return UikMyAccountScreen(args: state.extra).page;
+      // final Map<String, dynamic>? extraArgs =
+      // state.extra as Map<String, dynamic>?;
+      return UikMyAccountScreen(args: {}).page;
     },
   );
   static final GoRoute _partnerTrainingHome = GoRoute(
@@ -228,7 +239,7 @@ class AppRoutes {
   static final GoRoute _orderScreen = GoRoute(
     path: ScreenRoutes.orderScreen,
     builder: (context, state) {
-      return UikOrderScreen(args: state.extra).page;
+      return UikOrderScreen(args: state.extra as Map<String, dynamic>?).page;
     },
   );
   static final GoRoute _addAddressScreen = GoRoute(
