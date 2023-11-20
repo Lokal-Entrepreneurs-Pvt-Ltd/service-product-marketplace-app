@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:ui_sdk/components/UikCard.dart';
@@ -186,6 +187,9 @@ class _SlDetailsPageState extends State<SlDetailsPage>
                 switch (actionType) {
                   case "UIK_OPEN_WEB":
                     launchURL(actionData['url']);
+                    break;
+                  case "OPEN_PAGE":
+                   NavigationUtils.openPageFromUrl(actionData['url']);
                     break;
                   default:
                     break;

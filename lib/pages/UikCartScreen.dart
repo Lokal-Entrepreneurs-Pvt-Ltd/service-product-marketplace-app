@@ -140,8 +140,7 @@ void openAddress(UikAction uikAction) {
 }
 
 void openMyDetails() {
-  var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen);
 }
 
 void addToCart(UikAction uikAction) async {
