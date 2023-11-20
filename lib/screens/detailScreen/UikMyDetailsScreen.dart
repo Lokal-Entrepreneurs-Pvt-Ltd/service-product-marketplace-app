@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:lokal/Widgets/UikTextField/UikTextField.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
@@ -44,8 +45,10 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     nameController.text = UserDataHandler.getUserName();
     birthController.text = UserDataHandler.getUserDob();
     GSTController.text = UserDataHandler.getUserGST();
-    showVerifyPhoneNumber = UserDataHandler.getUserPhone().isNotEmpty &&
-        !UserDataHandler.getIsUserVerified();
+    showVerifyPhoneNumber = false;
+
+        // UserDataHandler.getUserPhone().isNotEmpty &&
+        // !UserDataHandler.getIsUserVerified();
   }
 
   String setButtonText() {
@@ -56,6 +59,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   }
 
   Future<void> handleOnButtonClick() async {
+
     if (nameController.text.isEmpty) {
       UiUtils.showToast(ENTER_EMAIL);
       return;
@@ -71,6 +75,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     }
 
     if (showVerifyPhoneNumber) {
+
       final response = await ApiRepository.sendOtp(
         ApiRequestBody.getSendOtpRequest(phoneController.text),
       );
@@ -102,11 +107,10 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         var customerData = response.data;
         if (customerData != null) {
           UserDataHandler.saveCustomerData(customerData);
+          UserDataHandler.saveIsUserVerified(true);
         }
-
         UiUtils.showToast(ACCOUNT_DETAILS_UPDATED);
-
-        Navigator.of(context).pop();
+        NavigationUtils.pop();
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }

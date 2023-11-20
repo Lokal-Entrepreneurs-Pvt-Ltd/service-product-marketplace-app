@@ -160,7 +160,7 @@ class HttpScreenClient {
                 textColor: Colors.black,
                 child: const Text("Close App"),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                 NavigationUtils.pop();
                   SystemNavigator.pop();
                  // retryCallback(); // Call the retry callback
                 },

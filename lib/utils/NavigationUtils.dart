@@ -33,8 +33,15 @@ abstract class NavigationUtils {
   static void openOrderScreen(Map<String, dynamic> args) {
     CartDataHandler.clearCart();
     var context = getCurrentContext();
-    context!.push(ScreenRoutes.orderScreen,extra: args);
+    context!.go(ScreenRoutes.orderScreen,extra: args);
   }
+
+  static void openHomeScreen(Map<String, dynamic> args) {
+    CartDataHandler.clearCart();
+    var context = getCurrentContext();
+    context!.go(ScreenRoutes.homeScreen,extra: args);
+  }
+
 
   static void pop() {
     getCurrentContext()!.pop();
@@ -44,17 +51,17 @@ abstract class NavigationUtils {
     DeeplinkHandler.openPage(getCurrentContext()!, uikAction.tap.data.url!);
   }
 
+  static void openPageFromUrl(String url ) {
+    DeeplinkHandler.openPage(getCurrentContext()!, url);
+  }
+
   static void openScreen(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
-    // Navigator.pushNamed(context!, routeName, arguments: args );
     context?.push(routeName,extra: args);
   }
 
   static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
-    // Navigator.pushNamedAndRemoveUntil(
-    //     context!,routeName, ModalRoute.withName('/'),
-    //     arguments: args);
     context?.push(routeName,extra: args);
   }
 }
