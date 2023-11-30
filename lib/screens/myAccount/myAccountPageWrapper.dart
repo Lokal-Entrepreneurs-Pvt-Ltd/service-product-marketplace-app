@@ -47,14 +47,15 @@ class _MyAccountWrapperState extends State<MyAccountWrapper> {
                 future: _initPackageInfo(),
                 builder: (ctx, res) {
                   if (res.hasData) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Container(
-                        width: double.infinity,
-                        color: Colors.grey,
+                    return Container(
+                      width: double.infinity,
+                      color: Colors.grey,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
                         child: Text(
                           "Version: ${res.data!}",
                           textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 15),
                         ),
                       ),
                     );
