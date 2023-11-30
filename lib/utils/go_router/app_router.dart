@@ -39,6 +39,7 @@ import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
 import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
+import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
@@ -148,9 +149,9 @@ class AppRoutes {
   static final GoRoute _uikMyAddress = GoRoute(
     path: ScreenRoutes.myAddressScreen,
     builder: (context, state) {
-      return UikMyAddressScreen(
-           context,  args: state.extra as Map<String, dynamic>?
-      ).page;
+      return UikMyAddressScreen(context,
+              args: state.extra as Map<String, dynamic>?)
+          .page;
     },
   );
   static final GoRoute _loginScreen = GoRoute(
@@ -166,7 +167,7 @@ class AppRoutes {
     builder: (context, state) {
       // final Map<String, dynamic>? extraArgs =
       // state.extra as Map<String, dynamic>?;
-      return UikMyAccountScreen(args: {}).page;
+      return MyAccountWrapper(page: UikMyAccountScreen(args: {}).page);
     },
   );
   static final GoRoute _partnerTrainingHome = GoRoute(
