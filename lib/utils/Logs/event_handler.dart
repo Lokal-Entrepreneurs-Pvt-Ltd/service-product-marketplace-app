@@ -1,5 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:lokal/utils/logdataformat.dart';
+import 'package:lokal/utils/Logs/event.dart';
 
 class EventHandler {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
