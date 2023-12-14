@@ -1,6 +1,6 @@
 import 'dart:collection';
-import 'package:lokal/utils/logdataformat.dart';
-import 'package:lokal/utils/logfeature.dart';
+import 'package:lokal/utils/Logs/event.dart';
+import 'package:lokal/utils/Logs/event_handler.dart';
 
 // class EventQueue with WidgetsBindingObserver{
 //   static EventQueue? _instance;
