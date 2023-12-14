@@ -4,8 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
+import 'package:lokal/utils/eventsdk.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
+import 'package:lokal/utils/logdataformat.dart';
+import 'package:lokal/utils/logfeature.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
@@ -33,6 +37,22 @@ class UikHome extends StandardPage {
 
   void onHomeScreenTapAction(UikAction uikAction) {
     print(uikAction.tap.type);
+    EventSDK eventSDK = EventSDK();
+    eventSDK.init();
+    if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
+      print('${EventSDK.sessionId}---------------');
+      Event event = Event(
+        name: uikAction.tap.type.toString(),
+        parameters: {
+          "sessionId": EventSDK.sessionId,
+          "userId": EventSDK.userId,
+          "pageName": ScreenRoutes.homeScreen
+        },
+      );
+      EventHandler.events(event: event);
+    }
+    //uikAction.tap.type
+    //params: {sessionId,userId,pageName,}
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
@@ -71,7 +91,7 @@ class UikHome extends StandardPage {
 
 void openIsp(UikAction uikAction) {
   final BuildContext context = AppRoutes.rootNavigatorKey.currentContext!;
-  NavigationUtils.openScreen(ScreenRoutes.ispHome,{});
+  NavigationUtils.openScreen(ScreenRoutes.ispHome, {});
 }
 
 // void openProduct(UikAction uikAction) {

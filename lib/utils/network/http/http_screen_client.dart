@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:lokal/utils/eventqueue.dart';
+import 'package:lokal/utils/logdataformat.dart';
+import 'package:lokal/utils/logfeature.dart';
 
 // import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +22,7 @@ import '../../../pages/UikBottomNavigationBar.dart';
 import '../../../screens/Onboarding/OnboardingScreen.dart';
 import '../../storage/user_data_handler.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 class HttpScreenClient {
   // static HttpClient getHttp() {
   //   return http.Client();
@@ -97,18 +101,26 @@ class HttpScreenClient {
         throw Exception('No internet connection');
       }
 
+      String routes = pageRoute.replaceAll('/', '_');
+      Event event = Event(
+          name: "Routes_$routes", parameters: {"names": "Routes_$routes"});
+      EventQueue eventQueue = EventQueue();
+      eventQueue.add(event);
+      print("${eventQueue.queue.length}-----------------------");
+
       var bodyParams = args ?? <String, dynamic>{};
       var header = NetworkUtils.getRequestHeaders();
       final response = await http.Client()
           .post(
-        Uri.parse(Environment().config.BASE_URL + pageRoute),
-        headers: header,
-        body: jsonEncode(bodyParams),
-      )
+            Uri.parse(Environment().config.BASE_URL + pageRoute),
+            headers: header,
+            body: jsonEncode(bodyParams),
+          )
           .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
 
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
-        ApiResponse apiResponse = ApiResponse.fromJson(jsonDecode(response.body));
+        ApiResponse apiResponse =
+            ApiResponse.fromJson(jsonDecode(response.body));
         if (apiResponse.isSuccess!) {
           return apiResponse;
         } else {
@@ -141,9 +153,8 @@ class HttpScreenClient {
       // Log the error for debugging and monitoring
       debugPrint('API request failed: $e$stackTrace');
       rethrow;
-     }
+    }
   }
-
 
   static displayNoInternetDialog(Function? retryCallback) {
     return showDialog(
@@ -160,9 +171,9 @@ class HttpScreenClient {
                 textColor: Colors.black,
                 child: const Text("Close App"),
                 onPressed: () {
-                 NavigationUtils.pop();
+                  NavigationUtils.pop();
                   SystemNavigator.pop();
-                 // retryCallback(); // Call the retry callback
+                  // retryCallback(); // Call the retry callback
                 },
               ),
             ],
@@ -171,5 +182,4 @@ class HttpScreenClient {
       },
     );
   }
-
 }
