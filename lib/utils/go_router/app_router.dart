@@ -39,6 +39,7 @@ import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
 import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
+import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
@@ -58,9 +59,11 @@ class AppRoutes {
 
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: UserDataHandler.getUserToken().isEmpty
-        ? _onboardingScreen.path
-        : _uikBottomNavigationBar.path,
+    // initialLocation: UserDataHandler.getUserToken().isEmpty
+    //     ? _onboardingScreen.path
+    //     // : _uikBottomNavigationBar.path,
+    //     : _myAccountScreen.path,
+    initialLocation: _profileScreen.path,
     routes: [
       _onboardingScreen,
       _uikBottomNavigationBar,
@@ -108,6 +111,7 @@ class AppRoutes {
       _manageAgentScreen,
       _getAllCustomerForUserService,
       _getAllAgentsForUserService,
+      _profileScreen,
     ],
   );
 
@@ -152,6 +156,14 @@ class AppRoutes {
       return UikMyAddressScreen(context,
               args: state.extra as Map<String, dynamic>?)
           .page;
+    },
+  );
+  static final GoRoute _profileScreen = GoRoute(
+    path: ScreenRoutes.profileScreen,
+    builder: (context, state) {
+      return EditProfileScreen(
+        key: state.pageKey,
+      );
     },
   );
   static final GoRoute _loginScreen = GoRoute(

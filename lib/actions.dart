@@ -61,4 +61,5 @@ class UIK_ACTION {
   static const String OPEN_MY_REWARDS = "OPEN_MY_REWARDS";
   static const String OPEN_VIDEO = "OPEN_VIDEO";
   static const String SELECT_LOCATION = "SELECT_LOCATION";
+  static const String PROFILE_SCREEN = "PROFILE_SCREEN";
 }
