@@ -30,6 +30,7 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_LOG_IN);
     actionList.add(UIK_ACTION.OPEN_MY_AGENT);
     actionList.add(UIK_ACTION.OPEN_MY_REWARDS);
+    actionList.add(UIK_ACTION.PROFILE_SCREEN);
     return actionList;
   }
 
@@ -75,6 +76,9 @@ class UikMyAccountScreen extends StandardPage {
           UiUtils.showToast(LOG_IN);
           clearDataAndMoveToOnboarding(uikAction);
         }
+        break;
+      case UIK_ACTION.PROFILE_SCREEN:
+        NavigationUtils.openScreen(ScreenRoutes.profileScreen);
         break;
       default:
     }
@@ -123,11 +127,11 @@ void openMyAgent(UikAction uikAction) {
 }
 
 void openMyRewards(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.myRewardsPage,{});
+  NavigationUtils.openScreen(ScreenRoutes.myRewardsPage, {});
 }
 
 void openOrders(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen,{});
+  NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen, {});
 }
 
 // Future<ApiResponse> getMockedApiResponse(args) async {
