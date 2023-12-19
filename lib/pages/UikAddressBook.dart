@@ -11,6 +11,7 @@ import '../main.dart';
 import '../actions.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
+import '../utils/ActionUtils.dart';
 import '../utils/NavigationUtils.dart';
 
 class UikAddressBook extends StandardPage {
@@ -34,19 +35,7 @@ class UikAddressBook extends StandardPage {
   }
 
   void onAddressBookTapAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_ADDRESS:
-        addAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PAYMENT:
-        openPayment(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-
-      default:
-    }
+    ActionUtils.executeAction(uikAction);
   }
 
   @override

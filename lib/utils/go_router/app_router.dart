@@ -56,14 +56,22 @@ class AppRoutes {
 
   // Go Router
 
+  void popUntil(GoRoute routeBase) {
+    while (_goRouter.canPop() &&
+        _goRouter.routerDelegate.currentConfiguration.matches.last.route !=
+            routeBase) {
+      _goRouter.pop();
+    }
+  }
+
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
-        : _uikBottomNavigationBar.path,
+        : uikBottomNavigationBar.path,
     routes: [
       _onboardingScreen,
-      _uikBottomNavigationBar,
+      uikBottomNavigationBar,
       _loginScreen,
       _signUpScreen,
       _uikHomeWrapper,
@@ -121,7 +129,7 @@ class AppRoutes {
       );
     },
   );
-  static final GoRoute _uikBottomNavigationBar = GoRoute(
+  static final GoRoute uikBottomNavigationBar = GoRoute(
     path: ScreenRoutes.uikBottomNavigationBar,
     builder: (context, state) {
       return UikBottomNavigationBar(

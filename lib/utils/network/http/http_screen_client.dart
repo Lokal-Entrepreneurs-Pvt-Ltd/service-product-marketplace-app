@@ -16,9 +16,12 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../../constants/json_constants.dart';
 import '../../../pages/UikBottomNavigationBar.dart';
+import '../../../screen_routes.dart';
 import '../../../screens/Onboarding/OnboardingScreen.dart';
 import '../../storage/user_data_handler.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+import '../retrofit/api_routes.dart';
 class HttpScreenClient {
   // static HttpClient getHttp() {
   //   return http.Client();
@@ -117,6 +120,7 @@ class HttpScreenClient {
             switch (errorCode) {
               case NetworkUtils.NETWORK_ERROR_USER_NOT_AUTHENTICATED:
                 {
+                  if(pageRoute!= ApiRoutes.notificationAddUser)
                   displayUserUnAuthorisedDialog();
                   throw Exception('User not authenticated');
                 }
