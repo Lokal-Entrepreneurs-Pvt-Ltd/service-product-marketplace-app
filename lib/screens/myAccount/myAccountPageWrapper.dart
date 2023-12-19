@@ -49,7 +49,7 @@ class _MyAccountWrapperState extends State<MyAccountWrapper> {
                   if (res.hasData) {
                     return Container(
                       width: double.infinity,
-                      color: Colors.grey,
+                      color: Colors.white,
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(

@@ -10,7 +10,7 @@ class EnvironmentDataHandler {
 
   static String getDefaultEnvironment() {
     return PreferenceUtils.getString(
-        DEFAULT_ENVIRONMENT, kDebugMode ? Environment.PROD : Environment.PROD);
+        DEFAULT_ENVIRONMENT, kDebugMode ? Environment.LOCAL : Environment.PROD);
   }
 
   static void setLocalBaseUrl(String localBaseUrl) {
