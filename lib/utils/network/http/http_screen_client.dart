@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:lokal/configs/environment.dart';
 import 'package:lokal/constants/strings.dart';
+import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/network_utils.dart';
@@ -44,15 +45,35 @@ class HttpScreenClient {
                   child: const Text(LOG_IN),
                   onPressed: () {
                     UserDataHandler.clearUserToken();
-                    Navigator.of(context).pop();
-                    Navigator.pushAndRemoveUntil(
-                      NavigationUtils.getCurrentContext()!,
-                      MaterialPageRoute(
-                        builder: (context) => const OnboardingScreen(),
-                      ),
-                      // ModalRoute.withName(ScreenRoutes.homeScreen)
-                      (route) => false,
-                    );
+                    NavigationUtils.pop();
+                    NavigationUtils.openScreen(ScreenRoutes.onboardingScreen,{});
+                  },
+                ),
+              ],
+            ));
+      },
+    );
+  }
+
+
+  static displayPhoneNumberNotInSignUpDialog() {
+    return showDialog(
+      barrierDismissible: false,
+      context: NavigationUtils.getCurrentContext()!,
+      builder: (BuildContext context) {
+        return WillPopScope(
+            onWillPop: () => Future.value(false),
+            child: AlertDialog(
+              title: const Text("Kindly add PhoneNo to your account for smooth login process"),
+              actions: <Widget>[
+                MaterialButton(
+                  color: Colors.amberAccent,
+                  textColor: Colors.black,
+                  child: const Text(ADD_PHONENUMBER_IN_ACCOUNT),
+                  onPressed: () {
+                    UserDataHandler.clearUserToken();
+                    NavigationUtils.pop();
+                    NavigationUtils.openScreen(ScreenRoutes.signUpScreen,{});
                   },
                 ),
               ],
@@ -123,6 +144,13 @@ class HttpScreenClient {
                   if(pageRoute!= ApiRoutes.notificationAddUser)
                   displayUserUnAuthorisedDialog();
                   throw Exception('User not authenticated');
+                }
+              case NetworkUtils.PHONE_NUMBER_NOT_IN_SIGNUP:
+                {
+                  if(pageRoute!= ApiRoutes.notificationAddUser)
+                  displayPhoneNumberNotInSignUpDialog();
+
+                  throw Exception('User not in SingnUp');
                 }
               default:
                 {
