@@ -11,6 +11,9 @@ import 'package:otp_text_field/style.dart';
 import 'dart:async';
 import '../../constants/dimens.dart';
 import '../../constants/strings.dart';
+import '../../screen_routes.dart';
+import '../../utils/NavigationUtils.dart';
+import '../../utils/storage/preference_constants.dart';
 import '../../widgets/UikButton/UikButton.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -41,9 +44,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as String;
-
-    // print(args);
 
     return MaterialApp(
         home: Scaffold(
@@ -116,7 +116,9 @@ class _OtpScreenState extends State<OtpScreen> {
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
                     if (optPinEntered.length == 6) {
-                      final response = await ApiRepository.verifyOtp(
+
+
+                      final response = await ApiRepository.verifyOtpAndLogin(
                         ApiRequestBody.getVerifyOtpRequest(
                           widget.args,
                           optPinEntered,
@@ -126,12 +128,18 @@ class _OtpScreenState extends State<OtpScreen> {
 
                       if (response.isSuccess!) {
                         UiUtils.showToast(OTP_VERIFIED);
+                        UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+                        var customerData = response.data[CUSTOMER_DATA];
+                        if (customerData != null) {
+                          UserDataHandler.saveCustomerData(customerData);
+                        }
                         UserDataHandler.saveIsUserVerified(
                             response.data[SUCCESS]);
-                        Navigator.pop(context);
+                        NavigationUtils.openScreen(ScreenRoutes.onboardingScreen);
                       } else {
-                        UiUtils.showToast("OTP verification ERROR!");
+                        UiUtils.showToast(response.error![MESSAGE]);
                       }
+
                     }
                   },
                 ),

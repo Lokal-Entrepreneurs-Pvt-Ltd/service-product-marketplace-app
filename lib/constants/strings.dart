@@ -1,6 +1,7 @@
 const String STR_WELCOME = "Welcome!";
 const String LOG_OUT = "You have been logged out!";
 const String LOG_IN = "Kindly Login!";
+const String ADD_PHONENUMBER_IN_ACCOUNT = "Add PhoneNo in Account!";
 const String ACCOUNT_DETAILS_UPDATED = "Account Details Updated!";
 const String SAVE_DETAILS = "Save Details";
 const String VERIFY_NUMBER = "Verify Number";
@@ -129,6 +130,8 @@ const String PROVIDE_SERVICES = "to provide product and services to Bharat";
 const String REGISTER_AS = "Register as";
 const String LOGIN_AS = "Login as";
 const String EMAIL_INPUT = " Email";
+const String PHONE_INPUT = " Phone No";
+const String PHONE_OR_EMAIL_INPUT = "Kindly enter Phone or Email";
 const String PASSWORD_INPUT = " Password";
 const String CONFIRM_PASSWORD_INPUT = " Confirm password";
 const String BY_CONTINUING = "By continuing I agree with ";

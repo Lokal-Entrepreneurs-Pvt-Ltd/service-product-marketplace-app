@@ -9,3 +9,4 @@ const String IS_USER_VERIFIED = "isVerified";
 const String DEFAULT_ENVIRONMENT = "DEFAULT_ENVIRONMENT";
 const String LOCAL_BASE_URL = "LOCAL_BASE_URL";
 const String DEVICE_ID = "device_id";
+const String APP_VERSION = "lk_device_version";

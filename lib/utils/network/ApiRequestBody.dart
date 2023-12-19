@@ -5,8 +5,13 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
-  static getSignUpRequest(String email, password, userType) {
-    return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
+  static getLoginAsPhoneRequest(String phoneNo) {
+    return {
+      PHONE_NUMBER: phoneNo};
+  }
+
+  static getSignUpRequest(String email, password, userType, phoneNo) {
+    return {EMAIL: email, PASSWORD: password, USER_TYPE: userType, PHONE_NUMBER: phoneNo};
   }
 
   static getOptinRequest(String serviceId) {

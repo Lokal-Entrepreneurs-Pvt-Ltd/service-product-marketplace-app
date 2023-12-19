@@ -71,6 +71,14 @@ abstract class UserDataHandler {
     PreferenceUtils.setString(PHONE_NUMBER, phone);
   }
 
+  static String getAppVersion() {
+    return PreferenceUtils.getString(APP_VERSION, "");
+  }
+
+  static void saveAppVersion(String phone) {
+    PreferenceUtils.setString(APP_VERSION, phone);
+  }
+
   static bool getIsUserVerified() {
     return PreferenceUtils.getBool(IS_USER_VERIFIED, false);
   }

@@ -12,6 +12,7 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:ui_sdk/ApiResponseState.dart';
 import 'configs/environment.dart';
@@ -112,6 +113,9 @@ class _LokalAppState extends State<LokalApp> {
     }
 
     PreferenceUtils.setString("device_id", deviceId.toString());
+
+    final packageInfo = await PackageInfo.fromPlatform();
+    UserDataHandler.saveAppVersion(packageInfo.version);
 
     if (!mounted) return;
   }
