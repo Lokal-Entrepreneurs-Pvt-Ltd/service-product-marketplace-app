@@ -69,7 +69,7 @@ class HttpScreenClient {
                 MaterialButton(
                   color: Colors.amberAccent,
                   textColor: Colors.black,
-                  child: const Text(ADD_PHONENUMBER_IN_ACCOUNT),
+                  child: const Text(LOG_IN),
                   onPressed: () {
                     UserDataHandler.clearUserToken();
                     NavigationUtils.pop();
@@ -146,8 +146,7 @@ class HttpScreenClient {
                   throw Exception('User not authenticated');
                 }
               case NetworkUtils.PHONE_NUMBER_NOT_IN_SIGNUP:
-                {
-                  if(pageRoute!= ApiRoutes.notificationAddUser)
+                { if(pageRoute!= ApiRoutes.notificationAddUser)
                   displayPhoneNumberNotInSignUpDialog();
 
                   throw Exception('User not in SingnUp');
