@@ -64,11 +64,19 @@ abstract class UserDataHandler {
   }
 
   static String getUserPhone() {
-    return PreferenceUtils.getString(PHONE_NUMBER, "");
+    return PreferenceUtils.getString(PHONE_NUMBER_CONST, "");
   }
 
   static void saveUserPhone(String phone) {
-    PreferenceUtils.setString(PHONE_NUMBER, phone);
+    PreferenceUtils.setString(PHONE_NUMBER_CONST, phone);
+  }
+
+  static String getAppVersion() {
+    return PreferenceUtils.getString(APP_VERSION, "");
+  }
+
+  static void saveAppVersion(String phone) {
+    PreferenceUtils.setString(APP_VERSION, phone);
   }
 
   static bool getIsUserVerified() {
@@ -89,8 +97,8 @@ abstract class UserDataHandler {
       if (customerData[DOB] != null) {
         UserDataHandler.saveUserDob(customerData[DOB]);
       }
-      if (customerData[PHONE_NUMBER] != null) {
-        UserDataHandler.saveUserPhone(customerData[PHONE_NUMBER]);
+      if (customerData[PHONE_NUMBER_CONST] != null) {
+        UserDataHandler.saveUserPhone(customerData[PHONE_NUMBER_CONST]);
       }
       if (customerData[GST_TAX_VAT] != null) {
         UserDataHandler.saveUserGST(customerData[GST_TAX_VAT]);

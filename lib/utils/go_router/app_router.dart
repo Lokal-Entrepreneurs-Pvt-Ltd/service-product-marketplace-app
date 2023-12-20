@@ -28,7 +28,7 @@ import 'package:lokal/screens/Form/SamhitaDataCollector.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
-import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
+import 'package:lokal/screens/Onboarding/LoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/screens/WebViewScreen.dart';
