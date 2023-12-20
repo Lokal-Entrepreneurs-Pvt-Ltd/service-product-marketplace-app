@@ -403,13 +403,14 @@ class _SignupScreenState extends State<SignupScreen> {
       NavigationUtils.pop();
 
       if (response.isSuccess!) {
+        if(response.data[AUTH_TOKEN]!=null)
         UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-
         var customerData = response.data[CUSTOMER_DATA];
         if (customerData != null) {
           UserDataHandler.saveCustomerData(customerData);
         }
-        NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
+        NavigationUtils.pop();
+        NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": phoneNoController.text.toString()});
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
