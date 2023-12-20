@@ -392,13 +392,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {
-    UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+    if(response.data[AUTH_TOKEN]!=null){
+      UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+    }
     final customerData = response.data[CUSTOMER_DATA];
     if (customerData != null) {
       UserDataHandler.saveCustomerData(customerData);
     }
-    NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
-
+    if(isPhoneInput)
+    NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": emailController.text.toString()});
+    else
+      NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
   }
 
   void _handleLoginError(ApiResponse response) {
