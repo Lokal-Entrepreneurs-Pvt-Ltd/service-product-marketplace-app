@@ -1,10 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 
-class MyAccountWrapper extends StatefulWidget {
+class
+MyAccountWrapper extends StatefulWidget {
   StatefulWidget page;
   MyAccountWrapper({
     Key? key,
@@ -19,17 +21,6 @@ class _MyAccountWrapperState extends State<MyAccountWrapper> {
   final StatefulWidget page;
   _MyAccountWrapperState(this.page);
 
-  Future<String?> _initPackageInfo() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.version;
-    // setState(() {
-    //   String _appName = _packageInfo.appName;
-    //   // String PackageName = _packageInfo.packageName;
-    //   // String AppVersion = _packageInfo.version;
-    //   // String BuildNumber = _packageInfo.buildNumber;
-    //   // String BuildSignature = _packageInfo.buildSignature;
-    // });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,26 +34,18 @@ class _MyAccountWrapperState extends State<MyAccountWrapper> {
               height: MediaQuery.of(context).size.height * 0.9,
             ),
             Expanded(child: Container()),
-            FutureBuilder(
-                future: _initPackageInfo(),
-                builder: (ctx, res) {
-                  if (res.hasData) {
-                    return Container(
-                      width: double.infinity,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          "Version: ${res.data!}",
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
-                }),
+            Container(
+              width: double.infinity,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Version: ${UserDataHandler.getAppVersion()}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 15),
+                ),
+              ),
+            ),
           ],
         ),
       ),

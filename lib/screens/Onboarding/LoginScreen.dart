@@ -1,59 +1,41 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
+import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/constants/strings.dart';
+import 'package:lokal/pages/UikBottomNavigationBar.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
+import 'package:lokal/utils/storage/preference_constants.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
-import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
-import '../../utils/storage/preference_constants.dart';
-import '../signUp/signup_screen.dart';
-import '../../constants/json_constants.dart';
-import '../../constants/strings.dart';
-import '../../pages/UikBottomNavigationBar.dart';
-import '../../screen_routes.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import '../../Widgets/UikButton/UikButton.dart';
 
 class LoginScreen extends StatefulWidget {
   final String? selectedUserType;
 
-  const LoginScreen({super.key, this.selectedUserType});
+  const LoginScreen({Key? key, this.selectedUserType}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
-  List<String> userTypes = [PARTNER, AGENT];
+class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final List<String> userTypes = [PARTNER, AGENT];
+  bool errorEmail = false;
+  bool errorPassword = false;
 
-  var errorEmail = false;
-  var descEmail = "";
-
-  var errorPassword = false;
-  var descPassword = "";
-
-  var errorConfirmPassword = false;
-  var descConfirmPassword = "";
-
-  var isAuthError = false;
-  var authErrorCode = -1;
-  var authErrorMessage = "";
   bool isLoading = false;
-
   String selectedUserType = PARTNER;
-
-  void initialize() async {
-    emailController.text = UserDataHandler.getUserEmail();
-    //passwordController.text = await UserDataHandler.getUserPassword();
-  }
+  bool isPhoneInput = true;
 
   @override
   void initState() {
@@ -61,9 +43,8 @@ class _LoginScreenState extends State<LoginScreen>
     initialize();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  void initialize() async {
+    emailController.text = UserDataHandler.getUserEmail();
   }
 
   @override
@@ -75,16 +56,12 @@ class _LoginScreenState extends State<LoginScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: DIMEN_24,
-            ),
+            const SizedBox(height: DIMEN_24),
             Padding(
               padding: const EdgeInsets.only(left: DIMEN_21),
               child: _buildTitle(),
             ),
-            const SizedBox(
-              height: DIMEN_35,
-            ),
+            const SizedBox(height: DIMEN_35),
             Expanded(
               child: _buildBody(),
             ),
@@ -140,9 +117,10 @@ class _LoginScreenState extends State<LoginScreen>
         child: Text(
           REGISTER,
           style: GoogleFonts.poppins(
-              color: const Color(0XFF3F51B5),
-              fontSize: DIMEN_14,
-              fontWeight: FontWeight.w500),
+            color: const Color(0XFF3F51B5),
+            fontSize: DIMEN_14,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
@@ -160,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen>
               color: const Color(0xFF212121),
             ),
           ),
-          const TextSpan(text: '\n'), // Add a newline here
+          const TextSpan(text: '\n'),
           TextSpan(
             text: PROVIDE_SERVICES,
             style: GoogleFonts.poppins(
@@ -186,30 +164,18 @@ class _LoginScreenState extends State<LoginScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: DIMEN_20,
-            ),
+            const SizedBox(height: DIMEN_20),
             _buildLoginAsText(),
-            const SizedBox(
-              height: DIMEN_20,
-            ),
+            const SizedBox(height: DIMEN_20),
             _buildUserTypeSelection(),
-            const SizedBox(
-              height: DIMEN_25,
-            ),
+            const SizedBox(height: DIMEN_25),
             _buildEmailField(),
-            const SizedBox(
-              height: DIMEN_16,
-            ),
+            const SizedBox(height: DIMEN_16),
             _buildPasswordField(),
-            const SizedBox(
-              height: DIMEN_16,
-            ),
+            const SizedBox(height: DIMEN_16),
             _buildForgotPasswordButton(),
             _buildContinueButton(),
-            const SizedBox(
-              height: DIMEN_25,
-            ),
+            const SizedBox(height: DIMEN_25),
             _buildPrivacyAndTermsText(),
           ],
         ),
@@ -279,8 +245,9 @@ class _LoginScreenState extends State<LoginScreen>
       child: TextField(
         enableSuggestions: true,
         controller: emailController,
+        keyboardType: TextInputType.emailAddress, // Set keyboard type for email
         decoration: InputDecoration(
-          hintText: EMAIL_INPUT,
+          hintText: isPhoneInput ? PHONE_OR_EMAIL_INPUT : EMAIL_INPUT,
           hintStyle: GoogleFonts.poppins(
             color: const Color(0xFF9E9E9E),
           ),
@@ -294,14 +261,20 @@ class _LoginScreenState extends State<LoginScreen>
             borderRadius: BorderRadius.circular(DIMEN_8),
             borderSide: BorderSide.none,
           ),
-          errorText: errorEmail ? descEmail : null,
+          errorText: errorEmail ? (isPhoneInput ? VALID_PHONE_NO : VALID_EMAIL) : null,
         ),
       ),
     );
   }
 
   Widget _buildPasswordField() {
-    return Padding(
+    final input = emailController.text;
+    // Check if the input is a 10-digit phone number
+    final isPhoneNumber = input.length == 10 && int.tryParse(input) != null;
+
+    return isPhoneNumber
+        ? SizedBox.shrink() // Hide the password field
+        : Padding(
       padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: TextField(
         enableSuggestions: true,
@@ -322,11 +295,12 @@ class _LoginScreenState extends State<LoginScreen>
             borderRadius: BorderRadius.circular(DIMEN_8),
             borderSide: BorderSide.none,
           ),
-          errorText: errorPassword ? descPassword : null,
+          errorText: errorPassword ? PASSWORD_LENGTH : null,
         ),
       ),
     );
   }
+
 
   Widget _buildForgotPasswordButton() {
     return Padding(
@@ -354,78 +328,85 @@ class _LoginScreenState extends State<LoginScreen>
       margin: const EdgeInsets.only(left: DIMEN_20, right: DIMEN_20),
       child: isLoading
           ? const CircularProgressIndicator(
-              color: Colors.yellow,
-            )
+        color: Colors.yellow,
+      )
           : UikButton(
-              text: CONTINUE,
-              textWeight: FontWeight.w500,
-              textSize: DIMEN_16,
-              textColor: const Color(0xFF212121),
-              backgroundColor: const Color(0xffFEE440),
-              onClick: () async {
-                if (_isInputValid()) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  try{
-                    final response = await _performLogin();
-                    if (response.isSuccess!) {
-                      _handleSuccessfulLogin(response);
-                    } else {
-                      _handleLoginError(response);
-                    }
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-                  catch (e){
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-                }
-              },
-            ),
+        text: CONTINUE,
+        textWeight: FontWeight.w500,
+        textSize: DIMEN_16,
+        textColor: const Color(0xFF212121),
+        backgroundColor: const Color(0xffFEE440),
+        onClick: () async {
+          if (_isInputValid()) {
+            setState(() {
+              isLoading = true;
+            });
+            try {
+              final response = await _performLogin();
+              if (response.isSuccess!) {
+                _handleSuccessfulLogin(response);
+              } else {
+                _handleLoginError(response);
+              }
+            } catch (e) {
+              // Handle error
+            } finally {
+              setState(() {
+                isLoading = false;
+              });
+            }
+          }
+        },
+      ),
     );
   }
 
   bool _isInputValid() {
-    final emailValid = UiUtils.isEmailValid(emailController.text);
-    final passwordValid = passwordController.text.length >= 6;
-    if (!emailValid) {
-      errorEmail = true;
-      descEmail = VALID_EMAIL;
+    final input = emailController.text;
+
+    if (input.length == 10 && int.tryParse(input) != null) {
+      // Input is a phone number.
+      isPhoneInput = true;
+      return true;
     } else {
-      errorEmail = false;
-      descEmail = "";
+      // Input is an email address.
+      isPhoneInput = false;
+      final emailValid = UiUtils.isEmailValid(input);
+      final passwordValid = passwordController.text.length >= 6;
+      errorEmail = !emailValid;
+      errorPassword = !passwordValid;
+      return emailValid && passwordValid;
     }
-    if (!passwordValid) {
-      errorPassword = true;
-      descPassword = PASSWORD_LENGTH;
-    } else {
-      errorPassword = false;
-      descPassword = "";
-    }
-    return emailValid && passwordValid;
   }
 
   Future<ApiResponse> _performLogin() async {
-    return ApiRepository.getLoginScreen(ApiRequestBody.getLoginRequest(
-        emailController.text, passwordController.text, selectedUserType));
+    final input = emailController.text.toString();
+    if (isPhoneInput) {
+      return ApiRepository.sendOtpForLogin(ApiRequestBody.getLoginAsPhoneRequest(
+          input));
+    } else {
+      // Call the email login API.
+      return ApiRepository.getLoginScreen(ApiRequestBody.getLoginRequest(
+          input, passwordController.text, selectedUserType));
+    }
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {
-    UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+    if(response.data[AUTH_TOKEN]!=null){
+      UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+    }
     final customerData = response.data[CUSTOMER_DATA];
     if (customerData != null) {
       UserDataHandler.saveCustomerData(customerData);
     }
-    NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
+    if(isPhoneInput)
+    NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": emailController.text.toString()});
+    else
+      NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
   }
 
   void _handleLoginError(ApiResponse response) {
     UiUtils.showToast(response.error![MESSAGE]);
-
   }
 
   Widget _buildPrivacyAndTermsText() {

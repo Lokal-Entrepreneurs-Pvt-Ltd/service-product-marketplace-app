@@ -1,24 +1,30 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/otp_field_style.dart';
 import 'package:lokal/constants/colors.dart';
-import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/constants/dimens.dart';
+import 'package:lokal/constants/strings.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
-import 'package:lokal/utils/storage/user_data_handler.dart';
-import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'dart:async';
-import '../../constants/dimens.dart';
-import '../../constants/strings.dart';
-import '../../widgets/UikButton/UikButton.dart';
+import '../../Widgets/UikButton/UikButton.dart';
+import '../../constants/json_constants.dart';
+import '../../utils/storage/preference_constants.dart';
+import '../../utils/storage/user_data_handler.dart';
 
 class OtpScreen extends StatefulWidget {
   final String mobileNumber;
   final dynamic args;
+
   const OtpScreen({
     super.key,
-    this.mobileNumber = "", this.args,
+    this.mobileNumber = "",
+    this.args,
   });
 
   @override
@@ -26,27 +32,118 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  int Seconds = 20;
-  String digitSeconds = "20";
+  int seconds = 30; // Change the timer duration to 30 seconds
+  String digitSeconds = "30"; // Update the initial digit display
   Timer? timer;
   bool started = true;
-
-  String optPinEntered = "";
+  String otpPinEntered = "";
+  bool canResendOtp = false; // New variable to track if OTP can be resent
+  bool isLoading = false; // New variable to track if "Continue" button is loading
+  bool isLoadingResendOtp = false; // New variable to track if "Resend OTP" button is loading
 
   @override
   void initState() {
     super.initState();
-    start();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (seconds > 0) {
+        setState(() {
+          seconds--;
+          digitSeconds = (seconds >= 10) ? "$seconds" : "0$seconds";
+        });
+      } else {
+        setState(() {
+          canResendOtp = true; // Allow OTP to be resent after the timer ends
+        });
+        timer.cancel();
+      }
+    });
+  }
+
+  void handleOtpCompleted(String pin) {
+    otpPinEntered = pin;
+  }
+
+  Future<void> handleContinueButton() async {
+    if (otpPinEntered.length == 6) {
+      setState(() {
+        isLoading = true; // Start loading the "Continue" button
+      });
+      try {
+        final response = await ApiRepository.verifyOtpAndLogin(
+          ApiRequestBody.getVerifyOtpRequest(
+            widget.args[PHONE_NUMBER],
+            otpPinEntered,
+          ),
+        );
+
+        if (response.isSuccess!) {
+          UiUtils.showToast(OTP_VERIFIED);
+          UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+          var customerData = response.data[CUSTOMER_DATA];
+          if (customerData != null) {
+            UserDataHandler.saveCustomerData(customerData);
+          }
+          UserDataHandler.saveIsUserVerified(true);
+          NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
+        } else {
+          UiUtils.showToast(response.error![MESSAGE]);
+        }
+      } catch (e) {
+        // Handle error
+      } finally {
+        setState(() {
+          isLoading = false; // Stop loading the "Continue" button
+        });
+      }
+    }
+    else {
+    // Handle invalid OTP here
+    setState(() {
+    isLoading = false; // Stop loading the "Continue" button
+    });
+    UiUtils.showToast("Invalid OTP. Please enter a valid OTP."); // Display an error message for invalid OTP
+    }
+  }
+
+  Future<void> handleResendOtp() async {
+    if (canResendOtp) {
+      setState(() {
+        isLoadingResendOtp = true; // Start loading the "Resend OTP" button
+      });
+      try {
+        // Implement the logic to resend OTP here
+        await ApiRepository.sendOtpForLogin(ApiRequestBody.getLoginAsPhoneRequest(widget.args[PHONE_NUMBER]));
+        UiUtils.showToast("OTP Resent to :" + widget.args[PHONE_NUMBER]);
+        setState(() {
+          canResendOtp = false;
+          seconds = 30; // Reset the timer to 30 seconds when OTP is resent
+          digitSeconds = "30";
+        });
+        // Start the timer again
+        startTimer();
+      } catch (e) {
+        // Handle error
+      } finally {
+        setState(() {
+          isLoadingResendOtp = false; // Stop loading the "Resend OTP" button
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // final args = ModalRoute.of(context)!.settings.arguments as String;
-
-    // print(args);
-
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -80,7 +177,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   height: 8,
                 ),
                 Text(
-                  "We sent it to ${widget.args}",
+                  "We sent it to ${widget.args[PHONE_NUMBER]}",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -97,74 +194,67 @@ class _OtpScreenState extends State<OtpScreen> {
               style: const TextStyle(fontSize: 18),
               textFieldAlignment: MainAxisAlignment.spaceAround,
               fieldStyle: FieldStyle.box,
-              onCompleted: (pin) {
-                optPinEntered = pin;
-              },
+              onCompleted: handleOtpCompleted,
             ),
-            const SizedBox(height: 20.0),
             const SizedBox(
               height: 16,
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
-              child: SizedBox(
-                height: 64,
-                width: 327,
-                child: UikButton(
-                  text: CONTINUE,
-                  widthSize: 327,
-                  backgroundColor: const Color(0xFFFEE440),
-                  onClick: () async {
-                    if (optPinEntered.length == 6) {
-                      final response = await ApiRepository.verifyOtp(
-                        ApiRequestBody.getVerifyOtpRequest(
-                          widget.args,
-                          optPinEntered,
-                          // "221300",
-                        ),
-                      );
-
-                      if (response.isSuccess!) {
-                        UiUtils.showToast(OTP_VERIFIED);
-                        UserDataHandler.saveIsUserVerified(
-                            response.data[SUCCESS]);
-                        Navigator.pop(context);
-                      } else {
-                        UiUtils.showToast("OTP verification ERROR!");
-                      }
-                    }
-                  },
-                ),
-              ),
+              padding: const EdgeInsets.all(8),
+              child: _buildContinueButton(),
             ),
             const SizedBox(
               height: 18,
             ),
-            Center(
-              child: Text(
-                "New code 00:$digitSeconds",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: HexColor(HEX_GRAY),
-                ),
-              ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: _buildResendButton(),
             ),
           ],
         ),
       ),
-    ));
+    );
   }
 
-  void start() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (Seconds > 0) {
-        int localSeconds = Seconds - 1;
-        setState(() {
-          Seconds = localSeconds;
-          digitSeconds = (Seconds >= 10) ? "$Seconds" : "0$Seconds";
-        });
-      }
-    });
+  Widget _buildContinueButton() {
+    return isLoading
+        ? const CircularProgressIndicator(
+      color: Colors.yellow,
+    )
+        : UikButton(
+      text: CONTINUE,
+      textWeight: FontWeight.w500,
+      textSize: DIMEN_16,
+      textColor: const Color(0xFF212121),
+      backgroundColor: const Color(0xffFEE440),
+      onClick: handleContinueButton,
+    );
+  }
+
+  Widget _buildResendButton() {
+    return canResendOtp
+        ? InkWell(
+      onTap: handleResendOtp,
+      child: isLoadingResendOtp
+          ? const CircularProgressIndicator(
+        color: Colors.yellow,
+      )
+          : const Text(
+        "Resend OTP",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.blue,
+        ),
+      ),
+    )
+        : Text(
+      "Resend OTP in 00:$digitSeconds",
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: HexColor(HEX_GRAY),
+      ),
+    );
   }
 }

@@ -1,4 +1,5 @@
 const String CODE = "code";
+const String SUBTYPE = "sub";
 const String MESSAGE = "message";
 const String CONTENT_TYPE = "Content-Type";
 const String ACCEPT = "Accept";
