@@ -69,7 +69,7 @@ class HttpScreenClient {
                 MaterialButton(
                   color: Colors.amberAccent,
                   textColor: Colors.black,
-                  child: const Text(LOG_IN),
+                  child: const Text(ADD_PHONENUMBER_IN_ACCOUNT),
                   onPressed: () {
                     UserDataHandler.clearUserToken();
                     NavigationUtils.pop();
