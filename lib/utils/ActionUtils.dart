@@ -68,9 +68,7 @@ abstract class ActionUtils {
         break;
       case UIK_ACTION.SELECT_LOCATION:
         {
-          LocationUtils.getCurrentPosition().then((Position? position) {
-            handleSelectedLocation(position);
-          });
+          handleSelectedLocation();
         }
         break;
       default:
@@ -78,11 +76,14 @@ abstract class ActionUtils {
     }
   }
 
-  static void handleSelectedLocation(Position? position) {
+  static void handleSelectedLocation() async {
+    Position? position = await LocationUtils.getCurrentPosition();
     if (position != null) {
       GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance;
       geocodingPlatform.placemarkFromCoordinates(
           position.latitude, position.longitude);
+      await ApiRepository.updateCustomerInfo(
+          ApiRequestBody.updateLatlong(position.latitude, position.longitude));
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
       print('Failed to retrieve the current location.');
