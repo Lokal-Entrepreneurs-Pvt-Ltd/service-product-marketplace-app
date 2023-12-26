@@ -5,13 +5,21 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
+  static updateLatlong(double lat, double long) {
+    return {LATITUDE: lat, LONGITUDE: long};
+  }
+
   static getLoginAsPhoneRequest(String phoneNo) {
-    return {
-      PHONE_NUMBER: phoneNo};
+    return {PHONE_NUMBER: phoneNo};
   }
 
   static getSignUpRequest(String email, password, userType, phoneNo) {
-    return {EMAIL: email, PASSWORD: password, USER_TYPE: userType, PHONE_NUMBER: phoneNo};
+    return {
+      EMAIL: email,
+      PASSWORD: password,
+      USER_TYPE: userType,
+      PHONE_NUMBER: phoneNo
+    };
   }
 
   static getOptinRequest(String serviceId) {
@@ -81,10 +89,7 @@ class ApiRequestBody {
   }
 
   static submitSamhitaVerifyParticipantFormRequest(
-    participantName,
-    mobile,
-    samhitaId
-  ) {
+      participantName, mobile, samhitaId) {
     return {
       PARTICIPANT_NAME: participantName,
       MOBILE: mobile,
@@ -121,7 +126,6 @@ class ApiRequestBody {
     };
   }
 
-
   static submitExtraPayOptInRequest(
     name,
     mobile,
@@ -144,35 +148,36 @@ class ApiRequestBody {
     };
   }
 
-  static getVerifyAddAgentOtpRequest(String mobile, String otp, String partnerId) {
+  static getVerifyAddAgentOtpRequest(
+      String mobile, String otp, String partnerId) {
     return {MOBILE: mobile, OTP: otp, PARTNERID: partnerId};
   }
 
-  static submitAddAgentScreenFormRequest(String name, String mobile, String partnerId, String email) {
+  static submitAddAgentScreenFormRequest(
+      String name, String mobile, String partnerId, String email) {
     return {NAME: name, MOBILE: mobile, PARTNERID: partnerId, EMAIL: email};
   }
 
-  static submitAddPartnerAgentRequest(String partnerId, String name, String mobile, String email) {
+  static submitAddPartnerAgentRequest(
+      String partnerId, String name, String mobile, String email) {
     return {
       PARTNER_ID: partnerId,
-     "agentData": {
-       FIRST_NAME: name,
-       LAST_NAME_C: "",
-       PHONE_NUMBER: mobile,
-       EMAIL: email,
-       LATITUDE:"40.71277600",
-       LONGITUDE:"-74.00597400",
-       GENDER:"MALE",
-       DISTRICT:"DELHI",
-       STATE:"DELHI",
-       BLOCK:"DELHI",
-       TAX_VAT:"12345",
-       USER_TYPE:"AGENT"
+      "agentData": {
+        FIRST_NAME: name,
+        LAST_NAME_C: "",
+        PHONE_NUMBER: mobile,
+        EMAIL: email,
+        LATITUDE: "40.71277600",
+        LONGITUDE: "-74.00597400",
+        GENDER: "MALE",
+        DISTRICT: "DELHI",
+        STATE: "DELHI",
+        BLOCK: "DELHI",
+        TAX_VAT: "12345",
+        USER_TYPE: "AGENT"
       }
     };
   }
-
-
 
   static submitSamhitaFormRequest(
     name,
@@ -255,7 +260,11 @@ class ApiRequestBody {
   }
 
   static getVerifySamhitaOtpRequest(String mobile, String otp, samhitaId) {
-    return {MOBILE: mobile, OTP: otp, SAMHITA_ID: samhitaId,};
+    return {
+      MOBILE: mobile,
+      OTP: otp,
+      SAMHITA_ID: samhitaId,
+    };
   }
 
   static getAddressNextRequest(String cartId, num addressId) {
