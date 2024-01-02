@@ -1,5 +1,6 @@
-
-
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -13,9 +14,7 @@ import 'network/ApiRequestBody.dart';
 import 'storage/product_data_handler.dart';
 
 abstract class ActionUtils {
-
-  static void executeAction(UikAction uikAction){
-
+  static void executeAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
@@ -67,13 +66,29 @@ abstract class ActionUtils {
       case UIK_ACTION.OPEN_PAGE:
         NavigationUtils.openPage(uikAction);
         break;
-
-      default:{
-
-      }
+      case UIK_ACTION.SELECT_LOCATION:
+        {
+          handleSelectedLocation();
+        }
+        break;
+      default:
+        {}
     }
   }
 
+  static void handleSelectedLocation() async {
+    Position? position = await LocationUtils.getCurrentPosition();
+    if (position != null) {
+      GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance;
+      geocodingPlatform.placemarkFromCoordinates(
+          position.latitude, position.longitude);
+      await ApiRepository.updateCustomerInfo(
+          ApiRequestBody.updateLatlong(position.latitude, position.longitude));
+      print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
+    } else {
+      print('Failed to retrieve the current location.');
+    }
+  }
 
   static void openAddress(UikAction uikAction) {
     NavigationUtils.openPage(uikAction);
@@ -99,7 +114,7 @@ abstract class ActionUtils {
     //displaying response from update cart
     // print("statusCode ${response.body}");
 
-    NavigationUtils.openScreen(ScreenRoutes.cartScreen,{});
+    NavigationUtils.openScreen(ScreenRoutes.cartScreen, {});
   }
 
   static void removeCartItem(UikAction uikAction) async {
@@ -126,8 +141,7 @@ abstract class ActionUtils {
 
   static void openCategory(UikAction uikAction) {
     //Navigation to the next screen through deepLink Handler
-    NavigationUtils.openScreen(ScreenRoutes.catalogueScreen,{});
-
+    NavigationUtils.openScreen(ScreenRoutes.catalogueScreen, {});
   }
 
   static void openProduct(UikAction uikAction) {
@@ -135,26 +149,24 @@ abstract class ActionUtils {
   }
 
   static void openCoupon(UikAction uikAction) {
-    NavigationUtils.openScreen(ScreenRoutes.couponScreen,{});
+    NavigationUtils.openScreen(ScreenRoutes.couponScreen, {});
   }
 
   static void openCheckout(UikAction uikAction) {
-
-    NavigationUtils.openScreen(ScreenRoutes.addressBookScreen,{});
+    NavigationUtils.openScreen(ScreenRoutes.addressBookScreen, {});
   }
 
   static void addAddress(UikAction uikAction) {
-    NavigationUtils.openScreen(ScreenRoutes.addAddressScreen,{});
+    NavigationUtils.openScreen(ScreenRoutes.addAddressScreen, {});
   }
 
   static Future<void> openPayment(UikAction uikAction) async {
-
     if (uikAction.tap.data.key == TAP_ACTION_TYPE_KEY_ADDRESS_ID) {
       Map<String, dynamic>? args = {
         ADDRESS_ID: uikAction.tap.data.value,
         CART_ID: CartDataHandler.getCartId()
       };
-      NavigationUtils.openScreen(ScreenRoutes.paymentDetailsScreen,args);
+      NavigationUtils.openScreen(ScreenRoutes.paymentDetailsScreen, args);
     }
   }
 
@@ -163,8 +175,7 @@ abstract class ActionUtils {
     //NavigationUtils.showLoaderOnTop();
 
     dynamic response = await ApiRepository.updateCart(
-        ApiRequestBody.getUpdateCartRequest(
-            skuId, "add", ""));
+        ApiRequestBody.getUpdateCartRequest(skuId, "add", ""));
 
     // NavigationUtils.pop();
 
