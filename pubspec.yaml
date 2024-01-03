@@ -80,8 +80,8 @@ dependencies:
   shake: ^2.2.0
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
-  sms_autofill: ^2.3.0
-  sms_user_consent: ^0.1.0
+  # sms_autofill: ^2.3.0
+  # sms_user_consent: ^0.1.0
   sticky_headers: ^0.3.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^21.2.9
