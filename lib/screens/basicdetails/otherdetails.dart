@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 
@@ -15,7 +18,7 @@ class _OtherDetailsState extends State<OtherDetails> {
   List<String> education = [
     "10th",
     "12th",
-    "Diploma",
+    "Diploma/Certification",
     "Graduation",
     "Postgraduation"
   ];
@@ -31,6 +34,12 @@ class _OtherDetailsState extends State<OtherDetails> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         title: Column(
           children: [
             Text(
@@ -68,13 +77,9 @@ class _OtherDetailsState extends State<OtherDetails> {
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 25),
-            buildCategory("Education", education, 0),
-            SizedBox(height: 25),
-            buildCategory("Work Experience", work, 1),
-            SizedBox(height: 25),
-            buildCategory("Are you willing to relocate", relocation, 2),
-            SizedBox(height: 30),
+            Column(
+              children: getWidgetByUserType(),
+            )
           ],
         ),
       ),
@@ -86,38 +91,63 @@ class _OtherDetailsState extends State<OtherDetails> {
             textColor: Colors.black,
             textSize: 16.0,
             textWeight: FontWeight.w500,
+            onClick: () {
+              NavigationUtils.openScreen(ScreenRoutes.uploadDocuments);
+              print("object");
+            },
           ),
         ),
       ],
     );
   }
 
+  List<Widget> getWidgetByUserType() {
+    var user = UserDataHandler.getUserType();
+    List<Widget> widget = [];
+    switch (user) {
+      case "PARTNER":
+        widget.add(buildCategory("Education", education, 0));
+        break;
+      case "AGENT":
+        widget.add(buildCategory("Education", education, 0));
+        break;
+      default:
+        widget.add(buildCategory("Education", education, 0));
+        widget.add(buildCategory("Work Experience", work, 1));
+        widget.add(buildCategory("Are you willing to relocate", relocation, 2));
+    }
+    return widget;
+  }
+
   Widget buildCategory(String title, List<String> options, int categoryIndex) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-        ),
-        SizedBox(height: 15),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: List.generate(
-            options.length,
-            (index) => SelectableTextWidget(
-              text: options[index],
-              isSelected: selectedOptions[categoryIndex] == index,
-              onTap: () => updateSelectedIndex(index, categoryIndex),
+    return Padding(
+      padding: const EdgeInsets.only(top: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
           ),
-        ),
-      ],
+          SizedBox(height: 15),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: List.generate(
+              options.length,
+              (index) => SelectableTextWidget(
+                text: options[index],
+                isSelected: selectedOptions[categoryIndex] == index,
+                onTap: () => updateSelectedIndex(index, categoryIndex),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

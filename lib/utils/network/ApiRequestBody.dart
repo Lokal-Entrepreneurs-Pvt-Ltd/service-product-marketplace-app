@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import '../../constants/json_constants.dart';
 
 class ApiRequestBody {
   static getLoginRequest(String email, password, userType) {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
+  }
+
+  static getuploaddocumentsid(String type, File file) async {
+    return {FILE: file, USE_CASE: type};
   }
 
   static updateLatlong(double lat, double long) {

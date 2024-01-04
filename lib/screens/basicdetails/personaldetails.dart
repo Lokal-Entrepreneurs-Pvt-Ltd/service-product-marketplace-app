@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:lokal/screens/basicdetails/otherdetails.dart';
-import 'package:lokal/utils/ActionUtils.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
@@ -31,10 +31,11 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         elevation: 0.0,
         centerTitle: true,
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         title: Column(
           children: [
             Text(
@@ -58,23 +59,25 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           ],
         ),
       ),
-      body: Container(
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Personal Details",
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  "Personal Details",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.poppins(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-              SizedBox(height: 25),
               Text(
                 "Gender",
                 textAlign: TextAlign.start,
@@ -84,7 +87,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 8),
               Row(
                 children: [
                   SelectableTextWidget(
@@ -100,7 +103,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 32),
               textBox(fieldname: "Full Name", hint: "Type your full name"),
               textBox2(fieldname: "Date of Birth"),
               textBox3(),
@@ -117,7 +120,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             textColor: Colors.black,
             textSize: 16.0,
             textWeight: FontWeight.w500,
-            onClick: () {},
+            onClick: () {
+              NavigationUtils.openScreen(ScreenRoutes.otherdetails);
+            },
           ),
         ),
       ],
@@ -126,10 +131,10 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   Widget textBox2({required String fieldname}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      height: 90,
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      height: 80,
       width: double.maxFinite,
-      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.black12,
         borderRadius: BorderRadius.circular(10),
@@ -165,10 +170,10 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   Widget textBox3() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 90,
       width: double.maxFinite,
-      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.black12,
         borderRadius: BorderRadius.circular(10),
@@ -213,9 +218,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   Widget textBox({required String hint, required String fieldname}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.all(10),
-      height: 91,
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      height: 80,
       decoration: BoxDecoration(
         color: Colors.black12,
         borderRadius: BorderRadius.circular(10),
@@ -227,18 +232,23 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             fieldname,
             textAlign: TextAlign.start,
             style: GoogleFonts.poppins(
-              fontSize: 16,
+              fontSize: 13,
               fontWeight: FontWeight.w500,
               color: Colors.black26,
             ),
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              hintText: hint,
-              border: InputBorder.none,
+          SizedBox(
+            height: 8,
+          ),
+          Expanded(
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: hint,
+                border: InputBorder.none,
+              ),
+              onTap: () => updateState(),
+              onFieldSubmitted: (_) => updateState(),
             ),
-            onTap: () => updateState(),
-            onFieldSubmitted: (_) => updateState(),
           ),
         ],
       ),
