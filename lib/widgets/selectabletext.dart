@@ -25,7 +25,7 @@ class SelectableTextWidget extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(100),
         ),
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
         child: Text(
           text,
           style: GoogleFonts.poppins(
