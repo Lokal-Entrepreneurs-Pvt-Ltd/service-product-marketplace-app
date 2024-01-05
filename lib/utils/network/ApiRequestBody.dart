@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../constants/json_constants.dart';
 
 class ApiRequestBody {
@@ -5,8 +7,24 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
+  static getuploaddocumentsid(String type, File file) async {
+    return {FILE: file, USE_CASE: type};
+  }
+
   static updateLatlong(double lat, double long) {
     return {LATITUDE: lat, LONGITUDE: long};
+  }
+
+  static getPersonalDetail(String name, String date, double lat, double long) {
+    return {FIRST_NAME: name, dob: date, LATITUDE: lat, LONGITUDE: long};
+  }
+
+  static getOtherDetail(String education, workex, bool relocate) {
+    return {EDUCATION: education, WORKEX: workex, RELOCATE: relocate};
+  }
+
+  static getUploadDocument(int gst, aadharf, aadharb, pan) {
+    return {GST: gst, AADHARF: aadharf, AADHARB: aadharb, PAN: pan};
   }
 
   static getLoginAsPhoneRequest(String phoneNo) {

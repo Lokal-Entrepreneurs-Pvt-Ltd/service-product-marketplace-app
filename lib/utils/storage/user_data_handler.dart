@@ -10,6 +10,14 @@ abstract class UserDataHandler {
     PreferenceUtils.clearStorage();
   }
 
+  static String getUserType() {
+    return PreferenceUtils.getString(USER_TYPE, "PARTNER");
+  }
+
+  static void saveUserType(String phone) {
+    PreferenceUtils.setString(USER_TYPE, phone);
+  }
+
   static String getUserToken() {
     return PreferenceUtils.getString(AUTH_TOKEN);
   }

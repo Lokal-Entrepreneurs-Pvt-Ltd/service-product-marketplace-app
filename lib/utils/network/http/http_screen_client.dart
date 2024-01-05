@@ -23,6 +23,7 @@ import '../../storage/user_data_handler.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../retrofit/api_routes.dart';
+
 class HttpScreenClient {
   // static HttpClient getHttp() {
   //   return http.Client();
@@ -46,7 +47,8 @@ class HttpScreenClient {
                   onPressed: () {
                     UserDataHandler.clearUserToken();
                     NavigationUtils.pop();
-                    NavigationUtils.openScreen(ScreenRoutes.onboardingScreen,{});
+                    NavigationUtils.openScreen(
+                        ScreenRoutes.onboardingScreen, {});
                   },
                 ),
               ],
@@ -54,7 +56,6 @@ class HttpScreenClient {
       },
     );
   }
-
 
   static displayPhoneNumberNotInSignUpDialog() {
     return showDialog(
@@ -64,7 +65,8 @@ class HttpScreenClient {
         return WillPopScope(
             onWillPop: () => Future.value(false),
             child: AlertDialog(
-              title: const Text("Kindly add PhoneNo to your account for smooth login process"),
+              title: const Text(
+                  "Kindly add PhoneNo to your account for smooth login process"),
               actions: <Widget>[
                 MaterialButton(
                   color: Colors.amberAccent,
@@ -73,7 +75,7 @@ class HttpScreenClient {
                   onPressed: () {
                     UserDataHandler.clearUserToken();
                     NavigationUtils.pop();
-                    NavigationUtils.openScreen(ScreenRoutes.signUpScreen,{});
+                    NavigationUtils.openScreen(ScreenRoutes.signUpScreen, {});
                   },
                 ),
               ],
@@ -113,26 +115,35 @@ class HttpScreenClient {
     );
   }
 
-  static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
+  static Future<ApiResponse> getmultipartrequest(
+      String pageRoute, Map<String, dynamic> args) async {
     try {
-      bool hasConnection = await InternetConnectionChecker().hasConnection;
-      if (!hasConnection) {
-        displayNoInternetDialog(null);
-        throw Exception('No internet connection');
-      }
-
-      var bodyParams = args ?? <String, dynamic>{};
+      // bool hasConnection = await InternetConnectionChecker().hasConnection;
+      // if (!hasConnection) {
+      //   displayNoInternetDialog(null);
+      //   throw Exception('No internet connection');
+      // }
       var header = NetworkUtils.getRequestHeaders();
-      final response = await http.Client()
-          .post(
+      var request = http.MultipartRequest(
+        'POST',
         Uri.parse(Environment().config.BASE_URL + pageRoute),
-        headers: header,
-        body: jsonEncode(bodyParams),
-      )
-          .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
-
+      )..headers.addAll(header);
+      var bodyParams = args ?? <String, dynamic>{};
+      if (bodyParams.containsKey(FILE)) {
+        var file = bodyParams[FILE];
+        var fileStream = http.ByteStream(file.openRead());
+        var length = await file.length();
+        var multipartFile = http.MultipartFile(FILE, fileStream, length,
+            filename: file.path.split("/").last);
+        request.files.add(multipartFile);
+        bodyParams.remove(FILE);
+      }
+      request.fields.addAll(bodyParams as Map<String, String>);
+      var response = await request.send();
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
-        ApiResponse apiResponse = ApiResponse.fromJson(jsonDecode(response.body));
+        var responseBody = await response.stream.bytesToString();
+        ApiResponse apiResponse =
+            ApiResponse.fromJson(jsonDecode(responseBody));
         if (apiResponse.isSuccess!) {
           return apiResponse;
         } else {
@@ -141,13 +152,14 @@ class HttpScreenClient {
             switch (errorCode) {
               case NetworkUtils.NETWORK_ERROR_USER_NOT_AUTHENTICATED:
                 {
-                  if(pageRoute!= ApiRoutes.notificationAddUser)
-                  displayUserUnAuthorisedDialog();
+                  if (pageRoute != ApiRoutes.notificationAddUser)
+                    displayUserUnAuthorisedDialog();
                   throw Exception('User not authenticated');
                 }
               case NetworkUtils.PHONE_NUMBER_NOT_IN_SIGNUP:
-                { if(pageRoute!= ApiRoutes.notificationAddUser)
-                  displayPhoneNumberNotInSignUpDialog();
+                {
+                  if (pageRoute != ApiRoutes.notificationAddUser)
+                    displayPhoneNumberNotInSignUpDialog();
 
                   throw Exception('User not in SingnUp');
                 }
@@ -172,9 +184,72 @@ class HttpScreenClient {
       // Log the error for debugging and monitoring
       debugPrint('API request failed: $e$stackTrace');
       rethrow;
-     }
+    }
   }
 
+  static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
+    try {
+      bool hasConnection = await InternetConnectionChecker().hasConnection;
+      if (!hasConnection) {
+        displayNoInternetDialog(null);
+        throw Exception('No internet connection');
+      }
+
+      var bodyParams = args ?? <String, dynamic>{};
+      var header = NetworkUtils.getRequestHeaders();
+      final response = await http.Client()
+          .post(
+            Uri.parse(Environment().config.BASE_URL + pageRoute),
+            headers: header,
+            body: jsonEncode(bodyParams),
+          )
+          .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
+
+      if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
+        ApiResponse apiResponse =
+            ApiResponse.fromJson(jsonDecode(response.body));
+        if (apiResponse.isSuccess!) {
+          return apiResponse;
+        } else {
+          String errorCode = apiResponse.error![CODE].toString();
+          if (errorCode.isNotEmpty) {
+            switch (errorCode) {
+              case NetworkUtils.NETWORK_ERROR_USER_NOT_AUTHENTICATED:
+                {
+                  if (pageRoute != ApiRoutes.notificationAddUser)
+                    displayUserUnAuthorisedDialog();
+                  throw Exception('User not authenticated');
+                }
+              case NetworkUtils.PHONE_NUMBER_NOT_IN_SIGNUP:
+                {
+                  if (pageRoute != ApiRoutes.notificationAddUser)
+                    displayPhoneNumberNotInSignUpDialog();
+
+                  throw Exception('User not in SingnUp');
+                }
+              default:
+                {
+                  UiUtils.showToast(apiResponse.error![MESSAGE]);
+                  throw Exception('API response error');
+                }
+            }
+          } else {
+            throw Exception('API response error');
+          }
+        }
+      } else {
+        throw Exception('API request failed');
+      }
+    } on TimeoutException catch (_) {
+      throw Exception('Timeout Error');
+    } on SocketException catch (_) {
+      throw Exception('Socket Error');
+    } catch (e, stackTrace) {
+      // Log the error for debugging and monitoring
+      debugPrint('API request failed: $e$stackTrace');
+      rethrow;
+    }
+  }
 
   static displayNoInternetDialog(Function? retryCallback) {
     return showDialog(
@@ -191,9 +266,9 @@ class HttpScreenClient {
                 textColor: Colors.black,
                 child: const Text("Close App"),
                 onPressed: () {
-                 NavigationUtils.pop();
+                  NavigationUtils.pop();
                   SystemNavigator.pop();
-                 // retryCallback(); // Call the retry callback
+                  // retryCallback(); // Call the retry callback
                 },
               ),
             ],
@@ -202,5 +277,4 @@ class HttpScreenClient {
       },
     );
   }
-
 }
