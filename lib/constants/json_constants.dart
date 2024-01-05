@@ -1,4 +1,5 @@
 const String CODE = "code";
+const String SUBTYPE = "sub";
 const String MESSAGE = "message";
 const String CONTENT_TYPE = "Content-Type";
 const String ACCEPT = "Accept";
@@ -98,3 +99,11 @@ const String TAP_ACTION_TYPE_KEY_ORDER_NUMBER_ID = "orderNumberId";
 const String ID = "id";
 const String TOWER_ID = "towerId";
 const String SERVICE_CODE = "serviceCode";
+const String USE_CASE = "usecase";
+const String FILE = "image";
+const String EDUCATION = "education";
+const String WORKEX = "workEx";
+const String RELOCATE = "relocate";
+const String GST = "gst";
+const String AADHARF = "aadharCardF";
+const String AADHARB = "aadharCardB";
