@@ -1,3 +1,4 @@
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
@@ -28,9 +29,10 @@ import 'package:lokal/screens/Form/SamhitaDataCollector.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
-import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
+import 'package:lokal/screens/Onboarding/LoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
+import 'package:lokal/screens/Otp/OtpScreen2.dart';
 import 'package:lokal/screens/WebViewScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
@@ -38,7 +40,11 @@ import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
+import 'package:lokal/screens/basicdetails/otherdetails.dart';
+import 'package:lokal/screens/basicdetails/personaldetails.dart';
+import 'package:lokal/screens/basicdetails/upload%20documents.dart';
 import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
+import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
@@ -56,14 +62,30 @@ class AppRoutes {
 
   // Go Router
 
+  void popUntil(GoRoute routeBase) {
+    while (_goRouter.canPop() &&
+        _goRouter.routerDelegate.currentConfiguration.matches.last.route !=
+            routeBase) {
+      _goRouter.pop();
+    }
+  }
+
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
+    // initialLocation: UserDataHandler.getUserToken().isEmpty
+    //     ? _onboardingScreen.path
+    //     // : _uikBottomNavigationBar.path,
+    //     : _myAccountScreen.path,
+    initialLocation: _profileScreen.path,
+    observers: [ChuckerFlutter.navigatorObserver],
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
-        : _uikBottomNavigationBar.path,
+        : uikBottomNavigationBar.path,
+//     initialLocation: _test.path,
     routes: [
+      _test,
       _onboardingScreen,
-      _uikBottomNavigationBar,
+      uikBottomNavigationBar,
       _loginScreen,
       _signUpScreen,
       _uikHomeWrapper,
@@ -108,20 +130,51 @@ class AppRoutes {
       _manageAgentScreen,
       _getAllCustomerForUserService,
       _getAllAgentsForUserService,
+      _profileScreen,
+      _otherdetails,
+      _uploaddocuments,
     ],
   );
 
   GoRouter get router => _goRouter;
 
+  static final GoRoute _otherdetails = GoRoute(
+    path: ScreenRoutes.otherdetails,
+    builder: (context, state) {
+      return OtherDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _uploaddocuments = GoRoute(
+    path: ScreenRoutes.uploadDocuments,
+    builder: (context, state) {
+      return UploadDocuments(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _test = GoRoute(
+    path: ScreenRoutes.test,
+    builder: (context, state) {
+      return PersonalDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
   static final GoRoute _onboardingScreen = GoRoute(
     path: ScreenRoutes.onboardingScreen,
     builder: (context, state) {
-      return OnboardingScreen(
-        key: state.pageKey,
-      );
+      return OnboardingScreen();
     },
   );
-  static final GoRoute _uikBottomNavigationBar = GoRoute(
+  static final GoRoute uikBottomNavigationBar = GoRoute(
     path: ScreenRoutes.uikBottomNavigationBar,
     builder: (context, state) {
       return UikBottomNavigationBar(
@@ -152,6 +205,14 @@ class AppRoutes {
       return UikMyAddressScreen(context,
               args: state.extra as Map<String, dynamic>?)
           .page;
+    },
+  );
+  static final GoRoute _profileScreen = GoRoute(
+    path: ScreenRoutes.profileScreen,
+    builder: (context, state) {
+      return EditProfileScreen(
+        key: state.pageKey,
+      );
     },
   );
   static final GoRoute _loginScreen = GoRoute(

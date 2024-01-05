@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
@@ -42,16 +43,7 @@ class UikCatalogScreen extends StandardPage {
 
   void onCatalogScreenTapAction(UikAction uikAction) {
     print("___________________UIK-ACTION_____________________f_");
-
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_PRODUCT:
-        openProduct(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
-        break;
-      default:
-    }
+    ActionUtils.executeAction(uikAction);
   }
 
   @override

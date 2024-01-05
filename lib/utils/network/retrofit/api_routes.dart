@@ -80,8 +80,13 @@ class ApiRoutes {
       "/userService/createOrUpdateForAgents";
   static const String getAgentDetailsByPartnerIdAndServiceId =
       "/partnerAgent/getAgentDetailsByPartnerIdAndServiceId";
-  static const String getAcademyTabs =
-      "/trainingAcademy/getTabs";
+  static const String getAcademyTabs = "/trainingAcademy/getTabs";
   static const String getAcademyDataByType =
       "/trainingAcademy/getAcademyDataByType";
+  static const String editScreen = "/editScreen";
+  static const String sendOtpForSignup = "/customer/sendOtpForSignup";
+  static const String signupByPhoneNumberOrEmail = "/customer/signupByPhoneNumberOrEmail";
+  static const String verifyOtpAndLogin = "/customer/verifyOtpAndLogin";
+  static const String sendOtpForLogin = "/customer/sendOtpForLogin";
+
 }
