@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
+import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 
@@ -16,8 +21,10 @@ class PersonalDetails extends StatefulWidget {
 }
 
 class _PersonalDetailsState extends State<PersonalDetails> {
+  TextEditingController controller = TextEditingController();
   int selectedIndex = -1;
   DateTime datePicker = DateTime.now();
+
   double lat = 0;
   double long = 0;
 
@@ -120,13 +127,34 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             textColor: Colors.black,
             textSize: 16.0,
             textWeight: FontWeight.w500,
-            onClick: () {
-              NavigationUtils.openScreen(ScreenRoutes.otherdetails);
-            },
+            onClick: updatedata,
           ),
         ),
       ],
     );
+  }
+
+  void updatedata() async {
+    try {
+      final response = await ApiRepository.updateCustomerInfo(
+        ApiRequestBody.getPersonalDetail(
+          controller.text,
+          DateFormat('dd/MM/yyyy', 'en_US').format(datePicker),
+          lat,
+          long,
+        ),
+      );
+
+      if (response.isSuccess!) {
+        NavigationUtils.openScreen(ScreenRoutes.otherdetails);
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("message");
+      // Handle error
+    }
   }
 
   Widget textBox2({required String fieldname}) {
@@ -154,7 +182,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               ),
             ),
             Text(
-              datePicker.toString(),
+              DateFormat('dd/MM/yyyy', 'en_US').format(datePicker),
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
                 fontSize: 16,
@@ -242,6 +270,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           ),
           Expanded(
             child: TextFormField(
+              controller: controller,
               decoration: InputDecoration(
                 hintText: hint,
                 border: InputBorder.none,

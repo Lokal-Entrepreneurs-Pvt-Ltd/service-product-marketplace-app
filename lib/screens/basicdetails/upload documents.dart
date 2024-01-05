@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
@@ -112,6 +114,27 @@ class _UploadDocumentsState extends State<UploadDocuments> {
     );
   }
 
+  void updatedata() async {
+    try {
+      final response = await ApiRepository.updateCustomerInfo(
+        ApiRequestBody.getUploadDocument(
+          filesint[0],
+          filesint[1],
+          filesint[2],
+          filesint[3],
+        ),
+      );
+
+      if (response.isSuccess!) {
+        NavigationUtils.openScreen(ScreenRoutes.otherdetails);
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      // Handle error
+    }
+  }
+
   void getWidgetByUserType() {
     var user = UserDataHandler.getUserType();
     switch (user) {
@@ -173,7 +196,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
       return;
     }
 
-    // flag = false;
+    //flag = false;
     for (int i = 0; i < pickfilebool.length; i++) {
       final response = await ApiRepository.uploadDocuments(
         ApiRequestBody.getuploaddocumentsid(
@@ -206,7 +229,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
       });
     } else {
       UiUtils.showToast("Successfully sent");
-      print(filesint[0]);
+      updatedata();
     }
   }
 }
