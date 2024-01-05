@@ -31,6 +31,14 @@ class UiUtils {
         .hasMatch(email);
   }
 
+  static bool isPhoneNoValid(String value) {
+
+    final indianPhoneNumberRegex = RegExp(r'^[6-9][0-9]{9}$');
+
+    // Check if the value matches the Indian mobile number pattern
+    return indianPhoneNumberRegex.hasMatch(value);
+  }
+
   static bool isNameValid(String name) {
     return RegExp(r'^[a-zA-Z ]+$').hasMatch(name);
   }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/Logs/eventsdk.dart';
@@ -36,7 +37,7 @@ class UikHome extends StandardPage {
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
-    print(uikAction.tap.type);
+    
     EventSDK eventSDK = EventSDK();
     eventSDK.init();
     if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
@@ -51,26 +52,8 @@ class UikHome extends StandardPage {
       );
       EventHandler.events(event: event);
     }
-    //uikAction.tap.type
-    //params: {sessionId,userId,pageName,}
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        NavigationUtils.openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PRODUCT:
-        NavigationUtils.openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_ISP:
-        openIsp(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PAGE:
-        NavigationUtils.openPage(uikAction);
-        break;
-      default:
-    }
+    
+    ActionUtils.executeAction(uikAction);
   }
 
   @override
@@ -94,11 +77,7 @@ void openIsp(UikAction uikAction) {
   NavigationUtils.openScreen(ScreenRoutes.ispHome, {});
 }
 
-// void openProduct(UikAction uikAction) {
-//   //Navigation to the product screen
-//   var context = NavigationService.navigatorKey.currentContext;
-//   DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
-// }
+
 
 Future<ApiResponse> getMockedApiResponse(args) async {
   final queryParameter = {
