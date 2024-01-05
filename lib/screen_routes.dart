@@ -73,6 +73,7 @@ class ScreenRoutes {
       "/partnerTrainingCourseScreen";
   static const String webScreenView = "/webScreenView";
   static const String myAgentListScreen = "/myAgentListScreen";
+  static const String profileScreen = "/profileScreen";
   static const String otherdetails = "/basicdetails/otherdetails";
   static const String uploadDocuments = "/basicdetails/uploaddocuments";
 }

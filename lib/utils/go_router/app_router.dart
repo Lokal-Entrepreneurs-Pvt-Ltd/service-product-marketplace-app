@@ -44,6 +44,7 @@ import 'package:lokal/screens/basicdetails/otherdetails.dart';
 import 'package:lokal/screens/basicdetails/personaldetails.dart';
 import 'package:lokal/screens/basicdetails/upload%20documents.dart';
 import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
+import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
@@ -71,11 +72,16 @@ class AppRoutes {
 
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
-    observers: [ChuckerFlutter.navigatorObserver],
     // initialLocation: UserDataHandler.getUserToken().isEmpty
     //     ? _onboardingScreen.path
-    //     : uikBottomNavigationBar.path,
-    initialLocation: _test.path,
+    //     // : _uikBottomNavigationBar.path,
+    //     : _myAccountScreen.path,
+    initialLocation: _profileScreen.path,
+    observers: [ChuckerFlutter.navigatorObserver],
+    initialLocation: UserDataHandler.getUserToken().isEmpty
+        ? _onboardingScreen.path
+        : uikBottomNavigationBar.path,
+//     initialLocation: _test.path,
     routes: [
       _test,
       _onboardingScreen,
@@ -124,6 +130,7 @@ class AppRoutes {
       _manageAgentScreen,
       _getAllCustomerForUserService,
       _getAllAgentsForUserService,
+      _profileScreen,
       _otherdetails,
       _uploaddocuments,
     ],
@@ -198,6 +205,14 @@ class AppRoutes {
       return UikMyAddressScreen(context,
               args: state.extra as Map<String, dynamic>?)
           .page;
+    },
+  );
+  static final GoRoute _profileScreen = GoRoute(
+    path: ScreenRoutes.profileScreen,
+    builder: (context, state) {
+      return EditProfileScreen(
+        key: state.pageKey,
+      );
     },
   );
   static final GoRoute _loginScreen = GoRoute(
