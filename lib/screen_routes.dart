@@ -1,4 +1,5 @@
 class ScreenRoutes {
+  static const String personalDetails = '/basicdetails/personaldetails';
   static const String homeScreen = '/discovery/get';
   static const String onboardingScreen = '/onboardingScreen';
   static const String uikBottomNavigationBar = '/uikBottomNavigationBar';
@@ -73,4 +74,6 @@ class ScreenRoutes {
   static const String webScreenView = "/webScreenView";
   static const String myAgentListScreen = "/myAgentListScreen";
   static const String profileScreen = "/profileScreen";
+  static const String otherdetails = "/basicdetails/otherdetails";
+  static const String uploadDocuments = "/basicdetails/uploaddocuments";
 }

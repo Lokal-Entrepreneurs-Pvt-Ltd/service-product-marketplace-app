@@ -35,13 +35,13 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       };
       NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
+    // if (index == 2) {
+    //   Map<String, dynamic>? args = {
+    //     "url": "https://www.extrape.com/blog/category/start-here/"
+    //   };
+    //   NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
+    // }
     if (index == 2) {
-      Map<String, dynamic>? args = {
-        "url": "https://www.extrape.com/blog/category/start-here/"
-      };
-      NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
-    }
-    if (index == 3) {
       context!.push(ScreenRoutes.myAccountScreen,extra: {});
     }
   }
@@ -60,8 +60,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               children: <Widget>[
                 buildNavItem(Icons.home, 'Home', 0),
                 buildNavItem(Icons.menu_book, 'Academy', 1),
-                buildNavItem(Icons.payment, 'ExtraPe', 2),
-                buildNavItem(Icons.person_outline_sharp, 'Account', 3),
+                buildNavItem(Icons.person_outline_sharp, 'Account', 2),
+                // buildNavItem(Icons.payment, 'ExtraPe', 3),
                 // Add more items as needed
               ],
             ),

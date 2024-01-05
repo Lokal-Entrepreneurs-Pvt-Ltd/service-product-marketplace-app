@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -33,12 +34,15 @@ abstract class NavigationUtils {
   static void openOrderScreen(Map<String, dynamic> args) {
     CartDataHandler.clearCart();
     var context = getCurrentContext();
+     AppRoutes().popUntil(AppRoutes.uikBottomNavigationBar);
+    // UiUtils.showToast(args.toString());
     context!.go(ScreenRoutes.orderScreen,extra: args);
   }
 
   static void openHomeScreen(Map<String, dynamic> args) {
     CartDataHandler.clearCart();
     var context = getCurrentContext();
+    AppRoutes().popUntil(AppRoutes.uikBottomNavigationBar);
     context!.go(ScreenRoutes.homeScreen,extra: args);
   }
 

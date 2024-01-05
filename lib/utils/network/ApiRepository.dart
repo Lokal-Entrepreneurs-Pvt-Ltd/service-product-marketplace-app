@@ -192,6 +192,11 @@ class ApiRepository {
         ApiRoutes.btsLocationFeasibility, args);
   }
 
+  static Future<ApiResponse> uploadDocuments(args) {
+    return HttpScreenClient.getmultipartrequest(
+        ApiRoutes.uploadDocumentonServer, args);
+  }
+
   static Future<ApiResponse> getNearestTowers(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getNearestTowers, args);
   }
@@ -292,7 +297,25 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getAcademyDataByType(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.getAcademyDataByType, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAcademyDataByType, args);
+  }
+
+  static Future<ApiResponse> sendOtpForSignup(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForSignup, args);
+  }
+
+  static Future<ApiResponse> signupByPhoneNumberOrEmail(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.signupByPhoneNumberOrEmail, args);
+  }
+
+  static Future<ApiResponse> verifyOtpAndLogin(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyOtpAndLogin, args);
+  }
+
+  static Future<ApiResponse> sendOtpForLogin(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLogin, args);
   }
 }
 
