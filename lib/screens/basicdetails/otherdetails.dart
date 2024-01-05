@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
@@ -91,14 +95,35 @@ class _OtherDetailsState extends State<OtherDetails> {
             textColor: Colors.black,
             textSize: 16.0,
             textWeight: FontWeight.w500,
-            onClick: () {
-              NavigationUtils.openScreen(ScreenRoutes.uploadDocuments);
-              print("object");
-            },
+            onClick: updatedata,
           ),
         ),
       ],
     );
+  }
+
+  void updatedata() async {
+    try {
+      final response = await ApiRepository.updateCustomerInfo(
+        ApiRequestBody.getOtherDetail(
+          selectedOptions[0] == -1 ? "" : education[selectedOptions[0]],
+          selectedOptions[1] == -1 ? "" : work[selectedOptions[1]],
+          selectedOptions[2] == -1
+              ? false
+              : (relocation[selectedOptions[2]] == "Yes")
+                  ? true
+                  : false,
+        ),
+      );
+
+      if (response.isSuccess!) {
+        NavigationUtils.openScreen(ScreenRoutes.uploadDocuments);
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      // Handle error
+    }
   }
 
   List<Widget> getWidgetByUserType() {
