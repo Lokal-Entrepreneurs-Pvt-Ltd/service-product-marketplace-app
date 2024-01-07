@@ -4,7 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
+  geolocator_windows
   platform_device_id_windows
+  share_plus
   smart_auth
   url_launcher_windows
 )

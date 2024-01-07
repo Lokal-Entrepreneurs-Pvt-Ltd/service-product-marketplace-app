@@ -10,3 +10,4 @@ const String DEFAULT_ENVIRONMENT = "DEFAULT_ENVIRONMENT";
 const String LOCAL_BASE_URL = "LOCAL_BASE_URL";
 const String DEVICE_ID = "device_id";
 const String APP_VERSION = "lk_device_version";
+const String USER_TYPE = "userType";

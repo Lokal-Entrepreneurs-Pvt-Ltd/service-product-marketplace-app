@@ -32,7 +32,6 @@ import 'package:lokal/screens/Form/extraPayOptIn.dart';
 import 'package:lokal/screens/Onboarding/LoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
-import 'package:lokal/screens/Otp/OtpScreen2.dart';
 import 'package:lokal/screens/WebViewScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
@@ -76,14 +75,13 @@ class AppRoutes {
     //     ? _onboardingScreen.path
     //     // : _uikBottomNavigationBar.path,
     //     : _myAccountScreen.path,
-    initialLocation: _profileScreen.path,
+    initialLocation: _otherdetails.path,
     observers: [ChuckerFlutter.navigatorObserver],
-    initialLocation: UserDataHandler.getUserToken().isEmpty
-        ? _onboardingScreen.path
-        : uikBottomNavigationBar.path,
+    // initialLocation: UserDataHandler.getUserToken().isEmpty
+    //     ? _onboardingScreen.path
+    //     : uikBottomNavigationBar.path,
 //     initialLocation: _test.path,
     routes: [
-      _test,
       _onboardingScreen,
       uikBottomNavigationBar,
       _loginScreen,
@@ -158,15 +156,15 @@ class AppRoutes {
     },
   );
 
-  static final GoRoute _test = GoRoute(
-    path: ScreenRoutes.test,
-    builder: (context, state) {
-      return PersonalDetails(
-        key: state.pageKey,
-      );
-      // return OtherDetails();
-    },
-  );
+  // static final GoRoute _test = GoRoute(
+  //   path: ScreenRoutes.test,
+  //   builder: (context, state) {
+  //     return PersonalDetails(
+  //       key: state.pageKey,
+  //     );
+  //     // return OtherDetails();
+  //   },
+  // );
 
   static final GoRoute _onboardingScreen = GoRoute(
     path: ScreenRoutes.onboardingScreen,
