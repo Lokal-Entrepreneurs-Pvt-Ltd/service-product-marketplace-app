@@ -88,5 +88,5 @@ class ApiRoutes {
   static const String signupByPhoneNumberOrEmail = "/customer/signupByPhoneNumberOrEmail";
   static const String verifyOtpAndLogin = "/customer/verifyOtpAndLogin";
   static const String sendOtpForLogin = "/customer/sendOtpForLogin";
-
+  static const String imageUpload = "/image/upload";
 }

@@ -194,7 +194,7 @@ class ApiRepository {
 
   static Future<ApiResponse> uploadDocuments(args) {
     return HttpScreenClient.getmultipartrequest(
-        ApiRoutes.uploadDocumentonServer, args);
+        ApiRoutes.imageUpload, args);
   }
 
   static Future<ApiResponse> getNearestTowers(args) {
