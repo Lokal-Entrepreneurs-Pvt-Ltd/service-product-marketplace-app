@@ -75,7 +75,7 @@ class AppRoutes {
     //     ? _onboardingScreen.path
     //     // : _uikBottomNavigationBar.path,
     //     : _myAccountScreen.path,
-    initialLocation: _otherdetails.path,
+    initialLocation:_profile_personal_details.path,
     observers: [ChuckerFlutter.navigatorObserver],
     // initialLocation: UserDataHandler.getUserToken().isEmpty
     //     ? _onboardingScreen.path
@@ -129,14 +129,28 @@ class AppRoutes {
       _getAllCustomerForUserService,
       _getAllAgentsForUserService,
       _profileScreen,
-      _otherdetails,
-      _uploaddocuments,
+      _profile_otherdetails,
+      _profile_uploaddocuments,
+      _profile_personal_details
     ],
   );
 
   GoRouter get router => _goRouter;
 
-  static final GoRoute _otherdetails = GoRoute(
+
+
+  static final GoRoute _profile_personal_details = GoRoute(
+    path: ScreenRoutes.personalDetails,
+    builder: (context, state) {
+      return PersonalDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+
+  static final GoRoute _profile_otherdetails = GoRoute(
     path: ScreenRoutes.otherdetails,
     builder: (context, state) {
       return OtherDetails(
@@ -146,7 +160,7 @@ class AppRoutes {
     },
   );
 
-  static final GoRoute _uploaddocuments = GoRoute(
+  static final GoRoute _profile_uploaddocuments = GoRoute(
     path: ScreenRoutes.uploadDocuments,
     builder: (context, state) {
       return UploadDocuments(
