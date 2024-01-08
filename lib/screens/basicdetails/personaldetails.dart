@@ -3,6 +3,7 @@ import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/constants/strings.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
@@ -32,132 +33,147 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-        ),
-        title: Column(
-          children: [
-            Text(
-              "Agent Details",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black,
-              ),
-            ),
-            Text(
-              "1 of 3",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.black38,
-              ),
-            ),
-          ],
-        ),
-      ),
+      appBar: buildAppBar(),
       body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  "Personal Details",
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.poppins(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Text(
-                "Gender",
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  SelectableTextWidget(
-                    text: "Male",
-                    isSelected: selectedIndex == 0,
-                    onTap: () => updateSelectedIndex(0),
-                  ),
-                  SizedBox(width: 15),
-                  SelectableTextWidget(
-                    text: "Female",
-                    isSelected: selectedIndex == 1,
-                    onTap: () => updateSelectedIndex(1),
-                  ),
-                ],
-              ),
-              SizedBox(height: 32),
-              textBox(fieldname: "Full Name", hint: "Type your full name"),
-              textBox2(fieldname: "Date of Birth"),
-              textBox3(),
-            ],
-          ),
-        ),
+        child: buildBody(),
       ),
       persistentFooterButtons: [
-        Container(
-          alignment: Alignment.center,
-          child: UikButton(
-            // backgroundColor: Colors.yellow[300],
-            text: "Continue",
-            textColor: Colors.black,
-            textSize: 16.0,
-            textWeight: FontWeight.w500,
-            onClick: updatedata,
+        buildContinueButton(),
+      ],
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      foregroundColor: Colors.black,
+      backgroundColor: Colors.white,
+      elevation: 0.0,
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: Icon(Icons.arrow_back),
+      ),
+      title: Column(
+        children: [
+          Text(
+            "Agent Details",
+            textAlign: TextAlign.start,
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
           ),
+          Text(
+            "1 of 3",
+            textAlign: TextAlign.start,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: Colors.black38,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildBody() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildTitle("Personal Details", 30, FontWeight.w700),
+          buildTitle("Gender", 20, FontWeight.w600),
+          SizedBox(height: 8),
+          buildGenderSelection(),
+          SizedBox(height: 32),
+          buildTextBox("Full Name", "Type your full name"),
+          buildDatePickerField("Date of Birth"),
+          buildLocationField(),
+        ],
+      ),
+    );
+  }
+
+  Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Text(
+        text,
+        textAlign: TextAlign.start,
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  Widget buildGenderSelection() {
+    return Row(
+      children: [
+        SelectableTextWidget(
+          text: "Male",
+          isSelected: selectedIndex == 0,
+          onTap: () => updateSelectedIndex(0),
+        ),
+        SizedBox(width: 15),
+        SelectableTextWidget(
+          text: "Female",
+          isSelected: selectedIndex == 1,
+          onTap: () => updateSelectedIndex(1),
         ),
       ],
     );
   }
 
-  void updatedata() async {
-    try {
-      final response = await ApiRepository.updateCustomerInfo(
-        ApiRequestBody.getPersonalDetail(
-          controller.text,
-          DateFormat('dd/MM/yyyy', 'en_US').format(datePicker),
-          lat,
-          long,
-        ),
-      );
-
-      if (response.isSuccess!) {
-        NavigationUtils.openScreen(ScreenRoutes.otherdetails);
-      } else {
-        UiUtils.showToast(response.error![MESSAGE]);
-      }
-    } catch (e) {
-      print(e);
-      UiUtils.showToast("message");
-      // Handle error
-    }
+  Widget buildTextBox(String fieldname, String hint) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      height: 80,
+      decoration: BoxDecoration(
+        color: Colors.black12,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            fieldname,
+            textAlign: TextAlign.start,
+            style: GoogleFonts.poppins(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: Colors.black26,
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Expanded(
+            child: TextFormField(
+              controller: controller,
+              decoration: InputDecoration(
+                hintText: hint,
+                border: InputBorder.none,
+              ),
+              onTap: () => updateState(),
+              onFieldSubmitted: (_) => updateState(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
-  Widget textBox2({required String fieldname}) {
+  Widget buildDatePickerField(String fieldname) {
     return Container(
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
@@ -196,7 +212,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     );
   }
 
-  Widget textBox3() {
+  Widget buildLocationField() {
     return Container(
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
@@ -244,44 +260,39 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     );
   }
 
-  Widget textBox({required String hint, required String fieldname}) {
+  Widget buildContinueButton() {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
-      height: 80,
-      decoration: BoxDecoration(
-        color: Colors.black12,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            fieldname,
-            textAlign: TextAlign.start,
-            style: GoogleFonts.poppins(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Colors.black26,
-            ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Expanded(
-            child: TextFormField(
-              controller: controller,
-              decoration: InputDecoration(
-                hintText: hint,
-                border: InputBorder.none,
-              ),
-              onTap: () => updateState(),
-              onFieldSubmitted: (_) => updateState(),
-            ),
-          ),
-        ],
+      alignment: Alignment.center,
+      child: UikButton(
+        text: CONTINUE,
+        textColor: Colors.black,
+        textSize: 16.0,
+        textWeight: FontWeight.w500,
+        onClick: updatedata,
       ),
     );
+  }
+
+  void updatedata() async {
+    try {
+      final response = await ApiRepository.updateCustomerInfo(
+        ApiRequestBody.getPersonalDetail(
+          controller.text,
+          DateFormat('dd/MM/yyyy', 'en_US').format(datePicker),
+          lat,
+          long,
+        ),
+      );
+
+      if (response.isSuccess!) {
+        NavigationUtils.openScreen(ScreenRoutes.otherdetails);
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("message");
+    }
   }
 
   void updateSelectedIndex(int index) {
