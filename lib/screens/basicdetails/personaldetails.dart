@@ -58,7 +58,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       title: Column(
         children: [
           Text(
-            "Agent Details",
+            "Create Profile",
             textAlign: TextAlign.start,
             style: GoogleFonts.poppins(
               fontSize: 16,
@@ -139,7 +139,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 80,
       decoration: BoxDecoration(
-        color: Colors.black12,
+        color: Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -180,7 +180,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       height: 80,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: Colors.black12,
+        color: Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: GestureDetector(
@@ -203,7 +203,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               style: GoogleFonts.poppins(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: Colors.black26,
+                color: Colors.black,
               ),
             ),
           ],
@@ -213,13 +213,19 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   }
 
   Widget buildLocationField() {
+    String formattedLat = lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
+    String formattedLong = long.toStringAsFixed(2); // Limit longitude to 2 decimal places
+
+    // Check if latitude and longitude values exist
+    bool locationAvailable = (lat != 0 && long != 0);
+
     return Container(
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 90,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: Colors.black12,
+        color: Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: GestureDetector(
@@ -228,7 +234,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Location",
+              locationAvailable
+                  ? "Current Location" // Display this text if location is available
+                  : "Select Location", // Display this text if no location is available
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
                 fontSize: 16,
@@ -236,29 +244,33 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                 color: Colors.black26,
               ),
             ),
-            Text(
-              "Lat: $lat",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black26,
+            if (locationAvailable) ...[
+              Text(
+                "Lat: $formattedLat", // Display formatted latitude
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            Text(
-              "Long: $long",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black26,
+              Text(
+                "Long: $formattedLong", // Display formatted longitude
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
               ),
-            ),
+            ],
           ],
         ),
       ),
     );
   }
+
+
 
   Widget buildContinueButton() {
     return Container(
@@ -274,24 +286,30 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   }
 
   void updatedata() async {
-    try {
-      final response = await ApiRepository.updateCustomerInfo(
-        ApiRequestBody.getPersonalDetail(
-          controller.text,
-          DateFormat('dd/MM/yyyy', 'en_US').format(datePicker),
-          lat,
-          long,
-        ),
-      );
+    final name = controller.text;
+    final dob = DateFormat('dd/MM/yyyy', 'en_US').format(datePicker);
 
-      if (response.isSuccess!) {
-        NavigationUtils.openScreen(ScreenRoutes.otherdetails);
-      } else {
-        UiUtils.showToast(response.error![MESSAGE]);
+    if (name.isNotEmpty && dob.isNotEmpty && lat != 0 && long != 0) {
+      try {
+        final response = await ApiRepository.updateCustomerInfo(
+          ApiRequestBody.getPersonalDetail(
+            name,
+            dob,
+            lat,
+            long,
+          ),
+        );
+
+        if (response.isSuccess!) {
+          NavigationUtils.openScreen(ScreenRoutes.otherdetails);
+        } else {
+          UiUtils.showToast(response.error![MESSAGE]);
+        }
+      } catch (e) {
+        UiUtils.showToast("Error In Request");
       }
-    } catch (e) {
-      print(e);
-      UiUtils.showToast("message");
+    } else {
+      UiUtils.showToast("Please fill in all required fields.");
     }
   }
 
