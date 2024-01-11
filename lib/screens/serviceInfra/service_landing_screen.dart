@@ -3,6 +3,7 @@ import 'package:lokal/screens/serviceInfra//my_agents_list_screen.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
 import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
 import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
+import 'package:lokal/screens/serviceInfra/status.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../Widgets/UikCustomTabBar/customTabBar.dart';
 import '../../utils/network/ApiRepository.dart';
@@ -21,10 +22,9 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
   int _currentIndex = 0;
   late Future<ApiResponse> _serviceTabsFuture;
 
-
   @override
   void didChangeDependencies() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _serviceTabsFuture = ApiRepository.getServiceTabsScreen(widget.args);
     // Add a listener to the TabController to update the selected tab when scrolled
     _tabController.addListener(() {
@@ -48,6 +48,8 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
     );
   }
 
+  int i = 0;
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -61,6 +63,10 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
           );
         }
         dynamic data = snap.data?.data;
+        if (i == 0) {
+          data["tabs"].add({"id": "status", "text": "Status", "route": ""});
+          i++;
+        }
 
         return Scaffold(
           backgroundColor: Colors.white.withOpacity(0.90),
@@ -73,9 +79,16 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      SlDetailsPage(args: widget.args,),
-                      SlMyCustomersList(args: widget.args,),
-                      MyAgentListServiceScreen(args: widget.args,),
+                      SlDetailsPage(
+                        args: widget.args,
+                      ),
+                      SlMyCustomersList(
+                        args: widget.args,
+                      ),
+                      MyAgentListServiceScreen(
+                        args: widget.args,
+                      ),
+                      StatusListScreen(args: widget.args),
                     ],
                   ),
                 ),

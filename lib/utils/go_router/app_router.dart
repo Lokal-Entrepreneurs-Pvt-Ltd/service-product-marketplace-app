@@ -32,7 +32,6 @@ import 'package:lokal/screens/Form/extraPayOptIn.dart';
 import 'package:lokal/screens/Onboarding/LoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
-import 'package:lokal/screens/Otp/OtpScreen2.dart';
 import 'package:lokal/screens/WebViewScreen.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/addServiceCustomerFlow.dart';
 import 'package:lokal/screens/addServiceCustomerFlow/apiCallerScreen.dart';
@@ -47,10 +46,17 @@ import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+import 'package:lokal/screens/serviceInfra/agent_details.dart';
+import 'package:lokal/screens/serviceInfra/customer_details.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
 import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
+import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
+import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/screens/serviceInfra/status.dart';
 
 import '../../pages/UikAgentsForUserService.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
@@ -71,13 +77,15 @@ class AppRoutes {
 
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
+    initialLocation: UserDataHandler.getUserToken().isEmpty
+        ? _onboardingScreen.path
+        // : _tests.path,
+        : uikBottomNavigationBar.path,
     observers: [ChuckerFlutter.navigatorObserver],
-    // initialLocation: UserDataHandler.getUserToken().isEmpty
-    //     ? _onboardingScreen.path
-    //     : uikBottomNavigationBar.path,
-    initialLocation: _test.path,
+    // initialLocation: _tests.path,
     routes: [
-      _test,
+      _tests,
+      _personalDetails,
       _onboardingScreen,
       uikBottomNavigationBar,
       _loginScreen,
@@ -131,6 +139,14 @@ class AppRoutes {
 
   GoRouter get router => _goRouter;
 
+  static final GoRoute _tests = GoRoute(
+    path: ScreenRoutes.tests,
+    builder: (context, state) {
+      return StatusListScreen();
+      // return OtherDetails();
+    },
+  );
+
   static final GoRoute _otherdetails = GoRoute(
     path: ScreenRoutes.otherdetails,
     builder: (context, state) {
@@ -151,8 +167,8 @@ class AppRoutes {
     },
   );
 
-  static final GoRoute _test = GoRoute(
-    path: ScreenRoutes.test,
+  static final GoRoute _personalDetails = GoRoute(
+    path: ScreenRoutes.personalDetails,
     builder: (context, state) {
       return PersonalDetails(
         key: state.pageKey,
@@ -164,7 +180,9 @@ class AppRoutes {
   static final GoRoute _onboardingScreen = GoRoute(
     path: ScreenRoutes.onboardingScreen,
     builder: (context, state) {
-      return OnboardingScreen();
+      return OnboardingScreen(
+        key: state.pageKey,
+      );
     },
   );
   static final GoRoute uikBottomNavigationBar = GoRoute(
