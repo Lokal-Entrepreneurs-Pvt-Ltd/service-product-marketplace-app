@@ -48,21 +48,19 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   List<dynamic> _tabs = [];
   bool _isLoading = true;
   List<dynamic> _templates = [];
-  Map<String,dynamic> _metaData = Map();
+  Map<String, dynamic> _metaData = Map();
   List<dynamic> _ctas = [];
   bool _isOptedIn = false;
 
-
   @override
   void didChangeDependencies() {
-
     _fetchServiceDetails();
     super.didChangeDependencies();
   }
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 1, vsync: this);
     _scrollController = AutoScrollController();
 
     super.initState();
@@ -89,14 +87,29 @@ class _SlDetailsPageState extends State<SlDetailsPage>
     final tabs = data['tabs'] as List<dynamic>;
     final templates = data['templates'] as List<dynamic>;
     final isOptedIn = data['isOptedIn'] as bool;
-    final metaData = data['metaData'] as Map<String,dynamic>;
+    final metaData = data['metaData'] as Map<String, dynamic>;
     final ctas = metaData['ctas'] as List<dynamic>;
     setState(() {
       _tabs = tabs;
       _templates = templates;
       _isLoading = false;
       _isOptedIn = isOptedIn;
+      _metaData = metaData;
       _ctas = ctas;
+      // _ctas = [
+      //   {
+      //     "type": "Primary",
+      //     "text": "dddd",
+      //     "textColor": "#1233",
+      //     "backgroundColor": "#1233",
+      //     "action": {
+      //       "tap": {
+      //         "type": "OPEN_PAGE",
+      //         "data": {"url": ""}
+      //       }
+      //     }
+      //   }
+      // ];
     });
   }
 
@@ -114,13 +127,17 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       persistentFooterButtons: _isLoading
           ? []
           : _ctas.isNotEmpty && _ctas.any((cta) => cta['text'].isNotEmpty)
-          ? [_buildCtas()]
-          : _isOptedIn
-          ? [_buildAlreadyOptedButton()]
-          : [_buildOptInButton()],
+              ? [_buildCtas()]
+              : _isOptedIn
+                  ? [_buildAlreadyOptedButton()]
+                  : [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [_buildOptInButton(), _buildCallButton()],
+                      )
+                    ],
     );
   }
-
 
   Widget _buildAlreadyOptedButton() {
     return UikButton(
@@ -132,48 +149,113 @@ class _SlDetailsPageState extends State<SlDetailsPage>
     );
   }
 
-  Widget _buildOptInButton() {
-    return Container(
-      child: InkWell(
-        onTap: () async {
-          final response = await ApiRepository.submitOptin(widget.args);
-          if (response.isSuccess!) {
-            UiUtils.showToast("You Have Opted in");
-            setState(() {
-              _isOptedIn = true;
-            });
-          } else {
-            UiUtils.showToast(response.error![MESSAGE]);
-          }
-        },
-        child: UikButton(
-          text: "OPT In",
-          textColor: Colors.black,
-          textSize: 16.0,
-          textWeight: FontWeight.w500,
-          stuck: true,
+  Widget _buildCallButton() {
+    final phone = _metaData["ownerPhone"];
+    final name = _metaData["ownerName"];
+    // final phone = "";
+    // final name = "";
+
+    if (phone == null || phone.isEmpty) {
+      return Visibility(
+        visible: false,
+        child: Container(),
+      );
+    }
+
+    return InkWell(
+      onTap: () async {},
+      child: Container(
+        height: 64,
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.black.withOpacity(0.05),
+        ),
+        child: Row(
+          children: [
+            Image.network(
+              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1704862001956-phone-call.png",
+              width: 30,
+              height: 30,
+            ),
+            const SizedBox(width: 8),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Call ",
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.green,
+                  ),
+                ),
+                Text(
+                  (name != null && name.isNotEmpty
+                      ? name.toString().split(' ')[0]
+                      : "Agent"),
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 
+  Widget _buildOptInButton() {
+    return Expanded(
+      flex: 3,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: InkWell(
+          onTap: () async {
+            final response = await ApiRepository.submitOptin(widget.args);
+            if (response.isSuccess!) {
+              UiUtils.showToast("You Have Opted in");
+              setState(() {
+                _isOptedIn = true;
+              });
+            } else {
+              UiUtils.showToast(response.error![MESSAGE]);
+            }
+          },
+          child: UikButton(
+            text: "OPT In",
+            textColor: Colors.black,
+            textSize: 16.0,
+            textWeight: FontWeight.w500,
+            stuck: true,
+          ),
+        ),
+      ),
+    );
+  }
 
   Widget _buildCtas() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: _ctas.asMap().entries.map<Widget>((entry) {
         int index = entry.key;
-        Map<String, dynamic> cta = entry.value;
+        Map<String, dynamic> cta = Map<String, dynamic>.from(entry.value);
 
         final String text = cta['text'];
         if (text.isEmpty) {
           return const SizedBox.shrink();
         }
-
-        final Color textColor = Color(int.parse(cta['textColor'].substring(1), radix: 16) + 0xFF000000);
+        final Color textColor = Color(
+            int.parse(cta['textColor'].substring(1), radix: 16) + 0xFF000000);
         final Color backgroundColor = index == 1
             ? Colors.grey
-            : Color(int.parse(cta['backgroundColor'].substring(1), radix: 16) + 0xFF000000);
+            : Color(int.parse(cta['backgroundColor'].substring(1), radix: 16) +
+                0xFF000000);
         final Map<String, dynamic> action = cta['action'];
         final Map<String, dynamic> tap = action['tap'];
         final String actionType = tap['type'];
@@ -189,7 +271,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
                     launchURL(actionData['url']);
                     break;
                   case "OPEN_PAGE":
-                   NavigationUtils.openPageFromUrl(actionData['url']);
+                    NavigationUtils.openPageFromUrl(actionData['url']);
                     break;
                   default:
                     break;
@@ -338,9 +420,12 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       ),
       tabs: _tabs.map((tabData) {
         return Tab(
-          child: Text(
-            tabData['text'],
-            style: _getTabItemTextStyle(_tabs.indexOf(tabData)),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              tabData['text'],
+              style: _getTabItemTextStyle(_tabs.indexOf(tabData)),
+            ),
           ),
         );
       }).toList(),

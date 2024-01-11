@@ -85,8 +85,9 @@ class ApiRoutes {
       "/trainingAcademy/getAcademyDataByType";
   static const String editScreen = "/editScreen";
   static const String sendOtpForSignup = "/customer/sendOtpForSignup";
-  static const String signupByPhoneNumberOrEmail = "/customer/signupByPhoneNumberOrEmail";
+  static const String signupByPhoneNumberOrEmail =
+      "/customer/signupByPhoneNumberOrEmail";
   static const String verifyOtpAndLogin = "/customer/verifyOtpAndLogin";
   static const String sendOtpForLogin = "/customer/sendOtpForLogin";
-
+  static const String uploadDocumentonServer = "/image/upload";
 }
