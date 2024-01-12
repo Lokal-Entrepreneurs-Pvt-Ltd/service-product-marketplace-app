@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lokal/screens/serviceInfra//my_agents_list_screen.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
 import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
 import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
@@ -26,6 +25,16 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
   void didChangeDependencies() {
     _tabController = TabController(length: 4, vsync: this);
     _serviceTabsFuture = ApiRepository.getServiceTabsScreen(widget.args);
+    _serviceTabsFuture.then((response) {
+      if (response.isSuccess!) {
+        dynamic data = response.data;
+        int tabsLength = (data["tabs"] as List).length;
+
+        setState(() {
+          _tabController = TabController(length: tabsLength, vsync: this);
+        });
+      }
+    });
     // Add a listener to the TabController to update the selected tab when scrolled
     _tabController.addListener(() {
       setState(() {
@@ -78,18 +87,7 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
                 Expanded(
                   child: TabBarView(
                     controller: _tabController,
-                    children: [
-                      SlDetailsPage(
-                        args: widget.args,
-                      ),
-                      SlMyCustomersList(
-                        args: widget.args,
-                      ),
-                      MyAgentListServiceScreen(
-                        args: widget.args,
-                      ),
-                      StatusListScreen(args: widget.args),
-                    ],
+                    children: viewScreen(data),
                   ),
                 ),
               ],
@@ -98,6 +96,36 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
         );
       },
     );
+  }
+
+  List<Widget> viewScreen(dynamic data) {
+    List<Widget> widgets = [];
+    List<dynamic> tabs = data["tabs"];
+    for (int i = 0; i < tabs.length; i++) {
+      widgets.add(viewScreenroute(tabs[i]["route"]));
+    }
+    return widgets;
+  }
+
+  Widget viewScreenroute(String route) {
+    switch (route) {
+      case "/getServiceById":
+        return SlDetailsPage(
+          args: widget.args,
+        );
+      case "service/getServicesByUserId":
+        return SlMyCustomersList(
+          args: widget.args,
+        );
+      case "service/getAllAgentsByPartnerId":
+        return MyAgentListServiceScreen(
+          args: widget.args,
+        );
+      default:
+        return StatusListScreen(
+          args: widget.args,
+        );
+    }
   }
 
   AppBar _buildAppBar(dynamic data) {

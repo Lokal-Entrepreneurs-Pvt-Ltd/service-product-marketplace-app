@@ -5,11 +5,13 @@ class SelectableTextWidget extends StatelessWidget {
   final String text;
   final bool isSelected;
   final VoidCallback onTap;
+  final double border;
 
   SelectableTextWidget({
     required this.text,
     required this.isSelected,
     required this.onTap,
+    required this.border,
   });
 
   @override
@@ -19,10 +21,12 @@ class SelectableTextWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: isSelected ? Colors.yellow : Colors.transparent,
-          border: Border.all(
-            color: isSelected ? Colors.transparent : Colors.grey,
-            width: 2.0,
-          ),
+          border: (border != 0)
+              ? Border.all(
+                  color: isSelected ? Colors.transparent : Colors.grey,
+                  width: border,
+                )
+              : null,
           borderRadius: BorderRadius.circular(100),
         ),
         padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
