@@ -15,6 +15,11 @@ class ApiRequestBody {
     return {LATITUDE: lat, LONGITUDE: long};
   }
 
+  static getPersonalJobDetail(
+      String name, String date, String mob, String loc) {
+    return {FIRST_NAME: name, dob: date, MOBILE_NO: mob, LOCATION: loc};
+  }
+
   static getPersonalDetail(String name, String date, double lat, double long) {
     return {FIRST_NAME: name, dob: date, LATITUDE: lat, LONGITUDE: long};
   }
