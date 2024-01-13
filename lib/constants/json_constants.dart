@@ -11,6 +11,7 @@ const String EMAIL = "email";
 const String EMAIL_ID = "emailId";
 const String PASSWORD = "password";
 const String CART_ID = "cartId";
+const String ANSWER_MAP = "Qna";
 const String REQUEST_ID = "requestId";
 const String SAMHITA_DATA = "samhitaData";
 const String SAMHITA_ID = "samhitaId";
