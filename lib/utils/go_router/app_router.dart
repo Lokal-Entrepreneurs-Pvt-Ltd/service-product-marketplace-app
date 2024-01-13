@@ -47,10 +47,18 @@ import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+import 'package:lokal/screens/serviceInfra/agent_details.dart';
+import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
+import 'package:lokal/screens/serviceInfra/customer_details.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
 import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
+import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
+import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/screens/serviceInfra/status.dart';
 
 import '../../pages/UikAgentsForUserService.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
@@ -71,11 +79,10 @@ class AppRoutes {
 
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
-    // initialLocation: UserDataHandler.getUserToken().isEmpty
-    //     ? _onboardingScreen.path
-    //     // : _uikBottomNavigationBar.path,
-    //     : _myAccountScreen.path,
-    initialLocation:_profile_personal_details.path,
+    initialLocation: UserDataHandler.getUserToken().isEmpty
+        ? _onboardingScreen.path
+        // : _uikBottomNavigationBar.path,
+        : _myAccountScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     // initialLocation: UserDataHandler.getUserToken().isEmpty
     //     ? _onboardingScreen.path
@@ -170,20 +177,34 @@ class AppRoutes {
     },
   );
 
-  // static final GoRoute _test = GoRoute(
-  //   path: ScreenRoutes.test,
-  //   builder: (context, state) {
-  //     return PersonalDetails(
-  //       key: state.pageKey,
-  //     );
-  //     // return OtherDetails();
-  //   },
-  // );
+  static final GoRoute _personalDetails = GoRoute(
+    path: ScreenRoutes.personalDetails,
+    builder: (context, state) {
+      return PersonalDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+
+  static final GoRoute _OtherJobDetails = GoRoute(
+    path: ScreenRoutes.personalDetails,
+    builder: (context, state) {
+      return OtherJobDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
 
   static final GoRoute _onboardingScreen = GoRoute(
     path: ScreenRoutes.onboardingScreen,
     builder: (context, state) {
-      return OnboardingScreen();
+      return OnboardingScreen(
+        key: state.pageKey,
+      );
     },
   );
   static final GoRoute uikBottomNavigationBar = GoRoute(

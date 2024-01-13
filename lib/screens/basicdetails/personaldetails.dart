@@ -122,12 +122,14 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           text: "Male",
           isSelected: selectedIndex == 0,
           onTap: () => updateSelectedIndex(0),
+          border: 2,
         ),
         SizedBox(width: 15),
         SelectableTextWidget(
           text: "Female",
           isSelected: selectedIndex == 1,
           onTap: () => updateSelectedIndex(1),
+          border: 2,
         ),
       ],
     );
