@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:lokal/utils/Logs/eventqueue.dart';
+import 'package:lokal/utils/Logs/event.dart';
+import 'package:lokal/utils/Logs/event_handler.dart';
 
 // import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
@@ -194,6 +197,13 @@ class HttpScreenClient {
         displayNoInternetDialog(null);
         throw Exception('No internet connection');
       }
+
+      String routes = pageRoute.replaceAll('/', '_');
+      Event event =
+          Event(name: "Routes_$routes", parameters: {"names": pageRoute});
+      EventQueue eventQueue = EventQueue();
+      eventQueue.add(event);
+      print("${eventQueue.queue.length}-----------------------");
 
       var bodyParams = args ?? <String, dynamic>{};
       var header = NetworkUtils.getRequestHeaders();

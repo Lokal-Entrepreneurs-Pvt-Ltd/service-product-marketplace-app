@@ -133,7 +133,7 @@ class _OtpScreenState extends State<OtpScreen> {
             UserDataHandler.saveCustomerData(customerData);
           }
           UserDataHandler.saveIsUserVerified(true);
-          NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar);
+          NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
