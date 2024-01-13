@@ -16,6 +16,11 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.samhitaHome, args);
   }
 
+  static Future<ApiResponse> getQuestionsByServiceId(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getQuestionsByServiceId, args);
+  }
+
   static Future<ApiResponse> submitSamhitaAddParticipantForm(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.submitSamhitaAddParticipantsForm, args);
@@ -159,8 +164,17 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.signUpScreen, args);
   }
 
+  static Future<ApiResponse> getUserProfile(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getUserProfile, args);
+  }
+
   static Future<ApiResponse> updateCustomerInfo(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.updateCustomerInfo, args);
+  }
+
+  static Future<ApiResponse> updateAnswersInService(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.sendAnswersByServiceId, args);
   }
 
   static Future<ApiResponse> sendOtp(args) {

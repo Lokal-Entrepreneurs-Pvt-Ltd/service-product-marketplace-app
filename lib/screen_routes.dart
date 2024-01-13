@@ -75,5 +75,6 @@ class ScreenRoutes {
   static const String myAgentListScreen = "/myAgentListScreen";
   static const String profileScreen = "/profileScreen";
   static const String otherdetails = "/basicdetails/otherdetails";
+  static const String otherJobDetails = "/serviceInfra/applyForJob/otherJobDetails";
   static const String uploadDocuments = "/basicdetails/uploaddocuments";
 }

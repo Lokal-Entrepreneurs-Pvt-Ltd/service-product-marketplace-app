@@ -7,12 +7,32 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
+  static sendQusetionAnswers(
+      int userid, int serviceId, Map<String, String> answermap) {
+    return {USERID: userid, SERVICE_ID: serviceId, ANSWER_MAP: answermap};
+  }
+
   static getuploaddocumentsid(String type, File file) async {
     return {FILE: file, USE_CASE: type};
   }
 
   static updateLatlong(double lat, double long) {
     return {LATITUDE: lat, LONGITUDE: long};
+  }
+
+  static getPersonalJobDetail(
+      String name, String date, String mob, String loc, String gender) {
+    return {
+      FIRST_NAME: name,
+      dob: date,
+      MOBILE_NO: mob,
+      LOCATION: loc,
+      GENDER: gender
+    };
+  }
+
+  static serviceId(String service) {
+    return {SERVICE_ID: service};
   }
 
   static getPersonalDetail(String name, String date, double lat, double long) {
