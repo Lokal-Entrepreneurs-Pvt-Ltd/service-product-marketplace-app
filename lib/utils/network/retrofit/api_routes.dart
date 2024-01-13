@@ -95,4 +95,5 @@ class ApiRoutes {
       "/service/getQuestionsForService";
   static const String sendAnswersByServiceId =
       "/userService/createUserServiceApplication";
+  static const String imageUpload = "/image/upload";
 }
