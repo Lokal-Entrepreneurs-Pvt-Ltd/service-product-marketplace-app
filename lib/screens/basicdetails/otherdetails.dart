@@ -166,6 +166,7 @@ class _OtherDetailsState extends State<OtherDetails> {
               options.length,
               (index) => SelectableTextWidget(
                 text: options[index],
+                border: 2,
                 isSelected: selectedOptions[categoryIndex] == index,
                 onTap: () => updateSelectedIndex(index, categoryIndex),
               ),
