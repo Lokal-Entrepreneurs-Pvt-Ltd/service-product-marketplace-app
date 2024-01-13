@@ -21,6 +21,7 @@ class OtherJobDetails extends StatefulWidget {
 
 class _OtherJobDetailsState extends State<OtherJobDetails> {
   List<int?> selectedOptions = List.filled(6, null);
+  List<Map<int, int>?> answermap = [];
   List<Map<String, dynamic>> questions = [];
 
   @override
@@ -31,37 +32,16 @@ class _OtherJobDetailsState extends State<OtherJobDetails> {
 
   Future<void> loadData() async {
     try {
-      //final response=await ApiRepository.getQuestion();
-      dynamic jsonData = {
-        "isSuccess": true,
-        "data": {
-          "response": [
-            {
-              "questionId": 1,
-              "questionText": "paras",
-              "isBoolean": 0,
-              "difficultyLevel": null,
-              "answers": [
-                {"answerId": 1, "answerText": "ok"}
-              ]
-            },
-            {
-              "questionId": 2,
-              "questionText": "What is your name?",
-              "isBoolean": 0,
-              "difficultyLevel": "Easy",
-              "answers": [
-                {"answerId": 0, "answerText": "Suresh"},
-                {"answerId": 1, "answerText": "Ramesh"}
-              ]
-            },
-          ]
-        }
-      };
-      ApiResponse response = ApiResponse.fromJson(jsonData);
+      final response = await ApiRepository.getQuestionsByServiceId(
+          ApiRequestBody.serviceId("107"));
 
       if (response.isSuccess!) {
-        questions = response.data as List<Map<String, dynamic>>;
+        questions = List<Map<String, dynamic>>.from(
+          response.data!.map((item) => Map<String, dynamic>.from(item)),
+        );
+        setState(() {
+          selectedOptions = List.filled(questions.length, null);
+        });
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
@@ -136,8 +116,11 @@ class _OtherJobDetailsState extends State<OtherJobDetails> {
   }
 
   Widget buildQuestionAndAnswer(int index, Map<String, dynamic> questionData) {
-    String questionText = questionData['questionText'] ?? '';
-    List<Map<String, dynamic>> answers = questionData['answers'] ?? [];
+    String questionText = questionData['question']['questionText'] ?? '';
+    List<Map<String, dynamic>> answers = List<Map<String, dynamic>>.from(
+      questionData['answers'] ??
+          [].map((item) => Map<String, dynamic>.from(item)),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,25 +172,28 @@ class _OtherJobDetailsState extends State<OtherJobDetails> {
 
   void updatedata() async {
     try {
-      List<Map<String, dynamic>> userAnswers = [];
+      Map<String, String> userAnswers = {};
       for (int i = 0; i < questions.length; i++) {
         int? answerId = selectedOptions[i];
         if (answerId != null) {
-          userAnswers.add(
-              {"questionId": questions[i]["questionId"], "answerId": answerId});
+          final maps = {
+            questions[i]["questionId"].toString(): answerId.toString()
+          };
+          userAnswers.addEntries(maps.entries);
+          //      {"questionId": questions[i]["questionId"], "answerId": answerId}
         }
       }
 
-      // Uncomment the following lines when you have the actual API call
-      // final response = await ApiRepository.updateCustomerInfo(
-      //   ApiRequestBody.getUserAnswers(userAnswers),
-      // );
+      final response = await ApiRepository.updateAnswersInService(
+        ApiRequestBody.sendQusetionAnswers(0, 107, userAnswers),
+      );
 
-      // if (response.isSuccess!) {
-      //   NavigationUtils.openScreen(ScreenRoutes.uploadDocuments);
-      // } else {
-      //   UiUtils.showToast(response.error![MESSAGE]);
-      // }
+      if (response.isSuccess!) {
+        UiUtils.showToast("Job Applied Successfully");
+        NavigationUtils.openScreen(ScreenRoutes.onboardingScreen);
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
     } catch (e) {
       print(e);
     }
@@ -219,3 +205,32 @@ class _OtherJobDetailsState extends State<OtherJobDetails> {
     });
   }
 }
+
+
+    // dynamic jsonData = {
+      //   "isSuccess": true,
+      //   "data": {
+      //     "response": [
+      //       {
+      //         "questionId": 1,
+      //         "questionText": "paras",
+      //         "isBoolean": 0,
+      //         "difficultyLevel": null,
+      //         "answers": [
+      //           {"answerId": 1, "answerText": "ok"}
+      //         ]
+      //       },
+      //       {
+      //         "questionId": 2,
+      //         "questionText": "What is your name?",
+      //         "isBoolean": 0,
+      //         "difficultyLevel": "Easy",
+      //         "answers": [
+      //           {"answerId": 0, "answerText": "Suresh"},
+      //           {"answerId": 1, "answerText": "Ramesh"}
+      //         ]
+      //       },
+      //     ]
+      //   }
+      // };
+      // ApiResponse response = ApiResponse.fromJson(jsonData);
