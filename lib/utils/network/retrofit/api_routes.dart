@@ -91,4 +91,8 @@ class ApiRoutes {
   static const String sendOtpForLogin = "/customer/sendOtpForLogin";
   static const String uploadDocumentonServer = "/image/upload";
   static const String getUserProfile = "/customer/userProfile";
+  static const String getQuestionsByServiceId =
+      "/service/getQuestionsForService";
+  static const String sendAnswersByServiceId =
+      "/userService/createUserServiceApplication";
 }

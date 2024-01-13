@@ -42,18 +42,7 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
 
   void fetchData() async {
     try {
-      final response = ApiResponse.fromJson({
-        "isSuccess": true,
-        "data": {
-          "response": {
-            "fullName": "Jay Ho",
-            "dob": "30/50/1000",
-            "mobile": "8415265581",
-            "address": "ddc,ddc,dcd",
-            "gender": "Male",
-          }
-        }
-      });
+      final response = await ApiRepository.getUserProfile({});
 
       if (response.isSuccess!) {
         updateStateWithInitialData(response.data);
@@ -68,12 +57,17 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
 
   void updateStateWithInitialData(Map<String, dynamic>? data) {
     setState(() {
-      nameController.text = initialData["fullName"] = data?['fullName'] ?? '';
+      nameController.text = initialData["fullName"] = data?['firstName'] ?? '';
       dateController.text = initialData["dob"] = data?['dob'] ?? '';
-      mobileController.text = initialData["mobile"] = data?['mobile'] ?? '';
+      mobileController.text =
+          initialData["mobile"] = data?['phoneNumber'] ?? '';
       locationController.text = initialData["address"] = data?['address'] ?? '';
       String gender = initialData["gender"] = data?['gender'] ?? '';
-      selectedIndex = (gender == "Male") ? 0 : 1;
+      selectedIndex = (gender == "Male")
+          ? 0
+          : (gender.isEmpty)
+              ? -1
+              : 1;
     });
   }
 
@@ -197,7 +191,7 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
                 border: InputBorder.none,
               ),
               onTap: () => updateState(),
-              onFieldSubmitted: (_) => updateState(),
+              onEditingComplete: () => updateState(),
             ),
           ),
         ],
@@ -254,6 +248,7 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
             dateController.text,
             mobileController.text,
             locationController.text,
+            (selectedIndex == 0) ? "Male" : "Female",
           ),
         );
 
@@ -270,6 +265,9 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
         NavigationUtils.openScreen(ScreenRoutes.otherJobDetails);
       }
     } catch (e) {
+      setState(() {
+        isUpdatingProfile = false;
+      });
       print(e);
       UiUtils.showToast("Error updating data");
     }
@@ -284,7 +282,8 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
     return (nameController.text == initialData['fullName']) &&
         (dateController == initialData["dob"]) &&
         (mobileController == initialData["mobile"]) &&
-        (locationController == initialData["address"]);
+        (locationController == initialData["address"]) &&
+        (selectedIndex == initialData["gender"]);
   }
 
   void updateSelectedIndex(int index) {
