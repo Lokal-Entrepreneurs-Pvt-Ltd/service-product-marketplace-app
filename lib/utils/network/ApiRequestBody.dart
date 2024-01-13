@@ -16,7 +16,7 @@ class ApiRequestBody {
   }
 
   static getPersonalDetail(String name, String date, double lat, double long) {
-    return {FIRST_NAME: name, dob: date, LATITUDE: lat, LONGITUDE: long};
+    return {NAME: name, dob: date, LATITUDE: lat, LONGITUDE: long};
   }
 
   static getOtherDetail(String education, workex, bool relocate) {
