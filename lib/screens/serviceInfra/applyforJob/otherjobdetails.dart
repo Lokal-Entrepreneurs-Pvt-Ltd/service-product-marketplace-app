@@ -13,22 +13,20 @@ import 'package:lokal/widgets/selectabletext.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 class ApplyForJobServiceQuestions extends StatefulWidget {
-  const ApplyForJobServiceQuestions({Key? key,this.args}) : super(key: key);
+  const ApplyForJobServiceQuestions({Key? key, this.args}) : super(key: key);
   final dynamic args;
   @override
-  State<ApplyForJobServiceQuestions> createState() => _ApplyForJobServiceQuestionsState();
+  State<ApplyForJobServiceQuestions> createState() =>
+      _ApplyForJobServiceQuestionsState();
 }
 
-class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestions> {
+class _ApplyForJobServiceQuestionsState
+    extends State<ApplyForJobServiceQuestions> {
   List<int?> selectedOptions = List.filled(6, null);
   List<Map<int, int>?> answermap = [];
   List<Map<String, dynamic>> questions = [];
-
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
+  bool isDataLoaded = false;
+  bool isError = false; // Flag to check API error
 
   Future<void> loadData() async {
     try {
@@ -40,13 +38,31 @@ class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestion
         );
         setState(() {
           selectedOptions = List.filled(questions.length, null);
+          isDataLoaded = true; // Set the flag to true once data is loaded
         });
       } else {
+        // Set the error flag to true when API fails
+        setState(() {
+          isError = true;
+          isDataLoaded = true; // Set the flag to true in case of error
+        });
         UiUtils.showToast(response.error![MESSAGE]);
       }
     } catch (e) {
       print(e);
+      // Set the error flag to true when there's an exception
+      isError = true;
+      isDataLoaded = true; // Set the flag to true in case of exception
       UiUtils.showToast("Error updating data");
+    }
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    if (!isDataLoaded) {
+      loadData();
     }
   }
 
@@ -55,7 +71,23 @@ class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestion
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(),
-      body: buildBody(),
+      body: isDataLoaded
+          ? buildBody()
+          : isError
+          ? Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0), // Add padding here
+          child: Text(
+            "No Job Specific Question for the Job, Kindly Apply By Pressing the Button",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      )
+          : Center(child: CircularProgressIndicator(color: Colors.yellow)),
       persistentFooterButtons: [
         buildContinueButton(),
       ],
@@ -138,7 +170,7 @@ class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestion
           runSpacing: 8,
           children: List.generate(
             answers.length,
-            (answerIndex) {
+                (answerIndex) {
               Map<String, dynamic> answer = answers[answerIndex];
               int answerId = answer['answerId'] ?? -1;
               String answerText = answer['answerText'] ?? '';
@@ -160,7 +192,7 @@ class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestion
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: "Continue",
+        text: "Apply for the Job",
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
@@ -184,12 +216,12 @@ class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestion
       }
 
       final response = await ApiRepository.updateAnswersInService(
-        ApiRequestBody.sendQusetionAnswers(0, 107, userAnswers),
+        ApiRequestBody.sendQusetionAnswers(widget.args["serviceId"], userAnswers),
       );
 
       if (response.isSuccess!) {
         UiUtils.showToast("Job Applied Successfully");
-        NavigationUtils.openScreen(ScreenRoutes.onboardingScreen);
+        NavigationUtils.pop();
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
@@ -204,4 +236,3 @@ class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestion
     });
   }
 }
-

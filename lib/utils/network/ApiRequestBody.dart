@@ -7,9 +7,8 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
-  static sendQusetionAnswers(
-      int userid, int serviceId, Map<String, String> answermap) {
-    return {USERID: userid, SERVICE_ID: serviceId, ANSWER_MAP: answermap};
+  static sendQusetionAnswers(int serviceId, Map<String, String> answermap) {
+    return { SERVICE_ID: serviceId, ANSWER_MAP: answermap};
   }
 
   static getuploaddocumentsid(String type, File file) async {

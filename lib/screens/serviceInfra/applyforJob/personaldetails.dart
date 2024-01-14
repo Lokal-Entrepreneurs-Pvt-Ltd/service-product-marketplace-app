@@ -54,7 +54,7 @@ class _ApplyForJobPersonalDetailsState
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Show a loading indicator while waiting for the API response
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Colors.yellow),
             );
           } else if (snapshot.hasError) {
             // Show an error message if there's an error
@@ -175,6 +175,7 @@ class _ApplyForJobPersonalDetailsState
       alignment: Alignment.center,
       child: GestureDetector(
         onTap: () {
+          NavigationUtils.pop();
           NavigationUtils.openScreen(ScreenRoutes.jobApplicationServiceQuestion, widget.args);
         },
         child: Container(
