@@ -259,6 +259,9 @@ class _SlDetailsPageState extends State<SlDetailsPage>
                   case "UIK_OPEN_WEB":
                     launchURL(actionData['url']);
                     break;
+                  case "SHARE_WHATSAPP":
+                    UiUtils.shareOnWhatsApp(actionData['url'], actionData['message']);
+                    break;
                   case "OPEN_PAGE":
                     NavigationUtils.openPageFromUrl(actionData['url']);
                     break;
