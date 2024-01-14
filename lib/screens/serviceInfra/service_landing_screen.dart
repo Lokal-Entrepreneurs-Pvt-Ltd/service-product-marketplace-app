@@ -72,10 +72,10 @@ class _ServiceLandingScreenState extends State<ServiceLandingScreen>
           );
         }
         dynamic data = snap.data?.data;
-        if (i == 0) {
-          data["tabs"].add({"id": "status", "text": "Status", "route": ""});
-          i++;
-        }
+        // if (i == 0) {
+        //   data["tabs"].add({"id": "status", "text": "Status", "route": ""});
+        //   i++;
+        // }
 
         return Scaffold(
           backgroundColor: Colors.white.withOpacity(0.90),

@@ -1,74 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
-import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/selectabletext.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
-class PersonalJobDetails extends StatefulWidget {
-  const PersonalJobDetails({Key? key}) : super(key: key);
+class ApplyForJobPersonalDetails extends StatefulWidget {
+  const ApplyForJobPersonalDetails({Key? key, this.args}) : super(key: key);
+  final dynamic args;
 
   @override
-  State<PersonalJobDetails> createState() => _PersonalJobDetailsState();
+  State<ApplyForJobPersonalDetails> createState() =>
+      _ApplyForJobPersonalDetailsState();
 }
 
-class _PersonalJobDetailsState extends State<PersonalJobDetails> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
-  TextEditingController locationController = TextEditingController();
-  bool isDataModified = false;
-  Map<String, dynamic> initialData = {};
-  int selectedIndex = -1;
-  DateTime datePicker = DateTime.now();
-  double lat = 0;
-  double long = 0;
-  bool isUpdatingProfile = false;
+class _ApplyForJobPersonalDetailsState
+    extends State<ApplyForJobPersonalDetails> {
+  Future<Map<String, dynamic>?>? _futureData;
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    _futureData = fetchData();
   }
 
-  void fetchData() async {
+  Future<Map<String, dynamic>?> fetchData() async {
     try {
       final response = await ApiRepository.getUserProfile({});
-
       if (response.isSuccess!) {
-        updateStateWithInitialData(response.data);
+        return response.data;
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
+        return null;
       }
     } catch (e) {
       print(e);
       UiUtils.showToast("Error fetching initial data");
+      return null;
     }
-  }
-
-  void updateStateWithInitialData(Map<String, dynamic>? data) {
-    setState(() {
-      nameController.text = initialData["fullName"] = data?['firstName'] ?? '';
-      dateController.text = initialData["dob"] = data?['dob'] ?? '';
-      mobileController.text =
-          initialData["mobile"] = data?['phoneNumber'] ?? '';
-      locationController.text = initialData["address"] = data?['address'] ?? '';
-      String gender = initialData["gender"] = data?['gender'] ?? '';
-      selectedIndex = (gender == "Male")
-          ? 0
-          : (gender.isEmpty)
-              ? -1
-              : 1;
-    });
   }
 
   @override
@@ -76,7 +48,31 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(),
-      body: buildBody(),
+      body: FutureBuilder(
+        future: _futureData,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Show a loading indicator while waiting for the API response
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            // Show an error message if there's an error
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else if (!snapshot.hasData) {
+            // Show a message if no data is available
+            return Center(
+              child: Text("No data available"),
+            );
+          } else {
+            // Build the UI with the received data
+            final data = snapshot.data as Map<String, dynamic>;
+            return buildBody(data);
+          }
+        },
+      ),
       persistentFooterButtons: [
         buildContinueButton(),
       ],
@@ -107,7 +103,12 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
     );
   }
 
-  Widget buildBody() {
+  Widget buildBody(Map<String, dynamic> data) {
+    // Extract data from the API response
+    String name = data['firstName'] ?? '';
+    String email = data['email'] ?? '';
+    String phoneNumber = data['phoneNumber'] ?? '';
+
     return SingleChildScrollView(
       child: Container(
         width: double.infinity,
@@ -116,12 +117,9 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildSectionTitle("Personal Details", 30, FontWeight.w700),
-            buildGenderSelection(),
-            SizedBox(height: 32),
-            buildTextBox("Type your full name", nameController),
-            buildTextBox("DD/MM/YYYY", dateController),
-            buildTextBox("Mob.No.", mobileController),
-            buildTextBox("Location", locationController),
+            buildField("Name", Text(name)),
+            buildField("Email", Text(email)),
+            buildField("Phone Number", Text(phoneNumber)),
           ],
         ),
       ),
@@ -144,33 +142,7 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
     );
   }
 
-  Widget buildGenderSelection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        buildSectionTitle("Gender", 20, FontWeight.w600),
-        SizedBox(height: 8),
-        Row(
-          children: [
-            buildSelectableTextWidget("Male", 0),
-            SizedBox(width: 15),
-            buildSelectableTextWidget("Female", 1),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget buildSelectableTextWidget(String text, int index) {
-    return SelectableTextWidget(
-      text: text,
-      border: 0,
-      isSelected: selectedIndex == index,
-      onTap: () => updateSelectedIndex(index),
-    );
-  }
-
-  Widget buildTextBox(String hint, TextEditingController controller) {
+  Widget buildField(String label, Widget field) {
     return Container(
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
@@ -183,17 +155,16 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8),
-          Expanded(
-            child: TextFormField(
-              controller: controller,
-              decoration: InputDecoration(
-                hintText: hint,
-                border: InputBorder.none,
-              ),
-              onTap: () => updateState(),
-              onEditingComplete: () => updateState(),
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.black,
             ),
           ),
+          SizedBox(height: 4),
+          field,
         ],
       ),
     );
@@ -203,7 +174,9 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
     return Container(
       alignment: Alignment.center,
       child: GestureDetector(
-        onTap: isUpdatingProfile ? null : updatedata,
+        onTap: () {
+          NavigationUtils.openScreen(ScreenRoutes.jobApplicationServiceQuestion, widget.args);
+        },
         child: Container(
           width: double.infinity,
           height: 64.0,
@@ -213,82 +186,21 @@ class _PersonalJobDetailsState extends State<PersonalJobDetails> {
             border: Border.all(color: Colors.transparent, width: 1.0),
           ),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            isUpdatingProfile
-                ? CircularProgressIndicator()
-                : Expanded(
-                    child: Center(
-                      child: Text(
-                        isDataModified ? "Update Profile" : "Continue",
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
+            Expanded(
+              child: Center(
+                child: Text(
+                  "Continue Application",
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                    fontSize: 18,
                   ),
+                ),
+              ),
+            ),
           ]),
         ),
       ),
     );
-  }
-
-  void updatedata() async {
-    try {
-      if (isDataModified) {
-        setState(() {
-          isUpdatingProfile = true;
-        });
-
-        await Future.delayed(Duration(seconds: 2));
-
-        final response = await ApiRepository.updateCustomerInfo(
-          ApiRequestBody.getPersonalJobDetail(
-            nameController.text,
-            dateController.text,
-            mobileController.text,
-            locationController.text,
-            (selectedIndex == 0) ? "Male" : "Female",
-          ),
-        );
-
-        if (response.isSuccess!) {
-          NavigationUtils.openScreen(ScreenRoutes.otherJobDetails);
-        } else {
-          UiUtils.showToast(response.error![MESSAGE]);
-        }
-
-        setState(() {
-          isUpdatingProfile = false;
-        });
-      } else {
-        NavigationUtils.openScreen(ScreenRoutes.otherJobDetails);
-      }
-    } catch (e) {
-      setState(() {
-        isUpdatingProfile = false;
-      });
-      print(e);
-      UiUtils.showToast("Error updating data");
-    }
-  }
-
-  void updateState() {
-    isDataModified = !isDataSame();
-    setState(() {});
-  }
-
-  bool isDataSame() {
-    return (nameController.text == initialData['fullName']) &&
-        (dateController == initialData["dob"]) &&
-        (mobileController == initialData["mobile"]) &&
-        (locationController == initialData["address"]) &&
-        (selectedIndex == initialData["gender"]);
-  }
-
-  void updateSelectedIndex(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
   }
 }
