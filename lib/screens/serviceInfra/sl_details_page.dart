@@ -84,7 +84,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   }
 
   void _updateServiceDetails(Map<String, dynamic> data) {
-    final tabs = data['tabs'] as List<dynamic>;
+     final tabs = data['tabs'] as List<dynamic>;
     final templates = data['templates'] as List<dynamic>;
     final isOptedIn = data['isOptedIn'] as bool;
     final metaData = data['metaData'] as Map<String, dynamic>;
@@ -96,20 +96,6 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       _isOptedIn = isOptedIn;
       _metaData = metaData;
       _ctas = ctas;
-      // _ctas = [
-      //   {
-      //     "type": "Primary",
-      //     "text": "dddd",
-      //     "textColor": "#1233",
-      //     "backgroundColor": "#1233",
-      //     "action": {
-      //       "tap": {
-      //         "type": "OPEN_PAGE",
-      //         "data": {"url": ""}
-      //       }
-      //     }
-      //   }
-      // ];
     });
   }
 
@@ -163,7 +149,10 @@ class _SlDetailsPageState extends State<SlDetailsPage>
     }
 
     return InkWell(
-      onTap: () async {},
+      onTap: () async {
+        final phoneUrl = 'tel:$phone';
+        UiUtils.launchURL(phoneUrl);
+      },
       child: Container(
         height: 64,
         padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -298,10 +287,11 @@ class _SlDetailsPageState extends State<SlDetailsPage>
           Container(
             child: _buildTabBar(),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 9),
           _buildDetailsListN(_templates),
         ],
       ),
+
     );
   }
 
@@ -394,43 +384,47 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   }
 
   Widget _buildTabBar() {
-    return TabBar(
-      onTap: (ind) {
-        setState(() {
-          _currentTabNumber = ind;
-        });
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical:8.0), // Adjust the padding as needed
+      child: TabBar(
+        onTap: (ind) {
+          setState(() {
+            _currentTabNumber = ind;
+          });
 
-        switch (ind) {
-          case 0:
-            _scrollController.jumpTo(ind * 100);
-            break;
-          case 1:
-            _scrollController.jumpTo(ind * 400);
-            break;
-          default:
-            _scrollController.jumpTo(ind * 320);
-            break;
-        }
-      },
-      controller: _tabController,
-      isScrollable: true,
-      indicator: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: const Color(0xFF3F51B5),
-      ),
-      tabs: _tabs.map((tabData) {
-        return Tab(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              tabData['text'],
-              style: _getTabItemTextStyle(_tabs.indexOf(tabData)),
+          switch (ind) {
+            case 0:
+              _scrollController.jumpTo(ind * 100);
+              break;
+            case 1:
+              _scrollController.jumpTo(ind * 400);
+              break;
+            default:
+              _scrollController.jumpTo(ind * 320);
+              break;
+          }
+        },
+        controller: _tabController,
+        isScrollable: true,
+        indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: const Color(0xFF3F51B5),
+        ),
+        tabs: _tabs.map((tabData) {
+          return Tab(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                tabData['text'],
+                style: _getTabItemTextStyle(_tabs.indexOf(tabData)),
+              ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
+
 
   TextStyle _getTabItemTextStyle(int index) {
     bool isSelected = _currentTabNumber == index;

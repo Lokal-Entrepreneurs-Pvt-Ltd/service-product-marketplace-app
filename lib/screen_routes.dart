@@ -77,4 +77,7 @@ class ScreenRoutes {
   static const String otherdetails = "/basicdetails/otherdetails";
   static const String otherJobDetails = "/serviceInfra/applyForJob/otherJobDetails";
   static const String uploadDocuments = "/basicdetails/uploaddocuments";
+  static const String jobApplicationPersonalDetails = "/jobApplicationPersonalDetails";
+  static const String jobApplicationServiceQuestion = "/jobApplicationServiceQuestions";
+
 }

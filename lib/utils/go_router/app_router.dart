@@ -49,6 +49,7 @@ import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
+import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
 import 'package:lokal/screens/serviceInfra/customer_details.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
@@ -81,13 +82,8 @@ class AppRoutes {
     navigatorKey: rootNavigatorKey,
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
-        // : _uikBottomNavigationBar.path,
-        : _myAccountScreen.path,
+        : uikBottomNavigationBar.path,
     observers: [ChuckerFlutter.navigatorObserver],
-    // initialLocation: UserDataHandler.getUserToken().isEmpty
-    //     ? _onboardingScreen.path
-    //     : uikBottomNavigationBar.path,
-//     initialLocation: _test.path,
     routes: [
       _onboardingScreen,
       uikBottomNavigationBar,
@@ -138,7 +134,9 @@ class AppRoutes {
       _profileScreen,
       _profile_otherdetails,
       _profile_uploaddocuments,
-      _profile_personal_details
+      _profile_personal_details,
+      _jobApplicationsPersonalDetails,
+      _jobApplicationServiceQuestions
     ],
   );
 
@@ -188,16 +186,32 @@ class AppRoutes {
   );
 
 
-  static final GoRoute _OtherJobDetails = GoRoute(
-    path: ScreenRoutes.personalDetails,
+  static final GoRoute _jobApplicationServiceQuestions = GoRoute(
+    path: ScreenRoutes.jobApplicationServiceQuestion,
     builder: (context, state) {
-      return OtherJobDetails(
+      final Map<String, dynamic>? extraArgs =
+      state.extra as Map<String, dynamic>?;
+      return ApplyForJobServiceQuestions(
         key: state.pageKey,
+        args: extraArgs
+        ,
       );
       // return OtherDetails();
     },
   );
 
+  static final GoRoute _jobApplicationsPersonalDetails = GoRoute(
+    path: ScreenRoutes.jobApplicationPersonalDetails,
+    builder: (context, state) {
+      final Map<String, dynamic>? extraArgs =
+      state.extra as Map<String, dynamic>?;
+      return ApplyForJobPersonalDetails(
+        key: state.pageKey,
+        args: extraArgs,
+      );
+      // return OtherDetails();
+    },
+  );
 
   static final GoRoute _onboardingScreen = GoRoute(
     path: ScreenRoutes.onboardingScreen,

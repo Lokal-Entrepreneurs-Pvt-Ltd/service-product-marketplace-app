@@ -12,14 +12,14 @@ import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
-class OtherJobDetails extends StatefulWidget {
-  const OtherJobDetails({Key? key}) : super(key: key);
-
+class ApplyForJobServiceQuestions extends StatefulWidget {
+  const ApplyForJobServiceQuestions({Key? key,this.args}) : super(key: key);
+  final dynamic args;
   @override
-  State<OtherJobDetails> createState() => _OtherJobDetailsState();
+  State<ApplyForJobServiceQuestions> createState() => _ApplyForJobServiceQuestionsState();
 }
 
-class _OtherJobDetailsState extends State<OtherJobDetails> {
+class _ApplyForJobServiceQuestionsState extends State<ApplyForJobServiceQuestions> {
   List<int?> selectedOptions = List.filled(6, null);
   List<Map<int, int>?> answermap = [];
   List<Map<String, dynamic>> questions = [];
@@ -32,8 +32,7 @@ class _OtherJobDetailsState extends State<OtherJobDetails> {
 
   Future<void> loadData() async {
     try {
-      final response = await ApiRepository.getQuestionsByServiceId(
-          ApiRequestBody.serviceId("107"));
+      final response = await ApiRepository.getQuestionsByServiceId(widget.args);
 
       if (response.isSuccess!) {
         questions = List<Map<String, dynamic>>.from(
