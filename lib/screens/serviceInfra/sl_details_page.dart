@@ -112,7 +112,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       body: _isLoading ? _buildLoadingIndicator() : _buildServiceDetailsList(),
       persistentFooterButtons: _isLoading
           ? []
-          : _ctas.isNotEmpty && _ctas.any((cta) => cta['text'].isNotEmpty)
+            : _ctas.isNotEmpty && _ctas.any((cta) => cta['text'].isNotEmpty)
               ? [_buildCtas()]
               : _isOptedIn
                   ? [_buildAlreadyOptedButton()]

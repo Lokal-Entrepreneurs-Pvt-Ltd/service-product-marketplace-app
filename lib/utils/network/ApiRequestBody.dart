@@ -7,7 +7,7 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
-  static sendQusetionAnswers(int serviceId, Map<String, String> answermap) {
+  static sendQusetionAnswers(String serviceId, Map<String, String> answermap) {
     return { SERVICE_ID: serviceId, ANSWER_MAP: answermap};
   }
 

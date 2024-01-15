@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/constants/json_constants.dart';
-import 'package:lokal/screen_routes.dart';
-import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
-import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
+import '../../../constants/json_constants.dart';
+
 class ApplyForJobServiceQuestions extends StatefulWidget {
   const ApplyForJobServiceQuestions({Key? key, this.args}) : super(key: key);
   final dynamic args;
+
   @override
   State<ApplyForJobServiceQuestions> createState() =>
       _ApplyForJobServiceQuestionsState();
@@ -22,22 +20,22 @@ class ApplyForJobServiceQuestions extends StatefulWidget {
 
 class _ApplyForJobServiceQuestionsState
     extends State<ApplyForJobServiceQuestions> {
-  List<int?> selectedOptions = List.filled(6, null);
-  List<Map<int, int>?> answermap = [];
+  Map<int, int?> selectedAnswers = {};
+  List<Map<int, int?>?> answermap = [];
   List<Map<String, dynamic>> questions = [];
   bool isDataLoaded = false;
   bool isError = false; // Flag to check API error
 
   Future<void> loadData() async {
     try {
-      final response = await ApiRepository.getQuestionsByServiceId(widget.args);
+      final response =
+      await ApiRepository.getQuestionsByServiceId(widget.args);
 
       if (response.isSuccess!) {
         questions = List<Map<String, dynamic>>.from(
           response.data!.map((item) => Map<String, dynamic>.from(item)),
         );
         setState(() {
-          selectedOptions = List.filled(questions.length, null);
           isDataLoaded = true; // Set the flag to true once data is loaded
         });
       } else {
@@ -51,12 +49,13 @@ class _ApplyForJobServiceQuestionsState
     } catch (e) {
       print(e);
       // Set the error flag to true when there's an exception
-      isError = true;
-      isDataLoaded = true; // Set the flag to true in case of exception
+      setState(() {
+        isError = true;
+        isDataLoaded = true; // Set the flag to true in case of exception
+      });
       UiUtils.showToast("Error updating data");
     }
   }
-
 
   @override
   void initState() {
@@ -165,9 +164,7 @@ class _ApplyForJobServiceQuestionsState
           ),
         ),
         SizedBox(height: 15),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
+        Column(
           children: List.generate(
             answers.length,
                 (answerIndex) {
@@ -175,11 +172,15 @@ class _ApplyForJobServiceQuestionsState
               int answerId = answer['answerId'] ?? -1;
               String answerText = answer['answerText'] ?? '';
 
-              return SelectableTextWidget(
-                text: answerText,
-                border: 0,
-                isSelected: selectedOptions[index] == answerId,
-                onTap: () => updateSelectedIndex(answerId, index),
+              return RadioListTile<int?>(
+                title: Text(answerText),
+                value: answerId,
+                groupValue: selectedAnswers[index],
+                onChanged: (int? value) {
+                  setState(() {
+                    selectedAnswers[index] = value;
+                  });
+                },
               );
             },
           ),
@@ -196,43 +197,34 @@ class _ApplyForJobServiceQuestionsState
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
-        onClick: updatedata,
+        onClick: () {
+          bool allQuestionsAnswered = selectedAnswers.values.every(
+                (value) => value != null,
+          );
+
+          if (!allQuestionsAnswered) {
+            // Show a toast message if not all questions are answered
+            UiUtils.showToast("Please answer all questions before applying for the job");
+          } else {
+            // All questions are answered, proceed with data update
+            updatedata();
+          }
+        },
       ),
     );
   }
 
   void updatedata() async {
-    try {
-      Map<String, String> userAnswers = {};
-      for (int i = 0; i < questions.length; i++) {
-        int? answerId = selectedOptions[i];
-        if (answerId != null) {
-          final maps = {
-            questions[i]["questionId"].toString(): answerId.toString()
-          };
-          userAnswers.addEntries(maps.entries);
-          //      {"questionId": questions[i]["questionId"], "answerId": answerId}
-        }
-      }
+    final response = await ApiRepository.updateAnswersInService(
+      ApiRequestBody.sendQusetionAnswers(
+          widget.args["serviceId"], {}),
+    );
 
-      final response = await ApiRepository.updateAnswersInService(
-        ApiRequestBody.sendQusetionAnswers(widget.args["serviceId"], userAnswers),
-      );
-
-      if (response.isSuccess!) {
-        UiUtils.showToast("Job Applied Successfully");
-        NavigationUtils.pop();
-      } else {
-        UiUtils.showToast(response.error![MESSAGE]);
-      }
-    } catch (e) {
-      print(e);
+    if (response.isSuccess!) {
+      UiUtils.showToast("Job Applied Successfully");
+      Navigator.pop(context);
+    } else {
+      UiUtils.showToast(response.error![MESSAGE]);
     }
-  }
-
-  void updateSelectedIndex(int answerId, int questionIndex) {
-    setState(() {
-      selectedOptions[questionIndex] = answerId;
-    });
   }
 }
