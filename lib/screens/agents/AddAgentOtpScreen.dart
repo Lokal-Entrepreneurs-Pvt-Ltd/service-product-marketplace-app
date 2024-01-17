@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lokal/constants/colors.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
@@ -38,7 +40,10 @@ class _AddAgentOtpScreenState extends State<AddAgentOtpScreen> {
   @override
   Widget build(BuildContext context) {
     // final args = ModalRoute.of(context)!.settings.arguments as Map;
-    var phoneNo = widget.args['phoneNo'];
+    // var phoneNo = widget.args['phoneNo'];
+    var phoneNo = widget.args["mobile"];
+    var name = widget.args["name"];
+    var email = widget.args["email"];
     var partnerId = widget.args['partnerId'];
 
     print(widget.args);
@@ -114,17 +119,23 @@ class _AddAgentOtpScreenState extends State<AddAgentOtpScreen> {
                   backgroundColor: const Color(0xFFFEE440),
                   onClick: () async {
                     if (otpPinEntered.length == 6) {
-                      final response = await ApiRepository.verifyAddAgentOtp(
-                        ApiRequestBody.getVerifyAddAgentOtpRequest(
-                          phoneNo,
-                          otpPinEntered,
-                          partnerId
-                        ),
-                      );
+                      // final response = await ApiRepository.verifyAddAgentOtp(
+                      //   ApiRequestBody.getVerifyAddAgentOtpRequest(
+                      //       phoneNo, otpPinEntered, partnerId),
+                      // );
+                      final response = await ApiRepository.verifyAndAddAgentOtp(
+                          ApiRequestBody.addAgentAndVerify(
+                              email, name, phoneNo, otpPinEntered));
                       if (response.isSuccess!) {
-                        if (response.data) {
+                        if (response.data != null) {
                           HttpScreenClient.displayDialogBox(
                               ADD_AGENT_SUCESSFULL);
+                          var args = widget.args as Map<String, dynamic>;
+                          args.remove("phone");
+                          args.remove("mobile");
+                          args.remove("name");
+                          NavigationUtils.openScreenUntil(
+                              ScreenRoutes.serviceScreen, args);
                         } else {
                           HttpScreenClient.displayDialogBox(ADD_AGENT_FAILED);
                         }

@@ -207,8 +207,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> uploadDocuments(args) {
-    return HttpScreenClient.getmultipartrequest(
-        ApiRoutes.imageUpload, args);
+    return HttpScreenClient.getmultipartrequest(ApiRoutes.imageUpload, args);
   }
 
   static Future<ApiResponse> getNearestTowers(args) {
@@ -248,7 +247,11 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> verifyAddAgentOtp(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAddAgentOtp, args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAndAddAgent, args);
+  }
+
+  static Future<ApiResponse> verifyAndAddAgentOtp(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAndAddAgent, args);
   }
 
   static Future<ApiResponse> verifyAgentForPartner(args) {
@@ -285,6 +288,10 @@ class ApiRepository {
 
   static Future<ApiResponse> addPartnerAgent(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.addPartnerAgent, args);
+  }
+
+  static Future<ApiResponse> addAgentInService(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.addAgentInService, args);
   }
 
   static Future<ApiResponse> notifyAllAgents(args) {

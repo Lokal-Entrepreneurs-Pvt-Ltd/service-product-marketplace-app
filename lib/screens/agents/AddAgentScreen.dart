@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
 import '../../Widgets/UikButton/UikButton.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
@@ -29,15 +31,10 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
   bool _isApiCallInProgress = false;
   String phoneNo = "";
 
-
-
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +46,7 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
           if (_isApiCallInProgress) _buildProgressBar(),
         ],
       ),
-      persistentFooterButtons: [
-        _buildContinueButton()
-      ],
+      persistentFooterButtons: [_buildContinueButton()],
     );
   }
 
@@ -76,12 +71,10 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
           if (!_isApiCallInProgress) {
             if (_nameRequired && _phoneNumberValid && _emailValid) {
               _handleContinueButtonPress();
+            } else {
+              UiUtils.showToast("Please fix the validation errors.");
+              return;
             }
-            else {
-                UiUtils.showToast("Please fix the validation errors.");
-                return;
-              }
-
           }
         },
         child: UikButton(
@@ -218,37 +211,35 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
     );
   }
 
-
   void _handleContinueButtonPress() async {
     setState(() {
-      _isApiCallInProgress = true; // Set this flag to true when the API call starts.
+      _isApiCallInProgress =
+          true; // Set this flag to true when the API call starts.
     });
+    try {
+      final response = await ApiRepository.addAgentInService(
+          ApiRequestBody.sendMobileForOtp(_phoneNumberController.text));
 
-    final response = await ApiRepository.addPartnerAgent(
-      ApiRequestBody.submitAddPartnerAgentRequest(
-        UserDataHandler.getUserId().toString(),
-        _nameController.text,
-        _phoneNumberController.text,
-        _emailController.text,
-      ),
-    ).catchError((err) {
+      if (response.isSuccess!) {
+        var args = widget.args as Map<String, dynamic>;
+        args.addAll({
+          "name": _nameController.text,
+          "mobile": _phoneNumberController.text,
+          "email": _emailController.text
+        });
+        // UiUtils.showToast("Agent Added");
+        NavigationUtils.openScreen(ScreenRoutes.addAgentOtpScreen, args);
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+        NavigationUtils.pop();
+      }
+    } catch (err) {
       setState(() {
-        _isApiCallInProgress = false; // Set this flag to false if an error occurs.
+        _isApiCallInProgress =
+            false; // Set this flag to false if an error occurs.
       });
       NavigationUtils.pop();
-      UiUtils.showToast(err);
-    });
-
-    setState(() {
-      _isApiCallInProgress = false; // Set this flag to false when the API call completes.
-    });
-
-    if (response.isSuccess!) {
-      UiUtils.showToast("Agent Added");
-      NavigationUtils.openScreenUntil(ScreenRoutes.userServiceTabsScreen, widget.args);
-    } else {
-      UiUtils.showToast(response.error![MESSAGE]);
-      NavigationUtils.pop();
+      UiUtils.showToast(err.toString());
     }
   }
 }
