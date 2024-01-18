@@ -80,9 +80,10 @@ class AppRoutes {
 
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: UserDataHandler.getUserToken().isEmpty
-        ? _onboardingScreen.path
-        : uikBottomNavigationBar.path,
+    // initialLocation: UserDataHandler.getUserToken().isEmpty
+    //     ? _onboardingScreen.path
+    //     : uikBottomNavigationBar.path,
+     initialLocation: _profile_uploaddocuments.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,

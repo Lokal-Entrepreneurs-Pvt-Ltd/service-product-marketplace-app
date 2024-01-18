@@ -86,6 +86,7 @@ abstract class ActionUtils {
       final response =  await ApiRepository.updateCustomerInfo(
           ApiRequestBody.updateLatlong(position.latitude, position.longitude));
       if (response.isSuccess!) {
+        UiUtils.showToast("Location Updated");
         NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
       } else {
         UiUtils.showToast(response.error![MESSAGE]);

@@ -11,7 +11,7 @@ class ApiRequestBody {
     return { SERVICE_ID: serviceId, ANSWER_MAP: answermap};
   }
 
-  static getuploaddocumentsid(String type, File file) async {
+  static  getuploaddocumentsid(String type, File file) {
     return {FILE: file, USE_CASE: type};
   }
 
