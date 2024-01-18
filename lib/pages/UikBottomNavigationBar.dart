@@ -25,6 +25,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   GlobalKey homekey = GlobalKey();
   GlobalKey menukey = GlobalKey();
   GlobalKey accountkey = GlobalKey();
+  GlobalKey jobkey = GlobalKey();
 
   static final List<Widget> _widgetOptions = <Widget>[
     UikHome().getPage(),
@@ -35,7 +36,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   void _onItemTapped(int index) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     if (index == _selectedIndex) return;
-    if (index == 1) {
+    if (index == 2) {
       Map<String, dynamic>? args = {"academyId": 3};
       NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
@@ -45,7 +46,10 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     //   };
     //   NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
     // }
-    if (index == 2) {
+    if (index == 1) {
+      context!.push(ScreenRoutes.alljobs);
+    }
+    if (index == 3) {
       context!.push(ScreenRoutes.myAccountScreen, extra: {});
     }
   }
@@ -85,7 +89,26 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             align: ContentAlign.top,
             builder: (context, controller) {
               return CoachMark(
-                text: "dsfsdfdsfdsdsfdfdcbhtb",
+                text: "This is the home page where you find services",
+                onNext: () {
+                  controller.next();
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: "home-key",
+        keyTarget: jobkey,
+        shape: ShapeLightFocus.Circle,
+        radius: 80,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return CoachMark(
+                text: "This is the Job page where you find related job",
                 onNext: () {
                   controller.next();
                 },
@@ -103,7 +126,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             align: ContentAlign.top,
             builder: (context, controller) {
               return CoachMark(
-                text: "dsfsdfdsfdsdsfdfdcbhtb",
+                text: "This tab contains academy info",
                 onNext: () {
                   controller.next();
                 },
@@ -121,7 +144,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             align: ContentAlign.top,
             builder: (context, controller) {
               return CoachMark(
-                text: "dsfsdfdsfdsdsfdfdcbhtb",
+                text: "This tab contains information related to your account.",
                 onNext: () {
                   controller.next();
                 },
@@ -146,9 +169,10 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               scrollDirection: Axis.horizontal,
               children: <Widget>[
                 buildNavItem(Icons.home, 'Home', 0, homekey),
-                buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
+                buildNavItem(Icons.work, "Job", 1, jobkey),
+                buildNavItem(Icons.menu_book, 'Academy', 2, menukey),
                 buildNavItem(
-                    Icons.person_outline_sharp, 'Account', 2, accountkey),
+                    Icons.person_outline_sharp, 'Account', 3, accountkey),
                 // buildNavItem(Icons.payment, 'ExtraPe', 3),
                 // Add more items as needed
               ],
