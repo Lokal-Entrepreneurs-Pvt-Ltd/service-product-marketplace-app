@@ -103,6 +103,7 @@ class _AddAgentOtpScreenState extends State<AddAgentOtpScreen> {
               onCompleted: (pin) {
                 otpPinEntered = pin;
               },
+              onChanged: (value) {},
             ),
             const SizedBox(height: 20.0),
             const SizedBox(
