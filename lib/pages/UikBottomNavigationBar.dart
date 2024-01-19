@@ -6,6 +6,7 @@ import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../main.dart';
@@ -60,7 +61,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
         const Duration(
           seconds: 1,
         ), (() {
-      _showTutorialCoachMark();
+          if(!UserDataHandler.getIsOnboardingCoachMarkDisplayed())
+             _showTutorialCoachMark();
     }));
     super.initState();
   }
@@ -75,6 +77,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
         focusAnimationDuration: Duration(milliseconds: 0),
         unFocusAnimationDuration: Duration(milliseconds: 0))
       ..show(context: context);
+    UserDataHandler.saveIsOnboardingCoachMarkDisplayed(true);
   }
 
   void initTarget() {
@@ -98,25 +101,25 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           ),
         ],
       ),
-      TargetFocus(
-        identify: "home-key",
-        keyTarget: jobkey,
-        shape: ShapeLightFocus.Circle,
-        radius: 80,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) {
-              return CoachMark(
-                text: "This is the Job page where you find related job",
-                onNext: () {
-                  controller.next();
-                },
-              );
-            },
-          ),
-        ],
-      ),
+      // TargetFocus(
+      //   identify: "home-key",
+      //   keyTarget: jobkey,
+      //   shape: ShapeLightFocus.Circle,
+      //   radius: 80,
+      //   contents: [
+      //     TargetContent(
+      //       align: ContentAlign.top,
+      //       builder: (context, controller) {
+      //         return CoachMark(
+      //           text: "This is the Job page where you find related job",
+      //           onNext: () {
+      //             controller.next();
+      //           },
+      //         );
+      //       },
+      //     ),
+      //   ],
+      // ),
       TargetFocus(
         identify: "home-key",
         keyTarget: menukey,
@@ -169,7 +172,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               scrollDirection: Axis.horizontal,
               children: <Widget>[
                 buildNavItem(Icons.home, 'Home', 0, homekey),
-                buildNavItem(Icons.work, "Job", 1, jobkey),
+                // buildNavItem(Icons.work, "Job", 1, jobkey),
                 buildNavItem(Icons.menu_book, 'Academy', 2, menukey),
                 buildNavItem(
                     Icons.person_outline_sharp, 'Account', 3, accountkey),

@@ -127,6 +127,7 @@ class _OtpScreenState extends State<OtpScreen> {
         );
 
         if (response.isSuccess!) {
+          UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
           UiUtils.showToast(OTP_VERIFIED);
           UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
           var customerData = response.data[CUSTOMER_DATA];
@@ -134,7 +135,16 @@ class _OtpScreenState extends State<OtpScreen> {
             UserDataHandler.saveCustomerData(customerData);
           }
           UserDataHandler.saveIsUserVerified(true);
-          NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+          if(response.data[NEXT_PAGE]!=null){
+            final String nextPage = response.data[NEXT_PAGE];
+            if(nextPage.isNotEmpty)
+              NavigationUtils.openScreenUntil(nextPage);
+            else
+              NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+          }
+          else
+            NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
