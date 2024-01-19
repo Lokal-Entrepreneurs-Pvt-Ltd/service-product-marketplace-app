@@ -157,7 +157,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
           NavigationUtils.openScreen(ScreenRoutes.loginScreen);
         },
         child: Text(
-          'Are you Lokal Partner/Agent ?',
+          'Login as Lokal Partner/Agent',
           style: GoogleFonts.poppins(
             color: Colors.red, // Change the color to red
             decoration: TextDecoration.underline,
@@ -171,7 +171,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
     return Padding(
       padding: const EdgeInsets.only(left: DIMEN_20),
       child: Text(
-        LOGIN,
+        "Login to Access Lokal Jobs",
         style: GoogleFonts.poppins(
           fontSize: DIMEN_18,
           fontWeight: FontWeight.w500,
