@@ -16,9 +16,9 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   List<String> images = [
-    "assets/images/NewOnboarding3.png",
-    "assets/images/NewOnboarding2.png",
-    "assets/images/NewOnboarding1.png",
+    "assets/images/useronboarding1.png",
+    "assets/images/useronboarding2.png",
+    "assets/images/useronboarding3.png",
   ];
   int _currentPage = 0;
   int totalImages = 3;
@@ -99,7 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             curve: Curves.easeOut,
                           );
                         } else {
-                          NavigationUtils.openScreen(ScreenRoutes.loginScreen);
+                          NavigationUtils.openScreen(ScreenRoutes.customerLoginScreen);
                         }
                       },
                       child: ElevatedButton(

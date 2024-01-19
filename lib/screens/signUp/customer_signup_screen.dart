@@ -14,14 +14,14 @@ import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 import '../../utils/storage/preference_constants.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({Key? key}) : super(key: key);
+class CustomerSignupScreen extends StatefulWidget {
+  const CustomerSignupScreen({Key? key}) : super(key: key);
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  _CustomerSignupScreenState createState() => _CustomerSignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -44,9 +44,6 @@ class _SignupScreenState extends State<SignupScreen> {
   int authErrorCode = -1;
   String authErrorMessage = "";
 
-  final List<String> userTypes = [PARTNER, AGENT];
-  String selectedUserType = PARTNER;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +59,26 @@ class _SignupScreenState extends State<SignupScreen> {
             Expanded(
               child: _buildSignupForm(),
             ),
+            const SizedBox(height: DIMEN_24),
+            _buildAreYouText()
           ],
+        ),
+      ),
+    );
+  }
+  Widget _buildAreYouText() {
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          // Navigate to the new route for Partner/Agent
+          NavigationUtils.openScreen(ScreenRoutes.signUpScreen);
+        },
+        child: Text(
+          'Are you Lokal Partner/Agent ?',
+          style: GoogleFonts.poppins(
+            color: Colors.red, // Change the color to red
+            decoration: TextDecoration.underline,
+          ),
         ),
       ),
     );
@@ -88,29 +104,11 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget _buildTitle() {
-    return Padding(
-      padding: const EdgeInsets.only(left: DIMEN_21),
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: REGISTER_NEW,
-              style: GoogleFonts.poppins(
-                fontSize: DIMEN_24,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xFF212121),
-              ),
-            ),
-            const TextSpan(text: '\n'),
-            TextSpan(
-              text: PROVIDE_SERVICES,
-              style: GoogleFonts.poppins(
-                fontSize: DIMEN_24,
-                color: const Color(0xFF212121),
-              ),
-            ),
-          ],
-        ),
+    return Center(
+      child: Image.asset(
+        'assets/images/lokal_logo.png',
+        width: 200,
+        height: 100,
       ),
     );
   }
@@ -128,8 +126,6 @@ class _SignupScreenState extends State<SignupScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: DIMEN_20),
-            _buildUserTypeSelection(),
             const SizedBox(height: DIMEN_20),
             _buildTextField(
               controller: emailController,
@@ -165,48 +161,6 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: DIMEN_15),
             _buildPrivacyAndTermsText(),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildUserTypeSelection() {
-    return Padding(
-      padding: const EdgeInsets.only(left: DIMEN_15, right: DIMEN_15),
-      child: Container(
-        height: DIMEN_52,
-        decoration: BoxDecoration(
-          color: const Color(0xFFEEEEEE),
-          borderRadius: BorderRadius.circular(DIMEN_24),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: userTypes.map((type) {
-            bool isSelected = type == selectedUserType;
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedUserType = type;
-                });
-              },
-              child: Container(
-                height: DIMEN_43,
-                width: DIMEN_108,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: isSelected ? Colors.white : null,
-                  borderRadius: BorderRadius.circular(DIMEN_24),
-                ),
-                child: Text(
-                  type,
-                  style: GoogleFonts.poppins(
-                    color: isSelected ? const Color(0xFF212121) : const Color(0xFF9E9E9E),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
         ),
       ),
     );
@@ -325,10 +279,8 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-
   // Custom phone number validation logic for Indian numbers
   void _handlePhoneNumberValidation(String phoneNo) {
-
     if (UiUtils.isPhoneNoValid(phoneNo)) {
       setState(() {
         errorPhone = false;
@@ -387,14 +339,15 @@ class _SignupScreenState extends State<SignupScreen> {
   Future<void> _handleSignup() async {
     if (UiUtils.isEmailValid(emailController.text) &&
         passwordController.text.length >= 6 &&
-        confirmPasswordController.text == passwordController.text && UiUtils.isPhoneNoValid(phoneNoController.text)) {
+        confirmPasswordController.text == passwordController.text &&
+        UiUtils.isPhoneNoValid(phoneNoController.text)) {
       NavigationUtils.showLoaderOnTop();
       final response = await ApiRepository.signupByPhoneNumberOrEmail(
         ApiRequestBody.getSignUpRequest(
           emailController.text,
           passwordController.text,
-          selectedUserType,
-          phoneNoController.text
+          CUSTOMER,
+          phoneNoController.text,
         ),
       ).catchError((error) {
         NavigationUtils.pop();
@@ -403,14 +356,15 @@ class _SignupScreenState extends State<SignupScreen> {
       NavigationUtils.pop();
 
       if (response.isSuccess!) {
-        if(response.data[AUTH_TOKEN]!=null)
-        UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+        if (response.data[AUTH_TOKEN] != null)
+          UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
         var customerData = response.data[CUSTOMER_DATA];
         if (customerData != null) {
           UserDataHandler.saveCustomerData(customerData);
         }
         NavigationUtils.pop();
-        NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": phoneNoController.text.toString(),  USERTYPE: selectedUserType});
+        NavigationUtils.openScreen(
+            ScreenRoutes.otpScreen, {"phoneNumber": phoneNoController.text.toString(), USERTYPE: CUSTOMER});
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
