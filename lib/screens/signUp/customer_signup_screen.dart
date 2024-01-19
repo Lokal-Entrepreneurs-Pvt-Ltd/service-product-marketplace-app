@@ -55,13 +55,27 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
           children: [
             const SizedBox(height: DIMEN_24),
             _buildTitle(),
-            const SizedBox(height: DIMEN_35),
+            const SizedBox(height: DIMEN_32),
+            _buildSingupAsText(),
+            const SizedBox(height: DIMEN_12),
             Expanded(
               child: _buildSignupForm(),
             ),
-            const SizedBox(height: DIMEN_24),
-            _buildAreYouText()
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSingupAsText() {
+    return Padding(
+      padding: const EdgeInsets.only(left: DIMEN_20),
+      child: Text(
+        "Signup to Access Lokal Jobs",
+        style: GoogleFonts.poppins(
+          fontSize: DIMEN_18,
+          fontWeight: FontWeight.w500,
+          color: const Color(0xFF212121),
         ),
       ),
     );
@@ -71,10 +85,10 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
       child: GestureDetector(
         onTap: () {
           // Navigate to the new route for Partner/Agent
-          NavigationUtils.openScreen(ScreenRoutes.signUpScreen);
+          NavigationUtils.openScreenUntil(ScreenRoutes.signUpScreen);
         },
         child: Text(
-          'Are you Lokal Partner/Agent ?',
+          'Register as Lokal Partner/Agent',
           style: GoogleFonts.poppins(
             color: Colors.red, // Change the color to red
             decoration: TextDecoration.underline,
@@ -160,6 +174,8 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
             _buildSignupButton(),
             const SizedBox(height: DIMEN_15),
             _buildPrivacyAndTermsText(),
+            const SizedBox(height: DIMEN_15),
+            _buildAreYouText()
           ],
         ),
       ),
@@ -263,7 +279,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   Widget _buildLoginButton() {
     return InkWell(
       onTap: () {
-        NavigationUtils.openScreen(ScreenRoutes.loginScreen);
+        NavigationUtils.openScreenUntil(ScreenRoutes.customerLoginScreen);
       },
       child: TextButton(
         onPressed: null,

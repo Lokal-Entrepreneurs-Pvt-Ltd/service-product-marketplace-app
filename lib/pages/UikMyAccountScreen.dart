@@ -3,6 +3,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
@@ -40,48 +41,7 @@ class UikMyAccountScreen extends StandardPage {
   }
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_ORDER_HISTORY:
-        openOrders(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_DETAILS:
-        openDetails(uikAction);
-        break;
-      case UIK_ACTION.OPEN_WISHLIST:
-        openWishlist(uikAction);
-        break;
-      case UIK_ACTION.OPEN_ADDRESS:
-        openAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_AGENT:
-        openMyAgent(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_REWARDS:
-        openMyRewards(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PAYMENT:
-        openPayment(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_ADDRESS:
-        openAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_SIGN_OUT:
-        {
-          UiUtils.showToast(LOG_OUT);
-          clearDataAndMoveToOnboarding(uikAction);
-        }
-        break;
-      case UIK_ACTION.OPEN_LOG_IN:
-        {
-          UiUtils.showToast(LOG_IN);
-          clearDataAndMoveToOnboarding(uikAction);
-        }
-        break;
-      case UIK_ACTION.PROFILE_SCREEN:
-        NavigationUtils.openScreen(ScreenRoutes.profileScreen);
-        break;
-      default:
-    }
+    ActionUtils.executeAction(uikAction);
   }
 
   @override

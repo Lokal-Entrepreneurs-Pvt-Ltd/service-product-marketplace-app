@@ -73,7 +73,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
         opacityShadow: 0.3,
         targets: targets,
         pulseEnable: false,
-        hideSkip: true,
+        hideSkip: false,
         focusAnimationDuration: Duration(milliseconds: 0),
         unFocusAnimationDuration: Duration(milliseconds: 0))
       ..show(context: context);
@@ -92,7 +92,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             align: ContentAlign.top,
             builder: (context, controller) {
               return CoachMark(
-                text: "This is the home page where you find services",
+                text: "Home page where you will find Services/Jobs",
                 onNext: () {
                   controller.next();
                 },
@@ -129,7 +129,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             align: ContentAlign.top,
             builder: (context, controller) {
               return CoachMark(
-                text: "This tab contains academy info",
+                text: "All Lokal Training Academy info",
                 onNext: () {
                   controller.next();
                 },
@@ -147,7 +147,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             align: ContentAlign.top,
             builder: (context, controller) {
               return CoachMark(
-                text: "This tab contains information related to your account.",
+                text: "All information related to your account.",
                 onNext: () {
                   controller.next();
                 },

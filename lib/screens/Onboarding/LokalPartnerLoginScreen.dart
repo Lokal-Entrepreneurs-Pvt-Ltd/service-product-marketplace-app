@@ -17,16 +17,16 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../Widgets/UikButton/UikButton.dart';
 
-class LoginScreen extends StatefulWidget {
+class LokalPartnerLoginScreen extends StatefulWidget {
   final String? selectedUserType;
 
-  const LoginScreen({Key? key, this.selectedUserType}) : super(key: key);
+  const LokalPartnerLoginScreen({Key? key, this.selectedUserType}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _LokalPartnerLoginScreenState createState() => _LokalPartnerLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final List<String> userTypes = [PARTNER, AGENT];

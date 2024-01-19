@@ -6,6 +6,7 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 import '../constants/json_constants.dart';
+import '../constants/strings.dart';
 import '../screen_routes.dart';
 import 'NavigationUtils.dart';
 import 'UiUtils/UiUtils.dart';
@@ -71,12 +72,57 @@ abstract class ActionUtils {
           handleSelectedLocation();
         }
         break;
+      case UIK_ACTION.OPEN_ORDER_HISTORY:
+        NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen, {});
+        break;
+      case UIK_ACTION.OPEN_MY_DETAILS:
+        NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen, {});
+        break;
+      case UIK_ACTION.OPEN_WISHLIST:
+        UiUtils.showToast("WISHLIST");
+        break;
+      case UIK_ACTION.OPEN_ADDRESS:
+        openAddress(uikAction);
+        break;
+      case UIK_ACTION.OPEN_MY_AGENT:
+        NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen, {});
+        break;
+      case UIK_ACTION.OPEN_MY_REWARDS:
+        NavigationUtils.openScreen(ScreenRoutes.myRewardsPage, {});
+        break;
+      case UIK_ACTION.OPEN_PAYMENT:
+        openPayment(uikAction);
+        break;
+      case UIK_ACTION.OPEN_MY_ADDRESS:
+        openAddress(uikAction);
+        break;
+      case UIK_ACTION.OPEN_SIGN_OUT:
+        {
+          UiUtils.showToast(LOG_OUT);
+          clearDataAndMoveToOnboarding(uikAction);
+        }
+        break;
+      case UIK_ACTION.OPEN_LOG_IN:
+        {
+          UiUtils.showToast(LOG_IN);
+          clearDataAndMoveToOnboarding(uikAction);
+        }
+        break;
+      case UIK_ACTION.PROFILE_SCREEN:
+        NavigationUtils.openScreen(ScreenRoutes.profileScreen);
+        break;
       default:
         {}
     }
   }
 
-  static void handleSelectedLocation() async {
+static void clearDataAndMoveToOnboarding(UikAction uikAction) {
+  UserDataHandler.clearUserToken();
+  NavigationUtils.openScreen(ScreenRoutes.onboardingScreen, {});
+  // todo mano recreate the main.dart by adding listners
+}
+
+static void handleSelectedLocation() async {
     Position? position = await LocationUtils.getCurrentPosition();
     if (position != null) {
       GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance;

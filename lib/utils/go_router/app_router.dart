@@ -30,7 +30,7 @@ import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
 import 'package:lokal/screens/Onboarding/CustomerLoginScreen.dart';
-import 'package:lokal/screens/Onboarding/LoginScreen.dart';
+import 'package:lokal/screens/Onboarding/LokalPartnerLoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/screens/WebViewScreen.dart';
@@ -285,7 +285,7 @@ class AppRoutes {
   static final GoRoute _loginScreen = GoRoute(
     path: ScreenRoutes.loginScreen,
     builder: (context, state) {
-      return LoginScreen(
+      return LokalPartnerLoginScreen(
         key: state.pageKey,
       );
     },
@@ -555,7 +555,7 @@ class AppRoutes {
   static final GoRoute _newOnboardingScreen = GoRoute(
     path: ScreenRoutes.newOnboardingScreen,
     builder: (context, state) {
-      return LoginScreen(
+      return LokalPartnerLoginScreen(
         key: state.pageKey,
       );
     },
