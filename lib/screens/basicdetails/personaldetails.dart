@@ -22,6 +22,7 @@ class PersonalDetails extends StatefulWidget {
 }
 
 class _PersonalDetailsState extends State<PersonalDetails> {
+  Future<Map<String, dynamic>?>? _futureData;
   TextEditingController controller = TextEditingController();
   int selectedIndex = -1;
   DateTime datePicker = DateTime.now();
@@ -29,17 +30,91 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   double lat = 0;
   double long = 0;
 
+  Future<Map<String, dynamic>?>  fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          setState(() {
+            controller.text = userDataMagento['firstName'] ?? '';
+            datePicker = userDataMagento['dob'] != null
+                ? DateTime.parse(userDataMagento['dob'])
+                : DateTime.now();
+            lat = userData['latitude'] ?? 0;
+            long = userData['longitude'] ?? 0;
+            // Assuming gender is either "Male" or "Female"
+            selectedIndex = userData['gender'] == "Male" ? 0 : 1;
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("Error fetching initial data");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _futureData=  fetchData(); // Call fetchData when the widget is initialized
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(),
-      body: SingleChildScrollView(
-        child: buildBody(),
+      body: FutureBuilder(
+        // Use FutureBuilder to wait for the fetchData to complete
+        future: _futureData,
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the future has completed, build the body with fetched data
+            return SingleChildScrollView(
+              child: buildBody(),
+            );
+          } else if (snapshot.hasError) {
+            // Handle any errors that occur during data fetching
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else {
+            // Show a loading indicator while fetching data
+            return Center(
+              child: CircularProgressIndicator(color:Colors.yellow),
+            );
+          }
+        },
       ),
       persistentFooterButtons: [
         buildContinueButton(),
       ],
+    );
+  }
+
+
+
+  Widget buildBody() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildTitle("Personal Details", 30, FontWeight.w700),
+          buildTitle("Gender", 20, FontWeight.w600),
+          SizedBox(height: 8),
+          buildGenderSelection(),
+          SizedBox(height: 32),
+          buildTextBox("Full Name", "Type your full name"),
+          buildDatePickerField("Date of Birth"),
+          buildLocationField(),
+        ],
+      ),
     );
   }
 
@@ -79,27 +154,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       ),
     );
   }
-
-  Widget buildBody() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildTitle("Personal Details", 30, FontWeight.w700),
-          buildTitle("Gender", 20, FontWeight.w600),
-          SizedBox(height: 8),
-          buildGenderSelection(),
-          SizedBox(height: 32),
-          buildTextBox("Full Name", "Type your full name"),
-          buildDatePickerField("Date of Birth"),
-          buildLocationField(),
-        ],
-      ),
-    );
-  }
-
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -238,7 +292,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             Text(
               locationAvailable
                   ? "Current Location" // Display this text if location is available
-                  : "Select Location", // Display this text if no location is available
+                  : " Tap to Select Location", // Display this text if no location is available
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
                 fontSize: 16,
@@ -326,8 +380,8 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       context,
       initialDate: datePicker,
       backgroundColor: Colors.yellow[100],
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2090),
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2005),
       dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,
       looping: false,

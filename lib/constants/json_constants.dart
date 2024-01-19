@@ -89,6 +89,7 @@ const String BLOCK_CODE = "blockCode";
 const String BLOCK_NAME = "blockName";
 const String LATITUDE = "latitude";
 const String LONGITUDE = "longitude";
+const String NEXT_PAGE = "nextPage";
 
 const String TOKEN = "token";
 const String TOKEN_TYPE = "tokenType";

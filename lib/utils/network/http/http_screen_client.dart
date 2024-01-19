@@ -141,7 +141,7 @@ class HttpScreenClient {
         request.files.add(multipartFile);
         bodyParams.remove(FILE);
       }
-      request.fields.addAll(bodyParams as Map<String, String>);
+      request.fields.addAll({USE_CASE : bodyParams[USE_CASE] });
       var response = await request.send();
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
         var responseBody = await response.stream.bytesToString();
