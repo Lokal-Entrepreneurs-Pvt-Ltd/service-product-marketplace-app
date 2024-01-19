@@ -52,6 +52,7 @@ import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
 import 'package:lokal/screens/serviceInfra/customer_details.dart';
+import 'package:lokal/screens/serviceInfra/jobscreen.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
 import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
@@ -140,14 +141,14 @@ class AppRoutes {
       _profile_personal_details,
       _jobApplicationsPersonalDetails,
       _jobApplicationServiceQuestions,
+      _alljobDetails,
       _customerloginScreen,
       _customerSignUpScreen
+
     ],
   );
 
   GoRouter get router => _goRouter;
-
-
 
   static final GoRoute _profile_personal_details = GoRoute(
     path: ScreenRoutes.personalDetails,
@@ -158,7 +159,6 @@ class AppRoutes {
       // return OtherDetails();
     },
   );
-
 
   static final GoRoute _profile_otherdetails = GoRoute(
     path: ScreenRoutes.otherdetails,
@@ -189,17 +189,24 @@ class AppRoutes {
       // return OtherDetails();
     },
   );
-
+  static final GoRoute _alljobDetails = GoRoute(
+    path: ScreenRoutes.alljobs,
+    builder: (context, state) {
+      return JobScreen(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
 
   static final GoRoute _jobApplicationServiceQuestions = GoRoute(
     path: ScreenRoutes.jobApplicationServiceQuestion,
     builder: (context, state) {
       final Map<String, dynamic>? extraArgs =
-      state.extra as Map<String, dynamic>?;
+          state.extra as Map<String, dynamic>?;
       return ApplyForJobServiceQuestions(
         key: state.pageKey,
-        args: extraArgs
-        ,
+        args: extraArgs,
       );
       // return OtherDetails();
     },
@@ -209,7 +216,7 @@ class AppRoutes {
     path: ScreenRoutes.jobApplicationPersonalDetails,
     builder: (context, state) {
       final Map<String, dynamic>? extraArgs =
-      state.extra as Map<String, dynamic>?;
+          state.extra as Map<String, dynamic>?;
       return ApplyForJobPersonalDetails(
         key: state.pageKey,
         args: extraArgs,

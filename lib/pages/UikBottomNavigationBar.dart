@@ -6,6 +6,7 @@ import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import '../main.dart';
 import 'UikHome.dart';
@@ -19,9 +20,15 @@ class UikBottomNavigationBar extends StatefulWidget {
 
 class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   final int _selectedIndex = 0;
+  TutorialCoachMark? _tutorialCoachMark;
+  List<TargetFocus> targets = [];
+  GlobalKey homekey = GlobalKey();
+  GlobalKey menukey = GlobalKey();
+  GlobalKey accountkey = GlobalKey();
+  GlobalKey jobkey = GlobalKey();
 
   static final List<Widget> _widgetOptions = <Widget>[
-     UikHome().getPage(),
+    UikHome().getPage(),
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
@@ -29,10 +36,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   void _onItemTapped(int index) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     if (index == _selectedIndex) return;
-    if (index == 1) {
-      Map<String, dynamic>? args = {
-        "academyId": 3
-      };
+    if (index == 2) {
+      Map<String, dynamic>? args = {"academyId": 3};
       NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
     // if (index == 2) {
@@ -41,9 +46,114 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     //   };
     //   NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
     // }
-    if (index == 2) {
-      context!.push(ScreenRoutes.myAccountScreen,extra: {});
+    if (index == 1) {
+      context!.push(ScreenRoutes.alljobs);
     }
+    if (index == 3) {
+      context!.push(ScreenRoutes.myAccountScreen, extra: {});
+    }
+  }
+
+  @override
+  void initState() {
+    Future.delayed(
+        const Duration(
+          seconds: 1,
+        ), (() {
+      _showTutorialCoachMark();
+    }));
+    super.initState();
+  }
+
+  void _showTutorialCoachMark() {
+    initTarget();
+    _tutorialCoachMark = TutorialCoachMark(
+        opacityShadow: 0.3,
+        targets: targets,
+        pulseEnable: false,
+        hideSkip: true,
+        focusAnimationDuration: Duration(milliseconds: 0),
+        unFocusAnimationDuration: Duration(milliseconds: 0))
+      ..show(context: context);
+  }
+
+  void initTarget() {
+    targets = [
+      TargetFocus(
+        identify: "home-key",
+        keyTarget: homekey,
+        shape: ShapeLightFocus.Circle,
+        radius: 80,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return CoachMark(
+                text: "This is the home page where you find services",
+                onNext: () {
+                  controller.next();
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: "home-key",
+        keyTarget: jobkey,
+        shape: ShapeLightFocus.Circle,
+        radius: 80,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return CoachMark(
+                text: "This is the Job page where you find related job",
+                onNext: () {
+                  controller.next();
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: "home-key",
+        keyTarget: menukey,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return CoachMark(
+                text: "This tab contains academy info",
+                onNext: () {
+                  controller.next();
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      TargetFocus(
+        identify: "home-key",
+        keyTarget: accountkey,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return CoachMark(
+                text: "This tab contains information related to your account.",
+                onNext: () {
+                  controller.next();
+                },
+              );
+            },
+          ),
+        ],
+      ),
+    ];
   }
 
   @override
@@ -58,9 +168,11 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
-                buildNavItem(Icons.home, 'Home', 0),
-                buildNavItem(Icons.menu_book, 'Academy', 1),
-                buildNavItem(Icons.person_outline_sharp, 'Account', 2),
+                buildNavItem(Icons.home, 'Home', 0, homekey),
+                buildNavItem(Icons.work, "Job", 1, jobkey),
+                buildNavItem(Icons.menu_book, 'Academy', 2, menukey),
+                buildNavItem(
+                    Icons.person_outline_sharp, 'Account', 3, accountkey),
                 // buildNavItem(Icons.payment, 'ExtraPe', 3),
                 // Add more items as needed
               ],
@@ -71,13 +183,14 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     );
   }
 
-  Widget buildNavItem(IconData icon, String label, int index) {
+  Widget buildNavItem(IconData icon, String label, int index, GlobalKey key) {
     return InkWell(
       onTap: () => _onItemTapped(index),
       child: Container(
         margin: const EdgeInsets.only(top: 8.0),
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: Column(
+          key: key,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Icon(icon,
@@ -109,7 +222,7 @@ class BottomCartDetails extends StatelessWidget {
 
   void openCartScreen() {
     var context = NavigationService.navigatorKey.currentContext;
-    NavigationUtils.openScreen(ScreenRoutes.cartScreen,{});
+    NavigationUtils.openScreen(ScreenRoutes.cartScreen, {});
   }
 
   @override
@@ -143,6 +256,56 @@ class BottomCartDetails extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CoachMark extends StatefulWidget {
+  const CoachMark(
+      {super.key,
+      required this.text,
+      this.skip = "SKIP",
+      this.next = "NEXT",
+      this.onSkip,
+      this.onNext});
+
+  final String text;
+  final String skip;
+  final String next;
+  final void Function()? onSkip;
+  final void Function()? onNext;
+  @override
+  State<CoachMark> createState() => _CoachMarkState();
+}
+
+class _CoachMarkState extends State<CoachMark> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          color: Colors.yellow[100], borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(widget.text),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(onPressed: widget.onSkip, child: Text(widget.skip)),
+              const SizedBox(
+                width: 10,
+              ),
+              ElevatedButton(
+                  onPressed: widget.onNext, child: Text(widget.next)),
+            ],
+          )
+        ],
       ),
     );
   }

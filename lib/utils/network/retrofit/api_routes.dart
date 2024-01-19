@@ -96,4 +96,6 @@ class ApiRoutes {
   static const String sendAnswersByServiceId =
       "/userService/createUserServiceApplication";
   static const String imageUpload = "/image/upload";
+  static const String addAgentInService = "/agent/addAgentRequest";
+  static const String verifyAndAddAgent = "/agent/verifyAndAddAgent";
 }

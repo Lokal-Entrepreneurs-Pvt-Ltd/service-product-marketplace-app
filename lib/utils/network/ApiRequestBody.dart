@@ -7,8 +7,16 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
+  static addAgentAndVerify(String email, name, phone, otp) {
+    return {EMAIL: email, NAME: name, MOBILE: phone, OTP: otp};
+  }
+
+  static sendMobileForOtp(String mobile) {
+    return {MOBILE: mobile};
+  }
+
   static sendQusetionAnswers(String serviceId, Map<String, String> answermap) {
-    return { SERVICE_ID: serviceId, ANSWER_MAP: answermap};
+    return {SERVICE_ID: serviceId, ANSWER_MAP: answermap};
   }
 
   static  getuploaddocumentsid(String type, File file) {
