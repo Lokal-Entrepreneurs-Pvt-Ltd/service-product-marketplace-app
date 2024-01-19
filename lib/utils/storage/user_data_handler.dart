@@ -95,6 +95,14 @@ abstract class UserDataHandler {
     PreferenceUtils.setBool(IS_USER_VERIFIED, isUserVerified);
   }
 
+  static bool getIsOnboardingCoachMarkDisplayed() {
+    return PreferenceUtils.getBool(IS_ONBOARDED, false);
+  }
+
+  static void saveIsOnboardingCoachMarkDisplayed(bool isOnboarded) {
+    PreferenceUtils.setBool(IS_ONBOARDED, isOnboarded);
+  }
+
   static void saveCustomerData(customerData) {
     if (customerData != null) {
       if (customerData[EMAIL] != null) {

@@ -270,7 +270,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {
-
+    UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
     NavigationUtils.openScreen(
       ScreenRoutes.otpScreen,
       {"phoneNumber": phoneController.text.toString(), USERTYPE: selectedUserType},

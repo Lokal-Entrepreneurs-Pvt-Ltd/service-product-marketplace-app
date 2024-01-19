@@ -384,6 +384,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (customerData != null) {
       UserDataHandler.saveCustomerData(customerData);
     }
+    UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
     if(isPhoneInput)
     NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": emailController.text.toString(),  USERTYPE: selectedUserType});
     else{

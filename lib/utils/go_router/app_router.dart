@@ -83,10 +83,10 @@ class AppRoutes {
 
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
-    // initialLocation: UserDataHandler.getUserToken().isEmpty
-    //     ? _onboardingScreen.path
-    //     : uikBottomNavigationBar.path,
-    initialLocation: _customerloginScreen.path,
+    initialLocation: UserDataHandler.getUserToken().isEmpty
+        ? _onboardingScreen.path
+        : uikBottomNavigationBar.path,
+    // initialLocation: _customerloginScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,

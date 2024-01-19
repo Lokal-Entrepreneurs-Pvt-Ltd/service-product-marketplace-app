@@ -129,16 +129,10 @@ class _AddAgentOtpScreenState extends State<AddAgentOtpScreen> {
                               email, name, phoneNo, otpPinEntered));
                       if (response.isSuccess!) {
                         if (response.data != null) {
-                          HttpScreenClient.displayDialogBox(
-                              ADD_AGENT_SUCESSFULL);
-                          var args = widget.args as Map<String, dynamic>;
-                          args.remove("phone");
-                          args.remove("mobile");
-                          args.remove("name");
-                          NavigationUtils.openScreenUntil(
-                              ScreenRoutes.serviceScreen, args);
+                          UiUtils.showToast(ADD_AGENT_SUCESSFULL);
+                          NavigationUtils.pop();
                         } else {
-                          HttpScreenClient.displayDialogBox(ADD_AGENT_FAILED);
+                          UiUtils.showToast(ADD_AGENT_FAILED);
                         }
                       } else {
                         UiUtils.showToast(response.error![MESSAGE]);

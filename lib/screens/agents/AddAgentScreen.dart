@@ -228,6 +228,7 @@ class _AddAgentScreenState extends State<AddAgentScreen> {
           "email": _emailController.text
         });
         // UiUtils.showToast("Agent Added");
+        NavigationUtils.pop();
         NavigationUtils.openScreen(ScreenRoutes.addAgentOtpScreen, args);
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
