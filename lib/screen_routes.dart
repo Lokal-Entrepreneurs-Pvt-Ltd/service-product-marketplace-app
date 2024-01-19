@@ -8,6 +8,7 @@ class ScreenRoutes {
   static const String cartScreen = '/cart';
   static const String addressBookScreen = '/checkout';
   static const String loginScreen = '/loginscreen';
+  static const String customerLoginScreen = '/customerloginscreen';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
   static const String orderScreen = '/orderscreen';
@@ -22,6 +23,7 @@ class ScreenRoutes {
   static const String couponScreen = "/couponscreen";
   static const String forgetPassword = "/forgetPassword";
   static const String signUpScreen = "/signupscreen";
+  static const String customerSignUpScreen = "/customersignupscreen";
   static const String otpScreen = "/otpscreen";
   static const String setNewPasswordScreen = "/setnewpassword";
   static const String addAddressScreen = "/addaddressScreen";

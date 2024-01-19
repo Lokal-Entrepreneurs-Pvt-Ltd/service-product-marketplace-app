@@ -44,7 +44,7 @@ class UploadButton extends StatelessWidget {
         print('Selected file size exceeds 2MB. Please choose a smaller file.');
       } else {
         // await getIdDocument(pickedFile);
-        UiUtils.showToast("successfully");
+        // UiUtils.showToast("Successfully");
         onFileSelected(pickedFile);
       }
     }

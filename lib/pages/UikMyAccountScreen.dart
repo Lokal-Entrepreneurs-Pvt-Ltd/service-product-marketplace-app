@@ -121,7 +121,7 @@ void openWishlist(UikAction uikAction) {
 void openDetails(UikAction uikAction) {
   NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen, {});
 }
-
+ 
 void openMyAgent(UikAction uikAction) {
   NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen, {});
 }

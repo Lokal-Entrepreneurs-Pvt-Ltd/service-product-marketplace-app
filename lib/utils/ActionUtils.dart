@@ -66,7 +66,7 @@ abstract class ActionUtils {
       case UIK_ACTION.OPEN_PAGE:
         NavigationUtils.openPage(uikAction);
         break;
-      case UIK_ACTION.SELECT_LOCATION:
+      case UIK_ACTION.FETCH_LOCATION:
         {
           handleSelectedLocation();
         }
@@ -82,8 +82,16 @@ abstract class ActionUtils {
       GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance;
       geocodingPlatform.placemarkFromCoordinates(
           position.latitude, position.longitude);
-      await ApiRepository.updateCustomerInfo(
+
+      final response =  await ApiRepository.updateCustomerInfo(
           ApiRequestBody.updateLatlong(position.latitude, position.longitude));
+      if (response.isSuccess!) {
+        UiUtils.showToast("Location Updated");
+        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+        return null;
+      }
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
       print('Failed to retrieve the current location.');
