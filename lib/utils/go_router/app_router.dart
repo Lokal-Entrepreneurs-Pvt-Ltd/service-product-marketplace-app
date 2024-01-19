@@ -29,6 +29,7 @@ import 'package:lokal/screens/Form/SamhitaDataCollector.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
+import 'package:lokal/screens/Onboarding/CustomerLoginScreen.dart';
 import 'package:lokal/screens/Onboarding/LoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
@@ -57,6 +58,7 @@ import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
 import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
 import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
 import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
+import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/screens/serviceInfra/status.dart';
@@ -83,7 +85,7 @@ class AppRoutes {
     // initialLocation: UserDataHandler.getUserToken().isEmpty
     //     ? _onboardingScreen.path
     //     : uikBottomNavigationBar.path,
-     initialLocation: _profile_uploaddocuments.path,
+    initialLocation: _customerloginScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -137,7 +139,9 @@ class AppRoutes {
       _profile_uploaddocuments,
       _profile_personal_details,
       _jobApplicationsPersonalDetails,
-      _jobApplicationServiceQuestions
+      _jobApplicationServiceQuestions,
+      _customerloginScreen,
+      _customerSignUpScreen
     ],
   );
 
@@ -247,6 +251,14 @@ class AppRoutes {
     },
   );
 
+  static final GoRoute _customerSignUpScreen = GoRoute(
+    path: ScreenRoutes.customerSignUpScreen,
+    builder: (context, state) {
+      return CustomerSignupScreen(
+        key: state.pageKey,
+      );
+    },
+  );
   static final GoRoute _uikMyAddress = GoRoute(
     path: ScreenRoutes.myAddressScreen,
     builder: (context, state) {
@@ -267,6 +279,15 @@ class AppRoutes {
     path: ScreenRoutes.loginScreen,
     builder: (context, state) {
       return LoginScreen(
+        key: state.pageKey,
+      );
+    },
+  );
+
+  static final GoRoute _customerloginScreen = GoRoute(
+    path: ScreenRoutes.customerLoginScreen,
+    builder: (context, state) {
+      return CustomerLoginScreen(
         key: state.pageKey,
       );
     },

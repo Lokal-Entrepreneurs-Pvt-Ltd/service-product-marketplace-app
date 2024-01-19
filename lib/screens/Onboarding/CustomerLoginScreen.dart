@@ -17,35 +17,19 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../Widgets/UikButton/UikButton.dart';
 
-class LoginScreen extends StatefulWidget {
-  final String? selectedUserType;
-
-  const LoginScreen({Key? key, this.selectedUserType}) : super(key: key);
+class CustomerLoginScreen extends StatefulWidget {
+  const CustomerLoginScreen({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _CustomerLoginScreenState createState() => _CustomerLoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final List<String> userTypes = [PARTNER, AGENT];
-  bool errorEmail = false;
-  bool errorPassword = false;
+class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
+  final phoneController = TextEditingController();
+  bool errorPhone = false;
 
   bool isLoading = false;
-  String selectedUserType = PARTNER;
-  bool isPhoneInput = true;
-
-  @override
-  void initState() {
-    super.initState();
-    initialize();
-  }
-
-  void initialize() async {
-    emailController.text = UserDataHandler.getUserEmail();
-  }
+  String selectedUserType = CUSTOMER; // Default to CUSTOMER
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildAppBarAction() {
     return InkWell(
       onTap: () {
-        NavigationUtils.openScreen(ScreenRoutes.signUpScreen);
+        NavigationUtils.openScreen(ScreenRoutes.customerSignUpScreen);
       },
       child: TextButton(
         onPressed: null, // Use onPressed: null for InkWell
@@ -128,10 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildTitle() {
     return Center(
-      child: Image.asset('assets/images/lokal_logo.png', // Replace 'your_image.png' with your image asset path
-        width: 200, // Set the width of the image as needed
-        height: 100, // Set the height of the image as needed
-        // You can customize other properties of the image widget as required.
+      child: Image.asset(
+        'assets/images/lokal_logo.png',
+        width: 200,
+        height: 100,
       ),
     );
   }
@@ -152,17 +136,32 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: DIMEN_20),
             _buildLoginAsText(),
             const SizedBox(height: DIMEN_20),
-            _buildUserTypeSelection(),
-            const SizedBox(height: DIMEN_25),
-            _buildEmailField(),
+            _buildPhoneField(),
             const SizedBox(height: DIMEN_16),
-            _buildPasswordField(),
-            const SizedBox(height: DIMEN_16),
-            _buildForgotPasswordButton(),
             _buildContinueButton(),
             const SizedBox(height: DIMEN_25),
             _buildPrivacyAndTermsText(),
+            const SizedBox(height: DIMEN_25),
+            _buildAreYouText()
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAreYouText() {
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          // Navigate to the new route for Partner/Agent
+          NavigationUtils.openScreen(ScreenRoutes.loginScreen);
+        },
+        child: Text(
+          'Are you Lokal Partner/Agent ?',
+          style: GoogleFonts.poppins(
+            color: Colors.red, // Change the color to red
+            decoration: TextDecoration.underline,
+          ),
         ),
       ),
     );
@@ -172,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Padding(
       padding: const EdgeInsets.only(left: DIMEN_20),
       child: Text(
-        LOGIN_AS,
+        LOGIN,
         style: GoogleFonts.poppins(
           fontSize: DIMEN_18,
           fontWeight: FontWeight.w500,
@@ -182,57 +181,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildUserTypeSelection() {
-    return Padding(
-      padding: const EdgeInsets.only(left: DIMEN_15, right: DIMEN_15),
-      child: Container(
-        height: DIMEN_52,
-        decoration: BoxDecoration(
-          color: const Color(0xFFEEEEEE),
-          borderRadius: BorderRadius.circular(DIMEN_24),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: userTypes.map((type) {
-            bool isSelected = type == selectedUserType;
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedUserType = type;
-                });
-              },
-              child: Container(
-                height: DIMEN_43,
-                width: DIMEN_108,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: isSelected ? Colors.white : null,
-                  borderRadius: BorderRadius.circular(DIMEN_24),
-                ),
-                child: Text(
-                  type,
-                  style: GoogleFonts.poppins(
-                    color: isSelected ? const Color(0xFF212121) : const Color(0xFF9E9E9E),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildEmailField() {
+  Widget _buildPhoneField() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: TextField(
         enableSuggestions: true,
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress, // Set keyboard type for email
+        controller: phoneController,
+        keyboardType: TextInputType.phone, // Change keyboardType to phone
         decoration: InputDecoration(
-          hintText: isPhoneInput ? PHONE_OR_EMAIL_INPUT : EMAIL_INPUT,
+          hintText: PHONE_INPUT, // Change hint text to PHONE_INPUT
           hintStyle: GoogleFonts.poppins(
             color: const Color(0xFF9E9E9E),
           ),
@@ -246,67 +203,13 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(DIMEN_8),
             borderSide: BorderSide.none,
           ),
-          errorText: errorEmail ? (isPhoneInput ? VALID_PHONE_NO : VALID_EMAIL) : null,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPasswordField() {
-    final input = emailController.text;
-    // Check if the input is a 10-digit phone number
-    final isPhoneNumber = input.length == 10 && int.tryParse(input) != null;
-
-    return isPhoneNumber
-        ? SizedBox.shrink() // Hide the password field
-        : Padding(
-      padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
-      child: TextField(
-        enableSuggestions: true,
-        controller: passwordController,
-        obscureText: true,
-        decoration: InputDecoration(
-          hintText: PASSWORD_INPUT,
-          hintStyle: GoogleFonts.poppins(
-            color: const Color(0xFF9E9E9E),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: DIMEN_16,
-            horizontal: DIMEN_16,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(DIMEN_8),
-            borderSide: BorderSide.none,
-          ),
-          errorText: errorPassword ? PASSWORD_LENGTH : null,
+          errorText: errorPhone ? VALID_PHONE_NO : null, // Update error text
         ),
       ),
     );
   }
 
 
-  Widget _buildForgotPasswordButton() {
-    return Padding(
-      padding: const EdgeInsets.only(left: DIMEN_20),
-      child: InkWell(
-        onTap: () {
-          UiUtils.launchURL(FORGET_PASSWORD_URL);
-        },
-        child: TextButton(
-          onPressed: null,
-          child: Text(
-            FORGET_PASSWORD,
-            style: GoogleFonts.poppins(
-              color: const Color(0xFFF44336),
-              fontSize: DIMEN_14,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildContinueButton() {
     return Container(
@@ -347,57 +250,31 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool _isInputValid() {
-    final input = emailController.text;
+    final input = phoneController.text;
+    final phoneValid = _isValidPhoneNumber(input);
+    errorPhone = !phoneValid;
+    return phoneValid;
+  }
 
-    if (input.length == 10 && int.tryParse(input) != null) {
-      // Input is a phone number.
-      isPhoneInput = true;
-      return true;
-    } else {
-      // Input is an email address.
-      isPhoneInput = false;
-      final emailValid = UiUtils.isEmailValid(input);
-      final passwordValid = passwordController.text.length >= 6;
-      errorEmail = !emailValid;
-      errorPassword = !passwordValid;
-      return emailValid && passwordValid;
-    }
+  bool _isValidPhoneNumber(String phoneNumber) {
+    // You can implement your own phone number validation logic here
+    // For now, it just checks if the phone number is not empty
+    return phoneNumber.isNotEmpty;
   }
 
   Future<ApiResponse> _performLogin() async {
-    final input = emailController.text.toString();
-    if (isPhoneInput) {
-      return ApiRepository.sendOtpForLogin(ApiRequestBody.getLoginAsPhoneRequest(
-          input));
-    } else {
-      // Call the email login API.
-      return ApiRepository.getLoginScreen(ApiRequestBody.getLoginRequest(
-          input, passwordController.text, selectedUserType));
-    }
+    final input = phoneController.text.toString();
+    return ApiRepository.sendOtpForLogin(ApiRequestBody.getLoginAsPhoneRequest(
+      input,
+    ));
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {
-    if(response.data[AUTH_TOKEN]!=null){
-      UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-    }
-    final customerData = response.data[CUSTOMER_DATA];
-    if (customerData != null) {
-      UserDataHandler.saveCustomerData(customerData);
-    }
-    if(isPhoneInput)
-    NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": emailController.text.toString(),  USERTYPE: selectedUserType});
-    else{
-      if(response.data[NEXT_PAGE]!=null){
-      final String nextPage = response.data[NEXT_PAGE];
-      if(nextPage.isNotEmpty)
-        NavigationUtils.openScreenUntil(nextPage);
-        else
-        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
-    }
-      else
-        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
-    }
 
+    NavigationUtils.openScreen(
+      ScreenRoutes.otpScreen,
+      {"phoneNumber": phoneController.text.toString(), USERTYPE: selectedUserType},
+    );
   }
 
   void _handleLoginError(ApiResponse response) {

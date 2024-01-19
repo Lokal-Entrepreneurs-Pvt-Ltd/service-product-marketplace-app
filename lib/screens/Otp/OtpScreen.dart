@@ -122,6 +122,7 @@ class _OtpScreenState extends State<OtpScreen> {
           ApiRequestBody.getVerifyOtpRequest(
             widget.args[PHONE_NUMBER],
             otpPinEntered,
+            widget.args[USERTYPE],
           ),
         );
 
