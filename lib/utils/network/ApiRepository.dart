@@ -338,6 +338,10 @@ class ApiRepository {
   static Future<ApiResponse> sendOtpForLogin(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLogin, args);
   }
+
+  static Future<ApiResponse> sendOtpForLoginCustomer(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLoginCustomer, args);
+  }
 }
 
 // apirequestbody class

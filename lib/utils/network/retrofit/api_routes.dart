@@ -89,6 +89,7 @@ class ApiRoutes {
       "/customer/signupByPhoneNumberOrEmail";
   static const String verifyOtpAndLogin = "/customer/verifyOtpAndLogin";
   static const String sendOtpForLogin = "/customer/sendOtpForLogin";
+  static const String sendOtpForLoginCustomer = "/customer/sendOtpForLogin";
   static const String uploadDocumentonServer = "/image/upload";
   static const String getUserProfile = "/customer/userProfile";
   static const String getQuestionsByServiceId =
