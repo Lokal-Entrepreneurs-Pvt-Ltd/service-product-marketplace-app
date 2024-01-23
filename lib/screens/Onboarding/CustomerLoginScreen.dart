@@ -264,7 +264,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
 
   Future<ApiResponse> _performLogin() async {
     final input = phoneController.text.toString();
-    return ApiRepository.sendOtpForLogin(ApiRequestBody.getLoginAsPhoneRequest(
+    return ApiRepository.sendOtpForLoginCustomer(ApiRequestBody.getLoginAsPhoneRequest(
       input,
     ));
   }

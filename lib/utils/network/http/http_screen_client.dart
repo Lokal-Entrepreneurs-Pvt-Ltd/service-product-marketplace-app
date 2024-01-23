@@ -60,7 +60,7 @@ class HttpScreenClient {
     );
   }
 
-  static displayPhoneNumberNotInSignUpDialog() {
+  static displayPhoneNumberNotInSignUpDialog(String pageRoute) {
     return showDialog(
       barrierDismissible: false,
       context: NavigationUtils.getCurrentContext()!,
@@ -78,7 +78,10 @@ class HttpScreenClient {
                   onPressed: () {
                     UserDataHandler.clearUserToken();
                     NavigationUtils.pop();
-                    NavigationUtils.openScreen(ScreenRoutes.signUpScreen, {});
+                    if (pageRoute == ApiRoutes.sendOtpForLoginCustomer)
+                    NavigationUtils.openScreen(ScreenRoutes.customerSignUpScreen, {});
+                    else
+                      NavigationUtils.openScreen(ScreenRoutes.signUpScreen, {});
                   },
                 ),
               ],
@@ -162,7 +165,7 @@ class HttpScreenClient {
               case NetworkUtils.PHONE_NUMBER_NOT_IN_SIGNUP:
                 {
                   if (pageRoute != ApiRoutes.notificationAddUser)
-                    displayPhoneNumberNotInSignUpDialog();
+                    displayPhoneNumberNotInSignUpDialog(pageRoute);
 
                   throw Exception('User not in SingnUp');
                 }
@@ -233,7 +236,7 @@ class HttpScreenClient {
               case NetworkUtils.PHONE_NUMBER_NOT_IN_SIGNUP:
                 {
                   if (pageRoute != ApiRoutes.notificationAddUser)
-                    displayPhoneNumberNotInSignUpDialog();
+                    displayPhoneNumberNotInSignUpDialog(pageRoute);
 
                   throw Exception('User not in SingnUp');
                 }
