@@ -61,8 +61,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
         const Duration(
           seconds: 1,
         ), (() {
-          if(!UserDataHandler.getIsOnboardingCoachMarkDisplayed())
-             _showTutorialCoachMark();
+      if (!UserDataHandler.getIsOnboardingCoachMarkDisplayed())
+        _showTutorialCoachMark();
     }));
     super.initState();
   }
@@ -73,7 +73,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
         opacityShadow: 0.3,
         targets: targets,
         pulseEnable: false,
-        hideSkip: false,
+        hideSkip: true,
         focusAnimationDuration: Duration(milliseconds: 0),
         unFocusAnimationDuration: Duration(milliseconds: 0))
       ..show(context: context);
@@ -95,6 +95,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
                 text: "Home page where you will find Services/Jobs",
                 onNext: () {
                   controller.next();
+                },
+                onSkip: () {
+                  controller.skip();
                 },
               );
             },
@@ -133,6 +136,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
                 onNext: () {
                   controller.next();
                 },
+                onSkip: () {
+                  controller.skip();
+                },
               );
             },
           ),
@@ -150,6 +156,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
                 text: "All information related to your account.",
                 onNext: () {
                   controller.next();
+                },
+                onSkip: () {
+                  controller.skip();
                 },
               );
             },
