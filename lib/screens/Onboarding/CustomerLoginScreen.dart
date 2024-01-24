@@ -209,43 +209,41 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
     );
   }
 
-
-
   Widget _buildContinueButton() {
     return Container(
       margin: const EdgeInsets.only(left: DIMEN_20, right: DIMEN_20),
       child: isLoading
           ? const CircularProgressIndicator(
-        color: Colors.yellow,
-      )
+              color: Colors.yellow,
+            )
           : UikButton(
-        text: CONTINUE,
-        textWeight: FontWeight.w500,
-        textSize: DIMEN_16,
-        textColor: const Color(0xFF212121),
-        backgroundColor: const Color(0xffFEE440),
-        onClick: () async {
-          if (_isInputValid()) {
-            setState(() {
-              isLoading = true;
-            });
-            try {
-              final response = await _performLogin();
-              if (response.isSuccess!) {
-                _handleSuccessfulLogin(response);
-              } else {
-                _handleLoginError(response);
-              }
-            } catch (e) {
-              // Handle error
-            } finally {
-              setState(() {
-                isLoading = false;
-              });
-            }
-          }
-        },
-      ),
+              text: CONTINUE,
+              textWeight: FontWeight.w500,
+              textSize: DIMEN_16,
+              textColor: const Color(0xFF212121),
+              backgroundColor: const Color(0xffFEE440),
+              onClick: () async {
+                if (_isInputValid()) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  try {
+                    final response = await _performLogin();
+                    if (response.isSuccess!) {
+                      _handleSuccessfulLogin(response);
+                    } else {
+                      _handleLoginError(response);
+                    }
+                  } catch (e) {
+                    // Handle error
+                  } finally {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
+                }
+              },
+            ),
     );
   }
 
@@ -263,8 +261,9 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
   }
 
   Future<ApiResponse> _performLogin() async {
-    final input = phoneController.text.toString();
-    return ApiRepository.sendOtpForLoginCustomer(ApiRequestBody.getLoginAsPhoneRequest(
+    final input = phoneController.text.toString().replaceFirst('+91', "");
+    return ApiRepository.sendOtpForLoginCustomer(
+        ApiRequestBody.getLoginAsPhoneRequest(
       input,
     ));
   }
@@ -273,7 +272,10 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
     NavigationUtils.openScreen(
       ScreenRoutes.otpScreen,
-      {"phoneNumber": phoneController.text.toString(), USERTYPE: selectedUserType},
+      {
+        "phoneNumber": phoneController.text.toString(),
+        USERTYPE: selectedUserType
+      },
     );
   }
 
