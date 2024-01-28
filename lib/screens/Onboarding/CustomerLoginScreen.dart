@@ -257,11 +257,14 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
   bool _isValidPhoneNumber(String phoneNumber) {
     // You can implement your own phone number validation logic here
     // For now, it just checks if the phone number is not empty
-    return phoneNumber.isNotEmpty;
+    if (phoneNumber.isNotEmpty && phoneNumber.length == 10) {
+      return true;
+    }
+    return false;
   }
 
   Future<ApiResponse> _performLogin() async {
-    final input = phoneController.text.toString().replaceFirst('+91', "");
+    final input = phoneController.text.toString();
     return ApiRepository.sendOtpForLoginCustomer(
         ApiRequestBody.getLoginAsPhoneRequest(
       input,
