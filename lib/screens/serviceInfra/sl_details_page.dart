@@ -60,7 +60,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
 
   @override
   void initState() {
-    _tabController = TabController(length: 1, vsync: this);
+    //   _tabController = TabController(length: _tabs.length, vsync: this);
     _scrollController = AutoScrollController();
 
     super.initState();
@@ -84,7 +84,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
   }
 
   void _updateServiceDetails(Map<String, dynamic> data) {
-     final tabs = data['tabs'] as List<dynamic>;
+    final tabs = data['tabs'] as List<dynamic>;
     final templates = data['templates'] as List<dynamic>;
     final isOptedIn = data['isOptedIn'] as bool;
     final metaData = data['metaData'] as Map<String, dynamic>;
@@ -96,6 +96,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       _isOptedIn = isOptedIn;
       _metaData = metaData;
       _ctas = ctas;
+      _tabController = TabController(length: _tabs.length, vsync: this);
     });
   }
 
@@ -112,7 +113,7 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       body: _isLoading ? _buildLoadingIndicator() : _buildServiceDetailsList(),
       persistentFooterButtons: _isLoading
           ? []
-            : _ctas.isNotEmpty && _ctas.any((cta) => cta['text'].isNotEmpty)
+          : _ctas.isNotEmpty && _ctas.any((cta) => cta['text'].isNotEmpty)
               ? [_buildCtas()]
               : _isOptedIn
                   ? [_buildAlreadyOptedButton()]
@@ -260,7 +261,8 @@ class _SlDetailsPageState extends State<SlDetailsPage>
                     launchURL(actionData['url']);
                     break;
                   case "SHARE_WHATSAPP":
-                    UiUtils.shareOnWhatsApp(actionData['url'], actionData['message']);
+                    UiUtils.shareOnWhatsApp(
+                        actionData['url'], actionData['message']);
                     break;
                   case "OPEN_PAGE":
                     NavigationUtils.openPageFromUrl(actionData['url']);
@@ -294,7 +296,6 @@ class _SlDetailsPageState extends State<SlDetailsPage>
           _buildDetailsListN(_templates),
         ],
       ),
-
     );
   }
 
@@ -388,7 +389,8 @@ class _SlDetailsPageState extends State<SlDetailsPage>
 
   Widget _buildTabBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical:8.0), // Adjust the padding as needed
+      padding: const EdgeInsets.symmetric(
+          vertical: 8.0), // Adjust the padding as needed
       child: TabBar(
         onTap: (ind) {
           setState(() {
@@ -427,7 +429,6 @@ class _SlDetailsPageState extends State<SlDetailsPage>
       ),
     );
   }
-
 
   TextStyle _getTabItemTextStyle(int index) {
     bool isSelected = _currentTabNumber == index;

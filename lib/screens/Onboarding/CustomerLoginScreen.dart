@@ -209,43 +209,41 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
     );
   }
 
-
-
   Widget _buildContinueButton() {
     return Container(
       margin: const EdgeInsets.only(left: DIMEN_20, right: DIMEN_20),
       child: isLoading
           ? const CircularProgressIndicator(
-        color: Colors.yellow,
-      )
+              color: Colors.yellow,
+            )
           : UikButton(
-        text: CONTINUE,
-        textWeight: FontWeight.w500,
-        textSize: DIMEN_16,
-        textColor: const Color(0xFF212121),
-        backgroundColor: const Color(0xffFEE440),
-        onClick: () async {
-          if (_isInputValid()) {
-            setState(() {
-              isLoading = true;
-            });
-            try {
-              final response = await _performLogin();
-              if (response.isSuccess!) {
-                _handleSuccessfulLogin(response);
-              } else {
-                _handleLoginError(response);
-              }
-            } catch (e) {
-              // Handle error
-            } finally {
-              setState(() {
-                isLoading = false;
-              });
-            }
-          }
-        },
-      ),
+              text: CONTINUE,
+              textWeight: FontWeight.w500,
+              textSize: DIMEN_16,
+              textColor: const Color(0xFF212121),
+              backgroundColor: const Color(0xffFEE440),
+              onClick: () async {
+                if (_isInputValid()) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  try {
+                    final response = await _performLogin();
+                    if (response.isSuccess!) {
+                      _handleSuccessfulLogin(response);
+                    } else {
+                      _handleLoginError(response);
+                    }
+                  } catch (e) {
+                    // Handle error
+                  } finally {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
+                }
+              },
+            ),
     );
   }
 
@@ -259,12 +257,16 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
   bool _isValidPhoneNumber(String phoneNumber) {
     // You can implement your own phone number validation logic here
     // For now, it just checks if the phone number is not empty
-    return phoneNumber.isNotEmpty;
+    if (phoneNumber.isNotEmpty && phoneNumber.length == 10) {
+      return true;
+    }
+    return false;
   }
 
   Future<ApiResponse> _performLogin() async {
     final input = phoneController.text.toString();
-    return ApiRepository.sendOtpForLoginCustomer(ApiRequestBody.getLoginAsPhoneRequest(
+    return ApiRepository.sendOtpForLoginCustomer(
+        ApiRequestBody.getLoginAsPhoneRequest(
       input,
     ));
   }
@@ -273,7 +275,10 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
     NavigationUtils.openScreen(
       ScreenRoutes.otpScreen,
-      {"phoneNumber": phoneController.text.toString(), USERTYPE: selectedUserType},
+      {
+        "phoneNumber": phoneController.text.toString(),
+        USERTYPE: selectedUserType
+      },
     );
   }
 
