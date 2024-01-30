@@ -82,7 +82,7 @@ android {
             minifyEnabled true
         //   //  useProguard true // This is depricated in latest gradle. Make sure to remove it.
             shrinkResources true
-        //    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
