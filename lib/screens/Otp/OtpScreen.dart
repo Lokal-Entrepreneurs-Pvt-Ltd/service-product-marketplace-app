@@ -138,7 +138,7 @@ class _OtpScreenState extends State<OtpScreen> {
           if(response.data[NEXT_PAGE]!=null){
             final String nextPage = response.data[NEXT_PAGE];
             if(nextPage.isNotEmpty)
-              NavigationUtils.openScreenUntil(nextPage);
+              NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
             else
               NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
           }

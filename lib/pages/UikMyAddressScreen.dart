@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
@@ -30,12 +31,7 @@ class UikMyAddressScreen extends StandardPage {
   }
 
   void onMyAddressScreenTapAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.ADD_ADDRESS:
-        openAddAddressScreen(context);
-        break;
-      default:
-    }
+    ActionUtils.executeAction(uikAction);
   }
 
   @override
@@ -50,9 +46,6 @@ class UikMyAddressScreen extends StandardPage {
     return ScreenRoutes.myAddressScreen;
   }
 
-  void openAddAddressScreen(BuildContext context) {
-    Navigator.pushNamed(context, ScreenRoutes.addAddressScreen);
-  }
 
   @override
   getConstructorArgs() {

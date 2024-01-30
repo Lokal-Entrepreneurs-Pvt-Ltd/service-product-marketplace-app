@@ -111,6 +111,9 @@ abstract class ActionUtils {
       case UIK_ACTION.PROFILE_SCREEN:
         NavigationUtils.openScreen(ScreenRoutes.profileScreen);
         break;
+      case UIK_ACTION.ADD_ADDRESS:
+        NavigationUtils.openScreen(ScreenRoutes.addAddressScreen);
+        break;
       default:
         {}
     }

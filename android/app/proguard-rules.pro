@@ -12,4 +12,3 @@
 -keep class com.lokal.app.MyApplication
 -keep class com.lokal.app.** { *; }
 -keep class com.google.firebase.** { *; }
-gfdgfs

@@ -29,6 +29,43 @@ class _OtherDetailsState extends State<OtherDetails> {
   List<String> work = ["less than 1 year", "1-3 years", "> 3 years"];
   List<String> relocation = ["Yes", "No"];
 
+  bool isUpdating = false; // Added isUpdating flag
+
+  Future<void> _updateData() async {
+    // Set the isUpdating flag to true
+    setState(() {
+      isUpdating = true;
+    });
+
+    try {
+      final response = await ApiRepository.updateCustomerInfo(
+        ApiRequestBody.getOtherDetail(
+          selectedOptions[0] == -1 ? "" : education[selectedOptions[0]],
+          selectedOptions[1] == -1 ? "" : work[selectedOptions[1]],
+          selectedOptions[2] == -1
+              ? false
+              : (relocation[selectedOptions[2]] == "Yes")
+              ? true
+              : false,
+        ),
+      );
+
+      if (response.isSuccess!) {
+        NavigationUtils.openScreen(ScreenRoutes.uploadDocuments);
+        NavigationUtils.pop();
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      // Handle error
+    } finally {
+      // Set the isUpdating flag to false when the API response is received
+      setState(() {
+        isUpdating = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +84,7 @@ class _OtherDetailsState extends State<OtherDetails> {
         title: Column(
           children: [
             Text(
-              "Create Profile",
+              "Update Profile",
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
                 fontSize: 16,
@@ -90,40 +127,18 @@ class _OtherDetailsState extends State<OtherDetails> {
       persistentFooterButtons: [
         Container(
           alignment: Alignment.center,
-          child: UikButton(
+          child: isUpdating
+              ? CircularProgressIndicator(color: Colors.yellow)
+              : UikButton(
             text: "Continue",
             textColor: Colors.black,
             textSize: 16.0,
             textWeight: FontWeight.w500,
-            onClick: updatedata,
+            onClick: _updateData,
           ),
         ),
       ],
     );
-  }
-
-  void updatedata() async {
-    try {
-      final response = await ApiRepository.updateCustomerInfo(
-        ApiRequestBody.getOtherDetail(
-          selectedOptions[0] == -1 ? "" : education[selectedOptions[0]],
-          selectedOptions[1] == -1 ? "" : work[selectedOptions[1]],
-          selectedOptions[2] == -1
-              ? false
-              : (relocation[selectedOptions[2]] == "Yes")
-                  ? true
-                  : false,
-        ),
-      );
-
-      if (response.isSuccess!) {
-        NavigationUtils.openScreen(ScreenRoutes.uploadDocuments);
-      } else {
-        UiUtils.showToast(response.error![MESSAGE]);
-      }
-    } catch (e) {
-      // Handle error
-    }
   }
 
   List<Widget> getWidgetByUserType() {
@@ -152,6 +167,7 @@ class _OtherDetailsState extends State<OtherDetails> {
         children: [
           Text(
             title,
+            textAlign: TextAlign.left, // Set text alignment to left
             style: GoogleFonts.poppins(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -164,7 +180,7 @@ class _OtherDetailsState extends State<OtherDetails> {
             runSpacing: 8,
             children: List.generate(
               options.length,
-              (index) => SelectableTextWidget(
+                  (index) => SelectableTextWidget(
                 text: options[index],
                 border: 2,
                 isSelected: selectedOptions[categoryIndex] == index,
