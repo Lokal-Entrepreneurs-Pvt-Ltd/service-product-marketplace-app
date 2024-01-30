@@ -177,8 +177,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           elevation: 0.0, // Remove shadow
           child: SizedBox(
             height: 56, // Adjust the height as needed
-            child: ListView(
-              scrollDirection: Axis.horizontal,
+            child: Row(
+              // scrollDirection: Axis.horizontal,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 buildNavItem(Icons.home, 'Home', 0, homekey),
                 // buildNavItem(Icons.work, "Job", 1, jobkey),
