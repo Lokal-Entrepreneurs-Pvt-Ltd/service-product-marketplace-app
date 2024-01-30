@@ -143,8 +143,8 @@ class AppRoutes {
       _jobApplicationServiceQuestions,
       _alljobDetails,
       _customerloginScreen,
-      _customerSignUpScreen
-
+      _customerSignUpScreen,
+      _uikMyAddress
     ],
   );
 

@@ -24,13 +24,15 @@ class MyDetailsScreen extends StatefulWidget {
 class _MyDetailsScreenState extends State<MyDetailsScreen> {
   Future<Map<String, dynamic>?>? _futureData;
   TextEditingController controller = TextEditingController();
-  int selectedIndex = -1;
+  int genderIndex = -1;
   DateTime datePicker = DateTime.now();
 
   double lat = 0;
   double long = 0;
 
-  Future<Map<String, dynamic>?>  fetchData() async {
+  bool isUpdating = false; // Added variable for update loading state
+
+  Future<Map<String, dynamic>?> fetchData() async {
     try {
       final response = await ApiRepository.getUserProfile({});
       if (response.isSuccess!) {
@@ -44,8 +46,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 : DateTime.now();
             lat = userData['latitude'] ?? 0;
             long = userData['longitude'] ?? 0;
-            // Assuming gender is either "Male" or "Female"
-            selectedIndex = userData['gender'] == "Male" ? 0 : 1;
+            genderIndex = userData['gender'] == "Male" ? 0 : 1;
           });
         }
       } else {
@@ -60,23 +61,21 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _futureData=  fetchData(); // Call fetchData when the widget is initialized
+    _futureData = fetchData(); // Call fetchData when the widget is initialized
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: buildAppBar(),
-      body: FutureBuilder(
+      appBar: isUpdating ? null : buildAppBar(), // Conditionally hide the app bar
+      body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // If the future has completed, build the body with fetched data
-            return SingleChildScrollView(
-              child: buildBody(),
-            );
+            return isUpdating ? buildLoadingIndicator() : buildBody();
           } else if (snapshot.hasError) {
             // Handle any errors that occur during data fetching
             return Center(
@@ -85,18 +84,25 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
           } else {
             // Show a loading indicator while fetching data
             return Center(
-              child: CircularProgressIndicator(color:Colors.yellow),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: Colors.yellow),
+                ],
+              ),
             );
           }
         },
       ),
-      persistentFooterButtons: [
-        buildContinueButton(),
-      ],
+      persistentFooterButtons: isUpdating ? null : [buildContinueButton()], // Conditionally hide the footer
     );
   }
 
-
+  Widget buildLoadingIndicator() {
+    return Center(
+      child: CircularProgressIndicator(color: Colors.yellow),
+    );
+  }
 
   Widget buildBody() {
     return Container(
@@ -133,7 +139,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
       title: Column(
         children: [
           Text(
-            "Create Profile",
+            "Update Profile",
             textAlign: TextAlign.start,
             style: GoogleFonts.poppins(
               fontSize: 16,
@@ -154,6 +160,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
       ),
     );
   }
+
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -174,14 +181,14 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
       children: [
         SelectableTextWidget(
           text: "Male",
-          isSelected: selectedIndex == 0,
+          isSelected: genderIndex == 0,
           onTap: () => updateSelectedIndex(0),
           border: 2,
         ),
         SizedBox(width: 15),
         SelectableTextWidget(
           text: "Female",
-          isSelected: selectedIndex == 1,
+          isSelected: genderIndex == 1,
           onTap: () => updateSelectedIndex(1),
           border: 2,
         ),
@@ -272,7 +279,6 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     String formattedLat = lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
     String formattedLong = long.toStringAsFixed(2); // Limit longitude to 2 decimal places
 
-    // Check if latitude and longitude values exist
     bool locationAvailable = (lat != 0 && long != 0);
 
     return Container(
@@ -291,8 +297,8 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
           children: [
             Text(
               locationAvailable
-                  ? "Current Location" // Display this text if location is available
-                  : " Tap to Select Location", // Display this text if no location is available
+                  ? "Current Location"
+                  : " Tap to Select Location",
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
                 fontSize: 16,
@@ -302,7 +308,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             ),
             if (locationAvailable) ...[
               Text(
-                "Lat: $formattedLat", // Display formatted latitude
+                "Lat: $formattedLat",
                 textAlign: TextAlign.start,
                 style: GoogleFonts.poppins(
                   fontSize: 16,
@@ -311,7 +317,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 ),
               ),
               Text(
-                "Long: $formattedLong", // Display formatted longitude
+                "Long: $formattedLong",
                 textAlign: TextAlign.start,
                 style: GoogleFonts.poppins(
                   fontSize: 16,
@@ -325,8 +331,6 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
       ),
     );
   }
-
-
 
   Widget buildContinueButton() {
     return Container(
@@ -342,8 +346,21 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   }
 
   void updatedata() async {
+    setState(() {
+      isUpdating = true;
+    });
+
     final name = controller.text;
     final dob = DateFormat('dd/MM/yyyy', 'en_US').format(datePicker);
+
+    String gender;
+    if (genderIndex == 0) {
+      gender = "Male";
+    } else if (genderIndex == 1) {
+      gender = "Female";
+    } else {
+      gender = "";
+    }
 
     if (name.isNotEmpty && dob.isNotEmpty && lat != 0 && long != 0) {
       try {
@@ -353,25 +370,35 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             dob,
             lat,
             long,
+            gender,
           ),
         );
 
         if (response.isSuccess!) {
-          UiUtils.showToast("ProfileUpdated");
+          UiUtils.showToast("Basic Details Updated");
+          NavigationUtils.openScreen(ScreenRoutes.otherdetails);
+          NavigationUtils.pop();
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
       } catch (e) {
         UiUtils.showToast("Error In Request");
+      } finally {
+        setState(() {
+          isUpdating = false;
+        });
       }
     } else {
       UiUtils.showToast("Please fill in all required fields.");
+      setState(() {
+        isUpdating = false;
+      });
     }
   }
 
   void updateSelectedIndex(int index) {
     setState(() {
-      selectedIndex = index;
+      genderIndex = index;
     });
   }
 
