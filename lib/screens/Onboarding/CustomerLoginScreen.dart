@@ -189,7 +189,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
         controller: phoneController,
         keyboardType: TextInputType.phone, // Change keyboardType to phone
         decoration: InputDecoration(
-          hintText: PHONE_INPUT, // Change hint text to PHONE_INPUT
+          hintText: MOB, // Change hint text to PHONE_INPUT
           hintStyle: GoogleFonts.poppins(
             color: const Color(0xFF9E9E9E),
           ),
