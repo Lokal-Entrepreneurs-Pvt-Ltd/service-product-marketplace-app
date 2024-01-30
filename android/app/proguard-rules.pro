@@ -1,3 +1,4 @@
+
 -verbose
 #Flutter Wrapper
 -keep class io.flutter.app.** { *; }
