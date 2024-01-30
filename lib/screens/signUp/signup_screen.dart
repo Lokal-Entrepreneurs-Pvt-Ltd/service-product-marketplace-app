@@ -25,7 +25,8 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   bool errorEmail = false;
   String descEmail = "";
@@ -140,7 +141,7 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: DIMEN_20),
             _buildTextField(
               controller: phoneNoController,
-              hintText: PHONE_INPUT,
+              hintText: MOB,
               errorText: errorPhone ? descPhone : null,
               onChanged: _handlePhoneNumberValidation,
             ),
@@ -200,7 +201,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 child: Text(
                   type,
                   style: GoogleFonts.poppins(
-                    color: isSelected ? const Color(0xFF212121) : const Color(0xFF9E9E9E),
+                    color: isSelected
+                        ? const Color(0xFF212121)
+                        : const Color(0xFF9E9E9E),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -325,10 +328,8 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-
   // Custom phone number validation logic for Indian numbers
   void _handlePhoneNumberValidation(String phoneNo) {
-
     if (UiUtils.isPhoneNoValid(phoneNo)) {
       setState(() {
         errorPhone = false;
@@ -387,15 +388,12 @@ class _SignupScreenState extends State<SignupScreen> {
   Future<void> _handleSignup() async {
     if (UiUtils.isEmailValid(emailController.text) &&
         passwordController.text.length >= 6 &&
-        confirmPasswordController.text == passwordController.text && UiUtils.isPhoneNoValid(phoneNoController.text)) {
+        confirmPasswordController.text == passwordController.text &&
+        UiUtils.isPhoneNoValid(phoneNoController.text)) {
       NavigationUtils.showLoaderOnTop();
       final response = await ApiRepository.signupByPhoneNumberOrEmail(
-        ApiRequestBody.getSignUpRequest(
-          emailController.text,
-          passwordController.text,
-          selectedUserType,
-          phoneNoController.text
-        ),
+        ApiRequestBody.getSignUpRequest(emailController.text,
+            passwordController.text, selectedUserType, phoneNoController.text),
       ).catchError((error) {
         NavigationUtils.pop();
       });
@@ -403,14 +401,17 @@ class _SignupScreenState extends State<SignupScreen> {
       NavigationUtils.pop();
 
       if (response.isSuccess!) {
-        if(response.data[AUTH_TOKEN]!=null)
-        UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+        if (response.data[AUTH_TOKEN] != null)
+          UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
         var customerData = response.data[CUSTOMER_DATA];
         if (customerData != null) {
           UserDataHandler.saveCustomerData(customerData);
         }
         NavigationUtils.pop();
-        NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": phoneNoController.text.toString(),  USERTYPE: selectedUserType});
+        NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
+          "phoneNumber": phoneNoController.text.toString(),
+          USERTYPE: selectedUserType
+        });
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }

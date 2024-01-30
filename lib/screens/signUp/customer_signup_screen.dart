@@ -25,7 +25,8 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNoController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   bool errorEmail = false;
   String descEmail = "";
@@ -80,6 +81,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
       ),
     );
   }
+
   Widget _buildAreYouText() {
     return Center(
       child: GestureDetector(
@@ -150,7 +152,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
             const SizedBox(height: DIMEN_20),
             _buildTextField(
               controller: phoneNoController,
-              hintText: PHONE_INPUT,
+              hintText: MOB,
               errorText: errorPhone ? descPhone : null,
               onChanged: _handlePhoneNumberValidation,
             ),
@@ -379,8 +381,10 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
           UserDataHandler.saveCustomerData(customerData);
         }
         NavigationUtils.pop();
-        NavigationUtils.openScreen(
-            ScreenRoutes.otpScreen, {"phoneNumber": phoneNoController.text.toString(), USERTYPE: CUSTOMER});
+        NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
+          "phoneNumber": phoneNoController.text.toString(),
+          USERTYPE: CUSTOMER
+        });
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
