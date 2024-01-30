@@ -1,4 +1,3 @@
-
 -verbose
 #Flutter Wrapper
 -keep class io.flutter.app.** { *; }
@@ -13,3 +12,4 @@
 -keep class com.lokal.app.MyApplication
 -keep class com.lokal.app.** { *; }
 -keep class com.google.firebase.** { *; }
+gfdgfs
