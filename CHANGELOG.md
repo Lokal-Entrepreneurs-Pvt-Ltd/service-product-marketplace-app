@@ -11,7 +11,7 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
-## [1.0.25+26] - 2024-1-23
+## [1.0.25+26] - 2024-1-31
 Mvp fixes
 
 
