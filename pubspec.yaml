@@ -85,7 +85,7 @@ dependencies:
   sticky_headers: ^0.3.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^21.2.9
-  ui_sdk: 1.0.126+1
+  ui_sdk: 1.0.127+1
   url_launcher: ^6.1.11
   webview_flutter: ^2.0.14
   flutter_share: ^2.0.0

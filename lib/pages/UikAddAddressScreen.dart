@@ -50,18 +50,18 @@ class UikAddAddressScreen extends StandardPage {
 
   void onAddressBookTapAction(UikAction uikAction) {
     ActionUtils.executeAction(uikAction);
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.ON_TEXT_EDIT_COMPLETE:
-        onTextEditComplete(uikAction);
-        break;
-      case UIK_ACTION.SUBMIT_ADDRESS:
-        submitAddress(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-      default:
-    }
+    // switch (uikAction.tap.type) {
+    //   case UIK_ACTION.ON_TEXT_EDIT_COMPLETE:
+    //     onTextEditComplete(uikAction);
+    //     break;
+    //   case UIK_ACTION.SUBMIT_ADDRESS:
+    //     submitAddress(uikAction);
+    //     break;
+    //   case UIK_ACTION.BACK_PRESSED:
+    //     NavigationUtils.pop();
+    //     break;
+    //   default:
+    // }
   }
 
   @override

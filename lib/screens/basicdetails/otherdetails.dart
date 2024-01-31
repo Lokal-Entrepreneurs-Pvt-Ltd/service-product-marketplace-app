@@ -52,7 +52,6 @@ class _OtherDetailsState extends State<OtherDetails> {
 
       if (response.isSuccess!) {
         NavigationUtils.openScreen(ScreenRoutes.uploadDocuments);
-        NavigationUtils.pop();
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }

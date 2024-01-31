@@ -1,5 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:lokal/utils/Logs/event.dart';
+import 'package:lokal/utils/Logs/event_handler.dart';
+import 'package:lokal/utils/Logs/eventsdk.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -15,7 +18,27 @@ import 'network/ApiRequestBody.dart';
 import 'storage/product_data_handler.dart';
 
 abstract class ActionUtils {
+
+  static void sendEventonActionForScreen(String actionType, String screenName){
+
+    EventSDK eventSDK = EventSDK();
+    eventSDK.init();
+    if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
+      print('${EventSDK.sessionId}---------------');
+      Event event = Event(
+        name: actionType,
+        parameters: {
+          "sessionId": EventSDK.sessionId,
+          "userId": EventSDK.userId,
+          "pageName": screenName
+        },
+      );
+      EventHandler.events(event: event);
+    }
+  }
+
   static void executeAction(UikAction uikAction) {
+    final Map<String, dynamic> actionData = uikAction.tap.data as Map<String, dynamic>;
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
@@ -113,6 +136,13 @@ abstract class ActionUtils {
         break;
       case UIK_ACTION.ADD_ADDRESS:
         NavigationUtils.openScreen(ScreenRoutes.addAddressScreen);
+        break;
+      case UIK_ACTION.OPEN_LOKAL_QR:
+        NavigationUtils.openScreen(ScreenRoutes.customerLokalQr);
+        break;
+      case UIK_ACTION.SHARE_WHATSAPP:
+        UiUtils.shareOnWhatsApp(
+            actionData['url'], actionData['message']);
         break;
       default:
         {}
