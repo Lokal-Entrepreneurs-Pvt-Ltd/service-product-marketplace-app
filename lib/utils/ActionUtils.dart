@@ -38,7 +38,6 @@ abstract class ActionUtils {
   }
 
   static void executeAction(UikAction uikAction) {
-    final Map<String, dynamic> actionData = uikAction.tap.data as Map<String, dynamic>;
     switch (uikAction.tap.type) {
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
@@ -140,10 +139,10 @@ abstract class ActionUtils {
       case UIK_ACTION.OPEN_LOKAL_QR:
         NavigationUtils.openScreen(ScreenRoutes.customerLokalQr);
         break;
-      case UIK_ACTION.SHARE_WHATSAPP:
-        UiUtils.shareOnWhatsApp(
-            actionData['url'], actionData['message']);
-        break;
+      // case UIK_ACTION.SHARE_WHATSAPP:
+      //   UiUtils.shareOnWhatsApp(
+      //       actionData['url'], actionData['message']);
+      //   break;
       default:
         {}
     }
