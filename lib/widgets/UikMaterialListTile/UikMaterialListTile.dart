@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/actions.dart';
+import 'package:lokal/utils/ActionUtils.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import 'package:ui_sdk/utils/extensions.dart';
@@ -15,13 +17,16 @@ enum MaterialType {
 
 class TrainingCourseMaterialListTile extends StatelessWidget {
   final dynamic tileData;
-  const TrainingCourseMaterialListTile({required this.tileData, Key? key}) : super(key: key);
+  const TrainingCourseMaterialListTile({required this.tileData, Key? key})
+      : super(key: key);
 
   void _actionHandler(dynamic action, BuildContext ctx) {
     final UikAction_Tap uikAction = UikAction_Tap.fromJson(action);
 
     if (uikAction.data.url != null) {
-      DeeplinkHandler.openPage(ctx, uikAction.data.url!);
+      DeeplinkHandler.openWeb(uikAction.data.url!);
+    } else {
+      UiUtils.showToast("No Action is given");
     }
   }
 
@@ -44,17 +49,16 @@ class TrainingCourseMaterialListTile extends StatelessWidget {
   }
 
   Widget _getTitle() {
-
     switch (tileData["material_type"]) {
       case "VIDEO":
         return Text(
           'Service Training',
           style: _textStyle(12.0, "#BDBDBD".toColor()),
         );
-        // return Text(
-        //   'Lesson ${tileData["materialId"]}',
-        //   style: _textStyle(12.0, "#BDBDBD".toColor()),
-        // );
+      // return Text(
+      //   'Lesson ${tileData["materialId"]}',
+      //   style: _textStyle(12.0, "#BDBDBD".toColor()),
+      // );
       default:
         return Text(
           '${tileData["material_data"]["title"]}',
@@ -164,7 +168,8 @@ class TrainingCourseMaterialListTile extends StatelessWidget {
                   textSize: 12.0,
                   textWeight: FontWeight.w400,
                   onClick: () {
-                    _actionHandler(tileData["material_data"]["action"], context);
+                    _actionHandler(
+                        tileData["material_data"]["action"], context);
                   },
                   stuck: true,
                   rightElement: Icon(
@@ -241,7 +246,8 @@ class TrainingCourseMaterialListTile extends StatelessWidget {
     );
   }
 
-  TextStyle _textStyle(double fontSize, Color color, [FontWeight fontWeight = FontWeight.w400]) {
+  TextStyle _textStyle(double fontSize, Color color,
+      [FontWeight fontWeight = FontWeight.w400]) {
     return GoogleFonts.poppins(
       fontWeight: fontWeight,
       fontSize: fontSize,

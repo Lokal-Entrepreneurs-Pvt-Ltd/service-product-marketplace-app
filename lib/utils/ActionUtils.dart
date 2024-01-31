@@ -17,6 +17,9 @@ import 'storage/product_data_handler.dart';
 abstract class ActionUtils {
   static void executeAction(UikAction uikAction) {
     switch (uikAction.tap.type) {
+      case UIK_ACTION.OPEN_WEB:
+        NavigationUtils.openWeb(uikAction);
+        break;
       case UIK_ACTION.ADD_TO_CART:
         addToCart(uikAction);
         break;
@@ -116,20 +119,20 @@ abstract class ActionUtils {
     }
   }
 
-static void clearDataAndMoveToOnboarding(UikAction uikAction) {
-  UserDataHandler.clearUserToken();
-  NavigationUtils.openScreen(ScreenRoutes.onboardingScreen, {});
-  // todo mano recreate the main.dart by adding listners
-}
+  static void clearDataAndMoveToOnboarding(UikAction uikAction) {
+    UserDataHandler.clearUserToken();
+    NavigationUtils.openScreen(ScreenRoutes.onboardingScreen, {});
+    // todo mano recreate the main.dart by adding listners
+  }
 
-static void handleSelectedLocation() async {
+  static void handleSelectedLocation() async {
     Position? position = await LocationUtils.getCurrentPosition();
     if (position != null) {
       GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance;
       geocodingPlatform.placemarkFromCoordinates(
           position.latitude, position.longitude);
 
-      final response =  await ApiRepository.updateCustomerInfo(
+      final response = await ApiRepository.updateCustomerInfo(
           ApiRequestBody.updateLatlong(position.latitude, position.longitude));
       if (response.isSuccess!) {
         UiUtils.showToast("Location Updated");

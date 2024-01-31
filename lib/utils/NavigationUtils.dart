@@ -15,6 +15,10 @@ abstract class NavigationUtils {
     DeeplinkHandler.openPage(context!, uikAction.tap.data.url!);
   }
 
+  static void openWeb(UikAction uikAction) {
+    DeeplinkHandler.openWeb(uikAction.tap.data.url!);
+  }
+
   static BuildContext? getCurrentContext() {
     return AppRoutes.rootNavigatorKey.currentContext;
   }
@@ -34,18 +38,17 @@ abstract class NavigationUtils {
   static void openOrderScreen(Map<String, dynamic> args) {
     CartDataHandler.clearCart();
     var context = getCurrentContext();
-     AppRoutes().popUntil(AppRoutes.uikBottomNavigationBar);
+    AppRoutes().popUntil(AppRoutes.uikBottomNavigationBar);
     // UiUtils.showToast(args.toString());
-    context!.go(ScreenRoutes.orderScreen,extra: args);
+    context!.go(ScreenRoutes.orderScreen, extra: args);
   }
 
   static void openHomeScreen(Map<String, dynamic> args) {
     CartDataHandler.clearCart();
     var context = getCurrentContext();
     AppRoutes().popUntil(AppRoutes.uikBottomNavigationBar);
-    context!.go(ScreenRoutes.homeScreen,extra: args);
+    context!.go(ScreenRoutes.homeScreen, extra: args);
   }
-
 
   static void pop() {
     getCurrentContext()!.pop();
@@ -55,17 +58,17 @@ abstract class NavigationUtils {
     DeeplinkHandler.openPage(getCurrentContext()!, uikAction.tap.data.url!);
   }
 
-  static void openPageFromUrl(String url ) {
+  static void openPageFromUrl(String url) {
     DeeplinkHandler.openPage(getCurrentContext()!, url);
   }
 
   static void openScreen(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
-    context?.push(routeName,extra: args);
+    context?.push(routeName, extra: args);
   }
 
   static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
-    context?.push(routeName,extra: args);
+    context?.push(routeName, extra: args);
   }
 }
