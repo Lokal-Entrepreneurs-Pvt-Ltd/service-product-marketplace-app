@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.25+26] - 2024-1-23
+Mvp fixes
+
 
 ## [1.0.22+23] - 2024-1-23
 Removed BACKGROUND locationpermission
