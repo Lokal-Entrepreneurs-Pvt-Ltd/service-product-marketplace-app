@@ -62,4 +62,6 @@ class UIK_ACTION {
   static const String OPEN_VIDEO = "OPEN_VIDEO";
   static const String SELECT_LOCATION = "SELECT_LOCATION";
   static const String PROFILE_SCREEN = "PROFILE_SCREEN";
+  static const String OPEN_LOKAL_QR = "OPEN_LOKAL_QR";
+  static const String SHARE_WHATSAPP = "SHARE_WHATSAPP";
 }

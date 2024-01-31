@@ -377,7 +377,6 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         if (response.isSuccess!) {
           UiUtils.showToast("Basic Details Updated");
           NavigationUtils.openScreen(ScreenRoutes.otherdetails);
-          NavigationUtils.pop();
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }

@@ -35,6 +35,7 @@ class UikAddressBook extends StandardPage {
   }
 
   void onAddressBookTapAction(UikAction uikAction) {
+
     ActionUtils.executeAction(uikAction);
   }
 
