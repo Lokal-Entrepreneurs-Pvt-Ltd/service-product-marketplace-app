@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:lokal/utils/Logs/eventqueue.dart';
 import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/Logs/event_handler.dart';
 
-// import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -24,7 +25,6 @@ import '../../../screen_routes.dart';
 import '../../../screens/Onboarding/OnboardingScreen.dart';
 import '../../storage/user_data_handler.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-
 import '../retrofit/api_routes.dart';
 
 class HttpScreenClient {
@@ -32,6 +32,20 @@ class HttpScreenClient {
   //   return http.Client();
   //  // return ChuckerHttpClient(http.Client());
   // }
+
+  static http.Client getHttp() {
+    if (kDebugMode) {
+      // Only enable Chucker in debug mode
+      return ChuckerHttpClient(http.Client(),
+        // Optional: You can configure Chucker as needed.
+        // For example, you can set maxSavedLength to limit the size of saved request/response bodies.
+        // maxSavedLength: 8192, // You can adjust this value as needed.
+      );
+    } else {
+      // Use a regular http.Client in release mode
+      return http.Client();
+    }
+  }
 
   static displayUserUnAuthorisedDialog() {
     return showDialog(
@@ -210,7 +224,7 @@ class HttpScreenClient {
 
       var bodyParams = args ?? <String, dynamic>{};
       var header = NetworkUtils.getRequestHeaders();
-      final response = await http.Client()
+      final response = await getHttp()
           .post(
             Uri.parse(Environment().config.BASE_URL + pageRoute),
             headers: header,
