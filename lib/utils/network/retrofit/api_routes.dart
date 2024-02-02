@@ -100,4 +100,5 @@ class ApiRoutes {
   static const String addAgentInService = "/agent/addAgentRequest";
   static const String verifyAndAddAgent = "/agent/verifyAndAddAgent";
   static const String customerLokalQr = "/customer/getLokalQr";
+  static const String jobsLandingPage = "/jobs/landingPage";
 }
