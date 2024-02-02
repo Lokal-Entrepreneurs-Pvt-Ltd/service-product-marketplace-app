@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
+import 'package:lokal/pages/UikJobsHome.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
@@ -29,7 +30,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   GlobalKey jobkey = GlobalKey();
 
   static final List<Widget> _widgetOptions = <Widget>[
-    UikHome().getPage(),
+    UikJobsLandingPage().getPage(),
   ];
 
   int totalCartItems = CartDataHandler.getCartItems().length;
@@ -172,7 +173,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: UikHome().page,
+        body: UikJobsLandingPage().page,
         bottomNavigationBar: BottomAppBar(
           elevation: 0.0, // Remove shadow
           child: SizedBox(
