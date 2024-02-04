@@ -385,6 +385,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
       UserDataHandler.saveCustomerData(customerData);
     }
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
+    NavigationUtils.pop();
     if(isPhoneInput)
     NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": emailController.text.toString(),  USERTYPE: selectedUserType});
     else{
