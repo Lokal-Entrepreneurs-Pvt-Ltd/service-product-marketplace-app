@@ -135,10 +135,11 @@ class _OtpScreenState extends State<OtpScreen> {
             UserDataHandler.saveCustomerData(customerData);
           }
           UserDataHandler.saveIsUserVerified(true);
+          NavigationUtils.pop();
           if(response.data[NEXT_PAGE]!=null){
             final String nextPage = response.data[NEXT_PAGE];
             if(nextPage.isNotEmpty)
-              NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+              NavigationUtils.openScreenUntil(nextPage);
             else
               NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
           }

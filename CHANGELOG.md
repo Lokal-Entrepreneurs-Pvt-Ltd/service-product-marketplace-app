@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.27+28] - 2024-2-4
+New Jobs HS base
+
 ## [1.0.26+27] - 2024-2-1
 Action fixes
 
