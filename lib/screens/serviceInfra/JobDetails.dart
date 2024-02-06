@@ -87,7 +87,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
         TabController(length: jobDetails['tabs'].length, vsync: this);
     jobrole = jobDetails['Job Role'];
     _scrollController.addListener(() {
-      //   print(_scrollController.offset.toString());
       if (_scrollController.offset > 150) {
         int newIndex = ((_scrollController.offset - 100) * 2 / 265).round();
         if (newIndex != _currentTabNumber &&
