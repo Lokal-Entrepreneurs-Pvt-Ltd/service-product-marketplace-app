@@ -233,6 +233,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  copy_with_extension:
+    dependency: transitive
+    description:
+      name: copy_with_extension
+      sha256: fbcf890b0c34aedf0894f91a11a579994b61b4e04080204656b582708b5b1125
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.4"
+  copy_with_extension_gen:
+    dependency: transitive
+    description:
+      name: copy_with_extension_gen
+      sha256: "51cd11094096d40824c8da629ca7f16f3b7cea5fc44132b679617483d43346b0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.4"
   country_icons:
     dependency: "direct main"
     description:
@@ -305,6 +321,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  digia_ui:
+    dependency: "direct main"
+    description:
+      path: "C:/Users\\HP\\AndroidStudioProjects\\digia_ui"
+      relative: false
+    source: path
+    version: "1.0.0+1"
   dio:
     dependency: transitive
     description:
@@ -313,6 +336,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.3"
+  dio_intercept_to_curl:
+    dependency: transitive
+    description:
+      name: dio_intercept_to_curl
+      sha256: "3175ef46f918748e13f100b3dcd6a2874781c110de3e032e0982e9679237c4af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   dotted_border:
     dependency: "direct main"
     description:
@@ -321,6 +352,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  dotted_decoration:
+    dependency: transitive
+    description:
+      name: dotted_decoration
+      sha256: a5c5771367690b4f64ebfa7911954ab472b9675f025c373f514e32ac4bb81d5e
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   eventify:
     dependency: transitive
     description:
@@ -765,6 +804,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.4+2"
+  graphic:
+    dependency: transitive
+    description:
+      name: graphic
+      sha256: "1443f5b89e802c5ae6e6ffdbc0091f3808d74557b4794595b1aa8ffcf944cced"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   graphs:
     dependency: transitive
     description:
@@ -869,6 +916,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  json_class:
+    dependency: transitive
+    description:
+      name: json_class
+      sha256: fa872148b86bd2b706617e26ed80eeee292c31071b49cc728b368dd9b1fd0959
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2+1"
   json_editor:
     dependency: transitive
     description:
@@ -877,6 +932,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.8"
+  json_schema2:
+    dependency: transitive
+    description:
+      name: json_schema2
+      sha256: "094e60d3605333c0816eeb2e5310b4f71ffaea2c0abc026b27418c1ac41a5db3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.4+9"
   json_serializable:
     dependency: "direct dev"
     description:
@@ -1221,6 +1284,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.8+2"
+  pretty_dio_logger:
+    dependency: transitive
+    description:
+      name: pretty_dio_logger
+      sha256: "00b80053063935cf9a6190da344c5373b9d0e92da4c944c878ff2fbef0ef6dc2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.1"
   provider:
     dependency: "direct main"
     description:
@@ -1253,6 +1324,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      sha256: b1c1ac5ce6688d77f65f3375a9abb9319b3cb32486bdc7a1e0fdf004d7ba4e47
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
   razorpay_flutter:
     dependency: "direct main"
     description:
@@ -1261,6 +1340,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.5"
+  rest_client:
+    dependency: transitive
+    description:
+      name: rest_client
+      sha256: f788d489471b3c18641cc7ae32cde76ca9806075dda8b98e36bc479f118e6585
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1+11"
   retrofit:
     dependency: transitive
     description:
@@ -1466,14 +1553,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
-  sprintf:
-    dependency: transitive
-    description:
-      name: sprintf
-      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
   sqflite:
     dependency: transitive
     description:
@@ -1546,6 +1625,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  styled_divider:
+    dependency: transitive
+    description:
+      name: styled_divider
+      sha256: c360502fb8caf55c17467b0a59edfff68b465343ae040ce76cb08948992c2708
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   syncfusion_flutter_core:
     dependency: transitive
     description:
@@ -1616,7 +1703,7 @@ packages:
       path: "C:\\Users\\HP\\AndroidStudioProjects\\ui_sdk"
       relative: false
     source: path
-    version: "1.0.119+1"
+    version: "1.0.121+1"
   universal_io:
     dependency: transitive
     description:
@@ -1641,6 +1728,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1"
+  uri:
+    dependency: transitive
+    description:
+      name: uri
+      sha256: "889eea21e953187c6099802b7b4cf5219ba8f3518f604a1033064d45b1b8268a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   url_launcher:
     dependency: "direct main"
     description:
@@ -1709,10 +1804,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: df5a4d8f22ee4ccd77f8839ac7cb274ebc11ef9adcce8b92be14b797fe889921
+      sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.1"
+    version: "3.0.7"
   vector_math:
     dependency: transitive
     description:
@@ -1833,6 +1928,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  yaon:
+    dependency: transitive
+    description:
+      name: yaon
+      sha256: "9baabf121604d7530fc8bcd4f2aeb6c300a055d9a6f9b45b5071f893756ca867"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4+4"
   youtube_player_flutter:
     dependency: transitive
     description:

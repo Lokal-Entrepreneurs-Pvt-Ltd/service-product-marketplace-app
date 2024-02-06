@@ -1,3 +1,4 @@
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
@@ -44,6 +45,7 @@ import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
 import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
+import 'package:lokal/screens/test.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 
 import '../../pages/UikAgentsForUserService.dart';
@@ -155,7 +157,7 @@ class AppRoutes {
   static final GoRoute _myAccountScreen = GoRoute(
     path: ScreenRoutes.myAccountScreen,
     builder: (context, state) {
-      return UikMyAccountScreen(args: state.extra).page;
+      return const Test();
     },
   );
   static final GoRoute _partnerTrainingHome = GoRoute(
