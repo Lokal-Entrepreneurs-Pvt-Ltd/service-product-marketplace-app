@@ -1,3 +1,4 @@
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
@@ -26,7 +27,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
 
   int totalCartItems = CartDataHandler.getCartItems().length;
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index,BuildContext context) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     if (index == _selectedIndex) return;
     if (index == 1) {
@@ -58,10 +59,10 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
-                buildNavItem(Icons.home, 'Home', 0),
-                buildNavItem(Icons.menu_book, 'Academy', 1),
-                buildNavItem(Icons.payment, 'ExtraPe', 2),
-                buildNavItem(Icons.person_outline_sharp, 'Account', 3),
+                buildNavItem(Icons.home, 'Home', 0,context),
+                buildNavItem(Icons.menu_book, 'Academy', 1,context),
+                buildNavItem(Icons.payment, 'ExtraPe', 2,context),
+                buildNavItem(Icons.person_outline_sharp, 'Account', 3,context),
                 // Add more items as needed
               ],
             ),
@@ -71,9 +72,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     );
   }
 
-  Widget buildNavItem(IconData icon, String label, int index) {
+  Widget buildNavItem(IconData icon, String label, int index,BuildContext context) {
     return InkWell(
-      onTap: () => _onItemTapped(index),
+      onTap: () => _onItemTapped(index,context),
       child: Container(
         margin: const EdgeInsets.only(top: 8.0),
         padding: const EdgeInsets.symmetric(horizontal: 25.0),

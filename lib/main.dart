@@ -1,3 +1,4 @@
+import 'package:digia_ui/digia_ui.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,6 +32,7 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+  await DigiaUIClient.initializeFromNetwork(accessKey: '65b9f82cea98f4e5239d621b');
   appInit = AppInitializer();
   await appInit?.init();
   WidgetsFlutterBinding.ensureInitialized();
