@@ -68,7 +68,7 @@ class UikOrderScreen extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
 

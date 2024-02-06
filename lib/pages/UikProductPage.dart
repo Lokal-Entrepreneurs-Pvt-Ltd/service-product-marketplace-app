@@ -8,6 +8,7 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../main.dart';
 import '../actions.dart';
+import '../utils/ActionUtils.dart';
 import '../utils/NavigationUtils.dart';
 import '../utils/UiUtils/UiUtils.dart';
 import '../utils/storage/product_data_handler.dart';
@@ -33,15 +34,8 @@ class UikProductPage extends StandardPage {
   }
 
   void onProductPageTapAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_CART:
-        showCartScreen(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-      default:
-    }
+
+    ActionUtils.executeAction(uikAction);
   }
 
   @override
@@ -60,21 +54,4 @@ class UikProductPage extends StandardPage {
   }
 }
 
-void showCartScreen(UikAction uikAction) async {
-  String skuId = await ProductDataHandler.getProductSkuId();
-  //NavigationUtils.showLoaderOnTop();
 
-  dynamic response = await ApiRepository.updateCart(
-      ApiRequestBody.getUpdateCartRequest(
-          skuId, "add", ""));
-
- // NavigationUtils.pop();
-
-  if (response.isSuccess!) {
-    var cartIdReceived = response.data[CART_DATA][CART_ID];
-    CartDataHandler.saveCartId(cartIdReceived);
-    NavigationUtils.openPage(uikAction);
-  } else {
-    UiUtils.showToast(response.error![MESSAGE]);
-  }
-}

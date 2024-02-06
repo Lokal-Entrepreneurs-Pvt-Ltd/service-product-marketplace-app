@@ -16,6 +16,11 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.samhitaHome, args);
   }
 
+  static Future<ApiResponse> getQuestionsByServiceId(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getQuestionsByServiceId, args);
+  }
+
   static Future<ApiResponse> submitSamhitaAddParticipantForm(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.submitSamhitaAddParticipantsForm, args);
@@ -159,8 +164,17 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.signUpScreen, args);
   }
 
+  static Future<ApiResponse> getUserProfile(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getUserProfile, args);
+  }
+
   static Future<ApiResponse> updateCustomerInfo(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.updateCustomerInfo, args);
+  }
+
+  static Future<ApiResponse> updateAnswersInService(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.sendAnswersByServiceId, args);
   }
 
   static Future<ApiResponse> sendOtp(args) {
@@ -190,6 +204,10 @@ class ApiRepository {
   static Future<ApiResponse> btsLocationFeasibility(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.btsLocationFeasibility, args);
+  }
+
+  static Future<ApiResponse> uploadDocuments(args) {
+    return HttpScreenClient.getmultipartrequest(ApiRoutes.imageUpload, args);
   }
 
   static Future<ApiResponse> getNearestTowers(args) {
@@ -229,7 +247,11 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> verifyAddAgentOtp(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAddAgentOtp, args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAndAddAgent, args);
+  }
+
+  static Future<ApiResponse> verifyAndAddAgentOtp(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyAndAddAgent, args);
   }
 
   static Future<ApiResponse> verifyAgentForPartner(args) {
@@ -268,6 +290,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.addPartnerAgent, args);
   }
 
+  static Future<ApiResponse> addAgentInService(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.addAgentInService, args);
+  }
+
   static Future<ApiResponse> notifyAllAgents(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.notifyAllAgents, args);
   }
@@ -292,7 +318,37 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getAcademyDataByType(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.getAcademyDataByType, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAcademyDataByType, args);
+  }
+
+  static Future<ApiResponse> sendOtpForSignup(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForSignup, args);
+  }
+
+  static Future<ApiResponse> signupByPhoneNumberOrEmail(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.signupByPhoneNumberOrEmail, args);
+  }
+
+  static Future<ApiResponse> verifyOtpAndLogin(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyOtpAndLogin, args);
+  }
+
+  static Future<ApiResponse> sendOtpForLogin(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLogin, args);
+  }
+
+  static Future<ApiResponse> sendOtpForLoginCustomer(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLoginCustomer, args);
+  }
+
+  static Future<ApiResponse> getCustomerLokalQr(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.customerLokalQr, args);
+  }
+
+  static Future<ApiResponse> getJobsLandingPage(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.jobsLandingPage, args);
   }
 }
 

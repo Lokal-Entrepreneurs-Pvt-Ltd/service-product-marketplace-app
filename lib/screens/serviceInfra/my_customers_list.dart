@@ -27,7 +27,6 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   bool _isLoading = true;
   bool _showAddCustomerButton = false;
 
-
   @override
   void initState() {
     _scrollController = AutoScrollController();
@@ -46,7 +45,7 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   Future<void> _fetchCustomerData() async {
     try {
       final response =
-      await ApiRepository.getAllCustomerForUserService(widget.args);
+          await ApiRepository.getAllCustomerForUserService(widget.args);
       if (response.isSuccess!) {
         _updateCustomerData(response.data);
       } else {
@@ -83,12 +82,9 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _isLoading
-          ? _buildLoadingIndicator()
-          : _buildCustomerList(),
-      persistentFooterButtons: _showAddCustomerButton
-          ? [_buildAddCustomerButton()]
-          : [],
+      body: _isLoading ? _buildLoadingIndicator() : _buildCustomerList(),
+      persistentFooterButtons:
+          _showAddCustomerButton ? [_buildAddCustomerButton()] : [],
     );
   }
 
@@ -122,47 +118,48 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   }
 
   Widget _buildRetryView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Text(
-          "No Customer Added Yet. Kindly Add a Customer! ",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            "No Customer Added Yet. Kindly Add a Customer! ",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center, // Center-align the text
           ),
-          textAlign: TextAlign.center, // Center-align the text
-        ),
-        const SizedBox(height: 20), // Add some vertical spacing
-        ElevatedButton(
-          onPressed: () {
-            // Call the retry method here
-            setState(() {
-              _isLoading= true;
-              _fetchCustomerData();
-            });
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.yellow, // Set button background color to yellow
-          ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20), // Add horizontal padding
-            child: Text(
-              "Retry",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black, // Set text color to black
+          const SizedBox(height: 20), // Add some vertical spacing
+          ElevatedButton(
+            onPressed: () {
+              // Call the retry method here
+              setState(() {
+                _isLoading = true;
+                _fetchCustomerData();
+              });
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor:
+                  Colors.yellow, // Set button background color to yellow
+            ),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 20), // Add horizontal padding
+              child: Text(
+                "Retry",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black, // Set text color to black
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
-
-
 
   Widget buildWidgetByType(String uiType, Map<String, dynamic> customer) {
     final widgetType = uiTypeMapping[uiType];
@@ -182,9 +179,10 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
   };
 
   Widget _buildCustomerListItem(Map<String, dynamic> customer) {
-
     String customerName = customer['name']['text'] ?? '';
-    String firstCharacter = customerName.isNotEmpty ? customerName[0].toUpperCase() : ''; // Get the first character
+    String firstCharacter = customerName.isNotEmpty
+        ? customerName[0].toUpperCase()
+        : ''; // Get the first character
 
     return InkWell(
       onTap: () {
@@ -240,7 +238,8 @@ class _SlDetailsPageState extends State<SlMyCustomersList>
     return Container(
       child: InkWell(
         onTap: () {
-          NavigationUtils.openScreenUntil(ScreenRoutes.addUserServiceCustomer, widget.args);
+          NavigationUtils.openScreenUntil(
+              ScreenRoutes.addUserServiceCustomer, widget.args);
         },
         child: UikButton(
           text: "Add Customer",

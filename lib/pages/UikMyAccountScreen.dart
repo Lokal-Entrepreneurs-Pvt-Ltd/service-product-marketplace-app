@@ -3,6 +3,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
@@ -30,6 +31,7 @@ class UikMyAccountScreen extends StandardPage {
     actionList.add(UIK_ACTION.OPEN_LOG_IN);
     actionList.add(UIK_ACTION.OPEN_MY_AGENT);
     actionList.add(UIK_ACTION.OPEN_MY_REWARDS);
+    actionList.add(UIK_ACTION.PROFILE_SCREEN);
     return actionList;
   }
 
@@ -39,45 +41,8 @@ class UikMyAccountScreen extends StandardPage {
   }
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_ORDER_HISTORY:
-        openOrders(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_DETAILS:
-        openDetails(uikAction);
-        break;
-      case UIK_ACTION.OPEN_WISHLIST:
-        openWishlist(uikAction);
-        break;
-      case UIK_ACTION.OPEN_ADDRESS:
-        openAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_AGENT:
-        openMyAgent(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_REWARDS:
-        openMyRewards(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PAYMENT:
-        openPayment(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_ADDRESS:
-        openAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_SIGN_OUT:
-        {
-          UiUtils.showToast(LOG_OUT);
-          clearDataAndMoveToOnboarding(uikAction);
-        }
-        break;
-      case UIK_ACTION.OPEN_LOG_IN:
-        {
-          UiUtils.showToast(LOG_IN);
-          clearDataAndMoveToOnboarding(uikAction);
-        }
-        break;
-      default:
-    }
+    ActionUtils.executeAction(uikAction);
+    ActionUtils.sendEventonActionForScreen(uikAction.tap.type.toString(),ScreenRoutes.myAccountScreen);
   }
 
   @override
@@ -117,17 +82,17 @@ void openWishlist(UikAction uikAction) {
 void openDetails(UikAction uikAction) {
   NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen, {});
 }
-
+ 
 void openMyAgent(UikAction uikAction) {
   NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen, {});
 }
 
 void openMyRewards(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.myRewardsPage,{});
+  NavigationUtils.openScreen(ScreenRoutes.myRewardsPage, {});
 }
 
 void openOrders(UikAction uikAction) {
-  NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen,{});
+  NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen, {});
 }
 
 // Future<ApiResponse> getMockedApiResponse(args) async {

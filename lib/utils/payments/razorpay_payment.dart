@@ -51,15 +51,19 @@ class RazorpayPayment {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     // Do something when payment succeeds
-    print( response);
-    validatePayment(orderNumberId,response.paymentId,response.signature);
+    print( "Payment Success"+ response.toString());
+    print( "order Id"+orderNumberId);
+    print( response.paymentId);
+    print(response.signature);
+    NavigationUtils.showLoaderOnTop();
+   validatePayment(orderNumberId,response.paymentId,response.signature);
   }
 
   Future<void> validatePayment(  String? orderNumberId, String? rzpPaymentId, String? rzpSignature) async {
     dynamic response = await ApiRepository.validatePayment(
       ApiRequestBody.getValidatePayment(orderNumberId!, rzpPaymentId!,rzpSignature!),
     );
-
+    NavigationUtils.pop();
     if (response.isSuccess!) {
        var orderNumberId = response.data[ORDER_NUMBER_ID];
        Map<String, dynamic>? args = {
@@ -69,6 +73,7 @@ class RazorpayPayment {
        NavigationUtils.openOrderScreen(args);
     } else {
       UiUtils.showToast(response.error![MESSAGE]);
+      NavigationUtils.openHomeScreen({});
     }
   }
 
@@ -76,7 +81,7 @@ class RazorpayPayment {
     // Do something when payment fails
     print("paymebnt fail");
     UiUtils.showToast(response.message.toString());
-
+    NavigationUtils.openHomeScreen({});
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {

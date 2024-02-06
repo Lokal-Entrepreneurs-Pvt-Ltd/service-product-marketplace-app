@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/lokal_events.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,19 +30,19 @@ abstract class DeeplinkHandler {
     print(route);
     print(args);
     LokalEvents.logEvent('open_page_event', {'url': url});
-    try{
+    try {
       _pushScreen(context,route, args);
+      //launchUrl(Uri.parse(url));
+    } catch (e) {
+      UiUtils.showToast(e.toString());
+      // launchUrl(Uri.parse(url));
     }
-    catch(e){
-      launchUrl(Uri.parse(url));
-    }
-
   }
 
   static void _pushScreen(BuildContext? context, String route,
       [Map<String, dynamic>? args]) {
     print("pushed route $route");
     print("pushed args $args");
-    context?.push(route,extra: args);
+    context?.push(route, extra: args);
   }
 }
