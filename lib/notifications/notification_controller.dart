@@ -74,9 +74,8 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
 import 'package:lokal/constants/json_constants.dart';
-import 'package:lokal/screen_routes.dart';
-import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -102,12 +101,12 @@ class FirebaseMessagingController {
     }
     var kFcmToken = await _firebaseMessaging.getToken();
 
-    print(kFcmToken);
+    print('FcmToken=> $kFcmToken');
 
     FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
       kFcmToken = fcmToken;
 
-      print(kFcmToken);
+      print('FcmToken=> $kFcmToken');
     }).onError((err) {
       print("error");
       throw Exception(err);
@@ -123,7 +122,6 @@ class FirebaseMessagingController {
 
     DeeplinkHandler.openPage(
         AppRoutes.rootNavigatorKey.currentContext, message.data['deepLink']);
-
   }
 
   Future initPushNotifications() async {
@@ -135,24 +133,39 @@ class FirebaseMessagingController {
     _firebaseMessaging.getInitialMessage().then(handleMessageTap);
     FirebaseMessaging.onMessageOpenedApp.listen(handleMessageTap);
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-    FirebaseMessaging.onMessage.listen((event) {
-      final notification = event.notification;
-      if (notification == null) return;
-      _localNotification.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-              _androidChanel.id, _androidChanel.name,
-              channelDescription: _androidChanel.description,
-              icon: '@drawable/ic_launcher'),
-        ),
-        payload: jsonEncode(
-          event.toMap(),
-        ),
-      );
-    });
+    FirebaseMessaging.onMessage.listen(showNotification);
+  }
+
+  Future showNotification(RemoteMessage event) async {
+    final notification = event.notification;
+    if (notification == null) return;
+    final response = await http.get(
+      Uri.parse(notification.android!.imageUrl!),
+    );
+    var bigPictureStyleInformation = BigPictureStyleInformation(
+      ByteArrayAndroidBitmap.fromBase64String(
+        base64Encode(response.bodyBytes),
+      ),
+    );
+    _localNotification.show(
+      notification.hashCode,
+      notification.title,
+      notification.body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+            playSound: true,
+            enableVibration: true,
+            enableLights: true,
+            styleInformation: bigPictureStyleInformation,
+            _androidChanel.id,
+            _androidChanel.name,
+            channelDescription: _androidChanel.description,
+            icon: '@drawable/ic_launcher'),
+      ),
+      payload: jsonEncode(
+        event.toMap(),
+      ),
+    );
   }
 
   Future initLocalNotification() async {
@@ -176,6 +189,7 @@ class FirebaseMessagingController {
   }
 }
 
+// use this method to do some background task when notification came!
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('______________-laaaaaaaaaa-_____________');
   print('Handling a background message: ${message.messageId}');

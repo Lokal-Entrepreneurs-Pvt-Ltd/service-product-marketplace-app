@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lokal/actions.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import 'package:ui_sdk/utils/extensions.dart';
@@ -21,7 +22,7 @@ class TrainingCourseMaterialListTile extends StatelessWidget {
     final UikAction_Tap uikAction = UikAction_Tap.fromJson(action);
 
     if (uikAction.data.url != null) {
-      DeeplinkHandler.openPage(ctx, uikAction.data.url!);
+      UiUtils.launchURL(uikAction.data.url!);
     }
   }
 

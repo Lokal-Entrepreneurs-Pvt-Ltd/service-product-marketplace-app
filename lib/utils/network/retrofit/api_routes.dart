@@ -80,8 +80,25 @@ class ApiRoutes {
       "/userService/createOrUpdateForAgents";
   static const String getAgentDetailsByPartnerIdAndServiceId =
       "/partnerAgent/getAgentDetailsByPartnerIdAndServiceId";
-  static const String getAcademyTabs =
-      "/trainingAcademy/getTabs";
+  static const String getAcademyTabs = "/trainingAcademy/getTabs";
   static const String getAcademyDataByType =
       "/trainingAcademy/getAcademyDataByType";
+  static const String editScreen = "/editScreen";
+  static const String sendOtpForSignup = "/customer/sendOtpForSignup";
+  static const String signupByPhoneNumberOrEmail =
+      "/customer/signupByPhoneNumberOrEmail";
+  static const String verifyOtpAndLogin = "/customer/verifyOtpAndLogin";
+  static const String sendOtpForLogin = "/customer/sendOtpForLogin";
+  static const String sendOtpForLoginCustomer = "/customer/sendOtpForLogin";
+  static const String uploadDocumentonServer = "/image/upload";
+  static const String getUserProfile = "/customer/userProfile";
+  static const String getQuestionsByServiceId =
+      "/service/getQuestionsForService";
+  static const String sendAnswersByServiceId =
+      "/userService/createUserServiceApplication";
+  static const String imageUpload = "/image/upload";
+  static const String addAgentInService = "/agent/addAgentRequest";
+  static const String verifyAndAddAgent = "/agent/verifyAndAddAgent";
+  static const String customerLokalQr = "/customer/getLokalQr";
+  static const String jobsLandingPage = "/jobs/landingPage";
 }

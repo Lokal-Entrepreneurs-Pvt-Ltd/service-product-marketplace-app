@@ -1,50 +1,53 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class MyAccountWrapper extends StatefulWidget {
-  const MyAccountWrapper({super.key});
+import 'package:lokal/pages/UikMyAccountScreen.dart';
+
+class
+MyAccountWrapper extends StatefulWidget {
+  StatefulWidget page;
+  MyAccountWrapper({
+    Key? key,
+    required this.page,
+  }) : super(key: key);
 
   @override
-  State<MyAccountWrapper> createState() => _MyAccountWrapperState();
+  State<MyAccountWrapper> createState() => _MyAccountWrapperState(page);
 }
 
 class _MyAccountWrapperState extends State<MyAccountWrapper> {
-  Future<String?> _initPackageInfo() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.version;
-    // setState(() {
-    //   String _appName = _packageInfo.appName;
-    //   // String PackageName = _packageInfo.packageName;
-    //   // String AppVersion = _packageInfo.version;
-    //   // String BuildNumber = _packageInfo.buildNumber;
-    //   // String BuildSignature = _packageInfo.buildSignature;
-    // });
-  }
+  final StatefulWidget page;
+  _MyAccountWrapperState(this.page);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          UikMyAccountScreen().page,
-          Expanded(child: Container()),
-          FutureBuilder(
-              future: _initPackageInfo(),
-              builder: (ctx, res) {
-                if (res.hasData) {
-                  return Container(
-                    width: double.infinity,
-                    color: Colors.grey,
-                    child: Text(
-                      "Version: ${res.data!}",
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              }),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            //UikMyAccountScreen().page,
+            SizedBox(
+              child: page,
+              height: MediaQuery.of(context).size.height * 0.9,
+            ),
+            Expanded(child: Container()),
+            Container(
+              width: double.infinity,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Version: ${UserDataHandler.getAppVersion()}",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 15),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

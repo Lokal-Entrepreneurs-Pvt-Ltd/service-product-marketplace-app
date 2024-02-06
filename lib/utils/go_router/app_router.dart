@@ -1,4 +1,5 @@
 import 'package:digia_ui/digia_ui.dart';
+import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAddAddressScreen.dart';
@@ -29,7 +30,8 @@ import 'package:lokal/screens/Form/SamhitaDataCollector.dart';
 import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
-import 'package:lokal/screens/Onboarding/NewOnboardingScreen.dart';
+import 'package:lokal/screens/Onboarding/CustomerLoginScreen.dart';
+import 'package:lokal/screens/Onboarding/LokalPartnerLoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
 import 'package:lokal/screens/WebViewScreen.dart';
@@ -39,32 +41,57 @@ import 'package:lokal/screens/agents/AddAgentOtpScreen.dart';
 import 'package:lokal/screens/agents/AddAgentScreen.dart';
 import 'package:lokal/screens/agents/manageAgentScreen.dart';
 import 'package:lokal/screens/agents/notifyAllAgents.dart';
+import 'package:lokal/screens/basicdetails/otherdetails.dart';
+import 'package:lokal/screens/basicdetails/personaldetails.dart';
+import 'package:lokal/screens/basicdetails/upload%20documents.dart';
 import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
+import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
+import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+import 'package:lokal/screens/serviceInfra/agent_details.dart';
+import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
+import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
+import 'package:lokal/screens/serviceInfra/customer_details.dart';
+import 'package:lokal/screens/serviceInfra/jobscreen.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
 import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
+import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
+import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
+import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/screens/test.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/screens/serviceInfra/status.dart';
 
 import '../../pages/UikAgentsForUserService.dart';
+import '../../pages/UikCustomerLokalQr.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
 
 class AppRoutes {
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey(debugLabel: 'root');
 
-  // Go Router
+  void popUntil(GoRoute routeBase) {
+    while (_goRouter.canPop() &&
+        _goRouter.routerDelegate.currentConfiguration.matches.last.route !=
+            routeBase) {
+      _goRouter.pop();
+    }
+  }
 
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
-        : _uikBottomNavigationBar.path,
+        : uikBottomNavigationBar.path,
+    // initialLocation: _customerloginScreen.path,
+    observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
-      _uikBottomNavigationBar,
+      uikBottomNavigationBar,
       _loginScreen,
       _signUpScreen,
       _uikHomeWrapper,
@@ -109,10 +136,96 @@ class AppRoutes {
       _manageAgentScreen,
       _getAllCustomerForUserService,
       _getAllAgentsForUserService,
+      _profileScreen,
+      _profile_otherdetails,
+      _profile_uploaddocuments,
+      _profile_personal_details,
+      _jobApplicationsPersonalDetails,
+      _jobApplicationServiceQuestions,
+      _alljobDetails,
+      _customerloginScreen,
+      _customerSignUpScreen,
+      _uikMyAddress,
+      _customerLokalQr
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _profile_personal_details = GoRoute(
+    path: ScreenRoutes.personalDetails,
+    builder: (context, state) {
+      return PersonalDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _profile_otherdetails = GoRoute(
+    path: ScreenRoutes.otherdetails,
+    builder: (context, state) {
+      return OtherDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _profile_uploaddocuments = GoRoute(
+    path: ScreenRoutes.uploadDocuments,
+    builder: (context, state) {
+      return UploadDocuments(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _personalDetails = GoRoute(
+    path: ScreenRoutes.personalDetails,
+    builder: (context, state) {
+      return PersonalDetails(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+  static final GoRoute _alljobDetails = GoRoute(
+    path: ScreenRoutes.alljobs,
+    builder: (context, state) {
+      return JobScreen(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _jobApplicationServiceQuestions = GoRoute(
+    path: ScreenRoutes.jobApplicationServiceQuestion,
+    builder: (context, state) {
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
+      return ApplyForJobServiceQuestions(
+        key: state.pageKey,
+        args: extraArgs,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _jobApplicationsPersonalDetails = GoRoute(
+    path: ScreenRoutes.jobApplicationPersonalDetails,
+    builder: (context, state) {
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
+      return ApplyForJobPersonalDetails(
+        key: state.pageKey,
+        args: extraArgs,
+      );
+      // return OtherDetails();
+    },
+  );
 
   static final GoRoute _onboardingScreen = GoRoute(
     path: ScreenRoutes.onboardingScreen,
@@ -122,7 +235,7 @@ class AppRoutes {
       );
     },
   );
-  static final GoRoute _uikBottomNavigationBar = GoRoute(
+  static final GoRoute uikBottomNavigationBar = GoRoute(
     path: ScreenRoutes.uikBottomNavigationBar,
     builder: (context, state) {
       return UikBottomNavigationBar(
@@ -146,10 +259,51 @@ class AppRoutes {
       );
     },
   );
+
+  static final GoRoute _customerSignUpScreen = GoRoute(
+    path: ScreenRoutes.customerSignUpScreen,
+    builder: (context, state) {
+      return CustomerSignupScreen(
+        key: state.pageKey,
+      );
+    },
+  );
+  static final GoRoute _uikMyAddress = GoRoute(
+    path: ScreenRoutes.myAddressScreen,
+    builder: (context, state) {
+      return UikMyAddressScreen(context,
+              args: state.extra as Map<String, dynamic>?)
+          .page;
+    },
+  );
+  static final GoRoute _profileScreen = GoRoute(
+    path: ScreenRoutes.profileScreen,
+    builder: (context, state) {
+      return EditProfileScreen(
+        key: state.pageKey,
+      );
+    },
+  );
+
+  static final GoRoute _customerLokalQr = GoRoute(
+    path: ScreenRoutes.customerLokalQr,
+    builder: (context, state) {
+      return UikCustomerLokalQr(args: state.extra as Map<String, dynamic>?).page;
+    },
+  );
   static final GoRoute _loginScreen = GoRoute(
     path: ScreenRoutes.loginScreen,
     builder: (context, state) {
-      return LoginScreen(
+      return LokalPartnerLoginScreen(
+        key: state.pageKey,
+      );
+    },
+  );
+
+  static final GoRoute _customerloginScreen = GoRoute(
+    path: ScreenRoutes.customerLoginScreen,
+    builder: (context, state) {
+      return CustomerLoginScreen(
         key: state.pageKey,
       );
     },
@@ -230,7 +384,7 @@ class AppRoutes {
   static final GoRoute _orderScreen = GoRoute(
     path: ScreenRoutes.orderScreen,
     builder: (context, state) {
-      return UikOrderScreen(args: state.extra).page;
+      return UikOrderScreen(args: state.extra as Map<String, dynamic>?).page;
     },
   );
   static final GoRoute _addAddressScreen = GoRoute(
@@ -408,7 +562,7 @@ class AppRoutes {
   static final GoRoute _newOnboardingScreen = GoRoute(
     path: ScreenRoutes.newOnboardingScreen,
     builder: (context, state) {
-      return LoginScreen(
+      return LokalPartnerLoginScreen(
         key: state.pageKey,
       );
     },

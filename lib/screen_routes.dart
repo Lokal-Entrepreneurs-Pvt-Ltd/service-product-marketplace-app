@@ -1,4 +1,5 @@
 class ScreenRoutes {
+  static const String personalDetails = '/basicdetails/personaldetails';
   static const String homeScreen = '/discovery/get';
   static const String onboardingScreen = '/onboardingScreen';
   static const String uikBottomNavigationBar = '/uikBottomNavigationBar';
@@ -7,13 +8,14 @@ class ScreenRoutes {
   static const String cartScreen = '/cart';
   static const String addressBookScreen = '/checkout';
   static const String loginScreen = '/loginscreen';
+  static const String customerLoginScreen = '/customerloginscreen';
   static const String searchScreen = '/search';
   static const String paymentDetailsScreen = '/paymentdetailsscreen';
   static const String orderScreen = '/orderscreen';
   static const String emptyCartScreen = '/emptycartscreen';
   static const String orderHistoryScreen = "/orderhistoryscreen";
   static const String myDetailsScreen = "/mydetailsscreen";
-  static const String myAddressScreen = "/customer/address";
+  static const String myAddressScreen = "/customeraddress";
   static const String avatar = "/avatar";
   static const String icon = "/icon";
   // static const String emptyCartScreen = "/emptycartscreen";
@@ -21,6 +23,7 @@ class ScreenRoutes {
   static const String couponScreen = "/couponscreen";
   static const String forgetPassword = "/forgetPassword";
   static const String signUpScreen = "/signupscreen";
+  static const String customerSignUpScreen = "/customersignupscreen";
   static const String otpScreen = "/otpscreen";
   static const String setNewPasswordScreen = "/setnewpassword";
   static const String addAddressScreen = "/addaddressScreen";
@@ -68,7 +71,20 @@ class ScreenRoutes {
   static const String notifyAgentsScreen = "/notifyAgentsScreen";
   static const String partnerTrainingHome = "/partnerTrainingHome";
   static const String partnerTrainingArchive = "/partnerTrainingArchive";
-  static const String partnerTrainingCourseScreen = "/partnerTrainingCourseScreen";
+  static const String partnerTrainingCourseScreen =
+      "/partnerTrainingCourseScreen";
   static const String webScreenView = "/webScreenView";
   static const String myAgentListScreen = "/myAgentListScreen";
+  static const String profileScreen = "/profileScreen";
+  static const String otherdetails = "/basicdetails/otherdetails";
+  static const String otherJobDetails =
+      "/serviceInfra/applyForJob/otherJobDetails";
+  static const String uploadDocuments = "/basicdetails/uploaddocuments";
+  static const String jobApplicationPersonalDetails =
+      "/jobApplicationPersonalDetails";
+  static const String jobApplicationServiceQuestion =
+      "/jobApplicationServiceQuestions";
+  static const String alljobs = "/jobs";
+  static const String customerLokalQr = "/customerlokalQr";
+  static const String jobsLandingPage = "/jobsLandingPage";
 }

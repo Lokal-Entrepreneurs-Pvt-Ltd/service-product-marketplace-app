@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,6 @@ import '../utils/storage/user_data_handler.dart';
 // delete address
 
 class UikAddAddressScreen extends StandardPage {
-
 
   Map<String, dynamic>? args;
 
@@ -49,18 +49,19 @@ class UikAddAddressScreen extends StandardPage {
   }
 
   void onAddressBookTapAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.ON_TEXT_EDIT_COMPLETE:
-        onTextEditComplete(uikAction);
-        break;
-      case UIK_ACTION.SUBMIT_ADDRESS:
-        submitAddress(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-      default:
-    }
+    ActionUtils.executeAction(uikAction);
+    // switch (uikAction.tap.type) {
+    //   case UIK_ACTION.ON_TEXT_EDIT_COMPLETE:
+    //     onTextEditComplete(uikAction);
+    //     break;
+    //   case UIK_ACTION.SUBMIT_ADDRESS:
+    //     submitAddress(uikAction);
+    //     break;
+    //   case UIK_ACTION.BACK_PRESSED:
+    //     NavigationUtils.pop();
+    //     break;
+    //   default:
+    // }
   }
 
   @override

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -73,29 +74,7 @@ class UikCartScreen extends StandardPage {
   }
 
   void onCartScreenTapAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_ADDRESS:
-        if (UserDataHandler.getIsUserVerified()) {
-          openAddress(uikAction);
-        } else {
-          openMyDetails();
-        }
-        break;
-      case UIK_ACTION.REMOVE_FROM_CART:
-        removeCartItem(uikAction);
-        break;
-      case UIK_ACTION.REMOVE_CART_ITEM:
-        removeCartItem(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-      case UIK_ACTION.OPEN_PAGE:
-        NavigationUtils.openPage(uikAction);
-        break;
-
-      default:
-    }
+    ActionUtils.executeAction(uikAction);
   }
 
   @override
@@ -140,8 +119,7 @@ void openAddress(UikAction uikAction) {
 }
 
 void openMyDetails() {
-  var context = NavigationService.navigatorKey.currentContext;
-  Navigator.pushNamed(context!, ScreenRoutes.myDetailsScreen);
+  NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen);
 }
 
 void addToCart(UikAction uikAction) async {

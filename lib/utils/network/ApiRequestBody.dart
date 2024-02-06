@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../constants/json_constants.dart';
 
 class ApiRequestBody {
@@ -5,8 +7,64 @@ class ApiRequestBody {
     return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
   }
 
-  static getSignUpRequest(String email, password, userType) {
-    return {EMAIL: email, PASSWORD: password, USER_TYPE: userType};
+  static addAgentAndVerify(String email, name, phone, otp) {
+    return {EMAIL: email, NAME: name, MOBILE: phone, OTP: otp};
+  }
+
+  static sendMobileForOtp(String mobile) {
+    return {MOBILE: mobile};
+  }
+
+  static sendQusetionAnswers(String serviceId, Map<String, String> answermap) {
+    return {SERVICE_ID: serviceId, ANSWER_MAP: answermap};
+  }
+
+  static  getuploaddocumentsid(String type, File file) {
+    return {FILE: file, USE_CASE: type};
+  }
+
+  static updateLatlong(double lat, double long) {
+    return {LATITUDE: lat, LONGITUDE: long};
+  }
+
+  static getPersonalJobDetail(
+      String name, String date, String mob, String loc, String gender) {
+    return {
+      FIRST_NAME: name,
+      dob: date,
+      MOBILE_NO: mob,
+      LOCATION: loc,
+      GENDER: gender
+    };
+  }
+
+  static serviceId(String service) {
+    return {SERVICE_ID: service};
+  }
+
+  static getPersonalDetail(String name, String date, double lat, double long, String gender) {
+    return {NAME: name, dob: date, LATITUDE: lat, LONGITUDE: long,  GENDER: gender};
+  }
+
+  static getOtherDetail(String education, workex, bool relocate) {
+    return {EDUCATION: education, WORKEX: workex, RELOCATE: relocate};
+  }
+
+  static getUploadDocument(int gst, aadharf, aadharb, pan) {
+    return {GST: gst, AADHARF: aadharf, AADHARB: aadharb, PAN: pan};
+  }
+
+  static getLoginAsPhoneRequest(String phoneNo) {
+    return {PHONE_NUMBER: phoneNo};
+  }
+
+  static getSignUpRequest(String email, password, userType, phoneNo) {
+    return {
+      EMAIL: email,
+      PASSWORD: password,
+      USER_TYPE: userType,
+      PHONE_NUMBER: phoneNo
+    };
   }
 
   static getOptinRequest(String serviceId) {
@@ -76,10 +134,7 @@ class ApiRequestBody {
   }
 
   static submitSamhitaVerifyParticipantFormRequest(
-    participantName,
-    mobile,
-    samhitaId
-  ) {
+      participantName, mobile, samhitaId) {
     return {
       PARTICIPANT_NAME: participantName,
       MOBILE: mobile,
@@ -116,7 +171,6 @@ class ApiRequestBody {
     };
   }
 
-
   static submitExtraPayOptInRequest(
     name,
     mobile,
@@ -139,35 +193,36 @@ class ApiRequestBody {
     };
   }
 
-  static getVerifyAddAgentOtpRequest(String mobile, String otp, String partnerId) {
+  static getVerifyAddAgentOtpRequest(
+      String mobile, String otp, String partnerId) {
     return {MOBILE: mobile, OTP: otp, PARTNERID: partnerId};
   }
 
-  static submitAddAgentScreenFormRequest(String name, String mobile, String partnerId, String email) {
+  static submitAddAgentScreenFormRequest(
+      String name, String mobile, String partnerId, String email) {
     return {NAME: name, MOBILE: mobile, PARTNERID: partnerId, EMAIL: email};
   }
 
-  static submitAddPartnerAgentRequest(String partnerId, String name, String mobile, String email) {
+  static submitAddPartnerAgentRequest(
+      String partnerId, String name, String mobile, String email) {
     return {
       PARTNER_ID: partnerId,
-     "agentData": {
-       FIRST_NAME: name,
-       LAST_NAME_C: "",
-       PHONE_NUMBER: mobile,
-       EMAIL: email,
-       LATITUDE:"40.71277600",
-       LONGITUDE:"-74.00597400",
-       GENDER:"MALE",
-       DISTRICT:"DELHI",
-       STATE:"DELHI",
-       BLOCK:"DELHI",
-       TAX_VAT:"12345",
-       USER_TYPE:"AGENT"
+      "agentData": {
+        FIRST_NAME: name,
+        LAST_NAME_C: "",
+        PHONE_NUMBER: mobile,
+        EMAIL: email,
+        LATITUDE: "40.71277600",
+        LONGITUDE: "-74.00597400",
+        GENDER: "MALE",
+        DISTRICT: "DELHI",
+        STATE: "DELHI",
+        BLOCK: "DELHI",
+        TAX_VAT: "12345",
+        USER_TYPE: "AGENT"
       }
     };
   }
-
-
 
   static submitSamhitaFormRequest(
     name,
@@ -245,12 +300,16 @@ class ApiRequestBody {
     return {PHONE_NUMBER: phoneNumber};
   }
 
-  static getVerifyOtpRequest(String phoneNumber, String otp) {
-    return {PHONE_NUMBER: phoneNumber, OTP: otp};
+  static getVerifyOtpRequest(String phoneNumber, String otp,  String userType) {
+    return {PHONE_NUMBER: phoneNumber, OTP: otp, USER_TYPE : userType};
   }
 
   static getVerifySamhitaOtpRequest(String mobile, String otp, samhitaId) {
-    return {MOBILE: mobile, OTP: otp, SAMHITA_ID: samhitaId,};
+    return {
+      MOBILE: mobile,
+      OTP: otp,
+      SAMHITA_ID: samhitaId,
+    };
   }
 
   static getAddressNextRequest(String cartId, num addressId) {
