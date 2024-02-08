@@ -30,6 +30,7 @@ import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
 import 'package:lokal/screens/Onboarding/CustomerLoginScreen.dart';
+import 'package:lokal/screens/Onboarding/JobsFiltersPage.dart';
 import 'package:lokal/screens/Onboarding/LokalPartnerLoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
@@ -258,6 +259,14 @@ class AppRoutes {
     },
   );
 
+  static final GoRoute _jobsFiltersPage = GoRoute(
+    path: ScreenRoutes.jobsFiltersPage,
+    builder: (context, state) {
+      return JobsFiltersPage(
+        key: state.pageKey,
+      );
+    },
+  );
   static final GoRoute _customerSignUpScreen = GoRoute(
     path: ScreenRoutes.customerSignUpScreen,
     builder: (context, state) {
