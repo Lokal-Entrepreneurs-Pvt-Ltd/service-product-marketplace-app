@@ -37,23 +37,9 @@ class UikHome extends StandardPage {
   }
 
   void onHomeScreenTapAction(UikAction uikAction) {
-    
-    EventSDK eventSDK = EventSDK();
-    eventSDK.init();
-    if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
-      print('${EventSDK.sessionId}---------------');
-      Event event = Event(
-        name: uikAction.tap.type.toString(),
-        parameters: {
-          "sessionId": EventSDK.sessionId,
-          "userId": EventSDK.userId,
-          "pageName": ScreenRoutes.homeScreen
-        },
-      );
-      EventHandler.events(event: event);
-    }
-    
+
     ActionUtils.executeAction(uikAction);
+    ActionUtils.sendEventonActionForScreen(uikAction.tap.type.toString(),ScreenRoutes.homeScreen);
   }
 
   @override

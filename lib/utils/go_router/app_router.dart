@@ -65,13 +65,12 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/screens/serviceInfra/status.dart';
 
 import '../../pages/UikAgentsForUserService.dart';
+import '../../pages/UikCustomerLokalQr.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
 
 class AppRoutes {
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey(debugLabel: 'root');
-
-  // Go Router
 
   void popUntil(GoRoute routeBase) {
     while (_goRouter.canPop() &&
@@ -143,8 +142,9 @@ class AppRoutes {
       _jobApplicationServiceQuestions,
       _alljobDetails,
       _customerloginScreen,
-      _customerSignUpScreen
-
+      _customerSignUpScreen,
+      _uikMyAddress,
+      _customerLokalQr
     ],
   );
 
@@ -280,6 +280,13 @@ class AppRoutes {
       return EditProfileScreen(
         key: state.pageKey,
       );
+    },
+  );
+
+  static final GoRoute _customerLokalQr = GoRoute(
+    path: ScreenRoutes.customerLokalQr,
+    builder: (context, state) {
+      return UikCustomerLokalQr(args: state.extra as Map<String, dynamic>?).page;
     },
   );
   static final GoRoute _loginScreen = GoRoute(

@@ -15,7 +15,7 @@ class ScreenRoutes {
   static const String emptyCartScreen = '/emptycartscreen';
   static const String orderHistoryScreen = "/orderhistoryscreen";
   static const String myDetailsScreen = "/mydetailsscreen";
-  static const String myAddressScreen = "/customer/address";
+  static const String myAddressScreen = "/customeraddress";
   static const String avatar = "/avatar";
   static const String icon = "/icon";
   // static const String emptyCartScreen = "/emptycartscreen";
@@ -85,4 +85,6 @@ class ScreenRoutes {
   static const String jobApplicationServiceQuestion =
       "/jobApplicationServiceQuestions";
   static const String alljobs = "/jobs";
+  static const String customerLokalQr = "/customerlokalQr";
+  static const String jobsLandingPage = "/jobsLandingPage";
 }
