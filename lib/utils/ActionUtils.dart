@@ -139,10 +139,10 @@ abstract class ActionUtils {
       case UIK_ACTION.OPEN_LOKAL_QR:
         NavigationUtils.openScreen(ScreenRoutes.customerLokalQr);
         break;
-      // case UIK_ACTION.SHARE_WHATSAPP:
-      //   UiUtils.shareOnWhatsApp(
-      //       actionData['url'], actionData['message']);
-      //   break;
+      case UIK_ACTION.SHARE_WHATSAPP:
+        UiUtils.shareOnWhatsApp(
+            uikAction.tap.data.url!, uikAction.tap.data.skuId!);
+        break;
       default:
         {}
     }
