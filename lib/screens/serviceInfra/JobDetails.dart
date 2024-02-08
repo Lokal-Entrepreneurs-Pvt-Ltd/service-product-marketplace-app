@@ -329,7 +329,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: UikColor.gengar_100.toColor(),
+        color: '#F5F7FA'.toColor(),
         border: Border.all(color: UikColor.gengar_300.toColor()),
         borderRadius: BorderRadius.circular(5),
       ),
@@ -523,7 +523,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                     alignment: Alignment.bottomRight,
                     child: Text(
                       showFullDescription ? 'Show less' : 'Show more',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         color: UikColor.gengar_500.toColor(),
                         fontWeight: FontWeight.w500,
                         fontSize: 14,
