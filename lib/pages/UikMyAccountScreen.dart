@@ -42,6 +42,7 @@ class UikMyAccountScreen extends StandardPage {
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
     ActionUtils.executeAction(uikAction);
+    ActionUtils.sendEventonActionForScreen(uikAction.tap.type.toString(),ScreenRoutes.myAccountScreen);
   }
 
   @override

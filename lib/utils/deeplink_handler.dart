@@ -39,9 +39,11 @@ abstract class DeeplinkHandler {
     print(args);
     LokalEvents.logEvent('open_page_event', {'url': url});
     try {
-      _pushScreen(context, route, args);
+      _pushScreen(context,route, args);
+      //launchUrl(Uri.parse(url));
     } catch (e) {
-      launchUrl(Uri.parse(url));
+      UiUtils.showToast(e.toString());
+      // launchUrl(Uri.parse(url));
     }
   }
 

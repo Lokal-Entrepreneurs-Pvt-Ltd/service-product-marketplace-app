@@ -402,6 +402,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
       UserDataHandler.saveCustomerData(customerData);
     }
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
+
     if (isPhoneInput)
       NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
         "phoneNumber": emailController.text.toString(),
@@ -412,9 +413,14 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
         final String nextPage = response.data[NEXT_PAGE];
         if (nextPage.isNotEmpty)
           NavigationUtils.openScreenUntil(nextPage);
+  
         else
           NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
       } else
+        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+    }
+
+      else
         NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
     }
   }

@@ -342,6 +342,14 @@ class ApiRepository {
   static Future<ApiResponse> sendOtpForLoginCustomer(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLoginCustomer, args);
   }
+
+  static Future<ApiResponse> getCustomerLokalQr(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.customerLokalQr, args);
+  }
+
+  static Future<ApiResponse> getJobsLandingPage(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.jobsLandingPage, args);
+  }
 }
 
 // apirequestbody class

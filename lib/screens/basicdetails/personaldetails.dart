@@ -24,13 +24,14 @@ class PersonalDetails extends StatefulWidget {
 class _PersonalDetailsState extends State<PersonalDetails> {
   Future<Map<String, dynamic>?>? _futureData;
   TextEditingController controller = TextEditingController();
-  int selectedIndex = -1;
+  int genderIndex = -1;
   DateTime datePicker = DateTime.now();
 
   double lat = 0;
   double long = 0;
+  bool isUpdating = false; // Added isUpdating variable
 
-  Future<Map<String, dynamic>?>  fetchData() async {
+  Future<Map<String, dynamic>?> fetchData() async {
     try {
       final response = await ApiRepository.getUserProfile({});
       if (response.isSuccess!) {
@@ -45,7 +46,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             lat = userData['latitude'] ?? 0;
             long = userData['longitude'] ?? 0;
             // Assuming gender is either "Male" or "Female"
-            selectedIndex = userData['gender'] == "Male" ? 0 : 1;
+            genderIndex = userData['gender'] == "Male" ? 0 : 1;
           });
         }
       } else {
@@ -60,7 +61,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   @override
   void initState() {
     super.initState();
-    _futureData=  fetchData(); // Call fetchData when the widget is initialized
+    _futureData = fetchData(); // Call fetchData when the widget is initialized
   }
 
   @override
@@ -72,7 +73,14 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (isUpdating) {
+            // Show the progress bar while updating
+            return Center(
+              child: CircularProgressIndicator(
+                color: Colors.yellow,
+              ),
+            );
+          } else if (snapshot.connectionState == ConnectionState.done) {
             // If the future has completed, build the body with fetched data
             return SingleChildScrollView(
               child: buildBody(),
@@ -85,7 +93,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           } else {
             // Show a loading indicator while fetching data
             return Center(
-              child: CircularProgressIndicator(color:Colors.yellow),
+              child: CircularProgressIndicator(color: Colors.yellow),
             );
           }
         },
@@ -95,8 +103,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       ],
     );
   }
-
-
 
   Widget buildBody() {
     return Container(
@@ -133,7 +139,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       title: Column(
         children: [
           Text(
-            "Create Profile",
+            "Update Profile",
             textAlign: TextAlign.start,
             style: GoogleFonts.poppins(
               fontSize: 16,
@@ -154,6 +160,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       ),
     );
   }
+
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -174,14 +181,14 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       children: [
         SelectableTextWidget(
           text: "Male",
-          isSelected: selectedIndex == 0,
+          isSelected: genderIndex == 0,
           onTap: () => updateSelectedIndex(0),
           border: 2,
         ),
         SizedBox(width: 15),
         SelectableTextWidget(
           text: "Female",
-          isSelected: selectedIndex == 1,
+          isSelected: genderIndex == 1,
           onTap: () => updateSelectedIndex(1),
           border: 2,
         ),
@@ -269,8 +276,10 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   }
 
   Widget buildLocationField() {
-    String formattedLat = lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
-    String formattedLong = long.toStringAsFixed(2); // Limit longitude to 2 decimal places
+    String formattedLat =
+    lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
+    String formattedLong =
+    long.toStringAsFixed(2); // Limit longitude to 2 decimal places
 
     // Check if latitude and longitude values exist
     bool locationAvailable = (lat != 0 && long != 0);
@@ -326,8 +335,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     );
   }
 
-
-
   Widget buildContinueButton() {
     return Container(
       alignment: Alignment.center,
@@ -345,7 +352,21 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     final name = controller.text;
     final dob = DateFormat('dd/MM/yyyy', 'en_US').format(datePicker);
 
+
+    String gender;
+    if (genderIndex == 0) {
+      gender = "Male";
+    } else if (genderIndex == 1) {
+      gender = "Female";
+    } else {
+      // Handle the case where no gender is selected or other possible values
+      gender = ""; // You can change this default value as needed
+    }
     if (name.isNotEmpty && dob.isNotEmpty && lat != 0 && long != 0) {
+      setState(() {
+        isUpdating = true; // Set isUpdating to true while updating
+      });
+
       try {
         final response = await ApiRepository.updateCustomerInfo(
           ApiRequestBody.getPersonalDetail(
@@ -353,6 +374,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             dob,
             lat,
             long,
+            gender
           ),
         );
 
@@ -363,6 +385,10 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         }
       } catch (e) {
         UiUtils.showToast("Error In Request");
+      } finally {
+        setState(() {
+          isUpdating = false; // Set isUpdating to false after updating
+        });
       }
     } else {
       UiUtils.showToast("Please fill in all required fields.");
@@ -371,7 +397,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   void updateSelectedIndex(int index) {
     setState(() {
-      selectedIndex = index;
+      genderIndex = index;
     });
   }
 

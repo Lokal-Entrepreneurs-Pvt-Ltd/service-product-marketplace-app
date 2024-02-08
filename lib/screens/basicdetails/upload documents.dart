@@ -196,7 +196,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
     return Column(
       children: [
         Text(
-          "Create Profile",
+          "Update Profile",
           textAlign: TextAlign.start,
           style: GoogleFonts.poppins(
             fontSize: 16,
@@ -357,7 +357,8 @@ class _UploadDocumentsState extends State<UploadDocuments> {
       );
 
       if (response.isSuccess!) {
-        NavigationUtils.openScreen(ScreenRoutes.otherdetails);
+        UiUtils.showToast("Files Updated In Profile");
+        NavigationUtils.pop();
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }

@@ -24,9 +24,7 @@ class TrainingCourseMaterialListTile extends StatelessWidget {
     final UikAction_Tap uikAction = UikAction_Tap.fromJson(action);
 
     if (uikAction.data.url != null) {
-      DeeplinkHandler.openWeb(uikAction.data.url!);
-    } else {
-      UiUtils.showToast("No Action is given");
+      UiUtils.launchURL(uikAction.data.url!);
     }
   }
 
