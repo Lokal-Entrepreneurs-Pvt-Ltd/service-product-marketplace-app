@@ -419,10 +419,6 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
       } else
         NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
     }
-
-      else
-        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
-    }
   }
 
   void _handleLoginError(ApiResponse response) {

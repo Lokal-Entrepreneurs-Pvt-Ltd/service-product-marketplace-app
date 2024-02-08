@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lokal/widgets/UikFilter.dart';
 
-class JobsScreen extends StatefulWidget {
-  JobsScreen({Key? key}) : super(key: key);
+class JobsFiltersPage extends StatefulWidget {
+  JobsFiltersPage({Key? key}) : super(key: key);
 
   @override
-  _JobsScreenState createState() => _JobsScreenState();
+  _JobsFiltersPageState createState() => _JobsFiltersPageState();
 }
 
-class _JobsScreenState extends State<JobsScreen> {
+class _JobsFiltersPageState extends State<JobsFiltersPage> {
   Map<String, List<String>> selectedTags = {};
 
   @override
