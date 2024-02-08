@@ -9,6 +9,14 @@ import 'package:url_launcher/url_launcher.dart';
 import 'storage/product_data_handler.dart';
 
 abstract class DeeplinkHandler {
+  static void openWeb(String url) async {
+    try {
+      launchUrl(Uri.parse(url));
+    } catch (e) {
+      UiUtils.showToast(e.toString());
+    }
+  }
+
   static void openPage(BuildContext? context, String url) async {
     //https://localee.co.in/routName?args1=10&arg2=20
     print("__________________url____________________");

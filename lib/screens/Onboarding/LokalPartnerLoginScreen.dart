@@ -20,10 +20,12 @@ import '../../Widgets/UikButton/UikButton.dart';
 class LokalPartnerLoginScreen extends StatefulWidget {
   final String? selectedUserType;
 
-  const LokalPartnerLoginScreen({Key? key, this.selectedUserType}) : super(key: key);
+  const LokalPartnerLoginScreen({Key? key, this.selectedUserType})
+      : super(key: key);
 
   @override
-  _LokalPartnerLoginScreenState createState() => _LokalPartnerLoginScreenState();
+  _LokalPartnerLoginScreenState createState() =>
+      _LokalPartnerLoginScreenState();
 }
 
 class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
@@ -36,6 +38,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
   bool isLoading = false;
   String selectedUserType = PARTNER;
   bool isPhoneInput = true;
+  bool obscureText = false;
 
   @override
   void initState() {
@@ -128,7 +131,8 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
 
   Widget _buildTitle() {
     return Center(
-      child: Image.asset('assets/images/lokal_logo.png', // Replace 'your_image.png' with your image asset path
+      child: Image.asset(
+        'assets/images/lokal_logo.png', // Replace 'your_image.png' with your image asset path
         width: 200, // Set the width of the image as needed
         height: 100, // Set the height of the image as needed
         // You can customize other properties of the image widget as required.
@@ -212,7 +216,9 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
                 child: Text(
                   type,
                   style: GoogleFonts.poppins(
-                    color: isSelected ? const Color(0xFF212121) : const Color(0xFF9E9E9E),
+                    color: isSelected
+                        ? const Color(0xFF212121)
+                        : const Color(0xFF9E9E9E),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -246,7 +252,8 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
             borderRadius: BorderRadius.circular(DIMEN_8),
             borderSide: BorderSide.none,
           ),
-          errorText: errorEmail ? (isPhoneInput ? VALID_PHONE_NO : VALID_EMAIL) : null,
+          errorText:
+              errorEmail ? (isPhoneInput ? VALID_PHONE_NO : VALID_EMAIL) : null,
         ),
       ),
     );
@@ -260,32 +267,42 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
     return isPhoneNumber
         ? SizedBox.shrink() // Hide the password field
         : Padding(
-      padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
-      child: TextField(
-        enableSuggestions: true,
-        controller: passwordController,
-        obscureText: true,
-        decoration: InputDecoration(
-          hintText: PASSWORD_INPUT,
-          hintStyle: GoogleFonts.poppins(
-            color: const Color(0xFF9E9E9E),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: DIMEN_16,
-            horizontal: DIMEN_16,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(DIMEN_8),
-            borderSide: BorderSide.none,
-          ),
-          errorText: errorPassword ? PASSWORD_LENGTH : null,
-        ),
-      ),
-    );
+            padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
+            child: TextField(
+              enableSuggestions: true,
+              controller: passwordController,
+              obscureText: obscureText,
+              decoration: InputDecoration(
+                hintText: PASSWORD_INPUT,
+                hintStyle: GoogleFonts.poppins(
+                  color: const Color(0xFF9E9E9E),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      obscureText = !obscureText;
+                    });
+                  },
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: DIMEN_16,
+                  horizontal: DIMEN_16,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(DIMEN_8),
+                  borderSide: BorderSide.none,
+                ),
+                errorText: errorPassword ? PASSWORD_LENGTH : null,
+              ),
+            ),
+          );
   }
-
 
   Widget _buildForgotPasswordButton() {
     return Padding(
@@ -313,36 +330,36 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
       margin: const EdgeInsets.only(left: DIMEN_20, right: DIMEN_20),
       child: isLoading
           ? const CircularProgressIndicator(
-        color: Colors.yellow,
-      )
+              color: Colors.yellow,
+            )
           : UikButton(
-        text: CONTINUE,
-        textWeight: FontWeight.w500,
-        textSize: DIMEN_16,
-        textColor: const Color(0xFF212121),
-        backgroundColor: const Color(0xffFEE440),
-        onClick: () async {
-          if (_isInputValid()) {
-            setState(() {
-              isLoading = true;
-            });
-            try {
-              final response = await _performLogin();
-              if (response.isSuccess!) {
-                _handleSuccessfulLogin(response);
-              } else {
-                _handleLoginError(response);
-              }
-            } catch (e) {
-              // Handle error
-            } finally {
-              setState(() {
-                isLoading = false;
-              });
-            }
-          }
-        },
-      ),
+              text: CONTINUE,
+              textWeight: FontWeight.w500,
+              textSize: DIMEN_16,
+              textColor: const Color(0xFF212121),
+              backgroundColor: const Color(0xffFEE440),
+              onClick: () async {
+                if (_isInputValid()) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  try {
+                    final response = await _performLogin();
+                    if (response.isSuccess!) {
+                      _handleSuccessfulLogin(response);
+                    } else {
+                      _handleLoginError(response);
+                    }
+                  } catch (e) {
+                    // Handle error
+                  } finally {
+                    setState(() {
+                      isLoading = false;
+                    });
+                  }
+                }
+              },
+            ),
     );
   }
 
@@ -367,8 +384,8 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
   Future<ApiResponse> _performLogin() async {
     final input = emailController.text.toString();
     if (isPhoneInput) {
-      return ApiRepository.sendOtpForLogin(ApiRequestBody.getLoginAsPhoneRequest(
-          input));
+      return ApiRepository.sendOtpForLogin(
+          ApiRequestBody.getLoginAsPhoneRequest(input));
     } else {
       // Call the email login API.
       return ApiRepository.getLoginScreen(ApiRequestBody.getLoginRequest(
@@ -377,7 +394,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {
-    if(response.data[AUTH_TOKEN]!=null){
+    if (response.data[AUTH_TOKEN] != null) {
       UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
     }
     final customerData = response.data[CUSTOMER_DATA];
@@ -385,17 +402,24 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
       UserDataHandler.saveCustomerData(customerData);
     }
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
-    NavigationUtils.pop();
-    if(isPhoneInput)
-    NavigationUtils.openScreen(ScreenRoutes.otpScreen, {"phoneNumber": emailController.text.toString(),  USERTYPE: selectedUserType});
-    else{
-      if(response.data[NEXT_PAGE]!=null){
-      final String nextPage = response.data[NEXT_PAGE];
-      if(nextPage.isNotEmpty)
-        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+
+    if (isPhoneInput)
+      NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
+        "phoneNumber": emailController.text.toString(),
+        USERTYPE: selectedUserType
+      });
+    else {
+      if (response.data[NEXT_PAGE] != null) {
+        final String nextPage = response.data[NEXT_PAGE];
+        if (nextPage.isNotEmpty)
+          NavigationUtils.openScreenUntil(nextPage);
+  
         else
+          NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+      } else
         NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
     }
+
       else
         NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
     }
