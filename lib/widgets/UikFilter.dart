@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/utils/uik_color.dart';
+import 'package:ui_sdk/utils/extensions.dart';
 
 class UikFilter extends StatefulWidget {
   final Map<String, List<String>> selectedTags;
@@ -58,7 +60,9 @@ class _UikFilterState extends State<UikFilter> {
                         Text(
                           "Filter",
                           style: GoogleFonts.poppins(
-                              fontSize: 22, fontWeight: FontWeight.w600),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         InkWell(
                           onTap: () {
@@ -66,17 +70,18 @@ class _UikFilterState extends State<UikFilter> {
                             setState(() {});
                           },
                           child: Container(
+                            margin: EdgeInsets.only(right: 14),
                             decoration: BoxDecoration(
-                              color: Colors.yellow,
+                              color: UikColor.charizard_400.toColor(),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             padding: EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 15),
+                                vertical: 6, horizontal: 22),
                             child: Text(
                               "Clear",
                               style: GoogleFonts.poppins(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
@@ -90,7 +95,7 @@ class _UikFilterState extends State<UikFilter> {
                         Expanded(
                           flex: 2,
                           child: Container(
-                            color: Colors.black12,
+                            color: "#F5F7FA".toColor(),
                             child: buildlistCategory(),
                           ),
                         ),
@@ -113,14 +118,14 @@ class _UikFilterState extends State<UikFilter> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.yellow,
+                    color: UikColor.charizard_400.toColor(),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 21),
                   child: Text(
                     "Apply",
                     style: GoogleFonts.poppins(
-                      fontSize: 15,
+                      fontSize: 11,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -143,10 +148,16 @@ class _UikFilterState extends State<UikFilter> {
       child: Container(
         alignment: Alignment.centerLeft,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        color: (selectedCategory == category) ? Colors.white : null,
+        color: (selectedCategory == category)
+            ? Color.fromARGB(255, 255, 252, 252)
+            : null,
         child: Text(
           category,
-          style: GoogleFonts.poppins(fontSize: 18),
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: (selectedCategory == category)
+                  ? FontWeight.w600
+                  : FontWeight.w400),
         ),
       ),
     );
@@ -164,8 +175,8 @@ class _UikFilterState extends State<UikFilter> {
   Widget buildFilterOptions(String title) {
     List<String> options = filterOptions[title] ?? [];
 
-    return SingleChildScrollView(
-      child: Column(
+    return ListView(children: [
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: options.map((option) {
           return GestureDetector(
@@ -174,20 +185,29 @@ class _UikFilterState extends State<UikFilter> {
               setState(() {});
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     option,
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(fontSize: 18),
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                   CircleAvatar(
-                    radius: 15,
+                    radius: 14,
                     backgroundColor: selectedOptionColor(title, option),
-                    child: selectedOptionColor(title, option) == Colors.yellow
-                        ? Icon(Icons.check, color: Colors.black, size: 20)
+                    child: selectedOptionColor(title, option) ==
+                            "#FEE440".toColor()
+                        ? Icon(
+                            Icons.check,
+                            color: Colors.black,
+                            size: 18,
+                            weight: 40,
+                          )
                         : null,
                   ),
                 ],
@@ -196,15 +216,15 @@ class _UikFilterState extends State<UikFilter> {
           );
         }).toList(),
       ),
-    );
+    ]);
   }
 
   Color selectedOptionColor(String title, String option) {
     if (widget.selectedTags.containsKey(title) &&
         widget.selectedTags[title]!.contains(option)) {
-      return Colors.yellow;
+      return "#FEE440".toColor();
     }
-    return Colors.black12;
+    return UikColor.giratina_100.toColor();
   }
 
   void updateSelectedOption(String title, String option) {
