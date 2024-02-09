@@ -1,16 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UikFilter extends StatefulWidget {
-  final Map<String, List<String>> selectedTags;
-  final Map<String, List<String>> data;
-  final String selectedCategory;
-  UikFilter(
-      {required this.selectedTags,
-      required this.data,
-      this.selectedCategory = ''});
+  // final Map<String, List<String>> selectedTags;
+  // final String selectedCategory;
+  Map<String, dynamic>? args;
+  UikFilter({this.args});
 
   @override
   _UikFilterState createState() => _UikFilterState();
@@ -18,19 +17,26 @@ class UikFilter extends StatefulWidget {
 
 class _UikFilterState extends State<UikFilter> {
   String selectedCategory = '';
-
-  Map<String, List<String>> filterOptions = {};
+  Map<String, dynamic> selectedTags = {};
+  Map<String, List<String>> data = {};
 
   @override
   void initState() {
     super.initState();
-
-    if (widget.selectedCategory.isEmpty) {
-      selectedCategory = widget.data.keys.first;
-    } else {
-      selectedCategory = widget.selectedCategory;
+//logic for loading data of filters
+    const jsonData =
+        '{"filter":{ "Education": ["10th","12th", "graduation"],"Job Type": [ "full time",  "part time"  ] , "Work Experience":[    "Fresher",    "1st year"  ],   "Salary Range":  [ "<5000",  ">5000" ] }}';
+    final Map<String, dynamic> jsonMap = json.decode(jsonData);
+    final Map<String, dynamic> filterMap =
+        jsonMap['filter'] as Map<String, dynamic>;
+    data = filterMap.map(
+      (key, value) => MapEntry(key, List<String>.from(value)),
+    );
+    selectedTags = widget.args ?? {};
+    selectedCategory = selectedTags["selectedCategory"] ?? "";
+    if (selectedCategory.isEmpty) {
+      selectedCategory = data.keys.first;
     }
-    filterOptions = widget.data;
   }
 
   @override
@@ -167,13 +173,12 @@ class _UikFilterState extends State<UikFilter> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
-      children:
-          filterOptions.keys.map((key) => buildCategoryButton(key)).toList(),
+      children: data.keys.map((key) => buildCategoryButton(key)).toList(),
     );
   }
 
   Widget buildFilterOptions(String title) {
-    List<String> options = filterOptions[title] ?? [];
+    List<String> options = data[title] ?? [];
 
     return ListView(children: [
       Column(
@@ -220,31 +225,29 @@ class _UikFilterState extends State<UikFilter> {
   }
 
   Color selectedOptionColor(String title, String option) {
-    if (widget.selectedTags.containsKey(title) &&
-        widget.selectedTags[title]!.contains(option)) {
+    if (selectedTags.containsKey(title) &&
+        selectedTags[title]!.contains(option)) {
       return "#FEE440".toColor();
     }
     return UikColor.giratina_100.toColor();
   }
 
   void updateSelectedOption(String title, String option) {
-    if (widget.selectedTags.containsKey(title)) {
-      if (!widget.selectedTags[title]!.contains(option)) {
-        widget.selectedTags[title]!.clear();
-        widget.selectedTags[title]!.add(option);
+    if (selectedTags.containsKey(title)) {
+      if (!selectedTags[title]!.contains(option)) {
+        selectedTags[title] = option;
+        //   selectedTags[title]!.add(option);
       }
     } else {
-      widget.selectedTags.addAll({
-        title: [option]
-      });
+      selectedTags.addAll({title: option});
     }
   }
 
-  Map<String, List<String>> getSelectedOptions() {
-    return widget.selectedTags;
+  Map<String, dynamic> getSelectedOptions() {
+    return selectedTags;
   }
 
   void clearAllFilters() {
-    widget.selectedTags.clear();
+    selectedTags.clear();
   }
 }
