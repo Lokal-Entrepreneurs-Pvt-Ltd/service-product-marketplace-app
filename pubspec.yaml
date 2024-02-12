@@ -90,6 +90,8 @@ dependencies:
   webview_flutter: ^2.0.14
   flutter_share: ^2.0.0
   tutorial_coach_mark: ^1.2.11
+  share: ^2.0.4
+  image_gallery_saver: ^1.7.1
 
 dev_dependencies:
   build_runner: ^2.3.2
