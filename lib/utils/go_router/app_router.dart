@@ -30,7 +30,6 @@ import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
 import 'package:lokal/screens/Onboarding/CustomerLoginScreen.dart';
-import 'package:lokal/screens/Onboarding/JobsFiltersPage.dart';
 import 'package:lokal/screens/Onboarding/LokalPartnerLoginScreen.dart';
 import 'package:lokal/screens/Onboarding/OnboardingScreen.dart';
 import 'package:lokal/screens/Otp/OtpScreen.dart';
@@ -65,6 +64,7 @@ import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/screens/serviceInfra/status.dart';
+import 'package:lokal/widgets/UikFilter.dart';
 
 import '../../pages/UikAgentsForUserService.dart';
 import '../../pages/UikCustomerLokalQr.dart';
@@ -265,8 +265,8 @@ class AppRoutes {
   static final GoRoute _jobsFiltersPage = GoRoute(
     path: ScreenRoutes.jobsFiltersPage,
     builder: (context, state) {
-      return JobsFiltersPage(
-        key: state.pageKey,
+      return UikFilter(
+        args: state.extra as Map<String, dynamic>,
       );
     },
   );
@@ -281,8 +281,8 @@ class AppRoutes {
   static final GoRoute _jobsDetailsPage = GoRoute(
     path: ScreenRoutes.jobsDetailsPage,
     builder: (context, state) {
-      return JobDetailsPage(
-        key: state.pageKey,
+      return JobDetailsScreen(
+        key: state.pageKey, args: state.extra as Map<String, dynamic>?
       );
     },
   );
@@ -306,7 +306,8 @@ class AppRoutes {
   static final GoRoute _customerLokalQr = GoRoute(
     path: ScreenRoutes.customerLokalQr,
     builder: (context, state) {
-      return UikCustomerLokalQr(args: state.extra as Map<String, dynamic>?).page;
+      return UikCustomerLokalQr(args: state.extra as Map<String, dynamic>?)
+          .page;
     },
   );
   static final GoRoute _loginScreen = GoRoute(
