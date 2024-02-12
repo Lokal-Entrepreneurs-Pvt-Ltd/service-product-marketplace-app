@@ -1,6 +1,27 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
+import 'package:lokal/screens/serviceInfra/agent_details.dart';
+import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
+import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
+import 'package:lokal/screens/serviceInfra/customer_details.dart';
+import 'package:lokal/screens/serviceInfra/jobscreen.dart';
+import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
+import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
+import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
+import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
+import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
+import 'package:lokal/screens/signUp/customer_signup_screen.dart';
+import 'package:lokal/screens/signUp/signup_screen.dart';
+import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/screens/serviceInfra/status.dart';
+import 'package:lokal/widgets/UikFilter.dart';
+import '../../pages/UikAgentsForUserService.dart';
+import '../../pages/UikCustomerLokalQr.dart';
+import '../../screens/Form/SamhitaAddParticipants.dart';
+
 import 'package:lokal/pages/UikAddAddressScreen.dart';
 import 'package:lokal/pages/UikAddressBook.dart';
 import 'package:lokal/pages/UikBottomNavigationBar.dart';
@@ -48,27 +69,6 @@ import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
-import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
-import 'package:lokal/screens/serviceInfra/agent_details.dart';
-import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
-import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
-import 'package:lokal/screens/serviceInfra/customer_details.dart';
-import 'package:lokal/screens/serviceInfra/jobscreen.dart';
-import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
-import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
-import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
-import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
-import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
-import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
-import 'package:lokal/screens/signUp/customer_signup_screen.dart';
-import 'package:lokal/screens/signUp/signup_screen.dart';
-import 'package:lokal/utils/storage/user_data_handler.dart';
-import 'package:lokal/screens/serviceInfra/status.dart';
-import 'package:lokal/widgets/UikFilter.dart';
-
-import '../../pages/UikAgentsForUserService.dart';
-import '../../pages/UikCustomerLokalQr.dart';
-import '../../screens/Form/SamhitaAddParticipants.dart';
 
 class AppRoutes {
   static final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -87,6 +87,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
+    //  : _customerloginScreen.path,
     // initialLocation: _customerloginScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
