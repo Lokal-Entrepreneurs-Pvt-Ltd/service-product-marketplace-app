@@ -4,40 +4,16 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
+import 'package:ui_sdk/utils/UikActionListner.dart';
 import 'package:ui_sdk/utils/extensions.dart';
+
+import '../../utils/NavigationUtils.dart';
+import '../../utils/UiUtils/UiUtils.dart';
 
 class JobDetailsScreen extends StatefulWidget {
   final dynamic args;
-  JobDetailsScreen({super.key, this.args});
 
-  // JobDetailsScreen({
-  //   this.jobDetails = const {
-  //     "share": "",
-  //     "jobName": "Delivery Job",
-  //     "companyName": "Swiggy",
-  //     "logo": "",
-  //     "location": "Delhi/NCR",
-  //     "salary": "Rs. 50000/month",
-  //     "salaryDetails": {"Fixed": "Rs. 5000", "Earning": "Rs. 50000"},
-  //     "tabs": ["Job details", "Job Role", "Interview Details"],
-  //     "Job Details": {
-  //       "jobHighlights": [
-  //         "Urgently Hiring",
-  //         "Benefits include: Mobile allowance, Flexible Working Hours"
-  //       ],
-  //       "jobDescription": "adds eewedf efadfadfadfdfefwewrgrgrr fds"
-  //     },
-  //     "Job Role": {
-  //       "Department": "Pipe Service",
-  //       "Employment Type": "Full Time",
-  //       "Shift": "Day"
-  //     },
-  //     "Interview Details": {
-  //       "Interview Mode": "Physical",
-  //       "Address": "Delhi falna"
-  //     }
-  //   },
-  // });
+  JobDetailsScreen({Key? key, required this.args}) : super(key: key);
 
   @override
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
@@ -47,57 +23,17 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     with SingleTickerProviderStateMixin {
   late ScrollController _scrollController;
   late TabController _tabController;
-  late Map<String, dynamic> jobrole = {};
   bool showFullDescription = false;
   int _currentTabNumber = 0;
-  bool _isloading = true;
-  Map<String, dynamic> jobDetails = {
-    "share": "",
-    "jobName": "Delivery Job",
-    "companyName": "Swiggy",
-    "logo":
-        "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1706519896298-Ellipse%20598.png",
-    "location": "Delhi/NCR",
-    "salary": "Rs. 50000/month",
-    "salaryDetails": {"Fixed": "Rs. 5000", "Earning": "Rs. 50000"},
-    "tabs": ["Job details", "Job Role", "Interview Details"],
-    "Job Details": {
-      "jobHighlights": [
-        "Urgently Hiring",
-        "Benefits include: Mobile allowance, Flexible Working Hours"
-      ],
-      "jobDescription": "adds eewedf efadfadfadfdfefwewrgrgrr fds"
-    },
-    "Job Role": {
-      "Department": "Pipe Service",
-      "Employment Type": "Full Time",
-      "Shift": "Day"
-    },
-    "Interview Details": {
-      "Interview Mode": "Physical",
-      "Address": "Delhi falna"
-    }
-  };
+  bool _isLoading = true;
+  Map<String, dynamic> jobDetails = {};
+  List<dynamic> _ctas = [];
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _tabController =
-        TabController(length: jobDetails['tabs'].length, vsync: this);
-    jobrole = jobDetails['Job Role'];
-    _scrollController.addListener(() {
-      if (_scrollController.offset > 150) {
-        int newIndex = ((_scrollController.offset - 100) * 2 / 265).round();
-        if (newIndex != _currentTabNumber &&
-            newIndex < jobDetails['tabs'].length) {
-          setState(() {
-            _currentTabNumber = newIndex;
-          });
-          _tabController.animateTo(newIndex);
-        }
-      }
-    });
+    _fetchServiceDetails();
   }
 
   @override
@@ -115,37 +51,37 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   Future<void> _fetchServiceDetails() async {
     try {
-      //   final response = await ApiRepository.getServiceDetailsById(widget.args);
-      //   if (response.isSuccess!) {
-      //     _updateServiceDetails({
-      //   "share": "",
-      //   "jobName": "Delivery Job",
-      //   "companyName": "Swiggy",
-      //   "logo": "",
-      //   "location": "Delhi/NCR",
-      //   "salary": "Rs. 50000/month",
-      //   "salaryDetails": {"Fixed": "Rs. 5000", "Earning": "Rs. 50000"},
-      //   "tabs": ["Job details", "Job Role", "Interview Details"],
-      //   "Job Details": {
-      //     "jobHighlights": [
-      //       "Urgently Hiring",
-      //       "Benefits include: Mobile allowance, Flexible Working Hours"
-      //     ],
-      //     "jobDescription": "adds eewedf efadfadfadfdfefwewrgrgrr fds"
-      //   },
-      //   "Job Role": {
-      //     "Department": "Pipe Service",
-      //     "Employment Type": "Full Time",
-      //     "Shift": "Day"
-      //   },
-      //   "Interview Details": {
-      //     "Interview Mode": "Physical",
-      //     "Address": "Delhi falna"
-      //   }
-      // },);
-      //   } else {
-      //     _handleApiError();
-      //   }
+      setState(() {
+        _isLoading = true;
+      });
+      final response = await ApiRepository.getJobsbyId(widget.args);
+      if (response.isSuccess!) {
+        jobDetails = response.data!["jobDetails"] as Map<String, dynamic>;
+        final metaData = response.data['metaData'] as Map<String, dynamic>;
+         _ctas = metaData['ctas'] as List<dynamic>;
+        if (jobDetails['tabs'] != null) {
+          _tabController =
+              TabController(length: jobDetails['tabs'].length, vsync: this);
+          _scrollController.addListener(() {
+            if (_scrollController.offset > 150) {
+              int newIndex =
+              ((_scrollController.offset - 100) * 2 / 265).round();
+              if (newIndex != _currentTabNumber &&
+                  newIndex < jobDetails['tabs'].length) {
+                setState(() {
+                  _currentTabNumber = newIndex;
+                });
+                _tabController.animateTo(newIndex);
+              }
+            }
+          });
+        }
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        _handleApiError();
+      }
     } catch (e) {
       _handleApiError();
     }
@@ -214,6 +150,57 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     return Container();
   }
 
+  Widget _buildSalaryDetails() {
+    Map<String, dynamic> salaryDetails = jobDetails['salaryDetails'];
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      color: '#F5F7FA'.toColor(),
+      width: double.maxFinite,
+      child: Column(
+        children: salaryDetails.entries.map((entry) {
+          String key = entry.key;
+          dynamic value = entry.value;
+
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    key,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
+                  ),
+                  Text(
+                    '$value',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
+                  ),
+                ],
+              ),
+              (entry.toString() !=
+                  salaryDetails.entries.last.toString())
+                  ? Container(
+                height: 1,
+                margin: EdgeInsets.symmetric(vertical: 8),
+                width: double.maxFinite,
+                color: UikColor.giratina_400.toColor(),
+              )
+                  : Container(),
+            ],
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   Widget _buildLocationSalaryInfo() {
     return Container(
       padding: EdgeInsets.all(16),
@@ -261,63 +248,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             ],
           ),
           SizedBox(height: 20),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            color: '#F5F7FA'.toColor(),
-            width: double.maxFinite,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Fixed',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                    Text(
-                      '${jobDetails['salaryDetails']['Fixed']}',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 1,
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  width: double.maxFinite,
-                  color: UikColor.giratina_400.toColor(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Earning ',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                    Text(
-                      ' ${jobDetails['salaryDetails']['Earning']}',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          _buildSalaryDetails(),
         ],
       ),
     );
@@ -348,7 +279,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           ...List<String>.from(
             jobDetails['Job Details']['jobHighlights'],
           ).map(
-            (text) => Column(
+                (text) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -397,14 +328,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             ),
           ),
           _buildExpandableText(
-              // widget.jobDetails['Job Details']['jobDescription'],
-              "dddcdcdscw  eidfhwel ln l llcewldl  ewlf i ewln ln il nlnfilwfnwlfn welf wflw nffn ewlf newflwnfln fd ndlfndwfldnflk  ndd fdslkf ndslfkn nfl dsnfsdknfk kjf flkjnkfkfn sklfnfklrjnfksfn lkskadfnasklf nfk efe fnwfkb wf  fd fwfk jdkjf fk kffewf hdbfkbfefyf dfewbfbb eweubwefbd wfbwubdub ewfububfew uf bewfuewbf ewufbuebdfu ew eufbewbuwebfewfbfb weufbwebfweu bb ufb ewfubwefub fwusb"),
+            jobDetails['Job Details']['jobDescription'],
+          ),
         ],
       ),
     );
   }
 
   Widget _buildJobRole() {
+    Map<String, dynamic> jobrole = jobDetails['Job Role'];
     return Container(
       padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
       child: Column(
@@ -421,7 +353,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             height: 8,
           ),
           ...jobrole.entries.map(
-            (e) => Column(
+                (e) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -466,27 +398,27 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           ),
           ...jobDetails['Interview Details'].entries.map(
                 (e) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      e.key as String,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                    Text(
-                      e.value as String,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                  ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  e.key as String,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: UikColor.giratina_500.toColor(),
+                  ),
                 ),
-              ),
+                Text(
+                  e.value as String,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 8),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -533,7 +465,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 ),
             ],
           ),
-          if (!showFullDescription)
+          if (text.length > 150 && !showFullDescription)
             Positioned(
               child: Container(
                 width: double.maxFinite,
@@ -560,7 +492,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildLoadingIndicator() {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
@@ -571,149 +503,202 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   @override
   Widget build(BuildContext context) {
-    return (!_isloading)
+    return (_isLoading)
         ? _buildLoadingIndicator()
         : Scaffold(
-            appBar: AppBar(
-              backgroundColor: "#F5F7FA".toColor(),
-              leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+      appBar: AppBar(
+        backgroundColor: "#F5F7FA".toColor(),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          InkWell(
+            onTap: () {
+              String shareText = jobDetails['share'];
+              String shareUrl = jobDetails['shareUrl'];
+              UiUtils.shareOnWhatsApp(
+                  shareUrl.isNotEmpty? shareUrl:"https://play.google.com/store/apps/details?id=com.lokal.app&hl=en_US" ,
+                  shareText.isNotEmpty? shareText:"लोकल वोकल है: जुड़ें लोकल से पाये जॉब आपके घर के पास");
+            },
+            child: Container(
+              margin: EdgeInsets.only(right: 16),
+              decoration: BoxDecoration(
+                color: UikColor.charizard_400.toColor(),
+                borderRadius: BorderRadius.circular(10),
               ),
-              actions: [
-                InkWell(
-                  onTap: () {
-                    String shareText = jobDetails['share'];
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(right: 16),
-                    decoration: BoxDecoration(
-                      color: UikColor.charizard_400.toColor(),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                    child: Row(
-                      children: [
-                        Image.network(
-                          "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1707203798704-ic_baseline-whatsapp.png",
-                          width: 16,
-                          height: 16,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          "Share",
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+              child: Row(
+                children: [
+                  Image.network(
+                    "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1707203798704-ic_baseline-whatsapp.png",
+                    width: 16,
+                    height: 16,
+                    color: Colors.black,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    "Share",
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
-              ],
-            ),
-            body: DefaultTabController(
-              length: jobDetails['tabs'].length,
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildProfileInfo(),
-                    Container(
-                      height: 2,
-                      width: double.maxFinite,
-                      color: UikColor.giratina_100.toColor(),
-                    ),
-                    _buildLocationSalaryInfo(),
-                    Container(
-                      height: 6,
-                      width: double.maxFinite,
-                      color: UikColor.giratina_100.toColor(),
-                    ),
-                    Container(
-                      height: 45,
-                      child: TabBar(
-                        onTap: (ind) {
-                          setState(() {
-                            _currentTabNumber = ind;
-                          });
-                          switch (ind) {
-                            case 0:
-                              _scrollController.jumpTo(ind * 100);
-                              break;
-                            case 1:
-                              _scrollController.jumpTo(ind * 400);
-                              break;
-                            default:
-                              _scrollController.jumpTo(ind * 320);
-                              break;
-                          }
-                        },
-                        isScrollable: true,
-                        indicatorColor: UikColor.charizard_400.toColor(),
-                        labelStyle: GoogleFonts.poppins(fontSize: 16),
-                        controller: _tabController,
-                        tabs: List<Widget>.from(jobDetails['tabs']
-                            .map(
-                              (tab) => Tab(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Text(
-                                    tab as String,
-                                    style: _getTabItemTextStyle(
-                                        jobDetails['tabs'].indexOf(tab)),
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList()),
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      // shrinkWrap: true,
-                      // physics: AlwaysScrollableScrollPhysics(),
-                      // controller: _scrollController,
-                      children: [
-                        _buildJobHighlights(),
-                        Container(
-                          height: 6,
-                          //   margin: EdgeInsets.symmetric(vertical: 8),
-                          width: double.maxFinite,
-                          color: UikColor.giratina_100.toColor(),
-                        ),
-                        _buildJobDescription(),
-                        Container(
-                          height: 6,
-                          //   margin: EdgeInsets.symmetric(vertical: 8),
-                          width: double.maxFinite,
-                          color: UikColor.giratina_100.toColor(),
-                        ),
-                        _buildJobRole(),
-                        Container(
-                          height: 6,
-                          //   margin: EdgeInsets.symmetric(vertical: 8),
-                          width: double.maxFinite,
-                          color: UikColor.giratina_100.toColor(),
-                        ),
-                        _buildInterviewDetails(),
-                      ],
-                    ),
-                  ],
-                ),
+                ],
               ),
             ),
-            persistentFooterButtons: [_buildButton()],
-          );
+          ),
+        ],
+      ),
+      body: DefaultTabController(
+        length: jobDetails['tabs'].length,
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildProfileInfo(),
+              Container(
+                height: 2,
+                width: double.maxFinite,
+                color: UikColor.giratina_100.toColor(),
+              ),
+              _buildLocationSalaryInfo(),
+              Container(
+                height: 6,
+                width: double.maxFinite,
+                color: UikColor.giratina_100.toColor(),
+              ),
+              Container(
+                height: 45,
+                child: TabBar(
+                  onTap: (ind) {
+                    setState(() {
+                      _currentTabNumber = ind;
+                    });
+                    switch (ind) {
+                      case 0:
+                        _scrollController.jumpTo(ind * 100);
+                        break;
+                      case 1:
+                        _scrollController.jumpTo(ind * 400);
+                        break;
+                      default:
+                        _scrollController.jumpTo(ind * 320);
+                        break;
+                    }
+                  },
+                  isScrollable: true,
+                  indicatorColor: UikColor.charizard_400.toColor(),
+                  labelStyle: GoogleFonts.poppins(fontSize: 16),
+                  controller: _tabController,
+                  tabs: List<Widget>.from(jobDetails['tabs']
+                      .map(
+                        (tab) => Tab(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          tab as String,
+                          style: _getTabItemTextStyle(
+                              jobDetails['tabs'].indexOf(tab)),
+                        ),
+                      ),
+                    ),
+                  )
+                      .toList()),
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildJobHighlights(),
+                  Container(
+                    height: 6,
+                    width: double.maxFinite,
+                    color: UikColor.giratina_100.toColor(),
+                  ),
+                  _buildJobDescription(),
+                  Container(
+                    height: 6,
+                    width: double.maxFinite,
+                    color: UikColor.giratina_100.toColor(),
+                  ),
+                  _buildJobRole(),
+                  Container(
+                    height: 6,
+                    width: double.maxFinite,
+                    color: UikColor.giratina_100.toColor(),
+                  ),
+                  _buildInterviewDetails(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      persistentFooterButtons: [_buildCtas()],
+    );
   }
 
+  Widget _buildCtas() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: _ctas.asMap().entries.map<Widget>((entry) {
+        int index = entry.key;
+        Map<String, dynamic> cta = Map<String, dynamic>.from(entry.value);
+
+        final String text = cta['text'];
+        if (text.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        final Color textColor = Color(
+            int.parse(cta['textColor'].substring(1), radix: 16) + 0xFF000000);
+        final Color backgroundColor = index == 1
+            ? Colors.grey
+            : Color(int.parse(cta['backgroundColor'].substring(1), radix: 16) +
+            0xFF000000);
+        final Map<String, dynamic> action = cta['action'];
+        final Map<String, dynamic> tap = action['tap'];
+        final String actionType = tap['type'];
+        final Map<String, dynamic> actionData = tap['data'];
+
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              onTap: () async {
+                switch (actionType) {
+                  case "UIK_OPEN_WEB":
+                    launchURL(actionData['url']);
+                    break;
+                  case "SHARE_WHATSAPP":
+                    UiUtils.shareOnWhatsApp(
+                        actionData['url'], actionData['message']);
+                    break;
+                  case "OPEN_PAGE":
+                    NavigationUtils.openPageFromUrl(actionData['url']);
+                    break;
+                  default:
+                    break;
+                }
+              },
+              child: UikButton(
+                text: text,
+                textColor: textColor,
+                textSize: 16.0,
+                textWeight: FontWeight.w500,
+                backgroundColor: backgroundColor,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
   Widget _buildButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
