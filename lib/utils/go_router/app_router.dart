@@ -48,6 +48,7 @@ import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+import 'package:lokal/screens/serviceInfra/JobDetails.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
@@ -86,6 +87,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
+    //  : _customerloginScreen.path,
     // initialLocation: _customerloginScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
@@ -146,11 +148,22 @@ class AppRoutes {
       _customerSignUpScreen,
       _uikMyAddress,
       _customerLokalQr,
-      _jobsFiltersPage
+      _jobsFiltersPage,
+      _jobDetails
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _jobDetails = GoRoute(
+    path: ScreenRoutes.jobDetailsPage,
+    builder: (context, state) {
+      return JobDetailsScreen(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _profile_personal_details = GoRoute(
     path: ScreenRoutes.personalDetails,
