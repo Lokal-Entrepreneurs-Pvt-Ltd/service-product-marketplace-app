@@ -67,6 +67,15 @@ abstract class NavigationUtils {
     context?.push(routeName, extra: args);
   }
 
+  static void popAllAndPush(String routeName, [Map<String, dynamic>? args]) {
+    var context = AppRoutes.rootNavigatorKey.currentState;
+    while (context!.canPop()) {
+      context.pop();
+    }
+    var contexts = AppRoutes.rootNavigatorKey.currentContext;
+    contexts?.pushReplacement(routeName, extra: args);
+  }
+
   static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     context?.push(routeName, extra: args);
