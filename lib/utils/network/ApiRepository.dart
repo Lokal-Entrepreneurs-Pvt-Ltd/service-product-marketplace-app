@@ -12,6 +12,10 @@ class ApiRepository {
     return dio;
   }
 
+  static Future<ApiResponse> getJobsbyId(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.jobsDetailsById, args);
+  }
+
   static Future<ApiResponse> getSamhitaHomescreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.samhitaHome, args);
   }
@@ -340,7 +344,8 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> sendOtpForLoginCustomer(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLoginCustomer, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.sendOtpForLoginCustomer, args);
   }
 
   static Future<ApiResponse> getCustomerLokalQr(args) {

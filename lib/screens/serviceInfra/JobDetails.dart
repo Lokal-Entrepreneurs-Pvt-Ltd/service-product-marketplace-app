@@ -10,35 +10,6 @@ class JobDetailsScreen extends StatefulWidget {
   final dynamic args;
   JobDetailsScreen({super.key, this.args});
 
-  // JobDetailsScreen({
-  //   this.jobDetails = const {
-  //     "share": "",
-  //     "jobName": "Delivery Job",
-  //     "companyName": "Swiggy",
-  //     "logo": "",
-  //     "location": "Delhi/NCR",
-  //     "salary": "Rs. 50000/month",
-  //     "salaryDetails": {"Fixed": "Rs. 5000", "Earning": "Rs. 50000"},
-  //     "tabs": ["Job details", "Job Role", "Interview Details"],
-  //     "Job Details": {
-  //       "jobHighlights": [
-  //         "Urgently Hiring",
-  //         "Benefits include: Mobile allowance, Flexible Working Hours"
-  //       ],
-  //       "jobDescription": "adds eewedf efadfadfadfdfefwewrgrgrr fds"
-  //     },
-  //     "Job Role": {
-  //       "Department": "Pipe Service",
-  //       "Employment Type": "Full Time",
-  //       "Shift": "Day"
-  //     },
-  //     "Interview Details": {
-  //       "Interview Mode": "Physical",
-  //       "Address": "Delhi falna"
-  //     }
-  //   },
-  // });
-
   @override
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
 }
@@ -47,57 +18,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     with SingleTickerProviderStateMixin {
   late ScrollController _scrollController;
   late TabController _tabController;
-  late Map<String, dynamic> jobrole = {};
   bool showFullDescription = false;
   int _currentTabNumber = 0;
   bool _isloading = true;
-  Map<String, dynamic> jobDetails = {
-    "share": "",
-    "jobName": "Delivery Job",
-    "companyName": "Swiggy",
-    "logo":
-        "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1706519896298-Ellipse%20598.png",
-    "location": "Delhi/NCR",
-    "salary": "Rs. 50000/month",
-    "salaryDetails": {"Fixed": "Rs. 5000", "Earning": "Rs. 50000"},
-    "tabs": ["Job details", "Job Role", "Interview Details"],
-    "Job Details": {
-      "jobHighlights": [
-        "Urgently Hiring",
-        "Benefits include: Mobile allowance, Flexible Working Hours"
-      ],
-      "jobDescription": "adds eewedf efadfadfadfdfefwewrgrgrr fds"
-    },
-    "Job Role": {
-      "Department": "Pipe Service",
-      "Employment Type": "Full Time",
-      "Shift": "Day"
-    },
-    "Interview Details": {
-      "Interview Mode": "Physical",
-      "Address": "Delhi falna"
-    }
-  };
+  Map<String, dynamic> jobDetails = {};
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _tabController =
-        TabController(length: jobDetails['tabs'].length, vsync: this);
-    jobrole = jobDetails['Job Role'];
-    _scrollController.addListener(() {
-      if (_scrollController.offset > 150) {
-        int newIndex = ((_scrollController.offset - 100) * 2 / 265).round();
-        if (newIndex != _currentTabNumber &&
-            newIndex < jobDetails['tabs'].length) {
-          setState(() {
-            _currentTabNumber = newIndex;
-          });
-          _tabController.animateTo(newIndex);
-        }
-      }
-    });
+    _fetchServiceDetails();
   }
 
   @override
@@ -115,37 +45,38 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   Future<void> _fetchServiceDetails() async {
     try {
-      //   final response = await ApiRepository.getServiceDetailsById(widget.args);
-      //   if (response.isSuccess!) {
-      //     _updateServiceDetails({
-      //   "share": "",
-      //   "jobName": "Delivery Job",
-      //   "companyName": "Swiggy",
-      //   "logo": "",
-      //   "location": "Delhi/NCR",
-      //   "salary": "Rs. 50000/month",
-      //   "salaryDetails": {"Fixed": "Rs. 5000", "Earning": "Rs. 50000"},
-      //   "tabs": ["Job details", "Job Role", "Interview Details"],
-      //   "Job Details": {
-      //     "jobHighlights": [
-      //       "Urgently Hiring",
-      //       "Benefits include: Mobile allowance, Flexible Working Hours"
-      //     ],
-      //     "jobDescription": "adds eewedf efadfadfadfdfefwewrgrgrr fds"
-      //   },
-      //   "Job Role": {
-      //     "Department": "Pipe Service",
-      //     "Employment Type": "Full Time",
-      //     "Shift": "Day"
-      //   },
-      //   "Interview Details": {
-      //     "Interview Mode": "Physical",
-      //     "Address": "Delhi falna"
-      //   }
-      // },);
-      //   } else {
-      //     _handleApiError();
-      //   }
+      // final response = await ApiRepository.getServiceDetailsById(widget.args);
+      setState(() {
+        _isloading = true;
+      });
+      final response = await ApiRepository.getJobsbyId(widget.args);
+      if (response.isSuccess!) {
+        jobDetails = response.data["jobDetails"] as Map<String, dynamic>;
+        jobDetails = jobDetails["job_details"];
+
+        if (jobDetails['tabs'] != null) {
+          _tabController =
+              TabController(length: jobDetails['tabs'].length, vsync: this);
+          _scrollController.addListener(() {
+            if (_scrollController.offset > 150) {
+              int newIndex =
+                  ((_scrollController.offset - 100) * 2 / 265).round();
+              if (newIndex != _currentTabNumber &&
+                  newIndex < jobDetails['tabs'].length) {
+                setState(() {
+                  _currentTabNumber = newIndex;
+                });
+                _tabController.animateTo(newIndex);
+              }
+            }
+          });
+        }
+        setState(() {
+          _isloading = false;
+        });
+      } else {
+        _handleApiError();
+      }
     } catch (e) {
       _handleApiError();
     }
@@ -214,6 +145,58 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     return Container();
   }
 
+  Widget _buildSalaryDetails() {
+    Map<String, dynamic> salaryDetails = jobDetails['salaryDetails'];
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      color: '#F5F7FA'.toColor(),
+      width: double.maxFinite,
+      child: Column(
+        children: salaryDetails.entries.map((entry) {
+          String key = entry.key;
+          dynamic value = entry.value;
+
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    key,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
+                  ),
+                  Text(
+                    '$value',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
+                  ),
+                ],
+              ),
+              (entry.toString() !=
+                      salaryDetails.entries.last
+                          .toString()) // Add separator if not the last entry
+                  ? Container(
+                      height: 1,
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      width: double.maxFinite,
+                      color: UikColor.giratina_400.toColor(),
+                    )
+                  : Container(),
+            ],
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   Widget _buildLocationSalaryInfo() {
     return Container(
       padding: EdgeInsets.all(16),
@@ -261,63 +244,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             ],
           ),
           SizedBox(height: 20),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            color: '#F5F7FA'.toColor(),
-            width: double.maxFinite,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Fixed',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                    Text(
-                      '${jobDetails['salaryDetails']['Fixed']}',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 1,
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  width: double.maxFinite,
-                  color: UikColor.giratina_400.toColor(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Earning ',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                    Text(
-                      ' ${jobDetails['salaryDetails']['Earning']}',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          _buildSalaryDetails(),
         ],
       ),
     );
@@ -397,14 +324,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             ),
           ),
           _buildExpandableText(
-              // widget.jobDetails['Job Details']['jobDescription'],
-              "dddcdcdscw  eidfhwel ln l llcewldl  ewlf i ewln ln il nlnfilwfnwlfn welf wflw nffn ewlf newflwnfln fd ndlfndwfldnflk  ndd fdslkf ndslfkn nfl dsnfsdknfk kjf flkjnkfkfn sklfnfklrjnfksfn lkskadfnasklf nfk efe fnwfkb wf  fd fwfk jdkjf fk kffewf hdbfkbfefyf dfewbfbb eweubwefbd wfbwubdub ewfububfew uf bewfuewbf ewufbuebdfu ew eufbewbuwebfewfbfb weufbwebfweu bb ufb ewfubwefub fwusb"),
+            // widget.jobDetails['Job Details']['jobDescription'],
+            jobDetails['Job Details']['jobDescription'],
+          ),
         ],
       ),
     );
   }
 
   Widget _buildJobRole() {
+    Map<String, dynamic> jobrole = jobDetails['Job Role'];
     return Container(
       padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
       child: Column(
@@ -533,7 +462,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 ),
             ],
           ),
-          if (!showFullDescription)
+          if (text.length > 150 && !showFullDescription)
             Positioned(
               child: Container(
                 width: double.maxFinite,
