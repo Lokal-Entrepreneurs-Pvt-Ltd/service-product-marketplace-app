@@ -49,6 +49,7 @@ import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
@@ -145,7 +146,9 @@ class AppRoutes {
       _customerloginScreen,
       _customerSignUpScreen,
       _uikMyAddress,
-      _customerLokalQr
+      _customerLokalQr,
+      _jobsFiltersPage,
+      _jobsDetailsPage
     ],
   );
 
@@ -271,6 +274,14 @@ class AppRoutes {
     path: ScreenRoutes.customerSignUpScreen,
     builder: (context, state) {
       return CustomerSignupScreen(
+        key: state.pageKey,
+      );
+    },
+  );
+  static final GoRoute _jobsDetailsPage = GoRoute(
+    path: ScreenRoutes.jobsDetailsPage,
+    builder: (context, state) {
+      return JobDetailsPage(
         key: state.pageKey,
       );
     },
