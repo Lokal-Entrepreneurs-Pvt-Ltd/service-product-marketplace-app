@@ -7,11 +7,11 @@ import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
-
 enum WidgetType {
   UikListItemType1,
   UikContainerText,
 }
+
 class MyAgentListScreen extends StatefulWidget {
   const MyAgentListScreen({super.key, this.args});
   final dynamic args;
@@ -34,18 +34,16 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
     super.initState();
   }
 
-
-
   @override
   void didChangeDependencies() {
-
     _fetchAgentData();
     super.didChangeDependencies();
   }
 
   Future<void> _fetchAgentData() async {
     try {
-      final response = await ApiRepository.getAllAgentsForUserService(widget.args);
+      final response =
+          await ApiRepository.getAllAgentsForUserService(widget.args);
       if (response.isSuccess!) {
         _updateAgentData(response.data);
       } else {
@@ -66,7 +64,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
 
     setState(() {
       _agentListDataStore = agentDataList;
-      _agentWidgets= agentWidgets;
+      _agentWidgets = agentWidgets;
       _isLoading = false;
       _showAddAgentButton = true;
     });
@@ -89,13 +87,13 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
           icon: Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () {
-            NavigationUtils.openScreen(ScreenRoutes.uikBottomNavigationBar,);
+            NavigationUtils.openScreen(
+              ScreenRoutes.uikBottomNavigationBar,
+            );
           },
         ),
       ),
-      body: _isLoading
-          ? _buildLoadingIndicator()
-          : _buildAgentList(),
+      body: _isLoading ? _buildLoadingIndicator() : _buildAgentList(),
       persistentFooterButtons: _buildFooterButtons(),
     );
   }
@@ -108,10 +106,7 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
     );
   }
 
-
-
   Widget _buildAgentList() {
-
     if (!_isLoading && _agentListDataStore.isEmpty) {
       return _buildRetryView(); // Display the retry view
     }
@@ -133,46 +128,46 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
   }
 
   Widget _buildRetryView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Text(
-          "No Agents Found. Would you like to retry?",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            "No Agents Found. Would you like to retry?",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {
-            // Call the retry method here
-            setState(() {
-              _isLoading = true;
-              _fetchAgentData(); // Replace with your API call method
-            });
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.yellow,
-          ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Retry",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              // Call the retry method here
+              setState(() {
+                _isLoading = true;
+                _fetchAgentData(); // Replace with your API call method
+              });
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.yellow,
+            ),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Retry",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
-
 
   Widget buildWidgetByType(String uiType, Map<String, dynamic> agent) {
     final widgetType = uiTypeMapping[uiType];
@@ -186,15 +181,15 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
     }
   }
 
-
   static const Map<String, WidgetType> uiTypeMapping = {
     'UikListItemType1': WidgetType.UikListItemType1,
     'UikContainerText': WidgetType.UikContainerText,
   };
   Widget _buildAgentListItem(Map<String, dynamic> agent) {
-
     String agentName = agent['name']['text'] ?? '';
-    String firstCharacter = agentName.isNotEmpty ? agentName[0].toUpperCase() : ''; // Get the first character
+    String firstCharacter = agentName.isNotEmpty
+        ? agentName[0].toUpperCase()
+        : ''; // Get the first character
 
     return ListTile(
       onTap: () {
@@ -205,7 +200,8 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
         backgroundColor: Colors.yellow,
         child: Text(firstCharacter),
       ),
-      title: Text(agentName,
+      title: Text(
+        agentName,
         style: GoogleFonts.poppins(
           fontSize: 14,
           fontWeight: FontWeight.w500,
@@ -215,16 +211,12 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
       subtitle: Text(
         agent['phone']['text'] ?? '',
         style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey),
+            fontSize: 14, fontWeight: FontWeight.w400, color: Colors.grey),
       ),
       trailing: Text(
         agent['date']['text'] ?? '',
         style: GoogleFonts.poppins(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey),
+            fontSize: 14, fontWeight: FontWeight.w400, color: Colors.grey),
       ),
     );
   }
@@ -243,8 +235,6 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
     );
   }
 
-
-
   List<Widget> _buildFooterButtons() {
     final footerButtons = <Widget>[];
     footerButtons.add(
@@ -259,14 +249,17 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
   Widget _buildAddAndNotifyButtons() {
     return Container(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Split the screen space equally
+        mainAxisAlignment:
+            MainAxisAlignment.center, // Split the screen space equally
         children: [
           Container(
             margin: const EdgeInsets.all(8.0), // Add margin around the button
-            width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
+            width: MediaQuery.of(context).size.width /
+                2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
-                NavigationUtils.openScreen(ScreenRoutes.addAgentScreen, widget.args);
+                NavigationUtils.openScreen(
+                    ScreenRoutes.addAgentScreen, widget.args);
               },
               child: UikButton(
                 text: "Add Agent",
@@ -278,10 +271,12 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
           ),
           Container(
             margin: const EdgeInsets.all(8.0), // Add margin around the button
-            width: MediaQuery.of(context).size.width / 2.45, // Half of the screen width
+            width: MediaQuery.of(context).size.width /
+                2.45, // Half of the screen width
             child: InkWell(
               onTap: () {
-                NavigationUtils.openScreen(ScreenRoutes.notifyAgentsScreen, widget.args);
+                NavigationUtils.openScreen(
+                    ScreenRoutes.notifyAgentsScreen, widget.args);
               },
               child: UikButton(
                 text: "Notify Agent",
@@ -295,9 +290,6 @@ class _Sl_DetailsPageState extends State<MyAgentListScreen>
       ),
     );
   }
-
-
-
 
   Widget _buildNotifyAgentButton() {
     return Container(
