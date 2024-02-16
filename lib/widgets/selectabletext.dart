@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ui_sdk/utils/extensions.dart';
 
 class SelectableTextWidget extends StatelessWidget {
   final String text;
@@ -20,7 +21,7 @@ class SelectableTextWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? Colors.yellow : Colors.transparent,
+          color: isSelected ? ("#FEE440").toColor() : Colors.transparent,
           border: (border != 0)
               ? Border.all(
                   color: isSelected ? Colors.transparent : Colors.grey,
@@ -33,10 +34,10 @@ class SelectableTextWidget extends StatelessWidget {
         child: Text(
           text,
           style: GoogleFonts.poppins(
-            fontSize: 15,
-            color: Colors.black,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-          ),
+              fontSize: 14,
+              color: Colors.black,
+              // fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              fontWeight: FontWeight.w400),
         ),
       ),
     );
