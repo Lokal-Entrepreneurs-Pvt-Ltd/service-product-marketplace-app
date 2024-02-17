@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lokal/constants/json_constants.dart';
 
 import 'package:lokal/constants/strings.dart';
@@ -12,6 +13,7 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
+import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
@@ -25,11 +27,10 @@ class ApniOtherInfo extends StatefulWidget {
 enum IndexType { relocate, license }
 
 class _ApniOtherInfoState extends State<ApniOtherInfo> {
-  Future<Map<String, dynamic>?>? _futureData;
   TextEditingController controller = TextEditingController();
   int relocateIndex = -1;
   int bankIndex = -1;
-  String selectedState = "Select Industry";
+  String selectedState = "";
   TextEditingController locationController = TextEditingController();
   TextEditingController currentSalayController = TextEditingController();
   TextEditingController expectedSalaryController = TextEditingController();
@@ -41,37 +42,18 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
 
   bool isUpdating = false; // Added isUpdating variable
 
-  // Future<Map<String, dynamic>?> fetchData() async {
-  //   try {
-  //     final response = await ApiRepository.getUserProfile({});
-  //     if (response.isSuccess!) {
-  //       final userDataMagento = response.data;
-  //       final userData = response.data?['userModelData'];
-  //       if (userData != null) {
-  //         setState(() {
-  //           controller.text = userDataMagento['firstName'] ?? '';
-  //           datePicker = userDataMagento['dob'] != null
-  //               ? DateTime.parse(userDataMagento['dob'])
-  //               : DateTime.now();
-  //           lat = userData['latitude'] ?? 0;
-  //           long = userData['longitude'] ?? 0;
-  //           // Assuming gender is either "Male" or "Female"
-  //           genderIndex = userData['gender'] == "Male" ? 0 : 1;
-  //         });
-  //       }
-  //     } else {
-  //       UiUtils.showToast(response.error![MESSAGE]);
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     UiUtils.showToast("Error fetching initial data");
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
-    //   _futureData = fetchData(); // Call fetchData when the widget is initialized
+  }
+
+  @override
+  void dispose() {
+    locationController.dispose();
+    currentSalayController.dispose();
+    expectedSalaryController.dispose();
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -87,37 +69,55 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
 
   Widget buildBody() {
     return SafeArea(
-      child: Stack(children: [
-        SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                buildTitle("Other Details Bhare", 24, FontWeight.w600),
-                buildTitle("Do you have Driving License?", 16, FontWeight.w500),
-                buildMultiSelectable(license, boollicense, (index) {
-                  updateSelectedIndex(index, IndexType.license);
-                }),
-                buildTitle("Want to Relocate", 16, FontWeight.w500),
-                buildSelectable(bike, relocateIndex, (index) {
-                  updateSelectedIndex(index, IndexType.relocate);
-                }),
-                SizedBox(height: 10),
-                buildTextBox("Pereferred Location",
-                    "Type your preferred location", locationController),
-                builLocationsField(context, stateList, "Current Industry"),
-                buildTextBox("Current Salary", "Type your current salary",
-                    currentSalayController),
-                buildTextBox("Expected Salary", "Type your expected salary",
-                    expectedSalaryController),
-              ],
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 21),
+                    child:
+                        buildTitle("Other Details Bhare", 18, FontWeight.w500),
+                  ),
+                  buildTitle(
+                      "Do you have Driving License?", 16, FontWeight.w500),
+                  buildMultiSelectable(license, boollicense, (index) {
+                    updateSelectedIndex(index, IndexType.license);
+                  }),
+                  buildTitle("Want to Relocate", 16, FontWeight.w500),
+                  buildSelectable(bike, relocateIndex, (index) {
+                    updateSelectedIndex(index, IndexType.relocate);
+                  }),
+                  SizedBox(height: 10),
+                  TextInputContainer(
+                    fieldName: "Pereferred Location",
+                    textEditingController: locationController,
+                    hint: "Type your preferred location",
+                  ),
+                  builLocationsField(context, stateList, "Current Industry"),
+                  TextInputContainer(
+                    fieldName: "Current Salary",
+                    textEditingController: currentSalayController,
+                    hint: "Type your current salary",
+                    textInputType: TextInputType.number,
+                  ),
+                  TextInputContainer(
+                    fieldName: "Expected Salary",
+                    textEditingController: expectedSalaryController,
+                    hint: "Type your expected salary",
+                    textInputType: TextInputType.number,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        appBar()
-      ]),
+          appBar()
+        ],
+      ),
     );
   }
 
@@ -163,7 +163,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 12),
-        padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+        padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
         height: 64,
         decoration: BoxDecoration(
           color: ("#F5F5F5").toColor(),
@@ -174,6 +174,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   name,
@@ -184,21 +185,15 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
                     color: ("#9E9E9E").toColor(),
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(selectedState,
+                (selectedState.isNotEmpty)
+                    ? Text(selectedState,
                         style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w400)),
-                    //  Icon(Icons.chevron_right),
-                  ],
-                )
+                            fontSize: 16, fontWeight: FontWeight.w400))
+                    : Container()
               ],
             ),
-            Icon(Icons.location_searching_outlined),
+            SvgPicture.network(
+                "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
           ],
         ),
       ),
@@ -347,51 +342,6 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
     );
   }
 
-  Widget buildTextBox(String fieldname, String hint,
-      TextEditingController textEditingController) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
-      height: 64,
-      decoration: BoxDecoration(
-        color: ("#F5F5F5").toColor(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            fieldname,
-            textAlign: TextAlign.start,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ("#9E9E9E").toColor(),
-            ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Expanded(
-            child: TextFormField(
-              showCursor: false,
-              controller: textEditingController,
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                hintText: hint,
-                border: InputBorder.none,
-              ),
-              scribbleEnabled: false,
-              onTap: () => updateState(),
-              onFieldSubmitted: (_) => updateState(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget buildContinueButton() {
     return Container(
       alignment: Alignment.center,
@@ -402,6 +352,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
         textWeight: FontWeight.w500,
         //     onClick: updatedata,
         onClick: () {
+          // print(locationController.text);
           NavigationUtils.openScreen(ScreenRoutes.apniDocumentInfo);
           //   updatedata();
         },
