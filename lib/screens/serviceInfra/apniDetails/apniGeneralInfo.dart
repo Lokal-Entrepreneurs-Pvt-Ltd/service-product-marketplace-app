@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +7,7 @@ import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
+import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
@@ -26,9 +28,9 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
   TextEditingController colonycontroller = TextEditingController();
   int bikeIndex = -1;
   int bankIndex = -1;
-  String selectedState = "Select State";
-  String selectedDistrict = "Select District";
-  String selectedCity = "Select City";
+  String selectedState = "";
+  String selectedDistrict = "";
+  String selectedCity = "";
 
   List<String> bike = ["Yes", "No"];
   List<String> stateList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
@@ -40,33 +42,6 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
   List<String> villageList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
 
   bool isUpdating = false; // Added isUpdating variable
-
-  // Future<Map<String, dynamic>?> fetchData() async {
-  //   try {
-  //     final response = await ApiRepository.getUserProfile({});
-  //     if (response.isSuccess!) {
-  //       final userDataMagento = response.data;
-  //       final userData = response.data?['userModelData'];
-  //       if (userData != null) {
-  //         setState(() {
-  //           controller.text = userDataMagento['firstName'] ?? '';
-  //           datePicker = userDataMagento['dob'] != null
-  //               ? DateTime.parse(userDataMagento['dob'])
-  //               : DateTime.now();
-  //           lat = userData['latitude'] ?? 0;
-  //           long = userData['longitude'] ?? 0;
-  //           // Assuming gender is either "Male" or "Female"
-  //           genderIndex = userData['gender'] == "Male" ? 0 : 1;
-  //         });
-  //       }
-  //     } else {
-  //       UiUtils.showToast(response.error![MESSAGE]);
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     UiUtils.showToast("Error fetching initial data");
-  //   }
-  // }
 
   @override
   void initState() {
@@ -95,7 +70,11 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildTitle("General Details Bhare", 24, FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.only(top: 21),
+                  child:
+                      buildTitle("General Details Bhare", 18, FontWeight.w500),
+                ),
                 buildTitle("Do you have a Bike?", 16, FontWeight.w500),
                 buildSelectable(bike, bikeIndex, (index) {
                   updateSelectedIndex(index, IndexType.bike);
@@ -105,17 +84,22 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                   updateSelectedIndex(index, IndexType.bank);
                 }),
                 buildTitle("Permanent Addresses", 16, FontWeight.w500),
-                SizedBox(height: 10),
                 builLocationsField(
                     context, stateList, "State", LocationType.state),
                 builLocationsField(
                     context, districtList, "District", LocationType.district),
                 builLocationsField(
                     context, villageList, "Village", LocationType.city),
-                buildTextBox("Home No, Building Name", "Type your address",
-                    homecontroller),
-                buildTextBox("Road name, Area, Colony", "Type your address",
-                    colonycontroller),
+                TextInputContainer(
+                  fieldName: "Home No, Building Name",
+                  textEditingController: homecontroller,
+                  hint: "Type your address",
+                ),
+                TextInputContainer(
+                  fieldName: "Road name, Area, Colony",
+                  textEditingController: colonycontroller,
+                  hint: "Type your address",
+                ),
               ],
             ),
           ),
@@ -150,7 +134,7 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 12),
-        padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+        padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
         height: 64,
         decoration: BoxDecoration(
           color: ("#F5F5F5").toColor(),
@@ -161,6 +145,7 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   name,
@@ -171,28 +156,22 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                     color: ("#9E9E9E").toColor(),
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(getlocationtype(type, null),
+                (getlocationtype(type, null).isNotEmpty)
+                    ? Text(getlocationtype(type, null),
                         style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w400)),
-                    //  Icon(Icons.chevron_right),
-                  ],
-                )
+                            fontSize: 16, fontWeight: FontWeight.w400))
+                    : Container(),
               ],
             ),
-            Icon(Icons.location_searching_outlined),
+            SvgPicture.network(
+                "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
           ],
         ),
       ),
     );
   }
 
-  getlocationtype(LocationType type, String? string) {
+  String getlocationtype(LocationType type, String? string) {
     switch (type) {
       case LocationType.state:
         if (string != null) {
@@ -340,7 +319,7 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
 
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 5),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Text(
         text,
         textAlign: TextAlign.start,
@@ -349,53 +328,6 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
           fontWeight: fontWeight,
           color: Colors.black,
         ),
-      ),
-    );
-  }
-
-  Widget buildTextBox(String fieldname, String hint,
-      TextEditingController textEditingController) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
-      height: 64,
-      decoration: BoxDecoration(
-        color: ("#F5F5F5").toColor(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            fieldname,
-            textAlign: TextAlign.start,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ("#9E9E9E").toColor(),
-            ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Container(
-            width: double.maxFinite,
-            height: 24,
-            child: TextFormField(
-              showCursor: false,
-              controller: textEditingController,
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                hintText: hint,
-                border: InputBorder.none,
-              ),
-              scribbleEnabled: false,
-              onTap: () => updateState(),
-              onFieldSubmitted: (_) => updateState(),
-            ),
-          ),
-        ],
       ),
     );
   }

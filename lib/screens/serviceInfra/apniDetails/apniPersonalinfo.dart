@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
@@ -15,6 +17,7 @@ import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
+import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
@@ -35,15 +38,16 @@ enum IndexType {
 
 class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   Future<Map<String, dynamic>?>? _futureData;
-  TextEditingController controller = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   ApnaPersonalData apnaPersonalData = ApnaPersonalData();
-  String selectedState = "Select State";
+  String selectedState = "";
   DateTime? datePicker = null;
 
   double lat = 0;
   double long = 0;
   int? age = null;
   bool isUpdating = false; // Added isUpdating variable
+  List<String> stateList = ["Delivery", "seller", "Mumbai", "Bangalore"];
 
   // Future<Map<String, dynamic>?> fetchData() async {
   //   try {
@@ -99,15 +103,22 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildTitle("Apni Personal Details Bhare", 24, FontWeight.w600),
+                Padding(
+                  padding: const EdgeInsets.only(top: 21),
+                  child: buildTitle(
+                      "Apni Personal Details Bhare", 24, FontWeight.w600),
+                ),
                 buildTitle("Gender", 16, FontWeight.w500),
                 buildSelectable(
                     apnaPersonalData.genderList, apnaPersonalData.genderIndex,
                     (index) {
                   updateSelectedIndex(index, IndexType.gender);
                 }),
-                SizedBox(height: 32),
-                buildTextBox("Full Name (as on aadhar)", "Type your full name"),
+                SizedBox(height: 8),
+                TextInputContainer(
+                    fieldName: "Full Name (as on aadhar)",
+                    textEditingController: nameController),
+                //      buildTextBox("Full Name (as on aadhar)", "Type your full name"),
                 Row(
                   children: [
                     Expanded(
@@ -115,8 +126,6 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                     Expanded(child: buildAgeBox("Age")),
                   ],
                 ),
-                _buildPhoneField(),
-                builLocationsField(context),
                 buildTitle("Education Background", 16, FontWeight.w500),
                 buildSelectable(
                     apnaPersonalData.education, apnaPersonalData.educationIndex,
@@ -128,7 +137,12 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                     apnaPersonalData.workExperienceIndex, (index) {
                   updateSelectedIndex(index, IndexType.workExperience);
                 }),
-                //   buildLocationField(),
+                SizedBox(height: 8),
+                _buildPhoneField(),
+                builLocationsField(
+                    context, stateList, "Industry you want to work"),
+
+                buildLocationField(),
               ],
             ),
           ),
@@ -138,43 +152,65 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
     );
   }
 
-  // void updatedata() async {
-  //   final name = controller.text;
+  Widget buildLocationField() {
+    String formattedLat =
+        lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
+    String formattedLong =
+        long.toStringAsFixed(2); // Limit longitude to 2 decimal places
 
-  //   String gender;
+    // Check if latitude and longitude values exist
+    bool locationAvailable = (lat != 0 && long != 0);
 
-  //   if (name.isNotEmpty && dob.isNotEmpty && lat != 0 && long != 0) {
-  //     setState(() {
-  //       isUpdating = true; // Set isUpdating to true while updating
-  //     });
-
-  //     try {
-  //       final response = await ApiRepository.updateCustomerInfo(
-  //         ApiRequestBody.getPersonalDetail(
-  //           name,
-  //           dob,
-  //           lat,
-  //           long,
-  //           gender
-  //         ),
-  //       );
-
-  //       if (response.isSuccess!) {
-  //         NavigationUtils.openScreen(ScreenRoutes.otherdetails);
-  //       } else {
-  //         UiUtils.showToast(response.error![MESSAGE]);
-  //       }
-  //     } catch (e) {
-  //       UiUtils.showToast("Error In Request");
-  //     } finally {
-  //       setState(() {
-  //         isUpdating = false; // Set isUpdating to false after updating
-  //       });
-  //     }
-  //   } else {
-  //     UiUtils.showToast("Please fill in all required fields.");
-  //   }
-  // }
+    return Container(
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      height: 90,
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+        color: Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: GestureDetector(
+        onTap: () => getLocation(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              locationAvailable
+                  ? "Current Location" // Display this text if location is available
+                  : " Tap to Select Location", // Display this text if no location is available
+              textAlign: TextAlign.start,
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.black26,
+              ),
+            ),
+            if (locationAvailable) ...[
+              Text(
+                "Lat: $formattedLat", // Display formatted latitude
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                "Long: $formattedLong", // Display formatted longitude
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget appBar() {
     return Container(
@@ -240,14 +276,18 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
     );
   }
 
-  Widget builLocationsField(BuildContext context) {
+  Widget builLocationsField(
+    BuildContext context,
+    List<String> list,
+    String name,
+  ) {
     return GestureDetector(
       onTap: () {
-        _showLocationDialog(context);
+        _showLocationDialog(context, list);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 12),
-        padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+        padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
         height: 64,
         decoration: BoxDecoration(
           color: ("#F5F5F5").toColor(),
@@ -258,9 +298,10 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Current State",
+                  name,
                   textAlign: TextAlign.start,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
@@ -268,28 +309,23 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                     color: ("#9E9E9E").toColor(),
                   ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(selectedState,
+                (selectedState.isNotEmpty)
+                    ? Text(selectedState,
                         style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w400)),
-                    //  Icon(Icons.chevron_right),
-                  ],
-                )
+                            fontSize: 16, fontWeight: FontWeight.w400))
+                    : Container(),
               ],
             ),
-            Icon(Icons.location_searching_outlined),
+            SvgPicture.network(
+                "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
           ],
         ),
       ),
     );
   }
 
-  Future<void> _showLocationDialog(BuildContext context) async {
+  Future<void> _showLocationDialog(
+      BuildContext context, List<String> list) async {
     return showModalBottomSheet<void>(
       backgroundColor: UikColors.WHITE,
       context: context,
@@ -320,7 +356,7 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: TextFormField(
-                controller: controller,
+                controller: nameController,
                 style: GoogleFonts.poppins(
                     fontSize: 16, fontWeight: FontWeight.w400),
                 decoration: InputDecoration(
@@ -339,11 +375,10 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: apnaPersonalData
-                    .stateList.length, // Change the itemCount as needed
+                itemCount: list.length, // Change the itemCount as needed
                 itemBuilder: (BuildContext context, int index) {
-                  return _buildLocationItem(context,
-                      apnaPersonalData.stateList[index], index % 2 == 0);
+                  return _buildLocationItem(
+                      context, list[index], index % 2 == 0);
                 },
               ),
             ),
@@ -419,7 +454,7 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
 
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 5),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Text(
         text,
         textAlign: TextAlign.start,
@@ -433,53 +468,74 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   }
 
   Widget buildAgeBox(String fieldname) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12, left: 10),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
-      height: 64,
-      decoration: BoxDecoration(
-        color: ("#F5F5F5").toColor(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            fieldname,
-            textAlign: TextAlign.start,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ("#9E9E9E").toColor(),
+    return (datePicker != null)
+        ? Container(
+            margin: EdgeInsets.only(left: 10),
+            padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+            height: 64,
+            decoration: BoxDecoration(
+              color: ("#F5F5F5").toColor(),
+              borderRadius: BorderRadius.circular(10),
             ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Container(
-            width: double.maxFinite,
-            height: 24,
-            child: (age != null)
-                ? Text(
-                    age.toString(),
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                  )
-                : Text(
-                    "Nan",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  fieldname,
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ("#9E9E9E").toColor(),
                   ),
-          ),
-        ],
-      ),
-    );
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  width: double.maxFinite,
+                  height: 24,
+                  child: (age != null)
+                      ? Text(
+                          age.toString(),
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                        )
+                      : Text(
+                          "Nan",
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                        ),
+                ),
+              ],
+            ),
+          )
+        : Container(
+            margin: EdgeInsets.only(left: 10),
+            padding:
+                EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+            height: 64,
+            decoration: BoxDecoration(
+              color: ("#F5F5F5").toColor(),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              fieldname,
+              textAlign: TextAlign.start,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: ("#9E9E9E").toColor(),
+              ),
+            ),
+          );
   }
 
   Widget buildTextBox(String fieldname, String hint) {
@@ -511,7 +567,7 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
             height: 24,
             child: TextFormField(
               showCursor: false,
-              controller: controller,
+              controller: nameController,
               style: GoogleFonts.poppins(
                   fontSize: 16, fontWeight: FontWeight.w400),
               decoration: InputDecoration(
@@ -529,43 +585,64 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   }
 
   Widget buildDatePickerField(String fieldname) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
-      height: 64,
-      decoration: BoxDecoration(
-        color: ("#F5F5F5").toColor(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: GestureDetector(
-        onTap: () => showDatePicker(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              fieldname,
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: ("#9E9E9E").toColor(),
+    return (datePicker != null)
+        ? Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+            height: 64,
+            decoration: BoxDecoration(
+              color: ("#F5F5F5").toColor(),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: GestureDetector(
+              onTap: () => showDatePicker(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    fieldname,
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ("#9E9E9E").toColor(),
+                    ),
+                  ),
+                  Text(
+                    (datePicker != null)
+                        ? DateFormat('dd/MM/yyyy', 'en_US').format(datePicker!)
+                        : "DD/MM/YYYY",
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
-            Text(
-              (datePicker != null)
-                  ? DateFormat('dd/MM/yyyy', 'en_US').format(datePicker!)
-                  : "DD/MM/YYYY",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
+          )
+        : Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+            height: 64,
+            decoration: BoxDecoration(
+              color: ("#F5F5F5").toColor(),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () => showDatePicker(),
+              child: Text(
+                fieldname,
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: ("#9E9E9E").toColor(),
+                ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   int? calculateAge(DateTime dob) {
@@ -592,15 +669,15 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
         textWeight: FontWeight.w500,
         //    onClick: updatedata,
         onClick: () {
-          // NavigationUtils.openScreen(ScreenRoutes.apniGeneralInfo);
-          updatedata();
+          NavigationUtils.openScreen(ScreenRoutes.apniGeneralInfo);
+          //    updatedata();
         },
       ),
     );
   }
 
   void updatedata() async {
-    final name = controller.text;
+    final name = nameController.text;
     final dob = (datePicker != null)
         ? DateFormat('dd/MM/yyyy', 'en_US').format(datePicker!)
         : null;
@@ -683,6 +760,7 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
       setState(() {
         lat = position.latitude;
         long = position.longitude;
+        print(GeocodingPlatform.instance.placemarkFromCoordinates(lat, long));
       });
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
