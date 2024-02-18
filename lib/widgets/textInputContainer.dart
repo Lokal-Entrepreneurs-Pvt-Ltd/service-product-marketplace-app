@@ -6,16 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 class TextInputContainer extends StatefulWidget {
   String fieldName;
   String hint;
-  bool set;
-  TextEditingController textEditingController;
   TextInputType? textInputType;
+  final Function(String?) onFileSelected;
   TextInputContainer({
     super.key,
     required this.fieldName,
-    this.set = false,
     this.hint = "",
-    required this.textEditingController,
     this.textInputType = null,
+    required this.onFileSelected,
   });
 
   @override
@@ -24,35 +22,45 @@ class TextInputContainer extends StatefulWidget {
 
 class _TextInputContainerState extends State<TextInputContainer> {
   late FocusNode focusNode;
+  bool set = false;
+  TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {
     focusNode = FocusNode();
-    fdd();
+    focusNodeListner();
+    textListner();
     super.initState();
   }
 
   @override
   void dispose() {
     focusNode.dispose();
+    textEditingController.dispose();
     super.dispose();
   }
 
-  void fdd() {
+  void focusNodeListner() {
     focusNode.addListener(() {
       if (!focusNode.hasFocus) {
-        if (widget.textEditingController.text.isEmpty) {
+        if (textEditingController.text.isEmpty) {
           setState(() {
-            widget.set = false;
+            set = false;
           });
         }
       }
     });
   }
 
+  void textListner() {
+    textEditingController.addListener(() {
+      widget.onFileSelected(textEditingController.text);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return (widget.set)
+    return (set)
         ? Container(
             margin: EdgeInsets.only(bottom: 12),
             padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
@@ -79,7 +87,7 @@ class _TextInputContainerState extends State<TextInputContainer> {
                 Expanded(
                   child: TextField(
                     showCursor: false,
-                    controller: widget.textEditingController,
+                    controller: textEditingController,
                     focusNode: focusNode,
                     keyboardType: widget.textInputType,
                     style: GoogleFonts.poppins(
@@ -96,8 +104,7 @@ class _TextInputContainerState extends State<TextInputContainer> {
         : GestureDetector(
             onTap: () {
               setState(() {
-                widget.set = true;
-
+                set = true;
                 focusNode.requestFocus();
               });
             },

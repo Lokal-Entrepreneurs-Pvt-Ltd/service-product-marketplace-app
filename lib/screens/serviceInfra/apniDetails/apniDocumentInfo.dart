@@ -64,7 +64,16 @@ class _ApniDocumentInfoState extends State<ApniDocumentInfo> {
     );
   }
 
+  double calculateProgress() {
+    double progress =
+        uploadSuccessList.where((completed) => completed != null).length /
+            uploadSuccessList.length;
+
+    return progress;
+  }
+
   Widget appBar() {
+    double progress = calculateProgress();
     return Container(
       color: Colors.white,
       child: Padding(
@@ -101,8 +110,17 @@ class _ApniDocumentInfoState extends State<ApniDocumentInfo> {
               width: 80,
               height: 5,
               decoration: BoxDecoration(
-                color: UikColor.gengar_500.toColor(),
+                color: UikColor.giratina_200.toColor(),
                 borderRadius: BorderRadius.circular(100),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Container(
+                height: 5,
+                width: progress * 80,
+                decoration: BoxDecoration(
+                  color: UikColor.gengar_500.toColor(),
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
             ),
           ],
@@ -137,9 +155,8 @@ class _ApniDocumentInfoState extends State<ApniDocumentInfo> {
                 onFileSelected: (pickedFile) async {
                   setState(() {
                     uploadSuccessList[i] = pickedFile;
-                    print(pickedFile);
                   });
-                }, // Set uploadSuccess based on the list
+                },
               ),
             ],
           ),

@@ -27,13 +27,13 @@ class ApniOtherInfo extends StatefulWidget {
 enum IndexType { relocate, license }
 
 class _ApniOtherInfoState extends State<ApniOtherInfo> {
-  TextEditingController controller = TextEditingController();
   int relocateIndex = -1;
   int bankIndex = -1;
   String selectedState = "";
-  TextEditingController locationController = TextEditingController();
-  TextEditingController currentSalayController = TextEditingController();
-  TextEditingController expectedSalaryController = TextEditingController();
+
+  String preloc = "";
+  String currS = "";
+  String exepS = "";
 
   List<String> bike = ["Yes", "No"];
   List<String> license = ["2 Wheeler", "3 Wheeler", "4 Wheeler"];
@@ -49,10 +49,6 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
 
   @override
   void dispose() {
-    locationController.dispose();
-    currentSalayController.dispose();
-    expectedSalaryController.dispose();
-    controller.dispose();
     super.dispose();
   }
 
@@ -95,21 +91,33 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
                   SizedBox(height: 10),
                   TextInputContainer(
                     fieldName: "Pereferred Location",
-                    textEditingController: locationController,
                     hint: "Type your preferred location",
+                    onFileSelected: (p0) {
+                      setState(() {
+                        preloc = p0 ?? "";
+                      });
+                    },
                   ),
                   builLocationsField(context, stateList, "Current Industry"),
                   TextInputContainer(
                     fieldName: "Current Salary",
-                    textEditingController: currentSalayController,
                     hint: "Type your current salary",
                     textInputType: TextInputType.number,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        currS = p0 ?? "";
+                      });
+                    },
                   ),
                   TextInputContainer(
                     fieldName: "Expected Salary",
-                    textEditingController: expectedSalaryController,
                     hint: "Type your expected salary",
                     textInputType: TextInputType.number,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        exepS = p0 ?? "";
+                      });
+                    },
                   ),
                 ],
               ),
@@ -232,7 +240,6 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: TextFormField(
-                controller: controller,
                 style: GoogleFonts.poppins(
                     fontSize: 16, fontWeight: FontWeight.w400),
                 decoration: InputDecoration(
@@ -280,7 +287,27 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
     );
   }
 
+  double calculateProgress() {
+    // List of completion status for each field
+    List<bool> fieldCompletionStatus = [
+      relocateIndex != -1,
+      boollicense.any((completed) => completed),
+      selectedState.isNotEmpty,
+      preloc.isNotEmpty,
+      currS.isNotEmpty,
+      exepS.isNotEmpty,
+    ];
+
+    // Calculate progress based on the number of completed fields
+    double progress =
+        fieldCompletionStatus.where((completed) => completed).length /
+            fieldCompletionStatus.length;
+
+    return progress;
+  }
+
   Widget appBar() {
+    double progress = calculateProgress();
     return Container(
       color: Colors.white,
       child: Padding(
@@ -309,8 +336,17 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
               width: 80,
               height: 5,
               decoration: BoxDecoration(
-                color: UikColor.gengar_500.toColor(),
+                color: UikColor.giratina_200.toColor(),
                 borderRadius: BorderRadius.circular(100),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Container(
+                height: 5,
+                width: progress * 80,
+                decoration: BoxDecoration(
+                  color: UikColor.gengar_500.toColor(),
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
             ),
             Container(
