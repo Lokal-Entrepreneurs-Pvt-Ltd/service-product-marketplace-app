@@ -24,13 +24,13 @@ enum LocationType { state, district, city }
 
 class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
   Future<Map<String, dynamic>?>? _futureData;
-  TextEditingController homecontroller = TextEditingController();
-  TextEditingController colonycontroller = TextEditingController();
   int bikeIndex = -1;
   int bankIndex = -1;
   String selectedState = "";
   String selectedDistrict = "";
   String selectedCity = "";
+  String home = "";
+  String road = "";
 
   List<String> bike = ["Yes", "No"];
   List<String> stateList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
@@ -92,13 +92,21 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                     context, villageList, "Village", LocationType.city),
                 TextInputContainer(
                   fieldName: "Home No, Building Name",
-                  textEditingController: homecontroller,
                   hint: "Type your address",
+                  onFileSelected: (p0) {
+                    setState(() {
+                      home = p0 ?? "";
+                    });
+                  },
                 ),
                 TextInputContainer(
                   fieldName: "Road name, Area, Colony",
-                  textEditingController: colonycontroller,
                   hint: "Type your address",
+                  onFileSelected: (p0) {
+                    setState(() {
+                      road = p0 ?? "";
+                    });
+                  },
                 ),
               ],
             ),
@@ -270,7 +278,28 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
     );
   }
 
+  double calculateProgress() {
+    // List of completion status for each field
+    List<bool> fieldCompletionStatus = [
+      bikeIndex != -1,
+      bankIndex != -1,
+      selectedState.isNotEmpty,
+      selectedDistrict.isNotEmpty,
+      selectedCity.isNotEmpty,
+      home.isNotEmpty,
+      road.isNotEmpty
+    ];
+
+    // Calculate progress based on the number of completed fields
+    double progress =
+        fieldCompletionStatus.where((completed) => completed).length /
+            fieldCompletionStatus.length;
+
+    return progress;
+  }
+
   Widget appBar() {
+    double progress = calculateProgress();
     return Container(
       color: Colors.white,
       child: Padding(
@@ -291,8 +320,17 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
               width: 80,
               height: 5,
               decoration: BoxDecoration(
-                color: UikColor.gengar_500.toColor(),
+                color: UikColor.giratina_200.toColor(),
                 borderRadius: BorderRadius.circular(100),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Container(
+                height: 5,
+                width: progress * 80,
+                decoration: BoxDecoration(
+                  color: UikColor.gengar_500.toColor(),
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
             ),
             Container(

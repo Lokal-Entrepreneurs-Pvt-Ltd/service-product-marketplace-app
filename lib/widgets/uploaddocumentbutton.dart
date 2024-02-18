@@ -82,7 +82,18 @@ class _UploadButtonState extends State<UploadButton> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
-        onTap: () => _pickFile(context, ['pdf', 'jpg', 'jpeg', 'png']),
+        onTap: () {
+          if (_imageUrl == null) {
+            _pickFile(context, ['pdf', 'jpg', 'jpeg', 'png']);
+          } else {
+            setState(() {
+              _uploading = false;
+              _uploadSuccess = false;
+              _imageUrl = null;
+              widget.onFileSelected(_imageUrl);
+            });
+          }
+        },
         child: DottedBorder(
           borderType: BorderType.RRect,
           dashPattern: [4, 1],

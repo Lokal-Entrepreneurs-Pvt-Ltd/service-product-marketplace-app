@@ -38,16 +38,33 @@ enum IndexType {
 
 class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   Future<Map<String, dynamic>?>? _futureData;
-  TextEditingController nameController = TextEditingController();
-  ApnaPersonalData apnaPersonalData = ApnaPersonalData();
   String selectedState = "";
   DateTime? datePicker = null;
-
+  String name = "";
   double lat = 0;
   double long = 0;
   int? age = null;
   bool isUpdating = false; // Added isUpdating variable
-  List<String> stateList = ["Delivery", "seller", "Mumbai", "Bangalore"];
+  List<String> workEx = [
+    "Fresher",
+    "Below 1yr",
+    "3yr - 5yr",
+    "5yr - 10yrs",
+    "More than 10yrs",
+  ];
+  List<String> education = [
+    "Below 10th",
+    "10th",
+    "12th",
+    "Graduation",
+    "Post Graduation",
+    "Diploma/Certification",
+  ];
+  List<String> genderList = ["Male", "Female"];
+  List<String> stateList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
+  int genderIndex = -1;
+  int educationIndex = -1;
+  int workExperienceIndex = -1;
 
   // Future<Map<String, dynamic>?> fetchData() async {
   //   try {
@@ -109,15 +126,18 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                       "Apni Personal Details Bhare", 24, FontWeight.w600),
                 ),
                 buildTitle("Gender", 16, FontWeight.w500),
-                buildSelectable(
-                    apnaPersonalData.genderList, apnaPersonalData.genderIndex,
-                    (index) {
+                buildSelectable(genderList, genderIndex, (index) {
                   updateSelectedIndex(index, IndexType.gender);
                 }),
                 SizedBox(height: 8),
                 TextInputContainer(
-                    fieldName: "Full Name (as on aadhar)",
-                    textEditingController: nameController),
+                  fieldName: "Full Name (as on aadhar)",
+                  onFileSelected: (text) {
+                    setState(() {
+                      name = text ?? "";
+                    });
+                  },
+                ),
                 //      buildTextBox("Full Name (as on aadhar)", "Type your full name"),
                 Row(
                   children: [
@@ -127,18 +147,15 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                   ],
                 ),
                 buildTitle("Education Background", 16, FontWeight.w500),
-                buildSelectable(
-                    apnaPersonalData.education, apnaPersonalData.educationIndex,
-                    (index) {
+                buildSelectable(education, educationIndex, (index) {
                   updateSelectedIndex(index, IndexType.education);
                 }),
                 buildTitle("Work Experience", 16, FontWeight.w500),
-                buildSelectable(apnaPersonalData.workEx,
-                    apnaPersonalData.workExperienceIndex, (index) {
+                buildSelectable(workEx, workExperienceIndex, (index) {
                   updateSelectedIndex(index, IndexType.workExperience);
                 }),
                 SizedBox(height: 8),
-                _buildPhoneField(),
+                // _buildPhoneField(),
                 builLocationsField(
                     context, stateList, "Industry you want to work"),
 
@@ -212,7 +229,28 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
     );
   }
 
+  double calculateProgress() {
+    // List of completion status for each field
+    List<bool> fieldCompletionStatus = [
+      genderIndex != -1,
+      name.isNotEmpty,
+      age != null,
+      educationIndex != -1,
+      workExperienceIndex != -1,
+      selectedState.isNotEmpty,
+      (lat != 0 && long != 0),
+    ];
+
+    // Calculate progress based on the number of completed fields
+    double progress =
+        fieldCompletionStatus.where((completed) => completed).length /
+            fieldCompletionStatus.length;
+
+    return progress;
+  }
+
   Widget appBar() {
+    double progress = calculateProgress();
     return Container(
       color: Colors.white,
       child: Padding(
@@ -225,8 +263,17 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
               width: 80,
               height: 5,
               decoration: BoxDecoration(
-                color: UikColor.gengar_500.toColor(),
+                color: UikColor.giratina_200.toColor(),
                 borderRadius: BorderRadius.circular(100),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Container(
+                height: 5,
+                width: progress * 80,
+                decoration: BoxDecoration(
+                  color: UikColor.gengar_500.toColor(),
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
             ),
             Container(
@@ -356,7 +403,6 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               child: TextFormField(
-                controller: nameController,
                 style: GoogleFonts.poppins(
                     fontSize: 16, fontWeight: FontWeight.w400),
                 decoration: InputDecoration(
@@ -538,52 +584,6 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
           );
   }
 
-  Widget buildTextBox(String fieldname, String hint) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
-      height: 64,
-      decoration: BoxDecoration(
-        color: ("#F5F5F5").toColor(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            fieldname,
-            textAlign: TextAlign.start,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ("#9E9E9E").toColor(),
-            ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Container(
-            width: double.maxFinite,
-            height: 24,
-            child: TextFormField(
-              showCursor: false,
-              controller: nameController,
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                hintText: hint,
-                border: InputBorder.none,
-              ),
-              scribbleEnabled: false,
-              onTap: () => updateState(),
-              onFieldSubmitted: (_) => updateState(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget buildDatePickerField(String fieldname) {
     return (datePicker != null)
         ? Container(
@@ -677,25 +677,30 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   }
 
   void updatedata() async {
-    final name = nameController.text;
+    final nameAsAadhar = name;
     final dob = (datePicker != null)
         ? DateFormat('dd/MM/yyyy', 'en_US').format(datePicker!)
         : null;
-    final gender = (apnaPersonalData.genderIndex != -1)
-        ? apnaPersonalData.genderList[apnaPersonalData.genderIndex]
-        : null;
-    final workEx = (apnaPersonalData.workExperienceIndex != -1)
-        ? apnaPersonalData.workEx[apnaPersonalData.workExperienceIndex]
-        : null;
+    final gender = (genderIndex != -1) ? genderList[genderIndex] : null;
+    final workE =
+        (workExperienceIndex != -1) ? workEx[workExperienceIndex] : null;
 
-    if (name.isNotEmpty && dob != null && gender != null && workEx != null) {
+    if (nameAsAadhar.isNotEmpty &&
+        dob != null &&
+        gender != null &&
+        workE != null) {
       setState(() {
         isUpdating = true; // Set isUpdating to true while updating
       });
 
       try {
         final response = await ApiRepository.updateCustomerInfo(
-          {"name": name, "dob": dob, "workEx": workEx, "gender": gender},
+          {
+            "name": nameAsAadhar,
+            "dob": dob,
+            "workEx": workEx,
+            "gender": gender
+          },
         );
 
         if (response.isSuccess!) {
@@ -719,13 +724,13 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
     setState(() {
       switch (indexType) {
         case IndexType.gender:
-          apnaPersonalData.genderIndex = index;
+          genderIndex = index;
           break;
         case IndexType.education:
-          apnaPersonalData.educationIndex = index;
+          educationIndex = index;
           break;
         case IndexType.workExperience:
-          apnaPersonalData.workExperienceIndex = index;
+          workExperienceIndex = index;
           break;
         // case IndexType.customIndex:
         //   indexs = index;
