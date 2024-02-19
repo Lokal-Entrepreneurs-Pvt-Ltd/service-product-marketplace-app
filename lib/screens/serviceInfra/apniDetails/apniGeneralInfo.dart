@@ -83,9 +83,8 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                 buildTitle("Permanent Addresses", 16, FontWeight.w500),
                 GestureDetector(
                   onTap: () async {
-                    int? result = await Bottomsheets.showLocationDialog(
+                    int? result = await Bottomsheets.showBottomListDialog(
                       context,
-                      stateDataList.stateNameList,
                       "State",
                       () async {
                         await stateDataList.initialize();
@@ -96,6 +95,9 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                     );
                     if (result != null && result >= 0) {
                       setState(() {
+                        if (stateIndex != result) {
+                          districtIndex = -1;
+                        }
                         stateIndex = result;
                       });
                     }
@@ -109,9 +111,8 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                 GestureDetector(
                   onTap: () async {
                     if (stateIndex != -1) {
-                      int? result = await Bottomsheets.showLocationDialog(
+                      int? result = await Bottomsheets.showBottomListDialog(
                         context,
-                        stateDataList.stateNameList,
                         "District",
                         () async {
                           await districtDataList
@@ -121,7 +122,7 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                               list: districtDataList.districtNameList);
                         },
                       );
-                      print(districtDataList.districtNameList);
+                      //   print(districtDataList.districtNameList);
                       if (result != null && result >= 0) {
                         setState(() {
                           districtIndex = result;
@@ -140,9 +141,8 @@ class _ApniGeneralInfoState extends State<ApniGeneralInfo> {
                 GestureDetector(
                   onTap: () async {
                     if (districtIndex != -1) {
-                      int? result = await Bottomsheets.showLocationDialog(
+                      int? result = await Bottomsheets.showBottomListDialog(
                         context,
-                        stateDataList.stateNameList,
                         "District",
                         () async {
                           Future.delayed(const Duration(milliseconds: 500));

@@ -102,9 +102,8 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      int? result = await Bottomsheets.showLocationDialog(
+                      int? result = await Bottomsheets.showBottomListDialog(
                         context,
-                        [],
                         "Current Industry",
                         () async {
                           await Future.delayed(
