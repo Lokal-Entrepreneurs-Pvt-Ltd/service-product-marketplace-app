@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:lokal/utils/uik_color.dart';
-import 'package:ui_sdk/utils/extensions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DataForFunction {
   int index;
@@ -12,144 +10,143 @@ class DataForFunction {
   });
 }
 
-class Bottomsheets {
-  static Future<int?> showLocationDialog(
-    BuildContext context,
-    List<String> list,
-    String name,
-    Future<DataForFunction> Function() call,
-  ) async {
-    TextEditingController searchController = TextEditingController();
-    DataForFunction dataForFunction = DataForFunction(index: -1, list: []);
-    List<String> list = [];
-    List<String> filteredList = List.from(list);
+class BottomSheetBasedOnFuture extends StatefulWidget {
+  final String name;
+  final Future<DataForFunction> Function() call;
 
-    // Capture the context before entering the async operation
-    final dialogContext = context;
+  BottomSheetBasedOnFuture({
+    required this.name,
+    required this.call,
+  });
 
-    showModalBottomSheet(
-      context: dialogContext,
-      builder: (BuildContext context) {
-        return Container(
-          height: 100,
-          child: const Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+  @override
+  _BottomSheetBasedOnFutureState createState() =>
+      _BottomSheetBasedOnFutureState();
+}
+
+class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
+  late Future<DataForFunction> _dataForFunctionFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _dataForFunctionFuture = widget.call();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<DataForFunction>(
+      future: _dataForFunctionFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            height: 100,
+            child: const Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        } else if (snapshot.hasError) {
+          // Handle errors if needed
+          print("Error in async operation: ${snapshot.error}");
+          return Container(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else {
+          DataForFunction dataForFunction = snapshot.data!;
+          List<String> list = dataForFunction.list;
+          List<String> filteredList = List.from(dataForFunction.list);
 
-    try {
-      dataForFunction = await call();
-      list = dataForFunction.list;
-      filteredList = List.from(dataForFunction.list);
-    } catch (error) {
-      // Handle errors if needed
-      print("Error in async operation: $error");
-    } finally {
-      // Close the loading indicator regardless of success or failure
-      Navigator.of(dialogContext).pop();
-    }
+          double screenHeight = MediaQuery.of(context).size.height;
+          double availableHeight = screenHeight -
+              kToolbarHeight; // Subtracting app bar height if present
 
-    return showModalBottomSheet<int>(
-      backgroundColor: Colors.white,
-      context: dialogContext,
-      isScrollControlled: true,
-      useSafeArea: true,
-      builder: (BuildContext context) {
-        double screenHeight = MediaQuery.of(context).size.height;
-        double availableHeight = screenHeight -
-            kToolbarHeight; // Subtracting app bar height if present
+          double contentHeight = filteredList.length * 56.0 +
+              180; // Assuming each item has a height of 56.0 (adjust as needed)
+          double calculatedHeight =
+              contentHeight > availableHeight ? availableHeight : contentHeight;
 
-        double contentHeight = filteredList.length * 56.0 +
-            180; // Assuming each item has a height of 56.0 (adjust as needed)
-        double calculatedHeight =
-            contentHeight > availableHeight ? availableHeight : contentHeight;
-
-        return Container(
-          height: calculatedHeight,
-          child: StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Select $name",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+          return Container(
+            height: calculatedHeight,
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Select ${widget.name}",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
                         ),
-                        InkWell(
-                          child: Icon(Icons.dangerous_outlined),
-                          onTap: () {
-                            Navigator.of(dialogContext).pop(-1);
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                    child: TextFormField(
-                      controller: searchController,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
                       ),
-                      decoration: InputDecoration(
-                        hintText: "Search $name",
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
+                      InkWell(
+                        child: Icon(Icons.dangerous_outlined),
+                        onTap: () {
+                          Navigator.of(context).pop(-1);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                  child: TextFormField(
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "Search ${widget.name}",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      onChanged: (value) {
-                        setState(() {
-                          filteredList = list
-                              .where((element) => element
-                                  .toLowerCase()
-                                  .contains(value.toLowerCase()))
-                              .toList();
-                        });
-                      },
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        filteredList = list
+                            .where((element) => element
+                                .toLowerCase()
+                                .contains(value.toLowerCase()))
+                            .toList();
+                      });
+                    },
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: filteredList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        bool isSelected = (index == dataForFunction.index);
-                        return _buildLocationItem(
-                          dialogContext,
-                          list,
-                          filteredList[index],
-                          index,
-                          isSelected,
-                        );
-                      },
-                    ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: filteredList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      bool isSelected = (index == dataForFunction.index);
+                      return _buildLocationItem(
+                        context,
+                        list,
+                        filteredList[index],
+                        index,
+                        isSelected,
+                      );
+                    },
                   ),
-                ],
-              );
-            },
-          ),
-        );
+                ),
+              ],
+            ),
+          );
+        }
       },
     );
   }
 
-  static Widget _buildLocationItem(
+  Widget _buildLocationItem(
     BuildContext context,
     List<String> originalList,
     String state,
@@ -158,16 +155,41 @@ class Bottomsheets {
   ) {
     return Container(
       color: isSelected
-          ? UikColor.charizard_400.toColor()
+          ? Colors.yellow // Change this to your desired color
           : (index % 2 == 0 ? Colors.grey[200] : Colors.white),
       child: ListTile(
-        title: Text(state),
+        title: Text(
+          state,
+          style: GoogleFonts.poppins(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+        ),
         onTap: () {
           // Find the index in the original list
           int originalIndex = originalList.indexOf(state);
           Navigator.of(context).pop(originalIndex);
         },
       ),
+    );
+  }
+}
+
+class Bottomsheets {
+  static Future<int?> showBottomListDialog(
+    BuildContext context,
+    String name,
+    Future<DataForFunction> Function() call,
+  ) async {
+    return showModalBottomSheet<int>(
+      backgroundColor: Colors.white,
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return BottomSheetBasedOnFuture(name: name, call: call);
+      },
     );
   }
 }

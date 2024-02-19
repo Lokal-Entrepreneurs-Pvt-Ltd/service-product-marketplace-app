@@ -160,9 +160,8 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                 // _buildPhoneField(),
                 GestureDetector(
                   onTap: () async {
-                    int? result = await Bottomsheets.showLocationDialog(
+                    int? result = await Bottomsheets.showBottomListDialog(
                       context,
-                      [],
                       "Industry you want to work",
                       () async {
                         await Future.delayed(Duration(milliseconds: 1000));
