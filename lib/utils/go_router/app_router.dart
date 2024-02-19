@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
+import 'package:lokal/screens/serviceInfra/apniDetails/apniDocumentInfo.dart';
+import 'package:lokal/screens/serviceInfra/apniDetails/apniGeneralInfo.dart';
+import 'package:lokal/screens/serviceInfra/apniDetails/apniOtherInfo.dart';
+import 'package:lokal/screens/serviceInfra/apniDetails/apniPersonalinfo.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
 import 'package:lokal/screens/serviceInfra/customer_details.dart';
@@ -88,7 +92,7 @@ class AppRoutes {
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
     //  : _customerloginScreen.path,
-    // initialLocation: _customerloginScreen.path,
+    // initialLocation: _apniPersonalInfo.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -149,11 +153,54 @@ class AppRoutes {
       _uikMyAddress,
       _customerLokalQr,
       _jobsFiltersPage,
-      _jobsDetailsPage
+      _jobsDetailsPage,
+      _apniPersonalInfo,
+      _apniGeneralInfo,
+      _apniOtherInfo,
+      _apniDocumentInfo
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _apniPersonalInfo = GoRoute(
+    path: ScreenRoutes.apniProfileInfo,
+    builder: (context, state) {
+      return ApniPersonalInfo(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _apniGeneralInfo = GoRoute(
+    path: ScreenRoutes.apniGeneralInfo,
+    builder: (context, state) {
+      return ApniGeneralInfo(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _apniOtherInfo = GoRoute(
+    path: ScreenRoutes.apniOtherInfo,
+    builder: (context, state) {
+      return ApniOtherInfo(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
+  static final GoRoute _apniDocumentInfo = GoRoute(
+    path: ScreenRoutes.apniDocumentInfo,
+    builder: (context, state) {
+      return ApniDocumentInfo(
+        key: state.pageKey,
+      );
+      // return OtherDetails();
+    },
+  );
 
   static final GoRoute _profile_personal_details = GoRoute(
     path: ScreenRoutes.personalDetails,
@@ -283,8 +330,7 @@ class AppRoutes {
     path: ScreenRoutes.jobsDetailsPage,
     builder: (context, state) {
       return JobDetailsScreen(
-        key: state.pageKey, args: state.extra as Map<String, dynamic>?
-      );
+          key: state.pageKey, args: state.extra as Map<String, dynamic>?);
     },
   );
   static final GoRoute _uikMyAddress = GoRoute(

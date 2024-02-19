@@ -58,14 +58,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       if (response.isSuccess!) {
         jobDetails = response.data!["jobDetails"] as Map<String, dynamic>;
         final metaData = response.data['metaData'] as Map<String, dynamic>;
-         _ctas = metaData['ctas'] as List<dynamic>;
+        _ctas = metaData['ctas'] as List<dynamic>;
         if (jobDetails['tabs'] != null) {
           _tabController =
               TabController(length: jobDetails['tabs'].length, vsync: this);
           _scrollController.addListener(() {
             if (_scrollController.offset > 150) {
               int newIndex =
-              ((_scrollController.offset - 100) * 2 / 265).round();
+                  ((_scrollController.offset - 100) * 2 / 265).round();
               if (newIndex != _currentTabNumber &&
                   newIndex < jobDetails['tabs'].length) {
                 setState(() {
@@ -185,14 +185,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                   ),
                 ],
               ),
-              (entry.toString() !=
-                  salaryDetails.entries.last.toString())
+              (entry.toString() != salaryDetails.entries.last.toString())
                   ? Container(
-                height: 1,
-                margin: EdgeInsets.symmetric(vertical: 8),
-                width: double.maxFinite,
-                color: UikColor.giratina_400.toColor(),
-              )
+                      height: 1,
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      width: double.maxFinite,
+                      color: UikColor.giratina_400.toColor(),
+                    )
                   : Container(),
             ],
           );
@@ -277,9 +276,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           ),
           SizedBox(height: 8),
           ...List<String>.from(
-            jobDetails['Job Details']['jobHighlights'],
+            jobDetails['JobDetails']['jobHighlights'],
           ).map(
-                (text) => Column(
+            (text) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -328,7 +327,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             ),
           ),
           _buildExpandableText(
-            jobDetails['Job Details']['jobDescription'],
+            jobDetails['JobDetails']['jobDescription'],
           ),
         ],
       ),
@@ -336,7 +335,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildJobRole() {
-    Map<String, dynamic> jobrole = jobDetails['Job Role'];
+    Map<String, dynamic> jobrole = jobDetails['JobRole'];
     return Container(
       padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
       child: Column(
@@ -353,7 +352,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             height: 8,
           ),
           ...jobrole.entries.map(
-                (e) => Column(
+            (e) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -396,29 +395,29 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           SizedBox(
             height: 8,
           ),
-          ...jobDetails['Interview Details'].entries.map(
+          ...jobDetails['InterviewDetails'].entries.map(
                 (e) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  e.key as String,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: UikColor.giratina_500.toColor(),
-                  ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      e.key as String,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: UikColor.giratina_500.toColor(),
+                      ),
+                    ),
+                    Text(
+                      e.value as String,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                  ],
                 ),
-                Text(
-                  e.value as String,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8),
-              ],
-            ),
-          ),
+              ),
         ],
       ),
     );
@@ -506,142 +505,146 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     return (_isLoading)
         ? _buildLoadingIndicator()
         : Scaffold(
-      appBar: AppBar(
-        backgroundColor: "#F5F7FA".toColor(),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          InkWell(
-            onTap: () {
-              String shareText = jobDetails['share'];
-              String shareUrl = jobDetails['shareUrl'];
-              UiUtils.shareOnWhatsApp(
-                  shareUrl.isNotEmpty? shareUrl:"https://play.google.com/store/apps/details?id=com.lokal.app&hl=en_US" ,
-                  shareText.isNotEmpty? shareText:"लोकल वोकल है: जुड़ें लोकल से पाये जॉब आपके घर के पास");
-            },
-            child: Container(
-              margin: EdgeInsets.only(right: 16),
-              decoration: BoxDecoration(
-                color: UikColor.charizard_400.toColor(),
-                borderRadius: BorderRadius.circular(10),
+            appBar: AppBar(
+              backgroundColor: "#F5F7FA".toColor(),
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-              child: Row(
-                children: [
-                  Image.network(
-                    "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1707203798704-ic_baseline-whatsapp.png",
-                    width: 16,
-                    height: 16,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    "Share",
-                    style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+              actions: [
+                InkWell(
+                  onTap: () {
+                    String shareText = jobDetails['share'];
+                    String shareUrl = jobDetails['shareUrl'];
+                    UiUtils.shareOnWhatsApp(
+                        shareUrl.isNotEmpty
+                            ? shareUrl
+                            : "https://play.google.com/store/apps/details?id=com.lokal.app&hl=en_US",
+                        shareText.isNotEmpty
+                            ? shareText
+                            : "लोकल वोकल है: जुड़ें लोकल से पाये जॉब आपके घर के पास");
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(right: 16),
+                    decoration: BoxDecoration(
+                      color: UikColor.charizard_400.toColor(),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                    child: Row(
+                      children: [
+                        Image.network(
+                          "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1707203798704-ic_baseline-whatsapp.png",
+                          width: 16,
+                          height: 16,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          "Share",
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-      body: DefaultTabController(
-        length: jobDetails['tabs'].length,
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildProfileInfo(),
-              Container(
-                height: 2,
-                width: double.maxFinite,
-                color: UikColor.giratina_100.toColor(),
-              ),
-              _buildLocationSalaryInfo(),
-              Container(
-                height: 6,
-                width: double.maxFinite,
-                color: UikColor.giratina_100.toColor(),
-              ),
-              Container(
-                height: 45,
-                child: TabBar(
-                  onTap: (ind) {
-                    setState(() {
-                      _currentTabNumber = ind;
-                    });
-                    switch (ind) {
-                      case 0:
-                        _scrollController.jumpTo(ind * 100);
-                        break;
-                      case 1:
-                        _scrollController.jumpTo(ind * 400);
-                        break;
-                      default:
-                        _scrollController.jumpTo(ind * 320);
-                        break;
-                    }
-                  },
-                  isScrollable: true,
-                  indicatorColor: UikColor.charizard_400.toColor(),
-                  labelStyle: GoogleFonts.poppins(fontSize: 16),
-                  controller: _tabController,
-                  tabs: List<Widget>.from(jobDetails['tabs']
-                      .map(
-                        (tab) => Tab(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          tab as String,
-                          style: _getTabItemTextStyle(
-                              jobDetails['tabs'].indexOf(tab)),
-                        ),
+            body: DefaultTabController(
+              length: jobDetails['tabs'].length,
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildProfileInfo(),
+                    Container(
+                      height: 2,
+                      width: double.maxFinite,
+                      color: UikColor.giratina_100.toColor(),
+                    ),
+                    _buildLocationSalaryInfo(),
+                    Container(
+                      height: 6,
+                      width: double.maxFinite,
+                      color: UikColor.giratina_100.toColor(),
+                    ),
+                    Container(
+                      height: 45,
+                      child: TabBar(
+                        onTap: (ind) {
+                          setState(() {
+                            _currentTabNumber = ind;
+                          });
+                          switch (ind) {
+                            case 0:
+                              _scrollController.jumpTo(ind * 100);
+                              break;
+                            case 1:
+                              _scrollController.jumpTo(ind * 400);
+                              break;
+                            default:
+                              _scrollController.jumpTo(ind * 320);
+                              break;
+                          }
+                        },
+                        isScrollable: true,
+                        indicatorColor: UikColor.charizard_400.toColor(),
+                        labelStyle: GoogleFonts.poppins(fontSize: 16),
+                        controller: _tabController,
+                        tabs: List<Widget>.from(jobDetails['tabs']
+                            .map(
+                              (tab) => Tab(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Text(
+                                    tab as String,
+                                    style: _getTabItemTextStyle(
+                                        jobDetails['tabs'].indexOf(tab)),
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList()),
                       ),
                     ),
-                  )
-                      .toList()),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildJobHighlights(),
+                        Container(
+                          height: 6,
+                          width: double.maxFinite,
+                          color: UikColor.giratina_100.toColor(),
+                        ),
+                        _buildJobDescription(),
+                        Container(
+                          height: 6,
+                          width: double.maxFinite,
+                          color: UikColor.giratina_100.toColor(),
+                        ),
+                        _buildJobRole(),
+                        Container(
+                          height: 6,
+                          width: double.maxFinite,
+                          color: UikColor.giratina_100.toColor(),
+                        ),
+                        _buildInterviewDetails(),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildJobHighlights(),
-                  Container(
-                    height: 6,
-                    width: double.maxFinite,
-                    color: UikColor.giratina_100.toColor(),
-                  ),
-                  _buildJobDescription(),
-                  Container(
-                    height: 6,
-                    width: double.maxFinite,
-                    color: UikColor.giratina_100.toColor(),
-                  ),
-                  _buildJobRole(),
-                  Container(
-                    height: 6,
-                    width: double.maxFinite,
-                    color: UikColor.giratina_100.toColor(),
-                  ),
-                  _buildInterviewDetails(),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-      persistentFooterButtons: [_buildCtas()],
-    );
+            ),
+            persistentFooterButtons: [_buildCtas()],
+          );
   }
 
   Widget _buildCtas() {
@@ -660,7 +663,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
         final Color backgroundColor = index == 1
             ? Colors.grey
             : Color(int.parse(cta['backgroundColor'].substring(1), radix: 16) +
-            0xFF000000);
+                0xFF000000);
         final Map<String, dynamic> action = cta['action'];
         final Map<String, dynamic> tap = action['tap'];
         final String actionType = tap['type'];
@@ -699,6 +702,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       }).toList(),
     );
   }
+
   Widget _buildButton() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
