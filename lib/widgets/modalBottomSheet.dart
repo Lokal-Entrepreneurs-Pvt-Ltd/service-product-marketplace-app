@@ -1,0 +1,195 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class DataForFunction {
+  int index;
+  List<String> list;
+  DataForFunction({
+    required this.index,
+    required this.list,
+  });
+}
+
+class BottomSheetBasedOnFuture extends StatefulWidget {
+  final String name;
+  final Future<DataForFunction> Function() call;
+
+  BottomSheetBasedOnFuture({
+    required this.name,
+    required this.call,
+  });
+
+  @override
+  _BottomSheetBasedOnFutureState createState() =>
+      _BottomSheetBasedOnFutureState();
+}
+
+class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
+  late Future<DataForFunction> _dataForFunctionFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _dataForFunctionFuture = widget.call();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<DataForFunction>(
+      future: _dataForFunctionFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            height: 100,
+            child: const Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          // Handle errors if needed
+          print("Error in async operation: ${snapshot.error}");
+          return Container(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else {
+          DataForFunction dataForFunction = snapshot.data!;
+          List<String> list = dataForFunction.list;
+          List<String> filteredList = List.from(dataForFunction.list);
+
+          double screenHeight = MediaQuery.of(context).size.height;
+          double availableHeight = screenHeight -
+              kToolbarHeight; // Subtracting app bar height if present
+
+          double contentHeight = filteredList.length * 56.0 +
+              180; // Assuming each item has a height of 56.0 (adjust as needed)
+          double calculatedHeight =
+              contentHeight > availableHeight ? availableHeight : contentHeight;
+
+          return Container(
+            height: calculatedHeight,
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Select ${widget.name}",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      InkWell(
+                        child: Icon(Icons.dangerous_outlined),
+                        onTap: () {
+                          Navigator.of(context).pop(-1);
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                  child: TextFormField(
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "Search ${widget.name}",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        filteredList = list
+                            .where((element) => element
+                                .toLowerCase()
+                                .contains(value.toLowerCase()))
+                            .toList();
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: filteredList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      bool isSelected = (index == dataForFunction.index);
+                      return _buildLocationItem(
+                        context,
+                        list,
+                        filteredList[index],
+                        index,
+                        isSelected,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _buildLocationItem(
+    BuildContext context,
+    List<String> originalList,
+    String state,
+    int index,
+    bool isSelected,
+  ) {
+    return Container(
+      color: isSelected
+          ? Colors.yellow // Change this to your desired color
+          : (index % 2 == 0 ? Colors.grey[200] : Colors.white),
+      child: ListTile(
+        title: Text(
+          state,
+          style: GoogleFonts.poppins(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.black,
+          ),
+        ),
+        onTap: () {
+          // Find the index in the original list
+          int originalIndex = originalList.indexOf(state);
+          Navigator.of(context).pop(originalIndex);
+        },
+      ),
+    );
+  }
+}
+
+class Bottomsheets {
+  static Future<int?> showBottomListDialog(
+    BuildContext context,
+    String name,
+    Future<DataForFunction> Function() call,
+  ) async {
+    return showModalBottomSheet<int>(
+      backgroundColor: Colors.white,
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return BottomSheetBasedOnFuture(name: name, call: call);
+      },
+    );
+  }
+}

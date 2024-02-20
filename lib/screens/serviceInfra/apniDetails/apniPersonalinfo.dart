@@ -16,6 +16,7 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:sticky_headers/sticky_headers/widget.dart';
@@ -38,11 +39,11 @@ enum IndexType {
 
 class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   Future<Map<String, dynamic>?>? _futureData;
-  String selectedState = "";
   DateTime? datePicker = null;
   String name = "";
   double lat = 0;
   double long = 0;
+  Placemark? place = null;
   int? age = null;
   bool isUpdating = false; // Added isUpdating variable
   List<String> workEx = [
@@ -61,7 +62,8 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
     "Diploma/Certification",
   ];
   List<String> genderList = ["Male", "Female"];
-  List<String> stateList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
+  List<String> industryList = ["Delivery", "Seller", "Advocate", "IT"];
+  int industryIndex = -1;
   int genderIndex = -1;
   int educationIndex = -1;
   int workExperienceIndex = -1;
@@ -156,8 +158,26 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                 }),
                 SizedBox(height: 8),
                 // _buildPhoneField(),
-                builLocationsField(
-                    context, stateList, "Industry you want to work"),
+                GestureDetector(
+                  onTap: () async {
+                    int? result = await Bottomsheets.showBottomListDialog(
+                      context,
+                      "Industry you want to work",
+                      () async {
+                        await Future.delayed(Duration(milliseconds: 1000));
+                        return DataForFunction(
+                            index: industryIndex, list: industryList);
+                      },
+                    );
+                    if (result != null && result >= 0) {
+                      setState(() {
+                        industryIndex = result;
+                      });
+                    }
+                  },
+                  child: builbottomsheedtfield("Industry you want to work",
+                      (industryIndex != -1) ? industryList[industryIndex] : ""),
+                ),
 
                 buildLocationField(),
               ],
@@ -169,28 +189,63 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
     );
   }
 
-  Widget buildLocationField() {
-    String formattedLat =
-        lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
-    String formattedLong =
-        long.toStringAsFixed(2); // Limit longitude to 2 decimal places
+  Widget builbottomsheedtfield(String name, String selectedname) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      height: 64,
+      decoration: BoxDecoration(
+        color: ("#F5F5F5").toColor(),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                name,
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: ("#9E9E9E").toColor(),
+                ),
+              ),
+              (selectedname.isNotEmpty)
+                  ? Text(selectedname,
+                      style: GoogleFonts.poppins(
+                          fontSize: 16, fontWeight: FontWeight.w400))
+                  : Container()
+            ],
+          ),
+          SvgPicture.network(
+              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
+        ],
+      ),
+    );
+  }
 
+  Widget buildLocationField() {
     // Check if latitude and longitude values exist
     bool locationAvailable = (lat != 0 && long != 0);
 
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
-      height: 90,
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: GestureDetector(
-        onTap: () => getLocation(),
+    return GestureDetector(
+      onTap: () => getLocation(),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+        height: 64,
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          color: Color(0xFFF5F5F5),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               locationAvailable
@@ -198,31 +253,18 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                   : " Tap to Select Location", // Display this text if no location is available
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.black26,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: ("#9E9E9E").toColor(),
               ),
             ),
-            if (locationAvailable) ...[
-              Text(
-                "Lat: $formattedLat", // Display formatted latitude
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-              Text(
-                "Long: $formattedLong", // Display formatted longitude
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-            ],
+            (place != null)
+                ? Text(
+                    place!.locality! + ", " + place!.postalCode!,
+                    style: GoogleFonts.poppins(
+                        fontSize: 16, fontWeight: FontWeight.w400),
+                  )
+                : Container()
           ],
         ),
       ),
@@ -237,7 +279,7 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
       age != null,
       educationIndex != -1,
       workExperienceIndex != -1,
-      selectedState.isNotEmpty,
+      industryIndex != -1,
       (lat != 0 && long != 0),
     ];
 
@@ -319,133 +361,6 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
           onTap: () => onTap(index),
           border: 0,
         ),
-      ),
-    );
-  }
-
-  Widget builLocationsField(
-    BuildContext context,
-    List<String> list,
-    String name,
-  ) {
-    return GestureDetector(
-      onTap: () {
-        _showLocationDialog(context, list);
-      },
-      child: Container(
-        margin: EdgeInsets.only(bottom: 12),
-        padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
-        height: 64,
-        decoration: BoxDecoration(
-          color: ("#F5F5F5").toColor(),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  name,
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: ("#9E9E9E").toColor(),
-                  ),
-                ),
-                (selectedState.isNotEmpty)
-                    ? Text(selectedState,
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w400))
-                    : Container(),
-              ],
-            ),
-            SvgPicture.network(
-                "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _showLocationDialog(
-      BuildContext context, List<String> list) async {
-    return showModalBottomSheet<void>(
-      backgroundColor: UikColors.WHITE,
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Select Your Current State",
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  InkWell(
-                    child: Icon(Icons.dangerous_outlined),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-              child: TextFormField(
-                style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.w400),
-                decoration: InputDecoration(
-                  hintText: "Search State",
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-                scribbleEnabled: false,
-                onTap: () => updateState(),
-                onFieldSubmitted: (_) => updateState(),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: list.length, // Change the itemCount as needed
-                itemBuilder: (BuildContext context, int index) {
-                  return _buildLocationItem(
-                      context, list[index], index % 2 == 0);
-                },
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _buildLocationItem(
-      BuildContext context, String state, bool isLightGrey) {
-    return Container(
-      color: isLightGrey ? Colors.grey[200] : Colors.white,
-      child: ListTile(
-        title: Text(state),
-        onTap: () {
-          Navigator.of(context).pop();
-          setState(() {
-            selectedState = state;
-          });
-        },
       ),
     );
   }
@@ -762,11 +677,17 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   Future<void> getLocation() async {
     Position? position = await LocationUtils.getCurrentPosition();
     if (position != null) {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
       setState(() {
         lat = position.latitude;
         long = position.longitude;
-        print(GeocodingPlatform.instance.placemarkFromCoordinates(lat, long));
+        place = placemarks[0];
       });
+      // for (var element in placemarks) {
+      //   print(element);
+      // }
+      print(place!.locality! + place!.postalCode.toString());
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
       lat = -1;
