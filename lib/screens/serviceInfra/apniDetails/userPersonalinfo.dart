@@ -23,11 +23,11 @@ import 'package:sticky_headers/sticky_headers/widget.dart';
 import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
-class ApniPersonalInfo extends StatefulWidget {
-  const ApniPersonalInfo({Key? key}) : super(key: key);
+class UserPersonalInfo extends StatefulWidget {
+  const UserPersonalInfo({Key? key}) : super(key: key);
 
   @override
-  State<ApniPersonalInfo> createState() => _ApniPersonalInfoState();
+  State<UserPersonalInfo> createState() => _UserPersonalInfoState();
 }
 
 enum IndexType {
@@ -37,10 +37,12 @@ enum IndexType {
   customIndex,
 }
 
-class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
+class _UserPersonalInfoState extends State<UserPersonalInfo> {
   Future<Map<String, dynamic>?>? _futureData;
+
   DateTime? datePicker = null;
   String name = "";
+  TextEditingController nameTextEditingController = TextEditingController();
   double lat = 0;
   double long = 0;
   Placemark? place = null;
@@ -68,48 +70,72 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   int educationIndex = -1;
   int workExperienceIndex = -1;
 
-  // Future<Map<String, dynamic>?> fetchData() async {
-  //   try {
-  //     final response = await ApiRepository.getUserProfile({});
-  //     if (response.isSuccess!) {
-  //       final userDataMagento = response.data;
-  //       final userData = response.data?['userModelData'];
-  //       if (userData != null) {
-  //         setState(() {
-  //           controller.text = userDataMagento['firstName'] ?? '';
-  //           datePicker = userDataMagento['dob'] != null
-  //               ? DateTime.parse(userDataMagento['dob'])
-  //               : DateTime.now();
-  //           lat = userData['latitude'] ?? 0;
-  //           long = userData['longitude'] ?? 0;
-  //           // Assuming gender is either "Male" or "Female"
-  //           genderIndex = userData['gender'] == "Male" ? 0 : 1;
-  //         });
-  //       }
-  //     } else {
-  //       UiUtils.showToast(response.error![MESSAGE]);
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     UiUtils.showToast("Error fetching initial data");
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
-    //   _futureData = fetchData(); // Call fetchData when the widget is initialized
+    _futureData = fetchData();
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: buildBody(),
-      persistentFooterButtons: [
-        buildContinueButton(),
-      ],
+      backgroundColor: Colors.white, // Conditionally hide the app bar
+      body: FutureBuilder<Map<String, dynamic>?>(
+        // Use FutureBuilder to wait for the fetchData to complete
+        future: _futureData,
+        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the future has completed, build the body with fetched data
+            return isUpdating ? buildLoadingIndicator() : buildBody();
+          } else if (snapshot.hasError) {
+            // Handle any errors that occur during data fetching
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else {
+            // Show a loading indicator while fetching data
+            return buildLoadingIndicator();
+          }
+        },
+      ),
+      persistentFooterButtons: isUpdating ? null : [buildContinueButton(context)], // Conditionally hide the footer
     );
+  }
+
+  Widget buildLoadingIndicator() {
+    return Center(
+      child: CircularProgressIndicator(color: Colors.yellow),
+    );
+  }
+
+
+
+  Future<Map<String, dynamic>?> fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          setState(() {
+            name = userDataMagento['firstName'] ?? '';
+            datePicker = userDataMagento['dob'] != null
+                ? DateTime.parse(userDataMagento['dob'])
+                : DateTime.now();
+            calculateAge(datePicker!);
+            lat = userData['latitude'] ?? 0;
+            long = userData['longitude'] ?? 0;
+            genderIndex = userData['gender'] == "Male" ? 0 : 1;
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("Error fetching initial data");
+    }
   }
 
   Widget buildBody() {
@@ -134,13 +160,13 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                 SizedBox(height: 8),
                 TextInputContainer(
                   fieldName: "Full Name (as on aadhar)",
+                  initialValue: name,
                   onFileSelected: (text) {
                     setState(() {
                       name = text ?? "";
                     });
                   },
                 ),
-                //      buildTextBox("Full Name (as on aadhar)", "Type your full name"),
                 Row(
                   children: [
                     Expanded(
@@ -466,7 +492,7 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
                           ),
                         )
                       : Text(
-                          "Nan",
+                          "Select Date",
                           style: GoogleFonts.poppins(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
@@ -574,7 +600,18 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
     return null;
   }
 
-  Widget buildContinueButton() {
+  bool areAllFieldsSelected() {
+    return genderIndex != -1 &&
+        name.isNotEmpty &&
+        age != null &&
+        educationIndex != -1 &&
+        workExperienceIndex != -1 &&
+        industryIndex != -1 &&
+        (lat != 0 && long != 0);
+  }
+
+
+  Widget buildContinueButton(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: UikButton(
@@ -582,10 +619,17 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
-        //    onClick: updatedata,
+        backgroundColor: areAllFieldsSelected() ? Colors.yellow : Colors.grey, // Change button color based on field completion
         onClick: () {
-          NavigationUtils.openScreen(ScreenRoutes.apniGeneralInfo);
-          //    updatedata();
+          if (areAllFieldsSelected()) {
+            updatedata();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Please fill in all required fields.'),
+              ),
+            );
+          }
         },
       ),
     );
@@ -613,13 +657,21 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
           {
             "name": nameAsAadhar,
             "dob": dob,
-            "workEx": workEx,
-            "gender": gender
+            "workEx": workEx[workExperienceIndex],
+            "gender": gender,
+            "age": age,
+            "education": education[educationIndex],
+            "industryPreference": industryList[industryIndex],
+            "latitude": lat,
+            "longitude": long,
+            "place": place
           },
         );
 
         if (response.isSuccess!) {
-          NavigationUtils.openScreen(ScreenRoutes.apniGeneralInfo);
+          NavigationUtils.pop();
+          NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
+
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
@@ -634,6 +686,8 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
       UiUtils.showToast("Please fill in all required fields.");
     }
   }
+
+
 
   void updateSelectedIndex(int index, IndexType indexType) {
     setState(() {
@@ -655,6 +709,7 @@ class _ApniPersonalInfoState extends State<ApniPersonalInfo> {
   }
 
   void showDatePicker() {
+    print('Tapped on date picker field'); // Check if the method is triggered
     DatePicker.showSimpleDatePicker(
       context,
       initialDate: datePicker,

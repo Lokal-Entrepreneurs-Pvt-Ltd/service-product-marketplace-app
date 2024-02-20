@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -11,14 +12,14 @@ import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/uploaddocumentbutton.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
-class ApniDocumentInfo extends StatefulWidget {
-  const ApniDocumentInfo({Key? key}) : super(key: key);
+class UserDocumentInfo extends StatefulWidget {
+  const UserDocumentInfo({Key? key}) : super(key: key);
 
   @override
-  State<ApniDocumentInfo> createState() => _ApniDocumentInfoState();
+  State<UserDocumentInfo> createState() => _UserDocumentInfoState();
 }
 
-class _ApniDocumentInfoState extends State<ApniDocumentInfo> {
+class _UserDocumentInfoState extends State<UserDocumentInfo> {
   // Create a new list to track upload success for each file
   late List<String?> uploadSuccessList;
   List<String> list = [
@@ -165,6 +166,7 @@ class _ApniDocumentInfoState extends State<ApniDocumentInfo> {
   }
 
   Container buildContinueButton() {
+    bool allFilesUploaded = uploadSuccessList.every((file) => file != null);
     return Container(
       alignment: Alignment.center,
       child: UikButton(
@@ -172,6 +174,7 @@ class _ApniDocumentInfoState extends State<ApniDocumentInfo> {
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
+        backgroundColor: allFilesUploaded ? Colors.yellow : Colors.grey,
         //    onClick: isLoadingList.contains(true) ? null : getidforfile,
         onClick: () {
           updatedata();
@@ -196,6 +199,7 @@ class _ApniDocumentInfoState extends State<ApniDocumentInfo> {
         );
 
         if (response.isSuccess!) {
+          NavigationUtils.pop();
           UiUtils.showToast("SuccessFully Uploaded");
         } else {
           UiUtils.showToast(response.error![MESSAGE]);

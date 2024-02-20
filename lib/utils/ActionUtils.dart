@@ -101,7 +101,7 @@ abstract class ActionUtils {
         NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen, {});
         break;
       case UIK_ACTION.OPEN_MY_DETAILS:
-        NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen, {});
+        NavigationUtils.openScreen(ScreenRoutes.userProfileInfo, {});
         break;
       case UIK_ACTION.OPEN_WISHLIST:
         UiUtils.showToast("WISHLIST");

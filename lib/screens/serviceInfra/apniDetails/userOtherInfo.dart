@@ -19,27 +19,25 @@ import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
-class ApniOtherInfo extends StatefulWidget {
-  const ApniOtherInfo({Key? key}) : super(key: key);
+class UserOtherInfo extends StatefulWidget {
+  const UserOtherInfo({Key? key}) : super(key: key);
 
   @override
-  State<ApniOtherInfo> createState() => _ApniOtherInfoState();
+  State<UserOtherInfo> createState() => _UserOtherInfoState();
 }
 
 enum IndexType { relocate, license }
 
-class _ApniOtherInfoState extends State<ApniOtherInfo> {
+class _UserOtherInfoState extends State<UserOtherInfo> {
   int relocateIndex = -1;
-  int bankIndex = -1;
+  String preferredLocation = "";
+  String currentSalary = "";
+  String expectedSalary = "";
 
-  String preloc = "";
-  String currS = "";
-  String exepS = "";
-
-  List<String> bike = ["Yes", "No"];
+  List<String> relocate = ["Yes", "No"];
   List<String> license = ["2 Wheeler", "3 Wheeler", "4 Wheeler"];
-  List<bool> boollicense = List.generate(3, (index) => false);
-  List<String> industryList = ["Delivery", "seller", "Mumbai", "Bangalore"];
+  List<bool> licenseIndex = List.generate(3, (index) => false);
+  List<String> industryList = ["Delivery", "Seller", "Retail", "Service"];
   int industryIndex = -1;
 
   bool isUpdating = false; // Added isUpdating variable
@@ -60,7 +58,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
       backgroundColor: Colors.white,
       body: buildBody(),
       persistentFooterButtons: [
-        buildContinueButton(),
+        buildContinueButton(context),
       ],
     );
   }
@@ -83,11 +81,11 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
                   ),
                   buildTitle(
                       "Do you have Driving License?", 16, FontWeight.w500),
-                  buildMultiSelectable(license, boollicense, (index) {
+                  buildMultiSelectable(license, licenseIndex, (index) {
                     updateSelectedIndex(index, IndexType.license);
                   }),
                   buildTitle("Want to Relocate", 16, FontWeight.w500),
-                  buildSelectable(bike, relocateIndex, (index) {
+                  buildSelectable(relocate, relocateIndex, (index) {
                     updateSelectedIndex(index, IndexType.relocate);
                   }),
                   SizedBox(height: 10),
@@ -96,7 +94,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
                     hint: "Type your preferred location",
                     onFileSelected: (p0) {
                       setState(() {
-                        preloc = p0 ?? "";
+                        preferredLocation = p0 ?? "";
                       });
                     },
                   ),
@@ -133,7 +131,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
                     textInputType: TextInputType.number,
                     onFileSelected: (p0) {
                       setState(() {
-                        currS = p0 ?? "";
+                        currentSalary = p0 ?? "";
                       });
                     },
                   ),
@@ -143,7 +141,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
                     textInputType: TextInputType.number,
                     onFileSelected: (p0) {
                       setState(() {
-                        exepS = p0 ?? "";
+                        expectedSalary = p0 ?? "";
                       });
                     },
                   ),
@@ -234,11 +232,11 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
     // List of completion status for each field
     List<bool> fieldCompletionStatus = [
       relocateIndex != -1,
-      boollicense.any((completed) => completed),
+      licenseIndex.any((completed) => completed),
       industryIndex != -1,
-      preloc.isNotEmpty,
-      currS.isNotEmpty,
-      exepS.isNotEmpty,
+      preferredLocation.isNotEmpty,
+      currentSalary.isNotEmpty,
+      expectedSalary.isNotEmpty,
     ];
 
     // Calculate progress based on the number of completed fields
@@ -321,40 +319,36 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
     );
   }
 
-  Widget buildContinueButton() {
-    return Container(
-      alignment: Alignment.center,
-      child: UikButton(
-        text: CONTINUE,
-        textColor: Colors.black,
-        textSize: 16.0,
-        textWeight: FontWeight.w500,
-        //     onClick: updatedata,
-        onClick: () async {
-          NavigationUtils.openScreen(ScreenRoutes.apniDocumentInfo);
-          //   updatedata();
-        },
-      ),
-    );
-  }
-
   void updatedata() async {
-    final relocate = (relocateIndex != -1) ? bike[relocateIndex] : null;
-
-    if (relocate != null) {
+    if (areAllFieldsSelected()) {
       setState(() {
         isUpdating = true; // Set isUpdating to true while updating
       });
 
       try {
+
+        final List<String> selectedLicenseIndexes = [];
+        for (int i = 0; i < licenseIndex.length; i++) {
+          if (licenseIndex[i]) {
+            selectedLicenseIndexes.add(license[i]);
+          }
+        }
+
         final response = await ApiRepository.updateCustomerInfo(
           {
-            "relocate": relocate,
+            "drivingLicense":selectedLicenseIndexes,
+            "relocation": relocate[relocateIndex],
+            "preferredLocation": preferredLocation,
+            "currentIndustry": industryList[industryIndex],
+            "currentSalary": currentSalary,
+            "expectedSalary": expectedSalary
           },
         );
 
         if (response.isSuccess!) {
-          NavigationUtils.openScreen(ScreenRoutes.apniDocumentInfo);
+          NavigationUtils.pop();
+          NavigationUtils.openScreen(ScreenRoutes.userDocumentInfo);
+
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
@@ -369,6 +363,37 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
       UiUtils.showToast("Please fill in all required fields.");
     }
   }
+  bool areAllFieldsSelected() {
+    return relocateIndex != -1 &&
+        industryIndex != -1 &&
+        preferredLocation.isNotEmpty &&
+        currentSalary.isNotEmpty &&
+        expectedSalary.isNotEmpty;
+  }
+  Widget buildContinueButton(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: UikButton(
+        text: CONTINUE,
+        textColor: Colors.black,
+        textSize: 16.0,
+        textWeight: FontWeight.w500,
+        backgroundColor: areAllFieldsSelected() ? Colors.yellow : Colors.grey, // Change button color based on field completion
+        onClick: () {
+          if (areAllFieldsSelected()) {
+            updatedata();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Please fill in all required fields.'),
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+
 
   void updateSelectedIndex(int index, IndexType indexType) {
     setState(() {
@@ -377,7 +402,7 @@ class _ApniOtherInfoState extends State<ApniOtherInfo> {
           relocateIndex = index;
           break;
         case IndexType.license:
-          boollicense[index] = !boollicense[index];
+          licenseIndex[index] = !licenseIndex[index];
           break;
       }
     });
