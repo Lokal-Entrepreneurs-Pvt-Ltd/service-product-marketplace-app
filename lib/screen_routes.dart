@@ -89,8 +89,8 @@ class ScreenRoutes {
   static const String jobsLandingPage = "/jobsLandingPage";
   static const String jobsFiltersPage = "/jobsFiltersPage";
   static const String jobsDetailsPage = "/jobsDetailsPage";
-  static const String apniProfileInfo = "/apniProfileInfo";
-  static const String apniGeneralInfo = "/apniGeneralInfo";
-  static const String apniOtherInfo = "/apniOtherInfo";
-  static const String apniDocumentInfo = "/apniDocumentInfo";
+  static const String userProfileInfo = "/userProfileInfo";
+  static const String userGeneralInfo = "/userGeneralInfo";
+  static const String userOtherInfo = "/userOtherInfo";
+  static const String userDocumentInfo = "/userDocumentInfo";
 }
