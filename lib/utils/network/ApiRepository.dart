@@ -12,6 +12,14 @@ class ApiRepository {
     return dio;
   }
 
+  static Future<ApiResponse> getStateList(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.stateList, args);
+  }
+
+  static Future<ApiResponse> getDistrictByStateCode(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.districtListByState, args);
+  }
+
   static Future<ApiResponse> getJobsbyId(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.jobsDetailsById, args);
   }
