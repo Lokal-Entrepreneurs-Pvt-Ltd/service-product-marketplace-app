@@ -101,6 +101,7 @@ class ApiRoutes {
   static const String verifyAndAddAgent = "/agent/verifyAndAddAgent";
   static const String customerLokalQr = "/customer/getLokalQr";
   static const String jobsLandingPage = "/jobs/landingPage";
-  static const String
-  jobsDetailsById = "/jobs/detailsById";
+  static const String jobsDetailsById = "/jobs/detailsById";
+  static const String stateList = "/location/getStatesList";
+  static const String districtListByState = "/location/getDistrictForState";
 }
