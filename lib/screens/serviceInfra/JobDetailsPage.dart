@@ -26,7 +26,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   bool showFullDescription = false;
   int _currentTabNumber = 0;
   bool _isLoading = true;
-  Map<String, dynamic> jobDetails = {};
+  Map<String, dynamic> jobPost = {};
   List<dynamic> _ctas = [];
 
   @override
@@ -56,18 +56,18 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       });
       final response = await ApiRepository.getJobsbyId(widget.args);
       if (response.isSuccess!) {
-        jobDetails = response.data!["jobDetails"] as Map<String, dynamic>;
+        jobPost = response.data!["jobPost"] as Map<String, dynamic>;
         final metaData = response.data['metaData'] as Map<String, dynamic>;
         _ctas = metaData['ctas'] as List<dynamic>;
-        if (jobDetails['tabs'] != null) {
+        if (jobPost['tabs'] != null) {
           _tabController =
-              TabController(length: jobDetails['tabs'].length, vsync: this);
+              TabController(length: jobPost['tabs'].length, vsync: this);
           _scrollController.addListener(() {
             if (_scrollController.offset > 150) {
               int newIndex =
                   ((_scrollController.offset - 100) * 2 / 265).round();
               if (newIndex != _currentTabNumber &&
-                  newIndex < jobDetails['tabs'].length) {
+                  newIndex < jobPost['tabs'].length) {
                 setState(() {
                   _currentTabNumber = newIndex;
                 });
@@ -100,9 +100,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildProfileInfo() {
-    String? url = jobDetails["logo"];
-    String? jobName = jobDetails["jobName"];
-    String? companyName = jobDetails["companyName"];
+    String? url = jobPost["logo"];
+    String? jobName = jobPost["jobName"];
+    String? companyName = jobPost["companyName"];
     if (jobName != null && companyName != null) {
       return Container(
         padding: EdgeInsets.all(16),
@@ -151,7 +151,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildSalaryDetails() {
-    Map<String, dynamic> salaryDetails = jobDetails['salaryDetails'];
+    Map<String, dynamic> salaryDetails = jobPost['salaryDetails'];
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -218,7 +218,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 ),
               ),
               Text(
-                '${jobDetails['location']}',
+                '${jobPost['location']}',
                 style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -238,7 +238,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 ),
               ),
               Text(
-                '${jobDetails['salary']}',
+                '${jobPost['salary']}',
                 style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -276,7 +276,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           ),
           SizedBox(height: 8),
           ...List<String>.from(
-            jobDetails['JobDetails']['jobHighlights'],
+            jobPost['jobDetails']['jobHighlights'],
           ).map(
             (text) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,7 +327,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             ),
           ),
           _buildExpandableText(
-            jobDetails['JobDetails']['jobDescription'],
+            jobPost['jobDetails']['jobDescription'],
           ),
         ],
       ),
@@ -335,7 +335,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildJobRole() {
-    Map<String, dynamic> jobrole = jobDetails['JobRole'];
+    Map<String, dynamic> jobrole = jobPost['jobRole'];
     return Container(
       padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
       child: Column(
@@ -395,7 +395,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           SizedBox(
             height: 8,
           ),
-          ...jobDetails['InterviewDetails'].entries.map(
+          ...jobPost['interviewDetails'].entries.map(
                 (e) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -518,8 +518,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
               actions: [
                 InkWell(
                   onTap: () {
-                    String shareText = jobDetails['share'];
-                    String shareUrl = jobDetails['shareUrl'];
+                    String shareText = jobPost['share'];
+                    String shareUrl = jobPost['shareUrl'];
                     UiUtils.shareOnWhatsApp(
                         shareUrl.isNotEmpty
                             ? shareUrl
@@ -558,7 +558,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
               ],
             ),
             body: DefaultTabController(
-              length: jobDetails['tabs'].length,
+              length: jobPost['tabs'].length,
               child: SingleChildScrollView(
                 controller: _scrollController,
                 child: Column(
@@ -599,7 +599,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                         indicatorColor: UikColor.charizard_400.toColor(),
                         labelStyle: GoogleFonts.poppins(fontSize: 16),
                         controller: _tabController,
-                        tabs: List<Widget>.from(jobDetails['tabs']
+                        tabs: List<Widget>.from(jobPost['tabs']
                             .map(
                               (tab) => Tab(
                                 child: Padding(
@@ -607,7 +607,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                                   child: Text(
                                     tab as String,
                                     style: _getTabItemTextStyle(
-                                        jobDetails['tabs'].indexOf(tab)),
+                                        jobPost['tabs'].indexOf(tab)),
                                   ),
                                 ),
                               ),
@@ -700,33 +700,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           ),
         );
       }).toList(),
-    );
-  }
-
-  Widget _buildButton() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: InkWell(
-        onTap: () async {
-          // final response = await ApiRepository.submitOptin(widget.args);
-          // if (response.isSuccess!) {
-          //   UiUtils.showToast("You Have Opted in");
-          //   setState(() {
-          //     _isOptedIn = true;
-          //   });
-          // } else {
-          //   UiUtils.showToast(response.error![MESSAGE]);
-          // }
-        },
-        child: UikButton(
-          text: "Apply Now",
-          backgroundColor: UikColor.charizard_400.toColor(),
-          textColor: Colors.black,
-          textSize: 16.0,
-          textWeight: FontWeight.w500,
-          stuck: true,
-        ),
-      ),
     );
   }
 }
