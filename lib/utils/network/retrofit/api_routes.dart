@@ -104,4 +104,6 @@ class ApiRoutes {
   static const String jobsDetailsById = "/jobs/detailsById";
   static const String stateList = "/location/getStatesList";
   static const String districtListByState = "/location/getDistrictForState";
+  static const String dynamicLandingPage = "/dynamic/landingPage";
+
 }

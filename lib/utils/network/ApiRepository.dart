@@ -363,6 +363,9 @@ class ApiRepository {
   static Future<ApiResponse> getJobsLandingPage(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.jobsLandingPage, args);
   }
+  static Future<ApiResponse> getDynamicLandingPage(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.dynamicLandingPage, args);
+  }
 }
 
 // apirequestbody class
