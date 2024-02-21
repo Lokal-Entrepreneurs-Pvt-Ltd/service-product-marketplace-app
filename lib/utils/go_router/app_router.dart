@@ -1,6 +1,7 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lokal/pages/UikDynamicPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -157,7 +158,8 @@ class AppRoutes {
       _userPersonalInfo,
       _userGeneralInfo,
       _userOtherInfo,
-      _userDocumentInfo
+      _userDocumentInfo,
+      _dynamicPage
     ],
   );
 
@@ -189,6 +191,18 @@ class AppRoutes {
       return UserOtherInfo(
         key: state.pageKey,
       );
+      // return OtherDetails();
+    },
+  );
+
+  static final GoRoute _dynamicPage = GoRoute(
+    path: ScreenRoutes.dynamicPage,
+    builder: (context, state) {
+      final Map<String, dynamic>? extraArgs =
+      state.extra as Map<String, dynamic>?;
+      return UikDynamicPage(
+        args: extraArgs,
+      ).page;
       // return OtherDetails();
     },
   );

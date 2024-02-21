@@ -90,7 +90,7 @@ dependencies:
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^21.2.9
   tutorial_coach_mark: ^1.2.11
-  ui_sdk: 1.0.131+1
+  ui_sdk: 1.0.132+1
   url_launcher: ^6.1.11
   webview_flutter: ^2.0.14
 

@@ -160,7 +160,7 @@ abstract class ActionUtils {
   static void handleSelectedLocation() async {
     Position? position = await LocationUtils.getCurrentPosition();
     if (position != null) {
-      GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance;
+      GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance!;
       geocodingPlatform.placemarkFromCoordinates(
           position.latitude, position.longitude);
 

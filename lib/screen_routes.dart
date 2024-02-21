@@ -93,4 +93,5 @@ class ScreenRoutes {
   static const String userGeneralInfo = "/userGeneralInfo";
   static const String userOtherInfo = "/userOtherInfo";
   static const String userDocumentInfo = "/userDocumentInfo";
+  static const String dynamicPage = "/dynamicPage";
 }
