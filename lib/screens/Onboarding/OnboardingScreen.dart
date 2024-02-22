@@ -19,6 +19,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     "assets/images/useronboarding1.png",
     "assets/images/useronboarding2.png",
     "assets/images/useronboarding3.png",
+    "assets/images/useronboarding4.png",
   ];
   int _currentPage = 0;
   int totalImages = 3;

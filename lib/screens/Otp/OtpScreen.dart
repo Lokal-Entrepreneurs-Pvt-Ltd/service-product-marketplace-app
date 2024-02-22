@@ -135,16 +135,17 @@ class _OtpScreenState extends State<OtpScreen> {
             UserDataHandler.saveCustomerData(customerData);
           }
           UserDataHandler.saveIsUserVerified(true);
-          if(response.data[NEXT_PAGE]!=null){
+          NavigationUtils.pop();
+          if (response.data[NEXT_PAGE] != null) {
             final String nextPage = response.data[NEXT_PAGE];
-            if(nextPage.isNotEmpty)
-              NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+            if (nextPage.isNotEmpty)
+              NavigationUtils.popAllAndPush(nextPage, {});
             else
-              NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
-          }
-          else
-            NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
-
+              NavigationUtils.popAllAndPush(
+                  ScreenRoutes.uikBottomNavigationBar, {});
+          } else
+            NavigationUtils.popAllAndPush(
+                ScreenRoutes.uikBottomNavigationBar, {});
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }

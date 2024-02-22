@@ -12,6 +12,18 @@ class ApiRepository {
     return dio;
   }
 
+  static Future<ApiResponse> getStateList(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.stateList, args);
+  }
+
+  static Future<ApiResponse> getDistrictByStateCode(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.districtListByState, args);
+  }
+
+  static Future<ApiResponse> getJobsbyId(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.jobsDetailsById, args);
+  }
+
   static Future<ApiResponse> getSamhitaHomescreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.samhitaHome, args);
   }
@@ -340,7 +352,8 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> sendOtpForLoginCustomer(args) {
-    return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLoginCustomer, args);
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.sendOtpForLoginCustomer, args);
   }
 
   static Future<ApiResponse> getCustomerLokalQr(args) {
@@ -349,6 +362,9 @@ class ApiRepository {
 
   static Future<ApiResponse> getJobsLandingPage(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.jobsLandingPage, args);
+  }
+  static Future<ApiResponse> getDynamicLandingPage(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.dynamicLandingPage, args);
   }
 }
 

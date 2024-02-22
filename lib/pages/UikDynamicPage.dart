@@ -18,25 +18,25 @@ import 'package:ui_sdk/props/UikAction.dart';
 import '../main.dart';
 import '../actions.dart';
 
-class UikJobsLandingPage extends StandardPage {
+class UikDynamicPage extends StandardPage {
+
+  Map<String, dynamic>? args;
+
+  UikDynamicPage({this.args});
+
   @override
   Set<String?> getActions() {
-    Set<String?> actionList = {};
-    actionList.add(UIK_ACTION.OPEN_CATEGORY);
-    actionList.add(UIK_ACTION.OPEN_ISP);
-    actionList.add(UIK_ACTION.ADD_TO_CART);
-    actionList.add(UIK_ACTION.OPEN_PRODUCT);
-    actionList.add(UIK_ACTION.OPEN_PAGE);
-    return actionList;
+
+    return {};
   }
   @override
   dynamic getData() {
-    return ApiRepository.getJobsLandingPage;
+    return ApiRepository.getDynamicLandingPage;
   }
 
   void onJobsLandingPageTapAction(UikAction uikAction) {
     ActionUtils.executeAction(uikAction);
-    ActionUtils.sendEventonActionForScreen(uikAction.tap.type.toString(),ScreenRoutes.jobsLandingPage);
+    ActionUtils.sendEventonActionForScreen(uikAction.tap.type.toString(),ScreenRoutes.dynamicPage);
   }
 
   @override
@@ -46,11 +46,11 @@ class UikJobsLandingPage extends StandardPage {
 
   @override
   getPageContext() {
-    return ScreenRoutes.jobsLandingPage;
+    return ScreenRoutes.dynamicPage;
   }
 
   @override
   getConstructorArgs() {
-    return {};
+    return args;
   }
 }
