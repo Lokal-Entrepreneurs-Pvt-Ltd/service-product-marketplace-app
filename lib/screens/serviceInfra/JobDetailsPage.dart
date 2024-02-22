@@ -106,6 +106,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     if (jobName != null && companyName != null) {
       return Container(
         padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(
+                  "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1708500398902-Rectangle%203220.png"),
+              fit: BoxFit.fill),
+        ),
         child: Row(
           children: [
             CircleAvatar(
@@ -126,7 +132,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 Text(
                   jobName,
                   style: GoogleFonts.poppins(
-                    fontSize: 16,
+                    color: Colors.white,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -152,51 +159,85 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   Widget _buildSalaryDetails() {
     Map<String, dynamic> salaryDetails = jobPost['salaryDetails'];
+    String incentive = salaryDetails["incentive"] ?? "";
+    if (salaryDetails.containsKey('incentive')) {
+      salaryDetails.remove('incentive');
+    }
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      color: '#F5F7FA'.toColor(),
-      width: double.maxFinite,
-      child: Column(
-        children: salaryDetails.entries.map((entry) {
-          String key = entry.key;
-          dynamic value = entry.value;
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          color: '#F5F7FA'.toColor(),
+          width: double.maxFinite,
+          child: Column(
+            children: salaryDetails.entries.map((entry) {
+              String key = entry.key;
+              dynamic value = entry.value;
 
-          return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return Column(
                 children: [
-                  Text(
-                    key,
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: UikColor.giratina_500.toColor(),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        key,
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: UikColor.giratina_500.toColor(),
+                        ),
+                      ),
+                      Text(
+                        '$value',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: UikColor.giratina_500.toColor(),
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    '$value',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: UikColor.giratina_500.toColor(),
-                    ),
-                  ),
+                  (entry.toString() != salaryDetails.entries.last.toString())
+                      ? Container(
+                          height: 1,
+                          margin: EdgeInsets.symmetric(vertical: 8),
+                          width: double.maxFinite,
+                          color: UikColor.giratina_400.toColor(),
+                        )
+                      : Container(),
                 ],
-              ),
-              (entry.toString() != salaryDetails.entries.last.toString())
-                  ? Container(
-                      height: 1,
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      width: double.maxFinite,
-                      color: UikColor.giratina_400.toColor(),
-                    )
-                  : Container(),
-            ],
-          );
-        }).toList(),
-      ),
+              );
+            }).toList(),
+          ),
+        ),
+        (incentive.isNotEmpty && incentive != "NA")
+            ? Container(
+                height: 28,
+                width: double.maxFinite,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                      bottomRight: Radius.circular(8)),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1708576145568-Rectangle%203220.png"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: Text(
+                  incentive,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: UikColor.charizard_500.toColor(),
+                  ),
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 
@@ -210,15 +251,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           Row(
             children: [
               Text(
-                'Work Location- ',
+                'Education- ',
                 style: GoogleFonts.poppins(
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: UikColor.giratina_500.toColor(),
                 ),
               ),
               Text(
-                '${jobPost['location']}',
+                '${jobPost['jobDetails']["education"]}',
                 style: GoogleFonts.poppins(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -233,7 +274,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 'Salary- ',
                 style: GoogleFonts.poppins(
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w400,
                   color: UikColor.giratina_500.toColor(),
                 ),
               ),
@@ -254,84 +295,119 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildJobHighlights() {
-    return Container(
-      margin: EdgeInsets.all(16),
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        color: '#F5F7FA'.toColor(),
-        border: Border.all(color: UikColor.gengar_300.toColor()),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Job highlights ',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: UikColor.gengar_500.toColor(),
+    List<String> jobHighlights = List<String>.from(
+      jobPost['jobDetails']['jobHighlights'],
+    );
+    return (jobHighlights.isNotEmpty)
+        ? Container(
+            margin: EdgeInsets.all(16),
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
+            width: double.maxFinite,
+            decoration: BoxDecoration(
+              color: '#F5F7FA'.toColor(),
+              border: Border.all(color: UikColor.gengar_300.toColor()),
+              borderRadius: BorderRadius.circular(5),
             ),
-          ),
-          SizedBox(height: 8),
-          ...List<String>.from(
-            jobPost['jobDetails']['jobHighlights'],
-          ).map(
-            (text) => Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '• ',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        text,
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: UikColor.giratina_500.toColor(),
-                        ),
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Job highlights ',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: UikColor.gengar_500.toColor(),
+                  ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: 8),
+                ...jobHighlights.map(
+                  (text) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '• ',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: UikColor.giratina_500.toColor(),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              text,
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: UikColor.giratina_500.toColor(),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 4),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          )
+        : Container();
   }
 
   Widget _buildJobDescription() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Job Description',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+    String jobDescription = jobPost['jobDetails']['jobDescription'];
+    jobDescription =
+        "cdss si fuhfh  kfk fkfj d khj jgfdsjhfgdsjf g gyugfukgujwg wu g g dsf dsj dsg jfdjdg uyg uyd gfudg d gdf jufg dsju fgdsgj fdsf gdsjfdsg fjdg fuj grfujrgfjurg jg jg jugufgfus frj hdskds kushfk sfh uykfgdkf ds fds fhjdsfbkj fdskjksd  fjh fjdhkdsjhds jhg dsjg dskkf gf dgs jg sj ksgfjgf dsjk gds jk gjk";
+    String jdUrl = jobPost['jobDetails']['jdUrl'];
+
+    return (jobDescription.isNotEmpty)
+        ? Container(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Job Description',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    (jdUrl.isNotEmpty)
+                        ? GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: UikColor.gengar_500.toColor(),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                "Download JD",
+                                style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
+                _buildExpandableText(
+                  jobDescription,
+                ),
+              ],
             ),
-          ),
-          _buildExpandableText(
-            jobPost['jobDetails']['jobDescription'],
-          ),
-        ],
-      ),
-    );
+          )
+        : Container();
   }
 
   Widget _buildJobRole() {
@@ -341,45 +417,108 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Job Role ',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          ...jobrole.entries.map(
-            (e) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  e.key as String,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: UikColor.giratina_500.toColor(),
-                  ),
-                ),
-                Text(
-                  e.value as String,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8),
-              ],
-            ),
-          ),
+          // Text(
+          //   'Job Role ',
+          //   style: GoogleFonts.poppins(
+          //     fontSize: 16,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 8,
+          // ),
+          _showTypesAndDetails(
+              map: jobrole,
+              heading: GoogleFonts.poppins(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
         ],
       ),
     );
   }
 
+  Widget _showTypesAndDetails(
+      {required Map<String, dynamic> map,
+      TextStyle? heading,
+      TextStyle? body}) {
+    return Wrap(
+      spacing: 16.0,
+      runSpacing: 24.0,
+      children: map.entries
+          .where((entry) =>
+              (entry.value is String && (entry.value as String).isNotEmpty) ||
+              (entry.value is List<String> &&
+                  ((entry.value as List<String>).isNotEmpty)))
+          .map(
+            (entry) => SizedBox(
+              width: MediaQuery.of(context).size.width / 2 - 24,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16, bottom: 12),
+                    child: Text(
+                      entry.key,
+                      style: (heading == null)
+                          ? GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: UikColor.giratina_500.toColor(),
+                            )
+                          : heading,
+                    ),
+                  ),
+                  if (entry.value is String)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: UikColor.giratina_100.toColor(),
+                      ),
+                      child: Text(entry.value.toString(),
+                          style: (body == null)
+                              ? GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                )
+                              : body),
+                    ),
+                  if (entry.value is List<String>)
+                    Wrap(
+                      spacing: 10,
+                      runSpacing: 5,
+                      children: (entry.value as List<String>)
+                          .map(
+                            (item) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 4),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: UikColor.giratina_100.toColor(),
+                              ),
+                              child: Text(
+                                item,
+                                style: (body == null)
+                                    ? GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      )
+                                    : body,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                ],
+              ),
+            ),
+          )
+          .toList(),
+    );
+  }
+
   Widget _buildInterviewDetails() {
+    var interviewDetails = jobPost['interviewDetails'] as Map<String, dynamic>;
     return Container(
       padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
       child: Column(
@@ -392,32 +531,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(
-            height: 8,
-          ),
-          ...jobPost['interviewDetails'].entries.map(
-                (e) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      e.key as String,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: UikColor.giratina_500.toColor(),
-                      ),
-                    ),
-                    Text(
-                      e.value as String,
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                  ],
-                ),
-              ),
+          _showTypesAndDetails(map: interviewDetails),
+          SizedBox(height: 8),
         ],
       ),
     );
@@ -443,25 +558,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 maxLines: maxLines,
                 overflow: TextOverflow.ellipsis,
               ),
-              if (text.length > 150)
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showFullDescription = !showFullDescription;
-                    });
-                  },
-                  child: Container(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      showFullDescription ? 'Show less' : 'Show more',
-                      style: GoogleFonts.poppins(
-                        color: UikColor.gengar_500.toColor(),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
+              Container(
+                height: 5,
+                width: double.maxFinite,
+              )
             ],
           ),
           if (text.length > 150 && !showFullDescription)
@@ -481,6 +581,26 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                       Colors.white.withOpacity(1),
                       Colors.white.withOpacity(1)
                     ],
+                  ),
+                ),
+              ),
+            ),
+          if (text.length > 150)
+            Positioned(
+              right: 0,
+              bottom: 0,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    showFullDescription = !showFullDescription;
+                  });
+                },
+                child: Text(
+                  showFullDescription ? 'Show less' : 'Show more',
+                  style: GoogleFonts.poppins(
+                    color: UikColor.venusaur_500.toColor(),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
                   ),
                 ),
               ),
@@ -571,53 +691,59 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                       color: UikColor.giratina_100.toColor(),
                     ),
                     _buildLocationSalaryInfo(),
-                    Container(
-                      height: 6,
-                      width: double.maxFinite,
-                      color: UikColor.giratina_100.toColor(),
-                    ),
-                    Container(
-                      height: 45,
-                      child: TabBar(
-                        onTap: (ind) {
-                          setState(() {
-                            _currentTabNumber = ind;
-                          });
-                          switch (ind) {
-                            case 0:
-                              _scrollController.jumpTo(ind * 100);
-                              break;
-                            case 1:
-                              _scrollController.jumpTo(ind * 400);
-                              break;
-                            default:
-                              _scrollController.jumpTo(ind * 320);
-                              break;
-                          }
-                        },
-                        isScrollable: true,
-                        indicatorColor: UikColor.charizard_400.toColor(),
-                        labelStyle: GoogleFonts.poppins(fontSize: 16),
-                        controller: _tabController,
-                        tabs: List<Widget>.from(jobPost['tabs']
-                            .map(
-                              (tab) => Tab(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Text(
-                                    tab as String,
-                                    style: _getTabItemTextStyle(
-                                        jobPost['tabs'].indexOf(tab)),
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList()),
-                      ),
-                    ),
+                    // Container(
+                    //   height: 6,
+                    //   width: double.maxFinite,
+                    //   color: UikColor.giratina_100.toColor(),
+                    // ),
+                    // Container(
+                    //   height: 45,
+                    //   child: TabBar(
+                    //     onTap: (ind) {
+                    //       setState(() {
+                    //         _currentTabNumber = ind;
+                    //       });
+                    //       switch (ind) {
+                    //         case 0:
+                    //           _scrollController.jumpTo(ind * 100);
+                    //           break;
+                    //         case 1:
+                    //           _scrollController.jumpTo(ind * 400);
+                    //           break;
+                    //         default:
+                    //           _scrollController.jumpTo(ind * 320);
+                    //           break;
+                    //       }
+                    //     },
+                    //     isScrollable: true,
+                    //     indicatorColor: UikColor.charizard_400.toColor(),
+                    //     labelStyle: GoogleFonts.poppins(fontSize: 16),
+                    //     controller: _tabController,
+                    //     tabs: List<Widget>.from(jobPost['tabs']
+                    //         .map(
+                    //           (tab) => Tab(
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.all(10),
+                    //               child: Text(
+                    //                 tab as String,
+                    //                 style: _getTabItemTextStyle(
+                    //                     jobPost['tabs'].indexOf(tab)),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //         )
+                    //         .toList()),
+                    //   ),
+                    // ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        _buildJobRole(),
+                        // Container(
+                        //   height: 6,
+                        //   width: double.maxFinite,
+                        //   color: UikColor.giratina_100.toColor(),
+                        // ),
                         _buildJobHighlights(),
                         Container(
                           height: 6,
@@ -625,12 +751,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                           color: UikColor.giratina_100.toColor(),
                         ),
                         _buildJobDescription(),
-                        Container(
-                          height: 6,
-                          width: double.maxFinite,
-                          color: UikColor.giratina_100.toColor(),
-                        ),
-                        _buildJobRole(),
                         Container(
                           height: 6,
                           width: double.maxFinite,
