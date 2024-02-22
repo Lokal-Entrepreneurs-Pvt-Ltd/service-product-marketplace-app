@@ -1,4 +1,5 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
@@ -159,7 +160,8 @@ class AppRoutes {
       _userGeneralInfo,
       _userOtherInfo,
       _userDocumentInfo,
-      _dynamicPage
+      _dynamicPage,
+      _newsScreen
     ],
   );
 
@@ -394,6 +396,14 @@ class AppRoutes {
       // final Map<String, dynamic>? extraArgs =
       // state.extra as Map<String, dynamic>?;
       return MyAccountWrapper(page: UikMyAccountScreen(args: {}).page);
+    },
+  );
+  static final GoRoute _newsScreen = GoRoute(
+    path: ScreenRoutes.newsPage,
+    builder: (context, state) {
+      // final Map<String, dynamic>? extraArgs =
+      // state.extra as Map<String, dynamic>?;
+      return const DUIPage(pageUid: 'newspage-65b9f82cea98f4e5239d621b',);
     },
   );
   static final GoRoute _partnerTrainingHome = GoRoute(
