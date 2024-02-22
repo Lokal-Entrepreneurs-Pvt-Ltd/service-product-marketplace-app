@@ -44,6 +44,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   bool isAuthError = false;
   int authErrorCode = -1;
   String authErrorMessage = "";
+  bool obscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +161,8 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
             _buildTextField(
               controller: passwordController,
               hintText: PASSWORD_INPUT,
-              obscureText: true,
+              obscureText: obscure,
+              isobscurefield: true,
               errorText: errorPassword ? descPassword : null,
               onChanged: _handlePasswordValidation,
             ),
@@ -168,7 +170,8 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
             _buildTextField(
               controller: confirmPasswordController,
               hintText: CONFIRM_PASSWORD_INPUT,
-              obscureText: true,
+              isobscurefield: true,
+              obscureText: obscure,
               errorText: errorConfirmPassword ? descConfirmPassword : null,
               onChanged: _handleConfirmPasswordValidation,
             ),
@@ -188,6 +191,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
     required TextEditingController controller,
     required String hintText,
     bool obscureText = false,
+    bool isobscurefield = false,
     String? errorText,
     required Function(String) onChanged,
   }) {
@@ -201,6 +205,19 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
           hintStyle: GoogleFonts.poppins(
             color: const Color(0xFF9E9E9E),
           ),
+          suffixIcon: (isobscurefield)
+              ? IconButton(
+                  icon: Icon(
+                    obscure ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      obscure = !obscure;
+                    });
+                  },
+                )
+              : null,
           filled: true,
           fillColor: Colors.white,
           contentPadding: const EdgeInsets.symmetric(

@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.26+27
+version: 1.0.33+33
 
 environment:
   sdk: ">=2.17.0-266.8.beta <3.0.0"
@@ -53,6 +53,8 @@ dependencies:
   flutter_onboarding_slider: ^1.0.9
   flutter_otp_text_field: ^1.1.0+2
   flutter_rating_bar: ^4.0.1
+  flutter_share: ^2.0.0
+  flutter_svg: ^2.0.9
   flutter_xlider: ^3.4.0
   fluttertoast: ^8.1.2
   geocoding: ^2.0.5
@@ -61,6 +63,7 @@ dependencies:
   google_maps_flutter: ^2.2.3
   hexcolor: ^3.0.1
   http: ^0.13.5
+  image_gallery_saver: ^1.7.1
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.0
   just_the_tooltip: ^0.0.3+6
@@ -78,6 +81,7 @@ dependencies:
   razorpay_flutter: ^1.3.5
   scratcher: ^2.3.0
   shake: ^2.2.0
+  share: ^2.0.4
   shared_preferences: ^2.0.15
   smooth_page_indicator: ^1.0.0+2
   sms_autofill: ^2.3.0
@@ -85,15 +89,10 @@ dependencies:
   sticky_headers: ^0.3.0+2
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^21.2.9
-  ui_sdk: 1.0.128+1
+  tutorial_coach_mark: ^1.2.11
+  ui_sdk: 1.0.132+1
   url_launcher: ^6.1.11
   webview_flutter: ^2.0.14
-  flutter_share: ^2.0.0
-  tutorial_coach_mark: ^1.2.11
-  digia_ui:
-    path: C:/Users\HP\AndroidStudioProjects\digia_ui
-
-
 
 dev_dependencies:
   build_runner: ^2.3.2

@@ -87,4 +87,11 @@ class ScreenRoutes {
   static const String alljobs = "/jobs";
   static const String customerLokalQr = "/customerlokalQr";
   static const String jobsLandingPage = "/jobsLandingPage";
+  static const String jobsFiltersPage = "/jobsFiltersPage";
+  static const String jobsDetailsPage = "/jobsDetailsPage";
+  static const String userProfileInfo = "/userProfileInfo";
+  static const String userGeneralInfo = "/userGeneralInfo";
+  static const String userOtherInfo = "/userOtherInfo";
+  static const String userDocumentInfo = "/userDocumentInfo";
+  static const String dynamicPage = "/dynamicPage";
 }
