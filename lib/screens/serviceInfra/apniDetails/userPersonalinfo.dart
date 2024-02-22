@@ -76,7 +76,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     _futureData = fetchData();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +83,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
-        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // If the future has completed, build the body with fetched data
             return isUpdating ? buildLoadingIndicator() : buildBody();
@@ -99,7 +99,9 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
           }
         },
       ),
-      persistentFooterButtons: isUpdating ? null : [buildContinueButton(context)], // Conditionally hide the footer
+      persistentFooterButtons: isUpdating
+          ? null
+          : [buildContinueButton(context)], // Conditionally hide the footer
     );
   }
 
@@ -108,8 +110,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
-
-
 
   Future<Map<String, dynamic>?> fetchData() async {
     try {
@@ -124,9 +124,15 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 ? DateTime.parse(userDataMagento['dob'])
                 : DateTime.now();
             calculateAge(datePicker!);
-            lat = userData['latitude'] ?? 0;
-            long = userData['longitude'] ?? 0;
+            lat = (userData['latitude'] as num?)?.toDouble() ?? 0;
+            long = (userData['longitude'] as num?)?.toDouble() ?? 0;
             genderIndex = userData['gender'] == "Male" ? 0 : 1;
+            String workExperience = userData["workEx"] ?? "";
+            if (workExperience.isNotEmpty)
+              workExperienceIndex = workEx.indexOf(workExperience);
+            String educationText = userData["education"] ?? "";
+            if (educationText.isNotEmpty)
+              educationIndex = education.indexOf(educationText);
           });
         }
       } else {
@@ -610,7 +616,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         (lat != 0 && long != 0);
   }
 
-
   Widget buildContinueButton(BuildContext context) {
     return Container(
       alignment: Alignment.center,
@@ -619,7 +624,9 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
-        backgroundColor: areAllFieldsSelected() ? Colors.yellow : Colors.grey, // Change button color based on field completion
+        backgroundColor: areAllFieldsSelected()
+            ? Colors.yellow
+            : Colors.grey, // Change button color based on field completion
         onClick: () {
           if (areAllFieldsSelected()) {
             updatedata();
@@ -671,7 +678,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         if (response.isSuccess!) {
           NavigationUtils.pop();
           NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
-
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
@@ -686,8 +692,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       UiUtils.showToast("Please fill in all required fields.");
     }
   }
-
-
 
   void updateSelectedIndex(int index, IndexType indexType) {
     setState(() {
