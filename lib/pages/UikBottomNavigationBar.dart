@@ -27,6 +27,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   GlobalKey homekey = GlobalKey();
   GlobalKey menukey = GlobalKey();
   GlobalKey accountkey = GlobalKey();
+  GlobalKey newsKey = GlobalKey();
   GlobalKey jobkey = GlobalKey();
 
   static final List<Widget> _widgetOptions = <Widget>[
@@ -38,7 +39,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   void _onItemTapped(int index) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     if (index == _selectedIndex) return;
-    if (index == 2) {
+    if (index == 1) {
       Map<String, dynamic>? args = {"academyId": 3};
       NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
@@ -48,11 +49,14 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     //   };
     //   NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
     // }
-    if (index == 1) {
+    if (index == 0) {
       context!.push(ScreenRoutes.alljobs);
     }
-    if (index == 3) {
+    if (index == 2) {
       context!.push(ScreenRoutes.myAccountScreen, extra: {});
+    }
+    if (index == 3) {
+      context!.push(ScreenRoutes.newsPage, extra: {});
     }
   }
 
@@ -187,6 +191,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
                 buildNavItem(Icons.menu_book, 'Academy', 2, menukey),
                 buildNavItem(
                     Icons.person_outline_sharp, 'Account', 3, accountkey),
+                buildNavItem(
+                    Icons.newspaper, 'News', 3, newsKey),
                 // buildNavItem(Icons.payment, 'ExtraPe', 3),
                 // Add more items as needed
               ],

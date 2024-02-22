@@ -93,6 +93,10 @@ dependencies:
   ui_sdk: 1.0.132+1
   url_launcher: ^6.1.11
   webview_flutter: ^2.0.14
+  digia_ui:
+    git:
+      url: git@github.com:Digia-Technology-Private-Limited/digia_ui.git
+      ref: feature/digia_ui_lib
 
 dev_dependencies:
   build_runner: ^2.3.2
