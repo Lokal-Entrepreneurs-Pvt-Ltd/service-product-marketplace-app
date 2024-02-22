@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
@@ -304,19 +305,31 @@ class _CoachMarkState extends State<CoachMark> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(widget.text),
+          Text(
+            widget.text,
+            style: GoogleFonts.poppins(),
+          ),
           const SizedBox(
             height: 16,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(onPressed: widget.onSkip, child: Text(widget.skip)),
+              TextButton(
+                  onPressed: widget.onSkip,
+                  child: Text(
+                    widget.skip,
+                    style: GoogleFonts.poppins(),
+                  )),
               const SizedBox(
                 width: 10,
               ),
               ElevatedButton(
-                  onPressed: widget.onNext, child: Text(widget.next)),
+                  onPressed: widget.onNext,
+                  child: Text(
+                    widget.next,
+                    style: GoogleFonts.poppins(),
+                  )),
             ],
           )
         ],

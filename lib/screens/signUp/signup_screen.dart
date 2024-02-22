@@ -231,6 +231,7 @@ class _SignupScreenState extends State<SignupScreen> {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
+        style: GoogleFonts.poppins(),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: GoogleFonts.poppins(
@@ -260,6 +261,7 @@ class _SignupScreenState extends State<SignupScreen> {
             borderSide: BorderSide.none,
           ),
           errorText: errorText,
+          errorStyle: GoogleFonts.poppins(),
         ),
         onChanged: onChanged,
       ),
