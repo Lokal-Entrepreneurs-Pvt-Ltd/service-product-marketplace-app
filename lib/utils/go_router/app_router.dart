@@ -2,6 +2,7 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
+import 'package:lokal/screens/detailScreen/userAccountDetails.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -93,7 +94,7 @@ class AppRoutes {
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
     //  : _customerloginScreen.path,
-    // initialLocation: _apniPersonalInfo.path,
+    // initialLocation: _userAccountDetails.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -159,11 +160,22 @@ class AppRoutes {
       _userGeneralInfo,
       _userOtherInfo,
       _userDocumentInfo,
-      _dynamicPage
+      _dynamicPage,
+      _userAccountDetails
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _userAccountDetails = GoRoute(
+    path: ScreenRoutes.userAccountDetails,
+    builder: (context, state) {
+      return UserAccountDetails(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _userPersonalInfo = GoRoute(
     path: ScreenRoutes.userProfileInfo,
@@ -199,7 +211,7 @@ class AppRoutes {
     path: ScreenRoutes.dynamicPage,
     builder: (context, state) {
       final Map<String, dynamic>? extraArgs =
-      state.extra as Map<String, dynamic>?;
+          state.extra as Map<String, dynamic>?;
       return UikDynamicPage(
         args: extraArgs,
       ).page;
