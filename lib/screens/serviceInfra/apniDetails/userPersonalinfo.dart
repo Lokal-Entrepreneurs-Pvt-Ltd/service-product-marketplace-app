@@ -620,7 +620,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: CONTINUE,
+        text: SAVE_DETAILS,
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
@@ -677,7 +677,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
 
         if (response.isSuccess!) {
           NavigationUtils.pop();
-          NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
+          // NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }

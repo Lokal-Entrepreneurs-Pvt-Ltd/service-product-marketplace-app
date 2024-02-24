@@ -347,8 +347,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
 
         if (response.isSuccess!) {
           NavigationUtils.pop();
-          NavigationUtils.openScreen(ScreenRoutes.userDocumentInfo);
-
+          // NavigationUtils.openScreen(ScreenRoutes.userDocumentInfo);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
@@ -374,7 +373,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: CONTINUE,
+        text: SAVE_DETAILS,
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,

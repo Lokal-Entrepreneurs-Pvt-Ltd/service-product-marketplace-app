@@ -43,17 +43,11 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       Map<String, dynamic>? args = {"academyId": 3};
       NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
-    // if (index == 2) {
-    //   Map<String, dynamic>? args = {
-    //     "url": "https://www.extrape.com/blog/category/start-here/"
-    //   };
-    //   NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
-    // }
     if (index == 1) {
       context!.push(ScreenRoutes.alljobs);
     }
     if (index == 3) {
-      context!.push(ScreenRoutes.myAccountScreen, extra: {});
+      context!.push(ScreenRoutes.userAccountDetails, extra: {});
     }
   }
 
@@ -106,25 +100,6 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           ),
         ],
       ),
-      // TargetFocus(
-      //   identify: "home-key",
-      //   keyTarget: jobkey,
-      //   shape: ShapeLightFocus.Circle,
-      //   radius: 80,
-      //   contents: [
-      //     TargetContent(
-      //       align: ContentAlign.top,
-      //       builder: (context, controller) {
-      //         return CoachMark(
-      //           text: "This is the Job page where you find related job",
-      //           onNext: () {
-      //             controller.next();
-      //           },
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
       TargetFocus(
         identify: "home-key",
         keyTarget: menukey,
