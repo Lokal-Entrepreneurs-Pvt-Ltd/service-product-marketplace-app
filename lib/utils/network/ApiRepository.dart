@@ -366,6 +366,10 @@ class ApiRepository {
   static Future<ApiResponse> getDynamicLandingPage(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.dynamicLandingPage, args);
   }
+
+  static Future<ApiResponse> getUserAccountDetails(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getCustomerProfileInfo, args);
+  }
 }
 
 // apirequestbody class

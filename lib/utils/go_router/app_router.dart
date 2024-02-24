@@ -2,7 +2,7 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
-import 'package:lokal/screens/detailScreen/userAccountDetails.dart';
+import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/constants/strings.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
@@ -170,7 +171,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: "Continue",
+        text: SAVE_DETAILS,
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,

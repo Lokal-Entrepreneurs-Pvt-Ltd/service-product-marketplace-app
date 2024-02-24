@@ -92,87 +92,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
                   updateSelectedIndex(index, IndexType.bank);
                 }),
                 buildTitle("Permanent Addresses", 16, FontWeight.w500),
-                // GestureDetector(
-                //   onTap: () async {
-                //     int? result = await Bottomsheets.showBottomListDialog(
-                //       context,
-                //       "State",
-                //       () async {
-                //         await stateDataList.initialize();
-                //         return DataForFunction(
-                //             index: stateIndex,
-                //             list: stateDataList.stateNameList);
-                //       },
-                //     );
-                //     if (result != null && result >= 0) {
-                //       setState(() {
-                //         if (stateIndex != result) {
-                //           districtIndex = -1;
-                //         }
-                //         stateIndex = result;
-                //       });
-                //     }
-                //   },
-                //   child: builbottomsheedtfield(
-                //       "State",
-                //       (stateIndex != -1)
-                //           ? stateDataList.stateNameList[stateIndex]
-                //           : ""),
-                // ),
-                // GestureDetector(
-                //   onTap: () async {
-                //     if (stateIndex != -1) {
-                //       int? result = await Bottomsheets.showBottomListDialog(
-                //         context,
-                //         "District",
-                //         () async {
-                //           await districtDataList
-                //               .initialize(args: {"stateCode": stateIndex});
-                //           return DataForFunction(
-                //               index: districtIndex,
-                //               list: districtDataList.districtNameList);
-                //         },
-                //       );
-                //       //   print(districtDataList.districtNameList);
-                //       if (result != null && result >= 0) {
-                //         setState(() {
-                //           districtIndex = result;
-                //         });
-                //       }
-                //     } else {
-                //       UiUtils.showToast("Please Select State");
-                //     }
-                //   },
-                //   child: builbottomsheedtfield(
-                //       "District",
-                //       (districtIndex != -1)
-                //           ? districtDataList.districtNameList[districtIndex]
-                //           : ""),
-                // ),
-                // GestureDetector(
-                //   onTap: () async {
-                //     if (districtIndex != -1) {
-                //       int? result = await Bottomsheets.showBottomListDialog(
-                //         context,
-                //         "District",
-                //         () async {
-                //           Future.delayed(const Duration(milliseconds: 500));
-                //           return DataForFunction(
-                //               index: villageIndex, list: villageList);
-                //         },
-                //       );
-                //       if (result != null && result >= 0) {
-                //         setState(() {
-                //           villageIndex = result;
-                //         });
-                //       }
-                //     } else {
-                //       UiUtils.showToast("Please Select District");
-                //     }
-                //   },
-                //   child: builbottomsheedtfield("Village",
-                //       (villageIndex != -1) ? villageList[villageIndex] : ""),
-                // ),
+
                 TextInputContainer(
                   fieldName: "Home No, Building Name",
                   hint: "Type your address",
@@ -365,7 +285,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: CONTINUE,
+        text: SAVE_DETAILS,
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
@@ -409,8 +329,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
 
         if (response.isSuccess!) {
           NavigationUtils.pop();
-          NavigationUtils.openScreen(ScreenRoutes.userOtherInfo);
-
+          // NavigationUtils.openScreen(ScreenRoutes.userOtherInfo);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
