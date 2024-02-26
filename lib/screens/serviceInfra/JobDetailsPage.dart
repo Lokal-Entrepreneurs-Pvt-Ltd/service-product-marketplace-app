@@ -359,10 +359,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   Widget _buildJobDescription() {
     String jobDescription = jobPost['jobDetails']['jobDescription'];
-    jobDescription =
-        "cdss si fuhfh  kfk fkfj d khj jgfdsjhfgdsjf g gyugfukgujwg wu g g dsf dsj dsg jfdjdg uyg uyd gfudg d gdf jufg dsju fgdsgj fdsf gdsjfdsg fjdg fuj grfujrgfjurg jg jg jugufgfus frj hdskds kushfk sfh uykfgdkf ds fds fhjdsfbkj fdskjksd  fjh fjdhkdsjhds jhg dsjg dskkf gf dgs jg sj ksgfjgf dsjk gds jk gjk";
-    String jdUrl = jobPost['jobDetails']['jdUrl'];
-
+     String jdUrl = jobPost['jobDetails']['jdUrl'];
     return (jobDescription.isNotEmpty)
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -417,16 +414,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Text(
-          //   'Job Role ',
-          //   style: GoogleFonts.poppins(
-          //     fontSize: 16,
-          //     fontWeight: FontWeight.w500,
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 8,
-          // ),
           _showTypesAndDetails(
               map: jobrole,
               heading: GoogleFonts.poppins(
