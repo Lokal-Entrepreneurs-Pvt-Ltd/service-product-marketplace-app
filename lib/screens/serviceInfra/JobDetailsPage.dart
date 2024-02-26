@@ -80,6 +80,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
           _isLoading = false;
         });
       } else {
+        _tabController = TabController(length: 0, vsync: this);
         _handleApiError();
       }
     } catch (e) {
@@ -359,8 +360,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   Widget _buildJobDescription() {
     String jobDescription = jobPost['jobDetails']['jobDescription'];
-    jobDescription =
-        "cdss si fuhfh  kfk fkfj d khj jgfdsjhfgdsjf g gyugfukgujwg wu g g dsf dsj dsg jfdjdg uyg uyd gfudg d gdf jufg dsju fgdsgj fdsf gdsjfdsg fjdg fuj grfujrgfjurg jg jg jugufgfus frj hdskds kushfk sfh uykfgdkf ds fds fhjdsfbkj fdskjksd  fjh fjdhkdsjhds jhg dsjg dskkf gf dgs jg sj ksgfjgf dsjk gds jk gjk";
     String jdUrl = jobPost['jobDetails']['jdUrl'];
 
     return (jobDescription.isNotEmpty)
