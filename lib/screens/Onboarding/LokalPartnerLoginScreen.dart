@@ -407,20 +407,22 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
     }
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
 
-    if (isPhoneInput)
+    if (isPhoneInput) {
       NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
         "phoneNumber": emailController.text.toString(),
         USERTYPE: selectedUserType
       });
-    else {
+    } else {
       if (response.data[NEXT_PAGE] != null) {
         final String nextPage = response.data[NEXT_PAGE];
-        if (nextPage.isNotEmpty)
+        if (nextPage.isNotEmpty) {
           NavigationUtils.popAllAndPush(nextPage);
-        else
+        } else {
           NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
-      } else
+        }
+      } else {
         NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
+      }
     }
   }
 
