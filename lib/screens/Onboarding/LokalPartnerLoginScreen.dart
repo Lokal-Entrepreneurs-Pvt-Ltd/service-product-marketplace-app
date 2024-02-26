@@ -416,11 +416,11 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
       if (response.data[NEXT_PAGE] != null) {
         final String nextPage = response.data[NEXT_PAGE];
         if (nextPage.isNotEmpty)
-          NavigationUtils.openScreenUntil(nextPage);
+          NavigationUtils.popAllAndPush(nextPage);
         else
-          NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+          NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
       } else
-        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+        NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
     }
   }
 
