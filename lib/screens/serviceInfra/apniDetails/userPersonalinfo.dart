@@ -118,16 +118,23 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         final userDataMagento = response.data;
         final userData = response.data?['userModelData'];
         if (userData != null) {
+          lat = (userData['latitude'] as num?)?.toDouble() ?? 0;
+          long = (userData['longitude'] as num?)?.toDouble() ?? 0;
+          List<Placemark> placemarks =
+              await placemarkFromCoordinates(lat, long);
+          place = placemarks[0];
           setState(() {
             name = userDataMagento['firstName'] ?? '';
             datePicker = userDataMagento['dob'] != null
                 ? DateTime.parse(userDataMagento['dob'])
                 : DateTime.now();
             calculateAge(datePicker!);
-            lat = (userData['latitude'] as num?)?.toDouble() ?? 0;
-            long = (userData['longitude'] as num?)?.toDouble() ?? 0;
             genderIndex = userData['gender'] == "Male" ? 0 : 1;
             String workExperience = userData["workEx"] ?? "";
+            String preferrencedIndustry = userData["industryPreference"] ?? "";
+            if (preferrencedIndustry.isNotEmpty) {
+              industryIndex = industryList.indexOf(preferrencedIndustry);
+            }
             if (workExperience.isNotEmpty)
               workExperienceIndex = workEx.indexOf(workExperience);
             String educationText = userData["education"] ?? "";
