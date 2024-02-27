@@ -64,7 +64,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     "Diploma/Certification",
   ];
   List<String> genderList = ["Male", "Female"];
-  List<String> industryList = ["Delivery", "Seller", "Advocate", "IT"];
+  List<String> industryList = ["Delivery","Agriculture","Animal Science","Business ","Cosmetology","Customer Service","Creative","Education","Finance","Healthcare","Hospitality","Human Resources","Sales", "IT"];
   int industryIndex = -1;
   int genderIndex = -1;
   int educationIndex = -1;
