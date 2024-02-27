@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lokal/constants/json_constants.dart';
@@ -29,6 +31,7 @@ class UserOtherInfo extends StatefulWidget {
 enum IndexType { relocate, license }
 
 class _UserOtherInfoState extends State<UserOtherInfo> {
+  Future<Map<String, dynamic>?>? _futureData;
   int relocateIndex = -1;
   String preferredLocation = "";
   String currentSalary = "";
@@ -45,6 +48,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
   @override
   void initState() {
     super.initState();
+    _futureData = fetchData();
   }
 
   @override
@@ -52,14 +56,79 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
     super.dispose();
   }
 
+  Future<Map<String, dynamic>?> fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          print(userData["drivingLicence"]);
+          setState(() {
+            int hasRelocate = userData["relocate"] ?? -1;
+            if (hasRelocate != -1) {
+              relocateIndex = hasRelocate;
+            }
+            List<String> licensetype = (List<String>.from(
+                json.decode(userData["drivingLicence"] ?? "")));
+            if (licensetype.isNotEmpty) {
+              for (int i = 0; i < licensetype.length; i++) {
+                int index = license.indexOf(licensetype[i]);
+                licenseIndex[index] = true;
+              }
+            }
+            preferredLocation = userData["preferredLocation"] ?? "";
+
+            String currentIndustry = userData["currentIndustry"] ?? "";
+            if (currentIndustry.isNotEmpty) {
+              industryIndex = industryList.indexOf(currentIndustry);
+            }
+            currentSalary = userData["currentSalary"] ?? "";
+
+            expectedSalary = userData["expectedSalary"] ?? "";
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("Error fetching initial data");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: buildBody(),
+      backgroundColor: Colors.white, // Conditionally hide the app bar
+      body: FutureBuilder<Map<String, dynamic>?>(
+        // Use FutureBuilder to wait for the fetchData to complete
+        future: _futureData,
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the future has completed, build the body with fetched data
+            return buildBody();
+          } else if (snapshot.hasError) {
+            // Handle any errors that occur during data fetching
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else {
+            // Show a loading indicator while fetching data
+            return buildLoadingIndicator();
+          }
+        },
+      ),
       persistentFooterButtons: [
-        buildContinueButton(context),
-      ],
+        buildContinueButton(context)
+      ], // Conditionally hide the footer
+    );
+  }
+
+  Widget buildLoadingIndicator() {
+    return const Center(
+      child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
 
@@ -88,10 +157,11 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
                   buildSelectable(relocate, relocateIndex, (index) {
                     updateSelectedIndex(index, IndexType.relocate);
                   }),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   TextInputContainer(
                     fieldName: "Pereferred Location",
                     hint: "Type your preferred location",
+                    initialValue: preferredLocation,
                     onFileSelected: (p0) {
                       setState(() {
                         preferredLocation = p0 ?? "";
@@ -113,7 +183,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
                       // Handle the result, e.g., update selectedState
                       if (result != null && result >= 0) {
                         setState(() {
-                          industryIndex = result + 1;
+                          industryIndex = result;
                         });
                       }
                       //  _showLocationDialog(context, list);
@@ -128,6 +198,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
                   TextInputContainer(
                     fieldName: "Current Salary",
                     hint: "Type your current salary",
+                    initialValue: currentSalary,
                     textInputType: TextInputType.number,
                     onFileSelected: (p0) {
                       setState(() {
@@ -139,6 +210,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
                     fieldName: "Expected Salary",
                     hint: "Type your expected salary",
                     textInputType: TextInputType.number,
+                    initialValue: expectedSalary,
                     onFileSelected: (p0) {
                       setState(() {
                         expectedSalary = p0 ?? "";
@@ -191,8 +263,9 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
 
   Widget builbottomsheedtfield(String name, String selectedname) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding:
+          const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
@@ -326,7 +399,6 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
       });
 
       try {
-
         final List<String> selectedLicenseIndexes = [];
         for (int i = 0; i < licenseIndex.length; i++) {
           if (licenseIndex[i]) {
@@ -336,8 +408,8 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
 
         final response = await ApiRepository.updateCustomerInfo(
           {
-            "drivingLicense":selectedLicenseIndexes,
-            "relocation": relocate[relocateIndex],
+            "drivingLicence": selectedLicenseIndexes,
+            "relocate": relocateIndex,
             "preferredLocation": preferredLocation,
             "currentIndustry": industryList[industryIndex],
             "currentSalary": currentSalary,
@@ -362,6 +434,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
       UiUtils.showToast("Please fill in all required fields.");
     }
   }
+
   bool areAllFieldsSelected() {
     return relocateIndex != -1 &&
         industryIndex != -1 &&
@@ -369,6 +442,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
         currentSalary.isNotEmpty &&
         expectedSalary.isNotEmpty;
   }
+
   Widget buildContinueButton(BuildContext context) {
     return Container(
       alignment: Alignment.center,
@@ -377,13 +451,15 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
-        backgroundColor: areAllFieldsSelected() ? Colors.yellow : Colors.grey, // Change button color based on field completion
+        backgroundColor: areAllFieldsSelected()
+            ? Colors.yellow
+            : Colors.grey, // Change button color based on field completion
         onClick: () {
           if (areAllFieldsSelected()) {
             updatedata();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Please fill in all required fields.'),
               ),
             );
@@ -392,7 +468,6 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
       ),
     );
   }
-
 
   void updateSelectedIndex(int index, IndexType indexType) {
     setState(() {

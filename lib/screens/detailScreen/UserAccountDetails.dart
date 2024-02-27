@@ -149,7 +149,7 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
                     height: 68,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Column(
@@ -199,95 +199,99 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
         UikAction action = UikAction.fromJson(profileItem["action"]);
         ActionUtils.executeAction(action);
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      profileItem["title"],
-                      style: GoogleFonts.poppins(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w600,
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        profileItem["title"],
+                        style: GoogleFonts.poppins(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Edit',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey,
+                      Text(
+                        'Edit',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8.0),
-                Wrap(
-                  spacing: 10.0,
-                  runSpacing: 8.0,
-                  children: List<String>.from(profileItem["tags"]).map((item) {
-                    return Text(
-                      '•  $item',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                      ),
-                    );
-                  }).toList(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: DottedBorder(
-                    borderType: BorderType.RRect,
-                    dashPattern: const [4, 1],
-                    strokeWidth: 1,
-                    radius: const Radius.circular(8),
-                    color: Colors.black,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 11,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            profileItem["description"].isNotEmpty
-                                ? profileItem["description"]
-                                : 'Additional Info',
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Wrap(
+                    spacing: 10.0,
+                    runSpacing: 8.0,
+                    children:
+                        List<String>.from(profileItem["tags"]).map((item) {
+                      return Text(
+                        '•  $item',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: DottedBorder(
+                      borderType: BorderType.RRect,
+                      dashPattern: const [4, 1],
+                      strokeWidth: 1,
+                      radius: const Radius.circular(8),
+                      color: Colors.black,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 11,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              profileItem["description"].isNotEmpty
+                                  ? profileItem["description"]
+                                  : 'Additional Info',
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                          SvgPicture.network(
-                            "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1708688244282-arrow-right-up.svg",
-                            width: 24,
-                            height: 24,
-                          ),
-                        ],
+                            SvgPicture.network(
+                              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1708688244282-arrow-right-up.svg",
+                              width: 24,
+                              height: 24,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Container(
-            height: 2,
-            color: Colors.grey[300],
-          ),
-        ],
+            Container(
+              height: 2,
+              color: Colors.grey[300],
+            ),
+          ],
+        ),
       ),
     );
   }
