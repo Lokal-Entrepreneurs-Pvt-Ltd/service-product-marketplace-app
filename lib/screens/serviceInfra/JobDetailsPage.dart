@@ -359,9 +359,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildJobDescription() {
-    String jobDescription = jobPost['jobDetails']['jobDescription']
+    String jobDescription = jobPost['jobDetails']['jobDescription'];
      String jdUrl = jobPost['jobDetails']['jdUrl'];
-
     return (jobDescription.isNotEmpty)
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
