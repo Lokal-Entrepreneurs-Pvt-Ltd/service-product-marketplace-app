@@ -22,45 +22,93 @@ class UserDocumentInfo extends StatefulWidget {
 
 class _UserDocumentInfoState extends State<UserDocumentInfo> {
   // Create a new list to track upload success for each file
+  Future<Map<String, dynamic>?>? _futureData;
   late List<String?> uploadSuccessList;
   List<String> list = [
     "Upload Your Aadhar Card Front Image. (Max Size 1 MB )",
     "Upload Your Aadhar Card Back Image. (Max Size 1 MB )",
     "Upload Your Pan Card Image. (Max Size 1 MB )",
   ];
-
   @override
   void initState() {
     super.initState();
+    _futureData = fetchData();
     uploadSuccessList = List.filled(list.length, null);
+  }
+
+  Future<Map<String, dynamic>?> fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+      if (response.isSuccess!) {
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          setState(() {
+            uploadSuccessList[0] = userData["aadharCardF"];
+            uploadSuccessList[1] = userData["aadharCardB"];
+            uploadSuccessList[2] = userData["pan"];
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("Error fetching initial data");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Stack(children: [
-          SingleChildScrollView(
-            child: buildBody(),
-          ),
-          appBar(),
-        ]),
+      backgroundColor: Colors.white, // Conditionally hide the app bar
+      body: FutureBuilder<Map<String, dynamic>?>(
+        // Use FutureBuilder to wait for the fetchData to complete
+        future: _futureData,
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the future has completed, build the body with fetched data
+            return buildBody();
+          } else if (snapshot.hasError) {
+            // Handle any errors that occur during data fetching
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else {
+            // Show a loading indicator while fetching data
+            return buildLoadingIndicator();
+          }
+        },
       ),
       persistentFooterButtons: [
-        buildContinueButton(),
-      ],
+        buildContinueButton()
+      ], // Conditionally hide the footer
+    );
+  }
+
+  Widget buildLoadingIndicator() {
+    return const Center(
+      child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
 
   Widget buildBody() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return SafeArea(
+      child: Stack(
         children: [
-          buildUploadDocumentsTitle(),
-          buildUploadButtons(),
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildUploadDocumentsTitle(),
+                  buildUploadButtons(),
+                ],
+              ),
+            ),
+          ),
+          appBar(),
         ],
       ),
     );
@@ -153,6 +201,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
             children: [
               UploadButton(
                 text: list[i],
+                imageUrl: uploadSuccessList[i] ?? "",
                 documentType: "misc",
                 onFileSelected: (pickedFile) async {
                   setState(() {
