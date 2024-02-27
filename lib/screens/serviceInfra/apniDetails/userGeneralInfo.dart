@@ -329,7 +329,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
 
         if (response.isSuccess!) {
           NavigationUtils.pop();
-          // NavigationUtils.openScreen(ScreenRoutes.userOtherInfo);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
