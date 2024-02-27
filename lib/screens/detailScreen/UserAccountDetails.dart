@@ -75,7 +75,7 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
                 List<Map<String, dynamic>>.from(data["profileItems"]);
 
             return SingleChildScrollView(
-              padding: EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 50),
               child: Column(
                 children: [
                   _buildProfileDetails(profileDetails),
@@ -90,7 +90,7 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
                     child: Container(
                       width: double.maxFinite,
                       alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Text(
                         "Sign Out",
                         textAlign: TextAlign.start,
@@ -115,7 +115,7 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
   }
 
   Widget _buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         color: Colors.yellow,
       ),
@@ -130,7 +130,7 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
       },
       child: Container(
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
             image: NetworkImage(
@@ -140,38 +140,47 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Image.network(
-            //   profileDetails["image"],
-            //   width: 68,
-            //   height: 68,
-            // ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(
-                  "${profileDetails["name"]}, ${profileDetails["age"]}",
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                ClipOval(
+                  child: Image.network(
+                    profileDetails["image"],
+                    width: 68,
+                    height: 68,
                   ),
                 ),
-                Text(
-                  profileDetails["email"],
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
+                const SizedBox(
+                  width: 8,
                 ),
-                Text(
-                  profileDetails["phone"],
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${profileDetails["name"]}, ${profileDetails["age"]}",
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      profileDetails["email"],
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      profileDetails["phone"],
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -190,95 +199,99 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
         UikAction action = UikAction.fromJson(profileItem["action"]);
         ActionUtils.executeAction(action);
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      profileItem["title"],
-                      style: GoogleFonts.poppins(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w600,
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        profileItem["title"],
+                        style: GoogleFonts.poppins(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Edit',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey,
+                      Text(
+                        'Edit',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.0),
-                Wrap(
-                  spacing: 10.0,
-                  runSpacing: 8.0,
-                  children: List<String>.from(profileItem["tags"]).map((item) {
-                    return Text(
-                      '•  $item',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
-                      ),
-                    );
-                  }).toList(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: DottedBorder(
-                    borderType: BorderType.RRect,
-                    dashPattern: [4, 1],
-                    strokeWidth: 1,
-                    radius: Radius.circular(8),
-                    color: Colors.black,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 11,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            profileItem["description"].isNotEmpty
-                                ? profileItem["description"]
-                                : 'Additional Info',
-                            style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Wrap(
+                    spacing: 10.0,
+                    runSpacing: 8.0,
+                    children:
+                        List<String>.from(profileItem["tags"]).map((item) {
+                      return Text(
+                        '•  $item',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.grey,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: DottedBorder(
+                      borderType: BorderType.RRect,
+                      dashPattern: const [4, 1],
+                      strokeWidth: 1,
+                      radius: const Radius.circular(8),
+                      color: Colors.black,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 11,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              profileItem["description"].isNotEmpty
+                                  ? profileItem["description"]
+                                  : 'Additional Info',
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                          SvgPicture.network(
-                            "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1708688244282-arrow-right-up.svg",
-                            width: 24,
-                            height: 24,
-                          ),
-                        ],
+                            SvgPicture.network(
+                              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1708688244282-arrow-right-up.svg",
+                              width: 24,
+                              height: 24,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Container(
-            height: 2,
-            color: Colors.grey[300],
-          ),
-        ],
+            Container(
+              height: 2,
+              color: Colors.grey[300],
+            ),
+          ],
+        ),
       ),
     );
   }
