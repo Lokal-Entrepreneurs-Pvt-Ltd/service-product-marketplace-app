@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class UploadButton extends StatefulWidget {
   final String text;
+  String imageUrl;
   final Function(String?) onFileSelected;
   final String documentType;
   // New property to track upload success
@@ -21,6 +22,7 @@ class UploadButton extends StatefulWidget {
     required this.text,
     required this.documentType,
     required this.onFileSelected,
+    this.imageUrl = "",
     // Pass uploadSuccess status from parent
   });
 
@@ -75,6 +77,15 @@ class _UploadButtonState extends State<UploadButton> {
         uploadFile(pickedFile);
       }
     }
+  }
+
+  @override
+  void initState() {
+    if (widget.imageUrl.isNotEmpty) {
+      _imageUrl = widget.imageUrl;
+      _uploadSuccess = true;
+    }
+    super.initState();
   }
 
   @override
