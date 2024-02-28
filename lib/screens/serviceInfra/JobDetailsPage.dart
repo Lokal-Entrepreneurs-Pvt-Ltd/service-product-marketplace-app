@@ -360,7 +360,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   Widget _buildJobDescription() {
     String jobDescription = jobPost['jobDetails']['jobDescription'];
-     String jdUrl = jobPost['jobDetails']['jdUrl'];
+    String jdUrl = jobPost['jobDetails']['jdUrl'];
     return (jobDescription.isNotEmpty)
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -599,7 +599,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildLoadingIndicator() {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
@@ -627,7 +627,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 InkWell(
                   onTap: () {
                     String shareText = jobPost['share'];
-                    String shareUrl = jobPost['shareUrl'];
+                    //    String shareUrl = jobPost['shareUrl'] ;
+                    String shareUrl = jobPost['share'];
                     UiUtils.shareOnWhatsApp(
                         shareUrl.isNotEmpty
                             ? shareUrl
@@ -751,7 +752,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 ),
               ),
             ),
-            persistentFooterButtons: [_buildCtas()],
+            persistentFooterButtons: _ctas
+                    .where((element) => element["text"]?.isNotEmpty == true)
+                    .isNotEmpty
+                ? [_buildCtas()]
+                : null,
           );
   }
 

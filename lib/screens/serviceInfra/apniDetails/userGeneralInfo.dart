@@ -61,7 +61,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     );
   }
 
-
   Widget buildLoadingIndicator() {
     return Center(
       child: CircularProgressIndicator(color: Colors.yellow),
@@ -70,53 +69,48 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
 
   Widget buildBody() {
     return SafeArea(
-      child: Stack(children: [
-        SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 21),
-                  child:
-                      buildTitle("General Details Bhare", 18, FontWeight.w500),
-                ),
-                buildTitle("Do you have a Bike?", 16, FontWeight.w500),
-                buildSelectable(bike, bikeIndex, (index) {
-                  updateSelectedIndex(index, IndexType.bike);
-                }),
-                buildTitle("Do you have Bank Accont?", 16, FontWeight.w500),
-                buildSelectable(bank, bankIndex, (index) {
-                  updateSelectedIndex(index, IndexType.bank);
-                }),
-                buildTitle("Permanent Addresses", 16, FontWeight.w500),
-
-                TextInputContainer(
-                  fieldName: "Home No, Building Name",
-                  hint: "Type your address",
-                  onFileSelected: (p0) {
-                    setState(() {
-                      home = p0 ?? "";
-                    });
-                  },
-                ),
-                TextInputContainer(
-                  fieldName: "Road name, Area, Colony",
-                  hint: "Type your address",
-                  onFileSelected: (p0) {
-                    setState(() {
-                      road = p0 ?? "";
-                    });
-                  },
-                ),
-              ],
-            ),
+      child: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 21),
+                child: buildTitle("General Details Bhare", 18, FontWeight.w500),
+              ),
+              buildTitle("Do you have a Bike?", 16, FontWeight.w500),
+              buildSelectable(bike, bikeIndex, (index) {
+                updateSelectedIndex(index, IndexType.bike);
+              }),
+              buildTitle("Do you have Bank Accont?", 16, FontWeight.w500),
+              buildSelectable(bank, bankIndex, (index) {
+                updateSelectedIndex(index, IndexType.bank);
+              }),
+              buildTitle("Permanent Addresses", 16, FontWeight.w500),
+              TextInputContainer(
+                fieldName: "Home No, Building Name",
+                hint: "Type your address",
+                onFileSelected: (p0) {
+                  setState(() {
+                    home = p0 ?? "";
+                  });
+                },
+              ),
+              TextInputContainer(
+                fieldName: "Road name, Area, Colony",
+                hint: "Type your address",
+                onFileSelected: (p0) {
+                  setState(() {
+                    road = p0 ?? "";
+                  });
+                },
+              ),
+            ],
           ),
         ),
-        appBar()
-      ]),
+      ),
     );
   }
 
@@ -176,83 +170,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     );
   }
 
-  double calculateProgress() {
-    // List of completion status for each field
-    List<bool> fieldCompletionStatus = [
-      bikeIndex != -1,
-      bankIndex != -1,
-      stateIndex != -1,
-      villageIndex != -1,
-      districtIndex != -1,
-      home.isNotEmpty,
-      road.isNotEmpty
-    ];
-
-    // Calculate progress based on the number of completed fields
-    double progress =
-        fieldCompletionStatus.where((completed) => completed).length /
-            fieldCompletionStatus.length;
-
-    return progress;
-  }
-
-  Widget appBar() {
-    double progress = calculateProgress();
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.gengar_400.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 5,
-                width: progress * 80,
-                decoration: BoxDecoration(
-                  color: UikColor.gengar_500.toColor(),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -268,7 +185,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     );
   }
 
-
   bool areAllFieldsSelected() {
     return bikeIndex != -1 &&
         bankIndex != -1 &&
@@ -279,8 +195,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         road.isNotEmpty;
   }
 
-
-
   Widget buildContinueButton(BuildContext context) {
     return Container(
       alignment: Alignment.center,
@@ -289,7 +203,9 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
-        backgroundColor: areAllFieldsSelected() ? Colors.yellow : Colors.grey, // Change button color based on field completion
+        backgroundColor: areAllFieldsSelected()
+            ? Colors.yellow
+            : Colors.grey, // Change button color based on field completion
         onClick: () {
           if (areAllFieldsSelected()) {
             updatedata();
@@ -311,7 +227,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         isUpdating = true; // Set isUpdating to true while updating
       });
 
-          districtIndex != -1 &&
+      districtIndex != -1 &&
           villageIndex != -1 &&
           home.isNotEmpty &&
           road.isNotEmpty;
@@ -343,6 +259,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
       UiUtils.showToast("Please fill in all required fields.");
     }
   }
+
   void updateSelectedIndex(int index, IndexType indexType) {
     setState(() {
       switch (indexType) {

@@ -6,21 +6,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
-import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/screens/serviceInfra/apniDetails/apnadata/apnaPeronalData.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
-import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserPersonalInfo extends StatefulWidget {
@@ -64,7 +59,22 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     "Diploma/Certification",
   ];
   List<String> genderList = ["Male", "Female"];
-  List<String> industryList = ["Delivery","Agriculture","Animal Science","Business ","Cosmetology","Customer Service","Creative","Education","Finance","Healthcare","Hospitality","Human Resources","Sales", "IT"];
+  List<String> industryList = [
+    "Delivery",
+    "Agriculture",
+    "Animal Science",
+    "Business ",
+    "Cosmetology",
+    "Customer Service",
+    "Creative",
+    "Education",
+    "Finance",
+    "Healthcare",
+    "Hospitality",
+    "Human Resources",
+    "Sales",
+    "IT"
+  ];
   int industryIndex = -1;
   int genderIndex = -1;
   int educationIndex = -1;
@@ -153,78 +163,75 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
 
   Widget buildBody() {
     return SafeArea(
-      child: Stack(children: [
-        SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 21),
-                  child: buildTitle(
-                      "Apni Personal Details Bhare", 24, FontWeight.w600),
-                ),
-                buildTitle("Gender", 16, FontWeight.w500),
-                buildSelectable(genderList, genderIndex, (index) {
-                  updateSelectedIndex(index, IndexType.gender);
-                }),
-                SizedBox(height: 8),
-                TextInputContainer(
-                  fieldName: "Full Name (as on aadhar)",
-                  initialValue: name,
-                  onFileSelected: (text) {
+      child: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 21),
+                child: buildTitle(
+                    "Apni Personal Details Bhare", 24, FontWeight.w600),
+              ),
+              buildTitle("Gender", 16, FontWeight.w500),
+              buildSelectable(genderList, genderIndex, (index) {
+                updateSelectedIndex(index, IndexType.gender);
+              }),
+              SizedBox(height: 8),
+              TextInputContainer(
+                fieldName: "Full Name (as on aadhar)",
+                initialValue: name,
+                onFileSelected: (text) {
+                  setState(() {
+                    name = text ?? "";
+                  });
+                },
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      flex: 3, child: buildDatePickerField("Date of Birth")),
+                  Expanded(child: buildAgeBox("Age")),
+                ],
+              ),
+              buildTitle("Education Background", 16, FontWeight.w500),
+              buildSelectable(education, educationIndex, (index) {
+                updateSelectedIndex(index, IndexType.education);
+              }),
+              buildTitle("Work Experience", 16, FontWeight.w500),
+              buildSelectable(workEx, workExperienceIndex, (index) {
+                updateSelectedIndex(index, IndexType.workExperience);
+              }),
+              SizedBox(height: 8),
+              // _buildPhoneField(),
+              GestureDetector(
+                onTap: () async {
+                  int? result = await Bottomsheets.showBottomListDialog(
+                    context,
+                    "Industry you want to work",
+                    () async {
+                      await Future.delayed(Duration(milliseconds: 1000));
+                      return DataForFunction(
+                          index: industryIndex, list: industryList);
+                    },
+                  );
+                  if (result != null && result >= 0) {
                     setState(() {
-                      name = text ?? "";
+                      industryIndex = result;
                     });
-                  },
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        flex: 3, child: buildDatePickerField("Date of Birth")),
-                    Expanded(child: buildAgeBox("Age")),
-                  ],
-                ),
-                buildTitle("Education Background", 16, FontWeight.w500),
-                buildSelectable(education, educationIndex, (index) {
-                  updateSelectedIndex(index, IndexType.education);
-                }),
-                buildTitle("Work Experience", 16, FontWeight.w500),
-                buildSelectable(workEx, workExperienceIndex, (index) {
-                  updateSelectedIndex(index, IndexType.workExperience);
-                }),
-                SizedBox(height: 8),
-                // _buildPhoneField(),
-                GestureDetector(
-                  onTap: () async {
-                    int? result = await Bottomsheets.showBottomListDialog(
-                      context,
-                      "Industry you want to work",
-                      () async {
-                        await Future.delayed(Duration(milliseconds: 1000));
-                        return DataForFunction(
-                            index: industryIndex, list: industryList);
-                      },
-                    );
-                    if (result != null && result >= 0) {
-                      setState(() {
-                        industryIndex = result;
-                      });
-                    }
-                  },
-                  child: builbottomsheedtfield("Industry you want to work",
-                      (industryIndex != -1) ? industryList[industryIndex] : ""),
-                ),
+                  }
+                },
+                child: builbottomsheedtfield("Industry you want to work",
+                    (industryIndex != -1) ? industryList[industryIndex] : ""),
+              ),
 
-                buildLocationField(),
-              ],
-            ),
+              buildLocationField(),
+            ],
           ),
         ),
-        appBar(),
-      ]),
+      ),
     );
   }
 
@@ -310,83 +317,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     );
   }
 
-  double calculateProgress() {
-    // List of completion status for each field
-    List<bool> fieldCompletionStatus = [
-      genderIndex != -1,
-      name.isNotEmpty,
-      age != null,
-      educationIndex != -1,
-      workExperienceIndex != -1,
-      industryIndex != -1,
-      (lat != 0 && long != 0),
-    ];
-
-    // Calculate progress based on the number of completed fields
-    double progress =
-        fieldCompletionStatus.where((completed) => completed).length /
-            fieldCompletionStatus.length;
-
-    return progress;
-  }
-
-  Widget appBar() {
-    double progress = calculateProgress();
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 5,
-                width: progress * 80,
-                decoration: BoxDecoration(
-                  color: UikColor.gengar_500.toColor(),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget buildSelectable(
       List<String> list, int selectedIndex, void Function(int) onTap) {
     return Wrap(
@@ -400,54 +330,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
           onTap: () => onTap(index),
           border: 0,
         ),
-      ),
-    );
-  }
-
-  Widget _buildPhoneField() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
-      height: 64,
-      decoration: BoxDecoration(
-        color: ("#F5F5F5").toColor(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Alternate Mobile Number",
-            textAlign: TextAlign.start,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ("#9E9E9E").toColor(),
-            ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Expanded(
-            flex: 2,
-            child: TextField(
-              enableSuggestions: true,
-              //  controller: phoneController,
-              keyboardType: TextInputType.phone, // Change keyboardType to phone
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                  hintText: MOB, // Change hint text to PHONE_INPUT
-                  hintStyle: GoogleFonts.poppins(
-                    color: const Color(0xFF9E9E9E),
-                  ),
-                  border: InputBorder.none
-                  //  errorText: errorPhone ? VALID_PHONE_NO : null, // Update error text
-                  ),
-              scribbleEnabled: false,
-            ),
-          ),
-        ],
       ),
     );
   }
