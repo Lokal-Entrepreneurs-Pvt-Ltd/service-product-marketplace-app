@@ -36,8 +36,10 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
   List<String> bike = ["Yes", "No"];
   List<String> bank = ["Yes", "No"];
   StateDataList stateDataList = StateDataList(args: {});
+  StateData? state = null;
   int stateIndex = -1;
   DistrictDataList districtDataList = DistrictDataList();
+  DisctrictData? district = null;
   int districtIndex = -1;
   List<String> villageList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
   int villageIndex = -1;
@@ -47,20 +49,81 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
   @override
   void initState() {
     super.initState();
-    //   _futureData = fetchData(); // Call fetchData when the widget is initialized
+    _futureData = fetchData(); // Call fetchData when the widget is initialized
+  }
+
+  Future<Map<String, dynamic>?> fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          String stateName = userData["state"] ?? "";
+          if (stateName.isNotEmpty) {
+            await stateDataList.initialize();
+            state = stateDataList.list
+                .firstWhere((element) => element.stateName == stateName);
+            stateIndex = stateDataList.stateNameList.indexOf(stateName);
+            String districtName = userData["district"] ?? "";
+            if (districtName.isNotEmpty) {
+              await districtDataList.initialize(args: state!.stateCode);
+              district = districtDataList.list.firstWhere(
+                  (element) => element.districtName == districtName);
+              districtIndex =
+                  districtDataList.districtNameList.indexOf(districtName);
+            }
+          }
+
+          setState(() {
+            int hasbike = userData["hasBike"] ?? -1;
+            if (hasbike != -1) {
+              bikeIndex = hasbike;
+            }
+            int bankAvailable = userData["hasBankAccount"] ?? -1;
+            if (bankAvailable != -1) {
+              bankIndex = bankAvailable;
+            }
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("Error fetching initial data");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: isUpdating ? buildLoadingIndicator() : buildBody(),
-      persistentFooterButtons: [
-        buildContinueButton(context),
-      ],
+      backgroundColor: Colors.white, // Conditionally hide the app bar
+      body: FutureBuilder<Map<String, dynamic>?>(
+        // Use FutureBuilder to wait for the fetchData to complete
+        future: _futureData,
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the future has completed, build the body with fetched data
+            return isUpdating ? buildLoadingIndicator() : buildBody();
+          } else if (snapshot.hasError) {
+            // Handle any errors that occur during data fetching
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else {
+            // Show a loading indicator while fetching data
+            return buildLoadingIndicator();
+          }
+        },
+      ),
+      persistentFooterButtons: isUpdating
+          ? null
+          : [buildContinueButton(context)], // Conditionally hide the footer
     );
   }
-
 
   Widget buildLoadingIndicator() {
     return Center(
@@ -92,7 +155,65 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
                   updateSelectedIndex(index, IndexType.bank);
                 }),
                 buildTitle("Permanent Addresses", 16, FontWeight.w500),
-
+                GestureDetector(
+                  onTap: () async {
+                    int? result = await Bottomsheets.showBottomListDialog(
+                      context,
+                      "state",
+                      () async {
+                        // await Future.delayed(
+                        //     const Duration(milliseconds: 500));
+                        await stateDataList.initialize();
+                        return DataForFunction(
+                            index: stateIndex,
+                            list: stateDataList.stateNameList);
+                      },
+                    );
+                    if (result != null && result >= 0) {
+                      setState(() {
+                        state = stateDataList.list.firstWhere((element) =>
+                            element.stateName ==
+                            stateDataList.stateNameList[result]);
+                        stateIndex = result;
+                      });
+                    }
+                  },
+                  child: builbottomsheedtfield(
+                    "State",
+                    (state != null) ? state!.stateName : "",
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    if (stateIndex != -1) {
+                      int? result = await Bottomsheets.showBottomListDialog(
+                        context,
+                        "District",
+                        () async {
+                          await districtDataList.initialize(
+                              args: {"stateCode": state!.stateCode});
+                          return DataForFunction(
+                              index: districtIndex,
+                              list: districtDataList.districtNameList);
+                        },
+                      );
+                      //   print(districtDataList.districtNameList);
+                      if (result != null && result >= 0) {
+                        setState(() {
+                          district = districtDataList.list.firstWhere(
+                              (element) =>
+                                  element.districtName ==
+                                  districtDataList.districtNameList[result]);
+                          districtIndex = result;
+                        });
+                      }
+                    } else {
+                      UiUtils.showToast("Please Select State");
+                    }
+                  },
+                  child: builbottomsheedtfield("District",
+                      (district != null) ? district!.districtName : ""),
+                ),
                 TextInputContainer(
                   fieldName: "Home No, Building Name",
                   hint: "Type your address",
@@ -268,18 +389,15 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     );
   }
 
-
   bool areAllFieldsSelected() {
-    return bikeIndex != -1 &&
-        bankIndex != -1 &&
-        // stateIndex != -1 &&
-        // districtIndex != -1 &&
-        // villageIndex != -1 &&
-        home.isNotEmpty &&
-        road.isNotEmpty;
+    return bikeIndex != -1 && bankIndex != -1;
+    //&&
+    // stateIndex != -1 &&
+    // districtIndex != -1 &&
+    // villageIndex != -1 &&
+    // home.isNotEmpty &&
+    // road.isNotEmpty;
   }
-
-
 
   Widget buildContinueButton(BuildContext context) {
     return Container(
@@ -289,13 +407,15 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
-        backgroundColor: areAllFieldsSelected() ? Colors.yellow : Colors.grey, // Change button color based on field completion
+        backgroundColor: areAllFieldsSelected()
+            ? Colors.yellow
+            : Colors.grey, // Change button color based on field completion
         onClick: () {
           if (areAllFieldsSelected()) {
             updatedata();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Please fill in all required fields.'),
               ),
             );
@@ -311,23 +431,25 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         isUpdating = true; // Set isUpdating to true while updating
       });
 
-          districtIndex != -1 &&
-          villageIndex != -1 &&
-          home.isNotEmpty &&
-          road.isNotEmpty;
+      // districtIndex != -1 &&
+      //     villageIndex != -1 &&
+      //     home.isNotEmpty &&
+      //     road.isNotEmpty;
       try {
         final response = await ApiRepository.updateCustomerInfo(
           {
-            "hasBike": bike[bikeIndex],
-            "hasBankAccount": bank[bankIndex],
-            // "state": stateDataList.stateNameList[stateIndex],
-            // "district": districtDataList.districtNameList[districtIndex],
-            "homeAddress": home,
-            "roadAddress": road
+            "hasBike": bikeIndex,
+            "hasBankAccount": bankIndex,
+            "state": state!.stateName,
+            "district": district!.districtName
+            // "homeAddress": home,
+            // "roadAddress": road
           },
         );
 
         if (response.isSuccess!) {
+          print(state!.stateName);
+          print(district!.districtName);
           NavigationUtils.pop();
           // NavigationUtils.openScreen(ScreenRoutes.userOtherInfo);
         } else {
@@ -344,6 +466,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
       UiUtils.showToast("Please fill in all required fields.");
     }
   }
+
   void updateSelectedIndex(int index, IndexType indexType) {
     setState(() {
       switch (indexType) {
