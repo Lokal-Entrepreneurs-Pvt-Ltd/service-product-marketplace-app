@@ -145,8 +145,8 @@ class DistrictDataList {
 
   DistrictDataList();
 
-  Future<void> initialize({required dynamic args}) async {
-    this.args = args;
+  Future<void> initialize({required int stateCode}) async {
+    args = {"stateCode": stateCode};
     list = await getDistrictList(args);
     districtNameList = list.map((e) => e.districtName).toList();
   }
