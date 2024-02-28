@@ -68,7 +68,8 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
             stateIndex = stateDataList.stateNameList.indexOf(stateName);
             String districtName = userData["district"] ?? "";
             if (districtName.isNotEmpty) {
-              await districtDataList.initialize(args: state!.stateCode);
+              await districtDataList.initialize(stateCode: state!.stateCode);
+              print(districtDataList.districtNameList);
               district = districtDataList.list.firstWhere(
                   (element) => element.districtName == districtName);
               districtIndex =
@@ -85,13 +86,14 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
             if (bankAvailable != -1) {
               bankIndex = bankAvailable;
             }
+            home = userData["homeAddress"] ?? "";
+            road = userData["roadAddress"] ?? "";
           });
         }
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
     } catch (e) {
-      print(e);
       UiUtils.showToast("Error fetching initial data");
     }
   }
@@ -133,111 +135,106 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
 
   Widget buildBody() {
     return SafeArea(
-      child: Stack(children: [
-        SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 21),
-                  child:
-                      buildTitle("General Details Bhare", 18, FontWeight.w500),
+      child: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 21),
+                child: buildTitle("General Details Bhare", 18, FontWeight.w500),
+              ),
+              buildTitle("Do you have a Bike?", 16, FontWeight.w500),
+              buildSelectable(bike, bikeIndex, (index) {
+                updateSelectedIndex(index, IndexType.bike);
+              }),
+              buildTitle("Do you have Bank Accont?", 16, FontWeight.w500),
+              buildSelectable(bank, bankIndex, (index) {
+                updateSelectedIndex(index, IndexType.bank);
+              }),
+              buildTitle("Permanent Addresses", 16, FontWeight.w500),
+              GestureDetector(
+                onTap: () async {
+                  int? result = await Bottomsheets.showBottomListDialog(
+                    context,
+                    "state",
+                    () async {
+                      // await Future.delayed(
+                      //     const Duration(milliseconds: 500));
+                      return DataForFunction(
+                          index: stateIndex, list: stateDataList.stateNameList);
+                    },
+                  );
+                  if (result != null && result >= 0) {
+                    setState(() {
+                      state = stateDataList.list.firstWhere((element) =>
+                          element.stateName ==
+                          stateDataList.stateNameList[result]);
+                      stateIndex = result;
+                    });
+                  }
+                },
+                child: builbottomsheedtfield(
+                  "State",
+                  (state != null) ? state!.stateName : "",
                 ),
-                buildTitle("Do you have a Bike?", 16, FontWeight.w500),
-                buildSelectable(bike, bikeIndex, (index) {
-                  updateSelectedIndex(index, IndexType.bike);
-                }),
-                buildTitle("Do you have Bank Accont?", 16, FontWeight.w500),
-                buildSelectable(bank, bankIndex, (index) {
-                  updateSelectedIndex(index, IndexType.bank);
-                }),
-                buildTitle("Permanent Addresses", 16, FontWeight.w500),
-                GestureDetector(
-                  onTap: () async {
+              ),
+              GestureDetector(
+                onTap: () async {
+                  if (stateIndex != -1) {
                     int? result = await Bottomsheets.showBottomListDialog(
                       context,
-                      "state",
+                      "District",
                       () async {
-                        // await Future.delayed(
-                        //     const Duration(milliseconds: 500));
-                        await stateDataList.initialize();
+                        await districtDataList.initialize(
+                            stateCode: state!.stateCode);
                         return DataForFunction(
-                            index: stateIndex,
-                            list: stateDataList.stateNameList);
+                            index: districtIndex,
+                            list: districtDataList.districtNameList);
                       },
                     );
+                    //   print(districtDataList.districtNameList);
                     if (result != null && result >= 0) {
                       setState(() {
-                        state = stateDataList.list.firstWhere((element) =>
-                            element.stateName ==
-                            stateDataList.stateNameList[result]);
-                        stateIndex = result;
+                        district = districtDataList.list.firstWhere((element) =>
+                            element.districtName ==
+                            districtDataList.districtNameList[result]);
+                        districtIndex = result;
                       });
                     }
-                  },
-                  child: builbottomsheedtfield(
-                    "State",
-                    (state != null) ? state!.stateName : "",
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    if (stateIndex != -1) {
-                      int? result = await Bottomsheets.showBottomListDialog(
-                        context,
-                        "District",
-                        () async {
-                          await districtDataList.initialize(
-                              args: {"stateCode": state!.stateCode});
-                          return DataForFunction(
-                              index: districtIndex,
-                              list: districtDataList.districtNameList);
-                        },
-                      );
-                      //   print(districtDataList.districtNameList);
-                      if (result != null && result >= 0) {
-                        setState(() {
-                          district = districtDataList.list.firstWhere(
-                              (element) =>
-                                  element.districtName ==
-                                  districtDataList.districtNameList[result]);
-                          districtIndex = result;
-                        });
-                      }
-                    } else {
-                      UiUtils.showToast("Please Select State");
-                    }
-                  },
-                  child: builbottomsheedtfield("District",
-                      (district != null) ? district!.districtName : ""),
-                ),
-                TextInputContainer(
-                  fieldName: "Home No, Building Name",
-                  hint: "Type your address",
-                  onFileSelected: (p0) {
-                    setState(() {
-                      home = p0 ?? "";
-                    });
-                  },
-                ),
-                TextInputContainer(
-                  fieldName: "Road name, Area, Colony",
-                  hint: "Type your address",
-                  onFileSelected: (p0) {
-                    setState(() {
-                      road = p0 ?? "";
-                    });
-                  },
-                ),
-              ],
-            ),
+                  } else {
+                    UiUtils.showToast("Please Select State");
+                  }
+                },
+                child: builbottomsheedtfield("District",
+                    (district != null) ? district!.districtName : ""),
+              ),
+              TextInputContainer(
+                fieldName: "Home No, Building Name",
+                hint: "Type your address",
+                initialValue: home,
+                onFileSelected: (p0) {
+                  setState(() {
+                    home = p0 ?? "";
+                  });
+                },
+              ),
+              TextInputContainer(
+                fieldName: "Road name, Area, Colony",
+                hint: "Type your address",
+                initialValue: road,
+                onFileSelected: (p0) {
+                  setState(() {
+                    road = p0 ?? "";
+                  });
+                },
+              ),
+            ],
           ),
         ),
-        appBar()
-      ]),
+      ),
     );
   }
 
@@ -297,83 +294,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     );
   }
 
-  double calculateProgress() {
-    // List of completion status for each field
-    List<bool> fieldCompletionStatus = [
-      bikeIndex != -1,
-      bankIndex != -1,
-      stateIndex != -1,
-      villageIndex != -1,
-      districtIndex != -1,
-      home.isNotEmpty,
-      road.isNotEmpty
-    ];
-
-    // Calculate progress based on the number of completed fields
-    double progress =
-        fieldCompletionStatus.where((completed) => completed).length /
-            fieldCompletionStatus.length;
-
-    return progress;
-  }
-
-  Widget appBar() {
-    double progress = calculateProgress();
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.gengar_400.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 5,
-                width: progress * 80,
-                decoration: BoxDecoration(
-                  color: UikColor.gengar_500.toColor(),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -390,13 +310,12 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
   }
 
   bool areAllFieldsSelected() {
-    return bikeIndex != -1 && bankIndex != -1;
-    //&&
-    // stateIndex != -1 &&
-    // districtIndex != -1 &&
-    // villageIndex != -1 &&
-    // home.isNotEmpty &&
-    // road.isNotEmpty;
+    return bikeIndex != -1 &&
+        bankIndex != -1 &&
+        stateIndex != -1 &&
+        districtIndex != -1 &&
+        home.isNotEmpty &&
+        road.isNotEmpty;
   }
 
   Widget buildContinueButton(BuildContext context) {
@@ -431,19 +350,15 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         isUpdating = true; // Set isUpdating to true while updating
       });
 
-      // districtIndex != -1 &&
-      //     villageIndex != -1 &&
-      //     home.isNotEmpty &&
-      //     road.isNotEmpty;
       try {
         final response = await ApiRepository.updateCustomerInfo(
           {
             "hasBike": bikeIndex,
             "hasBankAccount": bankIndex,
             "state": state!.stateName,
-            "district": district!.districtName
-            // "homeAddress": home,
-            // "roadAddress": road
+            "district": district!.districtName,
+            "homeAddress": home,
+            "roadAddress": road
           },
         );
 
