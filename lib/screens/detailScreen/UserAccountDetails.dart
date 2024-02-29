@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/utils/uik_color.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
@@ -224,7 +225,7 @@ class _UserAccountDetailsState extends State<UserAccountDetails> {
                         style: GoogleFonts.poppins(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Colors.grey,
+                          color: UikColor.gengar_500.toColor(),
                         ),
                       ),
                     ],
