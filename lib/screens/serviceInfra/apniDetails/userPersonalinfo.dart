@@ -116,7 +116,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   }
 
   Widget buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
@@ -130,9 +130,20 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         if (userData != null) {
           lat = (userData['latitude'] as num?)?.toDouble() ?? 0;
           long = (userData['longitude'] as num?)?.toDouble() ?? 0;
-          List<Placemark> placemarks =
-              await placemarkFromCoordinates(lat, long);
-          place = placemarks[0];
+          if (lat != 0 && long != 0) {
+            place = Placemark(
+              name: userData["placeName"],
+              street: userData["street"],
+              isoCountryCode: userData["isoCountryCode"],
+              country: userData["country"],
+              postalCode: userData["postalCode"],
+              administrativeArea: userData["administrativeArea"],
+              subAdministrativeArea: userData["subAdministrativeArea"],
+              locality: userData["locality"],
+              subLocality: userData["subLocality"],
+            );
+          }
+
           setState(() {
             name = userDataMagento['firstName'] ?? '';
             datePicker = userDataMagento['dob'] != null
@@ -145,18 +156,19 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             if (preferrencedIndustry.isNotEmpty) {
               industryIndex = industryList.indexOf(preferrencedIndustry);
             }
-            if (workExperience.isNotEmpty)
+            if (workExperience.isNotEmpty) {
               workExperienceIndex = workEx.indexOf(workExperience);
+            }
             String educationText = userData["education"] ?? "";
-            if (educationText.isNotEmpty)
+            if (educationText.isNotEmpty) {
               educationIndex = education.indexOf(educationText);
+            }
           });
         }
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
     } catch (e) {
-      print(e);
       UiUtils.showToast("Error fetching initial data");
     }
   }
@@ -179,7 +191,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
               buildSelectable(genderList, genderIndex, (index) {
                 updateSelectedIndex(index, IndexType.gender);
               }),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextInputContainer(
                 fieldName: "Full Name (as on aadhar)",
                 initialValue: name,
@@ -204,15 +216,14 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
               buildSelectable(workEx, workExperienceIndex, (index) {
                 updateSelectedIndex(index, IndexType.workExperience);
               }),
-              SizedBox(height: 8),
-              // _buildPhoneField(),
+              const SizedBox(height: 8),
               GestureDetector(
                 onTap: () async {
                   int? result = await Bottomsheets.showBottomListDialog(
                     context,
                     "Industry you want to work",
                     () async {
-                      await Future.delayed(Duration(milliseconds: 1000));
+                      await Future.delayed(const Duration(milliseconds: 100));
                       return DataForFunction(
                           index: industryIndex, list: industryList);
                     },
@@ -226,7 +237,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 child: builbottomsheedtfield("Industry you want to work",
                     (industryIndex != -1) ? industryList[industryIndex] : ""),
               ),
-
               buildLocationField(),
             ],
           ),
@@ -237,8 +247,9 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
 
   Widget builbottomsheedtfield(String name, String selectedname) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding:
+          const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
@@ -281,12 +292,12 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     return GestureDetector(
       onTap: () => getLocation(),
       child: Container(
-        margin: EdgeInsets.only(bottom: 16),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
         height: 64,
         width: double.maxFinite,
         decoration: BoxDecoration(
-          color: Color(0xFFF5F5F5),
+          color: const Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -306,7 +317,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             ),
             (place != null)
                 ? Text(
-                    place!.locality! + ", " + place!.postalCode!,
+                    "${place!.locality!}, ${place!.postalCode!}",
                     style: GoogleFonts.poppins(
                         fontSize: 16, fontWeight: FontWeight.w400),
                   )
@@ -352,8 +363,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   Widget buildAgeBox(String fieldname) {
     return (datePicker != null)
         ? Container(
-            margin: EdgeInsets.only(left: 10),
-            padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+            margin: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16),
             height: 64,
             decoration: BoxDecoration(
               color: ("#F5F5F5").toColor(),
@@ -371,10 +382,10 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                     color: ("#9E9E9E").toColor(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Container(
+                SizedBox(
                   width: double.maxFinite,
                   height: 24,
                   child: (age != null)
@@ -502,7 +513,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         educationIndex != -1 &&
         workExperienceIndex != -1 &&
         industryIndex != -1 &&
-        (lat != 0 && long != 0);
+        (lat != 0 && long != 0) &&
+        place != null;
   }
 
   Widget buildContinueButton(BuildContext context) {
@@ -521,7 +533,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             updatedata();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Please fill in all required fields.'),
               ),
             );
@@ -560,7 +572,15 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             "industryPreference": industryList[industryIndex],
             "latitude": lat,
             "longitude": long,
-            "place": place
+            "street": place!.street,
+            "isoCountryCode": place!.isoCountryCode,
+            "country": place!.country,
+            "postalCode": place!.postalCode,
+            "placeName": place!.name,
+            "administrativeArea": place!.administrativeArea,
+            "subAdministrativeArea": place!.subAdministrativeArea,
+            "locality": place!.locality,
+            "subLocality": place!.subLocality,
           },
         );
 
@@ -632,10 +652,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         long = position.longitude;
         place = placemarks[0];
       });
-      // for (var element in placemarks) {
-      //   print(element);
-      // }
-      print(place!.locality! + place!.postalCode.toString());
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
       lat = -1;
