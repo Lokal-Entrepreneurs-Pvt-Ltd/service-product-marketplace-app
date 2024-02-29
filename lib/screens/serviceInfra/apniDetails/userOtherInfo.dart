@@ -40,7 +40,22 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
   List<String> relocate = ["Yes", "No"];
   List<String> license = ["2 Wheeler", "3 Wheeler", "4 Wheeler"];
   List<bool> licenseIndex = List.generate(3, (index) => false);
-  List<String> industryList = ["Delivery", "Seller", "Retail", "Service"];
+  List<String> industryList = [
+    "Delivery",
+    "Agriculture",
+    "Animal Science",
+    "Business ",
+    "Cosmetology",
+    "Customer Service",
+    "Creative",
+    "Education",
+    "Finance",
+    "Healthcare",
+    "Hospitality",
+    "Human Resources",
+    "Sales",
+    "IT"
+  ];
   int industryIndex = -1;
 
   bool isUpdating = false; // Added isUpdating variable
@@ -134,95 +149,84 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
 
   Widget buildBody() {
     return SafeArea(
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 21),
-                    child:
-                        buildTitle("Other Details Bhare", 18, FontWeight.w500),
-                  ),
-                  buildTitle(
-                      "Do you have Driving License?", 16, FontWeight.w500),
-                  buildMultiSelectable(license, licenseIndex, (index) {
-                    updateSelectedIndex(index, IndexType.license);
-                  }),
-                  buildTitle("Want to Relocate", 16, FontWeight.w500),
-                  buildSelectable(relocate, relocateIndex, (index) {
-                    updateSelectedIndex(index, IndexType.relocate);
-                  }),
-                  const SizedBox(height: 10),
-                  TextInputContainer(
-                    fieldName: "Pereferred Location",
-                    hint: "Type your preferred location",
-                    initialValue: preferredLocation,
-                    onFileSelected: (p0) {
-                      setState(() {
-                        preferredLocation = p0 ?? "";
-                      });
-                    },
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      int? result = await Bottomsheets.showBottomListDialog(
-                        context,
-                        "Current Industry",
-                        () async {
-                          await Future.delayed(
-                              const Duration(milliseconds: 500));
-                          return DataForFunction(
-                              index: industryIndex, list: industryList);
-                        },
-                      );
-                      // Handle the result, e.g., update selectedState
-                      if (result != null && result >= 0) {
-                        setState(() {
-                          industryIndex = result;
-                        });
-                      }
-                      //  _showLocationDialog(context, list);
-                    },
-                    child: builbottomsheedtfield(
-                        "Current Industry",
-                        (industryIndex != -1)
-                            ? industryList[industryIndex]
-                            : ""),
-                  ),
-                  // builLocationsField(context, stateList, "Current Industry"),
-                  TextInputContainer(
-                    fieldName: "Current Salary",
-                    hint: "Type your current salary",
-                    initialValue: currentSalary,
-                    textInputType: TextInputType.number,
-                    onFileSelected: (p0) {
-                      setState(() {
-                        currentSalary = p0 ?? "";
-                      });
-                    },
-                  ),
-                  TextInputContainer(
-                    fieldName: "Expected Salary",
-                    hint: "Type your expected salary",
-                    textInputType: TextInputType.number,
-                    initialValue: expectedSalary,
-                    onFileSelected: (p0) {
-                      setState(() {
-                        expectedSalary = p0 ?? "";
-                      });
-                    },
-                  ),
-                ],
+      child: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 21),
+                child: buildTitle("Other Details Bhare", 18, FontWeight.w500),
               ),
-            ),
+              buildTitle("Do you have Driving License?", 16, FontWeight.w500),
+              buildMultiSelectable(license, licenseIndex, (index) {
+                updateSelectedIndex(index, IndexType.license);
+              }),
+              buildTitle("Want to Relocate", 16, FontWeight.w500),
+              buildSelectable(relocate, relocateIndex, (index) {
+                updateSelectedIndex(index, IndexType.relocate);
+              }),
+              const SizedBox(height: 10),
+              TextInputContainer(
+                fieldName: "Pereferred Location",
+                hint: "Type your preferred location",
+                initialValue: preferredLocation,
+                onFileSelected: (p0) {
+                  setState(() {
+                    preferredLocation = p0 ?? "";
+                  });
+                },
+              ),
+              GestureDetector(
+                onTap: () async {
+                  int? result = await Bottomsheets.showBottomListDialog(
+                    context,
+                    "Current Industry",
+                    () async {
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      return DataForFunction(
+                          index: industryIndex, list: industryList);
+                    },
+                  );
+                  // Handle the result, e.g., update selectedState
+                  if (result != null && result >= 0) {
+                    setState(() {
+                      industryIndex = result;
+                    });
+                  }
+                  //  _showLocationDialog(context, list);
+                },
+                child: builbottomsheedtfield("Current Industry",
+                    (industryIndex != -1) ? industryList[industryIndex] : ""),
+              ),
+              // builLocationsField(context, stateList, "Current Industry"),
+              TextInputContainer(
+                fieldName: "Current Salary",
+                hint: "Type your current salary",
+                initialValue: currentSalary,
+                textInputType: TextInputType.number,
+                onFileSelected: (p0) {
+                  setState(() {
+                    currentSalary = p0 ?? "";
+                  });
+                },
+              ),
+              TextInputContainer(
+                fieldName: "Expected Salary",
+                hint: "Type your expected salary",
+                textInputType: TextInputType.number,
+                initialValue: expectedSalary,
+                onFileSelected: (p0) {
+                  setState(() {
+                    expectedSalary = p0 ?? "";
+                  });
+                },
+              ),
+            ],
           ),
-          appBar()
-        ],
+        ),
       ),
     );
   }
@@ -297,82 +301,6 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
           SvgPicture.network(
               "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
         ],
-      ),
-    );
-  }
-
-  double calculateProgress() {
-    // List of completion status for each field
-    List<bool> fieldCompletionStatus = [
-      relocateIndex != -1,
-      licenseIndex.any((completed) => completed),
-      industryIndex != -1,
-      preferredLocation.isNotEmpty,
-      currentSalary.isNotEmpty,
-      expectedSalary.isNotEmpty,
-    ];
-
-    // Calculate progress based on the number of completed fields
-    double progress =
-        fieldCompletionStatus.where((completed) => completed).length /
-            fieldCompletionStatus.length;
-
-    return progress;
-  }
-
-  Widget appBar() {
-    double progress = calculateProgress();
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.gengar_300.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.gengar_400.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 5,
-                width: progress * 80,
-                decoration: BoxDecoration(
-                  color: UikColor.gengar_500.toColor(),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
