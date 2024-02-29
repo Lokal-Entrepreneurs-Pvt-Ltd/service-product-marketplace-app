@@ -6,21 +6,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
-import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/screens/serviceInfra/apniDetails/apnadata/apnaPeronalData.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
-import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserPersonalInfo extends StatefulWidget {
