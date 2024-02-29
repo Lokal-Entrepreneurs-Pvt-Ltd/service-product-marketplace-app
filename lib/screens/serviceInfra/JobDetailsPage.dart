@@ -138,6 +138,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   Widget _buildSalaryDetails() {
     Map<String, dynamic> salaryDetails = jobPost['salaryDetails'];
+    salaryDetails.removeWhere(
+        (key, value) => value == null || value == 'NA' || value == '');
     String incentive = salaryDetails["incentive"] ?? "";
     if (salaryDetails.containsKey('incentive')) {
       salaryDetails.remove('incentive');
@@ -229,10 +231,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          (education.isNotEmpty)
+          (education.isNotEmpty && education != "NA")
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Education- ',
@@ -242,19 +245,22 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           color: UikColor.giratina_500.toColor(),
                         ),
                       ),
-                      Text(
-                        education,
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      Expanded(
+                        child: Text(
+                          education,
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 )
               : Container(),
-          (salary.isNotEmpty)
+          (salary.isNotEmpty && salary != "NA")
               ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Salary- ',
@@ -264,11 +270,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         color: UikColor.giratina_500.toColor(),
                       ),
                     ),
-                    Text(
-                      salary,
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                    Expanded(
+                      child: Text(
+                        salary,
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ],
@@ -346,9 +354,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   Widget _buildJobDescription() {
     String jobDescription = jobPost['jobDetails']['jobDescription'];
+
     String jdUrl = jobPost['jobDetails']['jdUrl'];
     return ((jobDescription.isNotEmpty && jobDescription != "NA") ||
-            (jdUrl.isNotEmpty))
+            (jdUrl.isNotEmpty && jdUrl != "NA"))
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
@@ -364,7 +373,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    (jdUrl.isNotEmpty && jdUrl!="NA")
+                    (jdUrl.isNotEmpty && jdUrl != "NA")
                         ? GestureDetector(
                             onTap: () {
                               launchURL(jdUrl);
@@ -417,16 +426,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       {required Map<String, dynamic> map,
       TextStyle? heading,
       TextStyle? body}) {
+    map.removeWhere(
+        (key, value) => value == null || value == 'NA' || value == '');
     return Wrap(
       spacing: 16.0,
       runSpacing: 24.0,
       children: map.entries
-          .where((entry) =>
-              (entry.value is String &&
-                  (entry.value as String).isNotEmpty &&
-                  (entry.value as String) != "NA") ||
-              (entry.value is List<String> &&
-                  ((entry.value as List<String>).isNotEmpty)))
           .map(
             (entry) => SizedBox(
               width: MediaQuery.of(context).size.width / 2 - 24,
@@ -497,7 +502,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget _buildInterviewDetails() {
-    var interviewDetails = jobPost['interviewDetails'] as Map<String, dynamic>;
+    var interviewDetails =
+        (jobPost['interviewDetails'] as Map<String, dynamic>);
+    interviewDetails.removeWhere(
+        (key, value) => value == null || value == 'NA' || value == '');
     return (interviewDetails.isNotEmpty)
         ? Container(
             padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
@@ -621,8 +629,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               actions: [
                 InkWell(
                   onTap: () {
-
-
                     String shareText = jobPost['share'] ?? "";
                     String shareUrl = jobPost['shareUrl'] ?? "";
 
