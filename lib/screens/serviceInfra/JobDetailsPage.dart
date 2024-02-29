@@ -377,9 +377,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    (jdUrl.isNotEmpty)
+                    (jdUrl.isNotEmpty && jdUrl!= "NA")
                         ? GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              launchURL(jdUrl);
+                            },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 7, vertical: 2),
@@ -679,59 +681,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                       color: UikColor.giratina_100.toColor(),
                     ),
                     _buildLocationSalaryInfo(),
-                    // Container(
-                    //   height: 6,
-                    //   width: double.maxFinite,
-                    //   color: UikColor.giratina_100.toColor(),
-                    // ),
-                    // Container(
-                    //   height: 45,
-                    //   child: TabBar(
-                    //     onTap: (ind) {
-                    //       setState(() {
-                    //         _currentTabNumber = ind;
-                    //       });
-                    //       switch (ind) {
-                    //         case 0:
-                    //           _scrollController.jumpTo(ind * 100);
-                    //           break;
-                    //         case 1:
-                    //           _scrollController.jumpTo(ind * 400);
-                    //           break;
-                    //         default:
-                    //           _scrollController.jumpTo(ind * 320);
-                    //           break;
-                    //       }
-                    //     },
-                    //     isScrollable: true,
-                    //     indicatorColor: UikColor.charizard_400.toColor(),
-                    //     labelStyle: GoogleFonts.poppins(fontSize: 16),
-                    //     controller: _tabController,
-                    //     tabs: List<Widget>.from(jobPost['tabs']
-                    //         .map(
-                    //           (tab) => Tab(
-                    //             child: Padding(
-                    //               padding: const EdgeInsets.all(10),
-                    //               child: Text(
-                    //                 tab as String,
-                    //                 style: _getTabItemTextStyle(
-                    //                     jobPost['tabs'].indexOf(tab)),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         )
-                    //         .toList()),
-                    //   ),
-                    // ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildJobRole(),
-                        // Container(
-                        //   height: 6,
-                        //   width: double.maxFinite,
-                        //   color: UikColor.giratina_100.toColor(),
-                        // ),
                         _buildJobHighlights(),
                         Container(
                           height: 6,
