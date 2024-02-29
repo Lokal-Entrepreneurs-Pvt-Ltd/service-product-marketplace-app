@@ -19,12 +19,8 @@ class JobDetailsScreen extends StatefulWidget {
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
 }
 
-class _JobDetailsScreenState extends State<JobDetailsScreen>
-    with SingleTickerProviderStateMixin {
-  late ScrollController _scrollController;
-  late TabController _tabController;
+class _JobDetailsScreenState extends State<JobDetailsScreen> {
   bool showFullDescription = false;
-  int _currentTabNumber = 0;
   bool _isLoading = true;
   Map<String, dynamic> jobPost = {};
   List<dynamic> _ctas = [];
@@ -32,7 +28,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
     _fetchServiceDetails();
   }
 
@@ -44,8 +39,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   @override
   void dispose() {
-    _scrollController.dispose();
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -59,28 +52,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
         jobPost = response.data!["jobPost"] as Map<String, dynamic>;
         final metaData = response.data['metaData'] as Map<String, dynamic>;
         _ctas = metaData['ctas'] as List<dynamic>;
-        if (jobPost['tabs'] != null) {
-          _tabController =
-              TabController(length: jobPost['tabs'].length, vsync: this);
-          _scrollController.addListener(() {
-            if (_scrollController.offset > 150) {
-              int newIndex =
-                  ((_scrollController.offset - 100) * 2 / 265).round();
-              if (newIndex != _currentTabNumber &&
-                  newIndex < jobPost['tabs'].length) {
-                setState(() {
-                  _currentTabNumber = newIndex;
-                });
-                _tabController.animateTo(newIndex);
-              }
-            }
-          });
-        }
         setState(() {
           _isLoading = false;
         });
       } else {
-        _tabController = TabController(length: 0, vsync: this);
         _handleApiError();
       }
     } catch (e) {
@@ -92,22 +67,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
     // Handle API errors here
   }
 
-  TextStyle _getTabItemTextStyle(int index) {
-    bool isSelected = _currentTabNumber == index;
-    return GoogleFonts.poppins(
-      color: isSelected ? Colors.black : Colors.grey.shade400,
-      fontWeight: FontWeight.w500,
-    );
-  }
-
   Widget _buildProfileInfo() {
     String? url = jobPost["logo"];
     String? jobName = jobPost["jobName"];
     String? companyName = jobPost["companyName"];
     if (jobName != null && companyName != null) {
       return Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: NetworkImage(
                   "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1708500398902-Rectangle%203220.png"),
@@ -115,17 +82,28 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
         ),
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 29,
-              backgroundColor: Colors.amber[300],
-              foregroundImage: (url != null) ? NetworkImage(url) : null,
-              child: Text(
-                companyName[0],
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.yellowAccent, fontSize: 40),
+            ClipOval(
+              child: Container(
+                width: 58,
+                height: 58,
+                color: Colors.white,
+                child: Image.network(
+                  url ?? "",
+                  errorBuilder: (context, error, stackTrace) {
+                    return Text(
+                      companyName[0],
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        color: Colors.black54,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +116,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 6,
                 ),
                 Text(
@@ -243,51 +221,59 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   }
 
   Widget _buildLocationSalaryInfo() {
+    String education = jobPost['jobDetails']["education"] ?? "";
+    String salary = jobPost['salary'] ?? "";
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       width: double.maxFinite,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                'Education- ',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: UikColor.giratina_500.toColor(),
-                ),
-              ),
-              Text(
-                '${jobPost['jobDetails']["education"]}',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-          Row(
-            children: [
-              Text(
-                'Salary- ',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: UikColor.giratina_500.toColor(),
-                ),
-              ),
-              Text(
-                '${jobPost['salary']}',
-                style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
+          (education.isNotEmpty)
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Education- ',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: UikColor.giratina_500.toColor(),
+                        ),
+                      ),
+                      Text(
+                        education,
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Container(),
+          (salary.isNotEmpty)
+              ? Row(
+                  children: [
+                    Text(
+                      'Salary- ',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: UikColor.giratina_500.toColor(),
+                      ),
+                    ),
+                    Text(
+                      salary,
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                )
+              : Container(),
           SizedBox(height: 20),
           _buildSalaryDetails(),
         ],
@@ -361,7 +347,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
   Widget _buildJobDescription() {
     String jobDescription = jobPost['jobDetails']['jobDescription'];
     String jdUrl = jobPost['jobDetails']['jdUrl'];
-    return (jobDescription.isNotEmpty)
+    return ((jobDescription.isNotEmpty && jobDescription != "NA") ||
+            (jdUrl.isNotEmpty))
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
@@ -433,7 +420,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
       runSpacing: 24.0,
       children: map.entries
           .where((entry) =>
-              (entry.value is String && (entry.value as String).isNotEmpty) ||
+              (entry.value is String &&
+                  (entry.value as String).isNotEmpty &&
+                  (entry.value as String) != "NA") ||
               (entry.value is List<String> &&
                   ((entry.value as List<String>).isNotEmpty)))
           .map(
@@ -507,95 +496,99 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
 
   Widget _buildInterviewDetails() {
     var interviewDetails = jobPost['interviewDetails'] as Map<String, dynamic>;
-    return Container(
-      padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Interview Details ',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+    return (interviewDetails.isNotEmpty)
+        ? Container(
+            padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Interview Details ',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                _showTypesAndDetails(map: interviewDetails),
+                SizedBox(height: 8),
+              ],
             ),
-          ),
-          _showTypesAndDetails(map: interviewDetails),
-          SizedBox(height: 8),
-        ],
-      ),
-    );
+          )
+        : Container();
   }
 
   Widget _buildExpandableText(String text) {
     final int maxLines = showFullDescription ? 20 : 5;
-    return Container(
-      margin: EdgeInsets.only(right: 16, top: 4),
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                text,
-                textAlign: TextAlign.justify,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: UikColor.giratina_500.toColor(),
+    return (text.isNotEmpty && text != "NA")
+        ? Container(
+            margin: EdgeInsets.only(right: 16, top: 4),
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      text,
+                      textAlign: TextAlign.justify,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: UikColor.giratina_500.toColor(),
+                      ),
+                      maxLines: maxLines,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Container(
+                      height: 5,
+                      width: double.maxFinite,
+                    )
+                  ],
                 ),
-                maxLines: maxLines,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Container(
-                height: 5,
-                width: double.maxFinite,
-              )
-            ],
-          ),
-          if (text.length > 150 && !showFullDescription)
-            Positioned(
-              child: Container(
-                width: double.maxFinite,
-                height: 100,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.white.withOpacity(0),
-                      Colors.white.withOpacity(0.55),
-                      Colors.white.withOpacity(0.7),
-                      Colors.white.withOpacity(0.9),
-                      Colors.white.withOpacity(1),
-                      Colors.white.withOpacity(1)
-                    ],
+                if (text.length > 150 && !showFullDescription)
+                  Positioned(
+                    child: Container(
+                      width: double.maxFinite,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white.withOpacity(0),
+                            Colors.white.withOpacity(0.55),
+                            Colors.white.withOpacity(0.7),
+                            Colors.white.withOpacity(0.9),
+                            Colors.white.withOpacity(1),
+                            Colors.white.withOpacity(1)
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          if (text.length > 150)
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    showFullDescription = !showFullDescription;
-                  });
-                },
-                child: Text(
-                  showFullDescription ? 'Show less' : 'Show more',
-                  style: GoogleFonts.poppins(
-                    color: UikColor.venusaur_500.toColor(),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
+                if (text.length > 150)
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showFullDescription = !showFullDescription;
+                        });
+                      },
+                      child: Text(
+                        showFullDescription ? 'Show less' : 'Show more',
+                        style: GoogleFonts.poppins(
+                          color: UikColor.venusaur_500.toColor(),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+              ],
             ),
-        ],
-      ),
-    );
+          )
+        : Container();
   }
 
   Widget _buildLoadingIndicator() {
@@ -616,7 +609,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
             appBar: AppBar(
               backgroundColor: "#F5F7FA".toColor(),
               leading: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
                 ),
                 onPressed: () {
@@ -626,9 +619,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
               actions: [
                 InkWell(
                   onTap: () {
-                    String shareText = jobPost['share'];
-                    //    String shareUrl = jobPost['shareUrl'] ;
-                    String shareUrl = jobPost['share'];
+
+
+                    String shareText = jobPost['share'] ?? "";
+                    String shareUrl = jobPost['shareUrl'] ?? "";
+
                     UiUtils.shareOnWhatsApp(
                         shareUrl.isNotEmpty
                             ? shareUrl
@@ -666,90 +661,37 @@ class _JobDetailsScreenState extends State<JobDetailsScreen>
                 ),
               ],
             ),
-            body: DefaultTabController(
-              length: jobPost['tabs'].length,
-              child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildProfileInfo(),
-                    Container(
-                      height: 2,
-                      width: double.maxFinite,
-                      color: UikColor.giratina_100.toColor(),
-                    ),
-                    _buildLocationSalaryInfo(),
-                    // Container(
-                    //   height: 6,
-                    //   width: double.maxFinite,
-                    //   color: UikColor.giratina_100.toColor(),
-                    // ),
-                    // Container(
-                    //   height: 45,
-                    //   child: TabBar(
-                    //     onTap: (ind) {
-                    //       setState(() {
-                    //         _currentTabNumber = ind;
-                    //       });
-                    //       switch (ind) {
-                    //         case 0:
-                    //           _scrollController.jumpTo(ind * 100);
-                    //           break;
-                    //         case 1:
-                    //           _scrollController.jumpTo(ind * 400);
-                    //           break;
-                    //         default:
-                    //           _scrollController.jumpTo(ind * 320);
-                    //           break;
-                    //       }
-                    //     },
-                    //     isScrollable: true,
-                    //     indicatorColor: UikColor.charizard_400.toColor(),
-                    //     labelStyle: GoogleFonts.poppins(fontSize: 16),
-                    //     controller: _tabController,
-                    //     tabs: List<Widget>.from(jobPost['tabs']
-                    //         .map(
-                    //           (tab) => Tab(
-                    //             child: Padding(
-                    //               padding: const EdgeInsets.all(10),
-                    //               child: Text(
-                    //                 tab as String,
-                    //                 style: _getTabItemTextStyle(
-                    //                     jobPost['tabs'].indexOf(tab)),
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         )
-                    //         .toList()),
-                    //   ),
-                    // ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildJobRole(),
-                        // Container(
-                        //   height: 6,
-                        //   width: double.maxFinite,
-                        //   color: UikColor.giratina_100.toColor(),
-                        // ),
-                        _buildJobHighlights(),
-                        Container(
-                          height: 6,
-                          width: double.maxFinite,
-                          color: UikColor.giratina_100.toColor(),
-                        ),
-                        _buildJobDescription(),
-                        Container(
-                          height: 6,
-                          width: double.maxFinite,
-                          color: UikColor.giratina_100.toColor(),
-                        ),
-                        _buildInterviewDetails(),
-                      ],
-                    ),
-                  ],
-                ),
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildProfileInfo(),
+                  Container(
+                    height: 2,
+                    width: double.maxFinite,
+                    color: UikColor.giratina_100.toColor(),
+                  ),
+                  _buildLocationSalaryInfo(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildJobRole(),
+                      _buildJobHighlights(),
+                      Container(
+                        height: 6,
+                        width: double.maxFinite,
+                        color: UikColor.giratina_100.toColor(),
+                      ),
+                      _buildJobDescription(),
+                      Container(
+                        height: 6,
+                        width: double.maxFinite,
+                        color: UikColor.giratina_100.toColor(),
+                      ),
+                      _buildInterviewDetails(),
+                    ],
+                  ),
+                ],
               ),
             ),
             persistentFooterButtons: _ctas
