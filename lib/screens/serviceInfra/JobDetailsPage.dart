@@ -619,8 +619,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               actions: [
                 InkWell(
                   onTap: () {
+
+
                     String shareText = jobPost['share'] ?? "";
                     String shareUrl = jobPost['shareUrl'] ?? "";
+
                     UiUtils.shareOnWhatsApp(
                         shareUrl.isNotEmpty
                             ? shareUrl
@@ -691,7 +694,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ],
               ),
             ),
-            persistentFooterButtons: [_buildCtas()],
+            persistentFooterButtons: _ctas
+                    .where((element) => element["text"]?.isNotEmpty == true)
+                    .isNotEmpty
+                ? [_buildCtas()]
+                : null,
           );
   }
 

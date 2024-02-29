@@ -215,6 +215,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
                 fieldName: "Home No, Building Name",
                 hint: "Type your address",
                 initialValue: home,
+
                 onFileSelected: (p0) {
                   setState(() {
                     home = p0 ?? "";
@@ -349,7 +350,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
       setState(() {
         isUpdating = true; // Set isUpdating to true while updating
       });
-
       try {
         final response = await ApiRepository.updateCustomerInfo(
           {
