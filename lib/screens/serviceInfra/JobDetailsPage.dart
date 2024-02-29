@@ -235,6 +235,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               ? Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Education- ',
@@ -244,11 +245,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           color: UikColor.giratina_500.toColor(),
                         ),
                       ),
-                      Text(
-                        education,
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      Expanded(
+                        child: Text(
+                          education,
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
@@ -257,6 +260,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               : Container(),
           (salary.isNotEmpty && salary != "NA")
               ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Salary- ',
@@ -266,11 +270,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         color: UikColor.giratina_500.toColor(),
                       ),
                     ),
-                    Text(
-                      salary,
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                    Expanded(
+                      child: Text(
+                        salary,
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ],
