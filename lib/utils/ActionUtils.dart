@@ -171,6 +171,8 @@ abstract class ActionUtils {
       );
       if (response.isSuccess!) {
         String imageUrl = response.data["url"];
+        NavigationUtils.pop();
+        NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
       } else {
         UiUtils.showToast("Image is not Selected");
       }
