@@ -13,10 +13,13 @@ class DataForFunction {
 class BottomSheetBasedOnFuture extends StatefulWidget {
   final String name;
   final Future<DataForFunction> Function() call;
-
+  bool searchField;
+  bool alternateColoring;
   BottomSheetBasedOnFuture({
     required this.name,
     required this.call,
+    this.searchField = true,
+    this.alternateColoring = true,
   });
 
   @override
@@ -94,35 +97,37 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                  child: TextFormField(
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: "Search ${widget.name}",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        filteredList = list
-                            .where((element) => element
-                                .toLowerCase()
-                                .contains(value.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                  ),
-                ),
+                (widget.searchField)
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 5),
+                        child: TextFormField(
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: "Search ${widget.name}",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              filteredList = list
+                                  .where((element) => element
+                                      .toLowerCase()
+                                      .contains(value.toLowerCase()))
+                                  .toList();
+                            });
+                          },
+                        ),
+                      )
+                    : Container(),
                 Expanded(
                   child: ListView.builder(
                     itemCount: filteredList.length,
@@ -154,9 +159,11 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
     bool isSelected,
   ) {
     return Container(
-      color: isSelected
-          ? Colors.yellow // Change this to your desired color
-          : (index % 2 == 0 ? Colors.grey[200] : Colors.white),
+      color: (widget.alternateColoring)
+          ? isSelected
+              ? Colors.yellow // Change this to your desired color
+              : (index % 2 == 0 ? Colors.grey[200] : Colors.white)
+          : Colors.white,
       child: ListTile(
         title: Text(
           state,
