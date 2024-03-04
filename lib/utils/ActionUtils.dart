@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/Logs/event_handler.dart';
 import 'package:lokal/utils/Logs/eventsdk.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -171,10 +173,16 @@ abstract class ActionUtils {
       );
       if (response.isSuccess!) {
         String imageUrl = response.data["url"];
-        NavigationUtils.pop();
-        NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
+        final response2 =
+            await ApiRepository.updateCustomerInfo({"profile_image": imageUrl});
+        if (response2.isSuccess!) {
+          NavigationUtils.pop();
+          NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
+        } else {
+          UiUtils.showToast("Image is not uploaded successfully");
+        }
       } else {
-        UiUtils.showToast("Image is not Selected");
+        UiUtils.showToast("Image is not uploaded successfully");
       }
     } else {
       UiUtils.showToast("Image is not Selected");
