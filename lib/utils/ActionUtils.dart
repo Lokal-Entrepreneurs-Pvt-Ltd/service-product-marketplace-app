@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/Logs/event_handler.dart';
 import 'package:lokal/utils/Logs/eventsdk.dart';
@@ -10,6 +10,7 @@ import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 import '../constants/json_constants.dart';
@@ -20,7 +21,6 @@ import 'UiUtils/UiUtils.dart';
 import 'network/ApiRepository.dart';
 import 'network/ApiRequestBody.dart';
 import 'storage/product_data_handler.dart';
-import 'package:file_picker/file_picker.dart';
 
 abstract class ActionUtils {
   static void sendEventonActionForScreen(String actionType, String screenName) {
@@ -158,13 +158,28 @@ abstract class ActionUtils {
   }
 
   static void handleImageSelection() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      allowedExtensions: ['jpg', 'jpeg', 'png'],
+    var context = AppRoutes.rootNavigatorKey.currentContext;
+    final ImagePicker picker = ImagePicker();
+    int? type = await Bottomsheets.showBottomListDialog(
+      context: context!,
+      name: "Select Category",
+      call: () async {
+        return DataForFunction(index: -1, list: ["By Camera", "By Gallery"]);
+      },
+      alternateColoring: false,
+      searchField: false,
     );
+    final XFile? result;
+    if (type == 0) {
+      result = await picker.pickImage(source: ImageSource.camera);
+    } else if (type == 1) {
+      result = await picker.pickImage(source: ImageSource.gallery);
+    } else {
+      return;
+    }
 
     if (result != null) {
-      File pickedFile = File(result.files.single.path!);
+      File pickedFile = File(result.path);
       final response = await ApiRepository.uploadDocuments(
         ApiRequestBody.getuploaddocumentsid(
           "misc",
