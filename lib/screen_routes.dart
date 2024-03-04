@@ -95,4 +95,5 @@ class ScreenRoutes {
   static const String userDocumentInfo = "/userDocumentInfo";
   static const String dynamicPage = "/dynamicPage";
   static const String userAccountDetails = "/userAccountDetails";
+  static const String accountSettings = "/accountSettings";
 }

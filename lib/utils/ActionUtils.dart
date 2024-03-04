@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:lokal/utils/Logs/event.dart';
@@ -16,11 +18,10 @@ import 'UiUtils/UiUtils.dart';
 import 'network/ApiRepository.dart';
 import 'network/ApiRequestBody.dart';
 import 'storage/product_data_handler.dart';
+import 'package:file_picker/file_picker.dart';
 
 abstract class ActionUtils {
-
-  static void sendEventonActionForScreen(String actionType, String screenName){
-
+  static void sendEventonActionForScreen(String actionType, String screenName) {
     EventSDK eventSDK = EventSDK();
     eventSDK.init();
     if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
@@ -146,8 +147,35 @@ abstract class ActionUtils {
         UiUtils.shareOnWhatsApp(
             uikAction.tap.data.url!, uikAction.tap.data.skuId!);
         break;
+      case UIK_ACTION.IMAGE_PICKER:
+        handleImageSelection();
+        break;
       default:
         {}
+    }
+  }
+
+  static void handleImageSelection() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowedExtensions: ['jpg', 'jpeg', 'png'],
+    );
+
+    if (result != null) {
+      File pickedFile = File(result.files.single.path!);
+      final response = await ApiRepository.uploadDocuments(
+        ApiRequestBody.getuploaddocumentsid(
+          "misc",
+          pickedFile,
+        ),
+      );
+      if (response.isSuccess!) {
+        String imageUrl = response.data["url"];
+      } else {
+        UiUtils.showToast("Image is not Selected");
+      }
+    } else {
+      UiUtils.showToast("Image is not Selected");
     }
   }
 
