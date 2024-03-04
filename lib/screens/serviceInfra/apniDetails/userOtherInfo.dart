@@ -182,9 +182,9 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
               GestureDetector(
                 onTap: () async {
                   int? result = await Bottomsheets.showBottomListDialog(
-                    context,
-                    "Current Industry",
-                    () async {
+                    context: context,
+                    name: "Current Industry",
+                    call: () async {
                       await Future.delayed(const Duration(milliseconds: 500));
                       return DataForFunction(
                           index: industryIndex, list: industryList);
