@@ -1,8 +1,10 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
+import 'package:lokal/screens/profiles/userAboutMe.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -94,7 +96,6 @@ class AppRoutes {
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
     //  : _customerloginScreen.path,
-    // initialLocation: _userAccountDetails.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -161,7 +162,8 @@ class AppRoutes {
       _userOtherInfo,
       _userDocumentInfo,
       _dynamicPage,
-      _userAccountDetails
+      _userAccountDetails,
+      _userAccountSettings,
     ],
   );
 
@@ -174,6 +176,13 @@ class AppRoutes {
         key: state.pageKey,
         args: state.extra,
       );
+    },
+  );
+
+  static final GoRoute _userAccountSettings = GoRoute(
+    path: ScreenRoutes.accountSettings,
+    builder: (context, state) {
+      return UikAccountSettings(args: state.extra as Map<String, dynamic>).page;
     },
   );
 

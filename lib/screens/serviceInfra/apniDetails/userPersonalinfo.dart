@@ -220,9 +220,9 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
               GestureDetector(
                 onTap: () async {
                   int? result = await Bottomsheets.showBottomListDialog(
-                    context,
-                    "Industry you want to work",
-                    () async {
+                    context: context,
+                    name: "Industry you want to work",
+                    call: () async {
                       await Future.delayed(const Duration(milliseconds: 100));
                       return DataForFunction(
                           index: industryIndex, list: industryList);

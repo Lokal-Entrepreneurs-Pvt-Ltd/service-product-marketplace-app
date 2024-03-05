@@ -158,9 +158,9 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
               GestureDetector(
                 onTap: () async {
                   int? result = await Bottomsheets.showBottomListDialog(
-                    context,
-                    "state",
-                    () async {
+                    context: context,
+                    name: "state",
+                    call: () async {
                       // await Future.delayed(
                       //     const Duration(milliseconds: 500));
                       return DataForFunction(
@@ -185,9 +185,9 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
                 onTap: () async {
                   if (stateIndex != -1) {
                     int? result = await Bottomsheets.showBottomListDialog(
-                      context,
-                      "District",
-                      () async {
+                      context: context,
+                      name: "District",
+                      call: () async {
                         await districtDataList.initialize(
                             stateCode: state!.stateCode);
                         return DataForFunction(
@@ -215,7 +215,6 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
                 fieldName: "Home No, Building Name",
                 hint: "Type your address",
                 initialValue: home,
-
                 onFileSelected: (p0) {
                   setState(() {
                     home = p0 ?? "";

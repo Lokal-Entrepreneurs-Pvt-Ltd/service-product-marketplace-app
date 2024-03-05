@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/Logs/event_handler.dart';
 import 'package:lokal/utils/Logs/eventsdk.dart';
+import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 import '../constants/json_constants.dart';
@@ -18,9 +23,7 @@ import 'network/ApiRequestBody.dart';
 import 'storage/product_data_handler.dart';
 
 abstract class ActionUtils {
-
-  static void sendEventonActionForScreen(String actionType, String screenName){
-
+  static void sendEventonActionForScreen(String actionType, String screenName) {
     EventSDK eventSDK = EventSDK();
     eventSDK.init();
     if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
@@ -146,8 +149,58 @@ abstract class ActionUtils {
         UiUtils.shareOnWhatsApp(
             uikAction.tap.data.url!, uikAction.tap.data.skuId!);
         break;
+      case UIK_ACTION.IMAGE_PICKER:
+        handleImageSelection();
+        break;
       default:
         {}
+    }
+  }
+
+  static void handleImageSelection() async {
+    var context = AppRoutes.rootNavigatorKey.currentContext;
+    final ImagePicker picker = ImagePicker();
+    int? type = await Bottomsheets.showBottomListDialog(
+      context: context!,
+      name: "Select Category",
+      call: () async {
+        return DataForFunction(index: -1, list: ["By Camera", "By Gallery"]);
+      },
+      alternateColoring: false,
+      searchField: false,
+    );
+    final XFile? result;
+    if (type == 0) {
+      result = await picker.pickImage(source: ImageSource.camera);
+    } else if (type == 1) {
+      result = await picker.pickImage(source: ImageSource.gallery);
+    } else {
+      return;
+    }
+
+    if (result != null) {
+      File pickedFile = File(result.path);
+      final response = await ApiRepository.uploadDocuments(
+        ApiRequestBody.getuploaddocumentsid(
+          "misc",
+          pickedFile,
+        ),
+      );
+      if (response.isSuccess!) {
+        String imageUrl = response.data["url"];
+        final response2 =
+            await ApiRepository.updateCustomerInfo({"profile_image": imageUrl});
+        if (response2.isSuccess!) {
+          NavigationUtils.pop();
+          NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
+        } else {
+          UiUtils.showToast("Image is not uploaded successfully");
+        }
+      } else {
+        UiUtils.showToast("Image is not uploaded successfully");
+      }
+    } else {
+      UiUtils.showToast("Image is not Selected");
     }
   }
 
