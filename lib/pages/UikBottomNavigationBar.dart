@@ -47,7 +47,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       context!.push(ScreenRoutes.alljobs);
     }
     if (index == 3) {
-      context!.push(ScreenRoutes.myAccountScreen, extra: {});
+      context!.push(ScreenRoutes.accountSettings, extra: {});
     }
   }
 

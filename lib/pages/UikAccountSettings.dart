@@ -8,9 +8,9 @@ import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 
 class UikAccountSettings extends StandardPage {
-  UikAccountSettings({this.args});
-
-  Map<String, dynamic>? args;
+  UikAccountSettings();
+  // args: state.extra as Map<String, dynamic>
+  // Map<String, dynamic>? args;
 
   @override
   Set<String?> getActions() {
@@ -44,6 +44,6 @@ class UikAccountSettings extends StandardPage {
 
   @override
   getConstructorArgs() {
-    return args;
+    return {};
   }
 }

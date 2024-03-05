@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
-import 'package:lokal/screens/profiles/userAboutMe.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -182,7 +181,8 @@ class AppRoutes {
   static final GoRoute _userAccountSettings = GoRoute(
     path: ScreenRoutes.accountSettings,
     builder: (context, state) {
-      return UikAccountSettings(args: state.extra as Map<String, dynamic>).page;
+      // args: state.extra as Map<String, dynamic>
+      return UikAccountSettings().page;
     },
   );
 

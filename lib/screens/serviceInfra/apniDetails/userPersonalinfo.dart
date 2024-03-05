@@ -315,7 +315,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 color: ("#9E9E9E").toColor(),
               ),
             ),
-            (place != null)
+            (place != null && place!.locality !=null && place!.postalCode !=null)
                 ? Text(
                     "${place!.locality!}, ${place!.postalCode!}",
                     style: GoogleFonts.poppins(

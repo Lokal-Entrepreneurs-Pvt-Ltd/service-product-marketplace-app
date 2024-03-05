@@ -64,6 +64,7 @@ dependencies:
   hexcolor: ^3.0.1
   http: ^0.13.5
   image_gallery_saver: ^1.7.1
+  image_picker: ^1.0.7
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.0
   just_the_tooltip: ^0.0.3+6
@@ -90,7 +91,7 @@ dependencies:
   stop_watch_timer: ^2.0.0
   syncfusion_flutter_sliders: ^21.2.9
   tutorial_coach_mark: ^1.2.11
-  ui_sdk: 1.0.132+1
+  ui_sdk: 1.0.133+1
   url_launcher: ^6.1.11
   webview_flutter: ^2.0.14
 
