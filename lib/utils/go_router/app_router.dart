@@ -89,6 +89,18 @@ class AppRoutes {
     }
   }
 
+  static void popUntilByName(String name) {
+    while (_goRouter.canPop()) {
+      GoRoute go =
+          _goRouter.routerDelegate.currentConfiguration.routes.last as GoRoute;
+      if (go.path == name) {
+        break;
+      }
+      _goRouter.pop();
+    }
+    print(_goRouter.routerDelegate.currentConfiguration.routes.length);
+  }
+
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: UserDataHandler.getUserToken().isEmpty

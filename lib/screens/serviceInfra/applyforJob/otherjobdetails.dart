@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
@@ -20,7 +22,7 @@ class ApplyForJobServiceQuestions extends StatefulWidget {
 
 class _ApplyForJobServiceQuestionsState
     extends State<ApplyForJobServiceQuestions> {
-  Map<int, int?> selectedAnswers = {};
+  List<int?> selectedAnswers = [];
   List<Map<int, int?>?> answermap = [];
   List<Map<String, dynamic>> questions = [];
   bool isDataLoaded = false;
@@ -28,14 +30,14 @@ class _ApplyForJobServiceQuestionsState
 
   Future<void> loadData() async {
     try {
-      final response =
-      await ApiRepository.getQuestionsByServiceId(widget.args);
+      final response = await ApiRepository.getQuestionsByServiceId(widget.args);
 
       if (response.isSuccess!) {
         questions = List<Map<String, dynamic>>.from(
           response.data!.map((item) => Map<String, dynamic>.from(item)),
         );
         setState(() {
+          selectedAnswers = List.generate(questions.length, (index) => null);
           isDataLoaded = true; // Set the flag to true once data is loaded
         });
       } else {
@@ -73,20 +75,20 @@ class _ApplyForJobServiceQuestionsState
       body: isDataLoaded
           ? buildBody()
           : isError
-          ? Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0), // Add padding here
-          child: Text(
-            "No Job Specific Question for the Job, Kindly Apply By Pressing the Button",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      )
-          : Center(child: CircularProgressIndicator(color: Colors.yellow)),
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0), // Add padding here
+                    child: Text(
+                      "No Job Specific Question for the Job, Kindly Apply By Pressing the Button",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                )
+              : Center(child: CircularProgressIndicator(color: Colors.yellow)),
       persistentFooterButtons: [
         buildContinueButton(),
       ],
@@ -167,7 +169,7 @@ class _ApplyForJobServiceQuestionsState
         Column(
           children: List.generate(
             answers.length,
-                (answerIndex) {
+            (answerIndex) {
               Map<String, dynamic> answer = answers[answerIndex];
               int answerId = answer['answerId'] ?? -1;
               String answerText = answer['answerText'] ?? '';
@@ -198,15 +200,15 @@ class _ApplyForJobServiceQuestionsState
         textSize: 16.0,
         textWeight: FontWeight.w500,
         onClick: () {
-          bool allQuestionsAnswered = selectedAnswers.values.every(
-                (value) => value != null,
+          bool allQuestionsAnswered = selectedAnswers.every(
+            (value) => value != null,
           );
 
           if (!allQuestionsAnswered) {
             // Show a toast message if not all questions are answered
-            UiUtils.showToast("Please answer all questions before applying for the job");
+            UiUtils.showToast(
+                "Please answer all questions before applying for the job");
           } else {
-            // All questions are answered, proceed with data update
             updatedata();
           }
         },
@@ -216,13 +218,16 @@ class _ApplyForJobServiceQuestionsState
 
   void updatedata() async {
     final response = await ApiRepository.updateAnswersInService(
-      ApiRequestBody.sendQusetionAnswers(
-          widget.args["serviceId"], {}),
+      ApiRequestBody.sendQusetionAnswers(widget.args["serviceId"], {}),
     );
 
     if (response.isSuccess!) {
       UiUtils.showToast("Job Applied Successfully");
-      Navigator.pop(context);
+      NavigationUtils.pushAndPopUntil(
+        ScreenRoutes.jobsDetailsPage,
+        ScreenRoutes.jobsDetailsPage,
+        widget.args,
+      );
     } else {
       UiUtils.showToast(response.error![MESSAGE]);
     }
