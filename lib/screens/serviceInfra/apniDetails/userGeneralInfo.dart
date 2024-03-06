@@ -173,6 +173,8 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
                           element.stateName ==
                           stateDataList.stateNameList[result]);
                       stateIndex = result;
+                      districtIndex = -1;
+                      district = null;
                     });
                   }
                 },
