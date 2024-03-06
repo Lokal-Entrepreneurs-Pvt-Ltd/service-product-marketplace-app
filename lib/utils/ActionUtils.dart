@@ -189,7 +189,7 @@ abstract class ActionUtils {
       if (response.isSuccess!) {
         String imageUrl = response.data["url"];
         final response2 =
-            await ApiRepository.updateCustomerInfo({"profile_image": imageUrl});
+            await ApiRepository.updateCustomerInfo({"profilePicUrl": imageUrl});
         if (response2.isSuccess!) {
           NavigationUtils.pop();
           NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
@@ -212,13 +212,27 @@ abstract class ActionUtils {
 
   static void handleSelectedLocation() async {
     Position? position = await LocationUtils.getCurrentPosition();
-    if (position != null) {
-      GeocodingPlatform geocodingPlatform = GeocodingPlatform.instance!;
-      geocodingPlatform.placemarkFromCoordinates(
-          position.latitude, position.longitude);
 
-      final response = await ApiRepository.updateCustomerInfo(
-          ApiRequestBody.updateLatlong(position.latitude, position.longitude));
+    if (position != null) {
+      double lat = position.latitude;
+      double long = position.longitude;
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+
+      final response = await ApiRepository.updateCustomerInfo({
+        "latitude": lat,
+        "longitude": long,
+        "street": place.street,
+        "isoCountryCode": place.isoCountryCode,
+        "country": place.country,
+        "postalCode": place.postalCode,
+        "placeName": place.name,
+        "administrativeArea": place.administrativeArea,
+        "subAdministrativeArea": place.subAdministrativeArea,
+        "locality": place.locality,
+        "subLocality": place.subLocality,
+      });
       if (response.isSuccess!) {
         UiUtils.showToast("Location Updated");
         NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
