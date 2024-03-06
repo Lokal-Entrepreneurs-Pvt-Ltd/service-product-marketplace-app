@@ -41,6 +41,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   double lat = 0;
   double long = 0;
   Placemark? place = null;
+  bool locationLoading = false;
   int? age = null;
   bool isUpdating = false; // Added isUpdating variable
   List<String> workEx = [
@@ -294,7 +295,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
-        height: 64,
         width: double.maxFinite,
         decoration: BoxDecoration(
           color: const Color(0xFFF5F5F5),
@@ -315,13 +315,23 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 color: ("#9E9E9E").toColor(),
               ),
             ),
-            (place != null && place!.locality !=null && place!.postalCode !=null)
-                ? Text(
-                    "${place!.locality!}, ${place!.postalCode!}",
-                    style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.w400),
-                  )
-                : Container()
+            (locationLoading)
+                ? Container(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      color: Colors.yellow,
+                      strokeWidth: 2,
+                    ))
+                : (place != null &&
+                        place!.locality != null &&
+                        place!.postalCode != null)
+                    ? Text(
+                        "${place!.locality!}, ${place!.postalCode!}",
+                        style: GoogleFonts.poppins(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                      )
+                    : Container()
           ],
         ),
       ),
@@ -643,11 +653,15 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   }
 
   Future<void> getLocation() async {
+    setState(() {
+      locationLoading = true;
+    });
     Position? position = await LocationUtils.getCurrentPosition();
     if (position != null) {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(position.latitude, position.longitude);
       setState(() {
+        locationLoading = false;
         lat = position.latitude;
         long = position.longitude;
         place = placemarks[0];
