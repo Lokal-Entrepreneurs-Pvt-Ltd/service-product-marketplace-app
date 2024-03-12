@@ -61,8 +61,8 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         final userData = response.data?['userModelData'];
         if (userData != null) {
           String stateName = userData["state"] ?? "";
+          await stateDataList.initialize();
           if (stateName.isNotEmpty) {
-            await stateDataList.initialize();
             int sra = stateDataList.list
                 .indexWhere((element) => element.stateName == stateName);
             if (sra != -1) {
@@ -371,6 +371,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
         if (response.isSuccess!) {
           print(state!.stateName);
           print(district!.districtName);
+          UiUtils.showToast("General Details Updated");
           NavigationUtils.pop();
         } else {
           UiUtils.showToast(response.error![MESSAGE]);

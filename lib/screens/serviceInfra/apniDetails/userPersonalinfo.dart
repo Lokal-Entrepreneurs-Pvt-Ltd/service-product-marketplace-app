@@ -595,6 +595,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         );
 
         if (response.isSuccess!) {
+          UiUtils.showToast("Personal Details Updated");
           NavigationUtils.pop();
           // NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
         } else {

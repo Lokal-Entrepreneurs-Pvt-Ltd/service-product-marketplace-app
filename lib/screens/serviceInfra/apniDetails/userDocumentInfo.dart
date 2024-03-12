@@ -180,7 +180,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
 
         if (response.isSuccess!) {
           NavigationUtils.pop();
-          UiUtils.showToast("SuccessFully Uploaded");
+          UiUtils.showToast("Documents SuccessFully Uploaded");
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }

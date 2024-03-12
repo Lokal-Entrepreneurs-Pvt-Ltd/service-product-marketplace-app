@@ -346,6 +346,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
         );
 
         if (response.isSuccess!) {
+          UiUtils.showToast("Other Details Updated");
           NavigationUtils.pop();
           // NavigationUtils.openScreen(ScreenRoutes.userDocumentInfo);
         } else {
