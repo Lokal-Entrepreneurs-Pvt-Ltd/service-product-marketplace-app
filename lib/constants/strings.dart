@@ -140,3 +140,4 @@ const String AND = " and ";
 const String TERMS_OF_USE = "Terms of Use";
 const String NEXT = "Next";
 const String MOB = "Mobile Number";
+const String ENTER_REFERRAL = "Enter Referral Code";

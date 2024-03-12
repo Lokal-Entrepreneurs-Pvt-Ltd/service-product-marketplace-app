@@ -63,17 +63,22 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
           String stateName = userData["state"] ?? "";
           if (stateName.isNotEmpty) {
             await stateDataList.initialize();
-            state = stateDataList.list
-                .firstWhere((element) => element.stateName == stateName);
-            stateIndex = stateDataList.stateNameList.indexOf(stateName);
+            int sra = stateDataList.list
+                .indexWhere((element) => element.stateName == stateName);
+            if (sra != -1) {
+              state = stateDataList.list[sra];
+              stateIndex = stateDataList.stateNameList.indexOf(stateName);
+            }
             String districtName = userData["district"] ?? "";
-            if (districtName.isNotEmpty) {
+            if (districtName.isNotEmpty && sra != -1) {
               await districtDataList.initialize(stateCode: state!.stateCode);
-              print(districtDataList.districtNameList);
-              district = districtDataList.list.firstWhere(
+              int dis = districtDataList.list.indexWhere(
                   (element) => element.districtName == districtName);
-              districtIndex =
-                  districtDataList.districtNameList.indexOf(districtName);
+              if (dis != -1) {
+                district = districtDataList.list[dis];
+                districtIndex =
+                    districtDataList.districtNameList.indexOf(districtName);
+              }
             }
           }
 

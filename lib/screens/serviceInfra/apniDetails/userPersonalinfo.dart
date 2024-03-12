@@ -638,7 +638,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       initialDate: datePicker,
       backgroundColor: UikColor.giratina_300.toColor(),
       firstDate: DateTime(1950),
-      lastDate: DateTime(2005),
+      lastDate: DateTime.now(),
       dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,
       looping: false,
