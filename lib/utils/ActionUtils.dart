@@ -191,6 +191,7 @@ abstract class ActionUtils {
         final response2 =
             await ApiRepository.updateCustomerInfo({"profilePicUrl": imageUrl});
         if (response2.isSuccess!) {
+          UiUtils.showToast("Profile Picture Updated");
           NavigationUtils.pop();
           NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
         } else {
@@ -235,7 +236,7 @@ abstract class ActionUtils {
       });
       if (response.isSuccess!) {
         UiUtils.showToast("Location Updated");
-        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+        NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
         return null;
