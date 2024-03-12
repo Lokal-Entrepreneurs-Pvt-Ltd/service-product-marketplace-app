@@ -180,6 +180,11 @@ abstract class ActionUtils {
 
     if (result != null) {
       File pickedFile = File(result.path);
+      if (pickedFile.lengthSync() > 3000000) {
+        UiUtils.showToast("Image size should be less than 3 MB");
+        return;
+      }
+      UiUtils.showToast("Uploading Profile Picture ");
       final response = await ApiRepository.uploadDocuments(
         ApiRequestBody.getuploaddocumentsid(
           "misc",
