@@ -6,7 +6,10 @@ import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
+import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
+import 'package:ui_sdk/utils/extensions.dart';
 import '../../constants/dimens.dart';
 import '../../constants/json_constants.dart';
 import '../../constants/strings.dart';
@@ -27,6 +30,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  final TextEditingController referralIdController = TextEditingController();
 
   bool errorEmail = false;
   String descEmail = "";
@@ -45,6 +49,47 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   int authErrorCode = -1;
   String authErrorMessage = "";
   bool obscure = true;
+  bool referralError = false;
+  String referredAgentName = "";
+  String referredAgentAddress = "";
+  String referralErrorText = "";
+
+  void referralFetch() async {
+    // final response = await ApiRepository.getReferral(
+    //     {"referral": referralIdController.length});
+    final ApiResponse response = ApiResponse();
+    response.isSuccess = true;
+    response.data = {"agentName": "Ram Suthar", "agentAddress": "GHSSI,BUUIIN"};
+    if (response.isSuccess!) {
+      referredAgentName = response.data["agentName"] ?? "";
+      referredAgentAddress = response.data["agentAddress"] ?? "";
+      if (referredAgentName.isNotEmpty) {
+        setState(() {
+          referralError = false;
+        });
+      } else {
+        setState(() {
+          referralError = true;
+          referralErrorText = "Please Check Referral Code";
+        });
+      }
+    } else {
+      setState(() {
+        referralError = true;
+        referralErrorText = "Please Check Referral Code";
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    phoneNoController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    referralIdController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +112,29 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
         ),
       ),
     );
+  }
+
+  Widget referralText() {
+    return (referredAgentName.isNotEmpty)
+        ? Padding(
+            padding: const EdgeInsets.only(left: 16, top: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Referred By Agent $referredAgentName",
+                  style: TextStyles.poppins.body1.medium
+                      .colors(UikColor.venusaur_500),
+                ),
+                Text(
+                  referredAgentAddress,
+                  style: TextStyles.poppins.body1.medium
+                      .colors(UikColor.venusaur_500),
+                )
+              ],
+            ),
+          )
+        : Container();
   }
 
   Widget _buildSingupAsText() {
@@ -176,6 +244,14 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
               onChanged: _handleConfirmPasswordValidation,
             ),
             const SizedBox(height: DIMEN_20),
+            _buildTextField(
+              controller: referralIdController,
+              hintText: ENTER_REFERRAL,
+              errorText: referralError ? referralErrorText : null,
+              onChanged: _referralHandler,
+            ),
+            referralText(),
+            const SizedBox(height: DIMEN_20),
             _buildSignupButton(),
             const SizedBox(height: DIMEN_15),
             _buildPrivacyAndTermsText(),
@@ -200,6 +276,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
+        style: GoogleFonts.poppins(),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: GoogleFonts.poppins(
@@ -228,6 +305,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
             borderRadius: BorderRadius.circular(DIMEN_12),
             borderSide: BorderSide.none,
           ),
+          errorStyle: GoogleFonts.poppins(),
           errorText: errorText,
         ),
         onChanged: onChanged,
@@ -340,6 +418,28 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
         errorEmail = true;
         descEmail = VALID_EMAIL;
       });
+    }
+  }
+
+  void _referralHandler(String code) {
+    if (code.length == 7) {
+      referralFetch();
+    } else {
+      setState(() {
+        referredAgentName = "";
+        referredAgentAddress = "";
+      });
+      if (code.isEmpty) {
+        setState(() {
+          referralError = false;
+          referralErrorText = "";
+        });
+      } else {
+        setState(() {
+          referralError = true;
+          referralErrorText = "Enter 7 digit Referral Code";
+        });
+      }
     }
   }
 

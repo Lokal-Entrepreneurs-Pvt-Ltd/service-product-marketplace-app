@@ -187,6 +187,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
       child: TextField(
         enableSuggestions: true,
         controller: phoneController,
+        style: GoogleFonts.poppins(),
         keyboardType: TextInputType.phone, // Change keyboardType to phone
         decoration: InputDecoration(
           hintText: MOB, // Change hint text to PHONE_INPUT
@@ -203,6 +204,7 @@ class _CustomerLoginScreenState extends State<CustomerLoginScreen> {
             borderRadius: BorderRadius.circular(DIMEN_8),
             borderSide: BorderSide.none,
           ),
+          errorStyle: GoogleFonts.poppins(),
           errorText: errorPhone ? VALID_PHONE_NO : null, // Update error text
         ),
       ),

@@ -6,21 +6,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
-import 'package:lokal/screen_routes.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/screens/serviceInfra/apniDetails/apnadata/apnaPeronalData.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
-import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserPersonalInfo extends StatefulWidget {
@@ -46,6 +41,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   double lat = 0;
   double long = 0;
   Placemark? place = null;
+  bool locationLoading = false;
   int? age = null;
   bool isUpdating = false; // Added isUpdating variable
   List<String> workEx = [
@@ -64,7 +60,22 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     "Diploma/Certification",
   ];
   List<String> genderList = ["Male", "Female"];
-  List<String> industryList = ["Delivery", "Seller", "Advocate", "IT"];
+  List<String> industryList = [
+    "Delivery",
+    "Agriculture",
+    "Animal Science",
+    "Business ",
+    "Cosmetology",
+    "Customer Service",
+    "Creative",
+    "Education",
+    "Finance",
+    "Healthcare",
+    "Hospitality",
+    "Human Resources",
+    "Sales",
+    "IT"
+  ];
   int industryIndex = -1;
   int genderIndex = -1;
   int educationIndex = -1;
@@ -76,7 +87,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     _futureData = fetchData();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +94,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
-        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // If the future has completed, build the body with fetched data
             return isUpdating ? buildLoadingIndicator() : buildBody();
@@ -99,17 +110,17 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
           }
         },
       ),
-      persistentFooterButtons: isUpdating ? null : [buildContinueButton(context)], // Conditionally hide the footer
+      persistentFooterButtons: isUpdating
+          ? null
+          : [buildContinueButton(context)], // Conditionally hide the footer
     );
   }
 
   Widget buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
-
-
 
   Future<Map<String, dynamic>?> fetchData() async {
     try {
@@ -118,107 +129,128 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         final userDataMagento = response.data;
         final userData = response.data?['userModelData'];
         if (userData != null) {
+          lat = (userData['latitude'] as num?)?.toDouble() ?? 0;
+          long = (userData['longitude'] as num?)?.toDouble() ?? 0;
+          if (lat != 0 && long != 0) {
+            place = Placemark(
+              name: userData["placeName"],
+              street: userData["street"],
+              isoCountryCode: userData["isoCountryCode"],
+              country: userData["country"],
+              postalCode: userData["postalCode"],
+              administrativeArea: userData["administrativeArea"],
+              subAdministrativeArea: userData["subAdministrativeArea"],
+              locality: userData["locality"],
+              subLocality: userData["subLocality"],
+            );
+          }
+
           setState(() {
             name = userDataMagento['firstName'] ?? '';
             datePicker = userDataMagento['dob'] != null
                 ? DateTime.parse(userDataMagento['dob'])
                 : DateTime.now();
             calculateAge(datePicker!);
-            lat = userData['latitude'] ?? 0;
-            long = userData['longitude'] ?? 0;
             genderIndex = userData['gender'] == "Male" ? 0 : 1;
+            String workExperience = userData["workEx"] ?? "";
+            String preferrencedIndustry = userData["industryPreference"] ?? "";
+            if (preferrencedIndustry.isNotEmpty) {
+              industryIndex = industryList.indexOf(preferrencedIndustry);
+            }
+            if (workExperience.isNotEmpty) {
+              workExperienceIndex = workEx.indexOf(workExperience);
+            }
+            String educationText = userData["education"] ?? "";
+            if (educationText.isNotEmpty) {
+              educationIndex = education.indexOf(educationText);
+            }
           });
         }
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
     } catch (e) {
-      print(e);
       UiUtils.showToast("Error fetching initial data");
     }
   }
 
   Widget buildBody() {
     return SafeArea(
-      child: Stack(children: [
-        SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 21),
-                  child: buildTitle(
-                      "Apni Personal Details Bhare", 24, FontWeight.w600),
-                ),
-                buildTitle("Gender", 16, FontWeight.w500),
-                buildSelectable(genderList, genderIndex, (index) {
-                  updateSelectedIndex(index, IndexType.gender);
-                }),
-                SizedBox(height: 8),
-                TextInputContainer(
-                  fieldName: "Full Name (as on aadhar)",
-                  initialValue: name,
-                  onFileSelected: (text) {
+      child: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 21),
+                child: buildTitle(
+                    "Apni Personal Details Bhare", 24, FontWeight.w600),
+              ),
+              buildTitle("Gender", 16, FontWeight.w500),
+              buildSelectable(genderList, genderIndex, (index) {
+                updateSelectedIndex(index, IndexType.gender);
+              }),
+              const SizedBox(height: 8),
+              TextInputContainer(
+                fieldName: "Full Name (as on aadhar)",
+                initialValue: name,
+                onFileSelected: (text) {
+                  setState(() {
+                    name = text ?? "";
+                  });
+                },
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      flex: 3, child: buildDatePickerField("Date of Birth")),
+                  Expanded(child: buildAgeBox("Age")),
+                ],
+              ),
+              buildTitle("Education Background", 16, FontWeight.w500),
+              buildSelectable(education, educationIndex, (index) {
+                updateSelectedIndex(index, IndexType.education);
+              }),
+              buildTitle("Work Experience", 16, FontWeight.w500),
+              buildSelectable(workEx, workExperienceIndex, (index) {
+                updateSelectedIndex(index, IndexType.workExperience);
+              }),
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: () async {
+                  int? result = await Bottomsheets.showBottomListDialog(
+                    context: context,
+                    name: "Industry you want to work",
+                    call: () async {
+                      await Future.delayed(const Duration(milliseconds: 100));
+                      return DataForFunction(
+                          index: industryIndex, list: industryList);
+                    },
+                  );
+                  if (result != null && result >= 0) {
                     setState(() {
-                      name = text ?? "";
+                      industryIndex = result;
                     });
-                  },
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        flex: 3, child: buildDatePickerField("Date of Birth")),
-                    Expanded(child: buildAgeBox("Age")),
-                  ],
-                ),
-                buildTitle("Education Background", 16, FontWeight.w500),
-                buildSelectable(education, educationIndex, (index) {
-                  updateSelectedIndex(index, IndexType.education);
-                }),
-                buildTitle("Work Experience", 16, FontWeight.w500),
-                buildSelectable(workEx, workExperienceIndex, (index) {
-                  updateSelectedIndex(index, IndexType.workExperience);
-                }),
-                SizedBox(height: 8),
-                // _buildPhoneField(),
-                GestureDetector(
-                  onTap: () async {
-                    int? result = await Bottomsheets.showBottomListDialog(
-                      context,
-                      "Industry you want to work",
-                      () async {
-                        await Future.delayed(Duration(milliseconds: 1000));
-                        return DataForFunction(
-                            index: industryIndex, list: industryList);
-                      },
-                    );
-                    if (result != null && result >= 0) {
-                      setState(() {
-                        industryIndex = result;
-                      });
-                    }
-                  },
-                  child: builbottomsheedtfield("Industry you want to work",
-                      (industryIndex != -1) ? industryList[industryIndex] : ""),
-                ),
-
-                buildLocationField(),
-              ],
-            ),
+                  }
+                },
+                child: builbottomsheedtfield("Industry you want to work",
+                    (industryIndex != -1) ? industryList[industryIndex] : ""),
+              ),
+              buildLocationField(),
+            ],
           ),
         ),
-        appBar(),
-      ]),
+      ),
     );
   }
 
   Widget builbottomsheedtfield(String name, String selectedname) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding:
+          const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
@@ -261,12 +293,11 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     return GestureDetector(
       onTap: () => getLocation(),
       child: Container(
-        margin: EdgeInsets.only(bottom: 16),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
-        height: 64,
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
         width: double.maxFinite,
         decoration: BoxDecoration(
-          color: Color(0xFFF5F5F5),
+          color: const Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -284,90 +315,23 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 color: ("#9E9E9E").toColor(),
               ),
             ),
-            (place != null)
-                ? Text(
-                    place!.locality! + ", " + place!.postalCode!,
-                    style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.w400),
-                  )
-                : Container()
-          ],
-        ),
-      ),
-    );
-  }
-
-  double calculateProgress() {
-    // List of completion status for each field
-    List<bool> fieldCompletionStatus = [
-      genderIndex != -1,
-      name.isNotEmpty,
-      age != null,
-      educationIndex != -1,
-      workExperienceIndex != -1,
-      industryIndex != -1,
-      (lat != 0 && long != 0),
-    ];
-
-    // Calculate progress based on the number of completed fields
-    double progress =
-        fieldCompletionStatus.where((completed) => completed).length /
-            fieldCompletionStatus.length;
-
-    return progress;
-  }
-
-  Widget appBar() {
-    double progress = calculateProgress();
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 5,
-                width: progress * 80,
-                decoration: BoxDecoration(
-                  color: UikColor.gengar_500.toColor(),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
+            (locationLoading)
+                ? Container(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      color: Colors.yellow,
+                      strokeWidth: 2,
+                    ))
+                : (place != null &&
+                        place!.locality != null &&
+                        place!.postalCode != null)
+                    ? Text(
+                        "${place!.locality!}, ${place!.postalCode!}",
+                        style: GoogleFonts.poppins(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                      )
+                    : Container()
           ],
         ),
       ),
@@ -391,54 +355,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     );
   }
 
-  Widget _buildPhoneField() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
-      height: 64,
-      decoration: BoxDecoration(
-        color: ("#F5F5F5").toColor(),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Alternate Mobile Number",
-            textAlign: TextAlign.start,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: ("#9E9E9E").toColor(),
-            ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Expanded(
-            flex: 2,
-            child: TextField(
-              enableSuggestions: true,
-              //  controller: phoneController,
-              keyboardType: TextInputType.phone, // Change keyboardType to phone
-              style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w400),
-              decoration: InputDecoration(
-                  hintText: MOB, // Change hint text to PHONE_INPUT
-                  hintStyle: GoogleFonts.poppins(
-                    color: const Color(0xFF9E9E9E),
-                  ),
-                  border: InputBorder.none
-                  //  errorText: errorPhone ? VALID_PHONE_NO : null, // Update error text
-                  ),
-              scribbleEnabled: false,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget buildTitle(String text, double fontSize, FontWeight fontWeight) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -457,8 +373,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   Widget buildAgeBox(String fieldname) {
     return (datePicker != null)
         ? Container(
-            margin: EdgeInsets.only(left: 10),
-            padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+            margin: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16),
             height: 64,
             decoration: BoxDecoration(
               color: ("#F5F5F5").toColor(),
@@ -476,10 +392,10 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                     color: ("#9E9E9E").toColor(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Container(
+                SizedBox(
                   width: double.maxFinite,
                   height: 24,
                   child: (age != null)
@@ -607,25 +523,27 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         educationIndex != -1 &&
         workExperienceIndex != -1 &&
         industryIndex != -1 &&
-        (lat != 0 && long != 0);
+        (lat != 0 && long != 0) &&
+        place != null;
   }
-
 
   Widget buildContinueButton(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: CONTINUE,
+        text: SAVE_DETAILS,
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
-        backgroundColor: areAllFieldsSelected() ? Colors.yellow : Colors.grey, // Change button color based on field completion
+        backgroundColor: areAllFieldsSelected()
+            ? Colors.yellow
+            : Colors.grey, // Change button color based on field completion
         onClick: () {
           if (areAllFieldsSelected()) {
             updatedata();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Please fill in all required fields.'),
               ),
             );
@@ -664,14 +582,22 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             "industryPreference": industryList[industryIndex],
             "latitude": lat,
             "longitude": long,
-            "place": place
+            "street": place!.street,
+            "isoCountryCode": place!.isoCountryCode,
+            "country": place!.country,
+            "postalCode": place!.postalCode,
+            "placeName": place!.name,
+            "administrativeArea": place!.administrativeArea,
+            "subAdministrativeArea": place!.subAdministrativeArea,
+            "locality": place!.locality,
+            "subLocality": place!.subLocality,
           },
         );
 
         if (response.isSuccess!) {
+          UiUtils.showToast("Personal Details Updated");
           NavigationUtils.pop();
-          NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
-
+          // NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
@@ -686,8 +612,6 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       UiUtils.showToast("Please fill in all required fields.");
     }
   }
-
-
 
   void updateSelectedIndex(int index, IndexType indexType) {
     setState(() {
@@ -715,7 +639,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       initialDate: datePicker,
       backgroundColor: UikColor.giratina_300.toColor(),
       firstDate: DateTime(1950),
-      lastDate: DateTime(2005),
+      lastDate: DateTime.now(),
       dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,
       looping: false,
@@ -730,19 +654,19 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   }
 
   Future<void> getLocation() async {
+    setState(() {
+      locationLoading = true;
+    });
     Position? position = await LocationUtils.getCurrentPosition();
     if (position != null) {
       List<Placemark> placemarks =
           await placemarkFromCoordinates(position.latitude, position.longitude);
       setState(() {
+        locationLoading = false;
         lat = position.latitude;
         long = position.longitude;
         place = placemarks[0];
       });
-      // for (var element in placemarks) {
-      //   print(element);
-      // }
-      print(place!.locality! + place!.postalCode.toString());
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
       lat = -1;

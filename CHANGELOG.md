@@ -11,8 +11,26 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.39+39] - 2024-3-12
+Profile fixes.
 
-## [1.0.31+32] - 2024-2-21
+## [1.0.37+37] - 2024-3-11
+Fixes
+
+## [1.0.37+37] - 2024-3-07
+New rich profile
+
+
+## [1.0.36+36] - 2024-2-29
+Fixes in Service Detail
+
+## [1.0.35+35] - 2024-2-27
+Profile fetches data from backend
+
+## [1.0.34+34] - 2024-2-24
+new Profile
+
+## [1.0.31+32] - 2024-2-21 
 new HS
 
 ## [1.0.31+32] - 2024-2-20

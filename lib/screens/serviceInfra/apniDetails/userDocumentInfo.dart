@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/constants/strings.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
@@ -21,110 +22,88 @@ class UserDocumentInfo extends StatefulWidget {
 
 class _UserDocumentInfoState extends State<UserDocumentInfo> {
   // Create a new list to track upload success for each file
+  Future<Map<String, dynamic>?>? _futureData;
   late List<String?> uploadSuccessList;
   List<String> list = [
     "Upload Your Aadhar Card Front Image. (Max Size 1 MB )",
     "Upload Your Aadhar Card Back Image. (Max Size 1 MB )",
     "Upload Your Pan Card Image. (Max Size 1 MB )",
   ];
-
   @override
   void initState() {
     super.initState();
+    _futureData = fetchData();
     uploadSuccessList = List.filled(list.length, null);
+  }
+
+  Future<Map<String, dynamic>?> fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+      if (response.isSuccess!) {
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          setState(() {
+            uploadSuccessList[0] = userData["aadharCardF"];
+            uploadSuccessList[1] = userData["aadharCardB"];
+            uploadSuccessList[2] = userData["pan"];
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      print(e);
+      UiUtils.showToast("Error fetching initial data");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Stack(children: [
-          SingleChildScrollView(
-            child: buildBody(),
-          ),
-          appBar(),
-        ]),
+      backgroundColor: Colors.white, // Conditionally hide the app bar
+      body: FutureBuilder<Map<String, dynamic>?>(
+        // Use FutureBuilder to wait for the fetchData to complete
+        future: _futureData,
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // If the future has completed, build the body with fetched data
+            return buildBody();
+          } else if (snapshot.hasError) {
+            // Handle any errors that occur during data fetching
+            return Center(
+              child: Text("Error: ${snapshot.error}"),
+            );
+          } else {
+            // Show a loading indicator while fetching data
+            return buildLoadingIndicator();
+          }
+        },
       ),
       persistentFooterButtons: [
-        buildContinueButton(),
-      ],
+        buildContinueButton()
+      ], // Conditionally hide the footer
+    );
+  }
+
+  Widget buildLoadingIndicator() {
+    return const Center(
+      child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
 
   Widget buildBody() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildUploadDocumentsTitle(),
-          buildUploadButtons(),
-        ],
-      ),
-    );
-  }
-
-  double calculateProgress() {
-    double progress =
-        uploadSuccessList.where((completed) => completed != null).length /
-            uploadSuccessList.length;
-
-    return progress;
-  }
-
-  Widget appBar() {
-    double progress = calculateProgress();
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.gengar_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.gengar_300.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.gengar_400.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              width: 80,
-              height: 5,
-              decoration: BoxDecoration(
-                color: UikColor.giratina_200.toColor(),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Container(
-                height: 5,
-                width: progress * 80,
-                decoration: BoxDecoration(
-                  color: UikColor.gengar_500.toColor(),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ),
-          ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildUploadDocumentsTitle(),
+              buildUploadButtons(),
+            ],
+          ),
         ),
       ),
     );
@@ -152,6 +131,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
             children: [
               UploadButton(
                 text: list[i],
+                imageUrl: uploadSuccessList[i] ?? "",
                 documentType: "misc",
                 onFileSelected: (pickedFile) async {
                   setState(() {
@@ -170,7 +150,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: "Continue",
+        text: SAVE_DETAILS,
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
@@ -200,7 +180,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
 
         if (response.isSuccess!) {
           NavigationUtils.pop();
-          UiUtils.showToast("SuccessFully Uploaded");
+          UiUtils.showToast("Documents SuccessFully Uploaded");
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }

@@ -13,10 +13,13 @@ class DataForFunction {
 class BottomSheetBasedOnFuture extends StatefulWidget {
   final String name;
   final Future<DataForFunction> Function() call;
-
+  bool searchField;
+  bool alternateColoring;
   BottomSheetBasedOnFuture({
     required this.name,
     required this.call,
+    this.searchField = true,
+    this.alternateColoring = true,
   });
 
   @override
@@ -61,9 +64,10 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
           double screenHeight = MediaQuery.of(context).size.height;
           double availableHeight = screenHeight -
               kToolbarHeight; // Subtracting app bar height if present
-
-          double contentHeight = filteredList.length * 56.0 +
-              180; // Assuming each item has a height of 56.0 (adjust as needed)
+          double searchfieldheight = (widget.searchField) ? 60 : 0;
+          double contentHeight =
+              filteredList.length * 40.0 + 100 + searchfieldheight;
+          // Assuming each item has a height of 56.0 (adjust as needed)
           double calculatedHeight =
               contentHeight > availableHeight ? availableHeight : contentHeight;
 
@@ -94,35 +98,37 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                  child: TextFormField(
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: "Search ${widget.name}",
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        filteredList = list
-                            .where((element) => element
-                                .toLowerCase()
-                                .contains(value.toLowerCase()))
-                            .toList();
-                      });
-                    },
-                  ),
-                ),
+                (widget.searchField)
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 5),
+                        child: TextFormField(
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: "Search ${widget.name}",
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              filteredList = list
+                                  .where((element) => element
+                                      .toLowerCase()
+                                      .contains(value.toLowerCase()))
+                                  .toList();
+                            });
+                          },
+                        ),
+                      )
+                    : Container(),
                 Expanded(
                   child: ListView.builder(
                     itemCount: filteredList.length,
@@ -154,9 +160,11 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
     bool isSelected,
   ) {
     return Container(
-      color: isSelected
-          ? Colors.yellow // Change this to your desired color
-          : (index % 2 == 0 ? Colors.grey[200] : Colors.white),
+      color: (widget.alternateColoring)
+          ? isSelected
+              ? Colors.yellow // Change this to your desired color
+              : (index % 2 == 0 ? Colors.grey[200] : Colors.white)
+          : Colors.grey[200],
       child: ListTile(
         title: Text(
           state,
@@ -177,18 +185,25 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
 }
 
 class Bottomsheets {
-  static Future<int?> showBottomListDialog(
-    BuildContext context,
-    String name,
-    Future<DataForFunction> Function() call,
-  ) async {
+  static Future<int?> showBottomListDialog({
+    required BuildContext context,
+    required String name,
+    required Future<DataForFunction> Function() call,
+    bool searchField = true,
+    bool alternateColoring = true,
+  }) async {
     return showModalBottomSheet<int>(
       backgroundColor: Colors.white,
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
       builder: (BuildContext context) {
-        return BottomSheetBasedOnFuture(name: name, call: call);
+        return BottomSheetBasedOnFuture(
+          name: name,
+          call: call,
+          searchField: searchField,
+          alternateColoring: alternateColoring,
+        );
       },
     );
   }
