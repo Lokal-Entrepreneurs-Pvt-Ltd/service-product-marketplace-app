@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -180,6 +181,15 @@ abstract class ActionUtils {
 
     if (result != null) {
       File pickedFile = File(result.path);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Colors.yellow,
+          ));
+        },
+      );
       if (pickedFile.lengthSync() > 3000000) {
         UiUtils.showToast("Image size should be less than 3 MB");
         return;
@@ -195,6 +205,7 @@ abstract class ActionUtils {
         String imageUrl = response.data["url"];
         final response2 =
             await ApiRepository.updateCustomerInfo({"profilePicUrl": imageUrl});
+        Navigator.of(context).pop();
         if (response2.isSuccess!) {
           UiUtils.showToast("Profile Picture Updated");
           NavigationUtils.pop();
