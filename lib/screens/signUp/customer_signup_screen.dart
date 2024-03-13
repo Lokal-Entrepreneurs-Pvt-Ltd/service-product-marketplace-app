@@ -53,6 +53,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   String referredAgentName = "";
   String referredAgentAddress = "";
   String referralErrorText = "";
+  String confirmedReferCode = "";
 
   void referralFetch(String code) async {
     final response = await ApiRepository.getUserByLokalID({"lokalID": code});
@@ -64,6 +65,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
             "${userData["locality"] ?? ""}, ${userData["administrativeArea"] ?? ""}, ${userData["country"] ?? ""}, ${userData["postalCode"] ?? ""}";
         if (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty) {
           setState(() {
+            confirmedReferCode = code;
             referralError = false;
           });
         } else {
@@ -431,6 +433,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
       referralFetch(code);
     } else {
       setState(() {
+        confirmedReferCode = "";
         referredAgentName = "";
         referredAgentAddress = "";
       });
@@ -488,6 +491,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
           passwordController.text,
           CUSTOMER,
           phoneNoController.text,
+          confirmedReferCode,
         ),
       ).catchError((error) {
         NavigationUtils.pop();
