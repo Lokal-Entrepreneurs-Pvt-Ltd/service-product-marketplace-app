@@ -53,6 +53,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String referredAgentName = "";
   String referredAgentAddress = "";
   String referralErrorText = "";
+  String confirmedReferCode = "";
 
   final List<String> userTypes = [PARTNER, AGENT];
   String selectedUserType = PARTNER;
@@ -67,6 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
             "${userData["locality"] ?? ""}, ${userData["administrativeArea"] ?? ""}, ${userData["country"] ?? ""}, ${userData["postalCode"] ?? ""}";
         if (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty) {
           setState(() {
+            confirmedReferCode = code;
             referralError = false;
           });
         } else {
@@ -448,6 +450,7 @@ class _SignupScreenState extends State<SignupScreen> {
       referralFetch(code);
     } else {
       setState(() {
+        confirmedReferCode = "";
         referredAgentName = "";
         referredAgentAddress = "";
       });
@@ -514,8 +517,12 @@ class _SignupScreenState extends State<SignupScreen> {
         UiUtils.isPhoneNoValid(phoneNoController.text)) {
       NavigationUtils.showLoaderOnTop();
       final response = await ApiRepository.signupByPhoneNumberOrEmail(
-        ApiRequestBody.getSignUpRequest(emailController.text,
-            passwordController.text, selectedUserType, phoneNoController.text),
+        ApiRequestBody.getSignUpRequest(
+            emailController.text,
+            passwordController.text,
+            selectedUserType,
+            phoneNoController.text,
+            confirmedReferCode),
       ).catchError((error) {
         NavigationUtils.pop();
       });
