@@ -25,6 +25,7 @@ import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/screens/serviceInfra/status.dart';
 import 'package:lokal/widgets/UikFilter.dart';
+import 'package:upgrader/upgrader.dart';
 import '../../pages/UikAgentsForUserService.dart';
 import '../../pages/UikCustomerLokalQr.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
@@ -106,7 +107,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    //  : _customerloginScreen.path,
+    // initialLocation: _customerSignUpScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -194,7 +195,7 @@ class AppRoutes {
     path: ScreenRoutes.accountSettings,
     builder: (context, state) {
       // args: state.extra as Map<String, dynamic>
-      return UikAccountSettings().page;
+      return MyAccountWrapper(page: UikAccountSettings().page);
     },
   );
 
@@ -335,8 +336,11 @@ class AppRoutes {
   static final GoRoute uikBottomNavigationBar = GoRoute(
     path: ScreenRoutes.uikBottomNavigationBar,
     builder: (context, state) {
-      return UikBottomNavigationBar(
-        key: state.pageKey,
+      return UpgradeAlert(
+        showIgnore: false,
+        child: UikBottomNavigationBar(
+          key: state.pageKey,
+        ),
       );
     },
   );
