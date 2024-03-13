@@ -105,5 +105,6 @@ class ApiRoutes {
   static const String stateList = "/location/getStatesList";
   static const String districtListByState = "/location/getDistrictForState";
   static const String dynamicLandingPage = "/dynamic/landingPage";
-
+  static const String getCustomerProfileInfo = "/customer/getProfileInfo";
+  static const String myAccountSettings = "/customer/accountSettings";
 }

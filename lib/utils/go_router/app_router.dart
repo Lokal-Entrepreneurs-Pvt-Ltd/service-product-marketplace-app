@@ -2,7 +2,9 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
+import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -88,13 +90,24 @@ class AppRoutes {
     }
   }
 
+  static void popUntilByName(String name) {
+    while (_goRouter.canPop()) {
+      GoRoute go =
+          _goRouter.routerDelegate.currentConfiguration.routes.last as GoRoute;
+      if (go.path == name) {
+        break;
+      }
+      _goRouter.pop();
+    }
+    print(_goRouter.routerDelegate.currentConfiguration.routes.length);
+  }
+
   static final GoRouter _goRouter = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
     //  : _customerloginScreen.path,
-    // initialLocation: _apniPersonalInfo.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -160,12 +173,32 @@ class AppRoutes {
       _userGeneralInfo,
       _userOtherInfo,
       _userDocumentInfo,
+      _newsScreen,
       _dynamicPage,
-      _newsScreen
+      _userAccountDetails,
+      _userAccountSettings,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _userAccountDetails = GoRoute(
+    path: ScreenRoutes.userAccountDetails,
+    builder: (context, state) {
+      return UserAccountDetails(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
+
+  static final GoRoute _userAccountSettings = GoRoute(
+    path: ScreenRoutes.accountSettings,
+    builder: (context, state) {
+      // args: state.extra as Map<String, dynamic>
+      return UikAccountSettings().page;
+    },
+  );
 
   static final GoRoute _userPersonalInfo = GoRoute(
     path: ScreenRoutes.userProfileInfo,
@@ -201,7 +234,7 @@ class AppRoutes {
     path: ScreenRoutes.dynamicPage,
     builder: (context, state) {
       final Map<String, dynamic>? extraArgs =
-      state.extra as Map<String, dynamic>?;
+          state.extra as Map<String, dynamic>?;
       return UikDynamicPage(
         args: extraArgs,
       ).page;
@@ -403,7 +436,9 @@ class AppRoutes {
     builder: (context, state) {
       // final Map<String, dynamic>? extraArgs =
       // state.extra as Map<String, dynamic>?;
-      return const DUIPage(pageUid: 'newspage-65b9f82cea98f4e5239d621b',);
+      return const DUIPage(
+        pageUid: 'newspage-65b9f82cea98f4e5239d621b',
+      );
     },
   );
   static final GoRoute _partnerTrainingHome = GoRoute(

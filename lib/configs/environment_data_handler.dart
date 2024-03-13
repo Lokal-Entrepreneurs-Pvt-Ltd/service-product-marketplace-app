@@ -18,8 +18,8 @@ class EnvironmentDataHandler {
   }
 
 // Set your url here
-  static String  getLocalBaseUrl() {
+  static String getLocalBaseUrl() {
     return PreferenceUtils.getString(
-        LOCAL_BASE_URL,"https://prod.localee.co.in/api");
+        LOCAL_BASE_URL, "https://prod.localee.co.in/api");
   }
 }

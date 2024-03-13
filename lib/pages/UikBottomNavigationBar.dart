@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikHomeWrapper.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
 import 'package:lokal/pages/UikMyAccountScreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
@@ -109,25 +110,6 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           ),
         ],
       ),
-      // TargetFocus(
-      //   identify: "home-key",
-      //   keyTarget: jobkey,
-      //   shape: ShapeLightFocus.Circle,
-      //   radius: 80,
-      //   contents: [
-      //     TargetContent(
-      //       align: ContentAlign.top,
-      //       builder: (context, controller) {
-      //         return CoachMark(
-      //           text: "This is the Job page where you find related job",
-      //           onNext: () {
-      //             controller.next();
-      //           },
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
       TargetFocus(
         identify: "home-key",
         keyTarget: menukey,
@@ -188,11 +170,10 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               children: <Widget>[
                 buildNavItem(Icons.home, 'Home', 0, homekey),
                 // buildNavItem(Icons.work, "Job", 1, jobkey),
-                buildNavItem(Icons.menu_book, 'Academy', 2, menukey),
+                buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
                 buildNavItem(
                     Icons.person_outline_sharp, 'Account', 3, accountkey),
-                buildNavItem(
-                    Icons.newspaper, 'News', 3, newsKey),
+                buildNavItem(Icons.newspaper, 'News', 2, newsKey),
                 // buildNavItem(Icons.payment, 'ExtraPe', 3),
                 // Add more items as needed
               ],
@@ -310,19 +291,31 @@ class _CoachMarkState extends State<CoachMark> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(widget.text),
+          Text(
+            widget.text,
+            style: GoogleFonts.poppins(),
+          ),
           const SizedBox(
             height: 16,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(onPressed: widget.onSkip, child: Text(widget.skip)),
+              TextButton(
+                  onPressed: widget.onSkip,
+                  child: Text(
+                    widget.skip,
+                    style: GoogleFonts.poppins(),
+                  )),
               const SizedBox(
                 width: 10,
               ),
               ElevatedButton(
-                  onPressed: widget.onNext, child: Text(widget.next)),
+                  onPressed: widget.onNext,
+                  child: Text(
+                    widget.next,
+                    style: GoogleFonts.poppins(),
+                  )),
             ],
           )
         ],

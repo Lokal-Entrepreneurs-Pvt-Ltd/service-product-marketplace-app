@@ -235,6 +235,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
       padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: TextField(
         enableSuggestions: true,
+        style: GoogleFonts.poppins(),
         controller: emailController,
         keyboardType: TextInputType.emailAddress, // Set keyboard type for email
         decoration: InputDecoration(
@@ -252,6 +253,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
             borderRadius: BorderRadius.circular(DIMEN_8),
             borderSide: BorderSide.none,
           ),
+          errorStyle: GoogleFonts.poppins(),
           errorText:
               errorEmail ? (isPhoneInput ? VALID_PHONE_NO : VALID_EMAIL) : null,
         ),
@@ -270,6 +272,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
             padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
             child: TextField(
               enableSuggestions: true,
+              style: GoogleFonts.poppins(),
               controller: passwordController,
               obscureText: obscureText,
               decoration: InputDecoration(
@@ -298,6 +301,7 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
                   borderRadius: BorderRadius.circular(DIMEN_8),
                   borderSide: BorderSide.none,
                 ),
+                errorStyle: GoogleFonts.poppins(),
                 errorText: errorPassword ? PASSWORD_LENGTH : null,
               ),
             ),
@@ -403,21 +407,22 @@ class _LokalPartnerLoginScreenState extends State<LokalPartnerLoginScreen> {
     }
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
 
-    if (isPhoneInput)
+    if (isPhoneInput) {
       NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
         "phoneNumber": emailController.text.toString(),
         USERTYPE: selectedUserType
       });
-    else {
+    } else {
       if (response.data[NEXT_PAGE] != null) {
         final String nextPage = response.data[NEXT_PAGE];
-        if (nextPage.isNotEmpty)
-          NavigationUtils.openScreenUntil(nextPage);
-  
-        else
-          NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
-      } else
-        NavigationUtils.openScreenUntil(ScreenRoutes.uikBottomNavigationBar);
+        if (nextPage.isNotEmpty) {
+          NavigationUtils.popAllAndPush(nextPage);
+        } else {
+          NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
+        }
+      } else {
+        NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
+      }
     }
   }
 

@@ -168,6 +168,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.myAddressScreen, args);
   }
 
+  static Future<ApiResponse> getAccountSettings(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.myAccountSettings, args);
+  }
+
   static Future<ApiResponse> getLoginScreen(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.loginScreen, args);
   }
@@ -363,8 +367,14 @@ class ApiRepository {
   static Future<ApiResponse> getJobsLandingPage(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.jobsLandingPage, args);
   }
+
   static Future<ApiResponse> getDynamicLandingPage(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.dynamicLandingPage, args);
+  }
+
+  static Future<ApiResponse> getUserAccountDetails(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getCustomerProfileInfo, args);
   }
 }
 
