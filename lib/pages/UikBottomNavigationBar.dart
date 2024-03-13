@@ -188,11 +188,10 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               children: <Widget>[
                 buildNavItem(Icons.home, 'Home', 0, homekey),
                 // buildNavItem(Icons.work, "Job", 1, jobkey),
-                buildNavItem(Icons.menu_book, 'Academy', 2, menukey),
+                buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
                 buildNavItem(
                     Icons.person_outline_sharp, 'Account', 3, accountkey),
-                buildNavItem(
-                    Icons.newspaper, 'News', 3, newsKey),
+                buildNavItem(Icons.newspaper, 'News', 2, newsKey),
                 // buildNavItem(Icons.payment, 'ExtraPe', 3),
                 // Add more items as needed
               ],
