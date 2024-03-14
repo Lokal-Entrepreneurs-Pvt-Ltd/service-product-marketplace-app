@@ -69,6 +69,7 @@ const String AADHAR_NUMBER = "aadhaarNo";
 const String AADHAR = "aadhar";
 const String PAN_NUMBER = "panNo";
 const String PAN = "pan";
+const String REFRER_CODE = "refferCode";
 const String LOCATION = "location";
 const String VILLAGE = "village";
 const String DISTRICT = "district";
