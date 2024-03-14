@@ -110,3 +110,4 @@ const String RELOCATE = "relocate";
 const String GST = "gst";
 const String AADHARF = "aadharCardF";
 const String AADHARB = "aadharCardB";
+const String REFERRED_BY = "referredBy";

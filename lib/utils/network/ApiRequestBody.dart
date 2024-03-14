@@ -58,12 +58,13 @@ class ApiRequestBody {
     return {PHONE_NUMBER: phoneNo};
   }
 
-  static getSignUpRequest(String email, password, userType, phoneNo) {
+  static getSignUpRequest(String email, password, userType, phoneNo, confirmedReferCode) {
     return {
       EMAIL: email,
       PASSWORD: password,
       USER_TYPE: userType,
-      PHONE_NUMBER: phoneNo
+      PHONE_NUMBER: phoneNo,
+      REFERRED_BY :  confirmedReferCode
     };
   }
 
