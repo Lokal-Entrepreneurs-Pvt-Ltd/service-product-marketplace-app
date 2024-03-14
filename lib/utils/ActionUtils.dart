@@ -212,7 +212,7 @@ abstract class ActionUtils {
 
   static void clearDataAndMoveToOnboarding(UikAction uikAction) {
     UserDataHandler.clearUserToken();
-    NavigationUtils.openScreen(ScreenRoutes.onboardingScreen, {});
+    NavigationUtils.popAllAndPush(ScreenRoutes.onboardingScreen, {});
     // todo mano recreate the main.dart by adding listners
   }
 
