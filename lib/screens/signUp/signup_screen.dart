@@ -65,7 +65,10 @@ class _SignupScreenState extends State<SignupScreen> {
       if (userData != null) {
         referredAgentName = userData["firstName"] ?? "";
         referredAgentAddress =
-            "${userData["locality"] ?? ""}, ${userData["administrativeArea"] ?? ""}, ${userData["country"] ?? ""}, ${userData["postalCode"] ?? ""}";
+            "${userData["locality"]}${userData["locality"].isNotEmpty ? ", " : ""}"
+            "${userData["administrativeArea"]}${userData["administrativeArea"].isNotEmpty ? ", " : ""}"
+            "${userData["country"]}${userData["country"].isNotEmpty ? ", " : ""}"
+            "${userData["postalCode"]}";
         if (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty) {
           setState(() {
             confirmedReferCode = code;

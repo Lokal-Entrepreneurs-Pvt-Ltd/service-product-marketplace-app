@@ -181,15 +181,7 @@ abstract class ActionUtils {
 
     if (result != null) {
       File pickedFile = File(result.path);
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const Center(
-              child: CircularProgressIndicator(
-            color: Colors.yellow,
-          ));
-        },
-      );
+      NavigationUtils.showLoaderOnTop();
       if (pickedFile.lengthSync() > 3000000) {
         UiUtils.showToast("Image size should be less than 3 MB");
         return;
@@ -205,7 +197,7 @@ abstract class ActionUtils {
         String imageUrl = response.data["url"];
         final response2 =
             await ApiRepository.updateCustomerInfo({"profilePicUrl": imageUrl});
-        Navigator.of(context).pop();
+        NavigationUtils.pop();
         if (response2.isSuccess!) {
           UiUtils.showToast("Profile Picture Updated");
           NavigationUtils.pop();
@@ -228,8 +220,10 @@ abstract class ActionUtils {
   }
 
   static void handleSelectedLocation() async {
+    UiUtils.showToast("Location is Updating");
+    NavigationUtils.showLoaderOnTop();
     Position? position = await LocationUtils.getCurrentPosition();
-
+    // var context = AppRoutes.rootNavigatorKey.currentContext;
     if (position != null) {
       double lat = position.latitude;
       double long = position.longitude;
@@ -254,11 +248,13 @@ abstract class ActionUtils {
         UiUtils.showToast("Location Updated");
         NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
       } else {
+        NavigationUtils.pop();
         UiUtils.showToast(response.error![MESSAGE]);
         return null;
       }
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
+      NavigationUtils.pop();
       print('Failed to retrieve the current location.');
     }
   }
