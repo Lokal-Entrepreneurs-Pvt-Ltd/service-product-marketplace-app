@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
+import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -176,6 +177,7 @@ class AppRoutes {
       _dynamicPage,
       _userAccountDetails,
       _userAccountSettings,
+      _deliveryJobsDetailsPage
     ],
   );
 
@@ -381,6 +383,14 @@ class AppRoutes {
     path: ScreenRoutes.jobsDetailsPage,
     builder: (context, state) {
       return JobDetailsScreen(
+          key: state.pageKey, args: state.extra as Map<String, dynamic>?);
+    },
+  );
+
+  static final GoRoute _deliveryJobsDetailsPage = GoRoute(
+    path: ScreenRoutes.deliveryJobsDetailsPage,
+    builder: (context, state) {
+      return DeliveryJobDetailsScreen(
           key: state.pageKey, args: state.extra as Map<String, dynamic>?);
     },
   );
