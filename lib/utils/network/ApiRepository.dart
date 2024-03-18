@@ -12,6 +12,10 @@ class ApiRepository {
     return dio;
   }
 
+  static Future<ApiResponse> getUserByLokalID(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.getUserByLokalId, args);
+  }
+
   static Future<ApiResponse> getStateList(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.stateList, args);
   }

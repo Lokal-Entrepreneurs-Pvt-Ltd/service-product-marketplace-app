@@ -53,23 +53,33 @@ class _SignupScreenState extends State<SignupScreen> {
   String referredAgentName = "";
   String referredAgentAddress = "";
   String referralErrorText = "";
+  String confirmedReferCode = "";
 
   final List<String> userTypes = [PARTNER, AGENT];
   String selectedUserType = PARTNER;
 
-  void referralFetch() async {
-    // final response = await ApiRepository.getReferral(
-    //     {"referral": referralIdController.length});
-    final ApiResponse response = ApiResponse();
-    response.isSuccess = true;
-    response.data = {"agentName": "Ram Suthar", "agentAddress": "GHSSI,BUUIIN"};
+  void referralFetch(String code) async {
+    final response = await ApiRepository.getUserByLokalID({"lokalID": code});
     if (response.isSuccess!) {
-      referredAgentName = response.data["agentName"] ?? "";
-      referredAgentAddress = response.data["agentAddress"] ?? "";
-      if (referredAgentName.isNotEmpty) {
-        setState(() {
-          referralError = false;
-        });
+      final userData = response.data;
+      if (userData != null) {
+        referredAgentName = userData["firstName"] ?? "";
+        referredAgentAddress =
+            "${userData["locality"]}${userData["locality"].isNotEmpty ? ", " : ""}"
+            "${userData["administrativeArea"]}${userData["administrativeArea"].isNotEmpty ? ", " : ""}"
+            "${userData["country"]}${userData["country"].isNotEmpty ? ", " : ""}"
+            "${userData["postalCode"]}";
+        if (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty) {
+          setState(() {
+            confirmedReferCode = code;
+            referralError = false;
+          });
+        } else {
+          setState(() {
+            referralError = true;
+            referralErrorText = "Please Check Referral Code";
+          });
+        }
       } else {
         setState(() {
           referralError = true;
@@ -116,7 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget referralText() {
-    return (referredAgentName.isNotEmpty)
+    return (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty)
         ? Padding(
             padding: const EdgeInsets.only(left: 16, top: 8),
             child: Column(
@@ -439,10 +449,11 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void _referralHandler(String code) {
-    if (code.length == 7) {
-      referralFetch();
+    if (code.length == 9 || code.length == 10) {
+      referralFetch(code);
     } else {
       setState(() {
+        confirmedReferCode = "";
         referredAgentName = "";
         referredAgentAddress = "";
       });
@@ -509,8 +520,12 @@ class _SignupScreenState extends State<SignupScreen> {
         UiUtils.isPhoneNoValid(phoneNoController.text)) {
       NavigationUtils.showLoaderOnTop();
       final response = await ApiRepository.signupByPhoneNumberOrEmail(
-        ApiRequestBody.getSignUpRequest(emailController.text,
-            passwordController.text, selectedUserType, phoneNoController.text),
+        ApiRequestBody.getSignUpRequest(
+            emailController.text,
+            passwordController.text,
+            selectedUserType,
+            phoneNoController.text,
+            confirmedReferCode),
       ).catchError((error) {
         NavigationUtils.pop();
       });

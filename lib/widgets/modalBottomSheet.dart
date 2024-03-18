@@ -27,13 +27,33 @@ class BottomSheetBasedOnFuture extends StatefulWidget {
       _BottomSheetBasedOnFutureState();
 }
 
-class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
+class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture>
+    with WidgetsBindingObserver {
   late Future<DataForFunction> _dataForFunctionFuture;
+  late List<String> list;
+  List<String>? filteredList;
+  double bottomSheetHeight = 0;
 
   @override
   void initState() {
     super.initState();
     _dataForFunctionFuture = widget.call();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    setState(() {
+      bottomSheetHeight = keyboardHeight > 0 ? keyboardHeight : 0;
+    });
+    super.didChangeMetrics();
   }
 
   @override
@@ -58,18 +78,23 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
           );
         } else {
           DataForFunction dataForFunction = snapshot.data!;
-          List<String> list = dataForFunction.list;
-          List<String> filteredList = List.from(dataForFunction.list);
+
+          // List<String> list = dataForFunction.list;
+          // List<String> filteredList = List.from(dataForFunction.list);
+          list = dataForFunction.list;
+          filteredList ??= list;
 
           double screenHeight = MediaQuery.of(context).size.height;
           double availableHeight = screenHeight -
               kToolbarHeight; // Subtracting app bar height if present
           double searchfieldheight = (widget.searchField) ? 60 : 0;
           double contentHeight =
-              filteredList.length * 40.0 + 100 + searchfieldheight;
+              filteredList!.length * 40.0 + 100 + searchfieldheight;
           // Assuming each item has a height of 56.0 (adjust as needed)
-          double calculatedHeight =
-              contentHeight > availableHeight ? availableHeight : contentHeight;
+          double calculatedHeight = (contentHeight > availableHeight
+                  ? availableHeight
+                  : contentHeight) +
+              bottomSheetHeight;
 
           return Container(
             height: calculatedHeight,
@@ -131,13 +156,13 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture> {
                     : Container(),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: filteredList.length,
+                    itemCount: filteredList!.length,
                     itemBuilder: (BuildContext context, int index) {
                       bool isSelected = (index == dataForFunction.index);
                       return _buildLocationItem(
                         context,
                         list,
-                        filteredList[index],
+                        filteredList![index],
                         index,
                         isSelected,
                       );

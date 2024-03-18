@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
+import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -26,6 +27,7 @@ import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/screens/serviceInfra/status.dart';
 import 'package:lokal/widgets/UikFilter.dart';
+import 'package:upgrader/upgrader.dart';
 import '../../pages/UikAgentsForUserService.dart';
 import '../../pages/UikCustomerLokalQr.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
@@ -107,7 +109,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    //  : _customerloginScreen.path,
+    // initialLocation: _customerSignUpScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -177,6 +179,7 @@ class AppRoutes {
       _dynamicPage,
       _userAccountDetails,
       _userAccountSettings,
+      _deliveryJobsDetailsPage
     ],
   );
 
@@ -196,7 +199,7 @@ class AppRoutes {
     path: ScreenRoutes.accountSettings,
     builder: (context, state) {
       // args: state.extra as Map<String, dynamic>
-      return UikAccountSettings().page;
+      return MyAccountWrapper(page: UikAccountSettings().page);
     },
   );
 
@@ -337,8 +340,11 @@ class AppRoutes {
   static final GoRoute uikBottomNavigationBar = GoRoute(
     path: ScreenRoutes.uikBottomNavigationBar,
     builder: (context, state) {
-      return UikBottomNavigationBar(
-        key: state.pageKey,
+      return UpgradeAlert(
+        showIgnore: false,
+        child: UikBottomNavigationBar(
+          key: state.pageKey,
+        ),
       );
     },
   );
@@ -379,6 +385,14 @@ class AppRoutes {
     path: ScreenRoutes.jobsDetailsPage,
     builder: (context, state) {
       return JobDetailsScreen(
+          key: state.pageKey, args: state.extra as Map<String, dynamic>?);
+    },
+  );
+
+  static final GoRoute _deliveryJobsDetailsPage = GoRoute(
+    path: ScreenRoutes.deliveryJobsDetailsPage,
+    builder: (context, state) {
+      return DeliveryJobDetailsScreen(
           key: state.pageKey, args: state.extra as Map<String, dynamic>?);
     },
   );
