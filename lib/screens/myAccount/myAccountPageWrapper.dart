@@ -5,8 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:lokal/pages/UikMyAccountScreen.dart';
 
-class
-MyAccountWrapper extends StatefulWidget {
+class MyAccountWrapper extends StatefulWidget {
   StatefulWidget page;
   MyAccountWrapper({
     Key? key,
@@ -21,7 +20,6 @@ class _MyAccountWrapperState extends State<MyAccountWrapper> {
   final StatefulWidget page;
   _MyAccountWrapperState(this.page);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +27,12 @@ class _MyAccountWrapperState extends State<MyAccountWrapper> {
         child: Column(
           children: [
             //UikMyAccountScreen().page,
-            SizedBox(
-              child: page,
-              height: MediaQuery.of(context).size.height * 0.9,
-            ),
-            Expanded(child: Container()),
+            Expanded(child: page),
+            // SizedBox(
+            //   child: page,
+            //   height: MediaQuery.of(context).size.height * 0.9,
+            // ),
+            // Expanded(child: Container()),
             Container(
               width: double.infinity,
               color: Colors.white,

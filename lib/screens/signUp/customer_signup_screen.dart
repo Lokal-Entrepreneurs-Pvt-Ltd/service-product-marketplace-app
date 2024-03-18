@@ -53,20 +53,30 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   String referredAgentName = "";
   String referredAgentAddress = "";
   String referralErrorText = "";
+  String referredByCode = "";
 
-  void referralFetch() async {
-    // final response = await ApiRepository.getReferral(
-    //     {"referral": referralIdController.length});
-    final ApiResponse response = ApiResponse();
-    response.isSuccess = true;
-    response.data = {"agentName": "Ram Suthar", "agentAddress": "GHSSI,BUUIIN"};
+  void referralFetch(String code) async {
+    final response = await ApiRepository.getUserByLokalID({"lokalID": code});
     if (response.isSuccess!) {
-      referredAgentName = response.data["agentName"] ?? "";
-      referredAgentAddress = response.data["agentAddress"] ?? "";
-      if (referredAgentName.isNotEmpty) {
-        setState(() {
-          referralError = false;
-        });
+      final userData = response.data;
+      if (userData != null) {
+        referredAgentName = userData["firstName"] ?? "";
+        referredAgentAddress =
+            "${userData["locality"]}${userData["locality"].isNotEmpty ? ", " : ""}"
+            "${userData["administrativeArea"]}${userData["administrativeArea"].isNotEmpty ? ", " : ""}"
+            "${userData["country"]}${userData["country"].isNotEmpty ? ", " : ""}"
+            "${userData["postalCode"]}";
+        if (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty) {
+          setState(() {
+            referredByCode = code;
+            referralError = false;
+          });
+        } else {
+          setState(() {
+            referralError = true;
+            referralErrorText = "Please Check Referral Code";
+          });
+        }
       } else {
         setState(() {
           referralError = true;
@@ -115,14 +125,14 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   }
 
   Widget referralText() {
-    return (referredAgentName.isNotEmpty)
+    return (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty)
         ? Padding(
             padding: const EdgeInsets.only(left: 16, top: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Referred By Agent $referredAgentName",
+                  "Referred By  $referredAgentName",
                   style: TextStyles.poppins.body1.medium
                       .colors(UikColor.venusaur_500),
                 ),
@@ -422,10 +432,11 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
   }
 
   void _referralHandler(String code) {
-    if (code.length == 7) {
-      referralFetch();
+    if (code.length == 9 || code.length == 10) {
+      referralFetch(code);
     } else {
       setState(() {
+        referredByCode = "";
         referredAgentName = "";
         referredAgentAddress = "";
       });
@@ -437,7 +448,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
       } else {
         setState(() {
           referralError = true;
-          referralErrorText = "Enter 7 digit Referral Code";
+          referralErrorText = "Enter Referral Code";
         });
       }
     }
@@ -483,6 +494,7 @@ class _CustomerSignupScreenState extends State<CustomerSignupScreen> {
           passwordController.text,
           CUSTOMER,
           phoneNoController.text,
+          referredByCode,
         ),
       ).catchError((error) {
         NavigationUtils.pop();

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +13,7 @@ import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../actions.dart';
 import '../constants/json_constants.dart';
@@ -180,17 +183,27 @@ abstract class ActionUtils {
 
     if (result != null) {
       File pickedFile = File(result.path);
-      if (pickedFile.lengthSync() > 3000000) {
-        UiUtils.showToast("Image size should be less than 3 MB");
-        return;
+      NavigationUtils.showLoaderOnTop();
+      final tempDir = await getTemporaryDirectory();
+      final tempFilePath =
+          '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+      File? compressedFile = await compressImage(pickedFile, tempFilePath, 70);
+      if (compressedFile != null) {
+        if (compressedFile.lengthSync() > 3000000) {
+          UiUtils.showToast("Image size should be less than 3 MB");
+          NavigationUtils.pop();
+          return;
+        }
       }
       UiUtils.showToast("Uploading Profile Picture ");
       final response = await ApiRepository.uploadDocuments(
         ApiRequestBody.getuploaddocumentsid(
           "misc",
-          pickedFile,
+          compressedFile!,
         ),
       );
+      compressedFile.delete();
+      await tempDir.delete(recursive: true);
       if (response.isSuccess!) {
         String imageUrl = response.data["url"];
         final response2 =
@@ -199,26 +212,44 @@ abstract class ActionUtils {
           UiUtils.showToast("Profile Picture Updated");
           NavigationUtils.pop();
           NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
+          return;
         } else {
           UiUtils.showToast("Image is not uploaded successfully");
         }
       } else {
         UiUtils.showToast("Image is not uploaded successfully");
       }
+      NavigationUtils.pop();
     } else {
       UiUtils.showToast("Image is not Selected");
     }
   }
 
+  static Future<File?> compressImage(
+      File imageFile, String path, int quality) async {
+    final compressedFile = await FlutterImageCompress.compressAndGetFile(
+      imageFile.path,
+      path,
+      quality: quality,
+    );
+    if (compressedFile != null) {
+      return File(compressedFile.path);
+    } else {
+      return null;
+    }
+  }
+
   static void clearDataAndMoveToOnboarding(UikAction uikAction) {
     UserDataHandler.clearUserToken();
-    NavigationUtils.openScreen(ScreenRoutes.onboardingScreen, {});
+    NavigationUtils.popAllAndPush(ScreenRoutes.onboardingScreen, {});
     // todo mano recreate the main.dart by adding listners
   }
 
   static void handleSelectedLocation() async {
+    UiUtils.showToast("Location is Updating");
+    NavigationUtils.showLoaderOnTop();
     Position? position = await LocationUtils.getCurrentPosition();
-
+    // var context = AppRoutes.rootNavigatorKey.currentContext;
     if (position != null) {
       double lat = position.latitude;
       double long = position.longitude;
@@ -243,11 +274,13 @@ abstract class ActionUtils {
         UiUtils.showToast("Location Updated");
         NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
       } else {
+        NavigationUtils.pop();
         UiUtils.showToast(response.error![MESSAGE]);
         return null;
       }
       print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
     } else {
+      NavigationUtils.pop();
       print('Failed to retrieve the current location.');
     }
   }
