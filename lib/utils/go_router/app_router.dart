@@ -8,6 +8,7 @@ import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
+import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
@@ -184,6 +185,7 @@ class AppRoutes {
       _otpScreen2,
       _passwordScreen2,
       _signupScreen2,
+      _deliveryJobsDetailsPage,
     ],
   );
 
@@ -429,6 +431,14 @@ class AppRoutes {
     path: ScreenRoutes.jobsDetailsPage,
     builder: (context, state) {
       return JobDetailsScreen(
+          key: state.pageKey, args: state.extra as Map<String, dynamic>?);
+    },
+  );
+
+  static final GoRoute _deliveryJobsDetailsPage = GoRoute(
+    path: ScreenRoutes.deliveryJobsDetailsPage,
+    builder: (context, state) {
+      return DeliveryJobDetailsScreen(
           key: state.pageKey, args: state.extra as Map<String, dynamic>?);
     },
   );

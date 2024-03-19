@@ -10,19 +10,20 @@ import 'package:ui_sdk/utils/extensions.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/UiUtils/UiUtils.dart';
 
-class JobDetailsScreen extends StatefulWidget {
+class DeliveryJobDetailsScreen extends StatefulWidget {
   final dynamic args;
 
-  JobDetailsScreen({Key? key, required this.args}) : super(key: key);
+  DeliveryJobDetailsScreen({Key? key, required this.args}) : super(key: key);
 
   @override
-  _JobDetailsScreenState createState() => _JobDetailsScreenState();
+  _DeliveryJobDetailsScreenState createState() => _DeliveryJobDetailsScreenState();
 }
 
-class _JobDetailsScreenState extends State<JobDetailsScreen> {
+class _DeliveryJobDetailsScreenState extends State<DeliveryJobDetailsScreen> {
   bool showFullDescription = false;
   bool _isLoading = true;
-  Map<String, dynamic> jobPost = {};
+  Map<String, dynamic> deliveryJobDetail = {};
+  Map<String, dynamic> metaData = {};
   List<dynamic> _ctas = [];
 
   @override
@@ -49,8 +50,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       });
       final response = await ApiRepository.getJobsbyId(widget.args);
       if (response.isSuccess!) {
-        jobPost = response.data!["jobPost"] as Map<String, dynamic>;
-        final metaData = response.data['metaData'] as Map<String, dynamic>;
+        deliveryJobDetail = response.data!["deliveryJobDetail"] as Map<String, dynamic>;
+         metaData = response.data['metaData'] as Map<String, dynamic>;
         _ctas = metaData['ctas'] as List<dynamic>;
         setState(() {
           _isLoading = false;
@@ -68,9 +69,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget _buildProfileInfo() {
-    String? url = jobPost["logo"];
-    String? jobName = jobPost["jobName"];
-    String? companyName = jobPost["companyName"];
+    String? url = metaData["logo"];
+    String? jobName = deliveryJobDetail["jobProfile"];
+    String? companyName = deliveryJobDetail["companyName"];
     if (jobName != null && companyName != null) {
       return Container(
         padding: const EdgeInsets.all(16),
@@ -136,14 +137,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     return Container();
   }
 
-  Widget _buildSalaryDetails() {
-    Map<String, dynamic> salaryDetails = jobPost['salaryDetails'];
-    salaryDetails.removeWhere(
-        (key, value) => value == null || value == 'NA' || value == '');
-    String incentive = salaryDetails["incentive"] ?? "";
-    if (salaryDetails.containsKey('incentive')) {
-      salaryDetails.remove('incentive');
-    }
+  Widget _buildEarningDetails() {
+    String perPacketCharge = deliveryJobDetail["perPacketCharge"] ?? "";
+    String dailyAvgVol = deliveryJobDetail["dailyAvgVol"] ?? "";
+    String incomeCycle = deliveryJobDetail["incomeCycle"] ?? "";
 
     return Column(
       children: [
@@ -152,47 +149,59 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           color: '#F5F7FA'.toColor(),
           width: double.maxFinite,
           child: Column(
-            children: salaryDetails.entries.map((entry) {
-              String key = entry.key;
-              dynamic value = entry.value;
-
-              return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        key,
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: UikColor.giratina_500.toColor(),
-                        ),
-                      ),
-                      Text(
-                        '$value',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: UikColor.giratina_500.toColor(),
-                        ),
-                      ),
-                    ],
+                  Text(
+                    "Per Packet Charges",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
                   ),
-                  (entry.toString() != salaryDetails.entries.last.toString())
-                      ? Container(
-                          height: 1,
-                          margin: EdgeInsets.symmetric(vertical: 8),
-                          width: double.maxFinite,
-                          color: UikColor.giratina_400.toColor(),
-                        )
-                      : Container(),
+                  Text(
+                    perPacketCharge,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
+                  ),
                 ],
-              );
-            }).toList(),
-          ),
+              ),
+              Container(
+                height: 1,
+                margin: EdgeInsets.symmetric(vertical: 8),
+                width: double.maxFinite,
+                color: UikColor.giratina_400.toColor(),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Daily Average Volume",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
+                  ),
+                  Text(
+                    dailyAvgVol,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: UikColor.giratina_500.toColor(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          )
         ),
-        (incentive.isNotEmpty && incentive != "NA")
+        (incomeCycle.isNotEmpty && incomeCycle != "NA")
             ? Container(
                 height: 28,
                 width: double.maxFinite,
@@ -209,7 +218,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ),
                 ),
                 child: Text(
-                  incentive,
+                  incomeCycle,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -222,9 +231,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     );
   }
 
-  Widget _buildLocationSalaryInfo() {
-    String education = jobPost['jobDetails']["education"] ?? "";
-    String salary = jobPost['salary'] ?? "";
+  Widget _buildEarningInfo() {
+    String education = deliveryJobDetail['education'] ?? "";
+    String deliveryRange = deliveryJobDetail['kmRange'] ?? "";
     return Container(
       padding: const EdgeInsets.all(16),
       width: double.maxFinite,
@@ -258,12 +267,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ),
                 )
               : Container(),
-          (salary.isNotEmpty && salary != "NA")
+          (deliveryRange.isNotEmpty && deliveryRange != "NA")
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Salary- ',
+                      'Delivery Range- ',
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -272,7 +281,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        salary,
+                        deliveryRange,
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -283,7 +292,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 )
               : Container(),
           SizedBox(height: 20),
-          _buildSalaryDetails(),
+          _buildEarningDetails(),
         ],
       ),
     );
@@ -291,9 +300,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   Widget _buildJobHighlights() {
     List<String> jobHighlights = List<String>.from(
-      jobPost['jobDetails']['jobHighlights'],
-    );
-    return (jobHighlights.isNotEmpty)
+        deliveryJobDetail['jobHighlights'] ?? []);
+    return (jobHighlights!=null && jobHighlights.isNotEmpty)
         ? Container(
             margin: EdgeInsets.all(16),
             padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20),
@@ -353,11 +361,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   Widget _buildJobDescription() {
-    String jobDescription = jobPost['jobDetails']['jobDescription'];
-
-    String jdUrl = jobPost['jobDetails']['jdUrl'];
-    return ((jobDescription.isNotEmpty && jobDescription != "NA") ||
-            (jdUrl.isNotEmpty && jdUrl != "NA"))
+    String? jobDescription = deliveryJobDetail['jobDescription'];
+    String? jdUrl = deliveryJobDetail['jdUrl'];
+    return ((jobDescription!=null && jobDescription.isNotEmpty && jobDescription != "NA") ||
+            (jdUrl!=null && jdUrl.isNotEmpty && jdUrl != "NA"))
         ? Container(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
@@ -373,7 +380,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    (jdUrl.isNotEmpty && jdUrl != "NA")
+                    (jdUrl!=null && jdUrl!.isNotEmpty && jdUrl != "NA")
                         ? GestureDetector(
                             onTap: () {
                               launchURL(jdUrl);
@@ -398,7 +405,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ],
                 ),
                 _buildExpandableText(
-                  jobDescription,
+                  jobDescription!,
                 ),
               ],
             ),
@@ -406,15 +413,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         : Container();
   }
 
-  Widget _buildJobRole() {
-    Map<String, dynamic> jobrole = jobPost['jobRole'];
+  Widget _buildDataBlock1() {
+    Map<String, dynamic> dataBlockDisplayText = deliveryJobDetail['dataBlock1'];
+    Map<String, dynamic> dataBlockItems = deliveryJobDetail['dataBlock1']["items"];
     return Container(
-      padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
+      padding: EdgeInsets.only(top: 2, bottom: 8, left: 16, right: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _showTypesAndDetails(
-              map: jobrole,
+          Text(
+            dataBlockDisplayText['displayText'],
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: UikColor.black.toColor(),
+            ),
+          ),
+          SizedBox(height: 10),
+          _showItemsDetails(
+              items: dataBlockItems,
               heading: GoogleFonts.poppins(
                   fontSize: 16, fontWeight: FontWeight.w500)),
         ],
@@ -422,110 +439,110 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     );
   }
 
-  Widget _showTypesAndDetails(
-      {required Map<String, dynamic> map,
-      TextStyle? heading,
-      TextStyle? body}) {
-    map.removeWhere(
-        (key, value) => value == null || value == 'NA' || value == '');
-    return Wrap(
-      spacing: 16.0,
-      runSpacing: 24.0,
-      children: map.entries
-          .map(
-            (entry) => SizedBox(
-              width: MediaQuery.of(context).size.width / 2 - 24,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16, bottom: 12),
-                    child: Text(
-                      entry.key,
-                      style: (heading == null)
-                          ? GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: UikColor.giratina_500.toColor(),
-                            )
-                          : heading,
-                    ),
-                  ),
-                  if (entry.value is String)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: UikColor.giratina_100.toColor(),
-                      ),
-                      child: Text(entry.value.toString(),
-                          style: (body == null)
-                              ? GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                )
-                              : body),
-                    ),
-                  if (entry.value is List<String>)
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 5,
-                      children: (entry.value as List<String>)
-                          .map(
-                            (item) => Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 4),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: UikColor.giratina_100.toColor(),
-                              ),
-                              child: Text(
-                                item,
-                                style: (body == null)
-                                    ? GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                      )
-                                    : body,
-                              ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                ],
-              ),
+  Widget _buildDataBlock2() {
+    Map<String, dynamic> dataBlockDisplayText = deliveryJobDetail['dataBlock2'];
+    Map<String, dynamic> dataBlockItems = deliveryJobDetail['dataBlock2']["items"];
+    return Container(
+      padding: EdgeInsets.only(top: 2, bottom: 8, left: 16, right: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 10),
+          Text(
+            dataBlockDisplayText['displayText'],
+            style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: UikColor.black.toColor(),
             ),
-          )
-          .toList(),
+          ),
+          SizedBox(height: 10),
+          _showItemsDetails(
+              items: dataBlockItems,
+              heading: GoogleFonts.poppins(
+                  fontSize: 16, fontWeight: FontWeight.w500)),
+        ],
+      ),
     );
   }
 
-  Widget _buildInterviewDetails() {
-    var interviewDetails =
-        (jobPost['interviewDetails'] as Map<String, dynamic>);
-    interviewDetails.removeWhere(
-        (key, value) => value == null || value == 'NA' || value == '');
-    return (interviewDetails.isNotEmpty)
-        ? Container(
-            padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Interview Details ',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+  Widget _showItemsDetails({
+    required Map<String, dynamic> items,
+    TextStyle? heading,
+    TextStyle? body,
+  }) {
+    return Wrap(
+      spacing: 16.0,
+      runSpacing: 24.0,
+      children: items.entries.map((entry) {
+        String displayText = entry.value['displayText'];
+        String value = entry.value['value'];
+
+        return SizedBox(
+          width: MediaQuery.of(context).size.width / 2 - 24,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16, bottom: 12),
+                child: Text(
+                  displayText,
+                  style:  GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: UikColor.giratina_500.toColor(),
                   ),
                 ),
-                _showTypesAndDetails(map: interviewDetails),
-                SizedBox(height: 8),
-              ],
-            ),
-          )
-        : Container();
+              ),
+              Container(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: UikColor.giratina_100.toColor(),
+                ),
+                child: Text(
+                  value,
+                  style: (body == null)
+                      ? GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  )
+                      : body,
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    );
   }
+
+  // Widget _buildInterviewDetails() {
+  //   var interviewDetails =
+  //       (deliveryJobDetail['interviewDetails'] as Map<String, dynamic>);
+  //   interviewDetails.removeWhere(
+  //       (key, value) => value == null || value == 'NA' || value == '');
+  //   return (interviewDetails.isNotEmpty)
+  //       ? Container(
+  //           padding: EdgeInsets.only(top: 16, bottom: 8, left: 16, right: 16),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Text(
+  //                 'Interview Details ',
+  //                 style: GoogleFonts.poppins(
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.w500,
+  //                 ),
+  //               ),
+  //               _showTypesAndDetails(map: interviewDetails),
+  //               SizedBox(height: 8),
+  //             ],
+  //           ),
+  //         )
+  //       : Container();
+  // }
 
   Widget _buildExpandableText(String text) {
     final int maxLines = showFullDescription ? 20 : 5;
@@ -629,8 +646,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               actions: [
                 InkWell(
                   onTap: () {
-                    String shareText = jobPost['share'] ?? "";
-                    String shareUrl = jobPost['shareUrl'] ?? "";
+                    String shareText = deliveryJobDetail['share'] ?? "";
+                    String shareUrl = deliveryJobDetail['shareUrl'] ?? "";
 
                     UiUtils.shareOnWhatsApp(
                         shareUrl.isNotEmpty
@@ -679,24 +696,24 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     width: double.maxFinite,
                     color: UikColor.giratina_100.toColor(),
                   ),
-                  _buildLocationSalaryInfo(),
+                  _buildEarningInfo(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildJobRole(),
-                      _buildJobHighlights(),
+                      _buildDataBlock1(),
+                       _buildJobHighlights(),
                       Container(
                         height: 6,
                         width: double.maxFinite,
                         color: UikColor.giratina_100.toColor(),
                       ),
-                      _buildJobDescription(),
+                       _buildJobDescription(),
                       Container(
                         height: 6,
                         width: double.maxFinite,
                         color: UikColor.giratina_100.toColor(),
                       ),
-                      _buildInterviewDetails(),
+                      _buildDataBlock2()
                     ],
                   ),
                 ],
