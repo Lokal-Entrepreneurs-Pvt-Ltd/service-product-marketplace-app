@@ -15,7 +15,6 @@ enum WidgetType {
 class MyAgentListScreen extends StatefulWidget {
   const MyAgentListScreen({super.key, this.args});
   final dynamic args;
-
   @override
   State<MyAgentListScreen> createState() => _Sl_DetailsPageState();
 }
