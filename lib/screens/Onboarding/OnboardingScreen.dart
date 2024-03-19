@@ -100,7 +100,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             curve: Curves.easeOut,
                           );
                         } else {
-                          NavigationUtils.openScreen(ScreenRoutes.customerLoginScreen);
+                          NavigationUtils.openScreen(ScreenRoutes.loginScreen2);
                         }
                       },
                       child: ElevatedButton(
