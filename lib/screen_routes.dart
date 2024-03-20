@@ -1,4 +1,8 @@
 class ScreenRoutes {
+  static const String signupScreen2 = '/signupscreen2';
+  static const String passwordScreen2 = '/passwordscreen2';
+  static const String otpScreen2 = '/otpscreen2';
+  static const String loginScreen2 = '/loginscreen2';
   static const String personalDetails = '/basicdetails/personaldetails';
   static const String homeScreen = '/discovery/get';
   static const String onboardingScreen = '/onboardingScreen';
