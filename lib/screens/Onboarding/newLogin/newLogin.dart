@@ -32,8 +32,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
   bool errorEmail = false;
 
   bool isLoading = false;
-  String selectedUserType = "Candidate";
-  final List<String> userTypes = ["Partner", "Agent", "Candidate"];
+  String selectedUserType = CUSTOMER;
+  final List<String> userTypes = [PARTNER, AGENT, CUSTOMER];
   bool isPhoneInput = true;
 
   @override

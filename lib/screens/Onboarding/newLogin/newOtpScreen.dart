@@ -41,8 +41,8 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
       false; // New variable to track if "Continue" button is loading
   bool isLoadingResendOtp =
       false; // New variable to track if "Resend OTP" button is loading
-  String selectedUserType = "Candidate";
-  final List<String> userTypes = ["Partner", "Agent", "Candidate"];
+  String selectedUserType = PARTNER;
+  final List<String> userTypes = [PARTNER, AGENT, CUSTOMER];
   String phoneNumber = "";
   @override
   void initState() {

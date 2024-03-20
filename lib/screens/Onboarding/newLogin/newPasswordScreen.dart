@@ -33,8 +33,8 @@ class _PasswordScreen2State extends State<PasswordScreen2> {
   bool isPhoneInput = true;
   bool obscureText = false;
   String email = "";
-  String selectedUserType = "Candidate";
-  final List<String> userTypes = ["Partner", "Agent", "Candidate"];
+  String selectedUserType = CUSTOMER;
+  final List<String> userTypes = [PARTNER, AGENT, CUSTOMER];
 
   @override
   void initState() {
