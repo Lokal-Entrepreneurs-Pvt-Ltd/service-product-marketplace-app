@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
+import 'package:lokal/screens/Onboarding/newLogin/newOtpScreen.dart';
+import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
+import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
+import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
 import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
@@ -108,7 +112,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    // initialLocation: _customerSignUpScreen.path,
+    // initialLocation: _loginScreen2.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -177,11 +181,55 @@ class AppRoutes {
       _dynamicPage,
       _userAccountDetails,
       _userAccountSettings,
-      _deliveryJobsDetailsPage
+      _loginScreen2,
+      _otpScreen2,
+      _passwordScreen2,
+      _signupScreen2,
+      _deliveryJobsDetailsPage,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _signupScreen2 = GoRoute(
+    path: ScreenRoutes.signupScreen2,
+    builder: (context, state) {
+      return SignupScreen2(
+        key: state.pageKey,
+        // args: state.extra,
+      );
+    },
+  );
+
+  static final GoRoute _passwordScreen2 = GoRoute(
+    path: ScreenRoutes.passwordScreen2,
+    builder: (context, state) {
+      return PasswordScreen2(
+        key: state.pageKey,
+        args: state.extra,
+        // args: state.extra,
+      );
+    },
+  );
+
+  static final GoRoute _otpScreen2 = GoRoute(
+    path: ScreenRoutes.otpScreen2,
+    builder: (context, state) {
+      return NewOTPScreen(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
+
+  static final GoRoute _loginScreen2 = GoRoute(
+    path: ScreenRoutes.loginScreen2,
+    builder: (context, state) {
+      return LoginScreen2(
+        key: state.pageKey,
+      );
+    },
+  );
 
   static final GoRoute _userAccountDetails = GoRoute(
     path: ScreenRoutes.userAccountDetails,
