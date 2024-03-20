@@ -149,8 +149,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             name = userDataMagento['firstName'] ?? '';
             datePicker = userDataMagento['dob'] != null
                 ? DateTime.parse(userDataMagento['dob'])
-                : DateTime.now();
-            calculateAge(datePicker!);
+                : null;
+            calculateAge(datePicker);
             genderIndex = userData['gender'] == "Male" ? 0 : 1;
             String workExperience = userData["workEx"] ?? "";
             String preferrencedIndustry = userData["industryPreference"] ?? "";
@@ -371,65 +371,59 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   }
 
   Widget buildAgeBox(String fieldname) {
-    return (datePicker != null)
-        ? Container(
-            margin: const EdgeInsets.only(left: 10),
-            padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16),
-            height: 64,
-            decoration: BoxDecoration(
-              color: ("#F5F5F5").toColor(),
-              borderRadius: BorderRadius.circular(10),
+    return Container(
+      margin: const EdgeInsets.only(left: 10),
+      padding:
+          const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      height: 64,
+      decoration: BoxDecoration(
+        color: ("#F5F5F5").toColor(),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      alignment: Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            fieldname,
+            textAlign: TextAlign.start,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: ("#9E9E9E").toColor(),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  fieldname,
-                  textAlign: TextAlign.start,
+          ),
+          (datePicker != null && age != null)
+              ? Text(
+                  age.toString(),
                   style: GoogleFonts.poppins(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: ("#9E9E9E").toColor(),
+                    color: Colors.black,
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  width: double.maxFinite,
-                  height: 24,
-                  child: (age != null)
-                      ? Text(
-                          age.toString(),
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
-                        )
-                      : Text(
-                          "Select Date",
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black,
-                          ),
-                        ),
-                ),
-              ],
-            ),
-          )
-        : Container(
-            margin: EdgeInsets.only(left: 10),
-            padding:
-                EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
-            height: 64,
-            decoration: BoxDecoration(
-              color: ("#F5F5F5").toColor(),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            alignment: Alignment.centerLeft,
-            child: Text(
+                )
+              : Container(),
+        ],
+      ),
+    );
+  }
+
+  Widget buildDatePickerField(String fieldname) {
+    return GestureDetector(
+      onTap: () => showDatePicker(),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+        height: 64,
+        decoration: BoxDecoration(
+          color: ("#F5F5F5").toColor(),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        alignment: Alignment.centerLeft,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
               fieldname,
               textAlign: TextAlign.start,
               style: GoogleFonts.poppins(
@@ -438,71 +432,27 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 color: ("#9E9E9E").toColor(),
               ),
             ),
-          );
-  }
-
-  Widget buildDatePickerField(String fieldname) {
-    return (datePicker != null)
-        ? Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
-            height: 64,
-            decoration: BoxDecoration(
-              color: ("#F5F5F5").toColor(),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: GestureDetector(
-              onTap: () => showDatePicker(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    fieldname,
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ("#9E9E9E").toColor(),
-                    ),
-                  ),
-                  Text(
-                    (datePicker != null)
-                        ? DateFormat('dd/MM/yyyy', 'en_US').format(datePicker!)
-                        : "DD/MM/YYYY",
+            (datePicker != null)
+                ? Text(
+                    DateFormat('dd/MM/yyyy', 'en_US').format(datePicker!),
                     textAlign: TextAlign.start,
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        : Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
-            height: 64,
-            decoration: BoxDecoration(
-              color: ("#F5F5F5").toColor(),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            alignment: Alignment.centerLeft,
-            child: GestureDetector(
-              onTap: () => showDatePicker(),
-              child: Text(
-                fieldname,
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: ("#9E9E9E").toColor(),
-                ),
-              ),
-            ),
-          );
+                  )
+                : Container(),
+          ],
+        ),
+      ),
+    );
   }
 
-  int? calculateAge(DateTime dob) {
+  int? calculateAge(DateTime? dob) {
+    if (dob == null) {
+      return null;
+    }
     final now = DateTime.now();
     age = now.year - dob.year;
     if (age != null) {
