@@ -150,7 +150,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             datePicker = userDataMagento['dob'] != null
                 ? DateTime.parse(userDataMagento['dob'])
                 : null;
-            // calculateAge(datePicker);
+            calculateAge(datePicker);
             genderIndex = userData['gender'] == "Male" ? 0 : 1;
             String workExperience = userData["workEx"] ?? "";
             String preferrencedIndustry = userData["industryPreference"] ?? "";
