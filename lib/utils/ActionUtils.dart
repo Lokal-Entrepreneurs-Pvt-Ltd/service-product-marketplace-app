@@ -5,6 +5,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lokal/main.dart';
 import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/Logs/event_handler.dart';
 import 'package:lokal/utils/Logs/eventsdk.dart';
@@ -242,6 +243,7 @@ abstract class ActionUtils {
   static void clearDataAndMoveToOnboarding(UikAction uikAction) {
     UserDataHandler.clearUserToken();
     NavigationUtils.popAllAndPush(ScreenRoutes.onboardingScreen, {});
+    LokalApp.resetAppState();
     // todo mano recreate the main.dart by adding listners
   }
 

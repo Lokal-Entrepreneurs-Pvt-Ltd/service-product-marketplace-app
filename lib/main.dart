@@ -14,12 +14,13 @@ import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:platform_device_id/platform_device_id.dart';
+import 'package:shake_detector/shake_detector.dart';
 import 'package:ui_sdk/ApiResponseState.dart';
 import 'configs/environment.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:provider/provider.dart';
-import 'package:shake/shake.dart';
+// import 'package:shake/shake.dart';
 
 import 'configs/environment.dart';
 
@@ -56,10 +57,9 @@ void main() async {
           ),
         ),
       ],
-      child: const LokalApp(),
+      child: MaterialApp(home: const LokalApp()),
     ),
   );
-
 
   //
   // FlutterError.onError = (errorDetails) {
@@ -86,6 +86,13 @@ class LokalApp extends StatefulWidget {
 
   @override
   State<LokalApp> createState() => _LokalAppState();
+
+  static void resetAppState() {
+    final appContext = AppRoutes.rootNavigatorKey.currentContext;
+    final _LokalAppState? appState =
+        appContext!.findAncestorStateOfType<_LokalAppState>();
+    appState?.resetState(); // Call resetState method on the current state
+  }
 }
 
 late ShakeDetector detector;
@@ -95,12 +102,37 @@ class _LokalAppState extends State<LokalApp> {
   void initState() {
     super.initState();
     initPlatformState();
+    shakeInit();
+  }
+
+  void resetState() {
+    setState(() {});
+    initPlatformState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+    detector.stopListening();
     super.dispose();
+  }
+
+  void shakeInit() {
+    if (bool.fromEnvironment('dart.vm.product')) {
+      // Shake detection will only be initialized in debug mode
+      return;
+    }
+    try {
+      detector = ShakeDetector.autoStart(onShake: () {
+        print('Shake detected'); // Add this line to verify shake detection
+        displayTextInputDialog(context);
+      });
+      print(
+          'Shake detection initialized'); // Add this line to verify initialization
+      detector.startListening();
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> initPlatformState() async {
@@ -121,6 +153,7 @@ class _LokalAppState extends State<LokalApp> {
   }
 
   displayTextInputDialog(BuildContext context) async {
+    print('Displaying text input dialog');
     var tempLocalUrl = EnvironmentDataHandler.getLocalBaseUrl();
     return showDialog(
         context: context,
@@ -217,7 +250,6 @@ class _LokalAppState extends State<LokalApp> {
         // navigatorKey: NavigationService.navigatorKey,
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
         theme: ThemeData(fontFamily: 'Georgia'),
-
       ),
     );
   }
