@@ -28,6 +28,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   GlobalKey homekey = GlobalKey();
   GlobalKey menukey = GlobalKey();
   GlobalKey accountkey = GlobalKey();
+  GlobalKey newsKey = GlobalKey();
   GlobalKey jobkey = GlobalKey();
 
   static final List<Widget> _widgetOptions = <Widget>[
@@ -39,15 +40,24 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   void _onItemTapped(int index) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     if (index == _selectedIndex) return;
-    if (index == 2) {
+    if (index == 1) {
       Map<String, dynamic>? args = {"academyId": 3};
       NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
-    if (index == 1) {
+    // if (index == 2) {
+    //   Map<String, dynamic>? args = {
+    //     "url": "https://www.extrape.com/blog/category/start-here/"
+    //   };
+    //   NavigationUtils.openScreen(ScreenRoutes.webScreenView,args);
+    // }
+    if (index == 0) {
       context!.push(ScreenRoutes.alljobs);
     }
+    if (index == 2) {
+      context!.push(ScreenRoutes.myAccountScreen, extra: {});
+    }
     if (index == 3) {
-      context!.push(ScreenRoutes.accountSettings, extra: {});
+      context!.push(ScreenRoutes.newsPage, extra: {});
     }
   }
 
@@ -160,9 +170,10 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               children: <Widget>[
                 buildNavItem(Icons.home, 'Home', 0, homekey),
                 // buildNavItem(Icons.work, "Job", 1, jobkey),
-                buildNavItem(Icons.menu_book, 'Academy', 2, menukey),
+                buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
                 buildNavItem(
-                    Icons.person_outline_sharp, 'Account', 3, accountkey),
+                    Icons.person_outline_sharp, 'Account', 2, accountkey),
+                buildNavItem(Icons.newspaper, 'News', 3, newsKey),
                 // buildNavItem(Icons.payment, 'ExtraPe', 3),
                 // Add more items as needed
               ],
