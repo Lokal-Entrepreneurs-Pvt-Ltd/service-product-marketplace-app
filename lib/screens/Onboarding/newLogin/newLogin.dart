@@ -32,8 +32,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
   bool errorEmail = false;
 
   bool isLoading = false;
-  String selectedUserType = CUSTOMER;
-  final List<String> userTypes = [PARTNER, AGENT, CUSTOMER];
+  String selectedUserType = CANDIDATE;
+  final List<String> userTypes = [PARTNER, AGENT, CANDIDATE];
   bool isPhoneInput = true;
 
   @override
@@ -163,6 +163,20 @@ class _LoginScreen2State extends State<LoginScreen2> {
     );
   }
 
+  String getUserTypeFromDisplay(String selectedUserType) {
+    switch (selectedUserType) {
+      case PARTNER:
+        return PARTNER;
+      case AGENT:
+        return AGENT;
+      case CANDIDATE:
+        return CUSTOMER;
+      default:
+      // Default to CUSTOMER if selectedUserType is not recognized
+        return CUSTOMER;
+    }
+  }
+
   Widget _buildUserTypeSelection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
@@ -259,6 +273,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
     );
   }
 
+
   Widget _buildContinueButton() {
     return Container(
       margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
@@ -285,7 +300,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                   if (response.isSuccess!) {
                     NavigationUtils.openScreen(ScreenRoutes.otpScreen2, {
                       "phoneNumber": emailController.text.toString(),
-                      USERTYPE: selectedUserType
+                      USERTYPE: getUserTypeFromDisplay(selectedUserType)
                     });
                   } else {
                     _handleLoginError(response);
@@ -293,7 +308,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 } else if (emailValid) {
                   NavigationUtils.openScreen(ScreenRoutes.passwordScreen2, {
                     "email": emailController.text,
-                    USERTYPE: selectedUserType,
+                    USERTYPE: getUserTypeFromDisplay(selectedUserType),
                   });
                 } else {
                   UiUtils.showToast("Please Enter Valid Phone no./Email Id");
