@@ -8,15 +8,15 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
-class GoldenPassScreen extends StatefulWidget {
+class GoldPassScreen extends StatefulWidget {
   final dynamic args;
 
-  GoldenPassScreen({Key? key, required this.args}) : super(key: key);
+  GoldPassScreen({Key? key, required this.args}) : super(key: key);
   @override
-  State<GoldenPassScreen> createState() => _GoldenPassScreenState();
+  State<GoldPassScreen> createState() => _GoldPassScreenState();
 }
 
-class _GoldenPassScreenState extends State<GoldenPassScreen> {
+class _GoldPassScreenState extends State<GoldPassScreen> {
   late Future<ApiResponse> apiResponse;
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _GoldenPassScreenState extends State<GoldenPassScreen> {
           } else {
             final map = snapshot.data?.data;
             return Scaffold(
-              appBar: CustomAppBar(percent: map["percent"] ?? null),
+              appBar: GoldPassAppBar(percent: map["percent"] ?? null,headerImage: map["headerImage"]?? "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1711024099801-Gold%20Membership.png"),
               body: SingleChildScrollView(
                 child: Column(
                     children:
@@ -215,9 +215,10 @@ class _GoldenPassScreenState extends State<GoldenPassScreen> {
   }
 }
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class GoldPassAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? percent;
-  CustomAppBar({required this.percent});
+  final String? headerImage;
+  GoldPassAppBar({required this.percent, required this.headerImage});
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -236,20 +237,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.all(16),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                      "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1711024099801-Gold%20Membership.png"),
-                ),
-              ),
+              margin: EdgeInsets.symmetric(horizontal: 16),
               height: 93,
               width: double.infinity,
+              child: Image.network(
+                headerImage!,
+                fit: BoxFit.cover,
+                height: 153,
+                width: double.infinity,
+              ),
             ),
             (percent != null)
                 ? Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 10),
+                        horizontal: 16, vertical: 25),
                     child: CustomLinearPercentIndicator(
                       percent: percent!,
                     ),
