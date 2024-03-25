@@ -1,4 +1,5 @@
 import 'package:chucker_flutter/chucker_flutter.dart';
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
@@ -8,6 +9,7 @@ import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
+import 'package:lokal/screens/membership/goldenScreen.dart';
 import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
@@ -112,7 +114,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    // initialLocation: _loginScreen2.path,
+    // initialLocation: _goldenScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -186,10 +188,33 @@ class AppRoutes {
       _passwordScreen2,
       _signupScreen2,
       _deliveryJobsDetailsPage,
+      _goldenScreen,
+      _newsScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _newsScreen = GoRoute(
+    path: ScreenRoutes.newsPage,
+    builder: (context, state) {
+      // final Map<String, dynamic>? extraArgs =
+      // state.extra as Map<String, dynamic>?;
+      return const DUIPage(
+        pageUid: 'homepage-65fbe15043a6c8e5400e65b9',
+      );
+    },
+  );
+
+  static final GoRoute _goldenScreen = GoRoute(
+    path: ScreenRoutes.goldenScreen,
+    builder: (context, state) {
+      return GoldenPassScreen(
+        key: state.pageKey,
+        // args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _signupScreen2 = GoRoute(
     path: ScreenRoutes.signupScreen2,
