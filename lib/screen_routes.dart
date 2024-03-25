@@ -1,6 +1,5 @@
 class ScreenRoutes {
   static const String newsPage = '/newsPage';
-  static const String goldenScreen = '/goldenscreen';
   static const String signupScreen2 = '/signupscreen2';
   static const String passwordScreen2 = '/passwordscreen2';
   static const String otpScreen2 = '/otpscreen2';
@@ -103,4 +102,5 @@ class ScreenRoutes {
   static const String userAccountDetails = "/userAccountDetails";
   static const String accountSettings = "/accountSettings";
   static const String deliveryJobsDetailsPage = "/deliveryJobsDetailsPage";
+  static const String goldPassScreen = '/goldPassScreen';
 }

@@ -9,84 +9,20 @@ import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class GoldenPassScreen extends StatefulWidget {
-  const GoldenPassScreen({super.key});
+  final dynamic args;
 
+  GoldenPassScreen({Key? key, required this.args}) : super(key: key);
   @override
   State<GoldenPassScreen> createState() => _GoldenPassScreenState();
 }
 
 class _GoldenPassScreenState extends State<GoldenPassScreen> {
   late Future<ApiResponse> apiResponse;
-
   @override
   void initState() {
-    // TODO: implement initState
-    apiResponse = fetchData();
+    apiResponse = ApiRepository.getGoldPass(widget.args);
     super.initState();
   }
-
-  Future<ApiResponse> fetchData() async {
-    Map<String, dynamic> map = {
-      "isSuccess": true,
-      "data": {
-        "response": {
-          "percent": 0.6,
-          "data": [
-            {
-              "title": "GOLD MEMBER BENEFITS",
-              "value": [
-                {
-                  "title": "Financial Benefits",
-                  "type": "box",
-                  "value": [
-                    "Micro Financing Upto 50k",
-                    "NPS as pension scheme",
-                    "Electric Vehicle Loan - 100& financing"
-                  ]
-                },
-                {
-                  "title": "Health Benefits",
-                  "type": "box",
-                  "value": [
-                    "Suraksha QR for Additional Benefits",
-                    "Family Health & Hospital Cover & Assistance.",
-                    "Ayush Pay for OPD Benefits."
-                  ]
-                },
-                {
-                  "title": "Educational Benefits",
-                  "type": "box",
-                  "value": [
-                    "Soft skills and Career Counselling for other Job Opportunities.",
-                    "Skilling for other jobs with Certification and Placement- India & Overseas.",
-                    "Distance Learning Program - Interest free Education Loan."
-                  ]
-                },
-                {
-                  "value":
-                      "Sponsored Kits and boarding fees, will be a Plus for Gold Members."
-                }
-              ]
-            },
-            {
-              "title": "Frequently Asked Questions",
-              "value": [
-                {
-                  "title": "Benefits of  Lokal Gold Membership?",
-                  "type": "faq",
-                  "value":
-                      "Members can avail benefits only in the tenure when they are associated with Lokal"
-                }
-              ]
-            }
-          ]
-        }
-      }
-    };
-    ApiResponse response = ApiResponse.fromJson(map);
-    return response;
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -107,6 +43,7 @@ class _GoldenPassScreenState extends State<GoldenPassScreen> {
                   final String title = entry['title'];
                   final List<dynamic> value = entry['value'];
                   return CustomExpandableWidget(
+                    isExpanded: true,
                     margin: EdgeInsets.only(
                         left: 16, right: 16, bottom: 8, top: 16),
                     title: Text(
@@ -448,6 +385,9 @@ class _CustomLinearPercentIndicatorState
   }
 }
 
+
+
+
 class CustomExpandableWidget extends StatefulWidget {
   final bool isborder;
   final bool isExpanded;
@@ -459,7 +399,7 @@ class CustomExpandableWidget extends StatefulWidget {
   CustomExpandableWidget({
     required this.title,
     this.isborder = true,
-    this.isExpanded = false,
+    this.isExpanded = true,
     this.icon,
     this.margin = const EdgeInsets.symmetric(horizontal: 16),
     this.padding = const EdgeInsets.symmetric(vertical: 8),
