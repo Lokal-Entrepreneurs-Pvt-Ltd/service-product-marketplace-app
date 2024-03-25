@@ -223,11 +223,20 @@ class _ApplyForJobServiceQuestionsState
 
     if (response.isSuccess!) {
       UiUtils.showToast("Job Applied Successfully");
-      NavigationUtils.pushAndPopUntil(
-        ScreenRoutes.jobsDetailsPage,
-        ScreenRoutes.jobsDetailsPage,
-        widget.args,
-      );
+      if(widget.args["serviceType"] == "jobs_delivery"){
+        NavigationUtils.pushAndPopUntil(
+          ScreenRoutes.deliveryJobsDetailsPage,
+          ScreenRoutes.deliveryJobsDetailsPage,
+          widget.args,
+        );
+      }else{
+        NavigationUtils.pushAndPopUntil(
+          ScreenRoutes.jobsDetailsPage,
+          ScreenRoutes.jobsDetailsPage,
+          widget.args,
+        );
+      }
+
     } else {
       UiUtils.showToast(response.error![MESSAGE]);
     }
