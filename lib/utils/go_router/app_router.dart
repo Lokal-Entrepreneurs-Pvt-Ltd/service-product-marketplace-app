@@ -9,7 +9,7 @@ import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
-import 'package:lokal/screens/membership/goldenScreen.dart';
+import 'package:lokal/screens/membership/goldPassScreen.dart';
 import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
@@ -114,7 +114,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    // initialLocation: _goldenScreen.path,
+    // initialLocation: _goldPassScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -188,7 +188,7 @@ class AppRoutes {
       _passwordScreen2,
       _signupScreen2,
       _deliveryJobsDetailsPage,
-      _goldenScreen,
+      _goldPassScreen,
       _newsScreen,
     ],
   );
@@ -206,12 +206,12 @@ class AppRoutes {
     },
   );
 
-  static final GoRoute _goldenScreen = GoRoute(
-    path: ScreenRoutes.goldenScreen,
+  static final GoRoute _goldPassScreen = GoRoute(
+    path: ScreenRoutes.goldPassScreen,
     builder: (context, state) {
       return GoldenPassScreen(
         key: state.pageKey,
-        // args: state.extra,
+         args: state.extra,
       );
     },
   );

@@ -380,6 +380,11 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.getCustomerProfileInfo, args);
   }
+
+  static Future<ApiResponse> getGoldPass(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getGoldPass, args);
+  }
 }
 
 // apirequestbody class
