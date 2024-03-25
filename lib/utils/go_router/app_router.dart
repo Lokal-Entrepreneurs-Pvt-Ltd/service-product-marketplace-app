@@ -9,7 +9,7 @@ import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
-import 'package:lokal/screens/membership/goldPassScreen.dart';
+import 'package:lokal/screens/membership/GoldPassScreen.dart';
 import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
@@ -209,7 +209,7 @@ class AppRoutes {
   static final GoRoute _goldPassScreen = GoRoute(
     path: ScreenRoutes.goldPassScreen,
     builder: (context, state) {
-      return GoldenPassScreen(
+      return GoldPassScreen(
         key: state.pageKey,
          args: state.extra,
       );
