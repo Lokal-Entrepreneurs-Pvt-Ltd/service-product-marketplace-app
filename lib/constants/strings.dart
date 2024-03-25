@@ -64,6 +64,7 @@ const String ACCOUNT_TYPE = "Choose Account Type";
 const String CUSTOMER = "CUSTOMER";
 const String PARTNER = "PARTNER";
 const String AGENT = "AGENT";
+const String CANDIDATE = "CANDIDATE";
 const String FORGET_PASSWORD = "Forgot Password?";
 const String ISSUE_WITH_PASS = "Issue with password?";
 const String LOGIN = "Login";
