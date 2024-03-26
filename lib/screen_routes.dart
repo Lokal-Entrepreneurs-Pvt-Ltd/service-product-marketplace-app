@@ -1,4 +1,5 @@
 class ScreenRoutes {
+  static const String userReferredByScreen = '/userreferredbyscreen';
   static const String newsPage = '/newsPage';
   static const String signupScreen2 = '/signupscreen2';
   static const String passwordScreen2 = '/passwordscreen2';
