@@ -6,6 +6,7 @@ import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/CodeUtils.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -33,8 +34,8 @@ class _PasswordScreen2State extends State<PasswordScreen2> {
   bool isPhoneInput = true;
   bool obscureText = false;
   String email = "";
-  String selectedUserType = CUSTOMER;
-  final List<String> userTypes = [PARTNER, AGENT, CUSTOMER];
+  String selectedUserType = CANDIDATE;
+  final List<String> userTypes = [PARTNER, AGENT, CANDIDATE];
 
   @override
   void initState() {
@@ -340,7 +341,7 @@ class _PasswordScreen2State extends State<PasswordScreen2> {
 
   Future<ApiResponse> _performLogin() async {
     return ApiRepository.getLoginScreen(ApiRequestBody.getLoginRequest(
-        email, passwordController.text, selectedUserType));
+        email, passwordController.text, CodeUtils.getUserTypeFromDisplay(selectedUserType)));
   }
 
   void _handleSuccessfulLogin(ApiResponse response) {

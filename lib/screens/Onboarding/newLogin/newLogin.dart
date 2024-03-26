@@ -17,6 +17,8 @@ import 'package:lokal/utils/uik_color.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
+import '../../../utils/CodeUtils.dart';
+
 class LoginScreen2 extends StatefulWidget {
   final String? selectedUserType;
 
@@ -163,19 +165,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
     );
   }
 
-  String getUserTypeFromDisplay(String selectedUserType) {
-    switch (selectedUserType) {
-      case PARTNER:
-        return PARTNER;
-      case AGENT:
-        return AGENT;
-      case CANDIDATE:
-        return CUSTOMER;
-      default:
-      // Default to CUSTOMER if selectedUserType is not recognized
-        return CUSTOMER;
-    }
-  }
+
 
   Widget _buildUserTypeSelection() {
     return Padding(
@@ -275,6 +265,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
 
   Widget _buildContinueButton() {
+
     return Container(
       margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
       child: isLoading
@@ -300,7 +291,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                   if (response.isSuccess!) {
                     NavigationUtils.openScreen(ScreenRoutes.otpScreen2, {
                       "phoneNumber": emailController.text.toString(),
-                      USERTYPE: getUserTypeFromDisplay(selectedUserType)
+                      USERTYPE: selectedUserType
                     });
                   } else {
                     _handleLoginError(response);
@@ -308,7 +299,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 } else if (emailValid) {
                   NavigationUtils.openScreen(ScreenRoutes.passwordScreen2, {
                     "email": emailController.text,
-                    USERTYPE: getUserTypeFromDisplay(selectedUserType),
+                    USERTYPE: selectedUserType,
                   });
                 } else {
                   UiUtils.showToast("Please Enter Valid Phone no./Email Id");
