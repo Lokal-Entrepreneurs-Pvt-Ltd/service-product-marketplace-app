@@ -12,6 +12,9 @@ Tinker Box Ui Sdk.
 This project is a starting point for a Lokal application.
 
 
+## [1.0.44+44] - 2024-3-25
+Login flow fixes
+
 ## [1.0.43+43] - 2024-3-24
 New Gold pass screen
 
