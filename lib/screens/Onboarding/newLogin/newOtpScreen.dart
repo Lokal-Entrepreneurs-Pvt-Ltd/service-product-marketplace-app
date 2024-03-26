@@ -10,6 +10,7 @@ import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/CodeUtils.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -41,15 +42,15 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
       false; // New variable to track if "Continue" button is loading
   bool isLoadingResendOtp =
       false; // New variable to track if "Resend OTP" button is loading
-  String selectedUserType = PARTNER;
-  final List<String> userTypes = [PARTNER, AGENT, CUSTOMER];
+  String selectedUserType = CANDIDATE;
+  final List<String> userTypes = [PARTNER, AGENT, CANDIDATE];
   String phoneNumber = "";
   @override
   void initState() {
     super.initState();
     startSmsListener();
     if (widget.args != null) {
-      selectedUserType = widget.args[USERTYPE] ?? "PARTNER";
+      selectedUserType = widget.args[USERTYPE] ?? CANDIDATE;
       phoneNumber = widget.args[PHONE_NUMBER] ?? "";
     }
     startTimer();
@@ -122,7 +123,7 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
           ApiRequestBody.getVerifyOtpRequest(
             phoneNumber,
             otpPinEntered,
-            selectedUserType,
+            CodeUtils.getUserTypeFromDisplay(selectedUserType),
           ),
         );
 
