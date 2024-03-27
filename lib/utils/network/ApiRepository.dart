@@ -12,8 +12,17 @@ class ApiRepository {
     return dio;
   }
 
+  static Future<ApiResponse> updateReferredbyInfo(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.updateReferredby, args);
+  }
+
   static Future<ApiResponse> getUserByLokalID(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getUserByLokalId, args);
+  }
+
+  static Future<ApiResponse> getUserByLokalIDorPhoneNumber(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getUserByLokalIdorPhone, args);
   }
 
   static Future<ApiResponse> getStateList(args) {
@@ -382,8 +391,7 @@ class ApiRepository {
   }
 
   static Future<ApiResponse> getGoldPass(args) {
-    return HttpScreenClient.getApiResponse(
-        ApiRoutes.getGoldPass, args);
+    return HttpScreenClient.getApiResponse(ApiRoutes.getGoldPass, args);
   }
 }
 
