@@ -9,15 +9,17 @@ class TextInputContainer extends StatefulWidget {
   final String? initialValue; // Add initialValue property
   final Function(String?) onFileSelected;
   final String? errorText;
-  TextInputContainer(
-      {Key? key,
-      required this.fieldName,
-      this.hint = "",
-      this.textInputType,
-      this.initialValue, // Initialize initialValue
-      required this.onFileSelected,
-      this.errorText = null})
-      : super(key: key);
+  final String? successText;
+  TextInputContainer({
+    Key? key,
+    required this.fieldName,
+    this.hint = "",
+    this.textInputType,
+    this.initialValue, // Initialize initialValue
+    required this.onFileSelected,
+    this.errorText = null,
+    this.successText = null,
+  }) : super(key: key);
 
   @override
   State<TextInputContainer> createState() => _TextInputContainerState();
@@ -153,6 +155,15 @@ class _TextInputContainerState extends State<TextInputContainer> {
                   child: Text(
                     widget.errorText!,
                     style: TextStyles.poppins.body2.light.colors("#A52A2A"),
+                  ),
+                )
+              : Container(),
+          widget.successText != null
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    widget.successText!,
+                    style: TextStyles.poppins.body2.light.colors("#32cd32"),
                   ),
                 )
               : Container(),
