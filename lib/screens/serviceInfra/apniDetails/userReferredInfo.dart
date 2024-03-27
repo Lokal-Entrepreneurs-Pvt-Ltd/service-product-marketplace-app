@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/widgets/UikAdminEcommCards/AddNewProduct/secondcard.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/utils/extensions.dart';
@@ -24,6 +24,7 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
   String referralErrorText = "";
   String referredByCode = "";
   String referral = "";
+  bool referralSuccess = false;
   Future<Map<String, dynamic>?>? _futureData;
 
   Future<Map<String, dynamic>?> fetchData() async {
@@ -99,6 +100,7 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
             hint: "Enter Referral Code",
             initialValue: referral,
             errorText: referralError ? referralErrorText : null,
+            successText: referralSuccess ? "Referral Code is Correct" : null,
             onFileSelected: (p0) {
               setState(() {
                 referral = p0 ?? "";
@@ -114,7 +116,8 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
   }
 
   void referralFetch(String code) async {
-    final response = await ApiRepository.getUserByLokalID({"lokalID": code});
+    final response = await ApiRepository.getUserByLokalIDorPhoneNumber(
+        {"lokalIdOrPhone": code});
     if (response.isSuccess!) {
       final userData = response.data;
       if (userData != null) {
@@ -126,12 +129,14 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
             "${userData["postalCode"]}";
         if (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty) {
           setState(() {
-            referredByCode = code;
+            referredByCode = userData["lokalID"] ?? code;
             referralError = false;
+            referralSuccess = true;
           });
         } else {
           setState(() {
             referralError = true;
+            referralSuccess = true;
             referralErrorText = "Please Check Referral Code";
           });
         }
@@ -139,12 +144,14 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
         setState(() {
           referralError = true;
           referralErrorText = "Please Check Referral Code";
+          referralSuccess = false;
         });
       }
     } else {
       setState(() {
         referralError = true;
         referralErrorText = "Please Check Referral Code";
+        referralSuccess = false;
       });
     }
   }
@@ -157,6 +164,7 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
         referredByCode = "";
         referredAgentName = "";
         referredAgentAddress = "";
+        referralSuccess = false;
       });
       if (code.isEmpty) {
         setState(() {
@@ -200,15 +208,16 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
 
   void updatedata() async {
     try {
-      final response = await ApiRepository.updateCustomerInfo(
+      final response = await ApiRepository.updateReferredbyInfo(
         {
-          "referredBy": referredByCode,
+          "referralCode": referredByCode,
         },
       );
 
       if (response.isSuccess!) {
-        UiUtils.showToast("General Details Updated");
-        // NavigationUtils.pop();
+        UiUtils.showToast("Referral Code Applied");
+        NavigationUtils.pushAndPopUntil(ScreenRoutes.userReferredByScreen,
+            ScreenRoutes.userReferredByScreen);
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
@@ -243,10 +252,14 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
                 ),
               ),
               (selectedname.isNotEmpty)
-                  ? Text(selectedname,
+                  ? Text(
+                      selectedname,
                       style: GoogleFonts.poppins(
-                          fontSize: 16, fontWeight: FontWeight.w400))
-                  : Container()
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  : Container(),
             ],
           ),
         ],
