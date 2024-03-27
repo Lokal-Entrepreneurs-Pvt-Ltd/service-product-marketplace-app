@@ -109,4 +109,7 @@ class ApiRoutes {
   static const String myAccountSettings = "/customer/accountSettings";
   static const String getUserByLokalId = "/user/getByLokalId";
   static const String getGoldPass = "/membership/getGoldPass";
+  static const String updateReferredby = "/refferal/add";
+  static const String getUserByLokalIdorPhone =
+      "/user/getUserByLokalIdOrPhoneNumber";
 }

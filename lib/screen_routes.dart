@@ -103,4 +103,5 @@ class ScreenRoutes {
   static const String accountSettings = "/accountSettings";
   static const String deliveryJobsDetailsPage = "/deliveryJobsDetailsPage";
   static const String goldPassScreen = '/goldPassScreen';
+  static const String userReferredByScreen = '/userreferredbyscreen';
 }
