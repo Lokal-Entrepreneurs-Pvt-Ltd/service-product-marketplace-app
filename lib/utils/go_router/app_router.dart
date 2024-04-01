@@ -13,6 +13,7 @@ import 'package:lokal/screens/membership/GoldPassScreen.dart';
 import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/agent_details.dart';
+import 'package:lokal/screens/serviceInfra/apniDetails/userBankInfo.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userGeneralInfo.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userOtherInfo.dart';
@@ -115,7 +116,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    // initialLocation: _userReferredByScreen.path,
+    // initialLocation: _userBankInfoScreen.path,
     observers: [ChuckerFlutter.navigatorObserver],
     routes: [
       _onboardingScreen,
@@ -192,10 +193,20 @@ class AppRoutes {
       _goldPassScreen,
       _newsScreen,
       _userReferredByScreen,
+      _userBankInfoScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _userBankInfoScreen = GoRoute(
+    path: ScreenRoutes.userBankDetailsScreen,
+    builder: (context, state) {
+      // final Map<String, dynamic>? extraArgs =
+      // state.extra as Map<String, dynamic>?;
+      return UserBankInfoScreen();
+    },
+  );
 
   static final GoRoute _userReferredByScreen = GoRoute(
     path: ScreenRoutes.userReferredByScreen,

@@ -10,6 +10,7 @@ class TextInputContainer extends StatefulWidget {
   final Function(String?) onFileSelected;
   final String? errorText;
   final String? successText;
+  final bool enabled;
   TextInputContainer({
     Key? key,
     required this.fieldName,
@@ -19,6 +20,7 @@ class TextInputContainer extends StatefulWidget {
     required this.onFileSelected,
     this.errorText = null,
     this.successText = null,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -105,6 +107,9 @@ class _TextInputContainerState extends State<TextInputContainer> {
                           controller: textEditingController,
                           focusNode: focusNode,
                           keyboardType: widget.textInputType,
+                          selectionControls: widget.enabled
+                              ? CustomTextSelectionControls()
+                              : EmptySelection(),
                           style: GoogleFonts.poppins(
                               fontSize: 16, fontWeight: FontWeight.w400),
                           decoration: InputDecoration(
@@ -172,3 +177,77 @@ class _TextInputContainerState extends State<TextInputContainer> {
     );
   }
 }
+
+class CustomTextSelectionControls extends MaterialTextSelectionControls {
+  @override
+  Widget buildHandle(
+      BuildContext context, TextSelectionHandleType type, double textLineHeight,
+      [VoidCallback? onTap]) {
+    final handleColor = Colors.blue; // Change the color as needed
+    final handleSize = 18.0; // Adjust the size of the handles
+    final double topOffset = (textLineHeight - handleSize) / 2;
+    // Custom handle widget
+    Widget handle = SizedBox(
+      width: handleSize,
+      height: handleSize,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 10.0,
+        ),
+        child: CustomPaint(
+          painter: _TextSelectionHandlePainter(color: handleColor),
+        ),
+      ),
+    );
+    const double pi = 3.1415926535897932;
+    switch (type) {
+      case TextSelectionHandleType.left: // points up-right
+        return Transform.rotate(
+          angle: pi / 2.0,
+          child: Transform.translate(
+            offset: Offset(textLineHeight / 2, -7 * topOffset),
+            child: handle,
+          ),
+        );
+      case TextSelectionHandleType.right: // points up-left
+        return Transform.translate(
+          offset: Offset(0, topOffset),
+          child: handle,
+        );
+      // return handle;
+      case TextSelectionHandleType.collapsed: // points up
+        return Transform.rotate(
+          angle: pi / 4.0,
+          child: Transform.translate(
+              offset: Offset(textLineHeight / 3, handleSize / 10),
+              child: handle),
+        );
+    }
+  }
+}
+
+class _TextSelectionHandlePainter extends CustomPainter {
+  _TextSelectionHandlePainter({required this.color});
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()..color = color;
+    final double radius = size.width / 2.0;
+    final Rect circle =
+        Rect.fromCircle(center: Offset(radius, radius), radius: radius);
+    final Rect point = Rect.fromLTWH(0.0, 0.0, radius, radius);
+    final Path path = Path()
+      ..addOval(circle)
+      ..addRect(point);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(_TextSelectionHandlePainter oldPainter) {
+    return color != oldPainter.color;
+  }
+}
+
+class EmptySelection extends EmptyTextSelectionControls {}
