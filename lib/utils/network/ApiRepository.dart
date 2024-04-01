@@ -33,6 +33,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.districtListByState, args);
   }
 
+  static Future<Map<String, dynamic>?> getBankDetailsByIfsc(args) {
+    return HttpScreenClient.getIfscCode(args);
+  }
+
   static Future<ApiResponse> getJobsbyId(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.jobsDetailsById, args);
   }

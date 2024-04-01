@@ -36,7 +36,8 @@ class HttpScreenClient {
   static http.Client getHttp() {
     if (kDebugMode) {
       // Only enable Chucker in debug mode
-      return ChuckerHttpClient(http.Client(),
+      return ChuckerHttpClient(
+        http.Client(),
         // Optional: You can configure Chucker as needed.
         // For example, you can set maxSavedLength to limit the size of saved request/response bodies.
         // maxSavedLength: 8192, // You can adjust this value as needed.
@@ -93,7 +94,8 @@ class HttpScreenClient {
                     UserDataHandler.clearUserToken();
                     NavigationUtils.pop();
                     if (pageRoute == ApiRoutes.sendOtpForLoginCustomer)
-                    NavigationUtils.openScreen(ScreenRoutes.customerSignUpScreen, {});
+                      NavigationUtils.openScreen(
+                          ScreenRoutes.customerSignUpScreen, {});
                     else
                       NavigationUtils.openScreen(ScreenRoutes.signUpScreen, {});
                   },
@@ -158,7 +160,7 @@ class HttpScreenClient {
         request.files.add(multipartFile);
         bodyParams.remove(FILE);
       }
-      request.fields.addAll({USE_CASE : bodyParams[USE_CASE] });
+      request.fields.addAll({USE_CASE: bodyParams[USE_CASE]});
       var response = await request.send();
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
         var responseBody = await response.stream.bytesToString();
@@ -207,6 +209,29 @@ class HttpScreenClient {
     }
   }
 
+  static Future<Map<String, dynamic>?> getIfscCode(String ifsc) async {
+    try {
+      final response = await getHttp()
+          .get(
+            Uri.parse("https://ifsc.razorpay.com/$ifsc"),
+          )
+          .timeout(Duration(seconds: NetworkUtils.REQUEST_TIMEOUT));
+
+      if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
+        // Parse the response body to a Map<String, dynamic>
+        final responseBody = json.decode(response.body);
+        return responseBody;
+      } else {
+        // Handle HTTP error response
+        throw Exception('Failed to load data: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network errors or timeouts
+      print('Error: $e');
+      return null;
+    }
+  }
+
   static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
     try {
       bool hasConnection = await InternetConnectionChecker().hasConnection;
@@ -214,7 +239,6 @@ class HttpScreenClient {
         displayNoInternetDialog(null);
         throw Exception('No internet connection');
       }
-
       String routes = pageRoute.replaceAll('/', '_');
       Event event =
           Event(name: "Routes_$routes", parameters: {"names": pageRoute});
