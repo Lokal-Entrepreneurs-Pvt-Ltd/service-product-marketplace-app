@@ -8,7 +8,9 @@ class TextInputContainer extends StatefulWidget {
   final TextInputType? textInputType;
   final String? initialValue; // Add initialValue property
   final Function(String?) onFileSelected;
-
+  final String? errorText;
+  final String? successText;
+  final bool enabled;
   TextInputContainer({
     Key? key,
     required this.fieldName,
@@ -16,6 +18,9 @@ class TextInputContainer extends StatefulWidget {
     this.textInputType,
     this.initialValue, // Initialize initialValue
     required this.onFileSelected,
+    this.errorText = null,
+    this.successText = null,
+    this.enabled = true,
   }) : super(key: key);
 
   @override
@@ -67,80 +72,182 @@ class _TextInputContainerState extends State<TextInputContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return (set)
-        ? Container(
-            margin: EdgeInsets.only(bottom: 12),
-            padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
-            height: 64,
-            decoration: BoxDecoration(
-              color: ("#F5F5F5").toColor(),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.fieldName,
-                  textAlign: TextAlign.start,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: ("#9E9E9E").toColor(),
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          (set)
+              ? Container(
+                  height: 64,
+                  padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+                  decoration: BoxDecoration(
+                    color: ("#F5F5F5").toColor(),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Expanded(
-                  child: TextField(
-                    showCursor: false,
-                    controller: textEditingController,
-                    focusNode: focusNode,
-                    keyboardType: widget.textInputType,
-                    style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.w400),
-                    decoration: InputDecoration(
-                      hintText: widget.hint,
-                      border: InputBorder.none,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.fieldName,
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: ("#9E9E9E").toColor(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: TextField(
+                          showCursor: false,
+                          controller: textEditingController,
+                          focusNode: focusNode,
+                          keyboardType: widget.textInputType,
+                          selectionControls: widget.enabled
+                              ? CustomTextSelectionControls()
+                              : EmptySelection(),
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, fontWeight: FontWeight.w400),
+                          decoration: InputDecoration(
+                            hintText: widget.hint,
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      set = true;
+                      focusNode.requestFocus();
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: 9.5, left: 16, right: 16, bottom: 9.5),
+                    height: 64,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: ("#F5F5F5").toColor(),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Enter Your ${widget.fieldName}",
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: ("#9E9E9E").toColor(),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          )
-        : GestureDetector(
-            onTap: () {
-              setState(() {
-                set = true;
-                focusNode.requestFocus();
-              });
-            },
-            child: Container(
-              margin: EdgeInsets.only(bottom: 12),
-              padding:
-                  EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
-              height: 64,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                color: ("#F5F5F5").toColor(),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Enter Your ${widget.fieldName}",
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ("#9E9E9E").toColor(),
-                    ),
+          widget.errorText != null
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    widget.errorText!,
+                    style: TextStyles.poppins.body2.light.colors("#A52A2A"),
                   ),
-                ],
-              ),
-            ),
-          );
+                )
+              : Container(),
+          widget.successText != null
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    widget.successText!,
+                    style: TextStyles.poppins.body2.light.colors("#32cd32"),
+                  ),
+                )
+              : Container(),
+        ],
+      ),
+    );
   }
 }
+
+class CustomTextSelectionControls extends MaterialTextSelectionControls {
+  @override
+  Widget buildHandle(
+      BuildContext context, TextSelectionHandleType type, double textLineHeight,
+      [VoidCallback? onTap]) {
+    final handleColor = Colors.blue; // Change the color as needed
+    final handleSize = 18.0; // Adjust the size of the handles
+    final double topOffset = (textLineHeight - handleSize) / 2;
+    // Custom handle widget
+    Widget handle = SizedBox(
+      width: handleSize,
+      height: handleSize,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 10.0,
+        ),
+        child: CustomPaint(
+          painter: _TextSelectionHandlePainter(color: handleColor),
+        ),
+      ),
+    );
+    const double pi = 3.1415926535897932;
+    switch (type) {
+      case TextSelectionHandleType.left: // points up-right
+        return Transform.rotate(
+          angle: pi / 2.0,
+          child: Transform.translate(
+            offset: Offset(textLineHeight / 2, -7 * topOffset),
+            child: handle,
+          ),
+        );
+      case TextSelectionHandleType.right: // points up-left
+        return Transform.translate(
+          offset: Offset(0, topOffset),
+          child: handle,
+        );
+      // return handle;
+      case TextSelectionHandleType.collapsed: // points up
+        return Transform.rotate(
+          angle: pi / 4.0,
+          child: Transform.translate(
+              offset: Offset(textLineHeight / 3, handleSize / 10),
+              child: handle),
+        );
+    }
+  }
+}
+
+class _TextSelectionHandlePainter extends CustomPainter {
+  _TextSelectionHandlePainter({required this.color});
+
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()..color = color;
+    final double radius = size.width / 2.0;
+    final Rect circle =
+        Rect.fromCircle(center: Offset(radius, radius), radius: radius);
+    final Rect point = Rect.fromLTWH(0.0, 0.0, radius, radius);
+    final Path path = Path()
+      ..addOval(circle)
+      ..addRect(point);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(_TextSelectionHandlePainter oldPainter) {
+    return color != oldPainter.color;
+  }
+}
+
+class EmptySelection extends EmptyTextSelectionControls {}
