@@ -100,6 +100,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
     }
     if (ifsc.length == 11) {
       var response = await ApiRepository.getBankDetailsByIfsc(ifsc);
+      bankIfscPrev = bankIfsc;
       if (response != null) {
         setState(() {
           bankName = response["BANK"] + ", " + response["CITY"];
@@ -209,7 +210,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
         bankUserName.isNotEmpty &&
         bankIfsc.isNotEmpty &&
         bankName.isNotEmpty &&
-        bankAccSuccess;
+        bankAccNo1.compareTo(bankAccNo2) == 0;
 
     return Container(
       alignment: Alignment.center,
