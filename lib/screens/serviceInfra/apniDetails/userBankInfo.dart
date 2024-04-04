@@ -121,10 +121,21 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
                 buildTitle("Apna Bank Information Bhare", 18, FontWeight.w500),
           ),
           TextInputContainer(
+            fieldName: "Bank User Name",
+            hint: "Enter Bank User Name",
+            initialValue: bankUserName,
+            onFileSelected: (p0) {
+              setState(() {
+                bankUserName = p0 ?? "";
+              });
+            },
+          ),
+          TextInputContainer(
             fieldName: "Bank Account No.",
             hint: "Enter Bank Account No.",
             initialValue: bankAccNo1,
             enabled: false,
+            textInputType: TextInputType.number,
             onFileSelected: (p0) {
               setState(() {
                 bankAccNo1 = p0 ?? "";
@@ -136,6 +147,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
             fieldName: "Bank Account No.",
             hint: "Confirm Bank Account No.",
             initialValue: bankAccNo2,
+            textInputType: TextInputType.number,
             errorText: bankAccError ? "Please Check Account Number" : null,
             successText: bankAccSuccess ? "Correct Account Number" : null,
             enabled: false,
@@ -143,16 +155,6 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
               setState(() {
                 bankAccNo2 = p0 ?? "";
                 _bankAccMatch();
-              });
-            },
-          ),
-          TextInputContainer(
-            fieldName: "Bank User Name",
-            hint: "Enter Bank User Name",
-            initialValue: bankUserName,
-            onFileSelected: (p0) {
-              setState(() {
-                bankUserName = p0 ?? "";
               });
             },
           ),
@@ -238,8 +240,8 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
 
       if (response.isSuccess!) {
         UiUtils.showToast("Bank Details Updated Successfully");
-        NavigationUtils.pushAndPopUntil(ScreenRoutes.userBankDetailsScreen,
-            ScreenRoutes.userBankDetailsScreen);
+        NavigationUtils.pushAndPopUntil(
+            ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
