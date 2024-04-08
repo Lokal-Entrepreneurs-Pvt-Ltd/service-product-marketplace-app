@@ -12,6 +12,10 @@ Tinker Box Ui Sdk.
 This project is a starting point for a Lokal application.
 
 
+
+## [1.0.45+45] - 2024-8-7
+ReferredBy and Bank Details in Profile
+
 ## [1.0.44+44] - 2024-3-25
 Login flow fixes
 
