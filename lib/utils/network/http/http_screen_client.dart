@@ -235,16 +235,17 @@ class HttpScreenClient {
   static Future<ApiResponse> getApiResponse(String pageRoute, args) async {
     try {
       bool hasConnection = await InternetConnectionChecker().hasConnection;
+      String routes = pageRoute.replaceAll('/', '_');
+      Event event =
+          Event.build(name: "Api_Called_$routes", apiEndPoint: pageRoute);
       if (!hasConnection) {
         displayNoInternetDialog(null);
         throw Exception('No internet connection');
       }
-      String routes = pageRoute.replaceAll('/', '_');
-      Event event =
-          Event(name: "Routes_$routes", parameters: {"names": pageRoute});
-      EventQueue eventQueue = EventQueue();
-      eventQueue.add(event);
-      print("${eventQueue.queue.length}-----------------------");
+
+      // EventQueue eventQueue = EventQueue();
+      // eventQueue.add(event);
+      // print("${eventQueue.queue.length}-----------------------");
 
       var bodyParams = args ?? <String, dynamic>{};
       var header = NetworkUtils.getRequestHeaders();
@@ -260,6 +261,8 @@ class HttpScreenClient {
         ApiResponse apiResponse =
             ApiResponse.fromJson(jsonDecode(response.body));
         if (apiResponse.isSuccess!) {
+          event.updateParameters(apiError: "No Error");
+          event.fire();
           return apiResponse;
         } else {
           String errorCode = apiResponse.error![CODE].toString();

@@ -122,6 +122,12 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
       final userData = response.data;
       if (userData != null) {
         referredAgentName = userData["firstName"] ?? "";
+        if (referredAgentName.isEmpty) {
+          referredAgentName = userData["phoneNumber"] ?? "";
+        }
+        if (referredAgentName.isEmpty) {
+          referredAgentName = userData["email"] ?? "";
+        }
         referredAgentAddress =
             "${userData["locality"]}${userData["locality"].isNotEmpty ? ", " : ""}"
             "${userData["administrativeArea"]}${userData["administrativeArea"].isNotEmpty ? ", " : ""}"
