@@ -31,6 +31,7 @@ import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
 import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
 import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
+import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/screens/serviceInfra/status.dart';
 import 'package:lokal/widgets/UikFilter.dart';
@@ -87,6 +88,36 @@ import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
 
+class RouteChangeObserver extends RouteObserver {
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPush(route, previousRoute);
+    String? routename = route.settings.name;
+    late Event event;
+    if (route != previousRoute) {
+      if (routename != null) {
+        routename = routename.replaceAll('/', '_');
+        event = Event.build(
+            name: "Routes_Called_$routename", route: route.settings.name);
+      } else {
+        event = Event.build(
+            name: "Route_Called_null",
+            route: route.settings.name,
+            routeError: "No route Found");
+      }
+      event.fire();
+    }
+    print('Route pushed: ${route.settings.name}');
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPop(route, previousRoute);
+    // Perform actions when a route is popped
+    print('Route popped: ${route.settings.name}');
+  }
+}
+
 class AppRoutes {
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey(debugLabel: 'root');
@@ -117,7 +148,7 @@ class AppRoutes {
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
     // initialLocation: _userBankInfoScreen.path,
-    observers: [ChuckerFlutter.navigatorObserver],
+    observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
       _onboardingScreen,
       uikBottomNavigationBar,

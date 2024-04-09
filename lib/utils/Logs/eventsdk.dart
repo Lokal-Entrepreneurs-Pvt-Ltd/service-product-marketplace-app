@@ -10,12 +10,12 @@ class EventSDK {
     return _instance!;
   }
 
-  static String sessionId = "";
+  static late String sessionId;
   static int? userId;
 
-  void init() async {
+  static Future<void> init() async {
     var deviceId = UserDataHandler.getDeviceId();
     userId = UserDataHandler.getUserId();
-    sessionId = deviceId + DateTime.timestamp().toString();
+    sessionId = '$deviceId${DateTime.now().millisecondsSinceEpoch}';
   }
 }
