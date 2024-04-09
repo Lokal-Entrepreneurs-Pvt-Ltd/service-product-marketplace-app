@@ -70,6 +70,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   intl: ^0.18.0
   just_the_tooltip: ^0.0.3+6
+  location: ^6.0.1
   logger: ^1.1.0
   lottie: ^2.5.0
   material_design_icons_flutter: ^7.0.7296

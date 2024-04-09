@@ -1,48 +1,56 @@
-import 'package:flutter/cupertino.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart' as geo;
+import 'package:location/location.dart';
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 class LocationUtils {
   static Future<bool> _handleLocationPermission() async {
+    Location location = Location();
     bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      //     content: Text(
-      //         'Location services are disabled. Please enable the services')));
-      return false;
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
+    PermissionStatus permissionStatus;
+    permissionStatus = await location.hasPermission();
+    if (permissionStatus == PermissionStatus.denied) {
+      permissionStatus = await location.requestPermission();
+      if (permissionStatus == PermissionStatus.denied) {
+        UiUtils.showToast('Location permissions are denied');
         // ScaffoldMessenger.of(context).showSnackBar(
         //     const SnackBar(content: Text('Location permissions are denied')));
         return false;
       }
+      if (permissionStatus == PermissionStatus.deniedForever) {
+        UiUtils.showToast(
+            "Location permissions are permanently denied, we cannot request permissions.");
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text(
+        //         'Location permissions are permanently denied, we cannot request permissions.')));
+        return false;
+      }
     }
-    if (permission == LocationPermission.deniedForever) {
-      // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      //     content: Text(
-      //         'Location permissions are permanently denied, we cannot request permissions.')));
-      return false;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      // Request to enable location services
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        // Location services are not enabled
+        UiUtils.showToast("Location is not started. Please try again");
+        return false;
+      }
     }
-    return true;
+
+    return true; // Location service is enabled and permission granted
   }
 
-// Now Create Method named _getCurrentLocation with async Like Below.
-  static Future<Position?> getCurrentPosition() async {
-    Position? currentPosition;
+  static Future<geo.Position?> getCurrentPosition() async {
+    geo.Position? currentPosition;
     final hasPermission = await _handleLocationPermission();
     if (!hasPermission) return currentPosition;
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
+    try {
+      geo.Position position = await geo.Geolocator.getCurrentPosition(
+          desiredAccuracy: geo.LocationAccuracy.high);
       currentPosition = position;
-    }).catchError((e) {
-      debugPrint(e);
-    });
-
+    } catch (e) {
+      debugPrint(e.toString());
+    }
     return currentPosition;
   }
 }
