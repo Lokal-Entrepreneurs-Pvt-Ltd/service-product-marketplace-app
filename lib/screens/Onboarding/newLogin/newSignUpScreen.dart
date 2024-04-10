@@ -57,11 +57,18 @@ class _SignupScreen2State extends State<SignupScreen2> {
   String referredByCode = "";
 
   void referralFetch(String code) async {
-    final response = await ApiRepository.getUserByLokalID({"lokalID": code});
+    final response = await ApiRepository.getUserByLokalIDorPhoneNumber(
+        {"lokalIdOrPhone": code});
     if (response.isSuccess!) {
       final userData = response.data;
       if (userData != null) {
         referredAgentName = userData["firstName"] ?? "";
+        if (referredAgentName.isEmpty) {
+          referredAgentName = userData["phoneNumber"] ?? "";
+        }
+        if (referredAgentName.isEmpty) {
+          referredAgentName = userData["email"] ?? "";
+        }
         referredAgentAddress =
             "${userData["locality"]}${userData["locality"].isNotEmpty ? ", " : ""}"
             "${userData["administrativeArea"]}${userData["administrativeArea"].isNotEmpty ? ", " : ""}"
@@ -124,20 +131,22 @@ class _SignupScreen2State extends State<SignupScreen2> {
     return (referredAgentName.isNotEmpty || referredAgentAddress.isNotEmpty)
         ? Padding(
             padding: const EdgeInsets.only(left: 16, top: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Referred By  $referredAgentName",
-                  style: TextStyles.poppins.body1.medium
-                      .colors(UikColor.venusaur_500),
-                ),
-                Text(
-                  referredAgentAddress,
-                  style: TextStyles.poppins.body1.medium
-                      .colors(UikColor.venusaur_500),
-                )
-              ],
+            child: Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Referred By  $referredAgentName",
+                    style: TextStyles.poppins.body1.medium
+                        .colors(UikColor.venusaur_500),
+                  ),
+                  Text(
+                    referredAgentAddress,
+                    style: TextStyles.poppins.body1.medium
+                        .colors(UikColor.venusaur_500),
+                  )
+                ],
+              ),
             ),
           )
         : Container();

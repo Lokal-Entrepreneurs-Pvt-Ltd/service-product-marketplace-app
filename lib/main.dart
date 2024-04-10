@@ -9,6 +9,7 @@ import 'package:lokal/constants/environment.dart';
 import 'package:lokal/notifications/notification_controller.dart';
 
 import 'package:lokal/utils/AppInitializer.dart';
+import 'package:lokal/utils/Logs/eventsdk.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
@@ -141,6 +142,7 @@ class _LokalAppState extends State<LokalApp> {
     String? deviceId;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
+      await EventSDK.init();
       deviceId = await PlatformDeviceId.getDeviceId;
     } on PlatformException {
       deviceId = 'Failed to get deviceId.';
