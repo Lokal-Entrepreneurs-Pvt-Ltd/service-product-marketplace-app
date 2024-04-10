@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -28,137 +26,139 @@ import 'storage/product_data_handler.dart';
 
 abstract class ActionUtils {
   static void sendEventonActionForScreen(String actionType, String screenName) {
-    EventSDK eventSDK = EventSDK();
-    eventSDK.init();
     if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
       print('${EventSDK.sessionId}---------------');
-      Event event = Event(
+      Event event = Event.build(
         name: actionType,
-        parameters: {
-          "sessionId": EventSDK.sessionId,
-          "userId": EventSDK.userId,
-          "pageName": screenName
-        },
+        route: screenName,
       );
       EventHandler.events(event: event);
     }
   }
 
   static void executeAction(UikAction uikAction) {
-    switch (uikAction.tap.type) {
-      case UIK_ACTION.OPEN_WEB:
-        NavigationUtils.openWeb(uikAction);
-        break;
-      case UIK_ACTION.ADD_TO_CART:
-        addToCart(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CATEGORY:
-        NavigationUtils.openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PRODUCT:
-        NavigationUtils.openCategory(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PAGE:
-        NavigationUtils.openPage(uikAction);
-        break;
-      case UIK_ACTION.OPEN_CART:
-        showCartScreen(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-      case UIK_ACTION.OPEN_PRODUCT:
-        NavigationUtils.openPage(uikAction);
-        break;
+    Event event = Event.build(
+        name: "Action_taken__${uikAction.tap.type}",
+        action: "${uikAction.tap.type} ${uikAction.tap.data.url ?? ""}");
+    try {
+      switch (uikAction.tap.type) {
+        case UIK_ACTION.OPEN_WEB:
+          NavigationUtils.openWeb(uikAction);
+          break;
+        case UIK_ACTION.ADD_TO_CART:
+          addToCart(uikAction);
+          break;
+        case UIK_ACTION.OPEN_CATEGORY:
+          NavigationUtils.openCategory(uikAction);
+          break;
+        case UIK_ACTION.OPEN_PRODUCT:
+          NavigationUtils.openCategory(uikAction);
+          break;
+        case UIK_ACTION.OPEN_PAGE:
+          NavigationUtils.openPage(uikAction);
+          break;
+        case UIK_ACTION.OPEN_CART:
+          showCartScreen(uikAction);
+          break;
+        case UIK_ACTION.BACK_PRESSED:
+          NavigationUtils.pop();
+          break;
+        case UIK_ACTION.OPEN_PRODUCT:
+          NavigationUtils.openPage(uikAction);
+          break;
 
-      case UIK_ACTION.ADD_ADDRESS:
-        addAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_PAYMENT:
-        openPayment(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-      case UIK_ACTION.OPEN_ADDRESS:
-        if (UserDataHandler.getIsUserVerified()) {
+        case UIK_ACTION.ADD_ADDRESS:
+          addAddress(uikAction);
+          break;
+        case UIK_ACTION.OPEN_PAYMENT:
+          openPayment(uikAction);
+          break;
+        case UIK_ACTION.BACK_PRESSED:
+          NavigationUtils.pop();
+          break;
+        case UIK_ACTION.OPEN_ADDRESS:
+          if (UserDataHandler.getIsUserVerified()) {
+            openAddress(uikAction);
+          } else {
+            openMyDetails();
+          }
+          break;
+        case UIK_ACTION.REMOVE_FROM_CART:
+          removeCartItem(uikAction);
+          break;
+        case UIK_ACTION.REMOVE_CART_ITEM:
+          removeCartItem(uikAction);
+          break;
+        case UIK_ACTION.BACK_PRESSED:
+          NavigationUtils.pop();
+          break;
+        case UIK_ACTION.OPEN_PAGE:
+          NavigationUtils.openPage(uikAction);
+          break;
+        case UIK_ACTION.FETCH_LOCATION:
+          {
+            handleSelectedLocation();
+          }
+          break;
+        case UIK_ACTION.OPEN_ORDER_HISTORY:
+          NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen, {});
+          break;
+        case UIK_ACTION.OPEN_MY_DETAILS:
+          NavigationUtils.openScreen(ScreenRoutes.userProfileInfo, {});
+          break;
+        case UIK_ACTION.OPEN_WISHLIST:
+          UiUtils.showToast("WISHLIST");
+          break;
+        case UIK_ACTION.OPEN_ADDRESS:
           openAddress(uikAction);
-        } else {
-          openMyDetails();
-        }
-        break;
-      case UIK_ACTION.REMOVE_FROM_CART:
-        removeCartItem(uikAction);
-        break;
-      case UIK_ACTION.REMOVE_CART_ITEM:
-        removeCartItem(uikAction);
-        break;
-      case UIK_ACTION.BACK_PRESSED:
-        NavigationUtils.pop();
-        break;
-      case UIK_ACTION.OPEN_PAGE:
-        NavigationUtils.openPage(uikAction);
-        break;
-      case UIK_ACTION.FETCH_LOCATION:
-        {
-          handleSelectedLocation();
-        }
-        break;
-      case UIK_ACTION.OPEN_ORDER_HISTORY:
-        NavigationUtils.openScreen(ScreenRoutes.orderHistoryScreen, {});
-        break;
-      case UIK_ACTION.OPEN_MY_DETAILS:
-        NavigationUtils.openScreen(ScreenRoutes.userProfileInfo, {});
-        break;
-      case UIK_ACTION.OPEN_WISHLIST:
-        UiUtils.showToast("WISHLIST");
-        break;
-      case UIK_ACTION.OPEN_ADDRESS:
-        openAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_AGENT:
-        NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen, {});
-        break;
-      case UIK_ACTION.OPEN_MY_REWARDS:
-        NavigationUtils.openScreen(ScreenRoutes.myRewardsPage, {});
-        break;
-      case UIK_ACTION.OPEN_PAYMENT:
-        openPayment(uikAction);
-        break;
-      case UIK_ACTION.OPEN_MY_ADDRESS:
-        openAddress(uikAction);
-        break;
-      case UIK_ACTION.OPEN_SIGN_OUT:
-        {
-          UiUtils.showToast(LOG_OUT);
-          clearDataAndMoveToOnboarding(uikAction);
-        }
-        break;
-      case UIK_ACTION.OPEN_LOG_IN:
-        {
-          UiUtils.showToast(LOG_IN);
-          clearDataAndMoveToOnboarding(uikAction);
-        }
-        break;
-      case UIK_ACTION.PROFILE_SCREEN:
-        NavigationUtils.openScreen(ScreenRoutes.profileScreen);
-        break;
-      case UIK_ACTION.ADD_ADDRESS:
-        NavigationUtils.openScreen(ScreenRoutes.addAddressScreen);
-        break;
-      case UIK_ACTION.OPEN_LOKAL_QR:
-        NavigationUtils.openScreen(ScreenRoutes.customerLokalQr);
-        break;
-      case UIK_ACTION.SHARE_WHATSAPP:
-        UiUtils.shareOnWhatsApp(
-            uikAction.tap.data.url!, uikAction.tap.data.skuId!);
-        break;
-      case UIK_ACTION.IMAGE_PICKER:
-        handleImageSelection();
-        break;
-      default:
-        {}
+          break;
+        case UIK_ACTION.OPEN_MY_AGENT:
+          NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen, {});
+          break;
+        case UIK_ACTION.OPEN_MY_REWARDS:
+          NavigationUtils.openScreen(ScreenRoutes.myRewardsPage, {});
+          break;
+        case UIK_ACTION.OPEN_PAYMENT:
+          openPayment(uikAction);
+          break;
+        case UIK_ACTION.OPEN_MY_ADDRESS:
+          openAddress(uikAction);
+          break;
+        case UIK_ACTION.OPEN_SIGN_OUT:
+          {
+            UiUtils.showToast(LOG_OUT);
+            clearDataAndMoveToOnboarding(uikAction);
+          }
+          break;
+        case UIK_ACTION.OPEN_LOG_IN:
+          {
+            UiUtils.showToast(LOG_IN);
+            clearDataAndMoveToOnboarding(uikAction);
+          }
+          break;
+        case UIK_ACTION.PROFILE_SCREEN:
+          NavigationUtils.openScreen(ScreenRoutes.profileScreen);
+          break;
+        case UIK_ACTION.ADD_ADDRESS:
+          NavigationUtils.openScreen(ScreenRoutes.addAddressScreen);
+          break;
+        case UIK_ACTION.OPEN_LOKAL_QR:
+          NavigationUtils.openScreen(ScreenRoutes.customerLokalQr);
+          break;
+        case UIK_ACTION.SHARE_WHATSAPP:
+          UiUtils.shareOnWhatsApp(
+              uikAction.tap.data.url!, uikAction.tap.data.skuId!);
+          break;
+        case UIK_ACTION.IMAGE_PICKER:
+          handleImageSelection();
+          break;
+        default:
+          {}
+      }
+    } catch (e) {
+      event.updateParameters(actionError: e.toString());
     }
+    event.fire();
   }
 
   static void handleImageSelection() async {
@@ -248,10 +248,11 @@ abstract class ActionUtils {
   }
 
   static void handleSelectedLocation() async {
+    // var context = AppRoutes.rootNavigatorKey.currentContext;
     UiUtils.showToast("Location is Updating");
     NavigationUtils.showLoaderOnTop();
     Position? position = await LocationUtils.getCurrentPosition();
-    // var context = AppRoutes.rootNavigatorKey.currentContext;
+
     if (position != null) {
       double lat = position.latitude;
       double long = position.longitude;
