@@ -31,7 +31,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
       TextEditingController();
   final TextEditingController referralIdController = TextEditingController();
   String selectedUserType = PARTNER;
-  final List<String> userTypes = [PARTNER, AGENT];
+  final List<String> userTypes = [PARTNER, AGENT, CANDIDATE];
 
   bool errorEmail = false;
   String descEmail = "";
