@@ -11,6 +11,7 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/preference_constants.dart';
+import 'package:lokal/utils/storage/session_utils.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
@@ -555,6 +556,16 @@ class _SignupScreen2State extends State<SignupScreen2> {
       if (response.isSuccess!) {
         if (response.data[AUTH_TOKEN] != null)
           UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+        await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
+        final Session? session = await SessionManager.getSession();
+        if (session != null) {
+          print(session.userId);
+          print("dsfsvfv___________________---------------------0");
+          print(session.lastLogin);
+          print(session.openedTime);
+          print(session.deviceId);
+          print(session.sessionId);
+        }
         var customerData = response.data[CUSTOMER_DATA];
         if (customerData != null) {
           UserDataHandler.saveCustomerData(customerData);
