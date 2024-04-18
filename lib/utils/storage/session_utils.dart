@@ -51,8 +51,7 @@ class SessionManager {
   }
 
   static Future<void> _saveSessionId(String? sessionId) async {
-    await PreferenceUtils.setString(
-        _sessionIdKey,
+    await PreferenceUtils.setString(_sessionIdKey,
         '${UserDataHandler.getDeviceId()}${DateTime.now().millisecondsSinceEpoch}');
   }
 
@@ -73,8 +72,7 @@ class SessionManager {
     if (userId != -1 && lastLoginString.isNotEmpty) {
       return Session(
         userId: userId,
-        lastLogin:
-            DateTime.tryParse(lastLoginString),
+        lastLogin: DateTime.tryParse(lastLoginString),
         deviceId: deviceId,
         sessionId: sessionId,
         openedTime: DateTime.tryParse(openTime),
@@ -88,10 +86,3 @@ class SessionManager {
     await PreferenceUtils.clearStorage();
   }
 }
-
-
-
-
-
-
-

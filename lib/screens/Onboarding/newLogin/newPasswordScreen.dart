@@ -366,10 +366,20 @@ class _PasswordScreen2State extends State<PasswordScreen2> {
       print(session.sessionId);
     }
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
+    // NavigationUtils.openScreen(ScreenRoutes.mobileNumberScreen);
     if (response.data[NEXT_PAGE] != null) {
       final String nextPage = response.data[NEXT_PAGE];
       if (nextPage.isNotEmpty) {
-        NavigationUtils.popAllAndPush(nextPage);
+        if (nextPage.compareTo(ScreenRoutes.mobileNumberScreen) == 0) {
+          NavigationUtils.openScreen(nextPage, {
+            "userId": customerData["id"].toString(),
+            "email": customerData["email"],
+            "password": passwordController.text,
+            "name": customerData["firstName"],
+          });
+        } else {
+          NavigationUtils.popAllAndPush(nextPage);
+        }
       } else {
         NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
       }

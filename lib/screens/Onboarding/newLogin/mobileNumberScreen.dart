@@ -1,7 +1,5 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/constants/dimens.dart';
@@ -12,31 +10,26 @@ import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
-import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
-import '../../../utils/CodeUtils.dart';
+class MobileNumberScreen extends StatefulWidget {
+  final Map<String, dynamic> args;
 
-class LoginScreen2 extends StatefulWidget {
-  final String? selectedUserType;
-
-  const LoginScreen2({Key? key, this.selectedUserType}) : super(key: key);
+  const MobileNumberScreen({Key? key, this.args = const {}}) : super(key: key);
 
   @override
-  _LoginScreen2State createState() => _LoginScreen2State();
+  _MobileNumberScreenState createState() => _MobileNumberScreenState();
 }
 
-class _LoginScreen2State extends State<LoginScreen2> {
-  final emailController = TextEditingController();
+class _MobileNumberScreenState extends State<MobileNumberScreen> {
+  final mobileNumberController = TextEditingController();
   final passwordController = TextEditingController();
-  bool errorEmail = false;
 
   bool isLoading = false;
-  String selectedUserType = CANDIDATE;
-  final List<String> userTypes = [PARTNER, AGENT, CANDIDATE];
   bool isPhoneInput = true;
+  String userName = "";
 
   @override
   void initState() {
@@ -45,7 +38,27 @@ class _LoginScreen2State extends State<LoginScreen2> {
   }
 
   void initialize() async {
-    emailController.text = UserDataHandler.getUserEmail();
+    fetchData();
+  }
+
+  void fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          setState(() {
+            mobileNumberController.text = userData['phoneNumber'].toString();
+            userName = userData["firstName"] ?? "";
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      UiUtils.showToast("Error fetching initial data");
+    }
   }
 
   @override
@@ -55,15 +68,15 @@ class _LoginScreen2State extends State<LoginScreen2> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: DIMEN_24),
-          Padding(
-            padding: const EdgeInsets.only(left: DIMEN_21),
-            child: _buildTitle(),
-          ),
-          const SizedBox(height: DIMEN_35),
+          // const SizedBox(height: DIMEN_24),
           Expanded(
-            child: _buildBody(),
+            child: Padding(
+              padding: const EdgeInsets.only(left: DIMEN_21),
+              child: _buildTitle(),
+            ),
           ),
+          _buildBody(),
+          // const SizedBox(height: DIMEN_35),
         ],
       ),
     );
@@ -74,9 +87,9 @@ class _LoginScreen2State extends State<LoginScreen2> {
       elevation: 0,
       backgroundColor: const Color(0xFFfafafa),
       leading: _buildAppBarLeading(),
-      actions: [
-        _buildAppBarAction(),
-      ],
+      // actions: [
+      //   _buildAppBarAction(),
+      // ],
     );
   }
 
@@ -88,25 +101,6 @@ class _LoginScreen2State extends State<LoginScreen2> {
       child: const Icon(
         Icons.arrow_back_sharp,
         color: Colors.black,
-      ),
-    );
-  }
-
-  Widget _buildAppBarAction() {
-    return InkWell(
-      onTap: () {
-        NavigationUtils.openScreen(ScreenRoutes.signupScreen2);
-      },
-      child: TextButton(
-        onPressed: null, // Use onPressed: null for InkWell
-        child: Text(
-          "Want to Register?",
-          style: GoogleFonts.poppins(
-            color: const Color(0XFF3F51B5),
-            fontSize: DIMEN_14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
       ),
     );
   }
@@ -137,14 +131,12 @@ class _LoginScreen2State extends State<LoginScreen2> {
           children: [
             const SizedBox(height: 23),
             _buildLoginAsText(),
-            const SizedBox(height: DIMEN_20),
-            _buildUserTypeSelection(),
             const SizedBox(height: 23),
             _buildEmailField(),
             const SizedBox(height: DIMEN_16),
             _buildContinueButton(),
             const SizedBox(height: DIMEN_16),
-            _buildPrivacyAndTermsText(),
+            // _buildPrivacyAndTermsText(),
           ],
         ),
       ),
@@ -152,75 +144,28 @@ class _LoginScreen2State extends State<LoginScreen2> {
   }
 
   Widget _buildLoginAsText() {
-    return Padding(
-      padding: const EdgeInsets.only(left: DIMEN_16),
-      child: Text(
-        "Login to Access Lokal Platform",
-        style: GoogleFonts.poppins(
-          fontSize: DIMEN_18,
-          fontWeight: FontWeight.w400,
-          color: const Color(0xFF212121),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildUserTypeSelection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
-      child: Row(
+    return Container(
+      width: double.maxFinite,
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Login as",
+            "Hey! $userName Please",
             style: GoogleFonts.poppins(
-              fontSize: DIMEN_20,
-              fontWeight: FontWeight.w500,
-              color: const Color(0xFF000000),
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xFF212121),
             ),
           ),
-          const SizedBox(width: 41), // Add spacing between text and dropdown
-          Container(
-            decoration: BoxDecoration(
-              border:
-                  Border.all(width: 1, color: UikColor.gengar_500.toColor()),
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-            ),
-            height: 42,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            child: DropdownButton<String>(
-              value: selectedUserType,
-              icon: Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: SvgPicture.network(
-                    "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1710760508910-chevron-down.svg"),
-              ), // Custom dropdown icon
-              iconSize: 24,
-              iconEnabledColor: UikColor.gengar_500.toColor(),
-              elevation: 16,
-              borderRadius: BorderRadius.circular(12),
-              alignment: Alignment.center,
-              underline: Container(),
-              padding: const EdgeInsets.all(0),
-              onChanged: (String? value) {
-                setState(() {
-                  selectedUserType = value!;
-                });
-              },
-              items: userTypes.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      color: UikColor.gengar_500.toColor(),
-                    ),
-                  ),
-                );
-              }).toList(),
+          Text(
+            "Enter Mobile No.",
+            style: GoogleFonts.poppins(
+              fontSize: 32,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFF212121),
             ),
           ),
         ],
@@ -234,10 +179,10 @@ class _LoginScreen2State extends State<LoginScreen2> {
       child: TextField(
         enableSuggestions: true,
         style: GoogleFonts.poppins(),
-        controller: emailController,
+        controller: mobileNumberController,
         keyboardType: TextInputType.emailAddress, // Set keyboard type for email
         decoration: InputDecoration(
-          hintText: "Enter Registered Email ID or Mobile No.",
+          hintText: "Enter Mobile No.",
           hintStyle: GoogleFonts.poppins(
             color: UikColor.giratina_400.toColor(),
             fontSize: 16,
@@ -254,8 +199,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
             borderSide: BorderSide.none,
           ),
           errorStyle: GoogleFonts.poppins(),
-          errorText:
-              errorEmail ? (isPhoneInput ? VALID_PHONE_NO : VALID_EMAIL) : null,
+          errorText: (!isPhoneInput ? VALID_PHONE_NO : null),
         ),
       ),
     );
@@ -278,26 +222,23 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 setState(() {
                   isLoading = true;
                 });
+                isPhoneInput =
+                    UiUtils.isPhoneNoValid(mobileNumberController.text);
                 try {
-                  isPhoneInput = UiUtils.isPhoneNoValid(emailController.text);
-                  bool emailValid = UiUtils.isEmailValid(emailController.text);
                   if (isPhoneInput) {
-                    final response = await ApiRepository.sendOtpForLogin(
-                        ApiRequestBody.getLoginAsPhoneRequest(
-                            emailController.text));
+                    Map<String, dynamic> map = widget.args ?? {};
+                    map.addAll({
+                      "phoneNumber": mobileNumberController.text.toString()
+                    });
+                    final response =
+                        await ApiRepository.updateUserAuthForEmail(map);
                     if (response.isSuccess!) {
-                      NavigationUtils.openScreen(ScreenRoutes.otpScreen2, {
-                        "phoneNumber": emailController.text.toString(),
-                        USERTYPE: selectedUserType
+                      NavigationUtils.openScreen(ScreenRoutes.otpMobileScreen, {
+                        "phoneNumber": mobileNumberController.text.toString(),
                       });
                     } else {
                       _handleLoginError(response);
                     }
-                  } else if (emailValid) {
-                    NavigationUtils.openScreen(ScreenRoutes.passwordScreen2, {
-                      "email": emailController.text,
-                      USERTYPE: selectedUserType,
-                    });
                   } else {
                     UiUtils.showToast("Please Enter Valid Phone no./Email Id");
                   }
