@@ -372,6 +372,16 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.sendOtpForLogin, args);
   }
 
+  static Future<ApiResponse> updateUserAuthForEmail(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.updateUserAuthForEmail, args);
+  }
+
+  static Future<ApiResponse> verifyOtpAndLoginByEmail(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.verifyOtpAndLoginByEmail, args);
+  }
+
   static Future<ApiResponse> sendOtpForLoginCustomer(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.sendOtpForLoginCustomer, args);

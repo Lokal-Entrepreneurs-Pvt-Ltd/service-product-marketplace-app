@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
+import 'package:lokal/screens/Onboarding/newLogin/mobileNumberScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
+import 'package:lokal/screens/Onboarding/newLogin/otpScreenMobile.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
 import 'package:lokal/screens/membership/GoldPassScreen.dart';
@@ -147,7 +149,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    // initialLocation: _userBankInfoScreen.path,
+    // initialLocation: _otpMobileScreen.path,
     observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
       _onboardingScreen,
@@ -225,10 +227,38 @@ class AppRoutes {
       _newsScreen,
       _userReferredByScreen,
       _userBankInfoScreen,
+      _mobileNumberScreen,
+      _otpMobileScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _otpMobileScreen = GoRoute(
+    path: ScreenRoutes.otpMobileScreen,
+    builder: (context, state) {
+      // final Map<String, dynamic>? extraArgs =
+      // state.extra as Map<String, dynamic>?;
+      return OtpScreenMobile(
+        key: state.pageKey,
+        args: state.extra,
+        // mobileNumber: {"mobile": 7232841614},
+      );
+    },
+  );
+
+  static final GoRoute _mobileNumberScreen = GoRoute(
+    path: ScreenRoutes.mobileNumberScreen,
+    builder: (context, state) {
+      // final Map<String, dynamic>? extraArgs =
+      // state.extra as Map<String, dynamic>?;
+      return MobileNumberScreen(
+        key: state.pageKey,
+        args: state.extra as Map<String, dynamic>,
+        // mobileNumber: {"mobile": 7232841614},
+      );
+    },
+  );
 
   static final GoRoute _userBankInfoScreen = GoRoute(
     path: ScreenRoutes.userBankDetailsScreen,
@@ -284,7 +314,7 @@ class AppRoutes {
     builder: (context, state) {
       return PasswordScreen2(
         key: state.pageKey,
-        args: state.extra,
+        args: state.extra as Map<String, dynamic>,
         // args: state.extra,
       );
     },
