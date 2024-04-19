@@ -337,7 +337,10 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
               ),
               GestureDetector(
                 onTap: () {
-                  NavigationUtils.openScreen(ScreenRoutes.mobileNumberScreen);
+                  NavigationUtils.pushAndPopUntil(
+                      ScreenRoutes.mobileNumberScreen,
+                      ScreenRoutes.mobileNumberScreen,
+                      widget.args);
                 },
                 child: Text(
                   "Change Number",
