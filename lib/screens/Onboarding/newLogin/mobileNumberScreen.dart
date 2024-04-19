@@ -25,11 +25,11 @@ class MobileNumberScreen extends StatefulWidget {
 
 class _MobileNumberScreenState extends State<MobileNumberScreen> {
   final mobileNumberController = TextEditingController();
-  final passwordController = TextEditingController();
 
   bool isLoading = false;
   bool isPhoneInput = true;
   String userName = "";
+  String number = "";
 
   @override
   void initState() {
@@ -42,6 +42,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
   }
 
   void fetchData() async {
+    number = widget.args["phoneNumber"] ?? "";
     try {
       final response = await ApiRepository.getUserProfile({});
       if (response.isSuccess!) {
@@ -49,7 +50,11 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
         final userData = response.data?['userModelData'];
         if (userData != null) {
           setState(() {
-            mobileNumberController.text = userData['phoneNumber'].toString();
+            if (number.isEmpty) {
+              mobileNumberController.text = userData['phoneNumber'].toString();
+            } else {
+              mobileNumberController.text = number;
+            }
             userName = userData["firstName"] ?? "";
           });
         }
@@ -227,15 +232,20 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                 try {
                   if (isPhoneInput) {
                     Map<String, dynamic> map = widget.args ?? {};
-                    map.addAll({
-                      "phoneNumber": mobileNumberController.text.toString()
-                    });
+                    if (number.isEmpty) {
+                      map.addAll({
+                        "phoneNumber": mobileNumberController.text.toString()
+                      });
+                    } else {
+                      map["phoneNumber"] =
+                          mobileNumberController.text.toString();
+                    }
+
                     final response =
                         await ApiRepository.updateUserAuthForEmail(map);
                     if (response.isSuccess!) {
-                      NavigationUtils.openScreen(ScreenRoutes.otpMobileScreen, {
-                        "phoneNumber": mobileNumberController.text.toString(),
-                      });
+                      NavigationUtils.openScreen(
+                          ScreenRoutes.otpMobileScreen, map);
                     } else {
                       _handleLoginError(response);
                     }
