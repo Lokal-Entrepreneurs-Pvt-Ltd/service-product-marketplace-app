@@ -112,4 +112,8 @@ class ApiRoutes {
   static const String updateReferredby = "/refferal/add";
   static const String getUserByLokalIdorPhone =
       "/user/getUserByLokalIdOrPhoneNumber";
+  static const String updateUserAuthForEmail =
+      "/customer/updateUserAuthForEmail";
+  static const String verifyOtpAndLoginByEmail =
+      "/customer/verifyOtpAndLoginByEmail";
 }

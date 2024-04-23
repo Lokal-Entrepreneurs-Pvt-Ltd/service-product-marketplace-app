@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:android_sms_retriever/android_sms_retriever.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -21,18 +23,18 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
-class NewOTPScreen extends StatefulWidget {
+class OtpScreenMobile extends StatefulWidget {
   final dynamic args;
-
-  const NewOTPScreen({Key? key, this.args}) : super(key: key);
+  const OtpScreenMobile({Key? key, this.args}) : super(key: key);
 
   @override
-  _NewOTPScreenState createState() => _NewOTPScreenState();
+  _OtpScreenMobileState createState() => _OtpScreenMobileState();
 }
 
-class _NewOTPScreenState extends State<NewOTPScreen> {
+class _OtpScreenMobileState extends State<OtpScreenMobile> {
   int seconds = 30; // Change the timer duration to 30 seconds
   // String digitSeconds = "30"; // Update the initial digit display
   Timer? timer;
@@ -43,18 +45,50 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
       false; // New variable to track if "Continue" button is loading
   bool isLoadingResendOtp =
       false; // New variable to track if "Resend OTP" button is loading
-  String selectedUserType = CANDIDATE;
-  final List<String> userTypes = [PARTNER, AGENT, CANDIDATE];
   String phoneNumber = "";
+  String phoneNumber2 = "";
+  String userName = "";
   @override
   void initState() {
     super.initState();
-    startSmsListener();
     if (widget.args != null) {
-      selectedUserType = widget.args[USERTYPE] ?? CANDIDATE;
       phoneNumber = widget.args[PHONE_NUMBER] ?? "";
     }
+    // getOtp();
+    // fetchData();
     startTimer();
+    startSmsListener();
+  }
+
+  void getOtp() async {
+    final response = await ApiRepository.sendOtpForLogin({});
+    if (!response.isSuccess!) {
+      setState(() {
+        seconds = 0;
+      });
+      UiUtils.showToast("Please Retry again");
+    }
+  }
+
+  void fetchData() async {
+    try {
+      final response = await ApiRepository.getUserProfile({});
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['userModelData'];
+        if (userData != null) {
+          setState(() {
+            // phoneNumber = userData['phoneNumber'].toString();
+            userName = userData["firstName"] ?? "";
+            // selectedUserType = userDataMagento["usertype"] ?? "";
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
+    } catch (e) {
+      UiUtils.showToast("Error fetching initial data");
+    }
   }
 
   void startSmsListener() async {
@@ -120,46 +154,15 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
         isLoading = true; // Start loading the "Continue" button
       });
       try {
-        final response = await ApiRepository.verifyOtpAndLogin(
-          ApiRequestBody.getVerifyOtpRequest(
-            phoneNumber,
-            otpPinEntered,
-            CodeUtils.getUserTypeFromDisplay(selectedUserType),
-          ),
-        );
+        final response = await ApiRepository.verifyOtpAndLoginByEmail(
+            {"phoneNumber": phoneNumber, "otp": otpPinEntered});
 
         if (response.isSuccess!) {
           UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
-          UiUtils.showToast(OTP_VERIFIED);
-          UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-          await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
-          final Session? session = await SessionManager.getSession();
-          if (session != null) {
-            print(session.userId);
-            print("dsfsvfv___________________---------------------0");
-            print(session.lastLogin);
-            print(session.openedTime);
-            print(session.deviceId);
-            print(session.sessionId);
-          }
-          var customerData = response.data[CUSTOMER_DATA];
-          if (customerData != null) {
-            UserDataHandler.saveCustomerData(customerData);
-          }
+          // UiUtils.showToast(OTP_VERIFIED);
           UserDataHandler.saveIsUserVerified(true);
-          NavigationUtils.pop();
-          if (response.data[NEXT_PAGE] != null) {
-            final String nextPage = response.data[NEXT_PAGE];
-            if (nextPage.isNotEmpty) {
-              NavigationUtils.popAllAndPush(nextPage, {});
-            } else {
-              NavigationUtils.popAllAndPush(
-                  ScreenRoutes.uikBottomNavigationBar, {});
-            }
-          } else {
-            NavigationUtils.popAllAndPush(
-                ScreenRoutes.uikBottomNavigationBar, {});
-          }
+          UiUtils.showToast(response.data.toString());
+          NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
@@ -215,15 +218,13 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: DIMEN_24),
-          Padding(
-            padding: const EdgeInsets.only(left: DIMEN_21),
-            child: _buildTitle(),
-          ),
-          const SizedBox(height: DIMEN_35),
           Expanded(
-            child: _buildBody(),
+            child: Padding(
+              padding: const EdgeInsets.only(left: DIMEN_21),
+              child: _buildTitle(),
+            ),
           ),
+          _buildBody(),
         ],
       ),
     );
@@ -234,9 +235,6 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
       elevation: 0,
       backgroundColor: const Color(0xFFfafafa),
       leading: _buildAppBarLeading(),
-      actions: [
-        _buildAppBarAction(),
-      ],
     );
   }
 
@@ -248,26 +246,6 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
       child: const Icon(
         Icons.arrow_back_sharp,
         color: Colors.black,
-      ),
-    );
-  }
-
-  Widget _buildAppBarAction() {
-    return InkWell(
-      onTap: () {
-        NavigationUtils.pop();
-        NavigationUtils.openScreen(ScreenRoutes.signupScreen2);
-      },
-      child: TextButton(
-        onPressed: null, // Use onPressed: null for InkWell
-        child: Text(
-          "Want to Register?",
-          style: GoogleFonts.poppins(
-            color: const Color(0XFF3F51B5),
-            fontSize: DIMEN_14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
       ),
     );
   }
@@ -299,8 +277,6 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
             const SizedBox(height: 23),
             _buildLoginAsText(),
             const SizedBox(height: DIMEN_20),
-            _buildUserTypeSelection(),
-            const SizedBox(height: 23),
             _buildOtpText(),
             const SizedBox(
               height: 10,
@@ -310,10 +286,6 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
               height: 16,
             ),
             _buildContinueButton(),
-            const SizedBox(
-              height: 16,
-            ),
-            _buildPrivacyAndTermsText(),
             const SizedBox(height: DIMEN_15),
           ],
         ),
@@ -340,13 +312,46 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
           const SizedBox(
             height: 8,
           ),
-          Text(
-            "OTP sent $phoneNumber",
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: HexColor("#212121"),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "OTP sent ",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: HexColor("#212121"),
+                    ),
+                  ),
+                  Text(
+                    phoneNumber,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: HexColor("#212121"),
+                    ),
+                  ),
+                ],
+              ),
+              GestureDetector(
+                onTap: () {
+                  NavigationUtils.pushAndPopUntil(
+                      ScreenRoutes.mobileNumberScreen,
+                      ScreenRoutes.mobileNumberScreen,
+                      widget.args);
+                },
+                child: Text(
+                  "Change Number",
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: HexColor("#3F51B5"),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -442,9 +447,9 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
     return Padding(
       padding: const EdgeInsets.only(left: DIMEN_16),
       child: Text(
-        "Login to Access Lokal Platform",
+        "Hey! $userName Please Verify Your Mobile Number",
         style: GoogleFonts.poppins(
-          fontSize: DIMEN_18,
+          fontSize: 20,
           fontWeight: FontWeight.w400,
           color: const Color(0xFF212121),
         ),
@@ -466,101 +471,7 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
             ),
           ),
           const SizedBox(width: 41), // Add spacing between text and dropdown
-          Container(
-            decoration: BoxDecoration(
-              border:
-                  Border.all(width: 1, color: UikColor.gengar_500.toColor()),
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-            ),
-            height: 42,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            child: DropdownButton<String>(
-              value: selectedUserType,
-              icon: Padding(
-                padding: const EdgeInsets.only(left: 8),
-                child: SvgPicture.network(
-                    "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1710760508910-chevron-down.svg"),
-              ), // Custom dropdown icon
-              iconSize: 24,
-              iconEnabledColor: UikColor.gengar_500.toColor(),
-              elevation: 16,
-              borderRadius: BorderRadius.circular(12),
-              alignment: Alignment.center,
-              underline: Container(),
-              padding: const EdgeInsets.all(0),
-              onChanged: (String? value) {
-                setState(() {
-                  selectedUserType = value!;
-                });
-              },
-              items: userTypes.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                      color: UikColor.gengar_500.toColor(),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildPrivacyAndTermsText() {
-    return Padding(
-      padding: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
-      child: Text.rich(
-        TextSpan(
-          children: [
-            TextSpan(
-              text: BY_CONTINUING,
-              style: GoogleFonts.poppins(
-                color: UikColor.giratina_500.toColor(),
-                fontSize: 14,
-              ),
-            ),
-            TextSpan(
-              text: LOKAL_PRIVACY,
-              style: GoogleFonts.poppins(
-                color: UikColor.giratina_500.toColor(),
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  UiUtils.launchURL(PRIVACY_POLICY_URL);
-                },
-            ),
-            TextSpan(
-              text: AND,
-              style: GoogleFonts.poppins(
-                color: UikColor.giratina_500.toColor(),
-                fontSize: 14,
-              ),
-            ),
-            TextSpan(
-              text: "Terms and Conditons",
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: UikColor.giratina_500.toColor(),
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  UiUtils.launchURL(TERMS_AND_CONDITIONS_URL);
-                },
-            ),
-          ],
-        ),
       ),
     );
   }
