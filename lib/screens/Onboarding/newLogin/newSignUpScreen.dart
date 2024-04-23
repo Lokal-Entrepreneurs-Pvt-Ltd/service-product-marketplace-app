@@ -535,37 +535,41 @@ class _SignupScreen2State extends State<SignupScreen2> {
   Future<void> _handleSignup() async {
     if (UiUtils.isEmailValid(emailController.text) &&
         passwordController.text.length >= 6 &&
-        confirmPasswordController.text == passwordController.text &&
+        confirmPasswordController.text.compareTo(passwordController.text) ==
+            0 &&
         UiUtils.isPhoneNoValid(phoneNoController.text)) {
-      NavigationUtils.showLoaderOnTop();
-      final response = await ApiRepository.signupByPhoneNumberOrEmail(
-        ApiRequestBody.getSignUpRequest(
-          emailController.text,
-          passwordController.text,
-          CUSTOMER,
-          phoneNoController.text,
-          referredByCode,
-        ),
-      ).catchError((error) {
+      try {
+        NavigationUtils.showLoaderOnTop();
+        final response = await ApiRepository.signupByPhoneNumberOrEmail(
+          ApiRequestBody.getSignUpRequest(
+            emailController.text,
+            passwordController.text,
+            selectedUserType,
+            phoneNoController.text,
+            referredByCode,
+          ),
+        );
+
         NavigationUtils.pop();
-      });
 
-      NavigationUtils.pop();
-
-      if (response.isSuccess!) {
-        if (response.data[AUTH_TOKEN] != null)
-          UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-        var customerData = response.data[CUSTOMER_DATA];
-        if (customerData != null) {
-          UserDataHandler.saveCustomerData(customerData);
+        if (response.isSuccess!) {
+          if (response.data[AUTH_TOKEN] != null) {
+            UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+          }
+          var customerData = response.data[CUSTOMER_DATA];
+          if (customerData != null) {
+            UserDataHandler.saveCustomerData(customerData);
+          }
+          NavigationUtils.pop();
+          NavigationUtils.openScreen(ScreenRoutes.otpScreen2, {
+            "phoneNumber": phoneNoController.text.toString(),
+            USERTYPE: CUSTOMER
+          });
+        } else {
+          UiUtils.showToast(response.error![MESSAGE]);
         }
-        NavigationUtils.pop();
-        NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
-          "phoneNumber": phoneNoController.text.toString(),
-          USERTYPE: CUSTOMER
-        });
-      } else {
-        UiUtils.showToast(response.error![MESSAGE]);
+      } catch (e) {
+        UiUtils.showToast(e.toString());
       }
     }
 
