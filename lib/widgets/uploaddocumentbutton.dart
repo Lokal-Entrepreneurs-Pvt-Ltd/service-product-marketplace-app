@@ -11,18 +11,24 @@ import 'package:lokal/utils/uik_color.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+enum UploadMethod { FilePicker, CustomFunction }
+
 class UploadButton extends StatefulWidget {
   final String text;
   String imageUrl;
-  final Function(String?) onFileSelected;
+  final Function(String?)? onFileSelected;
   final String documentType;
+  final UploadMethod uploadMethod;
+  final Function()? customFunction;
   // New property to track upload success
 
   UploadButton({
     required this.text,
     required this.documentType,
-    required this.onFileSelected,
+    this.onFileSelected,
     this.imageUrl = "",
+    this.uploadMethod = UploadMethod.FilePicker,
+    this.customFunction,
     // Pass uploadSuccess status from parent
   });
 
@@ -51,7 +57,7 @@ class _UploadButtonState extends State<UploadButton> {
         _uploadSuccess = true;
         _imageUrl = response.data["url"];
       });
-      widget.onFileSelected(_imageUrl);
+      widget.onFileSelected!(_imageUrl);
     } else {
       setState(() {
         _uploading = false;
@@ -94,15 +100,19 @@ class _UploadButtonState extends State<UploadButton> {
       padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
         onTap: () {
-          if (_imageUrl == null) {
-            _pickFile(context, ['pdf', 'jpg', 'jpeg', 'png']);
+          if (widget.uploadMethod == UploadMethod.FilePicker) {
+            if (_imageUrl == null) {
+              _pickFile(context, ['pdf', 'jpg', 'jpeg', 'png']);
+            } else {
+              setState(() {
+                _uploading = false;
+                _uploadSuccess = false;
+                _imageUrl = null;
+                widget.onFileSelected!(_imageUrl);
+              });
+            }
           } else {
-            setState(() {
-              _uploading = false;
-              _uploadSuccess = false;
-              _imageUrl = null;
-              widget.onFileSelected(_imageUrl);
-            });
+            widget.customFunction!();
           }
         },
         child: DottedBorder(
@@ -120,14 +130,17 @@ class _UploadButtonState extends State<UploadButton> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                (_imageUrl == null)
-                    ? SvgPicture.network(
-                        "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg")
-                    : Image.network(
-                        _imageUrl!,
-                        width: 30,
-                        height: 30,
-                      ),
+                (widget.uploadMethod == UploadMethod.FilePicker)
+                    ? ((_imageUrl == null)
+                        ? SvgPicture.network(
+                            "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg")
+                        : Image.network(
+                            _imageUrl!,
+                            width: 30,
+                            height: 30,
+                          ))
+                    : SvgPicture.network(
+                        "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg"),
                 SizedBox(width: 16),
                 Expanded(
                   child: Column(
@@ -163,8 +176,15 @@ class _UploadButtonState extends State<UploadButton> {
         color: Colors.yellow,
       );
     } else if (_uploadSuccess) {
-      return SvgPicture.network(
-          "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708169085547-clear.svg");
+      if (widget.uploadMethod == UploadMethod.FilePicker) {
+        return SvgPicture.network(
+            "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708169085547-clear.svg");
+      } else {
+        return Icon(
+          Icons.done,
+          color: Colors.green,
+        );
+      }
     } else {
       return Icon(
         Icons.file_upload,

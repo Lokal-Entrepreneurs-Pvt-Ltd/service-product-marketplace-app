@@ -37,6 +37,7 @@ import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/screens/serviceInfra/status.dart';
 import 'package:lokal/widgets/UikFilter.dart';
+import 'package:lokal/widgets/WebViewPage.dart';
 import 'package:upgrader/upgrader.dart';
 import '../../pages/UikAgentsForUserService.dart';
 import '../../pages/UikCustomerLokalQr.dart';
@@ -229,10 +230,21 @@ class AppRoutes {
       _userBankInfoScreen,
       _mobileNumberScreen,
       _otpMobileScreen,
+      _webViewScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _webViewScreen = GoRoute(
+    path: ScreenRoutes.webViewScreen,
+    builder: (context, state) {
+      return WebViewPage(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _otpMobileScreen = GoRoute(
     path: ScreenRoutes.otpMobileScreen,
