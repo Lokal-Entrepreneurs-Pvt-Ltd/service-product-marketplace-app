@@ -536,7 +536,8 @@ class _SignupScreen2State extends State<SignupScreen2> {
   Future<void> _handleSignup() async {
     if (UiUtils.isEmailValid(emailController.text) &&
         passwordController.text.length >= 6 &&
-        confirmPasswordController.text == passwordController.text &&
+        confirmPasswordController.text.compareTo(passwordController.text) ==
+            0 &&
         UiUtils.isPhoneNoValid(phoneNoController.text)) {
       try {
         await NavigationUtils.showLoaderOnTop();
@@ -544,30 +545,31 @@ class _SignupScreen2State extends State<SignupScreen2> {
           ApiRequestBody.getSignUpRequest(
             emailController.text,
             passwordController.text,
-            CUSTOMER,
+            selectedUserType,
             phoneNoController.text,
             referredByCode,
           ),
         );
-
         if (response.isSuccess!) {
-          if (response.data[AUTH_TOKEN] != null)
+          if (response.data[AUTH_TOKEN] != null) {
             UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-          await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
-          final Session? session = await SessionManager.getSession();
-          if (session != null) {
-            print(session.userId);
-            print("dsfsvfv___________________---------------------0");
-            print(session.lastLogin);
-            print(session.openedTime);
-            print(session.deviceId);
-            print(session.sessionId);
           }
+         await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
+        final Session? session = await SessionManager.getSession();
+        if (session != null) {
+          print(session.userId);
+          print("dsfsvfv___________________---------------------0");
+          print(session.lastLogin);
+          print(session.openedTime);
+          print(session.deviceId);
+          print(session.sessionId);
+        }
           var customerData = response.data[CUSTOMER_DATA];
           if (customerData != null) {
             UserDataHandler.saveCustomerData(customerData);
           }
           NavigationUtils.pop();
+
           NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
             "phoneNumber": phoneNoController.text.toString(),
             USERTYPE: CUSTOMER
