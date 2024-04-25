@@ -538,45 +538,47 @@ class _SignupScreen2State extends State<SignupScreen2> {
         passwordController.text.length >= 6 &&
         confirmPasswordController.text == passwordController.text &&
         UiUtils.isPhoneNoValid(phoneNoController.text)) {
-      NavigationUtils.showLoaderOnTop();
-      final response = await ApiRepository.signupByPhoneNumberOrEmail(
-        ApiRequestBody.getSignUpRequest(
-          emailController.text,
-          passwordController.text,
-          CUSTOMER,
-          phoneNoController.text,
-          referredByCode,
-        ),
-      ).catchError((error) {
-        NavigationUtils.pop();
-      });
+      try {
+        await NavigationUtils.showLoaderOnTop();
+        final response = await ApiRepository.signupByPhoneNumberOrEmail(
+          ApiRequestBody.getSignUpRequest(
+            emailController.text,
+            passwordController.text,
+            CUSTOMER,
+            phoneNoController.text,
+            referredByCode,
+          ),
+        );
 
-      NavigationUtils.pop();
-
-      if (response.isSuccess!) {
-        if (response.data[AUTH_TOKEN] != null)
-          UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
-        await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
-        final Session? session = await SessionManager.getSession();
-        if (session != null) {
-          print(session.userId);
-          print("dsfsvfv___________________---------------------0");
-          print(session.lastLogin);
-          print(session.openedTime);
-          print(session.deviceId);
-          print(session.sessionId);
+        if (response.isSuccess!) {
+          if (response.data[AUTH_TOKEN] != null)
+            UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+          await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
+          final Session? session = await SessionManager.getSession();
+          if (session != null) {
+            print(session.userId);
+            print("dsfsvfv___________________---------------------0");
+            print(session.lastLogin);
+            print(session.openedTime);
+            print(session.deviceId);
+            print(session.sessionId);
+          }
+          var customerData = response.data[CUSTOMER_DATA];
+          if (customerData != null) {
+            UserDataHandler.saveCustomerData(customerData);
+          }
+          NavigationUtils.pop();
+          NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
+            "phoneNumber": phoneNoController.text.toString(),
+            USERTYPE: CUSTOMER
+          });
+        } else {
+          UiUtils.showToast(response.error![MESSAGE]);
         }
-        var customerData = response.data[CUSTOMER_DATA];
-        if (customerData != null) {
-          UserDataHandler.saveCustomerData(customerData);
-        }
-        NavigationUtils.pop();
-        NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
-          "phoneNumber": phoneNoController.text.toString(),
-          USERTYPE: CUSTOMER
-        });
-      } else {
-        UiUtils.showToast(response.error![MESSAGE]);
+      } catch (e) {
+        UiUtils.showToast(e.toString());
+      } finally {
+        NavigationUtils.showLoaderOnTop(false);
       }
     }
 

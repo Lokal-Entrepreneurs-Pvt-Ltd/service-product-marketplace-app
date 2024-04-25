@@ -1,8 +1,9 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
-import 'package:lokal/constants/strings.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
@@ -26,9 +27,9 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
   late List<String?> uploadSuccessList;
   List<String> list = [
     "Upload Your Aadhar Card Front Image. (Max Size 1 MB )",
-    "Upload Your Aadhar Card Back Image. (Max Size 1 MB )",
     "Upload Your Pan Card Image. (Max Size 1 MB )",
   ];
+  bool setbool = false;
   @override
   void initState() {
     super.initState();
@@ -43,15 +44,17 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
         final userData = response.data?['userModelData'];
         if (userData != null) {
           setState(() {
-            uploadSuccessList[0] = userData["aadharCardF"];
-            uploadSuccessList[1] = userData["aadharCardB"];
-            uploadSuccessList[2] = userData["pan"];
+            String? first = userData["aadharCardF"];
+            uploadSuccessList[0] = first;
+            String? second = userData["pan"];
+            uploadSuccessList[1] = second;
           });
         }
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
     } catch (e) {
+      print("-----------------");
       print(e);
       UiUtils.showToast("Error fetching initial data");
     }
@@ -81,9 +84,37 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
         },
       ),
       persistentFooterButtons: [
-        buildContinueButton()
+        Column(
+          children: [buildTextupload(), buildContinueButton()],
+        )
       ], // Conditionally hide the footer
     );
+  }
+
+  Widget buildTextupload() {
+    return (setbool)
+        ? Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: DottedBorder(
+                dashPattern: [4, 1],
+                strokeWidth: 1,
+                radius: Radius.circular(12),
+                borderType: BorderType.RRect,
+                color: UikColor.magikarp_500.toColor(),
+                child: Container(
+                  // height: 100,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  child: Text(
+                    "Please Connect your DigiLocker account to Upload Documents.",
+                    style: TextStyles.poppins.body1.medium
+                        .colors(UikColor.magikarp_500),
+                  ),
+                )),
+          )
+        : Container();
   }
 
   Widget buildLoadingIndicator() {
@@ -102,8 +133,91 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
             children: [
               buildUploadDocumentsTitle(),
               buildUploadButtons(),
+              // buildGovernmentUploadButton()
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildGovernmentUploadButton() {
+    return GestureDetector(
+      onTap: () async {
+        try {
+          final response = await ApiRepository.initiateDigiLocker({});
+          if (response.isSuccess!) {
+            String decentroId = response.data["decentroTxnId"] ?? "";
+            String decentroUrl =
+                response.data["data"]["authorizationUrl"] ?? "";
+            if (decentroUrl.isNotEmpty) {
+              String? xyz = await NavigationUtils.openAsyncScreen(
+                  ScreenRoutes.webViewScreen, {
+                "url": decentroUrl,
+                "popLink":
+                    "https://in.staging.decentro.tech/kyc/digilocker/digilocker-code",
+                "title": "Authenticate Yourself"
+              });
+              if (xyz != null) {
+                final uri = Uri.parse(xyz);
+                final queryParams = uri.queryParameters;
+                final code = queryParams['code'];
+                final state = queryParams['state'];
+                final response2 =
+                    await ApiRepository.getAccessTokenFromDigiLocker(
+                        {"code": code, "state": state});
+                if (response2.isSuccess!) {
+                  String decentroTxnId = response2.data["decentroTxnId"] ?? "";
+                  String message = response2.data["message"] ?? "";
+                  UiUtils.showToast(message);
+                  final response3 =
+                      await ApiRepository.getIssuedFilesFromFromDigiLocker({
+                    "initial_decentro_transaction_id": decentroId,
+                    "consent": true
+                  });
+                  if (response3.isSuccess!) {
+                    NavigationUtils.pushAndPopUntil(
+                        ScreenRoutes.userDocumentInfo,
+                        ScreenRoutes.userDocumentInfo);
+                  } else {
+                    UiUtils.showToast("Try Again Some error occured");
+                  }
+                  print("works");
+                }
+              }
+            }
+          }
+        } catch (e) {
+          UiUtils.showToast("Process Failed, Try Again");
+        }
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(vertical: 12),
+        width: double.maxFinite,
+        // height: 80,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: UikColor.giratina_100.toColor(),
+          border: Border.all(),
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Upload Document",
+              style: TextStyle(
+                color: UikColor.venusaur_500.toColor(),
+              ),
+            ),
+            Text(
+              "(Digi Locker)",
+              style: TextStyle(
+                color: UikColor.venusaur_500.toColor(),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -133,10 +247,20 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
                 text: list[i],
                 imageUrl: uploadSuccessList[i] ?? "",
                 documentType: "misc",
-                onFileSelected: (pickedFile) async {
-                  setState(() {
-                    uploadSuccessList[i] = pickedFile;
-                  });
+                uploadMethod: UploadMethod.CustomFunction,
+                // onFileSelected: (pickedFile) async {
+                //   setState(() {
+                //     uploadSuccessList[i] = pickedFile;
+                //   });
+                // },
+                customFunction: () {
+                  if (uploadSuccessList[i] != null) {
+                    UiUtils.launchURL(uploadSuccessList[i]!);
+                  } else {
+                    setState(() {
+                      setbool = true;
+                    });
+                  }
                 },
               ),
             ],
@@ -146,18 +270,73 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
   }
 
   Container buildContinueButton() {
-    bool allFilesUploaded = uploadSuccessList.every((file) => file != null);
+    bool allFilesUploaded = true;
+    // uploadSuccessList.every((file) => file != null);
     return Container(
       alignment: Alignment.center,
       child: UikButton(
-        text: SAVE_DETAILS,
+        text: "Connect Digi Locker to upload Docs",
         textColor: Colors.black,
         textSize: 16.0,
         textWeight: FontWeight.w500,
         backgroundColor: allFilesUploaded ? Colors.yellow : Colors.grey,
         //    onClick: isLoadingList.contains(true) ? null : getidforfile,
-        onClick: () {
-          updatedata();
+        onClick: () async {
+          // updatedata();
+          String? xyz = null;
+          String decentroId = "";
+          try {
+            final response = await ApiRepository.initiateDigiLocker({});
+            if (response.isSuccess!) {
+              decentroId = response.data["decentroTxnId"] ?? "";
+              String decentroUrl =
+                  response.data["data"]["authorizationUrl"] ?? "";
+              if (decentroUrl.isNotEmpty) {
+                xyz = await NavigationUtils.openAsyncScreen(
+                    ScreenRoutes.webViewScreen, {
+                  "url": decentroUrl,
+                  "popLink":
+                      "https://in.staging.decentro.tech/kyc/digilocker/digilocker-code",
+                  "title": "Authenticate Yourself"
+                });
+              }
+            }
+          } catch (e) {
+            UiUtils.showToast("Process Failed, Try Again");
+          }
+          try {
+            if (xyz != null) {
+              await NavigationUtils.showLoaderOnTop();
+              final uri = Uri.parse(xyz);
+              final queryParams = uri.queryParameters;
+              final code = queryParams['code'];
+              final state = queryParams['state'];
+              final response2 =
+                  await ApiRepository.getAccessTokenFromDigiLocker(
+                      {"code": code, "state": state});
+              if (response2.isSuccess!) {
+                String decentroTxnId = response2.data["decentroTxnId"] ?? "";
+                String message = response2.data["message"] ?? "";
+                UiUtils.showToast(message);
+                final response3 =
+                    await ApiRepository.getIssuedFilesFromFromDigiLocker({
+                  "initial_decentro_transaction_id": decentroId,
+                  "consent": true
+                });
+                if (response3.isSuccess!) {
+                  NavigationUtils.pushAndPopUntil(ScreenRoutes.userDocumentInfo,
+                      ScreenRoutes.userDocumentInfo);
+                } else {
+                  UiUtils.showToast("Try Again Some error occured");
+                }
+                print("works");
+              }
+            }
+          } catch (e) {
+            UiUtils.showToast(e.toString());
+          } finally {
+            await NavigationUtils.showLoaderOnTop(false);
+          }
         },
       ),
     );

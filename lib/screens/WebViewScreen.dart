@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -13,6 +11,16 @@ class WebViewScreen extends StatefulWidget {
 // late dynamic args;
 
 class _WebViewScreenState extends State<WebViewScreen> {
+  late WebViewController _controller;
+
+  @override
+  void initState() {
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..loadRequest(Uri.parse(widget.args['url']));
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -22,8 +30,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: widget.args['url'], // Replace with your desired URL
+    return WebViewWidget(
+      controller: _controller, // Replace with your desired URL
     );
   }
 }
