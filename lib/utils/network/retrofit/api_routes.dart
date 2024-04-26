@@ -123,4 +123,5 @@ class ApiRoutes {
       "/digilocker/getIssuedFiles";
   static const String getAadharFromDigiLocker = "/digilocker/getAadhar";
   static const String getAllGovernmentServices = "/governmentSkill/getAll";
+  static const String createUserGovSkill = "/userGovSkills/add";
 }
