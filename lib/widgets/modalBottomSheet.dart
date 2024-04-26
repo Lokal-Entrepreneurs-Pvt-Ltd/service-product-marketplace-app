@@ -106,12 +106,16 @@ class _BottomSheetBasedOnFutureState extends State<BottomSheetBasedOnFuture>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Select ${widget.name}",
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
+                      Expanded(
+                        child: Text(
+                          "${widget.name}",
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                       InkWell(

@@ -405,6 +405,10 @@ class ApiRepository {
         ApiRoutes.getAllGovernmentServices, args);
   }
 
+  static Future<ApiResponse> createUserGovSkill(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.createUserGovSkill, args);
+  }
+
   static Future<ApiResponse> verifyOtpAndLoginByEmail(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.verifyOtpAndLoginByEmail, args);

@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
+import 'package:lokal/utils/network/http/http_screen_client.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,6 +41,8 @@ class _UploadButtonState extends State<UploadButton> {
   bool _uploading = false;
   bool _uploadSuccess = false;
   String? _imageUrl;
+  late String? _contentType;
+  bool _isLoading = false;
 
   Future<void> uploadFile(File file) async {
     setState(() {
@@ -85,11 +88,48 @@ class _UploadButtonState extends State<UploadButton> {
     }
   }
 
+  getContentName() async {
+    setState(() {
+      _isLoading = true;
+    });
+    _contentType = await HttpScreenClient.fetchContentType(_imageUrl!);
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Widget getContent() {
+    if (_isLoading) {
+      return const Center(
+        child: SizedBox(
+            height: 30,
+            width: 30,
+            child: CircularProgressIndicator(
+              color: Colors.yellow,
+            )),
+      );
+    } else {
+      if (_contentType != null && _contentType!.contains('application/pdf')) {
+        return SvgPicture.network(
+            "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg");
+      } else {
+        return Image.network(
+          widget.imageUrl,
+          width: 30,
+          height: 30,
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     if (widget.imageUrl.isNotEmpty) {
-      _imageUrl = widget.imageUrl;
+      _imageUrl = widget.imageUrl.isEmpty ? null : widget.imageUrl;
       _uploadSuccess = true;
+    }
+    if (_imageUrl != null) {
+      getContentName();
     }
     super.initState();
   }
@@ -139,8 +179,9 @@ class _UploadButtonState extends State<UploadButton> {
                             width: 30,
                             height: 30,
                           ))
-                    : SvgPicture.network(
-                        "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg"),
+                    // : SvgPicture.network(
+                    // "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg"),
+                    : getContent(),
                 SizedBox(width: 16),
                 Expanded(
                   child: Column(
