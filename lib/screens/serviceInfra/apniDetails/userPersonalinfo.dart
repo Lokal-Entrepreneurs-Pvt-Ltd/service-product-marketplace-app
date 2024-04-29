@@ -13,6 +13,7 @@ import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/Uikmulti.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
@@ -76,15 +77,65 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     "Sales",
     "IT"
   ];
+
+  List<String> jobs = [
+    "Dyeing",
+    "BPO/Customer",
+    "Tailor",
+    "Spinning",
+    "Weaving",
+    "Pattern Maker",
+    "Supervisor",
+    "Garment-CMT",
+    "Knitting",
+    "Embroidery",
+    "Warehousing and Logistics",
+    "Assembly Line Operator",
+    "Machine Operator",
+    "CNC Operator",
+    "Mechanic",
+    "Hospitality",
+    "Electrician",
+    "Painter",
+    "Welder",
+    "Fitter",
+    "Carpenter",
+  ];
   int industryIndex = -1;
   int genderIndex = -1;
   int educationIndex = -1;
   int workExperienceIndex = -1;
+  String phoneNumber = "";
+  int? userId = null;
+  List<ValueItem<int>> selectedJobsOptions = [];
+  List<ValueItem<int>> allGovernmentSkills = [];
 
   @override
   void initState() {
     super.initState();
     _futureData = fetchData();
+  }
+
+  // Future<List<String>>
+  void getAllGovernmentServices() async {
+    try {
+      final response = await ApiRepository.getAllGovernmentServices({});
+      if (response.isSuccess!) {
+        var list = List.from(response.data);
+
+        for (var element in list) {
+          String? name = element["name"];
+          int? id = element["id"];
+          if (name != null && id != null) {
+            allGovernmentSkills.add(ValueItem(label: name, value: id));
+          } else {
+            print("Skipping entry: $element");
+          }
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -124,6 +175,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
 
   Future<Map<String, dynamic>?> fetchData() async {
     try {
+      getAllGovernmentServices();
       final response = await ApiRepository.getUserProfile({});
       if (response.isSuccess!) {
         final userDataMagento = response.data;
@@ -131,6 +183,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         if (userData != null) {
           lat = (userData['latitude'] as num?)?.toDouble() ?? 0;
           long = (userData['longitude'] as num?)?.toDouble() ?? 0;
+          userId = userData["id"];
           if (lat != 0 && long != 0) {
             place = Placemark(
               name: userData["placeName"],
@@ -147,10 +200,12 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
 
           setState(() {
             name = userDataMagento['firstName'] ?? '';
+            phoneNumber = userData["phoneNumber"].toString();
             datePicker = userDataMagento['dob'] != null
                 ? DateTime.parse(userDataMagento['dob'])
                 : null;
             calculateAge(datePicker);
+
             genderIndex = userData['gender'] == "Male" ? 0 : 1;
             String workExperience = userData["workEx"] ?? "";
             String preferrencedIndustry = userData["industryPreference"] ?? "";
@@ -163,6 +218,16 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             String educationText = userData["education"] ?? "";
             if (educationText.isNotEmpty) {
               educationIndex = education.indexOf(educationText);
+            }
+            var list = List.from(userDataMagento["governmentSkills"]);
+            for (var element in list) {
+              String? name = element["name"];
+              int? id = element["id"];
+              if (name != null && id != null) {
+                selectedJobsOptions.add(ValueItem(label: name, value: id));
+              } else {
+                print("Skipping entry: $element");
+              }
             }
           });
         }
@@ -209,6 +274,16 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                   Expanded(child: buildAgeBox("Age")),
                 ],
               ),
+              const SizedBox(height: 12),
+              TextInputContainer(
+                fieldName: "Mobile Number",
+                initialValue: phoneNumber,
+                onFileSelected: (text) {
+                  setState(() {
+                    phoneNumber = text ?? "";
+                  });
+                },
+              ),
               buildTitle("Education Background", 16, FontWeight.w500),
               buildSelectable(education, educationIndex, (index) {
                 updateSelectedIndex(index, IndexType.education);
@@ -238,6 +313,104 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 child: builbottomsheedtfield("Industry you want to work",
                     (industryIndex != -1) ? industryList[industryIndex] : ""),
               ),
+              UikMulti<int>(
+                onOptionSelected: (List<ValueItem<int>> selectedOptions) {
+                  selectedJobsOptions = selectedOptions;
+                },
+                hint: "Have You Done Any Government Certification",
+                options: allGovernmentSkills,
+                selectedOptions: selectedJobsOptions,
+                selectionType: SelectionType.multi,
+                chipConfig: ChipConfig(
+                  runSpacing: 8,
+                  deleteIcon: const Icon(
+                    Icons.close,
+                    size: 20,
+                    color: Colors.black,
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
+                  wrapType: WrapType.wrap,
+                  backgroundColor: ("#FEE440").toColor(),
+                  labelStyle: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                dropdownHeight: 300,
+                hintStyle: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: ("#9E9E9E").toColor(),
+                ),
+                fieldBackgroundColor: ("#F5F5F5").toColor(),
+                borderColor: ("#F5F5F5").toColor(),
+                optionTextStyle: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black,
+                ),
+                selectedOptionIcon: const Icon(Icons.check_circle),
+                suffixIcon: SvgPicture.network(
+                    "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
+                animateSuffixIcon: true,
+                searchEnabled: true,
+                dropdownBorderRadius: 20,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                maxItems: 4,
+              ),
+              const SizedBox(height: 12),
+              // UikMulti<int>(
+              //   onOptionSelected: (List<ValueItem<int>> selectedOptions) {
+              //     selectedJobsOptions = selectedOptions;
+              //   },
+              //   hint: "What Kind of jobs you are looking for?",
+              //   options: jobs
+              //       .map((job) =>
+              //           ValueItem(label: job, value: jobs.indexOf(job)))
+              //       .toList(),
+              //   selectionType: SelectionType.multi,
+              //   chipConfig: ChipConfig(
+              //     runSpacing: 8,
+              //     deleteIcon: const Icon(
+              //       Icons.close,
+              //       size: 20,
+              //       color: Colors.black,
+              //     ),
+              //     padding:
+              //         const EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
+              //     wrapType: WrapType.wrap,
+              //     backgroundColor: ("#FEE440").toColor(),
+              //     labelStyle: GoogleFonts.poppins(
+              //       fontSize: 14,
+              //       color: Colors.black,
+              //       fontWeight: FontWeight.w400,
+              //     ),
+              //   ),
+              //   dropdownHeight: 300,
+              //   hintStyle: GoogleFonts.poppins(
+              //     fontSize: 14,
+              //     fontWeight: FontWeight.w400,
+              //     color: ("#9E9E9E").toColor(),
+              //   ),
+              //   fieldBackgroundColor: ("#F5F5F5").toColor(),
+              //   borderColor: ("#F5F5F5").toColor(),
+              //   optionTextStyle: GoogleFonts.poppins(
+              //     fontSize: 14,
+              //     fontWeight: FontWeight.w400,
+              //     color: Colors.black,
+              //   ),
+              //   selectedOptionIcon: const Icon(Icons.check_circle),
+              //   suffixIcon: SvgPicture.network(
+              //       "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
+              //   animateSuffixIcon: true,
+              //   searchEnabled: true,
+              //   dropdownBorderRadius: 20,
+              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              //   maxItems: 5,
+              // ),
+              // const SizedBox(height: 12),
               buildLocationField(),
             ],
           ),
@@ -252,6 +425,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       padding:
           const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
+      width: double.maxFinite,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
         borderRadius: BorderRadius.circular(10),
@@ -259,25 +433,32 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                name,
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: ("#9E9E9E").toColor(),
+          Expanded(
+            flex: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  name,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ("#9E9E9E").toColor(),
+                  ),
                 ),
-              ),
-              (selectedname.isNotEmpty)
-                  ? Text(selectedname,
-                      style: GoogleFonts.poppins(
-                          fontSize: 16, fontWeight: FontWeight.w400))
-                  : Container()
-            ],
+                (selectedname.isNotEmpty)
+                    ? Text(selectedname,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: GoogleFonts.poppins(
+                            fontSize: 16, fontWeight: FontWeight.w400))
+                    : Container()
+              ],
+            ),
           ),
           SvgPicture.network(
               "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
@@ -293,6 +474,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     return GestureDetector(
       onTap: () => getLocation(),
       child: Container(
+        height: !locationAvailable ? 64 : null,
         margin: const EdgeInsets.only(bottom: 16),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
         width: double.maxFinite,
@@ -316,7 +498,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
               ),
             ),
             (locationLoading)
-                ? Container(
+                ? const SizedBox(
                     width: 20,
                     height: 20,
                     child: CircularProgressIndicator(
@@ -422,6 +604,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         alignment: Alignment.centerLeft,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               fieldname,
@@ -521,6 +704,17 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       });
 
       try {
+        List<Map<String, dynamic>> lists = [];
+        for (var item in selectedJobsOptions) {
+          lists.add({
+            "userId": userId,
+            "skillId": item.value,
+          });
+        }
+        final response2 = await ApiRepository.createUserGovSkill(lists);
+        if (!response2.isSuccess!) {
+          UiUtils.showToast("Goveernment Skills are not added. Try Again");
+        }
         final response = await ApiRepository.updateCustomerInfo(
           {
             "name": nameAsAadhar,

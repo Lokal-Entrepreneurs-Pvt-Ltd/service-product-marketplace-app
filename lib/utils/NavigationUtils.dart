@@ -23,16 +23,25 @@ abstract class NavigationUtils {
     return AppRoutes.rootNavigatorKey.currentContext;
   }
 
-  static Future showLoaderOnTop() {
-    return showDialog(
-      context: getCurrentContext()!,
-      builder: (context) {
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Color(0xfffee440),
-        ));
-      },
-    );
+  // static Future showLoaderOnTop() {
+  //   return showDialog(
+  //     context: getCurrentContext()!,
+  //     builder: (context) {
+  //       return const Center(
+  //           child: CircularProgressIndicator(
+  //         color: Color(0xfffee440),
+  //       ));
+  //     },
+  //   );
+  // }
+
+  static Future<void> showLoaderOnTop([bool? showLoader]) async {
+    showLoader ??= true;
+    if (showLoader) {
+      LoadingOverlay.show(getCurrentContext()!);
+    } else {
+      LoadingOverlay.hide();
+    }
   }
 
   static void openOrderScreen(Map<String, dynamic> args) {
@@ -67,6 +76,12 @@ abstract class NavigationUtils {
     context?.push(routeName, extra: args);
   }
 
+  static Future<String?> openAsyncScreen(String routeName,
+      [Map<String, dynamic>? args]) async {
+    var context = AppRoutes.rootNavigatorKey.currentContext;
+    return await context?.push(routeName, extra: args);
+  }
+
   static void popAllAndPush(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentState;
     while (context!.canPop()) {
@@ -88,5 +103,28 @@ abstract class NavigationUtils {
   static void openScreenUntil(String routeName, [Map<String, dynamic>? args]) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     context?.push(routeName, extra: args);
+  }
+}
+
+class LoadingOverlay {
+  static OverlayEntry? _overlayEntry;
+
+  static void show(BuildContext context) {
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Container(
+        color: Colors.black54,
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: Color(0xfffee440),
+          ),
+        ),
+      ),
+    );
+    Overlay.of(context)?.insert(_overlayEntry!);
+  }
+
+  static void hide() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
   }
 }

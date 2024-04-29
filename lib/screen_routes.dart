@@ -1,4 +1,5 @@
 class ScreenRoutes {
+  static const String webViewScreen = '/webViewScreen';
   static const String otpMobileScreen = '/otpMobileScreen';
   static const String mobileNumberScreen = '/mobileNumberScreen';
   static const String newsPage = '/newsPage';
