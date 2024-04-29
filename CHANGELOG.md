@@ -11,8 +11,10 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.48+48] - 2024-4-29
+export = false for android manifeest
 
-## [1.0.46+46] - 2024-4-29
+## [1.0.47+48] - 2024-4-29
 Digia locker, skils and User phone number flow.
 ## [1.0.46+46] - 2024-4-10
 Location Section Fix
