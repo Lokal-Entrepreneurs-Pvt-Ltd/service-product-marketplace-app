@@ -305,6 +305,18 @@ class HttpScreenClient {
     }
   }
 
+  static Future<String?> fetchContentType(String url) async {
+    try {
+      final response = await http.head(Uri.parse(url));
+      if (response.statusCode == 200) {
+        return response.headers['content-type'];
+      }
+    } catch (e) {
+      print('Error fetching content type: $e');
+    }
+    return null;
+  }
+
   static displayNoInternetDialog(Function? retryCallback) {
     return showDialog(
       barrierDismissible: false,

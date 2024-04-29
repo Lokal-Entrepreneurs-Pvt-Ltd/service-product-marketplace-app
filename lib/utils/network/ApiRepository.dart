@@ -377,6 +377,38 @@ class ApiRepository {
         ApiRoutes.updateUserAuthForEmail, args);
   }
 
+  static Future<ApiResponse> initiateDigiLocker(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.digiLockerInitiate, {
+      "reference_id": "2",
+      "consent": true,
+      "consent_purpose": "testing the credentials"
+    });
+  }
+
+  static Future<ApiResponse> getAccessTokenFromDigiLocker(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAccessTokenFromDigiLocker, args);
+  }
+
+  static Future<ApiResponse> getIssuedFilesFromFromDigiLocker(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getIssuedFilesFromDigiLocker, args);
+  }
+
+  static Future<ApiResponse> getAdhaarFromDigiLocker(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAadharFromDigiLocker, args);
+  }
+
+  static Future<ApiResponse> getAllGovernmentServices(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAllGovernmentServices, args);
+  }
+
+  static Future<ApiResponse> createUserGovSkill(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.createUserGovSkill, args);
+  }
+
   static Future<ApiResponse> verifyOtpAndLoginByEmail(args) {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.verifyOtpAndLoginByEmail, args);
@@ -410,4 +442,4 @@ class ApiRepository {
 }
 
 // apirequestbody class
-// make get login request body function
+// make get login request body functiona

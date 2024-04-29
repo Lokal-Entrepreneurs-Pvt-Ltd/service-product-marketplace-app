@@ -183,44 +183,51 @@ abstract class ActionUtils {
     }
 
     if (result != null) {
-      File pickedFile = File(result.path);
-      NavigationUtils.showLoaderOnTop();
-      final tempDir = await getTemporaryDirectory();
-      final tempFilePath =
-          '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
-      File? compressedFile = await compressImage(pickedFile, tempFilePath, 70);
-      if (compressedFile != null) {
-        if (compressedFile.lengthSync() > 3000000) {
-          UiUtils.showToast("Image size should be less than 3 MB");
-          NavigationUtils.pop();
-          return;
+      try {
+        File pickedFile = File(result.path);
+        await NavigationUtils.showLoaderOnTop();
+
+        final tempDir = await getTemporaryDirectory();
+        final tempFilePath =
+            '${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+        File? compressedFile =
+            await compressImage(pickedFile, tempFilePath, 70);
+        if (compressedFile != null) {
+          if (compressedFile.lengthSync() > 3000000) {
+            await NavigationUtils.showLoaderOnTop(false);
+            UiUtils.showToast("Image size should be less than 3 MB");
+            return;
+          }
+          UiUtils.showToast("Uploading Profile Picture ");
+          final response = await ApiRepository.uploadDocuments(
+            ApiRequestBody.getuploaddocumentsid(
+              "misc",
+              compressedFile!,
+            ),
+          );
+          compressedFile.delete();
+          await tempDir.delete(recursive: true);
+          if (response.isSuccess!) {
+            String imageUrl = response.data["url"];
+            final response2 = await ApiRepository.updateCustomerInfo(
+                {"profilePicUrl": imageUrl});
+            if (response2.isSuccess!) {
+              UiUtils.showToast("Profile Picture Updated");
+              NavigationUtils.pop();
+              NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
+              return;
+            } else {
+              UiUtils.showToast("Image is not uploaded successfully");
+            }
+          } else {
+            UiUtils.showToast("Image is not uploaded successfully");
+          }
         }
+      } catch (e) {
+        UiUtils.showToast(e.toString());
+      } finally {
+        await NavigationUtils.showLoaderOnTop(false);
       }
-      UiUtils.showToast("Uploading Profile Picture ");
-      final response = await ApiRepository.uploadDocuments(
-        ApiRequestBody.getuploaddocumentsid(
-          "misc",
-          compressedFile!,
-        ),
-      );
-      compressedFile.delete();
-      await tempDir.delete(recursive: true);
-      if (response.isSuccess!) {
-        String imageUrl = response.data["url"];
-        final response2 =
-            await ApiRepository.updateCustomerInfo({"profilePicUrl": imageUrl});
-        if (response2.isSuccess!) {
-          UiUtils.showToast("Profile Picture Updated");
-          NavigationUtils.pop();
-          NavigationUtils.openScreen(ScreenRoutes.accountSettings, {});
-          return;
-        } else {
-          UiUtils.showToast("Image is not uploaded successfully");
-        }
-      } else {
-        UiUtils.showToast("Image is not uploaded successfully");
-      }
-      NavigationUtils.pop();
     } else {
       UiUtils.showToast("Image is not Selected");
     }
@@ -248,43 +255,48 @@ abstract class ActionUtils {
   }
 
   static void handleSelectedLocation() async {
-    // var context = AppRoutes.rootNavigatorKey.currentContext;
-    UiUtils.showToast("Location is Updating");
-    NavigationUtils.showLoaderOnTop();
-    Position? position = await LocationUtils.getCurrentPosition();
+    try {
+      UiUtils.showToast("Location is Updating");
+      await NavigationUtils.showLoaderOnTop();
+      Position? position = await LocationUtils.getCurrentPosition();
+      if (position != null) {
+        double lat = position.latitude;
+        double long = position.longitude;
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+            position.latitude, position.longitude);
+        Placemark place = placemarks[0];
 
-    if (position != null) {
-      double lat = position.latitude;
-      double long = position.longitude;
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
-      Placemark place = placemarks[0];
-
-      final response = await ApiRepository.updateCustomerInfo({
-        "latitude": lat,
-        "longitude": long,
-        "street": place.street,
-        "isoCountryCode": place.isoCountryCode,
-        "country": place.country,
-        "postalCode": place.postalCode,
-        "placeName": place.name,
-        "administrativeArea": place.administrativeArea,
-        "subAdministrativeArea": place.subAdministrativeArea,
-        "locality": place.locality,
-        "subLocality": place.subLocality,
-      });
-      if (response.isSuccess!) {
-        UiUtils.showToast("Location Updated");
-        NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
+        final response = await ApiRepository.updateCustomerInfo({
+          "latitude": lat,
+          "longitude": long,
+          "street": place.street,
+          "isoCountryCode": place.isoCountryCode,
+          "country": place.country,
+          "postalCode": place.postalCode,
+          "placeName": place.name,
+          "administrativeArea": place.administrativeArea,
+          "subAdministrativeArea": place.subAdministrativeArea,
+          "locality": place.locality,
+          "subLocality": place.subLocality,
+        });
+        await NavigationUtils.showLoaderOnTop(false);
+        if (response.isSuccess!) {
+          UiUtils.showToast("Location Updated");
+          NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
+        } else {
+          UiUtils.showToast(response.error![MESSAGE]);
+          return null;
+        }
+        print(
+            'Latitude: ${position.latitude}, Longitude: ${position.longitude}');
       } else {
-        NavigationUtils.pop();
-        UiUtils.showToast(response.error![MESSAGE]);
-        return null;
+        await NavigationUtils.showLoaderOnTop(false);
+        print('Failed to retrieve the current location.');
       }
-      print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
-    } else {
-      NavigationUtils.pop();
-      print('Failed to retrieve the current location.');
+    } catch (e) {
+      UiUtils.showToast(e.toString());
+    } finally {
+      await NavigationUtils.showLoaderOnTop(false);
     }
   }
 

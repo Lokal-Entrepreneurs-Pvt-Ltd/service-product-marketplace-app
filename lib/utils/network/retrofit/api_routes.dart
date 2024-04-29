@@ -116,4 +116,12 @@ class ApiRoutes {
       "/customer/updateUserAuthForEmail";
   static const String verifyOtpAndLoginByEmail =
       "/customer/verifyOtpAndLoginByEmail";
+  static const String digiLockerInitiate = "/digilocker/initiate";
+  static const String getAccessTokenFromDigiLocker =
+      "/digilocker/getAccessToken";
+  static const String getIssuedFilesFromDigiLocker =
+      "/digilocker/getIssuedFiles";
+  static const String getAadharFromDigiLocker = "/digilocker/getAadhar";
+  static const String getAllGovernmentServices = "/governmentSkill/getAll";
+  static const String createUserGovSkill = "/userGovSkills/add";
 }

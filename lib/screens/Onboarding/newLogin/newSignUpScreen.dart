@@ -540,7 +540,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
             0 &&
         UiUtils.isPhoneNoValid(phoneNoController.text)) {
       try {
-        NavigationUtils.showLoaderOnTop();
+        await NavigationUtils.showLoaderOnTop();
         final response = await ApiRepository.signupByPhoneNumberOrEmail(
           ApiRequestBody.getSignUpRequest(
             emailController.text,
@@ -550,8 +550,6 @@ class _SignupScreen2State extends State<SignupScreen2> {
             referredByCode,
           ),
         );
-
-        NavigationUtils.pop();
         if (response.isSuccess!) {
           if (response.data[AUTH_TOKEN] != null) {
             UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
@@ -571,7 +569,8 @@ class _SignupScreen2State extends State<SignupScreen2> {
             UserDataHandler.saveCustomerData(customerData);
           }
           NavigationUtils.pop();
-          NavigationUtils.openScreen(ScreenRoutes.otpScreen2, {
+
+          NavigationUtils.openScreen(ScreenRoutes.otpScreen, {
             "phoneNumber": phoneNoController.text.toString(),
             USERTYPE: CUSTOMER
           });
@@ -580,6 +579,8 @@ class _SignupScreen2State extends State<SignupScreen2> {
         }
       } catch (e) {
         UiUtils.showToast(e.toString());
+      } finally {
+        NavigationUtils.showLoaderOnTop(false);
       }
     }
 
