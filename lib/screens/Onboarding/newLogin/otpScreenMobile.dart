@@ -105,7 +105,6 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
         setState(() {
           final intRegex = RegExp(r'\d+', multiLine: true);
           final code = intRegex.allMatches(value).first.group(0);
-          print(code);
           String _smsCode = code ?? '12345';
           otpPinEntered = "";
           otpPinEntered = _smsCode;
