@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.49+49] - 2024-4-30
+disabled proguard to check the onreceive error for intent rejection by console
+
 ## [1.0.48+48] - 2024-4-29
 export = false for android manifeest
 
