@@ -11,6 +11,9 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.50+50] - 2024-4-30
+Enabled proguard and commented sms constent causing app to be rejected
+
 ## [1.0.49+49] - 2024-4-30
 disabled proguard to check the onreceive error for intent rejection by console
 

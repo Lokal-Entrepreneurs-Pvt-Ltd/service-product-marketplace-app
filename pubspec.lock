@@ -1970,14 +1970,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  sms_user_consent:
-    dependency: "direct main"
-    description:
-      name: sms_user_consent
-      sha256: ef2cd9a9627264adca4d0921ef43a74f7a832b2427fd319c306934e893277c8b
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.0"
   source_gen:
     dependency: transitive
     description:
