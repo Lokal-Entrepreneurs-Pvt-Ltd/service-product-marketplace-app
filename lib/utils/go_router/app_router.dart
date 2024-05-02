@@ -274,9 +274,11 @@ class AppRoutes {
   static final GoRoute _userBankInfoScreen = GoRoute(
     path: ScreenRoutes.userBankDetailsScreen,
     builder: (context, state) {
-      // final Map<String, dynamic>? extraArgs =
-      // state.extra as Map<String, dynamic>?;
-      return UserBankInfoScreen();
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
+      return UserBankInfoScreen(
+        args: extraArgs,
+      );
     },
   );
 
@@ -373,6 +375,7 @@ class AppRoutes {
     builder: (context, state) {
       return UserPersonalInfo(
         key: state.pageKey,
+        args: state.extra as Map<String, dynamic>,
       );
       // return OtherDetails();
     },
@@ -383,6 +386,7 @@ class AppRoutes {
     builder: (context, state) {
       return UserGeneralInfo(
         key: state.pageKey,
+        args: state.extra as Map<String, dynamic>,
       );
       // return OtherDetails();
     },
@@ -393,6 +397,7 @@ class AppRoutes {
     builder: (context, state) {
       return UserOtherInfo(
         key: state.pageKey,
+        args: state.extra as Map<String, dynamic>,
       );
       // return OtherDetails();
     },
@@ -414,6 +419,7 @@ class AppRoutes {
     builder: (context, state) {
       return UserDocumentInfo(
         key: state.pageKey,
+        args: state.extra as Map<String, dynamic>,
       );
       // return OtherDetails();
     },

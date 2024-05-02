@@ -18,7 +18,8 @@ import '../../../constants/json_constants.dart';
 import '../../../utils/network/ApiRepository.dart';
 
 class UserGeneralInfo extends StatefulWidget {
-  const UserGeneralInfo({Key? key}) : super(key: key);
+  final dynamic args;
+  const UserGeneralInfo({Key? key, this.args}) : super(key: key);
 
   @override
   State<UserGeneralInfo> createState() => _UserGeneralInfoState();
@@ -43,6 +44,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
   int districtIndex = -1;
   List<String> villageList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
   int villageIndex = -1;
+  bool isProgressBarAndContinueFeature = false;
 
   bool isUpdating = false; // Added isUpdating variable
 
@@ -101,6 +103,9 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     } catch (e) {
       UiUtils.showToast("Error fetching initial data");
     }
+    setState(() {
+      isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
+    });
   }
 
   @override
@@ -138,109 +143,204 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     );
   }
 
+  double calculateCompletionPercentage() {
+    int totalFields = 6; // Update this with the total number of fields
+    int completedFields = 0;
+
+    // Check each field's completion status
+    if (bikeIndex != -1) completedFields++;
+    if (home.isNotEmpty) completedFields++;
+    if (road.isNotEmpty) completedFields++;
+    if (bankIndex != -1) completedFields++;
+    if (state != null) completedFields++;
+    if (district != null) completedFields++;
+    // Add conditions for other fields...
+
+    return completedFields / totalFields;
+  }
+
+  Widget progressBar() {
+    double completionPercentage = calculateCompletionPercentage();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      child: Row(
+        children: [
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: completionPercentage,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildBody() {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 21),
-                child: buildTitle("General Details Bhare", 18, FontWeight.w500),
-              ),
-              buildTitle("Do you have a Bike?", 16, FontWeight.w500),
-              buildSelectable(bike, bikeIndex, (index) {
-                updateSelectedIndex(index, IndexType.bike);
-              }),
-              buildTitle("Do you have Bank Accont?", 16, FontWeight.w500),
-              buildSelectable(bank, bankIndex, (index) {
-                updateSelectedIndex(index, IndexType.bank);
-              }),
-              buildTitle("Permanent Addresses", 16, FontWeight.w500),
-              GestureDetector(
-                onTap: () async {
-                  int? result = await Bottomsheets.showBottomListDialog(
-                    context: context,
-                    name: "state",
-                    call: () async {
-                      // await Future.delayed(
-                      //     const Duration(milliseconds: 500));
-                      return DataForFunction(
-                          index: stateIndex, list: stateDataList.stateNameList);
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 21),
+                    child: buildTitle(
+                        "General Details Bhare", 18, FontWeight.w500),
+                  ),
+                  buildTitle("Do you have a Bike?", 16, FontWeight.w500),
+                  buildSelectable(bike, bikeIndex, (index) {
+                    updateSelectedIndex(index, IndexType.bike);
+                  }),
+                  buildTitle("Do you have Bank Accont?", 16, FontWeight.w500),
+                  buildSelectable(bank, bankIndex, (index) {
+                    updateSelectedIndex(index, IndexType.bank);
+                  }),
+                  buildTitle("Permanent Addresses", 16, FontWeight.w500),
+                  GestureDetector(
+                    onTap: () async {
+                      int? result = await Bottomsheets.showBottomListDialog(
+                        context: context,
+                        name: "state",
+                        call: () async {
+                          // await Future.delayed(
+                          //     const Duration(milliseconds: 500));
+                          return DataForFunction(
+                              index: stateIndex,
+                              list: stateDataList.stateNameList);
+                        },
+                      );
+                      if (result != null && result >= 0) {
+                        setState(() {
+                          state = stateDataList.list.firstWhere((element) =>
+                              element.stateName ==
+                              stateDataList.stateNameList[result]);
+                          stateIndex = result;
+                          districtIndex = -1;
+                          district = null;
+                        });
+                      }
                     },
-                  );
-                  if (result != null && result >= 0) {
-                    setState(() {
-                      state = stateDataList.list.firstWhere((element) =>
-                          element.stateName ==
-                          stateDataList.stateNameList[result]);
-                      stateIndex = result;
-                      districtIndex = -1;
-                      district = null;
-                    });
-                  }
-                },
-                child: builbottomsheedtfield(
-                  "State",
-                  (state != null) ? state!.stateName : "",
-                ),
-              ),
-              GestureDetector(
-                onTap: () async {
-                  if (stateIndex != -1) {
-                    int? result = await Bottomsheets.showBottomListDialog(
-                      context: context,
-                      name: "District",
-                      call: () async {
-                        await districtDataList.initialize(
-                            stateCode: state!.stateCode);
-                        return DataForFunction(
-                            index: districtIndex,
-                            list: districtDataList.districtNameList);
-                      },
-                    );
-                    //   print(districtDataList.districtNameList);
-                    if (result != null && result >= 0) {
+                    child: builbottomsheedtfield(
+                      "State",
+                      (state != null) ? state!.stateName : "",
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      if (stateIndex != -1) {
+                        int? result = await Bottomsheets.showBottomListDialog(
+                          context: context,
+                          name: "District",
+                          call: () async {
+                            await districtDataList.initialize(
+                                stateCode: state!.stateCode);
+                            return DataForFunction(
+                                index: districtIndex,
+                                list: districtDataList.districtNameList);
+                          },
+                        );
+                        //   print(districtDataList.districtNameList);
+                        if (result != null && result >= 0) {
+                          setState(() {
+                            district = districtDataList.list.firstWhere(
+                                (element) =>
+                                    element.districtName ==
+                                    districtDataList.districtNameList[result]);
+                            districtIndex = result;
+                          });
+                        }
+                      } else {
+                        UiUtils.showToast("Please Select State");
+                      }
+                    },
+                    child: builbottomsheedtfield("District",
+                        (district != null) ? district!.districtName : ""),
+                  ),
+                  TextInputContainer(
+                    fieldName: "Home No, Building Name",
+                    hint: "Type your address",
+                    initialValue: home,
+                    onFileSelected: (p0) {
                       setState(() {
-                        district = districtDataList.list.firstWhere((element) =>
-                            element.districtName ==
-                            districtDataList.districtNameList[result]);
-                        districtIndex = result;
+                        home = p0 ?? "";
                       });
-                    }
-                  } else {
-                    UiUtils.showToast("Please Select State");
-                  }
-                },
-                child: builbottomsheedtfield("District",
-                    (district != null) ? district!.districtName : ""),
+                    },
+                  ),
+                  TextInputContainer(
+                    fieldName: "Road name, Area, Colony",
+                    hint: "Type your address",
+                    initialValue: road,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        road = p0 ?? "";
+                      });
+                    },
+                  ),
+                ],
               ),
-              TextInputContainer(
-                fieldName: "Home No, Building Name",
-                hint: "Type your address",
-                initialValue: home,
-                onFileSelected: (p0) {
-                  setState(() {
-                    home = p0 ?? "";
-                  });
-                },
-              ),
-              TextInputContainer(
-                fieldName: "Road name, Area, Colony",
-                hint: "Type your address",
-                initialValue: road,
-                onFileSelected: (p0) {
-                  setState(() {
-                    road = p0 ?? "";
-                  });
-                },
-              ),
-            ],
+            ),
           ),
-        ),
+          (isProgressBarAndContinueFeature)
+              ? Positioned(
+                  top: 0, // Stick to the top
+                  left: 0,
+                  right: 0,
+                  child: progressBar(),
+                )
+              : Container()
+        ],
       ),
     );
   }
@@ -372,7 +472,12 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
           print(state!.stateName);
           print(district!.districtName);
           UiUtils.showToast("General Details Updated");
-          NavigationUtils.pop();
+          if (isProgressBarAndContinueFeature) {
+            NavigationUtils.openScreen(
+                ScreenRoutes.userOtherInfo, {"isProgress": true});
+          } else {
+            NavigationUtils.pop();
+          }
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
