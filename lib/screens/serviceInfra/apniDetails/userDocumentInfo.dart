@@ -15,7 +15,8 @@ import 'package:lokal/widgets/uploaddocumentbutton.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserDocumentInfo extends StatefulWidget {
-  const UserDocumentInfo({Key? key}) : super(key: key);
+  final dynamic args;
+  const UserDocumentInfo({Key? key, this.args}) : super(key: key);
 
   @override
   State<UserDocumentInfo> createState() => _UserDocumentInfoState();
@@ -30,6 +31,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
     "Upload Your Pan Card Image. (Max Size 1 MB )",
   ];
   bool setbool = false;
+  bool isProgressBarAndContinueFeature = false;
   @override
   void initState() {
     super.initState();
@@ -58,6 +60,9 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
       print(e);
       UiUtils.showToast("Error fetching initial data");
     }
+    setState(() {
+      isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
+    });
   }
 
   @override
@@ -85,7 +90,11 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
       ),
       persistentFooterButtons: [
         Column(
-          children: [buildTextupload(), buildContinueButton()],
+          children: [
+            buildTextupload(),
+            buildContinueButton(),
+            buildSkipButton()
+          ],
         )
       ], // Conditionally hide the footer
     );
@@ -123,20 +132,112 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
     );
   }
 
+  double calculateCompletionPercentage() {
+    int totalFields =
+        uploadSuccessList.length; // Update this with the total number of fields
+    int completedFields = 0;
+
+    // Check each field's completion status
+    for (var x in uploadSuccessList) {
+      if (x != null) {
+        completedFields++;
+      }
+    }
+    // Add conditions for other fields...
+
+    return completedFields / totalFields;
+  }
+
+  Widget progressBar() {
+    double completionPercentage = calculateCompletionPercentage();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      child: Row(
+        children: [
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: completionPercentage,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildBody() {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildUploadDocumentsTitle(),
-              buildUploadButtons(),
-              // buildGovernmentUploadButton()
-            ],
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildUploadDocumentsTitle(),
+                  buildUploadButtons(),
+                  // buildGovernmentUploadButton()
+                ],
+              ),
+            ),
           ),
-        ),
+          (isProgressBarAndContinueFeature)
+              ? Positioned(
+                  top: 0, // Stick to the top
+                  left: 0,
+                  right: 0,
+                  child: progressBar(),
+                )
+              : Container()
+        ],
       ),
     );
   }
@@ -326,6 +427,11 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
                 if (response3.isSuccess!) {
                   NavigationUtils.pushAndPopUntil(ScreenRoutes.userDocumentInfo,
                       ScreenRoutes.userDocumentInfo);
+                  if (isProgressBarAndContinueFeature) {
+                    NavigationUtils.openScreen(
+                        ScreenRoutes.userBankDetailsScreen,
+                        {"isProgress": true});
+                  }
                 } else {
                   UiUtils.showToast("Try Again Some error occured");
                 }
@@ -340,6 +446,27 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
         },
       ),
     );
+  }
+
+  Container buildSkipButton() {
+    return (isProgressBarAndContinueFeature)
+        ? Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 8),
+            child: UikButton(
+              text: "Skip",
+              textColor: Colors.black,
+              textSize: 16.0,
+              textWeight: FontWeight.w500,
+              backgroundColor: Colors.white,
+              borderColor: UikColor.giratina_400.toColor(),
+              onClick: () {
+                NavigationUtils.openScreen(
+                    ScreenRoutes.userBankDetailsScreen, {"isProgress": true});
+              },
+            ),
+          )
+        : Container();
   }
 
   void updatedata() async {
