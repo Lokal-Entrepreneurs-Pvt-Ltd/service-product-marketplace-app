@@ -358,7 +358,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                 searchEnabled: true,
                 dropdownBorderRadius: 20,
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                maxItems: 4,
+                maxItems: 3,
               ),
               const SizedBox(height: 12),
               // UikMulti<int>(
