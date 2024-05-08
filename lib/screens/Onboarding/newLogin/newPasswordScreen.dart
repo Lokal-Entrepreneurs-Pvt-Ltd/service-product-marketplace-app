@@ -378,7 +378,7 @@ class _PasswordScreen2State extends State<PasswordScreen2> {
             "name": customerData["firstName"],
           });
         } else {
-          NavigationUtils.popAllAndPush(nextPage);
+          NavigationUtils.popAllAndPush(nextPage, {"isProgress": true});
         }
       } else {
         NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);

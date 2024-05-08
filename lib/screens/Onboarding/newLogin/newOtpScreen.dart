@@ -151,7 +151,7 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
           if (response.data[NEXT_PAGE] != null) {
             final String nextPage = response.data[NEXT_PAGE];
             if (nextPage.isNotEmpty) {
-              NavigationUtils.popAllAndPush(nextPage, {});
+              NavigationUtils.popAllAndPush(nextPage, {"isProgress": true});
             } else {
               NavigationUtils.popAllAndPush(
                   ScreenRoutes.uikBottomNavigationBar, {});
