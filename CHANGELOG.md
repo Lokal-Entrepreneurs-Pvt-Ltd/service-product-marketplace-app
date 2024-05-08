@@ -11,6 +11,10 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+
+## [1.0.51+51] - 2024-5-8
+Lokal News integrted with Digia
+
 ## [1.0.50+50] - 2024-4-30
 Enabled proguard and commented sms constent causing app to be rejected
 
