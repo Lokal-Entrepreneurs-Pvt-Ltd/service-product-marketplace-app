@@ -1,9 +1,7 @@
 import 'package:go_router/go_router.dart';
-import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/cart_data_handler.dart';
 import 'package:ui_sdk/props/UikAction.dart';
-import '../main.dart';
 import 'deeplink_handler.dart';
 import 'package:flutter/material.dart';
 import '../screen_routes.dart';
@@ -126,5 +124,60 @@ class LoadingOverlay {
   static void hide() {
     _overlayEntry?.remove();
     _overlayEntry = null;
+  }
+}
+
+class TextOverlayDialog extends StatelessWidget {
+  final String text;
+  final String buttonText;
+  final VoidCallback onPressed;
+
+  const TextOverlayDialog({
+    Key? key,
+    required this.text,
+    required this.buttonText,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text(text),
+      actions: <Widget>[
+        MaterialButton(
+          color: Colors.amberAccent,
+          textColor: Colors.black,
+          onPressed: () {
+            onPressed();
+            Navigator.of(context).pop();
+          },
+          child: Text(buttonText),
+        ),
+      ],
+    );
+  }
+}
+
+class TextOverlay {
+  static void show({
+    required String text,
+    required String buttonText,
+    required VoidCallback onPressed,
+  }) {
+    final context = NavigationUtils.getCurrentContext()!;
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return WillPopScope(
+          onWillPop: () => Future.value(false),
+          child: TextOverlayDialog(
+            text: text,
+            buttonText: buttonText,
+            onPressed: onPressed,
+          ),
+        );
+      },
+    );
   }
 }

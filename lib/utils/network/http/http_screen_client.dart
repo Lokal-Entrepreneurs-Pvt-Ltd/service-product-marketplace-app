@@ -49,92 +49,44 @@ class HttpScreenClient {
   }
 
   static displayUserUnAuthorisedDialog() {
-    return showDialog(
-      barrierDismissible: false,
-      context: NavigationUtils.getCurrentContext()!,
-      builder: (BuildContext context) {
-        return WillPopScope(
-            onWillPop: () => Future.value(false),
-            child: AlertDialog(
-              title: const Text(YOU_HAVE_BEEN_LOGGED_OUT),
-              actions: <Widget>[
-                MaterialButton(
-                  color: Colors.amberAccent,
-                  textColor: Colors.black,
-                  child: const Text(LOG_IN),
-                  onPressed: () {
-                    UserDataHandler.clearUserToken();
-                    NavigationUtils.pop();
-                    NavigationUtils.openScreen(
-                        ScreenRoutes.onboardingScreen, {});
-                  },
-                ),
-              ],
-            ));
-      },
-    );
+    TextOverlay.show(
+        text: YOU_HAVE_BEEN_LOGGED_OUT,
+        buttonText: LOG_IN,
+        onPressed: () {
+          UserDataHandler.clearUserToken();
+          NavigationUtils.popAllAndPush(ScreenRoutes.onboardingScreen);
+        });
   }
 
   static displayPhoneNumberNotInSignUpDialog(String pageRoute) {
-    return showDialog(
-      barrierDismissible: false,
-      context: NavigationUtils.getCurrentContext()!,
-      builder: (BuildContext context) {
-        return WillPopScope(
-            onWillPop: () => Future.value(false),
-            child: AlertDialog(
-              title: const Text(
-                  "Kindly add PhoneNo to your account for smooth login process"),
-              actions: <Widget>[
-                MaterialButton(
-                  color: Colors.amberAccent,
-                  textColor: Colors.black,
-                  child: const Text(ADD_PHONENUMBER_IN_ACCOUNT),
-                  onPressed: () {
-                    UserDataHandler.clearUserToken();
-                    NavigationUtils.pop();
-                    if (pageRoute == ApiRoutes.sendOtpForLoginCustomer)
-                      NavigationUtils.openScreen(
-                          ScreenRoutes.customerSignUpScreen, {});
-                    else
-                      NavigationUtils.openScreen(ScreenRoutes.signUpScreen, {});
-                  },
-                ),
-              ],
-            ));
-      },
-    );
+    TextOverlay.show(
+        text: "Kindly add PhoneNo to your account for smooth login process",
+        buttonText: ADD_PHONENUMBER_IN_ACCOUNT,
+        onPressed: () {
+          UserDataHandler.clearUserToken();
+          if (pageRoute == ApiRoutes.sendOtpForLoginCustomer) {
+            NavigationUtils.openScreen(ScreenRoutes.customerSignUpScreen, {});
+          } else {
+            NavigationUtils.openScreen(ScreenRoutes.signUpScreen, {});
+          }
+        });
   }
 
   static displayDialogBox(String text) {
-    return showDialog(
-      barrierDismissible: false,
-      context: NavigationUtils.getCurrentContext()!,
-      builder: (BuildContext context) {
-        return WillPopScope(
-            onWillPop: () => Future.value(false),
-            child: AlertDialog(
-              title: Text(text),
-              actions: <Widget>[
-                MaterialButton(
-                  color: Colors.amberAccent,
-                  textColor: Colors.black,
-                  child: const Text(CONTINUE),
-                  onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      NavigationUtils.getCurrentContext()!,
-                      MaterialPageRoute(
-                        builder: (context) => const UikBottomNavigationBar(),
-                      ),
-                      // ModalRoute.withName(ScreenRoutes.homeScreen)
-                      (route) => false,
-                    );
-                  },
-                ),
-              ],
-            ));
-      },
-    );
+    TextOverlay.show(
+        text: text,
+        buttonText: CONTINUE,
+        onPressed: () {
+          UserDataHandler.clearUserToken();
+          Navigator.pushAndRemoveUntil(
+            NavigationUtils.getCurrentContext()!,
+            MaterialPageRoute(
+              builder: (context) => const UikBottomNavigationBar(),
+            ),
+            // ModalRoute.withName(ScreenRoutes.homeScreen)
+            (route) => false,
+          );
+        });
   }
 
   static Future<ApiResponse> getmultipartrequest(
@@ -318,29 +270,11 @@ class HttpScreenClient {
   }
 
   static displayNoInternetDialog(Function? retryCallback) {
-    return showDialog(
-      barrierDismissible: false,
-      context: NavigationUtils.getCurrentContext()!,
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () => Future.value(false),
-          child: AlertDialog(
-            title: const Text("No Internet Connecton !"),
-            actions: <Widget>[
-              MaterialButton(
-                color: Colors.amberAccent,
-                textColor: Colors.black,
-                child: const Text("Close App"),
-                onPressed: () {
-                  NavigationUtils.pop();
-                  SystemNavigator.pop();
-                  // retryCallback(); // Call the retry callback
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
+    TextOverlay.show(
+        text: "No Internet Connecton !",
+        buttonText: "Close App",
+        onPressed: () {
+          SystemNavigator.pop();
+        });
   }
 }
