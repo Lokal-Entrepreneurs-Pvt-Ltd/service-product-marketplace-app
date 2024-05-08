@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
@@ -378,58 +379,9 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                     maxItems: 4,
                   ),
                   const SizedBox(height: 12),
-                  // UikMulti<int>(
-                  //   onOptionSelected: (List<ValueItem<int>> selectedOptions) {
-                  //     selectedJobsOptions = selectedOptions;
-                  //   },
-                  //   hint: "What Kind of jobs you are looking for?",
-                  //   options: jobs
-                  //       .map((job) =>
-                  //           ValueItem(label: job, value: jobs.indexOf(job)))
-                  //       .toList(),
-                  //   selectionType: SelectionType.multi,
-                  //   chipConfig: ChipConfig(
-                  //     runSpacing: 8,
-                  //     deleteIcon: const Icon(
-                  //       Icons.close,
-                  //       size: 20,
-                  //       color: Colors.black,
-                  //     ),
-                  //     padding:
-                  //         const EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
-                  //     wrapType: WrapType.wrap,
-                  //     backgroundColor: ("#FEE440").toColor(),
-                  //     labelStyle: GoogleFonts.poppins(
-                  //       fontSize: 14,
-                  //       color: Colors.black,
-                  //       fontWeight: FontWeight.w400,
-                  //     ),
-                  //   ),
-                  //   dropdownHeight: 300,
-                  //   hintStyle: GoogleFonts.poppins(
-                  //     fontSize: 14,
-                  //     fontWeight: FontWeight.w400,
-                  //     color: ("#9E9E9E").toColor(),
-                  //   ),
-                  //   fieldBackgroundColor: ("#F5F5F5").toColor(),
-                  //   borderColor: ("#F5F5F5").toColor(),
-                  //   optionTextStyle: GoogleFonts.poppins(
-                  //     fontSize: 14,
-                  //     fontWeight: FontWeight.w400,
-                  //     color: Colors.black,
-                  //   ),
-                  //   selectedOptionIcon: const Icon(Icons.check_circle),
-                  //   suffixIcon: SvgPicture.network(
-                  //       "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
-                  //   animateSuffixIcon: true,
-                  //   searchEnabled: true,
-                  //   dropdownBorderRadius: 20,
-                  //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  //   maxItems: 5,
-                  // ),
-                  // const SizedBox(height: 12),
                   buildLocationField(),
                 ],
+
               ),
             ),
           ),
