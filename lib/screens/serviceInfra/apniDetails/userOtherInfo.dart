@@ -22,7 +22,8 @@ import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserOtherInfo extends StatefulWidget {
-  const UserOtherInfo({Key? key}) : super(key: key);
+  final dynamic args;
+  const UserOtherInfo({Key? key, this.args}) : super(key: key);
 
   @override
   State<UserOtherInfo> createState() => _UserOtherInfoState();
@@ -36,6 +37,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
   String preferredLocation = "";
   String currentSalary = "";
   String expectedSalary = "";
+  bool isProgressBarAndContinueFeature = false;
 
   List<String> relocate = ["Yes", "No"];
   List<String> license = ["2 Wheeler", "3 Wheeler", "4 Wheeler"];
@@ -110,6 +112,9 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
       print(e);
       UiUtils.showToast("Error fetching initial data");
     }
+    setState(() {
+      isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
+    });
   }
 
   @override
@@ -149,84 +154,182 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
 
   Widget buildBody() {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 21),
-                child: buildTitle("Other Details Bhare", 18, FontWeight.w500),
-              ),
-              buildTitle("Do you have Driving License?", 16, FontWeight.w500),
-              buildMultiSelectable(license, licenseIndex, (index) {
-                updateSelectedIndex(index, IndexType.license);
-              }),
-              buildTitle("Want to Relocate", 16, FontWeight.w500),
-              buildSelectable(relocate, relocateIndex, (index) {
-                updateSelectedIndex(index, IndexType.relocate);
-              }),
-              const SizedBox(height: 10),
-              TextInputContainer(
-                fieldName: "Pereferred Location",
-                hint: "Type your preferred location",
-                initialValue: preferredLocation,
-                onFileSelected: (p0) {
-                  setState(() {
-                    preferredLocation = p0 ?? "";
-                  });
-                },
-              ),
-              GestureDetector(
-                onTap: () async {
-                  int? result = await Bottomsheets.showBottomListDialog(
-                    context: context,
-                    name: "Current Industry",
-                    call: () async {
-                      await Future.delayed(const Duration(milliseconds: 500));
-                      return DataForFunction(
-                          index: industryIndex, list: industryList);
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 21),
+                    child:
+                        buildTitle("Other Details Bhare", 18, FontWeight.w500),
+                  ),
+                  buildTitle(
+                      "Do you have Driving License?", 16, FontWeight.w500),
+                  buildMultiSelectable(license, licenseIndex, (index) {
+                    updateSelectedIndex(index, IndexType.license);
+                  }),
+                  buildTitle("Want to Relocate", 16, FontWeight.w500),
+                  buildSelectable(relocate, relocateIndex, (index) {
+                    updateSelectedIndex(index, IndexType.relocate);
+                  }),
+                  const SizedBox(height: 10),
+                  TextInputContainer(
+                    fieldName: "Pereferred Location",
+                    hint: "Type your preferred location",
+                    initialValue: preferredLocation,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        preferredLocation = p0 ?? "";
+                      });
                     },
-                  );
-                  // Handle the result, e.g., update selectedState
-                  if (result != null && result >= 0) {
-                    setState(() {
-                      industryIndex = result;
-                    });
-                  }
-                  //  _showLocationDialog(context, list);
-                },
-                child: builbottomsheedtfield("Current Industry",
-                    (industryIndex != -1) ? industryList[industryIndex] : ""),
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      int? result = await Bottomsheets.showBottomListDialog(
+                        context: context,
+                        name: "Current Industry",
+                        call: () async {
+                          await Future.delayed(
+                              const Duration(milliseconds: 500));
+                          return DataForFunction(
+                              index: industryIndex, list: industryList);
+                        },
+                      );
+                      // Handle the result, e.g., update selectedState
+                      if (result != null && result >= 0) {
+                        setState(() {
+                          industryIndex = result;
+                        });
+                      }
+                      //  _showLocationDialog(context, list);
+                    },
+                    child: builbottomsheedtfield(
+                        "Current Industry",
+                        (industryIndex != -1)
+                            ? industryList[industryIndex]
+                            : ""),
+                  ),
+                  // builLocationsField(context, stateList, "Current Industry"),
+                  TextInputContainer(
+                    fieldName: "Current Salary",
+                    hint: "Type your current salary",
+                    initialValue: currentSalary,
+                    textInputType: TextInputType.number,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        currentSalary = p0 ?? "";
+                      });
+                    },
+                  ),
+                  TextInputContainer(
+                    fieldName: "Expected Salary",
+                    hint: "Type your expected salary",
+                    textInputType: TextInputType.number,
+                    initialValue: expectedSalary,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        expectedSalary = p0 ?? "";
+                      });
+                    },
+                  ),
+                ],
               ),
-              // builLocationsField(context, stateList, "Current Industry"),
-              TextInputContainer(
-                fieldName: "Current Salary",
-                hint: "Type your current salary",
-                initialValue: currentSalary,
-                textInputType: TextInputType.number,
-                onFileSelected: (p0) {
-                  setState(() {
-                    currentSalary = p0 ?? "";
-                  });
-                },
-              ),
-              TextInputContainer(
-                fieldName: "Expected Salary",
-                hint: "Type your expected salary",
-                textInputType: TextInputType.number,
-                initialValue: expectedSalary,
-                onFileSelected: (p0) {
-                  setState(() {
-                    expectedSalary = p0 ?? "";
-                  });
-                },
-              ),
-            ],
+            ),
           ),
-        ),
+          (isProgressBarAndContinueFeature)
+              ? Positioned(
+                  top: 0, // Stick to the top
+                  left: 0,
+                  right: 0,
+                  child: progressBar(),
+                )
+              : Container()
+        ],
+      ),
+    );
+  }
+
+  double calculateCompletionPercentage() {
+    int totalFields = 6; // Update this with the total number of fields
+    int completedFields = 0;
+
+    // Check each field's completion status
+    if (licenseIndex.contains(true)) completedFields++;
+    if (preferredLocation.isNotEmpty) completedFields++;
+    if (currentSalary.isNotEmpty) completedFields++;
+    if (relocateIndex != -1) completedFields++;
+    if (industryIndex != -1) completedFields++;
+    if (expectedSalary.isNotEmpty) completedFields++;
+    // Add conditions for other fields...
+
+    return completedFields / totalFields;
+  }
+
+  Widget progressBar() {
+    double completionPercentage = calculateCompletionPercentage();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      child: Row(
+        children: [
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: completionPercentage,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -347,8 +450,12 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
 
         if (response.isSuccess!) {
           UiUtils.showToast("Other Details Updated");
-          NavigationUtils.pop();
-          // NavigationUtils.openScreen(ScreenRoutes.userDocumentInfo);
+          if (isProgressBarAndContinueFeature) {
+            NavigationUtils.openScreen(
+                ScreenRoutes.userDocumentInfo, {"isProgress": true});
+          } else {
+            NavigationUtils.pop();
+          }
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }

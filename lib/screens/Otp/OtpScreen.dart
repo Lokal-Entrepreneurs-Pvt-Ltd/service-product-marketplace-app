@@ -138,14 +138,16 @@ class _OtpScreenState extends State<OtpScreen> {
           NavigationUtils.pop();
           if (response.data[NEXT_PAGE] != null) {
             final String nextPage = response.data[NEXT_PAGE];
-            if (nextPage.isNotEmpty)
-              NavigationUtils.popAllAndPush(nextPage, {});
-            else
+            if (nextPage.isNotEmpty) {
+              NavigationUtils.popAllAndPush(nextPage, {"isProgress": true});
+            } else {
               NavigationUtils.popAllAndPush(
                   ScreenRoutes.uikBottomNavigationBar, {});
-          } else
+            }
+          } else {
             NavigationUtils.popAllAndPush(
                 ScreenRoutes.uikBottomNavigationBar, {});
+          }
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }

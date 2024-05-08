@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/json_constants.dart';
@@ -7,12 +8,14 @@ import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/http/http_screen_client.dart';
+import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserBankInfoScreen extends StatefulWidget {
-  const UserBankInfoScreen({super.key});
+  final dynamic args;
+  const UserBankInfoScreen({super.key, this.args});
 
   @override
   State<UserBankInfoScreen> createState() => _UserBankInfoScreenState();
@@ -29,6 +32,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
   String bankIfsc = "";
   String bankIfscPrev = "";
   Future<Map<String, dynamic>?>? _futureData;
+  bool isProgressBarAndContinueFeature = false;
 
   Future<Map<String, dynamic>?> fetchData() async {
     try {
@@ -54,6 +58,9 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
     } catch (e) {
       UiUtils.showToast("Error fetching initial data");
     }
+    setState(() {
+      isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
+    });
   }
 
   @override
@@ -84,7 +91,14 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
           }
         },
       ),
-      persistentFooterButtons: [buildContinueButton(context)],
+      persistentFooterButtons: [
+        Column(
+          children: [
+            buildContinueButton(context),
+            buildSkipButton(),
+          ],
+        )
+      ],
     );
   }
 
@@ -109,82 +123,201 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
     }
   }
 
-  Widget buildBody() {
+  double calculateCompletionPercentage() {
+    int totalFields = 5; // Update this with the total number of fields
+    int completedFields = 0;
+
+    // Check each field's completion status
+    if (bankName.isNotEmpty) completedFields++;
+    if (bankUserName.isNotEmpty) completedFields++;
+    if (bankAccNo2.isNotEmpty) completedFields++;
+    if (bankAccNo1.isNotEmpty) completedFields++;
+    if (bankIfsc.isNotEmpty) completedFields++;
+
+    // Add conditions for other fields...
+
+    return completedFields / totalFields;
+  }
+
+  Widget progressBar() {
+    double completionPercentage = calculateCompletionPercentage();
     return Container(
-      margin: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+      child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 21),
-            child:
-                buildTitle("Apna Bank Information Bhare", 18, FontWeight.w500),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
-          TextInputContainer(
-            fieldName: "Bank User Name",
-            hint: "Enter Bank User Name",
-            initialValue: bankUserName,
-            onFileSelected: (p0) {
-              setState(() {
-                bankUserName = p0 ?? "";
-              });
-            },
+          const SizedBox(
+            width: 8,
           ),
-          TextInputContainer(
-            fieldName: "Bank Account No.",
-            hint: "Enter Bank Account No.",
-            initialValue: bankAccNo1,
-            enabled: false,
-            textInputType: TextInputType.number,
-            onFileSelected: (p0) {
-              setState(() {
-                bankAccNo1 = p0 ?? "";
-                _bankAccMatch();
-              });
-            },
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
-          TextInputContainer(
-            fieldName: "Bank Account No.",
-            hint: "Confirm Bank Account No.",
-            initialValue: bankAccNo2,
-            textInputType: TextInputType.number,
-            errorText: bankAccError ? "Please Check Account Number" : null,
-            successText: bankAccSuccess ? "Correct Account Number" : null,
-            enabled: false,
-            onFileSelected: (p0) {
-              setState(() {
-                bankAccNo2 = p0 ?? "";
-                _bankAccMatch();
-              });
-            },
+          const SizedBox(
+            width: 8,
           ),
-          TextInputContainer(
-            fieldName: "Bank IFSC",
-            hint: "Enter Bank IFSC",
-            initialValue: bankIfsc,
-            onFileSelected: (p0) {
-              setState(() {
-                bankIfsc = p0 ?? "";
-                updateBankName(bankIfsc);
-              });
-            },
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
-          Container(
-            key: ValueKey(bankName),
-            child: TextInputContainer(
-              fieldName: "Bank Name",
-              hint: "Enter Bank Name",
-              initialValue: bankName,
-              onFileSelected: (p0) {
-                setState(() {
-                  bankName = p0 ?? "";
-                });
-              },
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 1,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: completionPercentage,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget buildBody() {
+    return SafeArea(
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 21),
+                    child: buildTitle(
+                        "Apna Bank Information Bhare", 18, FontWeight.w500),
+                  ),
+                  TextInputContainer(
+                    fieldName: "Bank User Name",
+                    hint: "Enter Bank User Name",
+                    initialValue: bankUserName,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        bankUserName = p0 ?? "";
+                      });
+                    },
+                  ),
+                  TextInputContainer(
+                    fieldName: "Bank Account No.",
+                    hint: "Enter Bank Account No.",
+                    initialValue: bankAccNo1,
+                    enabled: false,
+                    textInputType: TextInputType.number,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        bankAccNo1 = p0 ?? "";
+                        _bankAccMatch();
+                      });
+                    },
+                  ),
+                  TextInputContainer(
+                    fieldName: "Bank Account No.",
+                    hint: "Confirm Bank Account No.",
+                    initialValue: bankAccNo2,
+                    textInputType: TextInputType.number,
+                    errorText:
+                        bankAccError ? "Please Check Account Number" : null,
+                    successText:
+                        bankAccSuccess ? "Correct Account Number" : null,
+                    enabled: false,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        bankAccNo2 = p0 ?? "";
+                        _bankAccMatch();
+                      });
+                    },
+                  ),
+                  TextInputContainer(
+                    fieldName: "Bank IFSC",
+                    hint: "Enter Bank IFSC",
+                    initialValue: bankIfsc,
+                    onFileSelected: (p0) {
+                      setState(() {
+                        bankIfsc = p0 ?? "";
+                        updateBankName(bankIfsc);
+                      });
+                    },
+                  ),
+                  Container(
+                    key: ValueKey(bankName),
+                    child: TextInputContainer(
+                      fieldName: "Bank Name",
+                      hint: "Enter Bank Name",
+                      initialValue: bankName,
+                      onFileSelected: (p0) {
+                        setState(() {
+                          bankName = p0 ?? "";
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          (isProgressBarAndContinueFeature)
+              ? Positioned(
+                  top: 0, // Stick to the top
+                  left: 0,
+                  right: 0,
+                  child: progressBar(),
+                )
+              : Container()
+        ],
+      ),
+    );
+  }
+
+  Container buildSkipButton() {
+    return (isProgressBarAndContinueFeature)
+        ? Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 8),
+            child: UikButton(
+              text: "Skip",
+              textColor: Colors.black,
+              textSize: 16.0,
+              textWeight: FontWeight.w500,
+              backgroundColor: Colors.white,
+              borderColor: UikColor.giratina_400.toColor(),
+              onClick: () {
+                NavigationUtils.popAllAndPush(
+                    ScreenRoutes.uikBottomNavigationBar);
+              },
+            ),
+          )
+        : Container();
   }
 
   void _bankAccMatch() {
@@ -240,8 +373,12 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
 
       if (response.isSuccess!) {
         UiUtils.showToast("Bank Details Updated Successfully");
-        NavigationUtils.pushAndPopUntil(
-            ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
+        if (isProgressBarAndContinueFeature) {
+          NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
+        } else {
+          NavigationUtils.pushAndPopUntil(
+              ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
+        }
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }

@@ -1,5 +1,8 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
+import 'package:flutter_holo_date_picker/widget/date_ext.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
@@ -20,7 +24,8 @@ import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserPersonalInfo extends StatefulWidget {
-  const UserPersonalInfo({Key? key}) : super(key: key);
+  final dynamic args;
+  const UserPersonalInfo({Key? key, this.args}) : super(key: key);
 
   @override
   State<UserPersonalInfo> createState() => _UserPersonalInfoState();
@@ -45,6 +50,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   bool locationLoading = false;
   int? age = null;
   bool isUpdating = false; // Added isUpdating variable
+  bool isProgressBarAndContinueFeature = false;
   List<String> workEx = [
     "Fresher",
     "Below 1yr",
@@ -113,10 +119,10 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   @override
   void initState() {
     super.initState();
+
     _futureData = fetchData();
   }
 
-  // Future<List<String>>
   void getAllGovernmentServices() async {
     try {
       final response = await ApiRepository.getAllGovernmentServices({});
@@ -237,184 +243,240 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     } catch (e) {
       UiUtils.showToast("Error fetching initial data");
     }
+    setState(() {
+      isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
+    });
   }
 
   Widget buildBody() {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 21),
-                child: buildTitle(
-                    "Apni Personal Details Bhare", 24, FontWeight.w600),
-              ),
-              buildTitle("Gender", 16, FontWeight.w500),
-              buildSelectable(genderList, genderIndex, (index) {
-                updateSelectedIndex(index, IndexType.gender);
-              }),
-              const SizedBox(height: 8),
-              TextInputContainer(
-                fieldName: "Full Name (as on aadhar)",
-                initialValue: name,
-                onFileSelected: (text) {
-                  setState(() {
-                    name = text ?? "";
-                  });
-                },
-              ),
-              Row(
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                      flex: 3, child: buildDatePickerField("Date of Birth")),
-                  Expanded(child: buildAgeBox("Age")),
-                ],
-              ),
-              const SizedBox(height: 12),
-              TextInputContainer(
-                fieldName: "Mobile Number",
-                initialValue: phoneNumber,
-                onFileSelected: (text) {
-                  setState(() {
-                    phoneNumber = text ?? "";
-                  });
-                },
-              ),
-              buildTitle("Education Background", 16, FontWeight.w500),
-              buildSelectable(education, educationIndex, (index) {
-                updateSelectedIndex(index, IndexType.education);
-              }),
-              buildTitle("Work Experience", 16, FontWeight.w500),
-              buildSelectable(workEx, workExperienceIndex, (index) {
-                updateSelectedIndex(index, IndexType.workExperience);
-              }),
-              const SizedBox(height: 8),
-              GestureDetector(
-                onTap: () async {
-                  int? result = await Bottomsheets.showBottomListDialog(
-                    context: context,
-                    name: "Industry you want to work",
-                    call: () async {
-                      await Future.delayed(const Duration(milliseconds: 100));
-                      return DataForFunction(
-                          index: industryIndex, list: industryList);
+                  Padding(
+                    padding: const EdgeInsets.only(top: 21),
+                    child: buildTitle(
+                        "Apni Personal Details Bhare", 24, FontWeight.w600),
+                  ),
+                  buildTitle("Gender", 16, FontWeight.w500),
+                  buildSelectable(genderList, genderIndex, (index) {
+                    updateSelectedIndex(index, IndexType.gender);
+                  }),
+                  const SizedBox(height: 8),
+                  TextInputContainer(
+                    fieldName: "Full Name (as on aadhar)",
+                    initialValue: name,
+                    onFileSelected: (text) {
+                      setState(() {
+                        name = text ?? "";
+                      });
                     },
-                  );
-                  if (result != null && result >= 0) {
-                    setState(() {
-                      industryIndex = result;
-                    });
-                  }
-                },
-                child: builbottomsheedtfield("Industry you want to work",
-                    (industryIndex != -1) ? industryList[industryIndex] : ""),
-              ),
-              UikMulti<int>(
-                onOptionSelected: (List<ValueItem<int>> selectedOptions) {
-                  selectedJobsOptions = selectedOptions;
-                },
-                hint: "Have You Done Any Government Certification",
-                options: allGovernmentSkills,
-                selectedOptions: selectedJobsOptions,
-                selectionType: SelectionType.multi,
-                chipConfig: ChipConfig(
-                  runSpacing: 8,
-                  deleteIcon: const Icon(
-                    Icons.close,
-                    size: 20,
-                    color: Colors.black,
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
-                  wrapType: WrapType.wrap,
-                  backgroundColor: ("#FEE440").toColor(),
-                  labelStyle: GoogleFonts.poppins(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
+                  Row(
+                    children: [
+                      Expanded(
+                          flex: 3,
+                          child: buildDatePickerField("Date of Birth")),
+                      Expanded(child: buildAgeBox("Age")),
+                    ],
                   ),
-                ),
-                dropdownHeight: 300,
-                hintStyle: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: ("#9E9E9E").toColor(),
-                ),
-                fieldBackgroundColor: ("#F5F5F5").toColor(),
-                borderColor: ("#F5F5F5").toColor(),
-                optionTextStyle: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
-                selectedOptionIcon: const Icon(Icons.check_circle),
-                suffixIcon: SvgPicture.network(
-                    "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
-                animateSuffixIcon: true,
-                searchEnabled: true,
-                dropdownBorderRadius: 20,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                maxItems: 3,
+                  const SizedBox(height: 12),
+                  TextInputContainer(
+                    fieldName: "Mobile Number",
+                    initialValue: phoneNumber,
+                    onFileSelected: (text) {
+                      setState(() {
+                        phoneNumber = text ?? "";
+                      });
+                    },
+                  ),
+                  buildTitle("Education Background", 16, FontWeight.w500),
+                  buildSelectable(education, educationIndex, (index) {
+                    updateSelectedIndex(index, IndexType.education);
+                  }),
+                  buildTitle("Work Experience", 16, FontWeight.w500),
+                  buildSelectable(workEx, workExperienceIndex, (index) {
+                    updateSelectedIndex(index, IndexType.workExperience);
+                  }),
+                  const SizedBox(height: 8),
+                  GestureDetector(
+                    onTap: () async {
+                      int? result = await Bottomsheets.showBottomListDialog(
+                        context: context,
+                        name: "Industry you want to work",
+                        call: () async {
+                          await Future.delayed(
+                              const Duration(milliseconds: 100));
+                          return DataForFunction(
+                              index: industryIndex, list: industryList);
+                        },
+                      );
+                      if (result != null && result >= 0) {
+                        setState(() {
+                          industryIndex = result;
+                        });
+                      }
+                    },
+                    child: builbottomsheedtfield(
+                        "Industry you want to work",
+                        (industryIndex != -1)
+                            ? industryList[industryIndex]
+                            : ""),
+                  ),
+                  UikMulti<int>(
+                    onOptionSelected: (List<ValueItem<int>> selectedOptions) {
+                      setState(() {
+                        selectedJobsOptions = selectedOptions;
+                      });
+                    },
+                    hint: "Have You Done Any Government Certification",
+                    options: allGovernmentSkills,
+                    selectedOptions: selectedJobsOptions,
+                    selectionType: SelectionType.multi,
+                    chipConfig: ChipConfig(
+                      runSpacing: 8,
+                      deleteIcon: const Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.black,
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 7.5, horizontal: 20),
+                      wrapType: WrapType.wrap,
+                      backgroundColor: ("#FEE440").toColor(),
+                      labelStyle: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    dropdownHeight: 300,
+                    hintStyle: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ("#9E9E9E").toColor(),
+                    ),
+                    fieldBackgroundColor: ("#F5F5F5").toColor(),
+                    borderColor: ("#F5F5F5").toColor(),
+                    optionTextStyle: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                    ),
+                    selectedOptionIcon: const Icon(Icons.check_circle),
+                    suffixIcon: SvgPicture.network(
+                        "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
+                    animateSuffixIcon: true,
+                    searchEnabled: true,
+                    dropdownBorderRadius: 20,
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    maxItems: 4,
+                  ),
+                  const SizedBox(height: 12),
+                  buildLocationField(),
+                ],
+
               ),
-              const SizedBox(height: 12),
-              // UikMulti<int>(
-              //   onOptionSelected: (List<ValueItem<int>> selectedOptions) {
-              //     selectedJobsOptions = selectedOptions;
-              //   },
-              //   hint: "What Kind of jobs you are looking for?",
-              //   options: jobs
-              //       .map((job) =>
-              //           ValueItem(label: job, value: jobs.indexOf(job)))
-              //       .toList(),
-              //   selectionType: SelectionType.multi,
-              //   chipConfig: ChipConfig(
-              //     runSpacing: 8,
-              //     deleteIcon: const Icon(
-              //       Icons.close,
-              //       size: 20,
-              //       color: Colors.black,
-              //     ),
-              //     padding:
-              //         const EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
-              //     wrapType: WrapType.wrap,
-              //     backgroundColor: ("#FEE440").toColor(),
-              //     labelStyle: GoogleFonts.poppins(
-              //       fontSize: 14,
-              //       color: Colors.black,
-              //       fontWeight: FontWeight.w400,
-              //     ),
-              //   ),
-              //   dropdownHeight: 300,
-              //   hintStyle: GoogleFonts.poppins(
-              //     fontSize: 14,
-              //     fontWeight: FontWeight.w400,
-              //     color: ("#9E9E9E").toColor(),
-              //   ),
-              //   fieldBackgroundColor: ("#F5F5F5").toColor(),
-              //   borderColor: ("#F5F5F5").toColor(),
-              //   optionTextStyle: GoogleFonts.poppins(
-              //     fontSize: 14,
-              //     fontWeight: FontWeight.w400,
-              //     color: Colors.black,
-              //   ),
-              //   selectedOptionIcon: const Icon(Icons.check_circle),
-              //   suffixIcon: SvgPicture.network(
-              //       "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
-              //   animateSuffixIcon: true,
-              //   searchEnabled: true,
-              //   dropdownBorderRadius: 20,
-              //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              //   maxItems: 5,
-              // ),
-              // const SizedBox(height: 12),
-              buildLocationField(),
-            ],
+            ),
           ),
-        ),
+          (isProgressBarAndContinueFeature)
+              ? Positioned(
+                  top: 0, // Stick to the top
+                  left: 0,
+                  right: 0,
+                  child: progressBar(),
+                )
+              : Container()
+        ],
+      ),
+    );
+  }
+
+  double calculateCompletionPercentage() {
+    int totalFields = 9; // Update this with the total number of fields
+    int completedFields = 0;
+
+    // Check each field's completion status
+    if (genderIndex != -1) completedFields++;
+    if (name.isNotEmpty) completedFields++;
+    if (datePicker != null) completedFields++;
+    if (phoneNumber.isNotEmpty) completedFields++;
+    if (educationIndex != -1) completedFields++;
+    if (workExperienceIndex != -1) completedFields++;
+    if (industryIndex != -1) completedFields++;
+    if (selectedJobsOptions.isNotEmpty) completedFields++;
+    if (lat != 0 && long != 0) completedFields++;
+    // Add conditions for other fields...
+
+    return completedFields / totalFields;
+  }
+
+  Widget progressBar() {
+    double completionPercentage = calculateCompletionPercentage();
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+      child: Row(
+        children: [
+          Expanded(
+            child: LinearProgressIndicator(
+              value: completionPercentage,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: LinearProgressIndicator(
+              value: 0,
+              color: UikColor.gengar_400.toColor(),
+              backgroundColor: UikColor.gengar_100.toColor(),
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -740,8 +802,12 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
 
         if (response.isSuccess!) {
           UiUtils.showToast("Personal Details Updated");
-          NavigationUtils.pop();
-          // NavigationUtils.openScreen(ScreenRoutes.userGeneralInfo);
+          if (isProgressBarAndContinueFeature) {
+            NavigationUtils.openScreen(
+                ScreenRoutes.userGeneralInfo, {"isProgress": true});
+          } else {
+            NavigationUtils.pop();
+          }
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
         }
@@ -778,10 +844,10 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
 
   void showDatePicker() {
     print('Tapped on date picker field'); // Check if the method is triggered
-    DatePicker.showSimpleDatePicker(
+    showSimpleDatePicker(
       context,
       initialDate: datePicker,
-      backgroundColor: UikColor.giratina_300.toColor(),
+      backgroundColor: Colors.white,
       firstDate: DateTime(1950),
       lastDate: DateTime.now(),
       dateFormat: "dd-MMMM-yyyy",
@@ -821,4 +887,108 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   void updateState() {
     setState(() {});
   }
+}
+
+Future<DateTime?> showSimpleDatePicker(
+  BuildContext context, {
+  DateTime? firstDate,
+  DateTime? lastDate,
+  DateTime? initialDate,
+  String? dateFormat,
+  DateTimePickerLocale locale = DATETIME_PICKER_LOCALE_DEFAULT,
+  DateTimePickerMode pickerMode = DateTimePickerMode.date,
+  Color? backgroundColor,
+  Color? textColor,
+  TextStyle? itemTextStyle,
+  String? titleText,
+  String? confirmText,
+  String? cancelText,
+  bool looping = false,
+  bool reverse = false,
+}) {
+  DateTime? _selectedDate = initialDate ?? DateTime.now().startOfDay();
+  final List<Widget> listButtonActions = [
+    TextButton(
+      style: TextButton.styleFrom(
+        foregroundColor: textColor,
+      ),
+      child: Text(
+        confirmText ?? "OK",
+        style: GoogleFonts.poppins(
+          fontSize: 18,
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onPressed: () {
+        Navigator.pop(context, _selectedDate);
+      },
+    ),
+    TextButton(
+      style: TextButton.styleFrom(foregroundColor: textColor),
+      child: Text(
+        cancelText ?? "Cancel",
+        style: GoogleFonts.poppins(
+          fontSize: 18,
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    )
+  ];
+
+  // handle the range of datetime
+  firstDate ??= DateTime.now();
+  lastDate ??= DateTime.now();
+
+  // handle initial DateTime
+  initialDate ??= DateTime.now();
+
+  backgroundColor ??= DateTimePickerTheme.Default.backgroundColor;
+//    if (itemTextStyle == null)
+//      itemTextStyle = DateTimePickerTheme.Default.itemTextStyle;
+
+  textColor ??= DateTimePickerTheme.Default.itemTextStyle.color;
+
+  var datePickerDialog = Container(
+    width: 300,
+    padding: EdgeInsets.symmetric(horizontal: 16),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        DatePickerWidget(
+          firstDate: firstDate,
+          lastDate: lastDate,
+          initialDate: initialDate,
+          dateFormat: dateFormat,
+          locale: locale,
+          pickerTheme: DateTimePickerTheme(
+            backgroundColor: backgroundColor,
+            itemTextStyle: itemTextStyle ?? TextStyle(color: textColor),
+          ),
+          onChange: ((DateTime date, list) {
+            print(date);
+            _selectedDate = date;
+          }),
+          looping: looping,
+        ),
+        Container(
+          color: Colors.white,
+          width: double.maxFinite,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: listButtonActions.reversed.toList(),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  return showDialog(
+      useRootNavigator: false,
+      context: context,
+      builder: (context) => datePickerDialog);
 }
