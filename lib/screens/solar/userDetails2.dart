@@ -31,25 +31,25 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
 
   Future<Map<String, dynamic>?> fetchData() async {
     try {
-      // final response = await ApiRepository.getUserProfile({});
+      final response = await ApiRepository.getUserProfile({});
 
-      // if (response.isSuccess!) {
-      //   final userDataMagento = response.data;
-      //   final userData = response.data?['userModelData'];
-      //   if (userData != null) {
-      //     setState(() {
-      //       bankAccNo1 = userData["bankAccNo"] ?? "";
-      //       bankAccNo2 = bankAccNo1;
-      //       bankIfsc = userData["bankIfsc"] ?? "";
-      //       bankIfscPrev = bankIfsc;
-      //       bankUserName = userData["bankUserName"] ?? "";
-      //       bankAccDetails = userData["bankAccDetails"] ?? "";
-      //       bankName = userData["bankName"] ?? "";
-      //     });
-      //   }
-      // } else {
-      //   UiUtils.showToast(response.error![MESSAGE]);
-      // }
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['companyDetails'];
+        if (userData != null) {
+          setState(() {
+            aboveReuiredArea = userData["isOfcSpace"] == 0 ? 1 : 0;
+            houseDetails = userData["houseNo"] ?? "";
+            streetDetails = userData["street"] ?? "";
+            district = userData["districtOfc"] ?? "";
+            state = userData["stateOfc"] ?? "";
+            pinCode = userData["pincodeOfc"] ?? "";
+            geoTag = userData["ofcGeoTagLoc"] ?? "";
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
     } catch (e) {
       UiUtils.showToast("Error fetching initial data");
     }
@@ -289,14 +289,19 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
 
   void updatedata() async {
     try {
-      final response = await ApiRepository.updateSolarUserFields(
-        {
-          "isOfcSpace": areaNotAvailableCheck,
-          "ofcAddressLine1": houseDetails + streetDetails + district,
-          "ofcAddressLine2": state + pinCode,
-          "ofcGeoTagLoc": geoTag,
-        },
-      );
+      final Map<String, dynamic> map = widget.args as Map<String, dynamic>;
+      if (aboveReuiredArea == 0) {
+        map.addAll(
+          {
+            "isOfcSpace": true,
+            "ofcAddressLine1": "$houseDetails,$streetDetails,$district",
+            "ofcAddressLine2": "$state,$pinCode",
+            "ofcGeoTagLoc": geoTag,
+          },
+        );
+      }
+
+      final response = await ApiRepository.updateSolarUserFields(map);
 
       if (response.isSuccess!) {
         NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);

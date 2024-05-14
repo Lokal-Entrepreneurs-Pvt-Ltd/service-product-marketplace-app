@@ -42,26 +42,74 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
   String firmName = "";
   String gstNo = "";
 
-  List<ValueItem<int>> selectedFirm = [];
-  List<ValueItem<int>> allFirmName = [
-    const ValueItem(label: "OmTrade", value: 1),
-    const ValueItem(label: "YashGopal", value: 2),
-    const ValueItem(label: "MarwariBanna", value: 3),
-  ];
-
   Future<Map<String, dynamic>?> fetchData() async {
     try {
-      // final response = await ApiRepository.getUserProfile({});
+      final response = await ApiRepository.getUserProfile({});
 
-      // if (response.isSuccess!) {
-      //   final userDataMagento = response.data;
-      //   final userData = response.data?['userModelData'];
-      //   if (userData != null) {
-      //     setState(() {});
-      //   }
-      // } else {
-      //   UiUtils.showToast(response.error![MESSAGE]);
-      // }
+      if (response.isSuccess!) {
+        final userDataMagento = response.data;
+        final userData = response.data?['companyDetails'];
+        if (userData != null) {
+          String stateName = userData["state"] ?? "";
+          await stateDataList.initialize();
+          if (stateName.isNotEmpty) {
+            int sra = stateDataList.list
+                .indexWhere((element) => element.stateName == stateName);
+            if (sra != -1) {
+              state = stateDataList.list[sra];
+              stateIndex = stateDataList.stateNameList.indexOf(stateName);
+            }
+            String districtName = userData["district"] ?? "";
+            if (districtName.isNotEmpty && sra != -1) {
+              await districtDataList.initialize(stateCode: state!.stateCode);
+              int dis = districtDataList.list.indexWhere(
+                  (element) => element.districtName == districtName);
+              if (dis != -1) {
+                district = districtDataList.list[dis];
+                districtIndex =
+                    districtDataList.districtNameList.indexOf(districtName);
+              }
+              String block1 = userData["block1"] ?? "";
+              if (block1.isNotEmpty && dis != -1) {
+                await blockDataList.initialize(
+                    district: district!.districtCode);
+                int bl1 = blockDataList.list
+                    .indexWhere((element) => element.blockName == block1);
+                if (bl1 != -1) {
+                  blockData1 = blockDataList.list[bl1];
+                  block1Index = blockDataList.blockNameList.indexOf(block1);
+                }
+                String block2 = userData["block2"] ?? "";
+                if (block2.isNotEmpty) {
+                  // await blockDataList.initialize(district: district!.districtCode);
+                  int bl2 = blockDataList.list
+                      .indexWhere((element) => element.blockName == block2);
+                  if (bl2 != -1) {
+                    blockData2 = blockDataList.list[bl2];
+                    block2Index = blockDataList.blockNameList.indexOf(block2);
+                  }
+                  String block3 = userData["block3"] ?? "";
+                  if (block3.isNotEmpty) {
+                    // await blockDataList.initialize(district: district!.districtCode);
+                    int bl3 = blockDataList.list
+                        .indexWhere((element) => element.blockName == block3);
+                    if (bl3 != -1) {
+                      blockData3 = blockDataList.list[bl3];
+                      block3Index = blockDataList.blockNameList.indexOf(block3);
+                    }
+                  }
+                }
+              }
+            }
+          }
+          setState(() {
+            firmName = userData['firmName'] ?? '';
+            gstNo = userData["gstNumber"] ?? "";
+          });
+        }
+      } else {
+        UiUtils.showToast(response.error![MESSAGE]);
+      }
     } catch (e) {
       UiUtils.showToast("Error fetching initial data");
     }
@@ -358,7 +406,8 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
   Widget builbottomsheedtfield(String name, String selectedname) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      padding:
+          const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
@@ -396,23 +445,15 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
 
   void updatedata() async {
     try {
-      final response = await ApiRepository.updateSolarUserFields(
-        {
-          "firmName": firmName,
-          "gstNumber": gstNo,
-          "state": state!.stateName,
-          "district": district!.districtName,
-          "block1": blockData1?.blockName,
-          "block2": blockData2?.blockName,
-          "block3": blockData3?.blockName,
-        },
-      );
-
-      if (response.isSuccess!) {
-        NavigationUtils.openScreen(ScreenRoutes.userSolarInfo2Screen);
-      } else {
-        UiUtils.showToast(response.error![MESSAGE]);
-      }
+      NavigationUtils.openScreen(ScreenRoutes.userSolarInfo2Screen, {
+        "firmName": firmName,
+        "gstNumber": gstNo,
+        "state": state!.stateName,
+        "district": district!.districtName,
+        "block1": blockData1?.blockName,
+        "block2": blockData2?.blockName,
+        "block3": blockData3?.blockName,
+      });
     } catch (e) {
       UiUtils.showToast("Error In Request");
     }
