@@ -125,6 +125,21 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            NavigationUtils.pop();
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: SvgPicture.network(
+              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1715678068186-shape.svg",
+              height: 16,
+              width: 20,
+            ),
+          ),
+        ),
+      ),
       body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
