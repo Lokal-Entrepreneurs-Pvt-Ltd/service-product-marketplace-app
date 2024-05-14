@@ -11,7 +11,6 @@ import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
-import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 import '../../../constants/json_constants.dart';
@@ -37,10 +36,10 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
   List<String> bike = ["Yes", "No"];
   List<String> bank = ["Yes", "No"];
   StateDataList stateDataList = StateDataList(args: {});
-  StateData? state = null;
+  StateData? state;
   int stateIndex = -1;
   DistrictDataList districtDataList = DistrictDataList();
-  DisctrictData? district = null;
+  DisctrictData? district;
   int districtIndex = -1;
   List<String> villageList = ["Rajasthan", "Pakistan", "Mumbai", "Bangalore"];
   int villageIndex = -1;
@@ -106,6 +105,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     setState(() {
       isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
     });
+    return null;
   }
 
   @override
@@ -138,7 +138,7 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
   }
 
   Widget buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
@@ -347,8 +347,8 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
 
   Widget builbottomsheedtfield(String name, String selectedname) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),

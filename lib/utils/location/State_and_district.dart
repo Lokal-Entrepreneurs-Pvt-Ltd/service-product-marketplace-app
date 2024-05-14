@@ -111,6 +111,57 @@ class DisctrictData {
   int get hashCode => districtName.hashCode ^ districtCode.hashCode;
 }
 
+class BlockData {
+  String blockName;
+  int blockCode;
+  BlockData({
+    required this.blockName,
+    required this.blockCode,
+  });
+
+  BlockData copyWith({
+    String? blockName,
+    int? blockCode,
+  }) {
+    return BlockData(
+      blockName: blockName ?? this.blockName,
+      blockCode: blockCode ?? this.blockCode,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'districtName': blockName,
+      'districtCode': blockCode,
+    };
+  }
+
+  factory BlockData.fromMap(Map<String, dynamic> map) {
+    return BlockData(
+      blockName: map['blockName'] as String,
+      blockCode: map['blockCode'] as int,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory BlockData.fromJson(String source) =>
+      BlockData.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() => 'Block(blockName: $blockName, blockCode: $blockCode)';
+
+  @override
+  bool operator ==(covariant BlockData other) {
+    if (identical(this, other)) return true;
+
+    return other.blockName == blockName && other.blockCode == blockCode;
+  }
+
+  @override
+  int get hashCode => blockName.hashCode ^ blockCode.hashCode;
+}
+
 class StateDataList {
   List<String> stateNameList = [];
   List<StateData> list = [];
@@ -157,6 +208,32 @@ class DistrictDataList {
       List<dynamic> stateList = response.data as List<dynamic>;
       List<DisctrictData> list =
           stateList.map((e) => DisctrictData.fromMap(e)).toList();
+      return list;
+    } else {
+      throw Exception("Failed to fetch state list");
+    }
+  }
+}
+
+class BlockDataList {
+  List<String> blockNameList = [];
+  List<BlockData> list = [];
+  dynamic args;
+
+  BlockDataList();
+
+  Future<void> initialize({required int district}) async {
+    args = {"districtCode": district};
+    list = await getBlockList(args);
+    blockNameList = list.map((e) => e.blockName).toList();
+  }
+
+  static Future<List<BlockData>> getBlockList(dynamic args) async {
+    ApiResponse response = await ApiRepository.getBlockByDistrictCode(args);
+    if (response.isSuccess!) {
+      List<dynamic> stateList = response.data as List<dynamic>;
+      List<BlockData> list =
+          stateList.map((e) => BlockData.fromMap(e)).toList();
       return list;
     } else {
       throw Exception("Failed to fetch state list");

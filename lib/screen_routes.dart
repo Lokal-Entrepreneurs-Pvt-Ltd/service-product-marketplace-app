@@ -108,4 +108,6 @@ class ScreenRoutes {
   static const String goldPassScreen = '/goldPassScreen';
   static const String userReferredByScreen = '/userreferredbyscreen';
   static const String userBankDetailsScreen = '/userbankdetailsscreen';
+  static const String userSolarInfoScreen = '/usersolarinfoscreen';
+  static const String userSolarInfo2Screen = '/usersolarinfo2screen';
 }

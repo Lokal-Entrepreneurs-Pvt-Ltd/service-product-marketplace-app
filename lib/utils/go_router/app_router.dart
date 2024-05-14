@@ -14,7 +14,6 @@ import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
 import 'package:lokal/screens/membership/GoldPassScreen.dart';
 import 'package:lokal/screens/serviceInfra/DeliveryJobDetailsPage.dart';
 import 'package:lokal/screens/serviceInfra/JobDetailsPage.dart';
-import 'package:lokal/screens/serviceInfra/agent_details.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userBankInfo.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userDocumentInfo.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userGeneralInfo.dart';
@@ -23,19 +22,15 @@ import 'package:lokal/screens/serviceInfra/apniDetails/userPersonalinfo.dart';
 import 'package:lokal/screens/serviceInfra/apniDetails/userReferredInfo.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/otherjobdetails.dart';
 import 'package:lokal/screens/serviceInfra/applyforJob/personaldetails.dart';
-import 'package:lokal/screens/serviceInfra/customer_details.dart';
 import 'package:lokal/screens/serviceInfra/jobscreen.dart';
 import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
-import 'package:lokal/screens/serviceInfra/my_agents_list_service_screen.dart';
-import 'package:lokal/screens/serviceInfra/my_customers_list.dart';
 import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
-import 'package:lokal/screens/serviceInfra/sl_details_page.dart';
-import 'package:lokal/screens/serviceInfra/sl_earnings_page.dart';
 import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
+import 'package:lokal/screens/solar/userDetails.dart';
+import 'package:lokal/screens/solar/userDetails2.dart';
 import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
-import 'package:lokal/screens/serviceInfra/status.dart';
 import 'package:lokal/widgets/UikFilter.dart';
 import 'package:lokal/widgets/WebViewPage.dart';
 import 'package:upgrader/upgrader.dart';
@@ -150,6 +145,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
+    // initialLocation: _userSolarInfoScreen.path,
     observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
       _onboardingScreen,
@@ -230,10 +226,32 @@ class AppRoutes {
       _mobileNumberScreen,
       _otpMobileScreen,
       _webViewScreen,
+      _userSolarInfoScreen,
+      _userSolarInfo2Screen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _userSolarInfo2Screen = GoRoute(
+    path: ScreenRoutes.userSolarInfo2Screen,
+    builder: (context, state) {
+      return UserSolarInfo2Screen(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
+
+  static final GoRoute _userSolarInfoScreen = GoRoute(
+    path: ScreenRoutes.userSolarInfoScreen,
+    builder: (context, state) {
+      return UserSolarInfoScreen(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _webViewScreen = GoRoute(
     path: ScreenRoutes.webViewScreen,
@@ -287,7 +305,7 @@ class AppRoutes {
     builder: (context, state) {
       // final Map<String, dynamic>? extraArgs =
       // state.extra as Map<String, dynamic>?;
-      return UserReferredByScreen();
+      return const UserReferredByScreen();
     },
   );
 

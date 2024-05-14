@@ -33,6 +33,10 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.districtListByState, args);
   }
 
+  static Future<ApiResponse> getBlockByDistrictCode(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.blockListByDistrict, args);
+  }
+
   static Future<Map<String, dynamic>?> getBankDetailsByIfsc(args) {
     return HttpScreenClient.getIfscCode(args);
   }
@@ -438,6 +442,10 @@ class ApiRepository {
 
   static Future<ApiResponse> getGoldPass(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.getGoldPass, args);
+  }
+
+  static Future<ApiResponse> updateSolarUserFields(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.updateSolarUserInfo, args);
   }
 }
 

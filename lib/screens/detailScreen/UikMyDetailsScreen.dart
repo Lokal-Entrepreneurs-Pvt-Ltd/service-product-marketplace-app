@@ -56,6 +56,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
       print(e);
       UiUtils.showToast("Error fetching initial data");
     }
+    return null;
   }
 
   @override
@@ -68,11 +69,13 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: isUpdating ? null : buildAppBar(), // Conditionally hide the app bar
+      appBar:
+          isUpdating ? null : buildAppBar(), // Conditionally hide the app bar
       body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
-        builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>?> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, dynamic>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             // If the future has completed, build the body with fetched data
             return isUpdating ? buildLoadingIndicator() : buildBody();
@@ -83,7 +86,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
             );
           } else {
             // Show a loading indicator while fetching data
-            return Center(
+            return const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -94,12 +97,14 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
           }
         },
       ),
-      persistentFooterButtons: isUpdating ? null : [buildContinueButton()], // Conditionally hide the footer
+      persistentFooterButtons: isUpdating
+          ? null
+          : [buildContinueButton()], // Conditionally hide the footer
     );
   }
 
   Widget buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
@@ -113,9 +118,9 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         children: [
           buildTitle("Personal Details", 30, FontWeight.w700),
           buildTitle("Gender", 20, FontWeight.w600),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           buildGenderSelection(),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           buildTextBox("Full Name", "Type your full name"),
           buildDatePickerField("Date of Birth"),
           buildLocationField(),
@@ -134,7 +139,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
       ),
       title: Column(
         children: [
@@ -185,7 +190,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
           onTap: () => updateSelectedIndex(0),
           border: 2,
         ),
-        SizedBox(width: 15),
+        const SizedBox(width: 15),
         SelectableTextWidget(
           text: "Female",
           isSelected: genderIndex == 1,
@@ -198,11 +203,11 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
 
   Widget buildTextBox(String fieldname, String hint) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 80,
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -217,7 +222,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
               color: Colors.black26,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Expanded(
@@ -238,12 +243,12 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
 
   Widget buildDatePickerField(String fieldname) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 80,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: GestureDetector(
@@ -276,18 +281,20 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   }
 
   Widget buildLocationField() {
-    String formattedLat = lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
-    String formattedLong = long.toStringAsFixed(2); // Limit longitude to 2 decimal places
+    String formattedLat =
+        lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
+    String formattedLong =
+        long.toStringAsFixed(2); // Limit longitude to 2 decimal places
 
     bool locationAvailable = (lat != 0 && long != 0);
 
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 90,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: GestureDetector(
