@@ -1,21 +1,18 @@
 import 'dart:convert';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
-import 'package:lokal/utils/deeplink_handler.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 import '../constants/json_constants.dart';
-import '../main.dart';
 import '../actions.dart';
 import '../utils/UiUtils/UiUtils.dart';
 import '../utils/network/ApiRequestBody.dart';
 import '../utils/storage/cart_data_handler.dart';
 
 class UikMembershipScreen extends StandardPage {
-
   Map<String, dynamic>? args;
 
   UikMembershipScreen({this.args});

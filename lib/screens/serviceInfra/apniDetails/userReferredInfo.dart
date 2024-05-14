@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
@@ -45,6 +44,7 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
     } catch (e) {
       UiUtils.showToast("Error fetching initial data");
     }
+    return null;
   }
 
   @override
@@ -80,14 +80,14 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
   }
 
   Widget buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
 
   Widget buildBody() {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -234,8 +234,8 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
 
   Widget buildfield(String name, String selectedname) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),

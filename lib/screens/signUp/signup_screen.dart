@@ -1,14 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/pages/UikBottomNavigationBar.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 import '../../constants/dimens.dart';
 import '../../constants/json_constants.dart';
@@ -533,8 +531,9 @@ class _SignupScreenState extends State<SignupScreen> {
       NavigationUtils.pop();
 
       if (response.isSuccess!) {
-        if (response.data[AUTH_TOKEN] != null)
+        if (response.data[AUTH_TOKEN] != null) {
           UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+        }
         var customerData = response.data[CUSTOMER_DATA];
         if (customerData != null) {
           UserDataHandler.saveCustomerData(customerData);

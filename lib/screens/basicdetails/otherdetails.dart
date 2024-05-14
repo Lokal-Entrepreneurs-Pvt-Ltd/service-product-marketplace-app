@@ -45,8 +45,8 @@ class _OtherDetailsState extends State<OtherDetails> {
           selectedOptions[2] == -1
               ? false
               : (relocation[selectedOptions[2]] == "Yes")
-              ? true
-              : false,
+                  ? true
+                  : false,
         ),
       );
 
@@ -78,7 +78,7 @@ class _OtherDetailsState extends State<OtherDetails> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
         title: Column(
           children: [
@@ -127,14 +127,14 @@ class _OtherDetailsState extends State<OtherDetails> {
         Container(
           alignment: Alignment.center,
           child: isUpdating
-              ? CircularProgressIndicator(color: Colors.yellow)
+              ? const CircularProgressIndicator(color: Colors.yellow)
               : UikButton(
-            text: "Continue",
-            textColor: Colors.black,
-            textSize: 16.0,
-            textWeight: FontWeight.w500,
-            onClick: _updateData,
-          ),
+                  text: "Continue",
+                  textColor: Colors.black,
+                  textSize: 16.0,
+                  textWeight: FontWeight.w500,
+                  onClick: _updateData,
+                ),
         ),
       ],
     );
@@ -173,13 +173,13 @@ class _OtherDetailsState extends State<OtherDetails> {
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: List.generate(
               options.length,
-                  (index) => SelectableTextWidget(
+              (index) => SelectableTextWidget(
                 text: options[index],
                 border: 2,
                 isSelected: selectedOptions[categoryIndex] == index,

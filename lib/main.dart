@@ -1,5 +1,4 @@
 import 'package:digia_ui/digia_ui.dart';
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,11 +19,9 @@ import 'package:shake_detector/shake_detector.dart';
 import 'package:ui_sdk/ApiResponseState.dart';
 import 'configs/environment.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 import 'package:provider/provider.dart';
 // import 'package:shake/shake.dart';
 
-import 'configs/environment.dart';
 
 AppInitializer? appInit;
 
@@ -60,7 +57,7 @@ void main() async {
           ),
         ),
       ],
-      child: MaterialApp(home: const LokalApp()),
+      child: const MaterialApp(home: LokalApp()),
     ),
   );
 
@@ -121,7 +118,7 @@ class _LokalAppState extends State<LokalApp> {
   }
 
   void shakeInit() {
-    if (bool.fromEnvironment('dart.vm.product')) {
+    if (const bool.fromEnvironment('dart.vm.product')) {
       // Shake detection will only be initialized in debug mode
       return;
     }

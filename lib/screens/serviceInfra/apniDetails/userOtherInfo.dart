@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
-import 'package:lokal/utils/location/State_and_district.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 
 import 'package:lokal/utils/uik_color.dart';
@@ -18,7 +17,6 @@ import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
-import 'package:ui_sdk/getWidgets/colors/UikColors.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class UserOtherInfo extends StatefulWidget {
@@ -115,6 +113,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
     setState(() {
       isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
     });
+    return null;
   }
 
   @override
