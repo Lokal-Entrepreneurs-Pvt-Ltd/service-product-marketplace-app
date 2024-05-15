@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lokal/pages/UikHomeWrapper.dart';
-import 'package:lokal/pages/UikDynamicPage.dart';
-import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
@@ -62,8 +59,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
         const Duration(
           seconds: 1,
         ), (() {
-      if (!UserDataHandler.getIsOnboardingCoachMarkDisplayed())
+      if (!UserDataHandler.getIsOnboardingCoachMarkDisplayed()) {
         _showTutorialCoachMark();
+      }
     }));
     super.initState();
   }
@@ -75,8 +73,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
         targets: targets,
         pulseEnable: false,
         hideSkip: true,
-        focusAnimationDuration: Duration(milliseconds: 0),
-        unFocusAnimationDuration: Duration(milliseconds: 0))
+        focusAnimationDuration: const Duration(milliseconds: 0),
+        unFocusAnimationDuration: const Duration(milliseconds: 0))
       ..show(context: context);
     UserDataHandler.saveIsOnboardingCoachMarkDisplayed(true);
   }

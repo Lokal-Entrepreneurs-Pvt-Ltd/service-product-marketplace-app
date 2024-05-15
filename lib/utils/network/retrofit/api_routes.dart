@@ -104,6 +104,7 @@ class ApiRoutes {
   static const String jobsDetailsById = "/jobs/detailsById";
   static const String stateList = "/location/getStatesList";
   static const String districtListByState = "/location/getDistrictForState";
+  static const String blockListByDistrict = "/location/getBlocksForDistrict";
   static const String dynamicLandingPage = "/dynamic/landingPage";
   static const String getCustomerProfileInfo = "/customer/getProfileInfo";
   static const String myAccountSettings = "/customer/accountSettings";
@@ -124,4 +125,5 @@ class ApiRoutes {
   static const String getAadharFromDigiLocker = "/digilocker/getAadhar";
   static const String getAllGovernmentServices = "/governmentSkill/getAll";
   static const String createUserGovSkill = "/userGovSkills/add";
+  static const String updateSolarUserInfo = "/companyInfo/update";
 }

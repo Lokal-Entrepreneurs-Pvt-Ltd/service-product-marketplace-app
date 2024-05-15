@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lokal/constants/dimens.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/http/http_screen_client.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
@@ -61,6 +58,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
     setState(() {
       isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
     });
+    return null;
   }
 
   @override
@@ -103,7 +101,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
   }
 
   Widget buildLoadingIndicator() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(color: Colors.yellow),
     );
   }
@@ -209,7 +207,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
         children: [
           SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -303,7 +301,7 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
     return (isProgressBarAndContinueFeature)
         ? Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 8),
+            margin: const EdgeInsets.only(top: 8),
             child: UikButton(
               text: "Skip",
               textColor: Colors.black,

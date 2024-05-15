@@ -5,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:ui_sdk/props/ApiResponse.dart';
 
 class ApplyForJobPersonalDetails extends StatefulWidget {
   const ApplyForJobPersonalDetails({Key? key, this.args}) : super(key: key);
@@ -53,7 +51,7 @@ class _ApplyForJobPersonalDetailsState
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Show a loading indicator while waiting for the API response
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(color: Colors.yellow),
             );
           } else if (snapshot.hasError) {
@@ -63,7 +61,7 @@ class _ApplyForJobPersonalDetailsState
             );
           } else if (!snapshot.hasData) {
             // Show a message if no data is available
-            return Center(
+            return const Center(
               child: Text("No data available"),
             );
           } else {
@@ -89,7 +87,7 @@ class _ApplyForJobPersonalDetailsState
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
       ),
       title: Text(
         "Apply for Job",
@@ -144,17 +142,17 @@ class _ApplyForJobPersonalDetailsState
 
   Widget buildField(String label, Widget field) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 80,
       decoration: BoxDecoration(
-        color: Color(0xFFE5E5E5),
+        color: const Color(0xFFE5E5E5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             label,
             style: GoogleFonts.poppins(
@@ -163,7 +161,7 @@ class _ApplyForJobPersonalDetailsState
               color: Colors.black,
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           field,
         ],
       ),
@@ -176,7 +174,8 @@ class _ApplyForJobPersonalDetailsState
       child: GestureDetector(
         onTap: () {
           NavigationUtils.pop();
-          NavigationUtils.openScreen(ScreenRoutes.jobApplicationServiceQuestion, widget.args);
+          NavigationUtils.openScreen(
+              ScreenRoutes.jobApplicationServiceQuestion, widget.args);
         },
         child: Container(
           width: double.infinity,

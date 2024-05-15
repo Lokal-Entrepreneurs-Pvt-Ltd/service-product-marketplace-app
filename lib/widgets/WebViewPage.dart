@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class WebViewPage extends StatefulWidget {
   final dynamic args;
 
-  WebViewPage({Key? key, required this.args});
+  const WebViewPage({super.key, required this.args});
 
   @override
   _WebViewPageState createState() => _WebViewPageState();

@@ -6,8 +6,6 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/selectabletext.dart';
-import 'package:ui_sdk/props/ApiResponse.dart';
 
 import '../../../constants/json_constants.dart';
 
@@ -75,9 +73,9 @@ class _ApplyForJobServiceQuestionsState
       body: isDataLoaded
           ? buildBody()
           : isError
-              ? Center(
+              ? const Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0), // Add padding here
+                    padding: EdgeInsets.all(16.0), // Add padding here
                     child: Text(
                       "No Job Specific Question for the Job, Kindly Apply By Pressing the Button",
                       style: TextStyle(
@@ -88,7 +86,7 @@ class _ApplyForJobServiceQuestionsState
                     ),
                   ),
                 )
-              : Center(child: CircularProgressIndicator(color: Colors.yellow)),
+              : const Center(child: CircularProgressIndicator(color: Colors.yellow)),
       persistentFooterButtons: [
         buildContinueButton(),
       ],
@@ -105,7 +103,7 @@ class _ApplyForJobServiceQuestionsState
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
       ),
       title: Text(
         "Apply For Job",
@@ -165,7 +163,7 @@ class _ApplyForJobServiceQuestionsState
             color: Colors.black,
           ),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         Column(
           children: List.generate(
             answers.length,
@@ -223,20 +221,19 @@ class _ApplyForJobServiceQuestionsState
 
     if (response.isSuccess!) {
       UiUtils.showToast("Job Applied Successfully");
-      if(widget.args["serviceType"] == "jobs_delivery"){
+      if (widget.args["serviceType"] == "jobs_delivery") {
         NavigationUtils.pushAndPopUntil(
           ScreenRoutes.deliveryJobsDetailsPage,
           ScreenRoutes.deliveryJobsDetailsPage,
           widget.args,
         );
-      }else{
+      } else {
         NavigationUtils.pushAndPopUntil(
           ScreenRoutes.jobsDetailsPage,
           ScreenRoutes.jobsDetailsPage,
           widget.args,
         );
       }
-
     } else {
       UiUtils.showToast(response.error![MESSAGE]);
     }

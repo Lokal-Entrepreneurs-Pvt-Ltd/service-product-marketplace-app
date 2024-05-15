@@ -11,16 +11,20 @@ class TextInputContainer extends StatefulWidget {
   final String? errorText;
   final String? successText;
   final bool enabled;
-  TextInputContainer({
+  final bool isEnterYourEnabled;
+  final bool showCursor;
+  const TextInputContainer({
     Key? key,
     required this.fieldName,
     this.hint = "",
     this.textInputType,
     this.initialValue, // Initialize initialValue
     required this.onFileSelected,
-    this.errorText = null,
-    this.successText = null,
+    this.errorText,
+    this.successText,
     this.enabled = true,
+    this.isEnterYourEnabled = true,
+    this.showCursor = false,
   }) : super(key: key);
 
   @override
@@ -40,7 +44,9 @@ class _TextInputContainerState extends State<TextInputContainer> {
       set = true;
     }
     // Initialize controller with initialValue
+
     textEditingController = TextEditingController(text: widget.initialValue);
+
     textListner();
     super.initState();
   }
@@ -73,7 +79,7 @@ class _TextInputContainerState extends State<TextInputContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +87,7 @@ class _TextInputContainerState extends State<TextInputContainer> {
           (set)
               ? Container(
                   height: 64,
-                  padding: EdgeInsets.only(top: 9.5, left: 16, right: 16),
+                  padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16),
                   decoration: BoxDecoration(
                     color: ("#F5F5F5").toColor(),
                     borderRadius: BorderRadius.circular(10),
@@ -98,12 +104,13 @@ class _TextInputContainerState extends State<TextInputContainer> {
                           color: ("#9E9E9E").toColor(),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Expanded(
                         child: TextField(
-                          showCursor: false,
+                          showCursor: widget.showCursor,
+                          // cursorHeight: 8,
                           controller: textEditingController,
                           focusNode: focusNode,
                           keyboardType: widget.textInputType,
@@ -129,7 +136,7 @@ class _TextInputContainerState extends State<TextInputContainer> {
                     });
                   },
                   child: Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         top: 9.5, left: 16, right: 16, bottom: 9.5),
                     height: 64,
                     width: double.maxFinite,
@@ -142,7 +149,9 @@ class _TextInputContainerState extends State<TextInputContainer> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Enter Your ${widget.fieldName}",
+                          (widget.isEnterYourEnabled)
+                              ? "Enter Your ${widget.fieldName}"
+                              : widget.fieldName,
                           textAlign: TextAlign.start,
                           style: GoogleFonts.poppins(
                             fontSize: 14,
@@ -183,8 +192,8 @@ class CustomTextSelectionControls extends MaterialTextSelectionControls {
   Widget buildHandle(
       BuildContext context, TextSelectionHandleType type, double textLineHeight,
       [VoidCallback? onTap]) {
-    final handleColor = Colors.blue; // Change the color as needed
-    final handleSize = 18.0; // Adjust the size of the handles
+    const handleColor = Colors.blue; // Change the color as needed
+    const handleSize = 18.0; // Adjust the size of the handles
     final double topOffset = (textLineHeight - handleSize) / 2;
     // Custom handle widget
     Widget handle = SizedBox(

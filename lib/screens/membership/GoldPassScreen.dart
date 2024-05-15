@@ -11,7 +11,7 @@ import 'package:ui_sdk/utils/extensions.dart';
 class GoldPassScreen extends StatefulWidget {
   final dynamic args;
 
-  GoldPassScreen({Key? key, required this.args}) : super(key: key);
+  const GoldPassScreen({Key? key, required this.args}) : super(key: key);
   @override
   State<GoldPassScreen> createState() => _GoldPassScreenState();
 }
@@ -23,6 +23,7 @@ class _GoldPassScreenState extends State<GoldPassScreen> {
     apiResponse = ApiRepository.getGoldPass(widget.args);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -35,7 +36,10 @@ class _GoldPassScreenState extends State<GoldPassScreen> {
           } else {
             final map = snapshot.data?.data;
             return Scaffold(
-              appBar: GoldPassAppBar(percent: map["percent"] ?? null,headerImage: map["headerImage"]?? "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1711024099801-Gold%20Membership.png"),
+              appBar: GoldPassAppBar(
+                  percent: map["percent"],
+                  headerImage: map["headerImage"] ??
+                      "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1711024099801-Gold%20Membership.png"),
               body: SingleChildScrollView(
                 child: Column(
                     children:
@@ -44,7 +48,7 @@ class _GoldPassScreenState extends State<GoldPassScreen> {
                   final List<dynamic> value = entry['value'];
                   return CustomExpandableWidget(
                     isExpanded: true,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         left: 16, right: 16, bottom: 8, top: 16),
                     title: Text(
                       title,
@@ -66,8 +70,8 @@ class _GoldPassScreenState extends State<GoldPassScreen> {
                         return Column(
                           children: [
                             CustomExpandableWidget(
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              margin: EdgeInsets.only(
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              margin: const EdgeInsets.only(
                                 bottom: 4,
                                 left: 0,
                                 right: 38,
@@ -159,8 +163,8 @@ class _GoldPassScreenState extends State<GoldPassScreen> {
 
   Widget box(String title, List<String> list) {
     return Container(
-      padding: EdgeInsets.all(16),
-      margin: EdgeInsets.symmetric(
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.symmetric(
         vertical: 10,
       ),
       width: double.maxFinite,
@@ -179,23 +183,23 @@ class _GoldPassScreenState extends State<GoldPassScreen> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           ...list
               .map(
                 (text) => Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.chevron_right,
                       size: 10,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.only(bottom: 4),
+                        padding: const EdgeInsets.only(bottom: 4),
                         child: Text(
                           text,
                           style: GoogleFonts.poppins(
@@ -218,7 +222,7 @@ class _GoldPassScreenState extends State<GoldPassScreen> {
 class GoldPassAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? percent;
   final String? headerImage;
-  GoldPassAppBar({required this.percent, required this.headerImage});
+  const GoldPassAppBar({super.key, required this.percent, required this.headerImage});
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -227,7 +231,7 @@ class GoldPassAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         iconSize: 24,
         color: Colors.white,
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.of(context).pop();
         },
@@ -237,7 +241,7 @@ class GoldPassAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
+              margin: const EdgeInsets.symmetric(horizontal: 16),
               height: 93,
               width: double.infinity,
               child: Image.network(
@@ -263,7 +267,7 @@ class GoldPassAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight + 220);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 220);
 }
 
 class CustomLinearPercentIndicator extends StatefulWidget {
@@ -271,7 +275,7 @@ class CustomLinearPercentIndicator extends StatefulWidget {
   final double height;
   final double lineHeight;
 
-  CustomLinearPercentIndicator({
+  const CustomLinearPercentIndicator({
     Key? key,
     required this.percent,
     this.height = 72,
@@ -295,14 +299,13 @@ class _CustomLinearPercentIndicatorState
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 5000),
     );
     _animation =
         Tween<double>(begin: 0.0, end: widget.percent).animate(_controller)
           ..addListener(() {
             setState(() {}); // Rebuild the widget when animation value changes
           });
-    ;
     _controller.forward();
   }
 
@@ -315,7 +318,7 @@ class _CustomLinearPercentIndicatorState
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - 32;
-    double _getPosition(
+    double getPosition(
         double percent, double targetPercent, double iconWidth) {
       final targetWidth = targetPercent * width - (iconWidth / 2);
       return targetWidth;
@@ -342,8 +345,8 @@ class _CustomLinearPercentIndicatorState
         for (double x in progress)
           Positioned(
             top: 36 - 4,
-            left: _getPosition(widget.percent, x / 100, 8),
-            child: Icon(
+            left: getPosition(widget.percent, x / 100, 8),
+            child: const Icon(
               Icons.do_not_disturb_on,
               color: Colors.white,
               size: 8,
@@ -360,7 +363,7 @@ class _CustomLinearPercentIndicatorState
                       _animation.value < (day / 100 + 0.15))
                   ? 0
                   : null,
-              left: _getPosition(widget.percent, day / 100, 50),
+              left: getPosition(widget.percent, day / 100, 50),
               child: Text(
                 "Day ${day.round()}",
                 style: GoogleFonts.poppins(
@@ -374,7 +377,7 @@ class _CustomLinearPercentIndicatorState
         ).toList(),
         Positioned(
           top: 0,
-          left: _getPosition(widget.percent, _animation.value, 68),
+          left: getPosition(widget.percent, _animation.value, 68),
           child: Image.network(
             "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1711082031859-icons8-delivery-scooter-188%201.png",
             height: 34,
@@ -386,9 +389,6 @@ class _CustomLinearPercentIndicatorState
   }
 }
 
-
-
-
 class CustomExpandableWidget extends StatefulWidget {
   final bool isborder;
   final bool isExpanded;
@@ -397,7 +397,7 @@ class CustomExpandableWidget extends StatefulWidget {
   final List<Widget> child;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
-  CustomExpandableWidget({
+  const CustomExpandableWidget({super.key, 
     required this.title,
     this.isborder = true,
     this.isExpanded = true,

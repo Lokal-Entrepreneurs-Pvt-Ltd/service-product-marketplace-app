@@ -1,18 +1,15 @@
 // import 'dart:js';
 
-import 'package:go_router/go_router.dart';
 import 'package:lokal/actions.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/ActionUtils.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
-import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:ui_sdk/StandardPage.dart';
 import 'package:ui_sdk/props/UikAction.dart';
 
-import '../constants/strings.dart';
 
 class UikMyAccountScreen extends StandardPage {
   // final obj = Snack();
@@ -42,7 +39,8 @@ class UikMyAccountScreen extends StandardPage {
 
   void onMyAccountScreenTapAction(UikAction uikAction) {
     ActionUtils.executeAction(uikAction);
-    ActionUtils.sendEventonActionForScreen(uikAction.tap.type.toString(),ScreenRoutes.myAccountScreen);
+    ActionUtils.sendEventonActionForScreen(
+        uikAction.tap.type.toString(), ScreenRoutes.myAccountScreen);
   }
 
   @override
@@ -82,7 +80,7 @@ void openWishlist(UikAction uikAction) {
 void openDetails(UikAction uikAction) {
   NavigationUtils.openScreen(ScreenRoutes.myDetailsScreen, {});
 }
- 
+
 void openMyAgent(UikAction uikAction) {
   NavigationUtils.openScreen(ScreenRoutes.myAgentListScreen, {});
 }

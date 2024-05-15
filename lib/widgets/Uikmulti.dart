@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 typedef OnOptionSelected<T> = void Function(List<ValueItem<T>> selectedOptions);
@@ -187,7 +188,6 @@ class _UikMultiState<T> extends State<UikMulti<T>> {
 
   /// Handles the focus change to show/hide the dropdown.
   void _handleFocusChange() async {
-    // await Future.delayed(Duration(seconds: 3));
     showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
@@ -248,7 +248,7 @@ class _UikMultiState<T> extends State<UikMulti<T>> {
             ? (widget.selectionType == SelectionType.single &&
                     !widget.showChipInSingleSelectMode)
                 ? Padding(
-                    padding: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 0),
                     child: SingleSelectedItem(
                         label: _selectedOptions.first.label,
                         style: widget.singleSelectItemStyle),
@@ -451,7 +451,7 @@ class _UikMultiState<T> extends State<UikMulti<T>> {
                     ),
                   ),
                   InkWell(
-                    child: Icon(Icons.dangerous_outlined),
+                    child: const Icon(Icons.dangerous_outlined),
                     onTap: () {
                       Navigator.of(context).pop(-1);
                     },
@@ -560,6 +560,7 @@ class _UikMultiState<T> extends State<UikMulti<T>> {
                         _selectedOptions.clear();
                         _selectedOptions.add(option);
                       });
+                      NavigationUtils.pop();
                       _focusNode.unfocus();
                     }
 
@@ -693,7 +694,7 @@ class _MultiSelectController<T> {
   final List<ValueItem<T>> _disabledOptions = [];
   final List<ValueItem<T>> _options = [];
   final List<ValueItem<T>> _selectedOptions = [];
-  bool _isDropdownOpen = false;
+  final bool _isDropdownOpen = false;
 }
 
 /// implementation of the MultiSelectController class.
@@ -1030,7 +1031,7 @@ class SingleSelectedItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: Text(
         label,
         style: style ??

@@ -63,6 +63,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
     setState(() {
       isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
     });
+    return null;
   }
 
   @override
@@ -105,15 +106,15 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
         ? Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: DottedBorder(
-                dashPattern: [4, 1],
+                dashPattern: const [4, 1],
                 strokeWidth: 1,
-                radius: Radius.circular(12),
+                radius: const Radius.circular(12),
                 borderType: BorderType.RRect,
                 color: UikColor.magikarp_500.toColor(),
                 child: Container(
                   // height: 100,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   child: Text(
@@ -293,8 +294,8 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
         }
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        padding: EdgeInsets.symmetric(vertical: 12),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         width: double.maxFinite,
         // height: 80,
         alignment: Alignment.center,
@@ -326,7 +327,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
 
   Widget buildUploadDocumentsTitle() {
     return Padding(
-      padding: EdgeInsets.only(top: 34, bottom: 16),
+      padding: const EdgeInsets.only(top: 34, bottom: 16),
       child: Text(
         "Documents Upload kare",
         textAlign: TextAlign.start,
@@ -384,7 +385,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
         //    onClick: isLoadingList.contains(true) ? null : getidforfile,
         onClick: () async {
           // updatedata();
-          String? xyz = null;
+          String? xyz;
           String decentroId = "";
           try {
             final response = await ApiRepository.initiateDigiLocker({});
@@ -452,7 +453,7 @@ class _UserDocumentInfoState extends State<UserDocumentInfo> {
     return (isProgressBarAndContinueFeature)
         ? Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 8),
+            margin: const EdgeInsets.only(top: 8),
             child: UikButton(
               text: "Skip",
               textColor: Colors.black,
