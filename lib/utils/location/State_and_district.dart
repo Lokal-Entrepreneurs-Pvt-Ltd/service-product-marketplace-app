@@ -2,6 +2,7 @@
 // ignore: file_names
 import 'dart:convert';
 
+import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -34,7 +35,7 @@ class StateData {
 
   factory StateData.fromMap(Map<String, dynamic> map) {
     return StateData(
-      stateName: map['stateName'] as String,
+      stateName: UiUtils.capitalizeFirstLetter(map['stateName'] as String),
       stateCode: map['stateCode'] as int,
     );
   }
@@ -84,8 +85,9 @@ class DisctrictData {
   }
 
   factory DisctrictData.fromMap(Map<String, dynamic> map) {
+    String districtname = map['districtName'] as String;
     return DisctrictData(
-      districtName: map['districtName'] as String,
+      districtName: UiUtils.capitalizeFirstLetter(districtname),
       districtCode: map['districtCode'] as int,
     );
   }
@@ -138,7 +140,7 @@ class BlockData {
 
   factory BlockData.fromMap(Map<String, dynamic> map) {
     return BlockData(
-      blockName: map['blockName'] as String,
+      blockName: UiUtils.capitalizeFirstLetter(map['blockName'] as String),
       blockCode: map['blockCode'] as int,
     );
   }
