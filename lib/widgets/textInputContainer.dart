@@ -13,6 +13,9 @@ class TextInputContainer extends StatefulWidget {
   final bool enabled;
   final bool isEnterYourEnabled;
   final bool showCursor;
+  final double? borderWidth;
+  final Color borderColor;
+  final Color? backgroundColor;
   const TextInputContainer({
     Key? key,
     required this.fieldName,
@@ -25,6 +28,9 @@ class TextInputContainer extends StatefulWidget {
     this.enabled = true,
     this.isEnterYourEnabled = true,
     this.showCursor = false,
+    this.borderWidth,
+    this.borderColor = Colors.black,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -89,8 +95,16 @@ class _TextInputContainerState extends State<TextInputContainer> {
                   height: 64,
                   padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16),
                   decoration: BoxDecoration(
-                    color: ("#F5F5F5").toColor(),
+                    color: (widget.backgroundColor != null)
+                        ? widget.backgroundColor
+                        : ("#F5F5F5").toColor(),
                     borderRadius: BorderRadius.circular(10),
+                    border: (widget.borderWidth != null)
+                        ? Border.all(
+                            color: widget.borderColor,
+                            width: widget.borderWidth!,
+                          )
+                        : null,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,8 +155,16 @@ class _TextInputContainerState extends State<TextInputContainer> {
                     height: 64,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
-                      color: ("#F5F5F5").toColor(),
+                      color: (widget.backgroundColor != null)
+                          ? widget.backgroundColor
+                          : ("#F5F5F5").toColor(),
                       borderRadius: BorderRadius.circular(10),
+                      border: (widget.borderWidth != null)
+                          ? Border.all(
+                              color: widget.borderColor,
+                              width: widget.borderWidth!,
+                            )
+                          : null,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

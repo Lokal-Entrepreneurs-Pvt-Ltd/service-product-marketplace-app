@@ -447,6 +447,11 @@ class ApiRepository {
   static Future<ApiResponse> updateSolarUserFields(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.updateSolarUserInfo, args);
   }
+
+  static Future<ApiResponse> getAllAgentByPartnerId(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.getAllAgentByPartnerId, args);
+  }
 }
 
 // apirequestbody class
