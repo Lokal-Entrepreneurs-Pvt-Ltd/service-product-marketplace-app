@@ -12,6 +12,9 @@ Tinker Box Ui Sdk.
 This project is a starting point for a Lokal application.
 
 
+## [1.0.52+52] - 2024-5-15
+Integrated Solar Power flow
+
 ## [1.0.51+51] - 2024-5-8
 Lokal News integrted with Digia
 
