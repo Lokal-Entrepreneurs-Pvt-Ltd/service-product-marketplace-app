@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
+import 'package:ui_sdk/utils/extensions.dart';
 
 class UserSolarInfo2Screen extends StatefulWidget {
   final dynamic args;
@@ -19,6 +23,10 @@ class UserSolarInfo2Screen extends StatefulWidget {
 }
 
 class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
+  double lat = 0;
+  double long = 0;
+  Placemark? place;
+  bool locationLoading = false;
   String houseDetails = "";
   String streetDetails = "";
   String district = "";
@@ -209,7 +217,6 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         ),
         TextInputContainer(
           fieldName: "District",
-          hint: "Confirm Bank Account No.",
           initialValue: district,
           isEnterYourEnabled: false,
           enabled: true,
@@ -244,18 +251,7 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
             });
           },
         ),
-        TextInputContainer(
-          fieldName: "Geo Tag Location",
-          initialValue: geoTag,
-          isEnterYourEnabled: false,
-          enabled: true,
-          showCursor: true,
-          onFileSelected: (p0) {
-            setState(() {
-              geoTag = p0 ?? "";
-            });
-          },
-        ),
+        buildLocationField(),
       ],
     );
   }
@@ -312,7 +308,9 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
             "isOfcSpace": true,
             "ofcAddressLine1": "$houseDetails,$streetDetails,$district",
             "ofcAddressLine2": "$state,$pinCode",
-            "ofcGeoTagLoc": geoTag,
+            // "ofcGeoTagLoc":
+            //     "$lat,$long,${place!.name},${place!.street},${place!.isoCountryCode},${place!.country},${place!.postalCode},${place}",
+            // "ofcGeoTagLoc": "${place!.toJson().toString()}"
           },
         );
       }
@@ -320,7 +318,7 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
       final response = await ApiRepository.updateSolarUserFields(map);
 
       if (response.isSuccess!) {
-        NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
+        NavigationUtils.openScreen(ScreenRoutes.allAgentForService);
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
@@ -339,5 +337,75 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         color: Colors.black,
       ),
     );
+  }
+
+  Widget buildLocationField() {
+    // Check if latitude and longitude values exist
+    bool locationAvailable = (lat != 0 && long != 0);
+
+    return GestureDetector(
+      onTap: () => getLocation(),
+      child: Container(
+        height: !locationAvailable ? 64 : null,
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+        width: double.maxFinite,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF5F5F5),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Geo Tag location",
+              textAlign: TextAlign.start,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: ("#9E9E9E").toColor(),
+              ),
+            ),
+            (locationLoading)
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      color: Colors.yellow,
+                      strokeWidth: 2,
+                    ))
+                : (place != null &&
+                        place!.locality != null &&
+                        place!.postalCode != null)
+                    ? Text(
+                        "${place!.locality!}, ${place!.postalCode!}",
+                        style: GoogleFonts.poppins(
+                            fontSize: 16, fontWeight: FontWeight.w400),
+                      )
+                    : Container()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> getLocation() async {
+    setState(() {
+      locationLoading = true;
+    });
+    Position? position = await LocationUtils.getCurrentPosition();
+    if (position != null) {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      setState(() {
+        locationLoading = false;
+        lat = position.latitude;
+        long = position.longitude;
+        place = placemarks[0];
+      });
+      print(place!.toJson().toString());
+      print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
+    } else {}
   }
 }
