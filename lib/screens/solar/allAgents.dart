@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/Widgets/UikButton/UikButton.dart';
 import 'package:lokal/screen_routes.dart';
@@ -16,8 +17,7 @@ class AllAgentForService extends StatefulWidget {
   State<AllAgentForService> createState() => _Sl_DetailsPageState();
 }
 
-class _Sl_DetailsPageState extends State<AllAgentForService>
-    with TickerProviderStateMixin {
+class _Sl_DetailsPageState extends State<AllAgentForService> {
   List<Map<String, dynamic>> _agentList = [];
 
   bool _isLoading = true;
@@ -68,12 +68,18 @@ class _Sl_DetailsPageState extends State<AllAgentForService>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.black,
-          onPressed: () {
+        leading: GestureDetector(
+          onTap: () {
             NavigationUtils.pop();
           },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: SvgPicture.network(
+              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1715678068186-shape.svg",
+              height: 16,
+              width: 20,
+            ),
+          ),
         ),
       ),
       body: _isLoading ? _buildLoadingIndicator() : _buildAgentList(),
@@ -105,83 +111,80 @@ class _Sl_DetailsPageState extends State<AllAgentForService>
     if (_agentList.isEmpty) {
       return _buildRetryView(); // Display the retry view
     }
-    return Container(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildTitle("Fill Your Details", 18, FontWeight.w500),
-                GestureDetector(
-                  onTap: () {
-                    NavigationUtils.openScreen(ScreenRoutes.addAgentInService);
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16, vertical: 7.5),
-                    decoration: BoxDecoration(
-                      color: UikColor.charizard_400.toColor(),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.add,
-                          size: 18,
-                        ),
-                        buildTitle("Add", 14, FontWeight.w400),
-                      ],
-                    ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              buildTitle("Fill Your Details", 18, FontWeight.w500),
+              GestureDetector(
+                onTap: () {
+                  NavigationUtils.openScreen(ScreenRoutes.addAgentInService);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 7.5),
+                  decoration: BoxDecoration(
+                    color: UikColor.charizard_400.toColor(),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.add,
+                        size: 18,
+                      ),
+                      buildTitle("Add", 14, FontWeight.w400),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _agentList.length,
-              itemBuilder: (ctx, index) {
-                String agentName = _agentList[index]['name'] ?? '';
-                String firstCharacter = agentName.isNotEmpty
-                    ? agentName[0].toUpperCase()
-                    : ''; // Get the first character
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.yellow,
-                    child: Text(
-                      firstCharacter,
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    agentName,
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: _agentList.length,
+            itemBuilder: (ctx, index) {
+              String agentName = _agentList[index]['name'] ?? '';
+              String firstCharacter = agentName.isNotEmpty
+                  ? agentName[0].toUpperCase()
+                  : ''; // Get the first character
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.yellow,
+                  child: Text(
+                    firstCharacter,
                     style: GoogleFonts.poppins(
-                      fontSize: 14,
+                      fontSize: 18,
                       fontWeight: FontWeight.w400,
                       color: Colors.black,
                     ),
                   ),
-                  subtitle: Text(
-                    _agentList[index]['mobile'] ?? '',
-                    style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: UikColor.giratina_500.toColor(),
-                    ),
+                ),
+                title: Text(
+                  agentName,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black,
                   ),
-                );
-              },
-            ),
+                ),
+                subtitle: Text(
+                  _agentList[index]['mobile'] ?? '',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: UikColor.giratina_500.toColor(),
+                  ),
+                ),
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

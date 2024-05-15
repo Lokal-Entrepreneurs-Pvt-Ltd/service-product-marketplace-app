@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
@@ -46,6 +48,9 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         final userDataMagento = response.data;
         final userData = response.data?['companyDetails'];
         if (userData != null) {
+          final geoTag = userData["ofcGeoTagLoc"] ?? "";
+          final geoTagMap = Map<String, dynamic>.from(jsonDecode(geoTag));
+          place = Placemark.fromMap(geoTagMap);
           setState(() {
             aboveReuiredArea = userData["isOfcSpace"] == 0 ? 1 : 0;
             houseDetails = userData["houseNo"] ?? "";
@@ -53,7 +58,6 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
             district = userData["districtOfc"] ?? "";
             state = userData["stateOfc"] ?? "";
             pinCode = userData["pincodeOfc"] ?? "";
-            geoTag = userData["ofcGeoTagLoc"] ?? "";
           });
         }
       } else {
@@ -281,7 +285,7 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         ? (state.isNotEmpty &&
             pinCode.isNotEmpty &&
             district.isNotEmpty &&
-            geoTag.isNotEmpty &&
+            place != null &&
             streetDetails.isNotEmpty &&
             houseDetails.isNotEmpty)
         : areaNotAvailableCheck!;
@@ -308,9 +312,7 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
             "isOfcSpace": true,
             "ofcAddressLine1": "$houseDetails,$streetDetails,$district",
             "ofcAddressLine2": "$state,$pinCode",
-            // "ofcGeoTagLoc":
-            //     "$lat,$long,${place!.name},${place!.street},${place!.isoCountryCode},${place!.country},${place!.postalCode},${place}",
-            // "ofcGeoTagLoc": "${place!.toJson().toString()}"
+            "ofcGeoTagLoc": jsonEncode(place!.toJson())
           },
         );
       }
