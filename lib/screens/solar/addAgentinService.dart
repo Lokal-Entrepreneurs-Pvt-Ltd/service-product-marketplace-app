@@ -240,9 +240,13 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
       setState(() {
         isLoading = true;
       });
-      final response = await ApiRepository.verifyAndAddAgentOtp(
-          ApiRequestBody.addAgentAndVerify(
-              email, name, phoneNumber, otpPinEntered));
+      final response = await ApiRepository.verifyAndAddAgentOtp({
+        "email": email,
+        "name": name,
+        "mobile": phoneNumber,
+        "otp": otpPinEntered,
+        "work": work
+      });
       if (response.isSuccess!) {
         if (response.data != null) {
           UiUtils.showToast(ADD_AGENT_SUCESSFULL);
