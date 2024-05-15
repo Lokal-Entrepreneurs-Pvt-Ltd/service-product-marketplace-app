@@ -5,6 +5,7 @@ import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/utils/extensions.dart';
@@ -235,11 +236,13 @@ class _UserReferredByScreenState extends State<UserReferredByScreen> {
   Widget buildfield(String name, String selectedname) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      padding:
+          const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
       height: 64,
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: UikColor.giratina_300.toColor()),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

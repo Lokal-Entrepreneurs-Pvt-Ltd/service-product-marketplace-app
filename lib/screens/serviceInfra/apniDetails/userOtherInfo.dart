@@ -376,6 +376,7 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: UikColor.giratina_300.toColor()),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

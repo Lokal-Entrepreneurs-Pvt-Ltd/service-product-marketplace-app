@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lokal/utils/uik_color.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class TextInputContainer extends StatefulWidget {
@@ -13,8 +14,8 @@ class TextInputContainer extends StatefulWidget {
   final bool enabled;
   final bool isEnterYourEnabled;
   final bool showCursor;
-  final double? borderWidth;
-  final Color borderColor;
+  final double borderWidth;
+  final Color? borderColor;
   final Color? backgroundColor;
   const TextInputContainer({
     Key? key,
@@ -28,8 +29,8 @@ class TextInputContainer extends StatefulWidget {
     this.enabled = true,
     this.isEnterYourEnabled = true,
     this.showCursor = false,
-    this.borderWidth,
-    this.borderColor = Colors.black,
+    this.borderWidth = 1,
+    this.borderColor,
     this.backgroundColor,
   }) : super(key: key);
 
@@ -95,17 +96,15 @@ class _TextInputContainerState extends State<TextInputContainer> {
                   height: 64,
                   padding: const EdgeInsets.only(top: 9.5, left: 16, right: 16),
                   decoration: BoxDecoration(
-                    color: (widget.backgroundColor != null)
-                        ? widget.backgroundColor
-                        : ("#F5F5F5").toColor(),
-                    borderRadius: BorderRadius.circular(10),
-                    border: (widget.borderWidth != null)
-                        ? Border.all(
-                            color: widget.borderColor,
-                            width: widget.borderWidth!,
-                          )
-                        : null,
-                  ),
+                      color: (widget.backgroundColor != null)
+                          ? widget.backgroundColor
+                          : ("#F5F5F5").toColor(),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: widget.borderColor ??
+                            UikColor.giratina_300.toColor(),
+                        width: widget.borderWidth,
+                      )),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -159,12 +158,11 @@ class _TextInputContainerState extends State<TextInputContainer> {
                           ? widget.backgroundColor
                           : ("#F5F5F5").toColor(),
                       borderRadius: BorderRadius.circular(10),
-                      border: (widget.borderWidth != null)
-                          ? Border.all(
-                              color: widget.borderColor,
-                              width: widget.borderWidth!,
-                            )
-                          : null,
+                      border: Border.all(
+                        color: widget.borderColor ??
+                            UikColor.giratina_300.toColor(),
+                        width: widget.borderWidth,
+                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
