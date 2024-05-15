@@ -126,4 +126,6 @@ class ApiRoutes {
   static const String getAllGovernmentServices = "/governmentSkill/getAll";
   static const String createUserGovSkill = "/userGovSkills/add";
   static const String updateSolarUserInfo = "/companyInfo/update";
+  static const String getAllAgentByPartnerId =
+      "/partnerAgent/getAgentDetailsByPartnerId";
 }

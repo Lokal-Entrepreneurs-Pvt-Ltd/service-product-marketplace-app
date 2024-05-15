@@ -27,6 +27,8 @@ import 'package:lokal/screens/serviceInfra/my_agents_list_screen.dart';
 import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
 import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
+import 'package:lokal/screens/solar/addAgentinService.dart';
+import 'package:lokal/screens/solar/allAgents.dart';
 import 'package:lokal/screens/solar/userDetails.dart';
 import 'package:lokal/screens/solar/userDetails2.dart';
 import 'package:lokal/utils/Logs/event.dart';
@@ -145,7 +147,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
-    // initialLocation: _userSolarInfoScreen.path,
+    // initialLocation: _allAgentForService.path,
     observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
       _onboardingScreen,
@@ -228,10 +230,32 @@ class AppRoutes {
       _webViewScreen,
       _userSolarInfoScreen,
       _userSolarInfo2Screen,
+      _addAgentInService,
+      _allAgentForService,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _allAgentForService = GoRoute(
+    path: ScreenRoutes.allAgentForService,
+    builder: (context, state) {
+      return AllAgentForService(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
+
+  static final GoRoute _addAgentInService = GoRoute(
+    path: ScreenRoutes.addAgentInService,
+    builder: (context, state) {
+      return AddAgentInService(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _userSolarInfo2Screen = GoRoute(
     path: ScreenRoutes.userSolarInfo2Screen,
