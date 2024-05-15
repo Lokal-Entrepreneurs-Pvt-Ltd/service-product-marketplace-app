@@ -142,8 +142,6 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
         TextInputContainer(
           fieldName: "Name",
           initialValue: name,
-          borderWidth: 1,
-          borderColor: UikColor.giratina_500.toColor(),
           isEnterYourEnabled: false,
           enabled: true,
           showCursor: true,
@@ -156,8 +154,6 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
         TextInputContainer(
           fieldName: "Work",
           initialValue: work,
-          borderWidth: 1,
-          borderColor: UikColor.giratina_500.toColor(),
           isEnterYourEnabled: false,
           enabled: true,
           showCursor: true,
@@ -170,8 +166,6 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
         TextInputContainer(
           fieldName: "Email",
           initialValue: email,
-          borderWidth: 1,
-          borderColor: UikColor.giratina_500.toColor(),
           isEnterYourEnabled: false,
           enabled: true,
           showCursor: true,
@@ -184,8 +178,6 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
         TextInputContainer(
           fieldName: "Mobile",
           initialValue: phoneNumber,
-          borderWidth: 1,
-          borderColor: UikColor.giratina_500.toColor(),
           isEnterYourEnabled: false,
           enabled: true,
           showCursor: true,

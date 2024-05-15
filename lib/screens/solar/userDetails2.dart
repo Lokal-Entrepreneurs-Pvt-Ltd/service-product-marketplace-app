@@ -11,6 +11,7 @@ import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
@@ -48,9 +49,11 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         final userDataMagento = response.data;
         final userData = response.data?['companyDetails'];
         if (userData != null) {
-          final geoTag = userData["ofcGeoTagLoc"] ?? "";
-          final geoTagMap = Map<String, dynamic>.from(jsonDecode(geoTag));
-          place = Placemark.fromMap(geoTagMap);
+          String geoTag = userData["ofcGeoTagLoc"] ?? "";
+          if (geoTag.isNotEmpty) {
+            final geoTagMap = Map<String, dynamic>.from(jsonDecode(geoTag));
+            place = Placemark.fromMap(geoTagMap);
+          }
           setState(() {
             aboveReuiredArea = userData["isOfcSpace"] == 0 ? 1 : 0;
             houseDetails = userData["houseNo"] ?? "";
@@ -353,39 +356,46 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
         width: double.maxFinite,
         decoration: BoxDecoration(
-          color: const Color(0xFFF5F5F5),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+            color: const Color(0xFFF5F5F5),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: UikColor.giratina_300.toColor())),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Geo Tag location",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: ("#9E9E9E").toColor(),
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Geo Tag location",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: ("#9E9E9E").toColor(),
+                  ),
+                ),
+                (locationLoading)
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.yellow,
+                          strokeWidth: 2,
+                        ))
+                    : (place != null &&
+                            place!.locality != null &&
+                            place!.postalCode != null)
+                        ? Text(
+                            "${place!.locality!}, ${place!.postalCode!}",
+                            style: GoogleFonts.poppins(
+                                fontSize: 16, fontWeight: FontWeight.w400),
+                          )
+                        : Container()
+              ],
             ),
-            (locationLoading)
-                ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      color: Colors.yellow,
-                      strokeWidth: 2,
-                    ))
-                : (place != null &&
-                        place!.locality != null &&
-                        place!.postalCode != null)
-                    ? Text(
-                        "${place!.locality!}, ${place!.postalCode!}",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.w400),
-                      )
-                    : Container()
+            SvgPicture.network(
+                "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1715771628916-bx_current-location.svg"),
           ],
         ),
       ),
