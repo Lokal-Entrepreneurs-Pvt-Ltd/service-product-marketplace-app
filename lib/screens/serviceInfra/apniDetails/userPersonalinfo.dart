@@ -336,6 +336,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                     },
                     hint: "Have You Done Any Government Certification",
                     options: allGovernmentSkills,
+                    borderWidth: 1,
                     selectedOptions: selectedJobsOptions,
                     selectionType: SelectionType.multi,
                     chipConfig: ChipConfig(
@@ -362,7 +363,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                       color: ("#9E9E9E").toColor(),
                     ),
                     fieldBackgroundColor: ("#F5F5F5").toColor(),
-                    borderColor: ("#F5F5F5").toColor(),
+                    borderColor: UikColor.giratina_300.toColor(),
                     optionTextStyle: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -374,7 +375,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                     animateSuffixIcon: true,
                     searchEnabled: true,
                     dropdownBorderRadius: 20,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     maxItems: 4,
                   ),
                   const SizedBox(height: 12),
@@ -489,6 +491,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: UikColor.giratina_300.toColor()),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -541,6 +544,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         decoration: BoxDecoration(
           color: const Color(0xFFF5F5F5),
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: UikColor.giratina_300.toColor()),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -621,6 +625,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
       decoration: BoxDecoration(
         color: ("#F5F5F5").toColor(),
         borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: UikColor.giratina_300.toColor()),
       ),
       alignment: Alignment.centerLeft,
       child: Column(
@@ -660,6 +665,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         decoration: BoxDecoration(
           color: ("#F5F5F5").toColor(),
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: UikColor.giratina_300.toColor()),
         ),
         alignment: Alignment.centerLeft,
         child: Column(
