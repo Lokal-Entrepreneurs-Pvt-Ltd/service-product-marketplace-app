@@ -56,6 +56,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       print(e);
       UiUtils.showToast("Error fetching initial data");
     }
+    return null;
   }
 
   @override
@@ -75,7 +76,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
           if (isUpdating) {
             // Show the progress bar while updating
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 color: Colors.yellow,
               ),
@@ -92,7 +93,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             );
           } else {
             // Show a loading indicator while fetching data
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(color: Colors.yellow),
             );
           }
@@ -113,9 +114,9 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         children: [
           buildTitle("Personal Details", 30, FontWeight.w700),
           buildTitle("Gender", 20, FontWeight.w600),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           buildGenderSelection(),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           buildTextBox("Full Name", "Type your full name"),
           buildDatePickerField("Date of Birth"),
           buildLocationField(),
@@ -134,7 +135,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
       ),
       title: Column(
         children: [
@@ -185,7 +186,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
           onTap: () => updateSelectedIndex(0),
           border: 2,
         ),
-        SizedBox(width: 15),
+        const SizedBox(width: 15),
         SelectableTextWidget(
           text: "Female",
           isSelected: genderIndex == 1,
@@ -198,11 +199,11 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   Widget buildTextBox(String fieldname, String hint) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 80,
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -217,7 +218,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               color: Colors.black26,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Expanded(
@@ -238,12 +239,12 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   Widget buildDatePickerField(String fieldname) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 80,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: GestureDetector(
@@ -277,20 +278,20 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   Widget buildLocationField() {
     String formattedLat =
-    lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
+        lat.toStringAsFixed(2); // Limit latitude to 2 decimal places
     String formattedLong =
-    long.toStringAsFixed(2); // Limit longitude to 2 decimal places
+        long.toStringAsFixed(2); // Limit longitude to 2 decimal places
 
     // Check if latitude and longitude values exist
     bool locationAvailable = (lat != 0 && long != 0);
 
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
       height: 90,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: GestureDetector(
@@ -352,7 +353,6 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     final name = controller.text;
     final dob = DateFormat('dd/MM/yyyy', 'en_US').format(datePicker);
 
-
     String gender;
     if (genderIndex == 0) {
       gender = "Male";
@@ -369,13 +369,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
       try {
         final response = await ApiRepository.updateCustomerInfo(
-          ApiRequestBody.getPersonalDetail(
-            name,
-            dob,
-            lat,
-            long,
-            gender
-          ),
+          ApiRequestBody.getPersonalDetail(name, dob, lat, long, gender),
         );
 
         if (response.isSuccess!) {

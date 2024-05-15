@@ -23,7 +23,7 @@ class UploadButton extends StatefulWidget {
   final Function()? customFunction;
   // New property to track upload success
 
-  UploadButton({
+  UploadButton({super.key, 
     required this.text,
     required this.documentType,
     this.onFileSelected,
@@ -157,12 +157,12 @@ class _UploadButtonState extends State<UploadButton> {
         },
         child: DottedBorder(
           borderType: BorderType.RRect,
-          dashPattern: [4, 1],
+          dashPattern: const [4, 1],
           strokeWidth: 1,
-          radius: Radius.circular(12),
+          radius: const Radius.circular(12),
           color: UikColor.giratina_400.toColor(),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
             decoration: BoxDecoration(
               color: UikColor.giratina_100.toColor(),
             ),
@@ -182,7 +182,7 @@ class _UploadButtonState extends State<UploadButton> {
                     // : SvgPicture.network(
                     // "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg"),
                     : getContent(),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,7 +201,7 @@ class _UploadButtonState extends State<UploadButton> {
                     ],
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 _buildUploadIcon(),
               ],
             ),
@@ -213,7 +213,7 @@ class _UploadButtonState extends State<UploadButton> {
 
   Widget _buildUploadIcon() {
     if (_uploading) {
-      return CircularProgressIndicator(
+      return const CircularProgressIndicator(
         color: Colors.yellow,
       );
     } else if (_uploadSuccess) {
@@ -221,13 +221,13 @@ class _UploadButtonState extends State<UploadButton> {
         return SvgPicture.network(
             "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708169085547-clear.svg");
       } else {
-        return Icon(
+        return const Icon(
           Icons.done,
           color: Colors.green,
         );
       }
     } else {
-      return Icon(
+      return const Icon(
         Icons.file_upload,
         color: Colors.black,
         size: 24,

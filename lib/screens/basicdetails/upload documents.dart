@@ -7,7 +7,6 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
 import '../../Widgets/UikButton/UikButton.dart';
 import '../../constants/json_constants.dart';
-import '../../screen_routes.dart';
 import '../../utils/NavigationUtils.dart';
 import '../../utils/network/ApiRepository.dart';
 import '../../utils/network/ApiRequestBody.dart';
@@ -17,10 +16,11 @@ class UploadButton extends StatefulWidget {
   final String text;
   final bool isSelected;
   final Function(File?) onFileSelected;
-  final void Function(bool uploading, bool isSelected, bool uploadSuccess) updateStatus;
+  final void Function(bool uploading, bool isSelected, bool uploadSuccess)
+      updateStatus;
   final bool uploadSuccess; // New property to track upload success
 
-  UploadButton({
+  const UploadButton({super.key, 
     required this.text,
     required this.isSelected,
     required this.onFileSelected,
@@ -35,7 +35,8 @@ class UploadButton extends StatefulWidget {
 class _UploadButtonState extends State<UploadButton> {
   bool _uploading = false;
 
-  Future<void> _pickFile(BuildContext context, List<String> allowedExtensions) async {
+  Future<void> _pickFile(
+      BuildContext context, List<String> allowedExtensions) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: allowedExtensions,
@@ -57,7 +58,8 @@ class _UploadButtonState extends State<UploadButton> {
         setState(() {
           _uploading = false;
         });
-        widget.updateStatus(false, success, widget.uploadSuccess); // Pass uploadSuccess status
+        widget.updateStatus(
+            false, success, widget.uploadSuccess); // Pass uploadSuccess status
       }
     }
   }
@@ -70,20 +72,20 @@ class _UploadButtonState extends State<UploadButton> {
         onTap: () => _pickFile(context, ['pdf', 'jpg', 'jpeg', 'png']),
         child: DottedBorder(
           borderType: BorderType.RRect,
-          dashPattern: [8, 4],
+          dashPattern: const [8, 4],
           strokeWidth: 2,
-          radius: Radius.circular(12),
+          radius: const Radius.circular(12),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+            decoration: const BoxDecoration(
               color: Colors.black12,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(Icons.image, color: Colors.black, size: 30),
-                SizedBox(width: 16),
+                const Icon(Icons.image, color: Colors.black, size: 30),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,13 +95,15 @@ class _UploadButtonState extends State<UploadButton> {
                         style: GoogleFonts.poppins(
                           fontSize: 17,
                           color: Colors.black,
-                          fontWeight: widget.isSelected ? FontWeight.bold : FontWeight.normal,
+                          fontWeight: widget.isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 _buildUploadIcon(),
               ],
             ),
@@ -111,25 +115,23 @@ class _UploadButtonState extends State<UploadButton> {
 
   Widget _buildUploadIcon() {
     if (_uploading) {
-      return CircularProgressIndicator(
+      return const CircularProgressIndicator(
         color: Colors.yellow,
       );
-    }
-    else if (widget.uploadSuccess) {
-      return Icon(
+    } else if (widget.uploadSuccess) {
+      return const Icon(
         Icons.check_circle_outline,
         color: Colors.green,
         size: 30,
       );
-    }
-    else if (widget.isSelected) {
-      return Icon(
+    } else if (widget.isSelected) {
+      return const Icon(
         Icons.file_upload_outlined,
         color: Colors.black,
         size: 30,
       );
     } else {
-      return Icon(
+      return const Icon(
         Icons.image,
         color: Colors.black,
         size: 30,
@@ -186,7 +188,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
       ),
       title: buildAppBarTitle(),
     );
@@ -224,7 +226,7 @@ class _UploadDocumentsState extends State<UploadDocuments> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildUploadDocumentsTitle(),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           buildUploadButtons(),
         ],
       ),
@@ -263,7 +265,8 @@ class _UploadDocumentsState extends State<UploadDocuments> {
                 updateStatus: (uploading, isSelected, uploadSuccess) {
                   updateUploadStatus(i, uploading, isSelected, uploadSuccess);
                 },
-                uploadSuccess: uploadSuccessList[i], // Set uploadSuccess based on the list
+                uploadSuccess:
+                    uploadSuccessList[i], // Set uploadSuccess based on the list
               ),
             ],
           ),
@@ -271,12 +274,14 @@ class _UploadDocumentsState extends State<UploadDocuments> {
     );
   }
 
-  void updateUploadStatus(int index, bool uploading, bool isSelected, bool uploadSuccess) {
+  void updateUploadStatus(
+      int index, bool uploading, bool isSelected, bool uploadSuccess) {
     setState(() {
       isLoadingList[index] = uploading;
       if (isSelected) {
         UiUtils.showToast("File uploaded successfully.");
-        uploadSuccessList[index] = uploadSuccess; // Update uploadSuccess for this file
+        uploadSuccessList[index] =
+            uploadSuccess; // Update uploadSuccess for this file
       }
     });
   }

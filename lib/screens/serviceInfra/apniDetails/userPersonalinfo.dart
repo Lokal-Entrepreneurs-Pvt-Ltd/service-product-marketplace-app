@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_holo_date_picker/widget/date_ext.dart';
 import 'package:flutter_svg/svg.dart';
@@ -41,14 +39,14 @@ enum IndexType {
 class _UserPersonalInfoState extends State<UserPersonalInfo> {
   Future<Map<String, dynamic>?>? _futureData;
 
-  DateTime? datePicker = null;
+  DateTime? datePicker;
   String name = "";
   TextEditingController nameTextEditingController = TextEditingController();
   double lat = 0;
   double long = 0;
-  Placemark? place = null;
+  Placemark? place;
   bool locationLoading = false;
-  int? age = null;
+  int? age;
   bool isUpdating = false; // Added isUpdating variable
   bool isProgressBarAndContinueFeature = false;
   List<String> workEx = [
@@ -112,7 +110,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   int educationIndex = -1;
   int workExperienceIndex = -1;
   String phoneNumber = "";
-  int? userId = null;
+  int? userId;
   List<ValueItem<int>> selectedJobsOptions = [];
   List<ValueItem<int>> allGovernmentSkills = [];
 
@@ -246,6 +244,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     setState(() {
       isProgressBarAndContinueFeature = widget.args["isProgress"] ?? false;
     });
+    return null;
   }
 
   Widget buildBody() {
@@ -375,13 +374,12 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
                     animateSuffixIcon: true,
                     searchEnabled: true,
                     dropdownBorderRadius: 20,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     maxItems: 4,
                   ),
                   const SizedBox(height: 12),
                   buildLocationField(),
                 ],
-
               ),
             ),
           ),
@@ -657,7 +655,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     return GestureDetector(
       onTap: () => showDatePicker(),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9.5),
         height: 64,
         decoration: BoxDecoration(
           color: ("#F5F5F5").toColor(),
@@ -906,7 +904,7 @@ Future<DateTime?> showSimpleDatePicker(
   bool looping = false,
   bool reverse = false,
 }) {
-  DateTime? _selectedDate = initialDate ?? DateTime.now().startOfDay();
+  DateTime? selectedDate = initialDate ?? DateTime.now().startOfDay();
   final List<Widget> listButtonActions = [
     TextButton(
       style: TextButton.styleFrom(
@@ -921,7 +919,7 @@ Future<DateTime?> showSimpleDatePicker(
         ),
       ),
       onPressed: () {
-        Navigator.pop(context, _selectedDate);
+        Navigator.pop(context, selectedDate);
       },
     ),
     TextButton(
@@ -955,7 +953,7 @@ Future<DateTime?> showSimpleDatePicker(
 
   var datePickerDialog = Container(
     width: 300,
-    padding: EdgeInsets.symmetric(horizontal: 16),
+    padding: const EdgeInsets.symmetric(horizontal: 16),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -971,7 +969,7 @@ Future<DateTime?> showSimpleDatePicker(
           ),
           onChange: ((DateTime date, list) {
             print(date);
-            _selectedDate = date;
+            selectedDate = date;
           }),
           looping: looping,
         ),
