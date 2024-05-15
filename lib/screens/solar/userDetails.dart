@@ -8,7 +8,6 @@ import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/location/State_and_district.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
-import 'package:lokal/widgets/Uikmulti.dart';
 import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/utils/extensions.dart';
@@ -22,8 +21,6 @@ class UserSolarInfoScreen extends StatefulWidget {
 }
 
 class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
-  bool bankAccError = false;
-  bool bankAccSuccess = false;
   Future<Map<String, dynamic>?>? _futureData;
 
   StateDataList stateDataList = StateDataList(args: {});
