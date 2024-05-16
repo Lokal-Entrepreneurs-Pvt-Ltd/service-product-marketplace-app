@@ -17,11 +17,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:shake_detector/shake_detector.dart';
 import 'package:ui_sdk/ApiResponseState.dart';
+import 'package:ui_sdk/utils/extensions.dart';
 import 'configs/environment.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 // import 'package:shake/shake.dart';
-
 
 AppInitializer? appInit;
 
@@ -250,7 +250,13 @@ class _LokalAppState extends State<LokalApp> {
         routerDelegate: router.routerDelegate,
         // navigatorKey: NavigationService.navigatorKey,
         // navigatorObservers: [ChuckerFlutter.navigatorObserver],
-        theme: ThemeData(fontFamily: 'Georgia'),
+        theme: ThemeData(
+            fontFamily: 'Georgia',
+            scaffoldBackgroundColor: ("#ffffff").toColor(),
+            appBarTheme: AppBarTheme(
+              color: ("#ffffff").toColor(),
+              surfaceTintColor: ("#ffffff").toColor(),
+            )),
       ),
     );
   }
