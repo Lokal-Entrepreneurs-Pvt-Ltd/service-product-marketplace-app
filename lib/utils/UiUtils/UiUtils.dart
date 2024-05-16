@@ -40,8 +40,6 @@ class UiUtils {
     }
   }
 
-
-
   static bool isEmailValid(String email) {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
@@ -49,7 +47,6 @@ class UiUtils {
   }
 
   static bool isPhoneNoValid(String value) {
-
     final indianPhoneNumberRegex = RegExp(r'^[6-9][0-9]{9}$');
 
     // Check if the value matches the Indian mobile number pattern
@@ -66,5 +63,15 @@ class UiUtils {
         print(feedback);
       });
     }
+  }
+
+  static String capitalizeFirstLetter(String str) {
+    if (str.isEmpty) return str;
+    List<String> words = str.split(' ');
+    List<String> capitalizedWords = words.map((word) {
+      if (word.isEmpty) return word;
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).toList();
+    return capitalizedWords.join(' ');
   }
 }
