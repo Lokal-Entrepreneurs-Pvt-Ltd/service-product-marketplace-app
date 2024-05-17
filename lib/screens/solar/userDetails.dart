@@ -39,6 +39,7 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
   int block3Index = -1;
   String firmName = "";
   String gstNo = "";
+  String? gstErrorMessage = null;
 
   Future<Map<String, dynamic>?> fetchData() async {
     try {
@@ -194,10 +195,15 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
                 isEnterYourEnabled: false,
                 enabled: true,
                 showCursor: true,
+                errorText: gstErrorMessage,
                 onFileSelected: (p0) {
-                  setState(() {
-                    gstNo = p0 ?? "";
-                  });
+                  gstNo = p0 ?? "";
+                  if (UiUtils.isGSTValid(gstNo) || gstNo.isEmpty) {
+                    gstErrorMessage = null;
+                  } else {
+                    gstErrorMessage = "Please Enter Valid GST Number";
+                  }
+                  setState(() {});
                 },
               ),
               GestureDetector(
