@@ -263,13 +263,13 @@ class CustomTextSelectionControls extends MaterialTextSelectionControls {
         return Transform.rotate(
           angle: pi / 2.0,
           child: Transform.translate(
-            offset: Offset(textLineHeight / 2, -7 * topOffset),
+            offset: Offset(textLineHeight / 1, -7 * topOffset),
             child: handle,
           ),
         );
       case TextSelectionHandleType.right: // points up-left
         return Transform.translate(
-          offset: Offset(0, topOffset),
+          offset: Offset(0, 5 * topOffset),
           child: handle,
         );
       // return handle;
@@ -277,7 +277,7 @@ class CustomTextSelectionControls extends MaterialTextSelectionControls {
         return Transform.rotate(
           angle: pi / 4.0,
           child: Transform.translate(
-              offset: Offset(textLineHeight / 3, handleSize / 10),
+              offset: Offset(textLineHeight / 1.8, handleSize / 100),
               child: handle),
         );
     }
