@@ -214,13 +214,8 @@ class _LokalAppState extends State<LokalApp> {
                 child: const Text('Set Lokal'),
                 onPressed: () {
                   setState(() {
-                    if (tempLocalUrl.isNotEmpty &&
-                        tempLocalUrl.endsWith("ngrok.io")) {
-                      EnvUtils.setEnvironmentAndResetApp(
-                          context, Environment.LOCAL, tempLocalUrl);
-                    } else {
-                      UiUtils.showToast("Invalid url");
-                    }
+                    EnvUtils.setEnvironmentAndResetApp(
+                        context, Environment.LOCAL, tempLocalUrl);
                   });
                 },
               ),
