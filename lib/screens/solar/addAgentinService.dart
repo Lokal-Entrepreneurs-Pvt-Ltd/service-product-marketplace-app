@@ -347,15 +347,21 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
                       !isLoadingResendOtp ? Colors.yellow : Colors.grey,
                   onClick: !isLoadingResendOtp
                       ? () async {
-                          if (phoneNumber.length == 10) {
+                          if (errorEmailMessage == null &&
+                              errorPhoneMessage == null &&
+                              phoneNumber.isNotEmpty &&
+                              email.isNotEmpty) {
                             setState(() {
                               isLoadingResendOtp = true;
                             });
                             try {
                               final response =
-                                  await ApiRepository.addAgentInService(
-                                      ApiRequestBody.sendMobileForOtp(
-                                          phoneNumber));
+                                  await ApiRepository.addTeamMemberRequest(
+                                {
+                                  "mobile": phoneNumber,
+                                  "email": email,
+                                },
+                              );
 
                               if (response.isSuccess!) {
                                 UiUtils.showToast("OTP sent successfully");
@@ -364,17 +370,16 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
                                   canResendOtp = true;
                                 });
                                 startTimer();
-                              } else {
-                                UiUtils.showToast(response.error![MESSAGE]);
                               }
                             } catch (err) {
-                              UiUtils.showToast(err.toString());
+                              print(err.toString());
                             }
                             setState(() {
                               isLoadingResendOtp = false;
                             });
                           } else {
-                            UiUtils.showToast("Please Provide correct number");
+                            UiUtils.showToast(
+                                "Please Provide correct number and email");
                           }
                         }
                       : null,
