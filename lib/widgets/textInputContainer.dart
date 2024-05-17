@@ -17,6 +17,8 @@ class TextInputContainer extends StatefulWidget {
   final double borderWidth;
   final Color? borderColor;
   final Color? backgroundColor;
+  final Function()? onError;
+  final Function()? onSuccess;
   const TextInputContainer({
     Key? key,
     required this.fieldName,
@@ -32,6 +34,8 @@ class TextInputContainer extends StatefulWidget {
     this.borderWidth = 1,
     this.borderColor,
     this.backgroundColor,
+    this.onError,
+    this.onSuccess,
   }) : super(key: key);
 
   @override
@@ -85,6 +89,14 @@ class _TextInputContainerState extends State<TextInputContainer> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.errorText != null) {
+        widget.onError?.call();
+      } else if (widget.successText != null) {
+        widget.onSuccess?.call();
+      }
+    });
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -101,8 +113,12 @@ class _TextInputContainerState extends State<TextInputContainer> {
                           : ("#F5F5F5").toColor(),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: widget.borderColor ??
-                            UikColor.giratina_300.toColor(),
+                        color: widget.errorText != null
+                            ? Colors.red
+                            : widget.successText != null
+                                ? Colors.green
+                                : widget.borderColor ??
+                                    UikColor.giratina_300.toColor(),
                         width: widget.borderWidth,
                       )),
                   child: Column(
@@ -159,8 +175,12 @@ class _TextInputContainerState extends State<TextInputContainer> {
                           : ("#F5F5F5").toColor(),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: widget.borderColor ??
-                            UikColor.giratina_300.toColor(),
+                        color: widget.errorText != null
+                            ? Colors.red
+                            : widget.successText != null
+                                ? Colors.green
+                                : widget.borderColor ??
+                                    UikColor.giratina_300.toColor(),
                         width: widget.borderWidth,
                       ),
                     ),
@@ -184,12 +204,21 @@ class _TextInputContainerState extends State<TextInputContainer> {
                   ),
                 ),
           widget.errorText != null
-              ? Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    widget.errorText!,
-                    style: TextStyles.poppins.body2.light.colors("#A52A2A"),
-                  ),
+              ? Row(
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 15,
+                      color: ("#A52A2A").toColor(),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      widget.errorText!,
+                      style: TextStyles.poppins.body2.light.colors("#A52A2A"),
+                    ),
+                  ],
                 )
               : Container(),
           widget.successText != null
