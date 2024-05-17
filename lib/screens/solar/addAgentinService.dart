@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
@@ -31,6 +30,8 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
   String email = "";
   String phoneNumber = "";
   String otpPinEntered = "";
+  String? errorPhoneMessage = null;
+  String? errorEmailMessage = null;
   int seconds = 30; // Change the timer duration to 30 seconds
   // String digitSeconds = "30"; // Update the initial digit display
   Timer? timer;
@@ -170,10 +171,15 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
           enabled: true,
           showCursor: true,
           onFileSelected: (p0) {
-            setState(() {
-              email = p0 ?? "";
-            });
+            email = p0 ?? "";
+            if (UiUtils.isEmailValid(email) || email.isEmpty) {
+              errorEmailMessage = null;
+            } else {
+              errorEmailMessage = "Please Enter Valid Email";
+            }
+            setState(() {});
           },
+          errorText: errorEmailMessage,
         ),
         TextInputContainer(
           fieldName: "Mobile",
@@ -183,10 +189,15 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
           showCursor: true,
           textInputType: TextInputType.phone,
           onFileSelected: (p0) {
-            setState(() {
-              phoneNumber = p0 ?? "";
-            });
+            phoneNumber = p0 ?? "";
+            if (UiUtils.isPhoneNoValid(phoneNumber) || phoneNumber.isEmpty) {
+              errorPhoneMessage = null;
+            } else {
+              errorPhoneMessage = "Please Enter 10 digit Valid Mobile Number";
+            }
+            setState(() {});
           },
+          errorText: errorPhoneMessage,
         ),
       ],
     );
@@ -197,7 +208,9 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
         otpPinEntered.isNotEmpty &&
         email.isNotEmpty &&
         work.isNotEmpty &&
-        name.isNotEmpty);
+        name.isNotEmpty &&
+        errorPhoneMessage == null &&
+        errorEmailMessage == null);
 
     return Container(
       alignment: Alignment.center,
@@ -337,9 +350,7 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
                           if (phoneNumber.length == 10) {
                             setState(() {
                               isLoadingResendOtp = true;
-                              canResendOtp = true;
                             });
-                            startTimer();
                             try {
                               final response =
                                   await ApiRepository.addAgentInService(
@@ -348,12 +359,20 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
 
                               if (response.isSuccess!) {
                                 UiUtils.showToast("OTP sent successfully");
+                                setState(() {
+                                  isLoadingResendOtp = true;
+                                  canResendOtp = true;
+                                });
+                                startTimer();
                               } else {
                                 UiUtils.showToast(response.error![MESSAGE]);
                               }
                             } catch (err) {
                               UiUtils.showToast(err.toString());
                             }
+                            setState(() {
+                              isLoadingResendOtp = false;
+                            });
                           } else {
                             UiUtils.showToast("Please Provide correct number");
                           }

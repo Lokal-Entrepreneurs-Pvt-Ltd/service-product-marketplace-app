@@ -194,7 +194,6 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
                 isEnterYourEnabled: false,
                 enabled: true,
                 showCursor: true,
-                textInputType: TextInputType.number,
                 onFileSelected: (p0) {
                   setState(() {
                     gstNo = p0 ?? "";
