@@ -1,19 +1,17 @@
-
-
 import '../utils/UiUtils/UiUtils.dart';
 import 'environment.dart';
 import 'environment_data_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class EnvUtils {
-
-  static void setEnvironmentAndResetApp(BuildContext context,
-      String environment, String localUrl) {
+  static void setEnvironmentAndResetApp(
+      BuildContext context, String environment, String localUrl) {
     switch (environment) {
       case Environment.PROD:
         {
+          EnvironmentDataHandler.setLocalBaseUrl(
+              "https://prod.localee.co.in/api");
           UiUtils.showToast("Prod Env Set,  Restart the app");
         }
         break;
@@ -21,15 +19,13 @@ class EnvUtils {
         {
           if (localUrl.isNotEmpty) {
             EnvironmentDataHandler.setLocalBaseUrl(localUrl);
-            UiUtils.showToast(
-                "Local Url set: $localUrl Restart the app");
-          }
-          else {
+            UiUtils.showToast("Local Url set: $localUrl Restart the app");
+          } else {
             UiUtils.showToast("invalid url");
           }
         }
         break;
-      default :
+      default:
         {
           UiUtils.showToast("Dev Env Set,  Restart the app");
         }

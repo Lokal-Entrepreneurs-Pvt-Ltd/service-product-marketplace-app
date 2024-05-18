@@ -331,6 +331,11 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(ApiRoutes.addAgentInService, args);
   }
 
+  static Future<ApiResponse> addTeamMemberRequest(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.addTeamMemberRequest, args);
+  }
+
   static Future<ApiResponse> notifyAllAgents(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.notifyAllAgents, args);
   }

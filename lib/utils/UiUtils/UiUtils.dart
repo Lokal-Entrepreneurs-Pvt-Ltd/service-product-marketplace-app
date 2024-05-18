@@ -46,6 +46,11 @@ class UiUtils {
         .hasMatch(email);
   }
 
+  static bool isGSTValid(String gst) {
+    return RegExp(r'^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$')
+        .hasMatch(gst);
+  }
+
   static bool isPhoneNoValid(String value) {
     final indianPhoneNumberRegex = RegExp(r'^[6-9][0-9]{9}$');
 

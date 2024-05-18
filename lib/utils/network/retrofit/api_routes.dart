@@ -128,4 +128,5 @@ class ApiRoutes {
   static const String updateSolarUserInfo = "/companyInfo/update";
   static const String getAllAgentByPartnerId =
       "/partnerAgent/getAgentDetailsByPartnerId";
+  static const String addTeamMemberRequest = "/agent/addTeamMemberRequest";
 }
