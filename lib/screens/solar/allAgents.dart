@@ -108,9 +108,6 @@ class _Sl_DetailsPageState extends State<AllAgentForService> {
   }
 
   Widget _buildAgentList() {
-    if (_agentList.isEmpty) {
-      return _buildRetryView(); // Display the retry view
-    }
     return Column(
       children: [
         Padding(
@@ -125,14 +122,15 @@ class _Sl_DetailsPageState extends State<AllAgentForService> {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 7.5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 7.5),
                   decoration: BoxDecoration(
                     color: UikColor.charizard_400.toColor(),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.add,
                         size: 18,
                       ),
@@ -145,84 +143,63 @@ class _Sl_DetailsPageState extends State<AllAgentForService> {
           ),
         ),
         Expanded(
-          child: ListView.builder(
-            itemCount: _agentList.length,
-            itemBuilder: (ctx, index) {
-              String agentName = _agentList[index]['name'] ?? '';
-              String firstCharacter = agentName.isNotEmpty
-                  ? agentName[0].toUpperCase()
-                  : ''; // Get the first character
-              return ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.yellow,
-                  child: Text(
-                    firstCharacter,
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                  ),
+          child: (_agentList.isEmpty)
+              ? _buildRetryView()
+              : ListView.builder(
+                  itemCount: _agentList.length,
+                  itemBuilder: (ctx, index) {
+                    String agentName = _agentList[index]['name'] ?? '';
+                    String firstCharacter = agentName.isNotEmpty
+                        ? agentName[0].toUpperCase()
+                        : ''; // Get the first character
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.yellow,
+                        child: Text(
+                          firstCharacter,
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        agentName,
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      ),
+                      subtitle: Text(
+                        _agentList[index]['mobile'] ?? '',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: UikColor.giratina_500.toColor(),
+                        ),
+                      ),
+                    );
+                  },
                 ),
-                title: Text(
-                  agentName,
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                  ),
-                ),
-                subtitle: Text(
-                  _agentList[index]['mobile'] ?? '',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: UikColor.giratina_500.toColor(),
-                  ),
-                ),
-              );
-            },
-          ),
         ),
       ],
     );
   }
 
   Widget _buildRetryView() {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text(
-            "No Agents Found. Would you like to retry?",
+          Text(
+            "No Agents Found.",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _isLoading = true;
-                _fetchAgentData(); // Retry API call
-              });
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.yellow,
-            ),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Retry",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-            ),
           ),
         ],
       ),
@@ -241,18 +218,16 @@ class _Sl_DetailsPageState extends State<AllAgentForService> {
   }
 
   Widget _buildAddAgentButton() {
-    return Container(
-      child: InkWell(
-        onTap: () {
-          NavigationUtils.pushAndPopUntil(
-              ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
-        },
-        child: UikButton(
-          text: "Proceed",
-          textColor: Colors.black,
-          textSize: 16.0,
-          textWeight: FontWeight.w500,
-        ),
+    return InkWell(
+      onTap: () {
+        NavigationUtils.pushAndPopUntil(
+            ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
+      },
+      child: UikButton(
+        text: "Proceed",
+        textColor: Colors.black,
+        textSize: 16.0,
+        textWeight: FontWeight.w500,
       ),
     );
   }

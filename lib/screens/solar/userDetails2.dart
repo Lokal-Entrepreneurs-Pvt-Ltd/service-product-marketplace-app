@@ -9,10 +9,12 @@ import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
+import 'package:lokal/utils/location/State_and_district.dart';
 import 'package:lokal/utils/location/location_utils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
+import 'package:lokal/widgets/modalBottomSheet.dart';
 import 'package:lokal/widgets/selectabletext.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:ui_sdk/utils/extensions.dart';
@@ -32,8 +34,12 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
   bool locationLoading = false;
   String houseDetails = "";
   String streetDetails = "";
-  String district = "";
-  String state = "";
+  StateDataList stateDataList = StateDataList(args: {});
+  StateData? state;
+  int stateIndex = -1;
+  DistrictDataList districtDataList = DistrictDataList();
+  DisctrictData? district;
+  int districtIndex = -1;
   String pinCode = "";
   String geoTag = "";
   Future<Map<String, dynamic>?>? _futureData;
@@ -54,12 +60,32 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
             final geoTagMap = Map<String, dynamic>.from(jsonDecode(geoTag));
             place = Placemark.fromMap(geoTagMap);
           }
+          String stateName = userData["stateOfc"] ?? "";
+          await stateDataList.initialize();
+          if (stateName.isNotEmpty) {
+            int sra = stateDataList.list
+                .indexWhere((element) => element.stateName == stateName);
+            if (sra != -1) {
+              state = stateDataList.list[sra];
+              stateIndex = stateDataList.stateNameList.indexOf(stateName);
+            }
+            String districtName = userData["districtOfc"] ?? "";
+            if (districtName.isNotEmpty && sra != -1) {
+              await districtDataList.initialize(stateCode: state!.stateCode);
+              int dis = districtDataList.list.indexWhere(
+                  (element) => element.districtName == districtName);
+              if (dis != -1) {
+                district = districtDataList.list[dis];
+                districtIndex =
+                    districtDataList.districtNameList.indexOf(districtName);
+              }
+            }
+          }
           setState(() {
             aboveReuiredArea = userData["isOfcSpace"] == 0 ? 1 : 0;
             houseDetails = userData["houseNo"] ?? "";
             streetDetails = userData["street"] ?? "";
-            district = userData["districtOfc"] ?? "";
-            state = userData["stateOfc"] ?? "";
+
             pinCode = userData["pincodeOfc"] ?? "";
           });
         }
@@ -222,29 +248,63 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
             });
           },
         ),
-        TextInputContainer(
-          fieldName: "District",
-          initialValue: district,
-          isEnterYourEnabled: false,
-          enabled: true,
-          showCursor: true,
-          onFileSelected: (p0) {
-            setState(() {
-              district = p0 ?? "";
-            });
+        GestureDetector(
+          onTap: () async {
+            int? result = await Bottomsheets.showBottomListDialog(
+              context: context,
+              name: "state",
+              call: () async {
+                // await Future.delayed(
+                //     const Duration(milliseconds: 500));
+                await stateDataList.initialize();
+                return DataForFunction(
+                    index: stateIndex, list: stateDataList.stateNameList);
+              },
+            );
+            if (result != null && result >= 0) {
+              setState(() {
+                state = stateDataList.list.firstWhere((element) =>
+                    element.stateName == stateDataList.stateNameList[result]);
+                stateIndex = result;
+                districtIndex = -1;
+                district = null;
+              });
+            }
           },
+          child: builbottomsheedtfield(
+            "State",
+            (state != null) ? state!.stateName : "",
+          ),
         ),
-        TextInputContainer(
-          fieldName: "State",
-          initialValue: state,
-          isEnterYourEnabled: false,
-          enabled: true,
-          showCursor: true,
-          onFileSelected: (p0) {
-            setState(() {
-              state = p0 ?? "";
-            });
+        GestureDetector(
+          onTap: () async {
+            if (stateIndex != -1) {
+              int? result = await Bottomsheets.showBottomListDialog(
+                context: context,
+                name: "District",
+                call: () async {
+                  await districtDataList.initialize(
+                      stateCode: state!.stateCode);
+                  return DataForFunction(
+                      index: districtIndex,
+                      list: districtDataList.districtNameList);
+                },
+              );
+              //   print(districtDataList.districtNameList);
+              if (result != null && result >= 0) {
+                setState(() {
+                  district = districtDataList.list.firstWhere((element) =>
+                      element.districtName ==
+                      districtDataList.districtNameList[result]);
+                  districtIndex = result;
+                });
+              }
+            } else {
+              UiUtils.showToast("Please Select State");
+            }
           },
+          child: builbottomsheedtfield(
+              "District", (district != null) ? district!.districtName : ""),
         ),
         TextInputContainer(
           fieldName: "Pin Code",
@@ -260,6 +320,49 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         ),
         buildLocationField(),
       ],
+    );
+  }
+
+  Widget builbottomsheedtfield(String name, String selectedname) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding:
+          const EdgeInsets.only(top: 9.5, left: 16, right: 16, bottom: 9.5),
+      height: 64,
+      decoration: BoxDecoration(
+          color: ("#F5F5F5").toColor(),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: UikColor.giratina_300.toColor(),
+            width: 1,
+          )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                name,
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: ("#9E9E9E").toColor(),
+                ),
+              ),
+              (selectedname.isNotEmpty)
+                  ? Text(selectedname,
+                      style: GoogleFonts.poppins(
+                          fontSize: 16, fontWeight: FontWeight.w400))
+                  : Container()
+            ],
+          ),
+          SvgPicture.network(
+              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
+        ],
+      ),
     );
   }
 
@@ -285,9 +388,9 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
 
   Widget buildContinueButton(BuildContext context) {
     bool allFieldsFilled = (aboveReuiredArea == 0)
-        ? (state.isNotEmpty &&
+        ? (state != null &&
             pinCode.isNotEmpty &&
-            district.isNotEmpty &&
+            district != null &&
             place != null &&
             streetDetails.isNotEmpty &&
             houseDetails.isNotEmpty)
@@ -313,8 +416,9 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         map.addAll(
           {
             "isOfcSpace": true,
-            "ofcAddressLine1": "$houseDetails,$streetDetails,$district",
-            "ofcAddressLine2": "$state,$pinCode",
+            "ofcAddressLine1":
+                "$houseDetails,$streetDetails,${district?.districtName}",
+            "ofcAddressLine2": "${state?.stateName},$pinCode",
             "ofcGeoTagLoc": jsonEncode(place!.toJson())
           },
         );
