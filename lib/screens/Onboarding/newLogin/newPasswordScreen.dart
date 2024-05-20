@@ -334,7 +334,7 @@ class _PasswordScreen2State extends State<PasswordScreen2> {
   }
 
   bool _isInputValid() {
-    final passwordValid = passwordController.text.length >= 6;
+    final passwordValid = passwordController.text.length >= 8;
     errorPassword = !passwordValid;
     setState(() {});
     return passwordValid;
