@@ -506,7 +506,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
   }
 
   void _handlePasswordValidation(String text) {
-    if (text.length >= 6) {
+    if (text.length >= 8) {
       setState(() {
         errorPassword = false;
         descPassword = '';
@@ -535,7 +535,7 @@ class _SignupScreen2State extends State<SignupScreen2> {
 
   Future<void> _handleSignup() async {
     if (UiUtils.isEmailValid(emailController.text) &&
-        passwordController.text.length >= 6 &&
+        passwordController.text.length >= 8 &&
         confirmPasswordController.text.compareTo(passwordController.text) ==
             0 &&
         UiUtils.isPhoneNoValid(phoneNoController.text)) {
@@ -554,16 +554,16 @@ class _SignupScreen2State extends State<SignupScreen2> {
           if (response.data[AUTH_TOKEN] != null) {
             UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
           }
-         await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
-        final Session? session = await SessionManager.getSession();
-        if (session != null) {
-          print(session.userId);
-          print("dsfsvfv___________________---------------------0");
-          print(session.lastLogin);
-          print(session.openedTime);
-          print(session.deviceId);
-          print(session.sessionId);
-        }
+          await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
+          final Session? session = await SessionManager.getSession();
+          if (session != null) {
+            print(session.userId);
+            print("dsfsvfv___________________---------------------0");
+            print(session.lastLogin);
+            print(session.openedTime);
+            print(session.deviceId);
+            print(session.sessionId);
+          }
           var customerData = response.data[CUSTOMER_DATA];
           if (customerData != null) {
             UserDataHandler.saveCustomerData(customerData);
