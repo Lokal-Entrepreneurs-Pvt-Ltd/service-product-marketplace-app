@@ -9,7 +9,6 @@ import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
@@ -39,9 +38,11 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
   bool isLoading =
       false; // New variable to track if "Continue" button is loading
   bool isLoadingResendOtp = false;
+  bool fromAllAgent = false;
 
   @override
   void initState() {
+    fromAllAgent = widget.args["fromAllAgent"] ?? false;
     super.initState();
   }
 
@@ -255,8 +256,12 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
       if (response.isSuccess!) {
         if (response.data != null) {
           UiUtils.showToast(ADD_AGENT_SUCESSFULL);
-          NavigationUtils.pushAndPopUntil(
-              ScreenRoutes.allAgentForService, ScreenRoutes.allAgentForService);
+          if (fromAllAgent) {
+            NavigationUtils.pushAndPopUntil(ScreenRoutes.allAgentForService,
+                ScreenRoutes.allAgentForService);
+          } else {
+            NavigationUtils.pop();
+          }
         } else {
           UiUtils.showToast(ADD_AGENT_FAILED);
         }
