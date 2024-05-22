@@ -48,9 +48,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     if (index == 2) {
       context!.push(ScreenRoutes.accountSettings, extra: {});
     }
-    if (index == 3) {
-      context!.push(ScreenRoutes.newsPage, extra: {});
-    }
+    // if (index == 3) {
+    //   context!.push(ScreenRoutes.newsPage, extra: {});
+    // }
   }
 
   @override
@@ -185,7 +185,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
               buildNavItem(
                   Icons.person_outline_sharp, 'Account', 2, accountkey),
-              buildNavItem(Icons.newspaper, 'News', 3, newsKey),
+              // buildNavItem(Icons.newspaper, 'News', 3, newsKey),
               // buildNavItem(Icons.payment, 'ExtraPe', 3),
               // Add more items as needed
             ],
