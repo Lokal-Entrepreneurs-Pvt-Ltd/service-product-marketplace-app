@@ -118,7 +118,8 @@ class _Sl_DetailsPageState extends State<AllAgentForService> {
               buildTitle("Fill Your Details", 18, FontWeight.w500),
               GestureDetector(
                 onTap: () {
-                  NavigationUtils.openScreen(ScreenRoutes.addAgentInService);
+                  NavigationUtils.openScreen(
+                      ScreenRoutes.addAgentInService, {"fromAllAgent": true});
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -220,8 +221,7 @@ class _Sl_DetailsPageState extends State<AllAgentForService> {
   Widget _buildAddAgentButton() {
     return InkWell(
       onTap: () {
-        NavigationUtils.pushAndPopUntil(
-            ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
+        NavigationUtils.pop();
       },
       child: UikButton(
         text: "Proceed",
