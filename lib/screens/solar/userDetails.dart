@@ -178,7 +178,7 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
             children: [
               buildTitle("Fill Your Details", 18, FontWeight.w500),
               TextInputContainer(
-                fieldName: "Enter Your Firm Name",
+                fieldName: "Enter Your Firm Name, if any (optional)",
                 initialValue: firmName,
                 isEnterYourEnabled: false,
                 enabled: true,
@@ -189,22 +189,25 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
                   });
                 },
               ),
-              TextInputContainer(
-                fieldName: "GST Number",
-                initialValue: gstNo,
-                isEnterYourEnabled: false,
-                enabled: true,
-                showCursor: true,
-                errorText: gstErrorMessage,
-                onFileSelected: (p0) {
-                  gstNo = p0 ?? "";
-                  if (UiUtils.isGSTValid(gstNo) || gstNo.isEmpty) {
-                    gstErrorMessage = null;
-                  } else {
-                    gstErrorMessage = "Please Enter Valid GST Number";
-                  }
-                  setState(() {});
-                },
+              Visibility(
+                visible: firmName.isNotEmpty,
+                child: TextInputContainer(
+                  fieldName: "GST Number",
+                  initialValue: gstNo,
+                  isEnterYourEnabled: false,
+                  enabled: true,
+                  showCursor: true,
+                  errorText: gstErrorMessage,
+                  onFileSelected: (p0) {
+                    gstNo = p0 ?? "";
+                    if (UiUtils.isGSTValid(gstNo) || gstNo.isEmpty) {
+                      gstErrorMessage = null;
+                    } else {
+                      gstErrorMessage = "Please Enter Valid GST Number";
+                    }
+                    setState(() {});
+                  },
+                ),
               ),
               GestureDetector(
                 onTap: () async {
@@ -390,14 +393,13 @@ class _UserSolarInfoScreenState extends State<UserSolarInfoScreen> {
   }
 
   Widget buildContinueButton(BuildContext context) {
-    bool allFieldsFilled = firmName.isNotEmpty &&
-        gstNo.isNotEmpty &&
+    bool allFieldsFilled = ((firmName.isEmpty) || (gstNo.isNotEmpty)) &&
         state != null &&
         district != null;
 
     final Map<String, String> errorMessages = {
-      if (firmName.isEmpty) 'firmName': 'Please fill in the firm name field.',
-      if (gstNo.isEmpty) 'gstNo': 'Please fill in the GST number field.',
+      if (firmName.isNotEmpty && gstNo.isEmpty)
+        'gstNo': 'Please fill Gst Number',
       if (state == null) 'state': 'Please select a state.',
       if (district == null) 'district': 'Please select a district.',
     };
