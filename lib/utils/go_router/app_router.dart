@@ -83,7 +83,6 @@ import 'package:lokal/screens/basicdetails/otherdetails.dart';
 import 'package:lokal/screens/basicdetails/personaldetails.dart';
 import 'package:lokal/screens/basicdetails/upload%20documents.dart';
 import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
-import 'package:lokal/screens/editProfile/edit_profile_screen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
@@ -196,7 +195,6 @@ class AppRoutes {
       _manageAgentScreen,
       _getAllCustomerForUserService,
       _getAllAgentsForUserService,
-      _profileScreen,
       _profile_otherdetails,
       _profile_uploaddocuments,
       _profile_personal_details,
@@ -617,14 +615,7 @@ class AppRoutes {
           .page;
     },
   );
-  static final GoRoute _profileScreen = GoRoute(
-    path: ScreenRoutes.profileScreen,
-    builder: (context, state) {
-      return EditProfileScreen(
-        key: state.pageKey,
-      );
-    },
-  );
+
 
   static final GoRoute _customerLokalQr = GoRoute(
     path: ScreenRoutes.customerLokalQr,

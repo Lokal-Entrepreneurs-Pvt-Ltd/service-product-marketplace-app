@@ -12,6 +12,9 @@ Tinker Box Ui Sdk.
 This project is a starting point for a Lokal application.
 
 
+## [1.0.53+53] - 2024-5-22
+Fixes in solar power, and disabled news flow for now
+
 ## [1.0.52+52] - 2024-5-15
 Integrated Solar Power flow
 

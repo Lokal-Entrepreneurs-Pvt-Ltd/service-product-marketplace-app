@@ -2158,10 +2158,10 @@ packages:
     dependency: "direct main"
     description:
       name: ui_sdk
-      sha256: b98b93deb1be6356243f50e1fc7b4f4968c790ca97125271a198322c70a06448
+      sha256: c4f58cba7f90b6ca278321f2da3f6a50ecea60a9afe4e558654a313c80015007
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.135+1"
+    version: "1.0.138+1"
   universal_io:
     dependency: transitive
     description:
@@ -2267,13 +2267,13 @@ packages:
     source: hosted
     version: "3.1.1"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
-      sha256: cd210a09f7c18cbe5a02511718e0334de6559871052c90a90c0cca46a4aa81c8
+      sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
       url: "https://pub.dev"
     source: hosted
-    version: "4.3.3"
+    version: "4.4.0"
   vector_graphics:
     dependency: transitive
     description:

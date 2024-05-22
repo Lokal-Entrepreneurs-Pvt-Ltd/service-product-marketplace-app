@@ -14,10 +14,10 @@ import 'package:lokal/utils/go_router/app_router.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:platform_device_id/platform_device_id.dart';
 import 'package:shake_detector/shake_detector.dart';
 import 'package:ui_sdk/ApiResponseState.dart';
 import 'package:ui_sdk/utils/extensions.dart';
+import 'package:uuid/uuid.dart';
 import 'configs/environment.dart';
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
@@ -140,7 +140,7 @@ class _LokalAppState extends State<LokalApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       await EventSDK.init();
-      deviceId = await PlatformDeviceId.getDeviceId;
+      deviceId = Uuid().v4();
     } on PlatformException {
       deviceId = 'Failed to get deviceId.';
     }
