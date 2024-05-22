@@ -396,6 +396,19 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
             houseDetails.isNotEmpty)
         : areaNotAvailableCheck!;
 
+    final Map<String, String> errorMessages = (aboveReuiredArea == 0)
+        ? {
+            if (houseDetails.isEmpty) 'house': 'Please fill House/BuildingNo.',
+            if (streetDetails.isEmpty) 'street': 'Please fill Street Address',
+            if (state == null) 'state': 'Please select a state.',
+            if (district == null) 'district': 'Please select a district.',
+            if (pinCode.isEmpty) 'pinCode': 'Please fill Street Address',
+            if (place == null) 'place': 'Please select Geotag',
+          }
+        : {
+            if (!areaNotAvailableCheck!) 'place': 'Please check box',
+          };
+
     return Container(
       alignment: Alignment.center,
       child: UikButton(
@@ -404,7 +417,14 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
         textSize: 16.0,
         textWeight: FontWeight.w500,
         backgroundColor: allFieldsFilled ? Colors.yellow : Colors.grey,
-        onClick: allFieldsFilled ? updatedata : null,
+        onClick: allFieldsFilled
+            ? updatedata
+            : () {
+                for (var message in errorMessages.values) {
+                  UiUtils.showToast(message);
+                  break;
+                }
+              },
       ),
     );
   }
