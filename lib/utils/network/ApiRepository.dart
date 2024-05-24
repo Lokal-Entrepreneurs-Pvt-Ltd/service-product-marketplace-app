@@ -457,6 +457,14 @@ class ApiRepository {
     return HttpScreenClient.getApiResponse(
         ApiRoutes.getAllAgentByPartnerId, args);
   }
+
+  static Future<ApiResponse> updateCustomerById(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.updateCustomerById, args);
+  }
+
+  static Future<ApiResponse> deleteCustomerById(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.deleteCustomerById, args);
+  }
 }
 
 // apirequestbody class

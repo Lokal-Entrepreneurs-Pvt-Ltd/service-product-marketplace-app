@@ -129,4 +129,6 @@ class ApiRoutes {
   static const String getAllAgentByPartnerId =
       "/partnerAgent/getAgentDetailsByPartnerId";
   static const String addTeamMemberRequest = "/agent/addTeamMemberRequest";
+  static const String updateCustomerById = "/agent/update";
+  static const String deleteCustomerById = "/agent/deletebyid";
 }
