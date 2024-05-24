@@ -336,7 +336,7 @@ class AppRoutes {
     builder: (context, state) {
       // final Map<String, dynamic>? extraArgs =
       // state.extra as Map<String, dynamic>?;
-      return const DUIPage(
+      return DUIPage(
         pageUid: 'homepage-65fbe15043a6c8e5400e65b9',
       );
     },
@@ -615,7 +615,6 @@ class AppRoutes {
           .page;
     },
   );
-
 
   static final GoRoute _customerLokalQr = GoRoute(
     path: ScreenRoutes.customerLokalQr,
