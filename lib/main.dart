@@ -1,4 +1,5 @@
-import 'package:digia_ui/digia_ui.dart';
+
+import 'package:digia_ui/digia_ui.dart' as Digia;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,7 @@ import 'package:uuid/uuid.dart';
 import 'configs/environment.dart' as env;
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
+import 'configs/environment.dart';
 // import 'package:shake/shake.dart';
 
 AppInitializer? appInit;
@@ -38,11 +40,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // final appConfigDataHandler = AppConfigDataHandler();
   // await appConfigDataHandler.init();
-  DigiaUIClient.initializeFromNetwork(
-      accessKey: '65fbe15043a6c8e5400e65b9',
-      environment: Environment.staging,
-      version: 0);
+
+
   await PreferenceUtils.init();
+
   String environment = String.fromEnvironment(
     ENVIRONMENT_KEY,
     defaultValue: EnvironmentDataHandler.getDefaultEnvironment(),
@@ -65,6 +66,9 @@ void main() async {
     ),
   );
 
+   Digia.DigiaUIClient.initializeFromNetwork(accessKey: "65fbe15043a6c8e5400e65b9",
+       environment: Digia.Environment.staging,
+       version: 1, networkConfiguration: Digia.NetworkConfiguration(defaultHeaders: {}, timeout: 30));
   //
   // FlutterError.onError = (errorDetails) {
   //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);

@@ -36,8 +36,9 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    namespace 'com.lokal.app'
     // compileSdkVersion 33
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
     // ndkVersion 19
 
@@ -55,7 +56,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.lokal.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
