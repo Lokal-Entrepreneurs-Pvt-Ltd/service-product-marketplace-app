@@ -63,9 +63,7 @@ import 'package:lokal/pages/UikSearchCatalog.dart';
 import 'package:lokal/pages/UikServiceDetail.dart';
 import 'package:lokal/pages/UikServicesLanding.dart';
 import 'package:lokal/screen_routes.dart';
-import 'package:lokal/screens/Form/SamhitaBecomeParticipant.dart';
 import 'package:lokal/screens/Form/SamhitaDataCollector.dart';
-import 'package:lokal/screens/Form/SamhitaOtp.dart';
 import 'package:lokal/screens/Form/SamhitaVerifyParticipant.dart';
 import 'package:lokal/screens/Form/extraPayOptIn.dart';
 import 'package:lokal/screens/Onboarding/CustomerLoginScreen.dart';
@@ -180,8 +178,6 @@ class AppRoutes {
       _otpScreen,
       _samhitaDataCollector,
       _samhitaAddParticipantForm,
-      _samhitaBecomeParticipantForm,
-      _samhitaOtp,
       _extraPayOptInScreen,
       _samhitaVerifyParticipantForm,
       _addAgentScreen,
@@ -839,23 +835,6 @@ class AppRoutes {
     builder: (context, state) {
       return SamhitaAddParticipants(
         key: state.pageKey,
-      );
-    },
-  );
-  static final GoRoute _samhitaBecomeParticipantForm = GoRoute(
-    path: ScreenRoutes.samhitaBecomeParticipantForm,
-    builder: (context, state) {
-      return SamhitaBecomeParticipant(
-        key: state.pageKey,
-      );
-    },
-  );
-  static final GoRoute _samhitaOtp = GoRoute(
-    path: ScreenRoutes.samhitaBecomeParticipantForm,
-    builder: (context, state) {
-      return SamhitaOtp(
-        key: state.pageKey,
-        args: state.extra,
       );
     },
   );
