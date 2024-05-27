@@ -13,6 +13,7 @@ import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/textInputContainer.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:ui_sdk/props/ApiResponse.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class AddAgentInService extends StatefulWidget {
@@ -39,10 +40,20 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
       false; // New variable to track if "Continue" button is loading
   bool isLoadingResendOtp = false;
   bool fromAllAgent = false;
+  Map<String, dynamic>? agent = null;
+  bool fromHome = false;
 
   @override
   void initState() {
     fromAllAgent = widget.args["fromAllAgent"] ?? false;
+    fromHome = widget.args["fromHome"] ?? false;
+    agent = widget.args["agent"];
+    if (agent != null) {
+      name = agent?["name"] ?? "";
+      work = agent?["work"] ?? "";
+      email = agent?["email"] ?? "";
+      phoneNumber = agent?["mobile"] ?? "";
+    }
     super.initState();
   }
 
@@ -108,33 +119,29 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: buildTitle("Add your team Details", 18, FontWeight.w500),
+                child: buildTitle(
+                    (agent == null)
+                        ? "Add your team Details"
+                        : "Update Your team Details",
+                    18,
+                    FontWeight.w500),
               ),
               formFilled(),
-              buildTitle(
-                  "Enter the OTP send on the team member’s registered Mobile Number on Lokal",
-                  14,
-                  FontWeight.w400),
-              _buildPinAndResend(),
+              (agent == null)
+                  ? Column(
+                      children: [
+                        buildTitle(
+                            "Enter the OTP send on the team member’s registered Mobile Number on Lokal",
+                            14,
+                            FontWeight.w400),
+                        _buildPinAndResend(),
+                      ],
+                    )
+                  : Container(),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget areaNotAvailable() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          child: buildTitle(
-            "We assure Lokal, will arrange in a month, give time of 30 days",
-            16,
-            FontWeight.w400,
-          ),
-        ),
-      ],
     );
   }
 
@@ -182,31 +189,36 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
           },
           errorText: errorEmailMessage,
         ),
-        TextInputContainer(
-          fieldName: "Mobile",
-          initialValue: phoneNumber,
-          isEnterYourEnabled: false,
-          enabled: true,
-          showCursor: true,
-          textInputType: TextInputType.phone,
-          onFileSelected: (p0) {
-            phoneNumber = p0 ?? "";
-            if (UiUtils.isPhoneNoValid(phoneNumber) || phoneNumber.isEmpty) {
-              errorPhoneMessage = null;
-            } else {
-              errorPhoneMessage = "Please Enter 10 digit Valid Mobile Number";
-            }
-            setState(() {});
-          },
-          errorText: errorPhoneMessage,
-        ),
+        (agent == null)
+            ? TextInputContainer(
+                fieldName: "Mobile",
+                initialValue: phoneNumber,
+                isEnterYourEnabled: false,
+                enabled: true,
+                showCursor: true,
+                textInputType: TextInputType.phone,
+                onFileSelected: (p0) {
+                  phoneNumber = p0 ?? "";
+                  if (UiUtils.isPhoneNoValid(phoneNumber) ||
+                      phoneNumber.isEmpty) {
+                    errorPhoneMessage = null;
+                  } else {
+                    errorPhoneMessage =
+                        "Please Enter 10 digit Valid Mobile Number";
+                  }
+                  setState(() {});
+                },
+                errorText: errorPhoneMessage,
+              )
+            : Container(),
       ],
     );
   }
 
   Widget buildContinueButton(BuildContext context) {
-    bool allFieldsFilled = (phoneNumber.isNotEmpty &&
-        otpPinEntered.isNotEmpty &&
+    bool allFieldsFilled = (((agent != null)
+            ? true
+            : phoneNumber.isNotEmpty && otpPinEntered.isNotEmpty) &&
         email.isNotEmpty &&
         work.isNotEmpty &&
         name.isNotEmpty &&
@@ -246,21 +258,31 @@ class _AddAgentInServiceState extends State<AddAgentInService> {
       setState(() {
         isLoading = true;
       });
-      final response = await ApiRepository.verifyAndAddAgentOtp({
-        "email": email,
-        "name": name,
-        "mobile": phoneNumber,
-        "otp": otpPinEntered,
-        "work": work
-      });
+      final ApiResponse response;
+      if (agent == null) {
+        response = await ApiRepository.verifyAndAddAgentOtp({
+          "email": email,
+          "name": name,
+          "mobile": phoneNumber,
+          "otp": otpPinEntered,
+          "work": work
+        });
+      } else {
+        response = await ApiRepository.updateCustomerById(
+            {"id": agent?["id"], "email": email, "name": name, "work": work});
+      }
+
       if (response.isSuccess!) {
         if (response.data != null) {
-          UiUtils.showToast(ADD_AGENT_SUCESSFULL);
+          UiUtils.showToast((agent == null)
+              ? "Added Team Member Successfully"
+              : "Updated Team Member Successfully");
           if (fromAllAgent) {
             NavigationUtils.pushAndPopUntil(ScreenRoutes.allAgentForService,
                 ScreenRoutes.allAgentForService);
           } else {
-            NavigationUtils.pop();
+            NavigationUtils.pushAndPopUntil(ScreenRoutes.dynamicPage,
+                ScreenRoutes.dynamicPage, {"pageType": "SolarProfile"});
           }
         } else {
           UiUtils.showToast(ADD_AGENT_FAILED);
