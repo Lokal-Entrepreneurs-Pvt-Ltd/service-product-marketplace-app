@@ -18,7 +18,7 @@ import 'package:shake_detector/shake_detector.dart';
 import 'package:ui_sdk/ApiResponseState.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 import 'package:uuid/uuid.dart';
-import 'configs/environment.dart';
+import 'configs/environment.dart' as env;
 import 'package:lokal/utils/storage/shared_prefs.dart';
 import 'package:provider/provider.dart';
 // import 'package:shake/shake.dart';
@@ -32,18 +32,22 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  DigiaUIClient.initializeFromNetwork(accessKey: '65fbe15043a6c8e5400e65b9');
+
   appInit = AppInitializer();
   await appInit?.init();
   WidgetsFlutterBinding.ensureInitialized();
   // final appConfigDataHandler = AppConfigDataHandler();
   // await appConfigDataHandler.init();
+  DigiaUIClient.initializeFromNetwork(
+      accessKey: '65fbe15043a6c8e5400e65b9',
+      environment: Environment.staging,
+      version: 0);
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(
     ENVIRONMENT_KEY,
     defaultValue: EnvironmentDataHandler.getDefaultEnvironment(),
   );
-  Environment().initConfig(environment);
+  env.Environment().initConfig(environment);
 
   runApp(
     MultiBlocProvider(
@@ -193,7 +197,7 @@ class _LokalAppState extends State<LokalApp> {
                 onPressed: () {
                   setState(() {
                     EnvUtils.setEnvironmentAndResetApp(
-                        context, Environment.PROD, "");
+                        context, env.Environment.PROD, "");
                   });
                 },
               ),
@@ -204,7 +208,7 @@ class _LokalAppState extends State<LokalApp> {
                 onPressed: () {
                   setState(() {
                     EnvUtils.setEnvironmentAndResetApp(
-                        context, Environment.DEV, "");
+                        context, env.Environment.DEV, "");
                   });
                 },
               ),
@@ -215,7 +219,7 @@ class _LokalAppState extends State<LokalApp> {
                 onPressed: () {
                   setState(() {
                     EnvUtils.setEnvironmentAndResetApp(
-                        context, Environment.LOCAL, tempLocalUrl);
+                        context, env.Environment.LOCAL, tempLocalUrl);
                   });
                 },
               ),
