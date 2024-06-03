@@ -36,7 +36,6 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace 'com.lokal.app'
     // compileSdkVersion 33
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
@@ -97,4 +96,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
     implementation "androidx.multidex:multidex:2.0.1"
+
 }

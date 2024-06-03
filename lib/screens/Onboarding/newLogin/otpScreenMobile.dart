@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:android_sms_retriever/android_sms_retriever.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +56,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
     // getOtp();
     // fetchData();
     startTimer();
-    startSmsListener();
+   // startSmsListener();
   }
 
   void getOtp() async {
@@ -91,31 +90,31 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
     }
   }
 
-  void startSmsListener() async {
-    try {
-      AndroidSmsRetriever.getAppSignature().then((value) {
-        setState(() {
-          String _applicationSignature = value ?? 'Signature Not Found';
-          print("App Signature : $_applicationSignature");
-        });
-      });
-      String? value = await AndroidSmsRetriever.listenForOneTimeConsent()
-          .timeout(Duration(seconds: 30));
-      if (value != null) {
-        setState(() {
-          final intRegex = RegExp(r'\d+', multiLine: true);
-          final code = intRegex.allMatches(value).first.group(0);
-          String _smsCode = code ?? '12345';
-          otpPinEntered = "";
-          otpPinEntered = _smsCode;
-        });
-        await handleContinueButton();
-      }
-      AndroidSmsRetriever.stopSmsListener();
-    } catch (e) {
-      print('Error listening for SMS: $e');
-    }
-  }
+  // void startSmsListener() async {
+  //   try {
+  //     AndroidSmsRetriever.getAppSignature().then((value) {
+  //       setState(() {
+  //         String _applicationSignature = value ?? 'Signature Not Found';
+  //         print("App Signature : $_applicationSignature");
+  //       });
+  //     });
+  //     String? value = await AndroidSmsRetriever.listenForOneTimeConsent()
+  //         .timeout(Duration(seconds: 30));
+  //     if (value != null) {
+  //       setState(() {
+  //         final intRegex = RegExp(r'\d+', multiLine: true);
+  //         final code = intRegex.allMatches(value).first.group(0);
+  //         String _smsCode = code ?? '12345';
+  //         otpPinEntered = "";
+  //         otpPinEntered = _smsCode;
+  //       });
+  //       await handleContinueButton();
+  //     }
+  //     AndroidSmsRetriever.stopSmsListener();
+  //   } catch (e) {
+  //     print('Error listening for SMS: $e');
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -196,7 +195,7 @@ class _OtpScreenMobileState extends State<OtpScreenMobile> {
           canResendOtp = false;
           seconds = 30; // Reset the timer to 30 seconds when OTP is resent
           // digitSeconds = "30";
-          startSmsListener();
+         // startSmsListener();
         });
         // Start the timer again
         startTimer();
