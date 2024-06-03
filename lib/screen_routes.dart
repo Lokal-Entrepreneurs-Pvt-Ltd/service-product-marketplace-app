@@ -112,4 +112,5 @@ class ScreenRoutes {
   static const String userSolarInfo2Screen = '/usersolarinfo2screen';
   static const String addAgentInService = '/addagentinservice';
   static const String allAgentForService = '/allagentforservice';
+  static const String uploadDocumentsInfo = '/uploadDocumentsInfo';
 }
