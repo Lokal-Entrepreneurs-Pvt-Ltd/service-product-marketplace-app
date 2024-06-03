@@ -146,8 +146,7 @@ class AppRoutes {
     navigatorKey: rootNavigatorKey,
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
-        : _uploadDocumentsInfo.path,
-    // : uikBottomNavigationBar.path,
+        : uikBottomNavigationBar.path,
     // initialLocation: _allAgentForService.path,
     observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
