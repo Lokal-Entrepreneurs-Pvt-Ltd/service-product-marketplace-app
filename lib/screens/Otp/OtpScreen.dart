@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:android_sms_retriever/android_sms_retriever.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -48,38 +47,38 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void initState() {
     super.initState();
-    _startSmsListener();
+    // _startSmsListener();
     startTimer();
   }
 
-  void _startSmsListener() async {
-    try {
-      AndroidSmsRetriever.getAppSignature().then((value) {
-        setState(() {
-          String _applicationSignature = value ?? 'Signature Not Found';
-          print("App Signature : $_applicationSignature");
-        });
-      });
-
-      AndroidSmsRetriever.listenForOneTimeConsent().then((value) async {
-        setState(() {
-          final intRegex = RegExp(r'\d+', multiLine: true);
-          final code = intRegex
-              .allMatches(value ?? 'Phone Number Not Found')
-              .first
-              .group(0);
-          print(code);
-          String _smsCode = code ?? '12345';
-          otpPinEntered = "";
-          otpPinEntered = _smsCode;
-          AndroidSmsRetriever.stopSmsListener();
-        });
-        await handleContinueButton();
-      }).timeout(Duration(seconds: 30));
-    } catch (e) {
-      print('Error listening for SMS: $e');
-    }
-  }
+  // void _startSmsListener() async {
+  //   try {
+  //     AndroidSmsRetriever.getAppSignature().then((value) {
+  //       setState(() {
+  //         String _applicationSignature = value ?? 'Signature Not Found';
+  //         print("App Signature : $_applicationSignature");
+  //       });
+  //     });
+  //
+  //     AndroidSmsRetriever.listenForOneTimeConsent().then((value) async {
+  //       setState(() {
+  //         final intRegex = RegExp(r'\d+', multiLine: true);
+  //         final code = intRegex
+  //             .allMatches(value ?? 'Phone Number Not Found')
+  //             .first
+  //             .group(0);
+  //         print(code);
+  //         String _smsCode = code ?? '12345';
+  //         otpPinEntered = "";
+  //         otpPinEntered = _smsCode;
+  //         AndroidSmsRetriever.stopSmsListener();
+  //       });
+  //       await handleContinueButton();
+  //     }).timeout(Duration(seconds: 30));
+  //   } catch (e) {
+  //     print('Error listening for SMS: $e');
+  //   }
+  // }
 
   @override
   void dispose() {
