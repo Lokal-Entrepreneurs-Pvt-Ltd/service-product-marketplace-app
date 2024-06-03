@@ -28,6 +28,7 @@ import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
 import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/screens/solar/addAgentinService.dart';
+import 'package:lokal/screens/solar/addNewLeads/uploadDocuments.dart';
 import 'package:lokal/screens/solar/allAgents.dart';
 import 'package:lokal/screens/solar/userDetails.dart';
 import 'package:lokal/screens/solar/userDetails2.dart';
@@ -145,7 +146,8 @@ class AppRoutes {
     navigatorKey: rootNavigatorKey,
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
-        : uikBottomNavigationBar.path,
+        : _uploadDocumentsInfo.path,
+    // : uikBottomNavigationBar.path,
     // initialLocation: _allAgentForService.path,
     observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
@@ -230,10 +232,21 @@ class AppRoutes {
       _userSolarInfo2Screen,
       _addAgentInService,
       _allAgentForService,
+      _uploadDocumentsInfo,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _uploadDocumentsInfo = GoRoute(
+    path: ScreenRoutes.uploadDocumentsInfo,
+    builder: (context, state) {
+      return UploadDocumnetInfo(
+        key: state.pageKey,
+        args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _allAgentForService = GoRoute(
     path: ScreenRoutes.allAgentForService,
@@ -337,7 +350,7 @@ class AppRoutes {
       // final Map<String, dynamic>? extraArgs =
       // state.extra as Map<String, dynamic>?;
       return DUIPage(
-        pageUid: 'homepage-65fbe15043a6c8e5400e65b9',
+        pageUid: 'mywallet',
       );
     },
   );

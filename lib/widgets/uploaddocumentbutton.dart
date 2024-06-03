@@ -17,15 +17,18 @@ enum UploadMethod { FilePicker, CustomFunction }
 class UploadButton extends StatefulWidget {
   final String text;
   String imageUrl;
+  final Widget? leading;
   final Function(String?)? onFileSelected;
   final String documentType;
   final UploadMethod uploadMethod;
   final Function()? customFunction;
   // New property to track upload success
 
-  UploadButton({super.key, 
+  UploadButton({
+    super.key,
     required this.text,
     required this.documentType,
+    this.leading,
     this.onFileSelected,
     this.imageUrl = "",
     this.uploadMethod = UploadMethod.FilePicker,
@@ -41,7 +44,7 @@ class _UploadButtonState extends State<UploadButton> {
   bool _uploading = false;
   bool _uploadSuccess = false;
   String? _imageUrl;
-  late String? _contentType;
+  String? _contentType = null;
   bool _isLoading = false;
 
   Future<void> uploadFile(File file) async {
@@ -109,15 +112,20 @@ class _UploadButtonState extends State<UploadButton> {
             )),
       );
     } else {
-      if (_contentType != null && _contentType!.contains('application/pdf')) {
+      if (_contentType != null) {
+        if (_contentType!.contains('application/pdf')) {
+          return SvgPicture.network(
+              "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg");
+        } else {
+          return Image.network(
+            widget.imageUrl,
+            width: 30,
+            height: 30,
+          );
+        }
+      } else {
         return SvgPicture.network(
             "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg");
-      } else {
-        return Image.network(
-          widget.imageUrl,
-          width: 30,
-          height: 30,
-        );
       }
     }
   }
@@ -125,12 +133,13 @@ class _UploadButtonState extends State<UploadButton> {
   @override
   void initState() {
     if (widget.imageUrl.isNotEmpty) {
-      _imageUrl = widget.imageUrl.isEmpty ? null : widget.imageUrl;
+      _imageUrl = widget.imageUrl;
       _uploadSuccess = true;
+      if (_imageUrl != null) {
+        getContentName();
+      }
     }
-    if (_imageUrl != null) {
-      getContentName();
-    }
+
     super.initState();
   }
 
@@ -192,9 +201,6 @@ class _UploadButtonState extends State<UploadButton> {
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Colors.black,
-                          // fontWeight: _uploadSuccess
-                          //     ? FontWeight.bold
-                          //     : FontWeight.normal,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -227,6 +233,9 @@ class _UploadButtonState extends State<UploadButton> {
         );
       }
     } else {
+      if (widget.leading != null) {
+        return widget.leading!;
+      }
       return const Icon(
         Icons.file_upload,
         color: Colors.black,
