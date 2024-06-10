@@ -113,4 +113,13 @@ class ScreenRoutes {
   static const String addAgentInService = '/addagentinservice';
   static const String allAgentForService = '/allagentforservice';
   static const String uploadDocumentsInfo = '/uploadDocumentsInfo';
+  static const String fieldScreen = '/fieldScreen/:route';
+  static const String addNewLeads1 = '/fieldScreen/addNewLeads';
+  static const String customerLoanDetails = '/fieldScreen/customerloandetails';
+  static const String customerBankDetails = '/fieldScreen/customerbankdetails';
+  static const String addressOfCustomer = '/fieldScreen/addressofcustomer';
+  static const String customerUploadDocuments =
+      '/fieldScreen/customeruploadDocuments';
+  static const String partnerInfo = "/partnerInfo";
+  static const String partnerScreen = "/partnerScreen";
 }

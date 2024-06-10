@@ -28,8 +28,11 @@ import 'package:lokal/screens/serviceInfra/service_landing_screen.dart';
 import 'package:lokal/screens/signUp/customer_signup_screen.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
 import 'package:lokal/screens/solar/addAgentinService.dart';
+import 'package:lokal/screens/solar/addNewLeads/fieldScreen.dart';
 import 'package:lokal/screens/solar/addNewLeads/uploadDocuments.dart';
 import 'package:lokal/screens/solar/allAgents.dart';
+import 'package:lokal/screens/solar/partnerInfo.dart';
+import 'package:lokal/screens/solar/partnerscreen.dart';
 import 'package:lokal/screens/solar/userDetails.dart';
 import 'package:lokal/screens/solar/userDetails2.dart';
 import 'package:lokal/utils/Logs/event.dart';
@@ -93,12 +96,17 @@ class RouteChangeObserver extends RouteObserver {
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
     String? routename = route.settings.name;
+
     late Event event;
     if (route != previousRoute) {
       if (routename != null) {
-        routename = routename.replaceAll('/', '_');
+        if (routename.contains("/fieldScreen")) {
+          routename =
+              "/fieldScreen/${(route.settings.arguments as Map)["route"]}";
+        }
+        final logroutename = routename.replaceAll('/', '_');
         event = Event.build(
-            name: "Routes_Called_$routename", route: route.settings.name);
+            name: "Routes_Called_$logroutename", route: route.settings.name);
       } else {
         event = Event.build(
             name: "Route_Called_null",
@@ -107,7 +115,7 @@ class RouteChangeObserver extends RouteObserver {
       }
       event.fire();
     }
-    print('Route pushed: ${route.settings.name}');
+    print('Route pushed: $routename');
   }
 
   @override
@@ -134,7 +142,9 @@ class AppRoutes {
     while (_goRouter.canPop()) {
       GoRoute go =
           _goRouter.routerDelegate.currentConfiguration.routes.last as GoRoute;
-      if (go.path == name) {
+      String path =
+          _goRouter.routerDelegate.currentConfiguration.last.matchedLocation;
+      if (path == name) {
         break;
       }
       _goRouter.pop();
@@ -147,6 +157,7 @@ class AppRoutes {
     initialLocation: UserDataHandler.getUserToken().isEmpty
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
+    // : _fieldScreen.path,
     // initialLocation: _allAgentForService.path,
     observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
@@ -232,10 +243,33 @@ class AppRoutes {
       _addAgentInService,
       _allAgentForService,
       _uploadDocumentsInfo,
+      _fieldScreen,
+      _partnerInfo,
+      _partnerScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _partnerScreen = GoRoute(
+    path: ScreenRoutes.partnerScreen,
+    builder: (context, state) {
+      return MyPartnerScreenWrapper(
+          page: UikDynamicPage(args: {"pageType": "SolarProfile"}).page);
+    },
+  );
+
+  static final GoRoute _fieldScreen = GoRoute(
+    path: ScreenRoutes.fieldScreen,
+    builder: (context, state) {
+      final routeParam = state.matchedLocation;
+      return FieldScreen(
+        key: state.pageKey,
+        routeParams: routeParam,
+        args: state.extra,
+      );
+    },
+  );
 
   static final GoRoute _uploadDocumentsInfo = GoRoute(
     path: ScreenRoutes.uploadDocumentsInfo,
@@ -346,11 +380,16 @@ class AppRoutes {
   static final GoRoute _newsScreen = GoRoute(
     path: ScreenRoutes.newsPage,
     builder: (context, state) {
-      // final Map<String, dynamic>? extraArgs =
-      // state.extra as Map<String, dynamic>?;
       return DUIPage(
-        pageUid: 'mywallet',
+        pageUid: 'homepage-65fbe15043a6c8e5400e65b9',
       );
+    },
+  );
+
+  static final GoRoute _partnerInfo = GoRoute(
+    path: ScreenRoutes.partnerInfo,
+    builder: (context, state) {
+      return const PartnerInfo();
     },
   );
 
