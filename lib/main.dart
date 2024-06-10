@@ -41,6 +41,8 @@ void main() async {
   DigiaUIClient.initializeFromNetwork(
       accessKey: '65fbe15043a6c8e5400e65b9',
       environment: Environment.staging,
+      networkConfiguration:
+          NetworkConfiguration(defaultHeaders: {}, timeout: 2),
       version: 0);
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(

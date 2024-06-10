@@ -51,10 +51,28 @@ class UiUtils {
         .hasMatch(gst);
   }
 
+  static bool isIFSCValid(String ifsc) {
+    return RegExp(r'^[A-Z]{4}0[A-Z0-9]{6}$').hasMatch(ifsc);
+  }
+
+  static bool isNumberValid(String number) {
+    return RegExp(r'^[0-9]+(\.[0-9]+)?$').hasMatch(number);
+  }
+
+  static bool isPINCodeValid(String pinCode) {
+    return RegExp(r'^[1-9][0-9]{5}$').hasMatch(pinCode);
+  }
+
+  static bool isDateTimeValid(String dateTime) {
+    // Regular expression to match the format YYYY-MM-DD HH:MM
+    final dateTimeRegExp = RegExp(
+        r'^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) ([01][0-9]|2[0-3]):([0-5][0-9])$');
+    return dateTimeRegExp.hasMatch(dateTime);
+  }
+
   static bool isPhoneNoValid(String value) {
     final indianPhoneNumberRegex = RegExp(r'^[6-9][0-9]{9}$');
 
-    // Check if the value matches the Indian mobile number pattern
     return indianPhoneNumberRegex.hasMatch(value);
   }
 

@@ -447,8 +447,8 @@ class _UserSolarInfo2ScreenState extends State<UserSolarInfo2Screen> {
       final response = await ApiRepository.updateSolarUserFields(map);
 
       if (response.isSuccess!) {
-        NavigationUtils.pushAndPopUntil(ScreenRoutes.dynamicPage,
-            ScreenRoutes.accountSettings, {"pageType": "SolarProfile"});
+        NavigationUtils.pushAndPopUntil(
+            ScreenRoutes.partnerScreen, ScreenRoutes.accountSettings);
       } else {
         UiUtils.showToast(response.error![MESSAGE]);
       }
