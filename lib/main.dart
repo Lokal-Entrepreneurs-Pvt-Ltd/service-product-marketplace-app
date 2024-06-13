@@ -40,6 +40,8 @@ void main() async {
   // await appConfigDataHandler.init();
   DigiaUIClient.initializeFromNetwork(
       accessKey: '65fbe15043a6c8e5400e65b9',
+      networkConfiguration:
+          NetworkConfiguration(defaultHeaders: {}, timeout: 8),
       environment: Environment.staging,
       version: 0);
   await PreferenceUtils.init();
