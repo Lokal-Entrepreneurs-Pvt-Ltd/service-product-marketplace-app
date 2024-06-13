@@ -1,4 +1,5 @@
 import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
@@ -74,6 +75,24 @@ class FieldData {
         return RouteMethod.pushAndPopUntil;
       default:
         return RouteMethod.none;
+    }
+  }
+
+  static void handleRoute(RouteMethod routeMethod, String pageRoute,
+      String? popName, Map<String, dynamic>? args) {
+    switch (routeMethod) {
+      case RouteMethod.pop:
+        NavigationUtils.pop();
+        break;
+      case RouteMethod.push:
+        NavigationUtils.openScreen(pageRoute, args);
+        break;
+      case RouteMethod.pushAndPopUntil:
+        NavigationUtils.pushAndPopUntil(pageRoute, popName, args);
+        break;
+      case RouteMethod.none:
+        // Do nothing
+        break;
     }
   }
 
