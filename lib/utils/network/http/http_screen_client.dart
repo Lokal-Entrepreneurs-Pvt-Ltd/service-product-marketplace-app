@@ -10,6 +10,7 @@ import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:lokal/configs/environment.dart';
 import 'package:lokal/constants/strings.dart';
 import 'package:lokal/screens/signUp/signup_screen.dart';
@@ -92,33 +93,53 @@ class HttpScreenClient {
   static Future<ApiResponse> getmultipartrequest(
       String pageRoute, Map<String, dynamic> args) async {
     try {
-      // bool hasConnection = await InternetConnectionChecker().hasConnection;
-      // if (!hasConnection) {
-      //   displayNoInternetDialog(null);
-      //   throw Exception('No internet connection');
-      // }
+      bool hasConnection = await InternetConnectionChecker().hasConnection;
+      if (!hasConnection) {
+        displayNoInternetDialog(null);
+        throw Exception('No internet connection');
+      }
+      String routes = pageRoute.replaceAll('/', '_');
+      Event event =
+          Event.build(name: "Api_Called_$routes", apiEndPoint: pageRoute);
       var header = NetworkUtils.getRequestHeaders();
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(Environment().config.BASE_URL + pageRoute),
       )..headers.addAll(header);
       var bodyParams = args ?? <String, dynamic>{};
-      if (bodyParams.containsKey(FILE)) {
-        var file = bodyParams[FILE];
-        var fileStream = http.ByteStream(file.openRead());
-        var length = await file.length();
-        var multipartFile = http.MultipartFile(FILE, fileStream, length,
-            filename: file.path.split("/").last);
-        request.files.add(multipartFile);
-        bodyParams.remove(FILE);
+      Map<String, File> files = {};
+      bodyParams.forEach((key, value) {
+        if (value is File) {
+          files[key] = value;
+        }
+      });
+      files.forEach((key, value) {
+        bodyParams.remove(key);
+      });
+      bodyParams.forEach((key, value) {
+        if (value is String) {
+          request.fields[key] = value;
+        } else if (value is List<String>) {
+          for (var item in value) {
+            request.fields[key] = item;
+          }
+        }
+      });
+      for (var file in files.entries) {
+        request.files.add(await http.MultipartFile.fromPath(
+          file.key,
+          file.value.path,
+          contentType: getContentType(file.value),
+        ));
       }
-      request.fields.addAll({USE_CASE: bodyParams[USE_CASE]});
       var response = await request.send();
       if (response.statusCode == NetworkUtils.HTTP_SUCCESS) {
         var responseBody = await response.stream.bytesToString();
         ApiResponse apiResponse =
             ApiResponse.fromJson(jsonDecode(responseBody));
         if (apiResponse.isSuccess!) {
+          event.updateParameters(apiError: "No Error");
+          event.fire();
           return apiResponse;
         } else {
           String errorCode = apiResponse.error![CODE].toString();
@@ -158,6 +179,22 @@ class HttpScreenClient {
       // Log the error for debugging and monitoring
       debugPrint('API request failed: $e$stackTrace');
       rethrow;
+    }
+  }
+
+  static MediaType getContentType(File file) {
+    var extension = file.path.split('.').last.toLowerCase();
+    switch (extension) {
+      case 'pdf':
+        return MediaType('application', 'pdf');
+      case 'jpg':
+      case 'jpeg':
+        return MediaType('image', 'jpeg');
+      case 'png':
+        return MediaType('image', 'png');
+      // Add more cases as needed for other file types
+      default:
+        return MediaType('application', 'octet-stream');
     }
   }
 

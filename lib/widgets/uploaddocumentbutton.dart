@@ -14,13 +14,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 enum UploadMethod { FilePicker, CustomFunction }
 
+enum SupportType { All, pdf, image }
+
 class UploadButton extends StatefulWidget {
   final String text;
   String imageUrl;
+  final double? height;
   final Widget? leading;
-  final Function(String?)? onFileSelected;
+  final bool isgetFileDirectly;
+  final Function(dynamic)? onFileSelected;
   final String documentType;
   final UploadMethod uploadMethod;
+  final SupportType supportType;
   final Function()? customFunction;
   // New property to track upload success
 
@@ -31,7 +36,10 @@ class UploadButton extends StatefulWidget {
     this.leading,
     this.onFileSelected,
     this.imageUrl = "",
+    this.height = null,
+    this.isgetFileDirectly = false,
     this.uploadMethod = UploadMethod.FilePicker,
+    this.supportType = SupportType.All,
     this.customFunction,
     // Pass uploadSuccess status from parent
   });
@@ -43,7 +51,7 @@ class UploadButton extends StatefulWidget {
 class _UploadButtonState extends State<UploadButton> {
   bool _uploading = false;
   bool _uploadSuccess = false;
-  String? _imageUrl;
+  dynamic _imageUrl;
   String? _contentType = null;
   bool _isLoading = false;
 
@@ -51,6 +59,15 @@ class _UploadButtonState extends State<UploadButton> {
     setState(() {
       _uploading = true;
     });
+    if (widget.isgetFileDirectly) {
+      setState(() {
+        _uploading = false;
+        _uploadSuccess = true;
+        _imageUrl = file;
+      });
+      widget.onFileSelected!(_imageUrl);
+      return;
+    }
     final response = await ApiRepository.uploadDocuments(
       ApiRequestBody.getuploaddocumentsid(
         widget.documentType,
@@ -79,6 +96,15 @@ class _UploadButtonState extends State<UploadButton> {
     );
 
     if (result != null) {
+      String? name = result.names[0];
+      bool extensioncheck = false;
+      for (var extension in allowedExtensions) {
+        extensioncheck = extensioncheck || name!.endsWith(extension);
+      }
+      if (!extensioncheck) {
+        UiUtils.showToast("Please Select correct extension");
+        return;
+      }
       File pickedFile = File(result.files.single.path!);
       int fileSizeInBytes = await pickedFile.length();
 
@@ -143,6 +169,19 @@ class _UploadButtonState extends State<UploadButton> {
     super.initState();
   }
 
+  List<String> getSupportType(SupportType supportType) {
+    switch (supportType) {
+      case SupportType.All:
+        return ['pdf', 'jpg', 'jpeg', 'png'];
+      case SupportType.pdf:
+        return ['pdf'];
+      case SupportType.image:
+        return ['jpg', 'jpeg', 'png'];
+      default:
+        return ['pdf', 'jpg', 'jpeg', 'png'];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -151,7 +190,9 @@ class _UploadButtonState extends State<UploadButton> {
         onTap: () {
           if (widget.uploadMethod == UploadMethod.FilePicker) {
             if (_imageUrl == null) {
-              _pickFile(context, ['pdf', 'jpg', 'jpeg', 'png']);
+              List<String> allowedextension =
+                  getSupportType(widget.supportType);
+              _pickFile(context, allowedextension);
             } else {
               setState(() {
                 _uploading = false;
@@ -171,6 +212,7 @@ class _UploadButtonState extends State<UploadButton> {
           radius: const Radius.circular(12),
           color: UikColor.giratina_400.toColor(),
           child: Container(
+            height: widget.height,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
             decoration: BoxDecoration(
               color: UikColor.giratina_100.toColor(),
@@ -183,17 +225,24 @@ class _UploadButtonState extends State<UploadButton> {
                     ? ((_imageUrl == null)
                         ? SvgPicture.network(
                             "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg")
-                        : Image.network(
-                            _imageUrl!,
-                            width: 30,
-                            height: 30,
-                          ))
+                        : (widget.isgetFileDirectly)
+                            ? SvgPicture.network(
+                                "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg")
+                            : (_contentType!.contains('application/pdf'))
+                                ? SvgPicture.network(
+                                    "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg")
+                                : Image.network(
+                                    _imageUrl!,
+                                    width: 30,
+                                    height: 30,
+                                  ))
                     // : SvgPicture.network(
                     // "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg"),
                     : getContent(),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(

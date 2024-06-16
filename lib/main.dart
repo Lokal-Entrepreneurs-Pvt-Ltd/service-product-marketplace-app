@@ -43,6 +43,8 @@ void main() async {
       networkConfiguration:
           NetworkConfiguration(defaultHeaders: {}, timeout: 8),
       environment: Environment.staging,
+      networkConfiguration:
+          NetworkConfiguration(defaultHeaders: {}, timeout: 2),
       version: 0);
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(
