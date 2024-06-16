@@ -131,4 +131,6 @@ class ApiRoutes {
   static const String addTeamMemberRequest = "/agent/addTeamMemberRequest";
   static const String updateCustomerById = "/agent/update";
   static const String deleteCustomerById = "/agent/deletebyid";
+  static const String addNewLeads = "/leads/add";
+  static const String fetchPDF = "/pdfextract/extractpdfdata";
 }

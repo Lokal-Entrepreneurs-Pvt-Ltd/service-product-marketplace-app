@@ -465,6 +465,14 @@ class ApiRepository {
   static Future<ApiResponse> deleteCustomerById(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.deleteCustomerById, args);
   }
+
+  static Future<ApiResponse> fieldScreenApi(String route, args) {
+    return HttpScreenClient.getApiResponse(route, args);
+  }
+
+  static Future<ApiResponse> fetchPDF(args) {
+    return HttpScreenClient.getmultipartrequest(ApiRoutes.fetchPDF, args);
+  }
 }
 
 // apirequestbody class
