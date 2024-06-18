@@ -87,7 +87,7 @@ class _FieldScreenState extends State<FieldScreen> {
             Map<String, dynamic> mappings = api[endpoint]["populate"];
             for (String boxKey in mappings.keys) {
               Map<String, dynamic>? dataValues = mappings[boxKey];
-              String? value = dataValues?["value"];
+              var value = dataValues?["value"];
               String? type = dataValues?["type"];
               switch (type) {
                 case "string":
@@ -96,7 +96,22 @@ class _FieldScreenState extends State<FieldScreen> {
                   list[boxKey]["initData"] = values;
                   variableData[boxKey] = values;
                   break;
-                case "state":
+                case "selectionBox":
+                  if (value is String) {
+                    variableData[boxKey] = [
+                      ValueItem<int>(
+                          label: value,
+                          value: list[boxKey]["list"].indexOf(value))
+                    ];
+                  } else if (value is List) {
+                    variableData[boxKey] = [];
+                    for (var element in value) {
+                      variableData[boxKey].add(ValueItem<int>(
+                          label: element,
+                          value: list[boxKey]["list"].indexOf(value)));
+                    }
+                  }
+                  break;
                 default:
               }
             }
@@ -123,17 +138,6 @@ class _FieldScreenState extends State<FieldScreen> {
     for (var element in bodyMap.entries) {
       final key = element.key;
       final id = element.value["id"];
-      final errorText = element.value?["errorText"];
-      final type = element.value["type"];
-      final validation = element.value["validation"];
-      final name = element.value["name"];
-      final hint = element.value["hint"];
-      final text = element.value["text"];
-      final dependency = element.value["dependency"];
-      final function = element.value["function"];
-      final populateTo = element.value["populateTo"];
-      final isSingleSelected = element.value["isSingleSelected"];
-      final lists = element.value["list"];
       final joinToData = element.value["joinTo"];
       WidgetType widgetType = FieldData.getWidgetType(id);
       switch (widgetType) {
@@ -155,6 +159,21 @@ class _FieldScreenState extends State<FieldScreen> {
           locationData[key] = dataFunctions[id]!();
           break;
         case WidgetType.selectionBox:
+          var selectionInitData = list[key]["initData"];
+          if (selectionInitData is String) {
+            variableData[key] = [
+              ValueItem<int>(
+                  label: selectionInitData,
+                  value: list[key]["list"].indexOf(selectionInitData))
+            ];
+          } else if (selectionInitData is List) {
+            variableData[key] = [];
+            for (var element in selectionInitData) {
+              variableData[key].add(ValueItem<int>(
+                  label: element,
+                  value: list[key]["list"].indexOf(selectionInitData)));
+            }
+          }
           break;
         case WidgetType.selectableBox:
           //    if (isSingleSelected!= null &&
@@ -173,17 +192,6 @@ class _FieldScreenState extends State<FieldScreen> {
       }
     }
   }
-
-  // Widget wrapper(Map<String, dynamic> values, Widget child) {
-  //   String dependentOnAtWork = values.toString();
-  //   return Visibility(
-  //     key: ValueKey(dependentOnAtWork),
-  //     visible: values.containsKey("visibility")
-  //         ? variableData[values["visibility"]] ?? true
-  //         : true,
-  //     child: child,
-  //   );
-  // }
 
   @override
   void initState() {
@@ -531,66 +539,69 @@ class _FieldScreenState extends State<FieldScreen> {
   }
 
   Widget buildSelectionBox(Map value, String key) {
-    return UikMulti<int>(
-      onOptionSelected: (List<ValueItem<int>> selectedOptions) {
-        setState(() {
-          variableData[key] = selectedOptions;
-        });
-      },
-      hint: value["hint"],
-      options: (value["list"] as List<String>)
-          .map((e) =>
-              ValueItem(label: e, value: value["list"].indexOf(e) as int))
-          .toList(),
-      borderWidth: 1,
-      selectedOptions: variableData[key] ?? [],
-      selectionType: value["isSingleSelected"] != null
-          ? value["isSingleSelected"]
-              ? SelectionType.single
-              : SelectionType.multi
-          : SelectionType.single,
-      chipConfig: ChipConfig(
-        runSpacing: 8,
-        deleteIcon: const Icon(
-          Icons.close,
-          size: 20,
-          color: Colors.black,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: UikMulti<int>(
+        onOptionSelected: (List<ValueItem<int>> selectedOptions) {
+          setState(() {
+            variableData[key] = selectedOptions;
+          });
+        },
+        hint: value["hint"],
+        options: (value["list"] as List<String>)
+            .map((e) =>
+                ValueItem(label: e, value: value["list"].indexOf(e) as int))
+            .toList(),
+        borderWidth: 1,
+        selectedOptions: variableData[key] ?? [],
+        selectionType: value["isSingleSelected"] != null
+            ? value["isSingleSelected"]
+                ? SelectionType.single
+                : SelectionType.multi
+            : SelectionType.single,
+        chipConfig: ChipConfig(
+          runSpacing: 8,
+          deleteIcon: const Icon(
+            Icons.close,
+            size: 20,
+            color: Colors.black,
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
+          wrapType: WrapType.wrap,
+          backgroundColor: ("#FEE440").toColor(),
+          labelStyle: GoogleFonts.poppins(
+            fontSize: 16,
+            color: Colors.black,
+            fontWeight: FontWeight.w400,
+          ),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 7.5, horizontal: 20),
-        wrapType: WrapType.wrap,
-        backgroundColor: ("#FEE440").toColor(),
-        labelStyle: GoogleFonts.poppins(
+        singleSelectItemStyle: GoogleFonts.poppins(
           fontSize: 16,
           color: Colors.black,
           fontWeight: FontWeight.w400,
         ),
+        dropdownHeight: 300,
+        hintStyle: GoogleFonts.poppins(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: ("#9E9E9E").toColor(),
+        ),
+        fieldBackgroundColor: ("#F5F5F5").toColor(),
+        borderColor: UikColor.giratina_300.toColor(),
+        optionTextStyle: GoogleFonts.poppins(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Colors.black,
+        ),
+        selectedOptionIcon: const Icon(Icons.check_circle),
+        suffixIcon: SvgPicture.network(
+            "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
+        animateSuffixIcon: true,
+        searchEnabled: true,
+        dropdownBorderRadius: 20,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        maxItems: value["maxItems"] ?? null,
       ),
-      singleSelectItemStyle: GoogleFonts.poppins(
-        fontSize: 16,
-        color: Colors.black,
-        fontWeight: FontWeight.w400,
-      ),
-      dropdownHeight: 300,
-      hintStyle: GoogleFonts.poppins(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: ("#9E9E9E").toColor(),
-      ),
-      fieldBackgroundColor: ("#F5F5F5").toColor(),
-      borderColor: UikColor.giratina_300.toColor(),
-      optionTextStyle: GoogleFonts.poppins(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: Colors.black,
-      ),
-      selectedOptionIcon: const Icon(Icons.check_circle),
-      suffixIcon: SvgPicture.network(
-          "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708195274263-chevron-down.svg"),
-      animateSuffixIcon: true,
-      searchEnabled: true,
-      dropdownBorderRadius: 20,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      maxItems: value["maxItems"] ?? null,
     );
   }
 
@@ -884,9 +895,9 @@ class _FieldScreenState extends State<FieldScreen> {
     final popName = footer["popName"];
     final successMessage = footer["successMessage"];
     final condition = (footer["condition"] ?? {}).cast<String, dynamic>();
-    final additionalArgs =
-        (footer["additionalArgs"] ?? {}).cast<String, dynamic>();
-    final isTransferToNext = footer["isTransferToNext"] ?? false;
+    final apiArgs = (footer["apiArgs"] ?? {}).cast<String, dynamic>();
+    final responseArgs = (footer["responseArgs"] ?? {}).cast<String, dynamic>();
+    final transferArgs = (footer["transferArgs"] ?? {}).cast<String, dynamic>();
 
     bool isConditionSatisfied = _checkCondition(condition);
 
@@ -895,23 +906,36 @@ class _FieldScreenState extends State<FieldScreen> {
         isConditionSatisfied ? routeMethod : elseRouteMethod;
 
     try {
-      Map<String, dynamic> args = _updateVariableData(additionalArgs);
+      Map<String, dynamic> args = _updateVariableData();
 
       if (api == null || api.isEmpty) {
-        NavigationUtils.openScreen(
-            selectedPageRoute, isTransferToNext ? args : {});
+        Map<String, dynamic> transferData =
+            FieldData.processFooterArgs(args, transferArgs);
+        NavigationUtils.openScreen(selectedPageRoute, transferData);
         if (successMessage != null && successMessage.isNotEmpty) {
           UiUtils.showToast(successMessage);
         }
         return;
       }
-
+      Map<String, dynamic> apiData = FieldData.processFooterArgs(args, apiArgs);
       final ApiResponse response =
-          await ApiRepository.fieldScreenApi(api, args);
+          await ApiRepository.fieldScreenApi(api, apiData);
 
       if (response.isSuccess!) {
+        for (var element in responseArgs.entries) {
+          switch (element.value["type"]) {
+            case "string":
+              args[element.key] = FieldData.getDataFromPath(
+                  response.data, element.value["value"]);
+              break;
+            default:
+          }
+        }
+        Map<String, dynamic> transferData =
+            FieldData.processFooterArgs(args, transferArgs);
         FieldData.handleRoute(FieldData.getRouteMethod(selectedRouteMethod),
-            selectedPageRoute, popName, isTransferToNext ? args : {});
+            selectedPageRoute, popName, transferData);
+
         if (successMessage != null && successMessage.isNotEmpty) {
           UiUtils.showToast(successMessage);
         }
@@ -934,8 +958,8 @@ class _FieldScreenState extends State<FieldScreen> {
     return isConditionSatisfied;
   }
 
-  Map<String, dynamic> _updateVariableData(Map<String, dynamic> additonalArgs) {
-    final args = variableData;
+  Map<String, dynamic> _updateVariableData() {
+    final args = FieldData.deepCopy(variableData);
     for (var element in joinTo.entries) {
       args[element.value["field"]] = FieldData.joinValues(
           args[element.value["field"]],
@@ -943,9 +967,25 @@ class _FieldScreenState extends State<FieldScreen> {
           element.value["type"]);
       args.remove(element.key);
     }
+    for (var element in args.entries) {
+      final key = element.key;
+      // final id = element.value["id"];
+      if (list[key]["id"] == "selectionBox") {
+        var selectionData = [];
+        for (var value in variableData[key]) {
+          selectionData.add(value.label);
+        }
+        if (selectionData.isEmpty) {
+          args[key] = "";
+        } else if (selectionData.length == 1) {
+          args[key] = selectionData[0];
+        } else {
+          args[key] = selectionData;
+        }
+      }
+    }
     final widgetargs = (widget.args ?? {}).cast<String, dynamic>();
     args.addAll(widgetargs);
-    args.addAll(additonalArgs);
     return args;
   }
 }

@@ -1,22 +1,17 @@
 import 'dart:io';
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lokal/constants/json_constants.dart';
+import 'package:lokal/screen_routes.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
-import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/utils/uik_color.dart';
 import 'package:lokal/widgets/uploaddocumentbutton.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:lokal/pages/UikMyAccountScreen.dart';
 import 'package:ui_sdk/utils/extensions.dart';
 
 class MyPartnerScreenWrapper extends StatefulWidget {
@@ -68,6 +63,9 @@ class _MyPartnerScreenWrapperState extends State<MyPartnerScreenWrapper> {
                             final response = await ApiRepository.fetchPDF(
                                 {"pdf": uploadReceipt});
                             if (response.isSuccess!) {
+                              NavigationUtils.openScreen(
+                                  ScreenRoutes.customerBankDetailsFromPDF,
+                                  response.data);
                               UiUtils.showToast("PDF fetched successfully");
                             } else {
                               UiUtils.showToast(response.error![MESSAGE]);
