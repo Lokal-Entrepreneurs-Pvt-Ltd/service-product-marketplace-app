@@ -78,6 +78,20 @@ class FieldData {
     }
   }
 
+  static Map<String, dynamic> deepCopy(Map<String, dynamic> original) {
+    Map<String, dynamic> copy = {};
+    original.forEach((key, value) {
+      if (value is Map<String, dynamic>) {
+        copy[key] = deepCopy(value);
+      } else if (value is List) {
+        copy[key] = List.from(value);
+      } else {
+        copy[key] = value;
+      }
+    });
+    return copy;
+  }
+
   static void handleRoute(RouteMethod routeMethod, String pageRoute,
       String? popName, Map<String, dynamic>? args) {
     switch (routeMethod) {
@@ -117,6 +131,34 @@ class FieldData {
       default:
         return values.join(',');
     }
+  }
+
+  static Map<String, dynamic> processFooterArgs(
+      Map<String, dynamic> args, Map<String, dynamic> apiArgs) {
+    // Create a copy of the initial args to modify
+    final updatedArgs = Map<String, dynamic>.from(args);
+
+    // Add new arguments
+    if (apiArgs.containsKey("add")) {
+      final Map<String, dynamic> addArgs = apiArgs["add"];
+      updatedArgs.addAll(addArgs);
+    }
+
+    // Remove specified arguments
+    if (apiArgs.containsKey("remove")) {
+      final List<String> removeArgs = List<String>.from(apiArgs["remove"]);
+      for (String key in removeArgs) {
+        updatedArgs.remove(key);
+      }
+    }
+
+    // Filter to keep only specified arguments
+    if (apiArgs.containsKey("filter")) {
+      final List<String> filterArgs = List<String>.from(apiArgs["filter"]);
+      updatedArgs.removeWhere((key, value) => !filterArgs.contains(key));
+    }
+
+    return updatedArgs;
   }
 
   static dynamic getDataFromPath(Map<String, dynamic> json, String? path) {
@@ -300,16 +342,105 @@ class FieldScreenData {
           "footer": {
             "text": "Continue",
             "api": ApiRoutes.addNewLeads,
-            // "condition": {
-            //   "isLoan": "Yes",
-            // },
-            "routeMethod": "pushAndPopUntil",
+            "condition": {
+              "isLoan": "Yes",
+            },
+            "routeMethod": "push",
             "isTransferToNext": false,
-            // "elseRouteMethod": "pushAndPopUntil",
-            "pageRoute": ScreenRoutes.partnerInfo,
+            "elseRouteMethod": "pushAndPopUntil",
+            "apiArgs": {
+              "add": {"userId": UserDataHandler.getUserId()},
+              //  "remove":["cibilScore"],
+              //  "filter":["userId","cibilScore"],
+            },
+            "transferArgs": {
+              "filter": ["leadId"]
+            },
+            "responseArgs": {
+              "leadId": {
+                "type": "string",
+                "value": "leadId",
+              }
+            },
+            "pageRoute": ScreenRoutes.customerUploadDocuments,
             "successMessage": "Added Bank Details Successfully",
-            // "elsepageRoute": ScreenRoutes.uikBottomNavigationBar,
+            "elsepageRoute": ScreenRoutes.partnerInfo,
             "popName": ScreenRoutes.partnerInfo,
+          }
+        };
+      case ScreenRoutes.customerBankDetailsFromPDF:
+        return {
+          "appBar": {"text": "Customer Loan Details"},
+          // "api": {
+          //   ApiRoutes.getUserProfile: {
+          //     "args": {},
+          //     "populate": {"box0": "firstName","type":""}
+          //   }
+          // },
+          "body": {
+            "bankAccNo": {
+              "id": "textInputContainer",
+              "name": "Customer Bank Account Number",
+              "validation": "bankAccountNumber",
+              "type": "number",
+              "errorText": "Please correct Account Number"
+            },
+            "ifsc": {
+              "id": "textInputContainer",
+              "name": "Bank Ifsc",
+              "validation": "ifsc",
+              "function": "updateBankInfo",
+              "populateTo": ["branchAddress"],
+              "errorText": "Please fill correct IFSC Code"
+            },
+            "branchAddress": {
+              "id": "textInputContainer",
+              "name": "Branch Address",
+            },
+            "cibilScore": {
+              "id": "textInputContainer",
+              "name": "Customer Cibil Score",
+              "type": "number",
+            },
+            "isLoan": {
+              "id": "selectableBox",
+              "isSingleSelected": true,
+              "list": ["Yes", "No"],
+              "text": "Does Customer Needs a loan?"
+            },
+            // "box3": {
+            //   "id": "locationBox",
+            //   "text": "House/ Building No",
+            // },
+          },
+          "footer": {
+            "text": "Continue",
+            "api": ApiRoutes.addNewLeads,
+            "condition": {
+              "isLoan": "Yes",
+            },
+            "routeMethod": "push",
+            "isTransferToNext": false,
+            "elseRouteMethod": "pushAndPopUntil",
+            "apiArgs": {
+              "add": {"userId": UserDataHandler.getUserId()},
+              "remove": ["applicationReferenceNumber", "existingSolarCapacity"]
+              //  "remove":["cibilScore"],
+              //  "filter":["userId","cibilScore"],
+            },
+            "transferArgs": {
+              "filter": ["leadId"]
+            },
+            "responseArgs": {
+              "leadId": {
+                "type": "string",
+                "value": "leadId",
+              }
+            },
+            "pageRoute": ScreenRoutes.customerUploadDocuments,
+            "successMessage": "Added Bank Details Successfully",
+            "elsepageRoute": ScreenRoutes.partnerScreen,
+            "popName": ScreenRoutes.partnerScreen,
             "additionalArgs": {"userId": UserDataHandler.getUserId()}
           }
         };
@@ -323,31 +454,31 @@ class FieldScreenData {
           //   }
           // },
           "body": {
-            "box1": {
+            "requiredDoc1": {
               "id": "uploadBox",
               "text": "Last Month Electricity Bill. (Max Size 1 MB)"
             },
-            "box2": {
+            "requiredDoc2": {
               "id": "uploadBox",
               "text": "Vera Bill/ Index Copy. (Max Size 1 MB)"
             },
-            "box3": {
+            "requiredDoc3": {
               "id": "uploadBox",
               "text": "Aadhar Card Front. (Max Size 1 MB)"
             },
-            "box4": {
+            "requiredDoc4": {
               "id": "uploadBox",
               "text": "Aadhar Card Back. (Max Size 1 MB)"
             },
-            "box5": {
+            "requiredDoc5": {
               "id": "uploadBox",
               "text": "Upload Your Pan card Image. (Max Size 1 MB)"
             },
-            "box6": {
+            "requiredDoc6": {
               "id": "uploadBox",
               "text": "Passport size Photo. (Max Size 1 MB)"
             },
-            "box7": {
+            "requiredDoc7": {
               "id": "uploadBox",
               "text": "Cancelled Cheque. (Max Size 1 MB)"
             },
@@ -355,7 +486,8 @@ class FieldScreenData {
           "footer": {
             "text": "Continue",
             "api": "",
-            "routeMethod": "pop",
+            "routeMethod": "push",
+            "successMessage": "Documents Uploaded",
             "pageRoute": ScreenRoutes.customerLoanDetails
           }
         };
@@ -369,24 +501,28 @@ class FieldScreenData {
           //   }
           // },
           "body": {
-            "box1": {
+            "bankForLoan": {
               "id": "selectionBox",
               "isSingleSelected": true,
-              "list": ["ram", "ded", "wooh", "raso"],
-              "hint": "fill tje value"
+              "list": ["SBI Bank", "ICICI Bank", "HDFC Bank", "YES Bank"],
+              "hint": "select the bank for loan?"
             },
-            "box2": {
+            "loanStatus": {
               "id": "selectionBox",
               "isSingleSelected": true,
-              "list": ["ram", "ded", "wooh", "raso"],
-              "hint": "fill tje value"
+              "initData": "PENDING",
+              "list": ["PENDING", "APPROVED", "REJECTED"],
+              "hint": "Loan Status"
             },
           },
           "footer": {
             "text": "Continue",
-            "api": "",
-            "routeMethod": "pop",
-            "screenRoute": "/fieldScreen/otherdata"
+            "api": ApiRoutes.addLoanDetails,
+            "routeMethod": "pushAndPopUntil",
+            "transferArgs": {"filter": []},
+            "pageRoute": ScreenRoutes.partnerScreen,
+            "successMessage": "Successfully Uploaded",
+            "popName": ScreenRoutes.partnerScreen,
           }
         };
 

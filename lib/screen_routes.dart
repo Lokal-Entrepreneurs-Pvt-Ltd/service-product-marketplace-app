@@ -117,6 +117,8 @@ class ScreenRoutes {
   static const String addNewLeads1 = '/fieldScreen/addNewLeads';
   static const String customerLoanDetails = '/fieldScreen/customerloandetails';
   static const String customerBankDetails = '/fieldScreen/customerbankdetails';
+  static const String customerBankDetailsFromPDF =
+      '/fieldScreen/customerbankdetailsbypdf';
   static const String addressOfCustomer = '/fieldScreen/addressofcustomer';
   static const String customerUploadDocuments =
       '/fieldScreen/customeruploadDocuments';
