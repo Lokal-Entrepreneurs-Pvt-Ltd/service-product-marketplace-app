@@ -75,11 +75,13 @@ class _UploadButtonState extends State<UploadButton> {
       ),
     );
     if (response.isSuccess!) {
+      getContentName(response.data["url"]);
       setState(() {
         _uploading = false;
         _uploadSuccess = true;
         _imageUrl = response.data["url"];
       });
+
       widget.onFileSelected!(_imageUrl);
     } else {
       setState(() {
@@ -117,11 +119,11 @@ class _UploadButtonState extends State<UploadButton> {
     }
   }
 
-  getContentName() async {
+  getContentName(String url) async {
     setState(() {
       _isLoading = true;
     });
-    _contentType = await HttpScreenClient.fetchContentType(_imageUrl!);
+    _contentType = await HttpScreenClient.fetchContentType(url);
     setState(() {
       _isLoading = false;
     });
@@ -162,7 +164,7 @@ class _UploadButtonState extends State<UploadButton> {
       _imageUrl = widget.imageUrl;
       _uploadSuccess = true;
       if (_imageUrl != null) {
-        getContentName();
+        getContentName(_imageUrl);
       }
     }
 
@@ -228,7 +230,8 @@ class _UploadButtonState extends State<UploadButton> {
                         : (widget.isgetFileDirectly)
                             ? SvgPicture.network(
                                 "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg")
-                            : (_contentType!.contains('application/pdf'))
+                            : (_contentType != null &&
+                                    _contentType!.contains('application/pdf'))
                                 ? SvgPicture.network(
                                     "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/service%2F1708168622918-image-file.svg")
                                 : Image.network(
