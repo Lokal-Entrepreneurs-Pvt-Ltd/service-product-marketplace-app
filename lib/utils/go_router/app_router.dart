@@ -36,6 +36,8 @@ import 'package:lokal/screens/solar/partnerscreen.dart';
 import 'package:lokal/screens/solar/userDetails.dart';
 import 'package:lokal/screens/solar/userDetails2.dart';
 import 'package:lokal/utils/Logs/event.dart';
+import 'package:lokal/utils/NavigationUtils.dart';
+import 'package:lokal/utils/network/network_utils.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikFilter.dart';
 import 'package:lokal/widgets/WebViewPage.dart';
@@ -385,11 +387,32 @@ class AppRoutes {
       );
     },
   );
-
   static final GoRoute _partnerInfo = GoRoute(
     path: ScreenRoutes.partnerInfo,
     builder: (context, state) {
-      return const PartnerInfo();
+      final map = {
+        "customerDetails": {
+          "customerId": UserDataHandler.getUserId(),
+        },
+        "header": {
+          "authToken": "Bearer ${UserDataHandler.getUserToken()}",
+          "deviceId": UserDataHandler.getDeviceId(),
+          "appVersion": UserDataHandler.getAppVersion(),
+        },
+      };
+
+      return DUIPage(
+        pageArgs: map,
+        pageUid: 'partnerinfo',
+        onMessageReceived: (message) {
+          if (message.name == "addNewLeads") {
+            NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
+          }
+          // if (message.name == "userData") {
+          //   NavigationUtils.openScreen(ScreenRoutes.userData);
+          // }
+        },
+      );
     },
   );
 
