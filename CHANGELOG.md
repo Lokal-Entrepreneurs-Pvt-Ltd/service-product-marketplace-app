@@ -11,6 +11,8 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.54+54] - 2024-7-3
+Fixes in company details form
 
 ## [1.0.53+53] - 2024-5-22
 Fixes in solar power, and disabled news flow for now
