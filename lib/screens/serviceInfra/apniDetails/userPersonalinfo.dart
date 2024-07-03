@@ -755,7 +755,7 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
   void updatedata() async {
     final nameAsAadhar = name;
     final dob = (datePicker != null)
-        ? DateFormat('dd/MM/yyyy', 'en_US').format(datePicker!)
+        ? DateFormat('yyyy-MM-dd', 'en_US').format(datePicker!)
         : null;
     final gender = (genderIndex != -1) ? genderList[genderIndex] : null;
     final workE =
@@ -810,7 +810,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
             NavigationUtils.openScreen(
                 ScreenRoutes.userGeneralInfo, {"isProgress": true});
           } else {
-            NavigationUtils.pop();
+            NavigationUtils.pushAndPopUntil(
+                ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
           }
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
