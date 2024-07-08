@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
+import 'package:lokal/screens/Onboarding/newLogin/forgotPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/mobileNumberScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
@@ -160,7 +161,7 @@ class AppRoutes {
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
     // : _fieldScreen.path,
-    // initialLocation: _allAgentForService.path,
+    // initialLocation: _forgetPasswordScreen.path,
     observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
       _onboardingScreen,
@@ -248,10 +249,22 @@ class AppRoutes {
       _fieldScreen,
       _partnerInfo,
       _partnerScreen,
+      _forgetPasswordScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _forgetPasswordScreen = GoRoute(
+    path: ScreenRoutes.forgetPasswordScreen,
+    builder: (context, state) {
+      final Map<String, dynamic>? extraArgs =
+          state.extra as Map<String, dynamic>?;
+      return ForgetPasswordScreen2(
+        args: extraArgs,
+      );
+    },
+  );
 
   static final GoRoute _partnerScreen = GoRoute(
     path: ScreenRoutes.partnerScreen,
