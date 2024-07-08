@@ -59,6 +59,16 @@ class HttpScreenClient {
         });
   }
 
+  static displayUserNotFoundDialog() {
+    TextOverlay.show(
+        text: "Please SignUp again with same email",
+        buttonText: "Sign Up",
+        onPressed: () {
+          UserDataHandler.clearUserToken();
+          NavigationUtils.popAllAndPush(ScreenRoutes.signupScreen2);
+        });
+  }
+
   static displayPhoneNumberNotInSignUpDialog(String pageRoute) {
     TextOverlay.show(
         text: "Kindly add PhoneNo to your account for smooth login process",
@@ -157,6 +167,11 @@ class HttpScreenClient {
                     displayPhoneNumberNotInSignUpDialog(pageRoute);
 
                   throw Exception('User not in SingnUp');
+                }
+              case NetworkUtils.User_NOT_FOUND:
+                {
+                  displayUserNotFoundDialog();
+                  throw Exception('User Not Found');
                 }
               default:
                 {
@@ -269,6 +284,11 @@ class HttpScreenClient {
                     displayPhoneNumberNotInSignUpDialog(pageRoute);
 
                   throw Exception('User not in SingnUp');
+                }
+              case NetworkUtils.User_NOT_FOUND:
+                {
+                  displayUserNotFoundDialog();
+                  throw Exception('User Not Found');
                 }
               default:
                 {
