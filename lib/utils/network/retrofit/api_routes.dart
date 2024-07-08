@@ -134,4 +134,7 @@ class ApiRoutes {
   static const String addNewLeads = "/leads/add";
   static const String fetchPDF = "/pdfextract/extractpdfdata";
   static const String addLoanDetails = "/loan/add";
+  static const String requestPasswordReset =
+      "/customer/requestPasswordResetToken";
+  static const String resetPassword = "/customer/resetPassword";
 }
