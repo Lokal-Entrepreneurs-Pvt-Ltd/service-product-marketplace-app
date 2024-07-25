@@ -11,6 +11,10 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+
+## [1.0.56+56] - 2024-7-8
+Fixes in forget Password
+
 ## [1.0.55+55] - 2024-7-8
 Fixes in forget Password
 
