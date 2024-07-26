@@ -250,10 +250,31 @@ class AppRoutes {
       _partnerInfo,
       _partnerScreen,
       _forgetPasswordScreen,
+      _walletScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
+
+  static final GoRoute _walletScreen = GoRoute(
+    path: ScreenRoutes.walletScreen,
+    builder: (context, state) {
+      final map = {
+        "customerDetails": {
+          "customerId": UserDataHandler.getUserId(),
+        },
+        "header": {
+          "authToken": "Bearer ${UserDataHandler.getUserToken()}",
+          "deviceId": UserDataHandler.getDeviceId(),
+          "appVersion": UserDataHandler.getAppVersion(),
+        },
+      };
+      return DUIPage(
+        pageArgs: map,
+        pageUid: 'mywallet',
+      );
+    },
+  );
 
   static final GoRoute _forgetPasswordScreen = GoRoute(
     path: ScreenRoutes.forgetPasswordScreen,
@@ -396,10 +417,11 @@ class AppRoutes {
     path: ScreenRoutes.newsPage,
     builder: (context, state) {
       return DUIPage(
-        pageUid: 'homepage-65fbe15043a6c8e5400e65b9',
+        pageUid: 'homepage',
       );
     },
   );
+
   static final GoRoute _partnerInfo = GoRoute(
     path: ScreenRoutes.partnerInfo,
     builder: (context, state) {
