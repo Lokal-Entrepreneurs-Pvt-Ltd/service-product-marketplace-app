@@ -38,13 +38,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // final appConfigDataHandler = AppConfigDataHandler();
   // await appConfigDataHandler.init();
-  DigiaUIClient.initializeFromNetwork(
-      accessKey: '65fbe15043a6c8e5400e65b9',
-      networkConfiguration:
-          NetworkConfiguration(defaultHeaders: {}, timeout: 30),
-      environment: Environment.staging,
-      baseUrl: 'https://dev.digia.tech/api/v1',
-      version: 0);
+  DigiaUIClient.init(
+    accessKey: '65fbe15043a6c8e5400e65b9',
+    networkConfiguration: NetworkConfiguration(defaultHeaders: {}, timeout: 30),
+    environmentInfo: Staging(),
+    baseUrl: 'https://dev.digia.tech/api/v1',
+  );
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(
     ENVIRONMENT_KEY,
