@@ -36,7 +36,7 @@ dependencies:
   chucker_flutter: ^1.6.0
   country_icons: ^2.0.2
   date_time_picker: ^2.1.0
-  digia_ui: ^0.0.6-beta.24
+  digia_ui: ^0.0.6-beta.29
   dotted_border: ^2.0.0+2
   feedback: ^2.6.0
   file_picker: ^5.3.3
