@@ -28,6 +28,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   GlobalKey jobkey = GlobalKey();
 
   GlobalKey newsKey = GlobalKey();
+  GlobalKey walletKey = GlobalKey();
 
   static final List<Widget> _widgetOptions = <Widget>[
     UikHome().getPage(),
@@ -49,6 +50,9 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       context!.push(ScreenRoutes.accountSettings, extra: {});
     }
     if (index == 3) {
+      context!.push(ScreenRoutes.walletScreen, extra: {});
+    }
+    if (index == 4) {
       context!.push(ScreenRoutes.newsPage, extra: {});
     }
   }
@@ -166,6 +170,27 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           ),
         ],
       ),
+      TargetFocus(
+        identify: "home-key",
+        keyTarget: walletKey,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return CoachMark(
+                text: "Wallet Section",
+                onNext: () {
+                  controller.next();
+                },
+                onSkip: () {
+                  controller.skip();
+                },
+              );
+            },
+          ),
+        ],
+      ),
     ];
   }
 
@@ -178,6 +203,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           elevation: 0.0, // Remove shadow
           child: Row(
             // scrollDirection: Axis.horizontal,
+            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               buildNavItem(Icons.home, 'Home', 0, homekey),
@@ -185,7 +211,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
               buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
               buildNavItem(
                   Icons.person_outline_sharp, 'Account', 2, accountkey),
-              buildNavItem(Icons.newspaper, 'News', 3, newsKey),
+              buildNavItem(Icons.wallet, 'Wallet', 3, walletKey),
+              buildNavItem(Icons.newspaper, 'News', 4, newsKey),
               // buildNavItem(Icons.payment, 'ExtraPe', 3),
               // Add more items as needed
             ],
@@ -200,7 +227,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       onTap: () => _onItemTapped(index),
       child: Container(
         // margin: const EdgeInsets.only(top: 8.0),
-        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: Column(
           key: key,
           mainAxisSize: MainAxisSize.min,
