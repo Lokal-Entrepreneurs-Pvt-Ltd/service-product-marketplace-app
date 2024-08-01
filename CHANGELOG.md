@@ -11,6 +11,8 @@ Tinker Box Ui Sdk.
 
 This project is a starting point for a Lokal application.
 
+## [1.0.57+57] - 2024-7-30
+Integrated Wallet Support
 
 ## [1.0.56+56] - 2024-7-8
 Fixes in forget Password
