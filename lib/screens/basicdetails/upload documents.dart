@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 
@@ -37,11 +37,11 @@ class _UploadButtonState extends State<UploadButton> {
 
   Future<void> _pickFile(
       BuildContext context, List<String> allowedExtensions) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: allowedExtensions,
-    );
-
+    // FilePickerResult? result = await FilePicker.platform.pickFiles(
+    //   type: FileType.custom,
+    //   allowedExtensions: allowedExtensions,
+    // );
+    var result = null;
     if (result != null) {
       File pickedFile = File(result.files.single.path!);
       int fileSizeInBytes = await pickedFile.length();

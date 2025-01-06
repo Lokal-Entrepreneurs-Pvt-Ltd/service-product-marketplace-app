@@ -1,4 +1,4 @@
-import 'package:chucker_flutter/chucker_flutter.dart';
+//import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -42,6 +42,7 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikFilter.dart';
 import 'package:lokal/widgets/WebViewPage.dart';
 import 'package:upgrader/upgrader.dart';
+import '../../DUIPageMessageHandler.dart';
 import '../../pages/UikAgentsForUserService.dart';
 import '../../pages/UikCustomerLokalQr.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
@@ -161,7 +162,7 @@ class AppRoutes {
         : uikBottomNavigationBar.path,
     // : _fieldScreen.path,
     // initialLocation: _allAgentForService.path,
-    observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
+    //observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
       _onboardingScreen,
       uikBottomNavigationBar,
@@ -382,9 +383,8 @@ class AppRoutes {
   static final GoRoute _newsScreen = GoRoute(
     path: ScreenRoutes.newsPage,
     builder: (context, state) {
-      return DUIPage(
-        pageUid: 'homepage-65fbe15043a6c8e5400e65b9',
-      );
+      return  DUIFactory().createPage(
+          'homepage-65fbe15043a6c8e5400e65b9',{});
     },
   );
   static final GoRoute _partnerInfo = GoRoute(
@@ -401,18 +401,14 @@ class AppRoutes {
         },
       };
 
-      return DUIPage(
-        pageArgs: map,
-        pageUid: 'partnerinfo',
-        onMessageReceived: (message) {
-          if (message.name == "addNewLeads") {
-            NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
-          }
-          // if (message.name == "userData") {
-          //   NavigationUtils.openScreen(ScreenRoutes.userData);
-          // }
-        },
-      );
+      return DUIFactory().createPage(
+          'partnerinfo',
+          map, messageHandler: DUIPageMessageHandler(
+              (message){
+            if (message.name == "addNewLeads") {
+              NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
+            }
+          }));
     },
   );
 

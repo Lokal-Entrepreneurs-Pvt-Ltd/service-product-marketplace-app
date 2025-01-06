@@ -6,7 +6,7 @@ import 'package:lokal/utils/Logs/eventqueue.dart';
 import 'package:lokal/utils/Logs/event.dart';
 import 'package:lokal/utils/Logs/event_handler.dart';
 
-import 'package:chucker_flutter/chucker_flutter.dart';
+//import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -35,18 +35,19 @@ class HttpScreenClient {
   // }
 
   static http.Client getHttp() {
-    if (kDebugMode) {
-      // Only enable Chucker in debug mode
-      return ChuckerHttpClient(
-        http.Client(),
-        // Optional: You can configure Chucker as needed.
-        // For example, you can set maxSavedLength to limit the size of saved request/response bodies.
-        // maxSavedLength: 8192, // You can adjust this value as needed.
-      );
-    } else {
-      // Use a regular http.Client in release mode
-      return http.Client();
-    }
+    return http.Client();
+    // if (kDebugMode) {
+    //   // Only enable Chucker in debug mode
+    //   return ChuckerHttpClient(
+    //     http.Client(),
+    //     // Optional: You can configure Chucker as needed.
+    //     // For example, you can set maxSavedLength to limit the size of saved request/response bodies.
+    //     // maxSavedLength: 8192, // You can adjust this value as needed.
+    //   );
+    // } else {
+    //   // Use a regular http.Client in release mode
+    //   return http.Client();
+    // }
   }
 
   static displayUserUnAuthorisedDialog() {
