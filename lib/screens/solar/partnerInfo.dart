@@ -1,5 +1,6 @@
 import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:lokal/DUIPageMessageHandler.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/screen_routes.dart';
 import 'package:lokal/utils/NavigationUtils.dart';
@@ -38,15 +39,14 @@ class _PartnerInfoState extends State<PartnerInfo> {
           AsyncSnapshot<Map<String, dynamic>?> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           // If the future has completed, build the body with fetched data
-          return DUIPage(
-            pageArgs: map,
-            pageUid: 'partnerinfo',
-            onMessageReceived: (message) {
-              if (message.name == "addNewLeads") {
-                NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
-              }
-            },
-          );
+          return DUIFactory().createPage(
+              'partnerinfo',
+              map, messageHandler: DUIPageMessageHandler(
+                  (message){
+                if (message.name == "addNewLeads") {
+                  NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
+                }
+              }));
         } else if (snapshot.hasError) {
           // Handle any errors that occur during data fetching
           return Center(

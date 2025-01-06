@@ -325,38 +325,40 @@ class _SlDetailsPageState extends State<SlDetailsPage>
                   heading: heading, bulletPoints: bulletPoints);
 
             case TemplateType.Video:
-              final String videoUrl = template[Args.videoUrlKey];
-              final UikVideoPlayerNewProps uikVideoPlayerProps =
-                  UikVideoPlayerNewProps();
-              uikVideoPlayerProps.id = "123";
-              uikVideoPlayerProps.videoUrl = videoUrl;
-              uikVideoPlayerProps.showVideoProgressIndicator = true;
-              uikVideoPlayerProps.aspectRatio = 1.77;
-              uikVideoPlayerProps.progressIndicatorColor = Colors.red;
+              // final String videoUrl = template[Args.videoUrlKey];
+              // final UikVideoPlayerNewProps uikVideoPlayerProps =
+              //     UikVideoPlayerNewProps();
+              // uikVideoPlayerProps.id = "123";
+              // uikVideoPlayerProps.videoUrl = videoUrl;
+              // uikVideoPlayerProps.showVideoProgressIndicator = true;
+              // uikVideoPlayerProps.aspectRatio = 1.77;
+              // uikVideoPlayerProps.progressIndicatorColor = Colors.red;
 
-              return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 21),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Training Video",
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    UikVideoPlayerNew(
-                        WidgetType.UikVideoPlayer, uikVideoPlayerProps),
-                  ],
-                ),
-              );
+              return const SizedBox();
+
+              //   Container(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 12, vertical: 21),
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(8),
+              //     color: Colors.white,
+              //   ),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         "Training Video",
+              //         style: GoogleFonts.poppins(
+              //           fontSize: 18,
+              //           fontWeight: FontWeight.w500,
+              //         ),
+              //       ),
+              //       const SizedBox(height: 8),
+              //       UikVideoPlayerNew(
+              //           WidgetType.UikVideoPlayer, uikVideoPlayerProps),
+              //     ],
+              //   ),
+              // );
 
             case TemplateType.Unknown:
               return const SizedBox();
