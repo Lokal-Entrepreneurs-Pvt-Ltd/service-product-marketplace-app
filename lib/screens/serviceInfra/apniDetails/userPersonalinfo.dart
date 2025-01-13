@@ -839,6 +839,8 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         case IndexType.workExperience:
           workExperienceIndex = index;
           break;
+        default:
+          throw Exception('Shouldnt happen');
         // case IndexType.customIndex:
         //   indexs = index;
         //   break;
