@@ -473,6 +473,15 @@ class ApiRepository {
   static Future<ApiResponse> fetchPDF(args) {
     return HttpScreenClient.getmultipartrequest(ApiRoutes.fetchPDF, args);
   }
+
+  static Future<ApiResponse> requestPasswordResetToken(args) {
+    return HttpScreenClient.getApiResponse(
+        ApiRoutes.requestPasswordReset, args);
+  }
+
+  static Future<ApiResponse> resetPassword(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.resetPassword, args);
+  }
 }
 
 // apirequestbody class

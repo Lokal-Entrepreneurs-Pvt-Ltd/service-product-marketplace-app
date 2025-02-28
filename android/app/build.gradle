@@ -56,7 +56,7 @@ android {
     defaultConfig {
         applicationId "com.lokal.app"
         minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
