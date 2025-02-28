@@ -39,7 +39,6 @@ android {
     // compileSdkVersion 33
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
-    // ndkVersion 19
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -55,17 +54,14 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.lokal.app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-
         multiDexEnabled true
     }
+
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']
@@ -74,15 +70,13 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
             minifyEnabled true
-        //   //  useProguard true // This is depricated in latest gradle. Make sure to remove it.
             shrinkResources true
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }

@@ -28,7 +28,6 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   GlobalKey jobkey = GlobalKey();
 
   GlobalKey newsKey = GlobalKey();
-  GlobalKey walletKey = GlobalKey();
 
   static final List<Widget> _widgetOptions = <Widget>[
     UikHome().getPage(),
@@ -39,22 +38,20 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   void _onItemTapped(int index) {
     var context = AppRoutes.rootNavigatorKey.currentContext;
     if (index == _selectedIndex) return;
-    if (index == 1) {
-      Map<String, dynamic>? args = {"academyId": 3};
-      NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
-    }
+
     if (index == 0) {
       context!.push(ScreenRoutes.alljobs);
+    }
+    if (index == 1) {
+      context!.push(ScreenRoutes.newsPage, extra: {});
+      // Map<String, dynamic>? args = {"academyId": 3};
+      // NavigationUtils.openScreen(ScreenRoutes.partnerTrainingHome, args);
     }
     if (index == 2) {
       context!.push(ScreenRoutes.accountSettings, extra: {});
     }
-
     if (index == 3) {
-      context!.push(ScreenRoutes.newsPage, extra: {});
-    }
-    if (index == 4) {
-      context!.push(ScreenRoutes.walletScreen, extra: {});
+      context!.push(ScreenRoutes.accountSettings, extra: {});
     }
   }
 
@@ -108,27 +105,27 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           ),
         ],
       ),
-      TargetFocus(
-        identify: "home-key",
-        keyTarget: menukey,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) {
-              return CoachMark(
-                text: "All Lokal Training Academy info",
-                onNext: () {
-                  controller.next();
-                },
-                onSkip: () {
-                  controller.skip();
-                },
-              );
-            },
-          ),
-        ],
-      ),
+      // TargetFocus(
+      //   identify: "home-key",
+      //   keyTarget: menukey,
+      //   enableOverlayTab: true,
+      //   contents: [
+      //     TargetContent(
+      //       align: ContentAlign.top,
+      //       builder: (context, controller) {
+      //         return CoachMark(
+      //           text: "All Lokal Training Academy info",
+      //           onNext: () {
+      //             controller.next();
+      //           },
+      //           onSkip: () {
+      //             controller.skip();
+      //           },
+      //         );
+      //       },
+      //     ),
+      //   ],
+      // ),
       TargetFocus(
         identify: "home-key",
         keyTarget: accountkey,
@@ -150,48 +147,27 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           ),
         ],
       ),
-      TargetFocus(
-        identify: "home-key",
-        keyTarget: newsKey,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) {
-              return CoachMark(
-                text: "News Section",
-                onNext: () {
-                  controller.next();
-                },
-                onSkip: () {
-                  controller.skip();
-                },
-              );
-            },
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "home-key",
-        keyTarget: walletKey,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) {
-              return CoachMark(
-                text: "Wallet Section",
-                onNext: () {
-                  controller.next();
-                },
-                onSkip: () {
-                  controller.skip();
-                },
-              );
-            },
-          ),
-        ],
-      ),
+      // TargetFocus(
+      //   identify: "home-key",
+      //   keyTarget: newsKey,
+      //   enableOverlayTab: true,
+      //   contents: [
+      //     TargetContent(
+      //       align: ContentAlign.top,
+      //       builder: (context, controller) {
+      //         return CoachMark(
+      //           text: "News Section",
+      //           onNext: () {
+      //             controller.next();
+      //           },
+      //           onSkip: () {
+      //             controller.skip();
+      //           },
+      //         );
+      //       },
+      //     ),
+      //   ],
+      // ),
     ];
   }
 
@@ -204,17 +180,15 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
           elevation: 0.0, // Remove shadow
           child: Row(
             // scrollDirection: Axis.horizontal,
-            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               buildNavItem(Icons.home, 'Home', 0, homekey),
               // buildNavItem(Icons.work, "Job", 1, jobkey),
-              buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
+              buildNavItem(Icons.newspaper, 'News', 1, newsKey),
+
               buildNavItem(
                   Icons.person_outline_sharp, 'Account', 2, accountkey),
-
-              buildNavItem(Icons.newspaper, 'News', 3, newsKey),
-              buildNavItem(Icons.wallet, 'Wallet', 4, walletKey),
+             // buildNavItem(Icons.menu_book, 'Academy', 1, menukey),
               // buildNavItem(Icons.payment, 'ExtraPe', 3),
               // Add more items as needed
             ],
@@ -229,7 +203,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
       onTap: () => _onItemTapped(index),
       child: Container(
         // margin: const EdgeInsets.only(top: 8.0),
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: Column(
           key: key,
           mainAxisSize: MainAxisSize.min,

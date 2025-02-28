@@ -11,7 +11,7 @@ class EnvUtils {
       case Environment.PROD:
         {
           EnvironmentDataHandler.setLocalBaseUrl(
-              "https://prod.localee.co.in/api");
+              "https://api.lokalcompany.in");
           UiUtils.showToast("Prod Env Set,  Restart the app");
         }
         break;
