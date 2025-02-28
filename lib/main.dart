@@ -55,6 +55,7 @@ void main() async {
   );
   env.Environment().initConfig(environment);
 
+  DUIFactory().initialize();
   runApp(
     MultiBlocProvider(
       providers: [

@@ -384,7 +384,7 @@ class AppRoutes {
     path: ScreenRoutes.newsPage,
     builder: (context, state) {
       return  DUIFactory().createPage(
-          'homepage-65fbe15043a6c8e5400e65b9',{});
+          'datamuninews',{});
     },
   );
   static final GoRoute _partnerInfo = GoRoute(
