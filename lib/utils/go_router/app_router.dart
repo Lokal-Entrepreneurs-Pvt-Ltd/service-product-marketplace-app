@@ -1,10 +1,9 @@
-import 'package:chucker_flutter/chucker_flutter.dart';
+//import 'package:chucker_flutter/chucker_flutter.dart';
 import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lokal/pages/UikAccountSettings.dart';
 import 'package:lokal/pages/UikDynamicPage.dart';
-import 'package:lokal/screens/Onboarding/newLogin/forgotPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/mobileNumberScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
@@ -43,6 +42,7 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikFilter.dart';
 import 'package:lokal/widgets/WebViewPage.dart';
 import 'package:upgrader/upgrader.dart';
+import '../../DUIPageMessageHandler.dart';
 import '../../pages/UikAgentsForUserService.dart';
 import '../../pages/UikCustomerLokalQr.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
@@ -161,8 +161,8 @@ class AppRoutes {
         ? _onboardingScreen.path
         : uikBottomNavigationBar.path,
     // : _fieldScreen.path,
-    // initialLocation: _forgetPasswordScreen.path,
-    observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
+    // initialLocation: _allAgentForService.path,
+    //observers: [ChuckerFlutter.navigatorObserver, RouteChangeObserver()],
     routes: [
       _onboardingScreen,
       uikBottomNavigationBar,
@@ -249,43 +249,10 @@ class AppRoutes {
       _fieldScreen,
       _partnerInfo,
       _partnerScreen,
-      _forgetPasswordScreen,
-      _walletScreen,
     ],
   );
 
   GoRouter get router => _goRouter;
-
-  static final GoRoute _walletScreen = GoRoute(
-    path: ScreenRoutes.walletScreen,
-    builder: (context, state) {
-      final map = {
-        "customerDetails": {
-          "customerId": UserDataHandler.getUserId(),
-        },
-        "header": {
-          "authToken": "Bearer ${UserDataHandler.getUserToken()}",
-          "deviceId": UserDataHandler.getDeviceId(),
-          "appVersion": UserDataHandler.getAppVersion(),
-        },
-      };
-      return DUIPage(
-        pageArgs: map,
-        pageUid: 'mywallet',
-      );
-    },
-  );
-
-  static final GoRoute _forgetPasswordScreen = GoRoute(
-    path: ScreenRoutes.forgetPasswordScreen,
-    builder: (context, state) {
-      final Map<String, dynamic>? extraArgs =
-          state.extra as Map<String, dynamic>?;
-      return ForgetPasswordScreen2(
-        args: extraArgs,
-      );
-    },
-  );
 
   static final GoRoute _partnerScreen = GoRoute(
     path: ScreenRoutes.partnerScreen,
@@ -416,12 +383,10 @@ class AppRoutes {
   static final GoRoute _newsScreen = GoRoute(
     path: ScreenRoutes.newsPage,
     builder: (context, state) {
-      return DUIPage(
-        pageUid: 'homepage',
-      );
+      return  DUIFactory().createPage(
+          'datamuninews',{});
     },
   );
-
   static final GoRoute _partnerInfo = GoRoute(
     path: ScreenRoutes.partnerInfo,
     builder: (context, state) {
@@ -436,18 +401,14 @@ class AppRoutes {
         },
       };
 
-      return DUIPage(
-        pageArgs: map,
-        pageUid: 'partnerinfo',
-        onMessageReceived: (message) {
-          if (message.name == "addNewLeads") {
-            NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
-          }
-          // if (message.name == "userData") {
-          //   NavigationUtils.openScreen(ScreenRoutes.userData);
-          // }
-        },
-      );
+      return DUIFactory().createPage(
+          'partnerinfo',
+          map, messageHandler: DUIPageMessageHandler(
+              (message){
+            if (message.name == "addNewLeads") {
+              NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
+            }
+          }));
     },
   );
 

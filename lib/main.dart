@@ -35,15 +35,18 @@ void main() async {
 
   appInit = AppInitializer();
   await appInit?.init();
-  await DigiaUIClient.init(
-    accessKey: '65fbe15043a6c8e5400e65b9',
-    networkConfiguration: NetworkConfiguration(defaultHeaders: {}, timeout: 30),
-    environmentInfo: Staging(),
-    baseUrl: 'https://dev.digia.tech/api/v1',
-  );
   WidgetsFlutterBinding.ensureInitialized();
   // final appConfigDataHandler = AppConfigDataHandler();
   // await appConfigDataHandler.init();
+  //Release(PrioritizeCache(), 'assets/digia_assets/app_config.json', 'assets/digia_assets/js_function.js')
+  await DigiaUIClient.init(
+  accessKey: "65fbe15043a6c8e5400e65b9",
+  flavorInfo: Debug(),
+  environment: Environment.development.name,
+  baseUrl: "https://app.digia.tech/api/v1",
+  networkConfiguration:
+  NetworkConfiguration(defaultHeaders: {}, timeout: 1000));
+
 
   await PreferenceUtils.init();
   String environment = String.fromEnvironment(
@@ -52,6 +55,7 @@ void main() async {
   );
   env.Environment().initConfig(environment);
 
+  DUIFactory().initialize();
   runApp(
     MultiBlocProvider(
       providers: [
