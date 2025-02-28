@@ -280,8 +280,24 @@ class _PasswordScreen2State extends State<PasswordScreen2> {
     return Padding(
       padding: const EdgeInsets.only(left: DIMEN_16),
       child: InkWell(
-        onTap: () {
-          UiUtils.launchURL(FORGET_PASSWORD_URL);
+        onTap: () async {
+          // UiUtils.launchURL(FORGET_PASSWORD_URL);
+          NavigationUtils.showLoaderOnTop();
+          try {
+            final response =
+                await ApiRepository.requestPasswordResetToken({"email": email});
+            if (response.isSuccess!) {
+              NavigationUtils.openScreen(
+                  ScreenRoutes.forgetPasswordScreen, {"email": email});
+              UiUtils.showToast("OTP sent to email: $email");
+            } else {
+              UiUtils.showToast(response.error![MESSAGE]);
+            }
+          } catch (e) {
+            UiUtils.showToast(e.toString());
+          } finally {
+            NavigationUtils.showLoaderOnTop(false);
+          }
         },
         child: Text(
           FORGET_PASSWORD,

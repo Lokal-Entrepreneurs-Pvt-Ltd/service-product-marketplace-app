@@ -454,7 +454,8 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
             NavigationUtils.openScreen(
                 ScreenRoutes.userDocumentInfo, {"isProgress": true});
           } else {
-            NavigationUtils.pop();
+            NavigationUtils.pushAndPopUntil(
+                ScreenRoutes.accountSettings, ScreenRoutes.accountSettings);
           }
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
