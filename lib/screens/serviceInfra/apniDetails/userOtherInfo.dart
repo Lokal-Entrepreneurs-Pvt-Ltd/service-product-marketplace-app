@@ -115,10 +115,35 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
     return null;
   }
 
+  AppBar buildAppBar() {
+    return AppBar(
+      foregroundColor: Colors.black,
+      backgroundColor: Colors.white,
+      elevation: 0.0,
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back),
+      ),
+      title: Text(
+        "Apni Other Details Bhare",
+        textAlign: TextAlign.start,
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Conditionally hide the app bar
+      backgroundColor: Colors.white,
+      appBar: buildAppBar(),// Conditionally hide the app bar
       body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
@@ -161,11 +186,11 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 21),
-                    child:
-                        buildTitle("Other Details Bhare", 18, FontWeight.w500),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 21),
+                  //   child:
+                  //       buildTitle("Other Details Bhare", 18, FontWeight.w500),
+                  // ),
                   buildTitle(
                       "Do you have Driving License?", 16, FontWeight.w500),
                   buildMultiSelectable(license, licenseIndex, (index) {
