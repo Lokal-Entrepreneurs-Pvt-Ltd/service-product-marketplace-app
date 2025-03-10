@@ -41,7 +41,7 @@ void main() async {
   //Release(PrioritizeCache(), 'assets/digia_assets/app_config.json', 'assets/digia_assets/js_function.js')
   await DigiaUIClient.init(
   accessKey: "67ab17ed3da4ddfcd6cfea51",
-  flavorInfo: Debug(),
+  flavorInfo: Debug("main"),
   environment: Environment.development.name,
   baseUrl: "https://app.digia.tech/api/v1",
   networkConfiguration:
