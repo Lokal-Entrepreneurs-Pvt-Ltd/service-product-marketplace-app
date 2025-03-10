@@ -67,9 +67,35 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
     super.initState();
   }
 
+
+  AppBar buildAppBar() {
+    return AppBar(
+      foregroundColor: Colors.black,
+      backgroundColor: Colors.white,
+      elevation: 0.0,
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back),
+      ),
+      title: Text(
+        "Apna Bank Information Bhare",
+        textAlign: TextAlign.start,
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: buildAppBar(),
       body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
@@ -211,11 +237,11 @@ class _UserBankInfoScreenState extends State<UserBankInfoScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 21),
-                    child: buildTitle(
-                        "Apna Bank Information Bhare", 18, FontWeight.w500),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 21),
+                  //   child: buildTitle(
+                  //       "Apna Bank Information Bhare", 18, FontWeight.w500),
+                  // ),
                   TextInputContainer(
                     fieldName: "Bank User Name",
                     hint: "Enter Bank User Name",
