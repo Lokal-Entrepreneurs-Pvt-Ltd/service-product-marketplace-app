@@ -142,10 +142,36 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
     }
   }
 
+
+  AppBar buildAppBar() {
+    return AppBar(
+      foregroundColor: Colors.black,
+      backgroundColor: Colors.white,
+      elevation: 0.0,
+      centerTitle: true,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(Icons.arrow_back),
+      ),
+      title: Text(
+        "Apni Personal Details Bhare",
+        textAlign: TextAlign.start,
+        style: GoogleFonts.poppins(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Conditionally hide the app bar
+      backgroundColor: Colors.white,
+      appBar: buildAppBar(),// Conditionally hide the app bar
       body: FutureBuilder<Map<String, dynamic>?>(
         // Use FutureBuilder to wait for the fetchData to complete
         future: _futureData,
@@ -264,11 +290,11 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 21),
-                    child: buildTitle(
-                        "Apni Personal Details Bhare", 24, FontWeight.w600),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(top: 21),
+                  //   child: buildTitle(
+                  //       "Apni Personal Details Bhare", 24, FontWeight.w600),
+                  // ),
                   buildTitle("Gender", 16, FontWeight.w500),
                   buildSelectable(genderList, genderIndex, (index) {
                     updateSelectedIndex(index, IndexType.gender);
