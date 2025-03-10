@@ -185,8 +185,14 @@ class _UserPersonalInfoState extends State<UserPersonalInfo> {
         final userDataMagento = response.data;
         final userData = response.data?['userModelData'];
         if (userData != null) {
-          lat = (userData['latitude'] as num?)?.toDouble() ?? 0;
-          long = (userData['longitude'] as num?)?.toDouble() ?? 0;
+          lat = (userData['latitude'] is num)
+              ? (userData['latitude'] as num).toDouble()
+              : double.tryParse(userData['latitude']?.toString() ?? '') ?? 0.0;
+
+          long = (userData['longitude'] is num)
+              ? (userData['longitude'] as num).toDouble()
+              : double.tryParse(userData['longitude']?.toString() ?? '') ?? 0.0;
+
           userId = userData["id"];
           if (lat != 0 && long != 0) {
             place = Placemark(

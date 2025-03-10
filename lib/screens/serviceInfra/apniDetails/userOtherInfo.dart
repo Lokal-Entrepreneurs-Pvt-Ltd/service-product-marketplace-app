@@ -78,14 +78,13 @@ class _UserOtherInfoState extends State<UserOtherInfo> {
         final userDataMagento = response.data;
         final userData = response.data?['userModelData'];
         if (userData != null) {
-          print(userData["drivingLicence"]);
+         // x§x (userData["drivingLicence"]);
           setState(() {
             int hasRelocate = userData["relocate"] ?? -1;
             if (hasRelocate != -1) {
               relocateIndex = hasRelocate;
             }
-            List<String> licensetype = (List<String>.from(
-                json.decode(userData["drivingLicence"] ?? "")));
+            List<String> licensetype = List<String>.from(userData["drivingLicence"] ?? []);
             if (licensetype.isNotEmpty) {
               for (int i = 0; i < licensetype.length; i++) {
                 int index = license.indexOf(licensetype[i]);
