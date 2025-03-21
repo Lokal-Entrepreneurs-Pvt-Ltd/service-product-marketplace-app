@@ -29,6 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             PageView.builder(
