@@ -4,6 +4,8 @@ import 'package:lokal/utils/network/retrofit/api_routes.dart';
 import 'package:lokal/utils/storage/product_data_handler.dart';
 import 'package:ui_sdk/props/ApiResponse.dart';
 import 'http/http_screen_client.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class ApiRepository {
   static Dio getDio() {
@@ -74,8 +76,8 @@ class ApiRepository {
         ApiRoutes.submitUserServiceCreateCustomerForm, args);
   }
 
-  static Future<ApiResponse> apiCallerScreen(
-      String apiRoute, Map<String, dynamic> args) {
+  static Future<ApiResponse> apiCallerScreen(String apiRoute,
+      Map<String, dynamic> args) {
     return HttpScreenClient.getApiResponse(apiRoute, args);
   }
 
@@ -482,7 +484,36 @@ class ApiRepository {
   static Future<ApiResponse> resetPassword(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.resetPassword, args);
   }
+
+  static Future<ApiResponse> phoneNumberAuth(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.phoneNumberAuth, args);
+  }
 }
+
+  // static Future<ApiResponse> verifyOtp(Map<String, dynamic> request) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse('${ApiConstants.baseUrl}/auth/verify-otp'),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: jsonEncode(request),
+  //     );
+  //
+  //     final responseData = jsonDecode(response.body);
+  //     return ApiResponse(
+  //       isSuccess: response.statusCode == 200,
+  //       data: responseData['data'],
+  //       error: response.statusCode != 200 ? responseData : null,
+  //     );
+  //   } catch (e) {
+  //     return ApiResponse(
+  //       isSuccess: false,
+  //       error: {'message': 'Network error occurred'},
+  //     );
+  //   }
+  // }
+//}
 
 // apirequestbody class
 // make get login request body functiona

@@ -57,6 +57,9 @@ class ApiRequestBody {
   static getLoginAsPhoneRequest(String phoneNo) {
     return {PHONE_NUMBER: phoneNo};
   }
+  static getPhoneAuthRequest(String phoneNo) {
+    return {PHONE_NUMBER: phoneNo};
+  }
 
   static getSignUpRequest(String email, password, userType, phoneNo, confirmedReferCode) {
     return {

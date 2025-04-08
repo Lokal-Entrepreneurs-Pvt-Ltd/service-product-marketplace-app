@@ -239,7 +239,7 @@ class AppRoutes {
       _userReferredByScreen,
       _userBankInfoScreen,
       _mobileNumberScreen,
-      _otpMobileScreen,
+     // _otpMobileScreen,
       _webViewScreen,
       _userSolarInfoScreen,
       _userSolarInfo2Screen,
@@ -334,18 +334,18 @@ class AppRoutes {
     },
   );
 
-  static final GoRoute _otpMobileScreen = GoRoute(
-    path: ScreenRoutes.otpMobileScreen,
-    builder: (context, state) {
-      // final Map<String, dynamic>? extraArgs =
-      // state.extra as Map<String, dynamic>?;
-      return OtpScreenMobile(
-        key: state.pageKey,
-        args: state.extra,
-        // mobileNumber: {"mobile": 7232841614},
-      );
-    },
-  );
+  // static final GoRoute _otpMobileScreen = GoRoute(
+  //   path: ScreenRoutes.otpMobileScreen,
+  //   builder: (context, state) {
+  //     // final Map<String, dynamic>? extraArgs =
+  //     // state.extra as Map<String, dynamic>?;
+  //     // return OtpScreenMobile(
+  //     //   key: state.pageKey,
+  //     //   args: state.extra,
+  //     //   // mobileNumber: {"mobile": 7232841614},
+  //     // );
+  //   },
+  // );
 
   static final GoRoute _mobileNumberScreen = GoRoute(
     path: ScreenRoutes.mobileNumberScreen,
