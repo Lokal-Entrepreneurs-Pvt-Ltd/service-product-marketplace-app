@@ -29,14 +29,12 @@ class LoginScreen2 extends StatefulWidget {
 }
 
 class _LoginScreen2State extends State<LoginScreen2> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  bool errorEmail = false;
+  final phoneController = TextEditingController();
+  bool errorPhone = false;
 
   bool isLoading = false;
   String selectedUserType = CANDIDATE;
   final List<String> userTypes = [PARTNER, AGENT, CANDIDATE];
-  bool isPhoneInput = true;
 
   @override
   void initState() {
@@ -45,7 +43,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
   }
 
   void initialize() async {
-    emailController.text = UserDataHandler.getUserEmail();
+    phoneController.text = UserDataHandler.getUserEmail(); // Optional: clear or keep
   }
 
   @override
@@ -74,9 +72,6 @@ class _LoginScreen2State extends State<LoginScreen2> {
       elevation: 0,
       backgroundColor: const Color(0xFFfafafa),
       leading: _buildAppBarLeading(),
-      actions: [
-        _buildAppBarAction(),
-      ],
     );
   }
 
@@ -92,32 +87,12 @@ class _LoginScreen2State extends State<LoginScreen2> {
     );
   }
 
-  Widget _buildAppBarAction() {
-    return InkWell(
-      onTap: () {
-        NavigationUtils.openScreen(ScreenRoutes.signupScreen2);
-      },
-      child: TextButton(
-        onPressed: null, // Use onPressed: null for InkWell
-        child: Text(
-          "Want to Register?",
-          style: GoogleFonts.poppins(
-            color: const Color(0XFF3F51B5),
-            fontSize: DIMEN_14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildTitle() {
     return Center(
       child: Image.asset(
-        'assets/images/lokal_logo.png', // Replace 'your_image.png' with your image asset path
-        width: 200, // Set the width of the image as needed
-        height: 100, // Set the height of the image as needed
-        // You can customize other properties of the image widget as required.
+        'assets/images/lokal_logo.png',
+        width: 200,
+        height: 100,
       ),
     );
   }
@@ -140,7 +115,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
             const SizedBox(height: DIMEN_20),
             _buildUserTypeSelection(),
             const SizedBox(height: 23),
-            _buildEmailField(),
+            _buildPhoneField(),
             const SizedBox(height: DIMEN_16),
             _buildContinueButton(),
             const SizedBox(height: DIMEN_16),
@@ -178,11 +153,10 @@ class _LoginScreen2State extends State<LoginScreen2> {
               color: const Color(0xFF000000),
             ),
           ),
-          const SizedBox(width: 41), // Add spacing between text and dropdown
+          const SizedBox(width: 41),
           Container(
             decoration: BoxDecoration(
-              border:
-                  Border.all(width: 1, color: UikColor.gengar_500.toColor()),
+              border: Border.all(width: 1, color: UikColor.gengar_500.toColor()),
               borderRadius: BorderRadius.circular(100),
               color: Colors.white,
             ),
@@ -194,9 +168,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 padding: const EdgeInsets.only(left: 8),
                 child: SvgPicture.network(
                     "https://storage.googleapis.com/lokal-app-38e9f.appspot.com/misc%2F1710760508910-chevron-down.svg"),
-              ), // Custom dropdown icon
+              ),
               iconSize: 24,
-              iconEnabledColor: UikColor.gengar_500.toColor(),
               elevation: 16,
               borderRadius: BorderRadius.circular(12),
               alignment: Alignment.center,
@@ -228,16 +201,15 @@ class _LoginScreen2State extends State<LoginScreen2> {
     );
   }
 
-  Widget _buildEmailField() {
+  Widget _buildPhoneField() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: DIMEN_16),
+      padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: TextField(
-        enableSuggestions: true,
+        controller: phoneController,
+        keyboardType: TextInputType.phone,
         style: GoogleFonts.poppins(),
-        controller: emailController,
-        keyboardType: TextInputType.emailAddress, // Set keyboard type for email
         decoration: InputDecoration(
-          hintText: "Enter Registered Email ID or Mobile No.",
+          hintText: "Enter Valid Mobile No",
           hintStyle: GoogleFonts.poppins(
             color: UikColor.giratina_400.toColor(),
             fontSize: 16,
@@ -253,9 +225,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
             borderRadius: BorderRadius.circular(DIMEN_8),
             borderSide: BorderSide.none,
           ),
-          errorStyle: GoogleFonts.poppins(),
-          errorText:
-              errorEmail ? (isPhoneInput ? VALID_PHONE_NO : VALID_EMAIL) : null,
+          errorText: errorPhone ? VALID_PHONE_NO : null,
         ),
       ),
     );
@@ -263,53 +233,50 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
   Widget _buildContinueButton() {
     return Container(
-      margin: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
+      margin: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: isLoading
-          ? const CircularProgressIndicator(
-              color: Colors.yellow,
-            )
+          ? const CircularProgressIndicator(color: Colors.yellow)
           : UikButton(
-              text: CONTINUE,
-              textWeight: FontWeight.w500,
-              textSize: DIMEN_16,
-              textColor: const Color(0xFF212121),
-              backgroundColor: const Color(0xffFEE440),
-              onClick: () async {
-                setState(() {
-                  isLoading = true;
+        text: CONTINUE,
+        textWeight: FontWeight.w500,
+        textSize: DIMEN_16,
+        textColor: const Color(0xFF212121),
+        backgroundColor: const Color(0xffFEE440),
+        onClick: () async {
+          setState(() {
+            isLoading = true;
+          });
+          try {
+            bool isValid = UiUtils.isPhoneNoValid(phoneController.text);
+            if (isValid) {
+              final response = await ApiRepository.phoneNumberAuth(
+                {
+                  "phoneNumber": phoneController.text,
+                  USERTYPE: CodeUtils.getUserTypeFromDisplay(selectedUserType),
+                },
+              );
+              if (response.isSuccess!) {
+                NavigationUtils.openScreen(ScreenRoutes.otpScreen2, {
+                  "phoneNumber": phoneController.text,
+                  USERTYPE: selectedUserType,
                 });
-                try {
-                  isPhoneInput = UiUtils.isPhoneNoValid(emailController.text);
-                  bool emailValid = UiUtils.isEmailValid(emailController.text);
-                  if (isPhoneInput) {
-                    final response = await ApiRepository.sendOtpForLogin(
-                        ApiRequestBody.getLoginAsPhoneRequest(
-                            emailController.text));
-                    if (response.isSuccess!) {
-                      NavigationUtils.openScreen(ScreenRoutes.otpScreen2, {
-                        "phoneNumber": emailController.text.toString(),
-                        USERTYPE: selectedUserType
-                      });
-                    } else {
-                      _handleLoginError(response);
-                    }
-                  } else if (emailValid) {
-                    NavigationUtils.openScreen(ScreenRoutes.passwordScreen2, {
-                      "email": emailController.text,
-                      USERTYPE: selectedUserType,
-                    });
-                  } else {
-                    UiUtils.showToast("Please Enter Valid Phone no./Email Id");
-                  }
-                } catch (e) {
-                  UiUtils.showToast(e.toString());
-                }
+              } else {
+                _handleLoginError(response);
+              }
+            } else {
+              setState(() {
+                errorPhone = true;
+              });
+            }
+          } catch (e) {
+            UiUtils.showToast(e.toString());
+          }
 
-                setState(() {
-                  isLoading = false;
-                });
-              },
-            ),
+          setState(() {
+            isLoading = false;
+          });
+        },
+      ),
     );
   }
 
@@ -319,7 +286,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
   Widget _buildPrivacyAndTermsText() {
     return Padding(
-      padding: const EdgeInsets.only(left: DIMEN_16, right: DIMEN_16),
+      padding: const EdgeInsets.symmetric(horizontal: DIMEN_16),
       child: Text.rich(
         TextSpan(
           children: [
@@ -333,9 +300,9 @@ class _LoginScreen2State extends State<LoginScreen2> {
             TextSpan(
               text: LOKAL_PRIVACY,
               style: GoogleFonts.poppins(
-                color: UikColor.giratina_500.toColor(),
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
+                color: UikColor.giratina_500.toColor(),
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
@@ -345,12 +312,12 @@ class _LoginScreen2State extends State<LoginScreen2> {
             TextSpan(
               text: AND,
               style: GoogleFonts.poppins(
-                color: UikColor.giratina_500.toColor(),
                 fontSize: 14,
+                color: UikColor.giratina_500.toColor(),
               ),
             ),
             TextSpan(
-              text: "Terms and Conditons",
+              text: "Terms and Conditions",
               style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -367,3 +334,4 @@ class _LoginScreen2State extends State<LoginScreen2> {
     );
   }
 }
+

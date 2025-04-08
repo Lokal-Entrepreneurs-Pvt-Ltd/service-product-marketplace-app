@@ -62,11 +62,11 @@ class HttpScreenClient {
 
   static displayUserNotFoundDialog() {
     TextOverlay.show(
-        text: "Please SignUp again with same email",
+        text: "Please SignUp again with same Number",
         buttonText: "Sign Up",
         onPressed: () {
           UserDataHandler.clearUserToken();
-          NavigationUtils.popAllAndPush(ScreenRoutes.signupScreen2);
+          NavigationUtils.popAllAndPush(ScreenRoutes.loginScreen2);
         });
   }
 

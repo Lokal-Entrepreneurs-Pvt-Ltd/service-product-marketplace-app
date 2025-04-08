@@ -137,4 +137,6 @@ class ApiRoutes {
   static const String requestPasswordReset =
       "/customer/requestPasswordResetToken";
   static const String resetPassword = "/customer/resetPassword";
+  static const String phoneNumberAuth = "/customer/phoneNumberAuth";
+
 }

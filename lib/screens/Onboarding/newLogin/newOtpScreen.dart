@@ -120,7 +120,7 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
         isLoading = true; // Start loading the "Continue" button
       });
       try {
-        final response = await ApiRepository.verifyOtpAndLogin(
+        final response = await ApiRepository.verifyOtp(
           ApiRequestBody.getVerifyOtpRequest(
             phoneNumber,
             otpPinEntered,
