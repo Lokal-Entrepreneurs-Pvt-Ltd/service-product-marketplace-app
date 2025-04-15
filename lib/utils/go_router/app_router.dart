@@ -9,6 +9,7 @@ import 'package:lokal/screens/Onboarding/newLogin/newOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/otpScreenMobile.dart';
+import 'package:lokal/screens/ResumeBuilder/resumeDataModel.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
 import 'package:lokal/screens/membership/GoldPassScreen.dart';
@@ -93,6 +94,8 @@ import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+
+import '../../screens/ResumeBuilder/ResumePersonalDetails.dart';
 
 class RouteChangeObserver extends RouteObserver {
   @override
@@ -249,6 +252,7 @@ class AppRoutes {
       _fieldScreen,
       _partnerInfo,
       _partnerScreen,
+      _resumeBuilder
     ],
   );
 
@@ -1034,6 +1038,13 @@ class AppRoutes {
     builder: (context, state) {
       return UikAgentsForUserService(args: state.extra as Map<String, dynamic>?)
           .page;
+    },
+  );
+
+  static final GoRoute _resumeBuilder = GoRoute(
+    path: ScreenRoutes.resumeBuilder,
+    builder: (context, state) {
+      return ResumePersonalDetails(resumeData: ResumeData());
     },
   );
 }
