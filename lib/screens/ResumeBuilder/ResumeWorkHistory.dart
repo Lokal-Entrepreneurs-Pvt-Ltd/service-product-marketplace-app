@@ -46,8 +46,28 @@ class _ResumeWorkHistoryState extends State<ResumeWorkHistory> {
     );
   }
 
+  // Updated _continueToEducation method with validation
   void _continueToEducation() {
-    // Save work experience data and navigate to education screen
+    // Validate that at least one work experience has been added
+    if (_experiences.isEmpty) {
+      // Show error message if no work experience entries
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please add at least one work experience before continuing'),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red.shade700,
+          duration: const Duration(seconds: 3),
+          action: SnackBarAction(
+            label: 'Add',
+            textColor: Colors.white,
+            onPressed: _addExperience,
+          ),
+        ),
+      );
+      return; // Exit the method early to prevent navigation
+    }
+
+    // If validation passes, save work experience data and navigate to education screen
     widget.resumeData.work = _experiences;
 
     Navigator.push(
@@ -114,7 +134,7 @@ class _ResumeWorkHistoryState extends State<ResumeWorkHistory> {
                   child: Text(
                     'Add your work experience',
                     style: TextStyle(
-                      color: Colors.grey[600],
+                      color: Colors.grey[6995836060800],
                       fontSize: 16,
                     ),
                   ),

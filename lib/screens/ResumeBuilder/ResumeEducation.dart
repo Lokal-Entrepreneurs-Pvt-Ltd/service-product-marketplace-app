@@ -46,8 +46,28 @@ class _ResumeEducationState extends State<ResumeEducation> {
     );
   }
 
+// Updated _continueToFinal method with validation
   void _continueToFinal() {
-    // Save education data and navigate to final screen
+    // Validate that at least one education entry has been added
+    if (_educations.isEmpty) {
+      // Show error message if no education entries
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please add at least one education entry before continuing'),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red.shade700,
+          duration: const Duration(seconds: 3),
+          action: SnackBarAction(
+            label: 'Add',
+            textColor: Colors.white,
+            onPressed: _addEducation,
+          ),
+        ),
+      );
+      return; // Exit the method early to prevent navigation
+    }
+
+    // If validation passes, save education data and navigate to final screen
     widget.resumeData.education = _educations;
 
     // Go to final screen or submit the resume

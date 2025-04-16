@@ -11,6 +11,7 @@ import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/Logs/eventsdk.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
 import 'package:lokal/utils/go_router/app_router.dart';
+import 'package:lokal/utils/payments/PaymentService.dart';
 import 'package:lokal/utils/storage/preference_util.dart';
 import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -36,6 +37,7 @@ void main() async {
   appInit = AppInitializer();
   await appInit?.init();
   WidgetsFlutterBinding.ensureInitialized();
+  PaymentService().setup();
   // final appConfigDataHandler = AppConfigDataHandler();
   // await appConfigDataHandler.init();
   //Release(PrioritizeCache(), 'assets/digia_assets/app_config.json', 'assets/digia_assets/js_function.js')
