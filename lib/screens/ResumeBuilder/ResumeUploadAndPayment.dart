@@ -1,12 +1,22 @@
-// resume_final.dart
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'dart:typed_data';
+import '../../utils/payments/PaymentService.dart';
 import 'resumeDataModel.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// Updated imports for the new implementation
+
+import 'package:flutter_cashfree_pg_sdk/api/cfpaymentgateway/cfpaymentgatewayservice.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cfsession/cfsession.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cftheme/cftheme.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cfpayment/cfwebcheckoutpayment.dart';
+import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
+import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
+import 'package:flutter_cashfree_pg_sdk/api/cferrorresponse/cferrorresponse.dart';
 
 enum SubmissionState {
   loading,
@@ -23,24 +33,59 @@ class ResumeUploadAndPayment extends StatefulWidget {
   State<ResumeUploadAndPayment> createState() => _ResumeUploadAndPaymentState();
 }
 
-class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
+class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with WidgetsBindingObserver{
   SubmissionState _state = SubmissionState.loading;
   String? _pdfUrl;
   String? _errorMessage;
-  int? _resumeId; // Add resumeId to store it
+  int? _resumeId;
 
   // Timer to handle API timeouts
   Timer? _timeoutTimer;
 
+  // Initialize Cashfree Payment Gateway Service
+  var cfPaymentGatewayService = CFPaymentGatewayService();
+  String? _currentOrderId;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // App has come back to foreground, check if we need to verify payment
+      if (_currentOrderId != null) {
+        print("App resumed with pending order: $_currentOrderId");
+        // Manual verification since we might have missed the callback
+        _verifyPayment(_currentOrderId!);
+        _currentOrderId = null; // Clear it after verification
+      }
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
   @override
   void initState() {
     super.initState();
-    // Call API immediately when screen opens
-    _submitResume();
 
-    // Set up a timeout to handle cases where the API might hang
+    WidgetsBinding.instance.addObserver(this);
+
+    PaymentService().setup();
+
+    PaymentService().onPaymentSuccess = (orderId) {
+      if (!mounted) return;
+      _verifyPayment(orderId);
+    };
+
+    PaymentService().onPaymentFailure = (error, orderId) {
+      if (!mounted) return;
+      _showErrorDialogWithRetry(
+          'Payment Failed',
+          'Error: ${error.getMessage()}',
+          _initiatePayment
+      );
+    };
+
+    _submitResume();
     _setupTimeout();
   }
+
 
   void _setupTimeout() {
     // Clear any existing timer
@@ -60,7 +105,10 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
 
   @override
   void dispose() {
-    // Cancel the timer when the widget is disposed
+    // Unregister from lifecycle events
+    WidgetsBinding.instance.removeObserver(this);
+
+    // Existing dispose code
     _timeoutTimer?.cancel();
     super.dispose();
   }
@@ -147,16 +195,18 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 12),
-          const Text(
-            'We have more than 100 Jobs matching your resume.',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey,
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: Text(
+              'We have more than 100 Jobs matching your resume.',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 40),
-          // "Taking too long" cancel button has been removed
         ],
       ),
     );
@@ -443,12 +493,15 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
   }
 
   void _openPdfPreview() async {
+    // Set a flag to prevent multiple calls
+    bool isPreviewInProgress = true;
+
     try {
       // Show loading indicator
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context) {
+        builder: (BuildContext loadingContext) {
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -473,12 +526,12 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
           final Uint8List pdfBytes = Uint8List.fromList(List<int>.from(bufferData));
 
           // Show PDF preview dialog with actual PDF content
-          _showPdfPreviewDialog(pdfBytes);
+          await _showPdfPreviewDialog(pdfBytes);
         } else {
-          _showErrorDialogWithRetry('Preview Error', 'Invalid buffer format in response', _openPdfPreview);
+          await _showErrorDialogWithRetry('Preview Error', 'Invalid buffer format in response', _openPdfPreview);
         }
       } else {
-        _showErrorDialogWithRetry('Preview Error', 'Failed to load resume preview.', _openPdfPreview);
+        await _showErrorDialogWithRetry('Preview Error', 'Failed to load resume preview.', _openPdfPreview);
       }
     } catch (e) {
       // Close loading dialog if it's still open
@@ -486,21 +539,17 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
         Navigator.of(context).pop();
       }
 
-      _showErrorDialogWithRetry('Error', 'An error occurred while loading the preview: $e', _openPdfPreview);
+      await _showErrorDialogWithRetry('Error', 'An error occurred while loading the preview: $e', _openPdfPreview);
+    } finally {
+      isPreviewInProgress = false;
     }
   }
 
-// First, add this to your pubspec.yaml:
-// dependencies:
-//   syncfusion_flutter_pdfviewer: ^23.1.36 (or latest version)
-
-// Then add this import at the top of your file:
-
-
-  void _showPdfPreviewDialog(Uint8List pdfBytes) {
-    showDialog(
+  Future<void> _showPdfPreviewDialog(Uint8List pdfBytes) async {
+    return showDialog<void>(
       context: context,
-      builder: (BuildContext context) {
+      barrierDismissible: true,
+      builder: (BuildContext dialogContext) {
         return Dialog(
           insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           shape: RoundedRectangleBorder(
@@ -520,7 +569,9 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
                   child: Row(
                     children: [
                       InkWell(
-                        onTap: () => Navigator.of(context).pop(),
+                        onTap: () {
+                          Navigator.of(dialogContext).pop();
+                        },
                         child: const Icon(Icons.close, color: Colors.black, size: 28),
                       ),
                       const SizedBox(width: 16),
@@ -543,11 +594,11 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
                 Expanded(
                   child: SfPdfViewer.memory(
                     pdfBytes,
-                    canShowScrollHead: false, // Hide the scroll head for cleaner UI
+                    canShowScrollHead: false,
                     enableDoubleTapZooming: true,
-                    enableTextSelection: false, // Set to true if you want users to select text
+                    enableTextSelection: false,
                     pageSpacing: 4.0,
-                    controller: PdfViewerController(), // You can store this in a class variable if needed
+                    controller: PdfViewerController(),
                   ),
                 ),
 
@@ -556,7 +607,9 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(16),
                   child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () {
+                      Navigator.of(dialogContext).pop();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFFD833),
                       foregroundColor: Colors.black,
@@ -582,11 +635,11 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
       },
     );
   }
-  // New method to show error dialog with retry button
-  void _showErrorDialogWithRetry(String title, String message, VoidCallback retryCallback) {
-    showDialog(
+
+  Future<void> _showErrorDialogWithRetry(String title, String message, VoidCallback retryCallback) async {
+    return showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext errorContext) => AlertDialog(
         title: Text(
           title,
           style: TextStyle(
@@ -609,14 +662,17 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(errorContext).pop();
             },
             child: const Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pop();
-              retryCallback();
+              Navigator.of(errorContext).pop();
+              // Add a small delay before retrying to prevent immediate recursive calls
+              Future.delayed(const Duration(milliseconds: 300), () {
+                retryCallback();
+              });
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFFFD833),
@@ -629,146 +685,87 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
     );
   }
 
-
-
   void _initiatePayment() async {
     try {
-      // Show loading indicator
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+        builder: (_) => const Center(child: CircularProgressIndicator()),
       );
 
-      // Step 1: Initiate payment on your server to get the orderId
-      final initiateResponse = await ApiRepository.initiatePaymentResume({
-        "amount": 10
-      });
+      final initiateResponse = await ApiRepository.initiatePaymentResume({"amount": 10});
 
-      // Close loading dialog
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
+     // if (Navigator.canPop(context)) Navigator.of(context).pop();
 
       if (!initiateResponse.isSuccess! || initiateResponse.data == null) {
         _showErrorDialogWithRetry('Payment Error', 'Failed to initiate payment. Please try again.', _initiatePayment);
         return;
       }
 
-      // Print the response for debugging
-      print("Payment initiation response: ${initiateResponse.data}");
-
-      // Extract orderId and payment details with proper null checks
-      final responseData = initiateResponse.data['response'];
-      if (responseData == null) {
-        _showErrorDialogWithRetry('Payment Error', 'Invalid response format. Please try again.', _initiatePayment);
-        return;
-      }
-
+      final responseData = initiateResponse.data;
       final String? orderId = responseData['orderId'];
-      if (orderId == null) {
-        _showErrorDialogWithRetry('Payment Error', 'Order ID not found in response. Please try again.', _initiatePayment);
-        return;
-      }
-
       final providerData = responseData['providerData'];
-      if (providerData == null) {
-        _showErrorDialogWithRetry('Payment Error', 'Provider data not found in response. Please try again.', _initiatePayment);
-        return;
-      }
-
       final String? paymentSessionId = providerData['payment_session_id'];
-      if (paymentSessionId == null) {
-        _showErrorDialogWithRetry('Payment Error', 'Payment session ID not found. Please try again.', _initiatePayment);
+
+      if (orderId == null || paymentSessionId == null) {
+        _showErrorDialogWithRetry('Payment Error', 'Invalid response data. Please try again.', _initiatePayment);
         return;
       }
 
-      // Step 2: Open Cashfree payment page using WebView
-      final paymentResult = await _openCashfreePayment(
-        context: context,
+      // Launch payment safely through the service
+      await PaymentService().startPayment(
         orderId: orderId,
         paymentSessionId: paymentSessionId,
+        isProduction: false,
       );
 
-      if (paymentResult.cancelled) {
-        _showInfoDialog('Payment Cancelled', 'You cancelled the payment process.');
-        return;
-      }
-
-      if (!paymentResult.success) {
-        _showErrorDialogWithRetry('Payment Failed', 'The payment process failed. Please try again.', _initiatePayment);
-        return;
-      }
-
-      // Step 3: Verify payment on your server
-      final verifyResponse = await ApiRepository.verifyPaymentResume({
-        "orderId": orderId,
-        "expectedAmount": 10,
-        "resumeId": _resumeId ?? 0,
-      });
-
-      if (!verifyResponse.isSuccess!) {
-        _showErrorDialogWithRetry(
-            'Verification Failed',
-            'Payment was processed but verification failed. Please try again.',
-                () => _verifyPayment(orderId)  // Create this method separately
-        );
-        return;
-      }
-
-      // Step 4: Show success dialog and offer to download
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text(
-            'Payment Successful',
-            style: TextStyle(
-              color: Colors.green,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 48,
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Your payment has been successfully processed. You can now download your resume.',
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _downloadResume();
-              },
-              child: const Text('Download Now'),
-            ),
-          ],
-        ),
-      );
     } catch (e) {
-      // Close loading dialog if still showing
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
-
-      // Print detailed error information for debugging
-      print("Payment error: $e");
+      if (Navigator.canPop(context)) Navigator.of(context).pop();
       _showErrorDialogWithRetry('Payment Error', 'An error occurred while processing payment: $e', _initiatePayment);
     }
   }
 
-  // New method to handle payment verification separately
+
+
+  void _showPaymentSuccessDialog(VoidCallback onDownload) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text(
+          'Payment Successful',
+          style: TextStyle(
+            color: Colors.green,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Icon(
+              Icons.check_circle,
+              color: Colors.green,
+              size: 48,
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Your payment has been successfully processed. You can now download your resume.',
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              onDownload();
+            },
+            child: const Text('Download Now'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Method to handle payment verification separately
   void _verifyPayment(String orderId) async {
     try {
       // Show loading indicator
@@ -789,6 +786,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
         "resumeId": _resumeId ?? 0,
       });
 
+      if (!mounted) return;
+
       // Close loading dialog
       if (Navigator.canPop(context)) {
         Navigator.of(context).pop();
@@ -804,42 +803,11 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
       }
 
       // Show success dialog and offer to download
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text(
-            'Payment Successful',
-            style: TextStyle(
-              color: Colors.green,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 48,
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Your payment has been successfully processed. You can now download your resume.',
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _downloadResume();
-              },
-              child: const Text('Download Now'),
-            ),
-          ],
-        ),
-      );
+      _showPaymentSuccessDialog(() {
+        _downloadResume();
+      });
     } catch (e) {
+      if (!mounted) return;
       // Close loading dialog if still showing
       if (Navigator.canPop(context)) {
         Navigator.of(context).pop();
@@ -847,205 +815,6 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
 
       _showErrorDialogWithRetry('Verification Error', 'An error occurred while verifying payment: $e', () => _verifyPayment(orderId));
     }
-  }
-
-  Future<PaymentResult> _openCashfreePayment({
-    required BuildContext context,
-    required String orderId,
-    required String paymentSessionId,
-  }) async {
-    // Create the payment URL with your Cashfree integration
-    final paymentUrl = 'https://sandbox.cashfree.com/pg/orders/$orderId/pay' +
-        '?payment_session_id=$paymentSessionId';
-
-    final Completer<PaymentResult> completer = Completer<PaymentResult>();
-
-    // Create WebView controller
-    late WebViewController controller;
-
-    // Show WebView in a dialog
-    await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return WillPopScope(
-          onWillPop: () async {
-            // Handle back button press
-            bool shouldPop = false;
-
-            await showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text('Cancel Payment?'),
-                content: const Text('Are you sure you want to cancel this payment?'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('No'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      shouldPop = true;
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Yes'),
-                  ),
-                ],
-              ),
-            );
-
-            if (shouldPop && !completer.isCompleted) {
-              completer.complete(PaymentResult(
-                success: false,
-                cancelled: true,
-                orderId: orderId,
-              ));
-              return true;
-            }
-
-            return shouldPop;
-          },
-          child: Dialog(
-            insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            child: Container(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.8,
-                maxWidth: MediaQuery.of(context).size.width * 0.9,
-              ),
-              child: Column(
-                children: [
-                  AppBar(
-                    backgroundColor: Colors.white,
-                    elevation: 0,
-                    title: const Text(
-                      'Payment Gateway',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    leading: IconButton(
-                      icon: const Icon(Icons.close, color: Colors.black),
-                      onPressed: () async {
-                        bool shouldClose = false;
-
-                        await showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Cancel Payment?'),
-                            content: const Text('Are you sure you want to cancel this payment?'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  shouldClose = true;
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          ),
-                        );
-
-                        if (shouldClose) {
-                          if (!completer.isCompleted) {
-                            completer.complete(PaymentResult(
-                              success: false,
-                              cancelled: true,
-                              orderId: orderId,
-                            ));
-                          }
-                          Navigator.of(context).pop(); // Close payment dialog
-                        }
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Builder(
-                      builder: (BuildContext context) {
-                        final WebViewController webViewController = WebViewController()
-                          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                          ..setNavigationDelegate(
-                            NavigationDelegate(
-                              onNavigationRequest: (NavigationRequest request) {
-                                // Check if the URL contains success or failure indicators
-                                if (request.url.contains('success=true') ||
-                                    request.url.toLowerCase().contains('status=success')) {
-                                  // Payment completed successfully
-                                  if (!completer.isCompleted) {
-                                    completer.complete(PaymentResult(
-                                      success: true,
-                                      cancelled: false,
-                                      orderId: orderId,
-                                    ));
-                                  }
-                                  Navigator.of(context).pop(); // Close payment dialog
-                                  return NavigationDecision.prevent;
-                                } else if (request.url.contains('success=false') ||
-                                    request.url.toLowerCase().contains('status=failure')) {
-                                  // Payment failed
-                                  if (!completer.isCompleted) {
-                                    completer.complete(PaymentResult(
-                                      success: false,
-                                      cancelled: false,
-                                      orderId: orderId,
-                                    ));
-                                  }
-                                  Navigator.of(context).pop(); // Close payment dialog
-                                  return NavigationDecision.prevent;
-                                }
-                                return NavigationDecision.navigate;
-                              },
-                              onPageFinished: (String url) {
-                                // Handle page finish events if needed
-                                if (url.contains('status=SUCCESS') ||
-                                    url.contains('status=success')) {
-                                  // Payment completed successfully based on URL
-                                  if (!completer.isCompleted) {
-                                    completer.complete(PaymentResult(
-                                      success: true,
-                                      cancelled: false,
-                                      orderId: orderId,
-                                    ));
-                                  }
-                                  Navigator.of(context).pop(); // Close payment dialog
-                                }
-                              },
-                            ),
-                          )
-                          ..loadRequest(Uri.parse(paymentUrl));
-
-                        controller = webViewController;
-
-                        return WebViewWidget(
-                          controller: webViewController,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-
-    // If dialog is closed without completing
-    if (!completer.isCompleted) {
-      completer.complete(PaymentResult(
-        success: false,
-        cancelled: true,
-        orderId: orderId,
-      ));
-    }
-
-    // Wait for the payment result
-    return completer.future;
   }
 
   void _downloadResume() async {
@@ -1192,6 +961,7 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment> {
     );
   }
 
+
   Widget _buildEducationItem(Education edu) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -1251,4 +1021,6 @@ class PaymentResult {
     required this.cancelled,
     required this.orderId,
   });
+
+
 }
