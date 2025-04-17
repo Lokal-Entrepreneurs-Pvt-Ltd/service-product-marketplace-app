@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 import 'dart:typed_data';
@@ -17,6 +18,12 @@ import 'package:flutter_cashfree_pg_sdk/api/cfpayment/cfwebcheckoutpayment.dart'
 import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
 import 'package:flutter_cashfree_pg_sdk/api/cferrorresponse/cferrorresponse.dart';
+
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 enum SubmissionState {
   loading,
@@ -113,6 +120,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     super.dispose();
   }
 
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,18 +141,21 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
             fontSize: 18,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline, color: Colors.blue),
-            onPressed: () {
-              // Show info about the service
-            },
-          ),
-        ],
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: _buildContent(),
+      body: Stack(
+        children: [
+          SafeArea(child: _buildContent()),
+          if (_isLoading)
+            Container(
+              color: Colors.black.withOpacity(0.1),
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: Color(0xFFFFD833), // Yellow
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -437,95 +449,54 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     );
   }
 
-  void _submitResume() async {
-    // Cancel any existing timeout timer and set up a new one
-    _setupTimeout();
 
-    // Update state to loading
+  void _submitResume() async {
     setState(() {
+      _isLoading = false;
       _state = SubmissionState.loading;
       _errorMessage = null;
     });
 
     try {
-      // Call API to generate PDF
-      final response = await ApiRepository.generateResumePdf(
-        widget.resumeData.toJson(),
-      );
-
-      // Cancel the timeout timer since we got a response
+      final response = await ApiRepository.generateResumePdf(widget.resumeData.toJson());
       _timeoutTimer?.cancel();
 
-      if (response.isSuccess!) {
-        // Store PDF URL if available
-        if (response.data != null && response.data['pdfUrl'] != null) {
-          _pdfUrl = response.data['pdfUrl'] as String;
-        }
-
-        // Extract and store the resumeId
-        if (response.data != null &&
-            response.data['response'] != null &&
-            response.data['response']['resumeId'] != null) {
-          _resumeId = response.data['response']['resumeId'];
-        }
-
-        // Update state to success
-        setState(() {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+        if (response.isSuccess!) {
+          _pdfUrl = response.data?['pdfUrl'];
+          _resumeId = response.data?['resumeId'];
           _state = SubmissionState.success;
-        });
-      } else {
-        // Handle error
-        setState(() {
+        } else {
           _state = SubmissionState.error;
           _errorMessage = "Failed to generate resume PDF";
-        });
-      }
+        }
+      });
     } catch (e) {
-      // Cancel the timeout timer since we got a response (even if it's an error)
       _timeoutTimer?.cancel();
-
-      // Handle exception
+      if (!mounted) return;
       setState(() {
+        _isLoading = false;
         _state = SubmissionState.error;
         _errorMessage = "An error occurred: $e";
       });
     }
   }
 
+
   void _openPdfPreview() async {
-    // Set a flag to prevent multiple calls
-    bool isPreviewInProgress = true;
-
+    setState(() => _isLoading = true);
     try {
-      // Show loading indicator
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext loadingContext) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
-
-      // Call API to get resume preview
       final response = await ApiRepository.previewResume({});
-
-      // Close loading dialog
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
+      if (!mounted) return;
+      setState(() => _isLoading = false);
 
       if (response.isSuccess! && response.data != null) {
-        // Extract the PDF buffer data
         final responseData = response.data;
-
         if (responseData['type'] == 'Buffer' && responseData['data'] != null) {
-          // Convert buffer array to Uint8List
           final List<dynamic> bufferData = responseData['data'];
           final Uint8List pdfBytes = Uint8List.fromList(List<int>.from(bufferData));
-
-          // Show PDF preview dialog with actual PDF content
           await _showPdfPreviewDialog(pdfBytes);
         } else {
           await _showErrorDialogWithRetry('Preview Error', 'Invalid buffer format in response', _openPdfPreview);
@@ -534,14 +505,9 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
         await _showErrorDialogWithRetry('Preview Error', 'Failed to load resume preview.', _openPdfPreview);
       }
     } catch (e) {
-      // Close loading dialog if it's still open
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
-
+      if (!mounted) return;
+      setState(() => _isLoading = false);
       await _showErrorDialogWithRetry('Error', 'An error occurred while loading the preview: $e', _openPdfPreview);
-    } finally {
-      isPreviewInProgress = false;
     }
   }
 
@@ -685,19 +651,15 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     );
   }
 
-  void _initiatePayment() async {
-    try {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (_) => const Center(child: CircularProgressIndicator()),
-      );
 
+  void _initiatePayment() async {
+    setState(() => _isLoading = true);
+    try {
       final initiateResponse = await ApiRepository.initiatePaymentResume({"amount": 10});
 
-     // if (Navigator.canPop(context)) Navigator.of(context).pop();
-
       if (!initiateResponse.isSuccess! || initiateResponse.data == null) {
+        if (!mounted) return;
+        setState(() => _isLoading = false);
         _showErrorDialogWithRetry('Payment Error', 'Failed to initiate payment. Please try again.', _initiatePayment);
         return;
       }
@@ -708,23 +670,24 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       final String? paymentSessionId = providerData['payment_session_id'];
 
       if (orderId == null || paymentSessionId == null) {
+        if (!mounted) return;
+        setState(() => _isLoading = false);
         _showErrorDialogWithRetry('Payment Error', 'Invalid response data. Please try again.', _initiatePayment);
         return;
       }
 
-      // Launch payment safely through the service
       await PaymentService().startPayment(
         orderId: orderId,
         paymentSessionId: paymentSessionId,
         isProduction: false,
       );
 
+      if (mounted) setState(() => _isLoading = false);
     } catch (e) {
-      if (Navigator.canPop(context)) Navigator.of(context).pop();
+      if (mounted) setState(() => _isLoading = false);
       _showErrorDialogWithRetry('Payment Error', 'An error occurred while processing payment: $e', _initiatePayment);
     }
   }
-
 
 
   void _showPaymentSuccessDialog(VoidCallback onDownload) {
@@ -765,21 +728,9 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     );
   }
 
-  // Method to handle payment verification separately
   void _verifyPayment(String orderId) async {
+    setState(() => _isLoading = true);
     try {
-      // Show loading indicator
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
-
-      // Verify payment on your server
       final verifyResponse = await ApiRepository.verifyPaymentResume({
         "orderId": orderId,
         "expectedAmount": 10,
@@ -787,80 +738,139 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       });
 
       if (!mounted) return;
-
-      // Close loading dialog
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
+      setState(() => _isLoading = false);
 
       if (!verifyResponse.isSuccess!) {
         _showErrorDialogWithRetry(
-            'Verification Failed',
-            'Payment verification failed. Please try again.',
-                () => _verifyPayment(orderId)
+          'Verification Failed',
+          'Payment verification failed. Please try again.',
+              () => _verifyPayment(orderId),
         );
         return;
       }
 
-      // Show success dialog and offer to download
       _showPaymentSuccessDialog(() {
         _downloadResume();
       });
     } catch (e) {
       if (!mounted) return;
-      // Close loading dialog if still showing
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
-
+      setState(() => _isLoading = false);
       _showErrorDialogWithRetry('Verification Error', 'An error occurred while verifying payment: $e', () => _verifyPayment(orderId));
     }
   }
 
+
+
   void _downloadResume() async {
+    setState(() => _isLoading = true);
     try {
-      // Show loading indicator
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      );
-
-      // Call API to get resume download
       final response = await ApiRepository.downLoadResume({});
-
-      // Close loading dialog
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
+      if (!mounted) return;
+      setState(() => _isLoading = false);
 
       if (!response.isSuccess!) {
         _showErrorDialogWithRetry('Download Error', 'Failed to download resume. Please try again.', _downloadResume);
         return;
       }
 
-      // Handle the download response
-      // This depends on your API implementation:
-      // 1. It could return a file that you save to device
-      // 2. It could return a URL that you open in browser
-      // 3. It could return base64 content that you convert to a file
+      final resumeUrl = response.data?['resumeUrl'];
+      if (resumeUrl != null) {
+        // First check if we have permission
+        var status = await Permission.storage.status;
+        if (!status.isGranted) {
+          // If not granted, request permission with better explanation
+          status = await Permission.storage.request();
+          // If still not granted after request, show app settings dialog
+          if (!status.isGranted) {
+            if (!await _requestStoragePermission()) {
+              _showPermissionSettingsDialog();
+              return;
+            }
+          }
+        }
 
-      _showInfoDialog(
-          'Download Successful',
-          'Your resume has been downloaded successfully.'
-      );
-    } catch (e) {
-      // Close loading dialog if still showing
-      if (Navigator.canPop(context)) {
-        Navigator.of(context).pop();
+        // Continue with download if permission granted
+        final uri = Uri.parse(resumeUrl);
+        final responseFile = await http.get(uri);
+        final bytes = responseFile.bodyBytes;
+
+        // Use getApplicationDocumentsDirectory for better compatibility
+        final directory = await getApplicationDocumentsDirectory();
+        final fileName = 'resume_${DateTime.now().millisecondsSinceEpoch}.pdf';
+        final filePath = '${directory.path}/$fileName';
+        final file = File(filePath);
+        await file.writeAsBytes(bytes);
+
+        _showInfoDialog('Download Successful', 'Your resume has been saved successfully.');
+      } else {
+        _showErrorDialogWithRetry('Download Error', 'No resume URL found in response.', _downloadResume);
       }
-
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
       _showErrorDialogWithRetry('Download Error', 'An error occurred while downloading the resume: $e', _downloadResume);
     }
+  }
+
+  Future<bool> _requestStoragePermission() async {
+    final status = await Permission.storage.status;
+
+    if (status.isGranted) {
+      return true;
+    }
+
+    final result = await Permission.storage.request();
+
+    if (result.isGranted) {
+      return true;
+    } else if (result.isPermanentlyDenied) {
+      await openAppSettings(); // optional: guide user to manually enable
+    }
+
+    return false;
+  }
+
+// Add this new method to show permission settings dialog
+  void _showPermissionSettingsDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Storage Permission Required'),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'To download your resume, the app needs permission to access your device storage. Please enable this permission in your device settings.',
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Would you like to open settings now?',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              openAppSettings();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFFFD833),
+              foregroundColor: Colors.black,
+            ),
+            child: const Text('Open Settings'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showInfoDialog(String title, String message) {
