@@ -13,12 +13,7 @@
           "package_name": "com.example.ui_sdk"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "391390004819-kj5rk51p7nt178qrnu8v67taf2n18qnl.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyAjBJQ55gpN-6GZPijpIsO6w0yp_O3GYzE"
@@ -28,14 +23,10 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "391390004819-kj5rk51p7nt178qrnu8v67taf2n18qnl.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "391390004819-j4c0kc28g1uvh88qim8n74cbbcje640d.apps.googleusercontent.com",
+              "client_id": "391390004819-victi291b8iv1cp724jomfrovvl26vsp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.uiSdk"
+                "bundle_id": "com.example.digiaVdl"
               }
             }
           ]
@@ -44,25 +35,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:391390004819:android:272bdcf1061fca8278a8a6",
+        "mobilesdk_app_id": "1:391390004819:android:e97ecc004226fe6478a8a6",
         "android_client_info": {
-          "package_name": "com.lokal.app"
+          "package_name": "com.lokal.mitr"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "391390004819-v8uga8p41t6thqo78n0m7epbc129ch3v.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.lokal.app",
-            "certificate_hash": "c2216ce475e95a04714e63e3b410f0b6a303966c"
-          }
-        },
-        {
-          "client_id": "391390004819-kj5rk51p7nt178qrnu8v67taf2n18qnl.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyAjBJQ55gpN-6GZPijpIsO6w0yp_O3GYzE"
@@ -72,14 +50,10 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "391390004819-kj5rk51p7nt178qrnu8v67taf2n18qnl.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "391390004819-j4c0kc28g1uvh88qim8n74cbbcje640d.apps.googleusercontent.com",
+              "client_id": "391390004819-victi291b8iv1cp724jomfrovvl26vsp.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.uiSdk"
+                "bundle_id": "com.example.digiaVdl"
               }
             }
           ]

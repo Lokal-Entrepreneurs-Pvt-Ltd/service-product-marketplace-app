@@ -9,6 +9,7 @@ import 'package:lokal/screens/Onboarding/newLogin/newOtpScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newPasswordScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newSignUpScreen.dart';
 import 'package:lokal/screens/Onboarding/newLogin/otpScreenMobile.dart';
+import 'package:lokal/screens/ResumeBuilder/resumeDataModel.dart';
 import 'package:lokal/screens/detailScreen/UserAccountDetails.dart';
 import 'package:lokal/screens/Onboarding/newLogin/newLogin.dart';
 import 'package:lokal/screens/membership/GoldPassScreen.dart';
@@ -93,6 +94,8 @@ import 'package:lokal/screens/detailScreen/UikMyDetailsScreen.dart';
 import 'package:lokal/screens/myAccount/myAccountPageWrapper.dart';
 import 'package:lokal/screens/myRewards/myRewardPage.dart';
 import 'package:lokal/screens/partnerTraining/PartnerTrainingHome.dart';
+
+import '../../screens/ResumeBuilder/ResumePersonalDetails.dart';
 
 class RouteChangeObserver extends RouteObserver {
   @override
@@ -239,7 +242,7 @@ class AppRoutes {
       _userReferredByScreen,
       _userBankInfoScreen,
       _mobileNumberScreen,
-      _otpMobileScreen,
+     // _otpMobileScreen,
       _webViewScreen,
       _userSolarInfoScreen,
       _userSolarInfo2Screen,
@@ -249,6 +252,7 @@ class AppRoutes {
       _fieldScreen,
       _partnerInfo,
       _partnerScreen,
+      _resumeBuilder
     ],
   );
 
@@ -334,18 +338,18 @@ class AppRoutes {
     },
   );
 
-  static final GoRoute _otpMobileScreen = GoRoute(
-    path: ScreenRoutes.otpMobileScreen,
-    builder: (context, state) {
-      // final Map<String, dynamic>? extraArgs =
-      // state.extra as Map<String, dynamic>?;
-      return OtpScreenMobile(
-        key: state.pageKey,
-        args: state.extra,
-        // mobileNumber: {"mobile": 7232841614},
-      );
-    },
-  );
+  // static final GoRoute _otpMobileScreen = GoRoute(
+  //   path: ScreenRoutes.otpMobileScreen,
+  //   builder: (context, state) {
+  //     // final Map<String, dynamic>? extraArgs =
+  //     // state.extra as Map<String, dynamic>?;
+  //     // return OtpScreenMobile(
+  //     //   key: state.pageKey,
+  //     //   args: state.extra,
+  //     //   // mobileNumber: {"mobile": 7232841614},
+  //     // );
+  //   },
+  // );
 
   static final GoRoute _mobileNumberScreen = GoRoute(
     path: ScreenRoutes.mobileNumberScreen,
@@ -1034,6 +1038,13 @@ class AppRoutes {
     builder: (context, state) {
       return UikAgentsForUserService(args: state.extra as Map<String, dynamic>?)
           .page;
+    },
+  );
+
+  static final GoRoute _resumeBuilder = GoRoute(
+    path: ScreenRoutes.resumeBuilder,
+    builder: (context, state) {
+      return ResumePersonalDetails(resumeData: ResumeData());
     },
   );
 }

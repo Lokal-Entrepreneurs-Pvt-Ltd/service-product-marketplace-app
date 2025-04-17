@@ -1,4 +1,4 @@
-package com.example.login
+package com.lokal.mitr;
 
 import io.flutter.embedding.android.FlutterActivity
 
