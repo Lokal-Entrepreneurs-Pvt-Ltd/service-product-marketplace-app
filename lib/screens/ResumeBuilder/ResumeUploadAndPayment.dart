@@ -759,8 +759,6 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     }
   }
 
-
-
   void _downloadResume() async {
     setState(() => _isLoading = true);
     try {
@@ -769,109 +767,30 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       setState(() => _isLoading = false);
 
       if (!response.isSuccess!) {
-        _showErrorDialogWithRetry('Download Error', 'Failed to download resume. Please try again.', _downloadResume);
+        _showErrorDialogWithRetry('Download Error', 'Failed to load resume. Please try again.', _downloadResume);
         return;
       }
 
       final resumeUrl = response.data?['resumeUrl'];
       if (resumeUrl != null) {
-        // First check if we have permission
-        var status = await Permission.storage.status;
-        if (!status.isGranted) {
-          // If not granted, request permission with better explanation
-          status = await Permission.storage.request();
-          // If still not granted after request, show app settings dialog
-          if (!status.isGranted) {
-            if (!await _requestStoragePermission()) {
-              _showPermissionSettingsDialog();
-              return;
-            }
-          }
+        // Open URL in browser instead of downloading
+        if (await canLaunch(resumeUrl)) {
+          await launch(resumeUrl, forceSafariVC: false, forceWebView: false);
+          _showInfoDialog('Success', 'Your resume has been opened in browser. You can download it from there.');
+        } else {
+          _showErrorDialogWithRetry('Error', 'Could not open the resume URL.', _downloadResume);
         }
-
-        // Continue with download if permission granted
-        final uri = Uri.parse(resumeUrl);
-        final responseFile = await http.get(uri);
-        final bytes = responseFile.bodyBytes;
-
-        // Use getApplicationDocumentsDirectory for better compatibility
-        final directory = await getApplicationDocumentsDirectory();
-        final fileName = 'resume_${DateTime.now().millisecondsSinceEpoch}.pdf';
-        final filePath = '${directory.path}/$fileName';
-        final file = File(filePath);
-        await file.writeAsBytes(bytes);
-
-        _showInfoDialog('Download Successful', 'Your resume has been saved successfully.');
       } else {
-        _showErrorDialogWithRetry('Download Error', 'No resume URL found in response.', _downloadResume);
+        _showErrorDialogWithRetry('Error', 'No resume URL found in response.', _downloadResume);
       }
     } catch (e) {
       if (!mounted) return;
       setState(() => _isLoading = false);
-      _showErrorDialogWithRetry('Download Error', 'An error occurred while downloading the resume: $e', _downloadResume);
+      _showErrorDialogWithRetry('Error', 'An error occurred while processing the resume: $e', _downloadResume);
     }
   }
 
-  Future<bool> _requestStoragePermission() async {
-    final status = await Permission.storage.status;
 
-    if (status.isGranted) {
-      return true;
-    }
-
-    final result = await Permission.storage.request();
-
-    if (result.isGranted) {
-      return true;
-    } else if (result.isPermanentlyDenied) {
-      await openAppSettings(); // optional: guide user to manually enable
-    }
-
-    return false;
-  }
-
-// Add this new method to show permission settings dialog
-  void _showPermissionSettingsDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Storage Permission Required'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'To download your resume, the app needs permission to access your device storage. Please enable this permission in your device settings.',
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Would you like to open settings now?',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              openAppSettings();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFFD833),
-              foregroundColor: Colors.black,
-            ),
-            child: const Text('Open Settings'),
-          ),
-        ],
-      ),
-    );
-  }
 
   void _showInfoDialog(String title, String message) {
     showDialog(
