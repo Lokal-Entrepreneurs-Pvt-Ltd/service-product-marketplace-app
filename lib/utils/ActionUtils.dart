@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lokal/main.dart';
 import 'package:lokal/utils/Logs/event.dart';
@@ -23,7 +22,7 @@ import 'UiUtils/UiUtils.dart';
 import 'network/ApiRepository.dart';
 import 'network/ApiRequestBody.dart';
 import 'storage/product_data_handler.dart';
-
+import 'package:location/location.dart' as loc;
 abstract class ActionUtils {
   static void sendEventonActionForScreen(String actionType, String screenName) {
     if (EventSDK.sessionId.isNotEmpty && EventSDK.userId != null) {
@@ -258,13 +257,14 @@ abstract class ActionUtils {
     try {
       UiUtils.showToast("Location is Updating");
       await NavigationUtils.showLoaderOnTop();
-      Position? position = await LocationUtils.getCurrentPosition();
-      if (position != null) {
-        double lat = position.latitude;
-        double long = position.longitude;
-        List<Placemark> placemarks = await placemarkFromCoordinates(
-            position.latitude, position.longitude);
-        Placemark place = placemarks[0];
+
+      loc.LocationData? position = await LocationUtils.getCurrentPosition();
+      if (position != null && position.latitude != null && position.longitude != null) {
+        double lat = position.latitude!;
+        double long = position.longitude!;
+
+        List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
+        Placemark place = placemarks.first;
 
         final response = await ApiRepository.updateCustomerInfo({
           "latitude": lat,
@@ -279,22 +279,23 @@ abstract class ActionUtils {
           "locality": place.locality,
           "subLocality": place.subLocality,
         });
+
         await NavigationUtils.showLoaderOnTop(false);
+
         if (response.isSuccess!) {
           UiUtils.showToast("Location Updated");
           NavigationUtils.popAllAndPush(ScreenRoutes.uikBottomNavigationBar);
         } else {
           UiUtils.showToast(response.error![MESSAGE]);
-          return null;
         }
-        print(
-            'Latitude: ${position.latitude}, Longitude: ${position.longitude}');
+
+        print('Latitude: $lat, Longitude: $long');
       } else {
         await NavigationUtils.showLoaderOnTop(false);
         print('Failed to retrieve the current location.');
       }
     } catch (e) {
-      UiUtils.showToast(e.toString());
+      UiUtils.showToast("Error: $e");
     } finally {
       await NavigationUtils.showLoaderOnTop(false);
     }

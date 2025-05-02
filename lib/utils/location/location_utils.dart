@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart' as geo;
 import 'package:location/location.dart';
 import 'package:lokal/utils/UiUtils/UiUtils.dart';
-
+import 'package:location/location.dart' as loc;
 class LocationUtils {
   static Future<bool> _handleLocationPermission() async {
     Location location = Location();
@@ -40,17 +39,33 @@ class LocationUtils {
     return true; // Location service is enabled and permission granted
   }
 
-  static Future<geo.Position?> getCurrentPosition() async {
-    geo.Position? currentPosition;
-    final hasPermission = await _handleLocationPermission();
-    if (!hasPermission) return currentPosition;
-    try {
-      geo.Position position = await geo.Geolocator.getCurrentPosition(
-          desiredAccuracy: geo.LocationAccuracy.high);
-      currentPosition = position;
-    } catch (e) {
-      debugPrint(e.toString());
+  static Future<loc.LocationData?> getCurrentPosition() async {
+    final location = loc.Location();
+
+    // Check if location services are enabled
+    bool serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) return null;
     }
-    return currentPosition;
+
+    // Check for permissions
+    loc.PermissionStatus permissionGranted = await location.hasPermission();
+    if (permissionGranted == loc.PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != loc.PermissionStatus.granted) return null;
+    }
+
+    try {
+      // Get current location
+      final currentPosition = await location.getLocation();
+      return currentPosition;
+    } catch (e) {
+      debugPrint("Location error: $e");
+      return null;
+    }
   }
+
+
+
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/constants/json_constants.dart';
 import 'package:lokal/constants/strings.dart';
@@ -13,6 +12,7 @@ import 'package:lokal/utils/network/ApiRepository.dart';
 import 'package:lokal/utils/network/ApiRequestBody.dart';
 import 'package:lokal/widgets/UikButton/UikButton.dart';
 import 'package:lokal/widgets/selectabletext.dart';
+import 'package:location/location.dart' as loc;
 
 class MyDetailsScreen extends StatefulWidget {
   const MyDetailsScreen({Key? key}) : super(key: key);
@@ -428,16 +428,56 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   }
 
   Future<void> getLocation() async {
-    Position? position = await LocationUtils.getCurrentPosition();
-    if (position != null) {
+    final location = loc.Location();
+
+    // Ensure location services are enabled
+    bool serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        setState(() {
+          lat = -1;
+          long = -1;
+        });
+        return;
+      }
+    }
+
+    // Ensure permissions are granted
+    loc.PermissionStatus permissionGranted = await location.hasPermission();
+    if (permissionGranted == loc.PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != loc.PermissionStatus.granted) {
+        setState(() {
+          lat = -1;
+          long = -1;
+        });
+        return;
+      }
+    }
+
+    try {
+      final position = await location.getLocation();
+
+      if (position.latitude != null && position.longitude != null) {
+        setState(() {
+          lat = position.latitude!;
+          long = position.longitude!;
+        });
+
+        print('Latitude: $lat, Longitude: $long');
+      } else {
+        setState(() {
+          lat = -1;
+          long = -1;
+        });
+      }
+    } catch (e) {
+      print("Error getting location: $e");
       setState(() {
-        lat = position.latitude;
-        long = position.longitude;
+        lat = -1;
+        long = -1;
       });
-      print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
-    } else {
-      lat = -1;
-      long = -1;
     }
   }
 
