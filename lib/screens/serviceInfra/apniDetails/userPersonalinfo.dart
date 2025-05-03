@@ -24,7 +24,6 @@ import 'package:location/location.dart' as loc;
 class UserPersonalInfo extends StatefulWidget {
   final dynamic args;
   const UserPersonalInfo({Key? key, this.args}) : super(key: key);
-
   @override
   State<UserPersonalInfo> createState() => _UserPersonalInfoState();
 }
