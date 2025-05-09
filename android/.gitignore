@@ -11,3 +11,12 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+# Android build folders
+android/app/build/
+
+# Flutter generated folders
+.dart_tool/
+.packages
+build/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec

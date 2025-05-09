@@ -488,6 +488,26 @@ class ApiRepository {
   static Future<ApiResponse> phoneNumberAuth(args) {
     return HttpScreenClient.getApiResponse(ApiRoutes.phoneNumberAuth, args);
   }
+
+  static Future<ApiResponse> generateResumePdf(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.generatePdf, args);
+  }
+
+  static Future<ApiResponse> previewResume(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.previewResume, args);
+  }
+
+  static Future<ApiResponse> initiatePaymentResume(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.initiatePaymentResume, args);
+  }
+
+  static Future<ApiResponse> verifyPaymentResume(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.verifyPaymentResume, args);
+  }
+
+  static Future<ApiResponse> downLoadResume(args) {
+    return HttpScreenClient.getApiResponse(ApiRoutes.downloadResume, args);
+  }
 }
 
   // static Future<ApiResponse> verifyOtp(Map<String, dynamic> request) async {

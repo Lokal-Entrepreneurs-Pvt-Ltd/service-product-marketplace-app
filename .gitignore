@@ -32,6 +32,16 @@ migrate_working_dir/
 .pub/
 /build/
 
+
+# Android build folders
+android/app/build/
+
+# Flutter generated folders
+.dart_tool/
+.packages
+build/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
 # Web related
 
 # Symbolication related
@@ -44,3 +54,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+android/app/build/
