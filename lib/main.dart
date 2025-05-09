@@ -123,6 +123,7 @@ class _LokalAppState extends State<LokalApp> {
     initPlatformState();
   }
 
+
   @override
   void dispose() {
     // TODO: implement dispose
