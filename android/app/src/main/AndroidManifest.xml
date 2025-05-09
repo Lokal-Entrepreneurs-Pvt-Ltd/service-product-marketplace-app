@@ -7,7 +7,7 @@
 
 
     <application
-        android:label="Lokal Mitra"
+        android:label="Lokal Mitr"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
