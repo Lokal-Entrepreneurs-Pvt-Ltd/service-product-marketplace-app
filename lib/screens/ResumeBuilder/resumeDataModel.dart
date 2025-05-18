@@ -1,146 +1,93 @@
 // resume_data_model.dart
 
 class Education {
-  final String schoolName;
-  final String percentage;
-  final String subjects;
-  final String startDate;
-  final String endDate;
+  final String year;
+  final String qualification;
+  final String school;
+  final String status;
 
   Education({
-    required this.schoolName,
-    required this.percentage,
-    required this.subjects,
-    required this.startDate,
-    required this.endDate,
+    required this.year,
+    required this.qualification,
+    required this.school,
+    required this.status,
   });
 
-  // Convert to JSON
   Map<String, dynamic> toJson() {
     return {
-      'schoolName': schoolName,
-      'percentage': percentage,
-      'subjects': subjects,
-      'startDate': startDate,
-      'endDate': endDate,
+      'year': year,
+      'qualification': qualification,
+      'school': school,
+      'status': status,
     };
   }
 
-  // Create from JSON
   factory Education.fromJson(Map<String, dynamic> json) {
     return Education(
-      schoolName: json['schoolName'] ?? '',
-      percentage: json['percentage'] ?? '',
-      subjects: json['subjects'] ?? '',
-      startDate: json['startDate'] ?? '',
-      endDate: json['endDate'] ?? '',
+      year: json['year'] ?? '',
+      qualification: json['qualification'] ?? '',
+      school: json['school'] ?? '',
+      status: json['status'] ?? '',
     );
-  }
-}
-
-class WorkExperience {
-  final String jobTitle;
-  final String employer;
-  final String city;
-  final String startDate;
-  final String endDate;
-
-  WorkExperience({
-    required this.jobTitle,
-    required this.employer,
-    required this.city,
-    required this.startDate,
-    required this.endDate,
-  });
-
-  // Convert to JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'jobTitle': jobTitle,
-      'employer': employer,
-      'city': city,
-      'startDate': startDate,
-      'endDate': endDate,
-    };
-  }
-
-  // Create from JSON
-  factory WorkExperience.fromJson(Map<String, dynamic> json) {
-    return WorkExperience(
-      jobTitle: json['jobTitle'] ?? '',
-      employer: json['employer'] ?? '',
-      city: json['city'] ?? '',
-      startDate: json['startDate'] ?? '',
-      endDate: json['endDate'] ?? '',
-    );
-  }
-
-  // Display date in UI format (Jan/22-Dec/23)
-  String get displayDate {
-    try {
-      final startDateTime = DateTime.parse(startDate);
-      final endDateTime = DateTime.parse(endDate);
-      return '${_formatDate(startDateTime)}-${_formatDate(endDateTime)}';
-    } catch (e) {
-      return '$startDate-$endDate';
-    }
-  }
-
-  String _formatDate(DateTime date) {
-    final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    final month = months[date.month - 1];
-    final year = date.year.toString().substring(2); // Get last 2 digits
-    return '$month/$year';
   }
 }
 
 class ResumeData {
   String name;
+  String fatherName;
   String phone;
-  String email;
-  String city;
+  String address;
   List<Education> education;
-  List<WorkExperience> work;
+  List<String> skills;
+  List<String> workPreference;
+  List<String> documentsAvailable;
+  String declaration;
 
   ResumeData({
     this.name = '',
+    this.fatherName = '',
     this.phone = '',
-    this.email = '',
-    this.city = '',
+    this.address = '',
     List<Education>? education,
-    List<WorkExperience>? work,
-  }) :
-        education = education ?? [],
-        work = work ?? [];
+    List<String>? skills,
+    List<String>? workPreference,
+    List<String>? documentsAvailable,
+    this.declaration = '',
+  })  : education = education ?? [],
+        skills = skills ?? [],
+        workPreference = workPreference ?? [],
+        documentsAvailable = documentsAvailable ?? [];
 
-  // Convert to JSON
   Map<String, dynamic> toJson() {
     return {
       'name': name,
+      'fatherName': fatherName,
       'phone': phone,
-      'email': email,
-      'city': city,
+      'address': address,
       'education': education.map((e) => e.toJson()).toList(),
-      'work': work.map((w) => w.toJson()).toList(),
+      'skills': skills,
+      'workPreference': workPreference,
+      'documentsAvailable': documentsAvailable,
+      'declaration': declaration,
     };
   }
 
-  // Create from JSON
   factory ResumeData.fromJson(Map<String, dynamic> json) {
-    final List<dynamic> eduList = json['education'] ?? [];
-    final List<dynamic> workList = json['work'] ?? [];
-
     return ResumeData(
       name: json['name'] ?? '',
+      fatherName: json['fatherName'] ?? '',
       phone: json['phone'] ?? '',
-      email: json['email'] ?? '',
-      city: json['city'] ?? '',
-      education: eduList.map((e) => Education.fromJson(e)).toList(),
-      work: workList.map((w) => WorkExperience.fromJson(w)).toList(),
+      address: json['address'] ?? '',
+      education: (json['education'] as List<dynamic>? ?? [])
+          .map((e) => Education.fromJson(e))
+          .toList(),
+      skills: List<String>.from(json['skills'] ?? []),
+      workPreference: List<String>.from(json['workPreference'] ?? []),
+      documentsAvailable: List<String>.from(json['documentsAvailable'] ?? []),
+      declaration: json['declaration'] ?? '',
     );
   }
 
-  // Get final JSON string
   String getFinalJson() {
     final jsonMap = toJson();
     return jsonMap.toString();
