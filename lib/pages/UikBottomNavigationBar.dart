@@ -1,3 +1,4 @@
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,7 +41,7 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     if (index == _selectedIndex) return;
 
     if (index == 0) {
-      context!.push(ScreenRoutes.alljobs);
+      context!.push(ScreenRoutes.homePage, extra: {});
     }
     if (index == 1) {
       context!.push(ScreenRoutes.newsPage, extra: {});
@@ -175,7 +176,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: UikHome().page,
+        body: DUIFactory().createPage(
+            'homepage',{}),
         bottomNavigationBar: BottomAppBar(
           elevation: 0.0, // Remove shadow
           child: Row(
@@ -224,6 +226,8 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
     );
   }
 }
+
+
 
 class BottomCartDetails extends StatelessWidget {
   const BottomCartDetails({

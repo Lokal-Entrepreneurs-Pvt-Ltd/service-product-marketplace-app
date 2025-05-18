@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:android_sms_retriever/android_sms_retriever.dart';
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -132,6 +133,15 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
           UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
           UiUtils.showToast(OTP_VERIFIED);
           UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+
+
+          //Update headers with Digia
+          Map<String, String> header = Map();
+          header.addAll({"Authorization": "Bearer " + response.data[AUTH_TOKEN]});
+          header.addAll({"x-device-os": 'ANDROID'});
+          header.addAll({"x-verions-name": '1.0.5'});
+          DigiaUIClient.instance.networkClient.replaceProjectHeaders(header);
+
           await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
           final Session? session = await SessionManager.getSession();
           if (session != null) {

@@ -679,7 +679,7 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       await PaymentService().startPayment(
         orderId: orderId,
         paymentSessionId: paymentSessionId,
-        isProduction: false,
+        isProduction: true,
       );
 
       if (mounted) setState(() => _isLoading = false);

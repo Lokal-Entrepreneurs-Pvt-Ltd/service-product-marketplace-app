@@ -127,4 +127,5 @@ class ScreenRoutes {
   static const String forgetPasswordScreen = '/forgetpasswordscreen';
   static const String walletScreen = '/walletScreen';
   static const String resumeBuilder = '/resumeBuilder';
+  static const String homePage = '/homePage';
 }
