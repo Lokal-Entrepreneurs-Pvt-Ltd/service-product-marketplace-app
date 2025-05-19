@@ -59,7 +59,7 @@ class UikMyAccountScreen extends StandardPage {
   }
 }
 
-void clearDataAndMoveToOnboarding(UikAction uikAction) {
+void clearDataAndMoveToOnboarding() {
   UserDataHandler.clearUserToken();
   NavigationUtils.openScreen(ScreenRoutes.onboardingScreen, {});
   // todo mano recreate the main.dart by adding listners

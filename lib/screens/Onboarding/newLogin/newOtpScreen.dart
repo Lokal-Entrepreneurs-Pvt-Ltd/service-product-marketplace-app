@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:android_sms_retriever/android_sms_retriever.dart';
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -132,6 +133,11 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
           UserDataHandler.saveIsOnboardingCoachMarkDisplayed(false);
           UiUtils.showToast(OTP_VERIFIED);
           UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
+
+
+          DUIAppState().update<String>('bearerToken', UserDataHandler.getUserToken());
+
+
           await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
           final Session? session = await SessionManager.getSession();
           if (session != null) {

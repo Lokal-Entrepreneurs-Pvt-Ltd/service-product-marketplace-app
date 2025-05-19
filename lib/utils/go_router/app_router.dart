@@ -43,7 +43,6 @@ import 'package:lokal/utils/storage/user_data_handler.dart';
 import 'package:lokal/widgets/UikFilter.dart';
 import 'package:lokal/widgets/WebViewPage.dart';
 import 'package:upgrader/upgrader.dart';
-import '../../DUIPageMessageHandler.dart';
 import '../../pages/UikAgentsForUserService.dart';
 import '../../pages/UikCustomerLokalQr.dart';
 import '../../screens/Form/SamhitaAddParticipants.dart';
@@ -252,7 +251,8 @@ class AppRoutes {
       _fieldScreen,
       _partnerInfo,
       _partnerScreen,
-      _resumeBuilder
+      _resumeBuilder,
+      _homePage
     ],
   );
 
@@ -384,6 +384,14 @@ class AppRoutes {
     },
   );
 
+  static final GoRoute _homePage = GoRoute(
+    path: ScreenRoutes.homePage,
+    builder: (context, state) {
+      return  DUIFactory().createPage(
+          'homepage',{});
+    },
+  );
+
   static final GoRoute _newsScreen = GoRoute(
     path: ScreenRoutes.newsPage,
     builder: (context, state) {
@@ -406,13 +414,7 @@ class AppRoutes {
       };
 
       return DUIFactory().createPage(
-          'partnerinfo',
-          map, messageHandler: DUIPageMessageHandler(
-              (message){
-            if (message.name == "addNewLeads") {
-              NavigationUtils.openScreen(ScreenRoutes.addNewLeads1);
-            }
-          }));
+          'partnerinfo',{});
     },
   );
 

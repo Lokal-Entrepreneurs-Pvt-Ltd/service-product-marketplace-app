@@ -17,7 +17,7 @@ abstract class DeeplinkHandler {
     }
   }
 
-  static void openPage(BuildContext? context, String url) async {
+   static void openPage(BuildContext? context, String url) async {
     //https://localee.co.in/routName?args1=10&arg2=20
     print("__________________url____________________");
     print(url);

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:digia_ui/digia_ui.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:image_picker/image_picker.dart';
@@ -248,6 +249,7 @@ abstract class ActionUtils {
 
   static void clearDataAndMoveToOnboarding(UikAction uikAction) {
     UserDataHandler.clearUserToken();
+    DUIAppState().update<String>('bearerToken', '');
     NavigationUtils.popAllAndPush(ScreenRoutes.onboardingScreen, {});
     LokalApp.resetAppState();
     // todo mano recreate the main.dart by adding listners
