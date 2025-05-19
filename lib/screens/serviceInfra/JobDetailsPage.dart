@@ -635,7 +635,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     UiUtils.shareOnWhatsApp(
                         shareUrl.isNotEmpty
                             ? shareUrl
-                            : "https://play.google.com/store/apps/details?id=com.lokal.app&hl=en_US",
+                            : "https://play.google.com/store/apps/details?id=com.lokal.mitr&hl=en_US",
                         shareText.isNotEmpty
                             ? shareText
                             : "लोकल वोकल है: जुड़ें लोकल से पाये जॉब आपके घर के पास");
