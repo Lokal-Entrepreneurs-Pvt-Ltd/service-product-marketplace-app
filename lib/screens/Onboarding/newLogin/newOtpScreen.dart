@@ -135,12 +135,8 @@ class _NewOTPScreenState extends State<NewOTPScreen> {
           UserDataHandler.saveUserToken(response.data[AUTH_TOKEN]);
 
 
-          //Update headers with Digia
-          Map<String, String> header = Map();
-          header.addAll({"Authorization": "Bearer " + response.data[AUTH_TOKEN]});
-          header.addAll({"x-device-os": 'ANDROID'});
-          header.addAll({"x-verions-name": '1.0.5'});
-          DigiaUIClient.instance.networkClient.replaceProjectHeaders(header);
+          DUIAppState().update<String>('bearerToken', UserDataHandler.getUserToken());
+
 
           await SessionManager.saveSession(Session(lastLogin: DateTime.now()));
           final Session? session = await SessionManager.getSession();

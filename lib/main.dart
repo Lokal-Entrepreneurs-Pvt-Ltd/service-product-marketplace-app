@@ -47,7 +47,7 @@ void main() async {
   environment: Environment.development.name,
   baseUrl: "https://app.digia.tech/api/v1",
   networkConfiguration:
-  NetworkConfiguration(defaultHeaders: {}, timeout: 1000));
+  NetworkConfiguration(defaultHeaders:  {}, timeout: 1000));
 
 
   await PreferenceUtils.init();

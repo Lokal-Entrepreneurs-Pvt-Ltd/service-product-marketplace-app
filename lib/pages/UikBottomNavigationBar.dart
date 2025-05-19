@@ -58,6 +58,12 @@ class _UikBottomNavigationBarState extends State<UikBottomNavigationBar> {
 
   @override
   void initState() {
+
+    if(!UserDataHandler.getUserToken().isEmpty){
+      //Update headers with Digia
+      DUIAppState().update<String>('bearerToken', UserDataHandler.getUserToken());
+    }
+
     Future.delayed(
         const Duration(
           seconds: 1,
