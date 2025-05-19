@@ -6,6 +6,7 @@ import 'package:lokal/configs/env_utils.dart';
 import 'package:lokal/configs/environment_data_handler.dart';
 import 'package:lokal/constants/environment.dart';
 import 'package:lokal/notifications/notification_controller.dart';
+import 'package:lokal/screens/digia/DigiaMessageHandler.dart';
 
 import 'package:lokal/utils/AppInitializer.dart';
 import 'package:lokal/utils/Logs/eventsdk.dart';
@@ -58,8 +59,9 @@ void main() async {
   env.Environment().initConfig(environment);
 
   DUIFactory().initialize();
+
   runApp(
-    MultiBlocProvider(
+    DigiaUIScope(child:   MultiBlocProvider(
       providers: [
         BlocProvider<StandardScreenResponseCubit>(
           create: (context) => StandardScreenResponseCubit(),
@@ -71,7 +73,7 @@ void main() async {
         ),
       ],
       child: const MaterialApp(home: LokalApp()),
-    ),
+    )),
   );
 
   //
@@ -110,13 +112,17 @@ class LokalApp extends StatefulWidget {
 
 late ShakeDetector detector;
 
-class _LokalAppState extends State<LokalApp> {
+class _LokalAppState extends State<LokalApp> with DigiaMessageHandlerMixin {
   @override
   void initState() {
     super.initState();
     initPlatformState();
     shakeInit();
+    addMessageHandler(DigiaMessageType.logout.name, DigiaMessageHandler.logout);
+    addMessageHandler(DigiaMessageType.openPage.name, DigiaMessageHandler.openPage);
+    addMessageHandler(DigiaMessageType.executeAction.name, DigiaMessageHandler.executeAction);;
   }
+
 
   void resetState() {
     setState(() {});
