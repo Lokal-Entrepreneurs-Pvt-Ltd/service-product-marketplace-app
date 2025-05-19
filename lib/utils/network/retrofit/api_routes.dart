@@ -138,7 +138,7 @@ class ApiRoutes {
       "/customer/requestPasswordResetToken";
   static const String resetPassword = "/customer/resetPassword";
   static const String phoneNumberAuth = "/customer/phoneNumberAuth";
-  static const String generatePdf = "/resume/generatePdf";
+  static const String generatePdf = "/resume/generatePdfv2";
   static const String previewResume = "/resume/preview";
   static const String initiatePaymentResume = "/resume/initiatePayment";
   static const String verifyPaymentResume = "/resume/verifyPayment";

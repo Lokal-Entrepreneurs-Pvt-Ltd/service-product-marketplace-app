@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lokal/utils/network/ApiRepository.dart';
@@ -24,7 +23,6 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-
 enum SubmissionState {
   loading,
   success,
@@ -34,13 +32,15 @@ enum SubmissionState {
 class ResumeUploadAndPayment extends StatefulWidget {
   final ResumeData resumeData;
 
-  const ResumeUploadAndPayment({Key? key, required this.resumeData}) : super(key: key);
+  const ResumeUploadAndPayment({Key? key, required this.resumeData})
+      : super(key: key);
 
   @override
   State<ResumeUploadAndPayment> createState() => _ResumeUploadAndPaymentState();
 }
 
-class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with WidgetsBindingObserver{
+class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>
+    with WidgetsBindingObserver {
   SubmissionState _state = SubmissionState.loading;
   String? _pdfUrl;
   String? _errorMessage;
@@ -83,16 +83,12 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     PaymentService().onPaymentFailure = (error, orderId) {
       if (!mounted) return;
       _showErrorDialogWithRetry(
-          'Payment Failed',
-          'Error: ${error.getMessage()}',
-          _initiatePayment
-      );
+          'Payment Failed', 'Error: ${error.getMessage()}', _initiatePayment);
     };
 
     _submitResume();
     _setupTimeout();
   }
-
 
   void _setupTimeout() {
     // Clear any existing timer
@@ -190,7 +186,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
                 child: CircularProgressIndicator(
                   strokeWidth: 8,
                   color: Colors.amberAccent,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green.shade300),
+                  valueColor:
+                      AlwaysStoppedAnimation<Color>(Colors.green.shade300),
                   backgroundColor: Colors.green.shade100,
                 ),
               ),
@@ -395,24 +392,29 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Personal Details Section
                   _buildSectionTitle('Personal Details'),
                   _buildInfoItem('Name', widget.resumeData.name),
+                  _buildInfoItem(
+                      'Father\'s Name', widget.resumeData.fatherName),
                   _buildInfoItem('Phone', widget.resumeData.phone),
-                  _buildInfoItem('Email', widget.resumeData.email),
-                  _buildInfoItem('City', widget.resumeData.city),
-
-                  const SizedBox(height: 24),
-
-                  // Work Experience Section
-                  _buildSectionTitle('Work Experience'),
-                  ...widget.resumeData.work.map((exp) => _buildWorkItem(exp)),
-
-                  const SizedBox(height: 24),
-
-                  // Education Section
+                  _buildInfoItem('Address', widget.resumeData.address),
                   _buildSectionTitle('Education'),
-                  ...widget.resumeData.education.map((edu) => _buildEducationItem(edu)),
+                  ...widget.resumeData.education
+                      .map((edu) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Text(
+                                '${edu.year} - ${edu.qualification} at ${edu.school} (${edu.status})'),
+                          ))
+                      .toList(),
+                  _buildSectionTitle('Skills'),
+                  ...widget.resumeData.skills.map((s) => Text('• $s')),
+                  _buildSectionTitle('Work Preference'),
+                  ...widget.resumeData.workPreference.map((s) => Text('• $s')),
+                  _buildSectionTitle('Documents Available'),
+                  ...widget.resumeData.documentsAvailable
+                      .map((s) => Text('• $s')),
+                  _buildSectionTitle('Declaration'),
+                  Text(widget.resumeData.declaration),
                 ],
               ),
             ),
@@ -449,7 +451,6 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     );
   }
 
-
   void _submitResume() async {
     setState(() {
       _isLoading = false;
@@ -458,7 +459,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     });
 
     try {
-      final response = await ApiRepository.generateResumePdf(widget.resumeData.toJson());
+      final response =
+          await ApiRepository.generateResumePdf(widget.resumeData.toJson());
       _timeoutTimer?.cancel();
 
       if (!mounted) return;
@@ -484,7 +486,6 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     }
   }
 
-
   void _openPdfPreview() async {
     setState(() => _isLoading = true);
     try {
@@ -496,18 +497,22 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
         final responseData = response.data;
         if (responseData['type'] == 'Buffer' && responseData['data'] != null) {
           final List<dynamic> bufferData = responseData['data'];
-          final Uint8List pdfBytes = Uint8List.fromList(List<int>.from(bufferData));
+          final Uint8List pdfBytes =
+              Uint8List.fromList(List<int>.from(bufferData));
           await _showPdfPreviewDialog(pdfBytes);
         } else {
-          await _showErrorDialogWithRetry('Preview Error', 'Invalid buffer format in response', _openPdfPreview);
+          await _showErrorDialogWithRetry('Preview Error',
+              'Invalid buffer format in response', _openPdfPreview);
         }
       } else {
-        await _showErrorDialogWithRetry('Preview Error', 'Failed to load resume preview.', _openPdfPreview);
+        await _showErrorDialogWithRetry(
+            'Preview Error', 'Failed to load resume preview.', _openPdfPreview);
       }
     } catch (e) {
       if (!mounted) return;
       setState(() => _isLoading = false);
-      await _showErrorDialogWithRetry('Error', 'An error occurred while loading the preview: $e', _openPdfPreview);
+      await _showErrorDialogWithRetry('Error',
+          'An error occurred while loading the preview: $e', _openPdfPreview);
     }
   }
 
@@ -517,7 +522,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       barrierDismissible: true,
       builder: (BuildContext dialogContext) {
         return Dialog(
-          insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          insetPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -531,14 +537,16 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
               children: [
                 // Custom app bar with close button and title
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Row(
                     children: [
                       InkWell(
                         onTap: () {
                           Navigator.of(dialogContext).pop();
                         },
-                        child: const Icon(Icons.close, color: Colors.black, size: 28),
+                        child: const Icon(Icons.close,
+                            color: Colors.black, size: 28),
                       ),
                       const SizedBox(width: 16),
                       const Text(
@@ -602,7 +610,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     );
   }
 
-  Future<void> _showErrorDialogWithRetry(String title, String message, VoidCallback retryCallback) async {
+  Future<void> _showErrorDialogWithRetry(
+      String title, String message, VoidCallback retryCallback) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext errorContext) => AlertDialog(
@@ -651,16 +660,17 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     );
   }
 
-
   void _initiatePayment() async {
     setState(() => _isLoading = true);
     try {
-      final initiateResponse = await ApiRepository.initiatePaymentResume({"amount": 10});
+      final initiateResponse =
+          await ApiRepository.initiatePaymentResume({"amount": 10});
 
       if (!initiateResponse.isSuccess! || initiateResponse.data == null) {
         if (!mounted) return;
         setState(() => _isLoading = false);
-        _showErrorDialogWithRetry('Payment Error', 'Failed to initiate payment. Please try again.', _initiatePayment);
+        _showErrorDialogWithRetry('Payment Error',
+            'Failed to initiate payment. Please try again.', _initiatePayment);
         return;
       }
 
@@ -672,7 +682,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       if (orderId == null || paymentSessionId == null) {
         if (!mounted) return;
         setState(() => _isLoading = false);
-        _showErrorDialogWithRetry('Payment Error', 'Invalid response data. Please try again.', _initiatePayment);
+        _showErrorDialogWithRetry('Payment Error',
+            'Invalid response data. Please try again.', _initiatePayment);
         return;
       }
 
@@ -685,10 +696,10 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       if (mounted) setState(() => _isLoading = false);
     } catch (e) {
       if (mounted) setState(() => _isLoading = false);
-      _showErrorDialogWithRetry('Payment Error', 'An error occurred while processing payment: $e', _initiatePayment);
+      _showErrorDialogWithRetry('Payment Error',
+          'An error occurred while processing payment: $e', _initiatePayment);
     }
   }
-
 
   void _showPaymentSuccessDialog(VoidCallback onDownload) {
     showDialog(
@@ -744,7 +755,7 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
         _showErrorDialogWithRetry(
           'Verification Failed',
           'Payment verification failed. Please try again.',
-              () => _verifyPayment(orderId),
+          () => _verifyPayment(orderId),
         );
         return;
       }
@@ -755,7 +766,10 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     } catch (e) {
       if (!mounted) return;
       setState(() => _isLoading = false);
-      _showErrorDialogWithRetry('Verification Error', 'An error occurred while verifying payment: $e', () => _verifyPayment(orderId));
+      _showErrorDialogWithRetry(
+          'Verification Error',
+          'An error occurred while verifying payment: $e',
+          () => _verifyPayment(orderId));
     }
   }
 
@@ -767,7 +781,8 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
       setState(() => _isLoading = false);
 
       if (!response.isSuccess!) {
-        _showErrorDialogWithRetry('Download Error', 'Failed to load resume. Please try again.', _downloadResume);
+        _showErrorDialogWithRetry('Download Error',
+            'Failed to load resume. Please try again.', _downloadResume);
         return;
       }
 
@@ -776,21 +791,23 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
         // Open URL in browser instead of downloading
         if (await canLaunch(resumeUrl)) {
           await launch(resumeUrl, forceSafariVC: false, forceWebView: false);
-          _showInfoDialog('Success', 'Your resume has been opened in browser. You can download it from there.');
+          _showInfoDialog('Success',
+              'Your resume has been opened in browser. You can download it from there.');
         } else {
-          _showErrorDialogWithRetry('Error', 'Could not open the resume URL.', _downloadResume);
+          _showErrorDialogWithRetry(
+              'Error', 'Could not open the resume URL.', _downloadResume);
         }
       } else {
-        _showErrorDialogWithRetry('Error', 'No resume URL found in response.', _downloadResume);
+        _showErrorDialogWithRetry(
+            'Error', 'No resume URL found in response.', _downloadResume);
       }
     } catch (e) {
       if (!mounted) return;
       setState(() => _isLoading = false);
-      _showErrorDialogWithRetry('Error', 'An error occurred while processing the resume: $e', _downloadResume);
+      _showErrorDialogWithRetry('Error',
+          'An error occurred while processing the resume: $e', _downloadResume);
     }
   }
-
-
 
   void _showInfoDialog(String title, String message) {
     showDialog(
@@ -852,45 +869,6 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
     );
   }
 
-  Widget _buildWorkItem(WorkExperience exp) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            exp.jobTitle,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            exp.employer,
-            style: const TextStyle(
-              fontSize: 15,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '${exp.city} • ${exp.displayDate}',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 14,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-
   Widget _buildEducationItem(Education edu) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -903,7 +881,7 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            edu.schoolName,
+            edu.school,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -911,32 +889,15 @@ class _ResumeUploadAndPaymentState extends State<ResumeUploadAndPayment>  with W
           ),
           const SizedBox(height: 4),
           Text(
-            'Percentage: ${edu.percentage} • Subjects: ${edu.subjects}',
+            'Qualification: ${edu.qualification} • School: ${edu.school}',
             style: const TextStyle(
               fontSize: 15,
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            _formatDateDisplay(edu.startDate, edu.endDate),
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 14,
-            ),
-          ),
         ],
       ),
     );
-  }
-
-  String _formatDateDisplay(String startDate, String endDate) {
-    try {
-      final start = DateTime.parse(startDate);
-      final end = DateTime.parse(endDate);
-      return '${DateFormat('MMM/yy').format(start)}-${DateFormat('MMM/yy').format(end)}';
-    } catch (e) {
-      return '$startDate-$endDate';
-    }
   }
 }
 
@@ -950,6 +911,4 @@ class PaymentResult {
     required this.cancelled,
     required this.orderId,
   });
-
-
 }

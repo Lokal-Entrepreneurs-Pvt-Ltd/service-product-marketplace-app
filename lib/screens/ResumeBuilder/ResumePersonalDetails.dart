@@ -1,7 +1,7 @@
 // resume_personal_details.dart
 
 import 'package:flutter/material.dart';
-import 'ResumeWorkHistory.dart';
+import 'package:lokal/screens/ResumeBuilder/ResumeEducation.dart';
 import 'resumeDataModel.dart';
 
 class ResumePersonalDetails extends StatefulWidget {
@@ -22,8 +22,8 @@ class _ResumePersonalDetailsState extends State<ResumePersonalDetails> {
   // Text editing controllers
   late final TextEditingController _nameController;
   late final TextEditingController _phoneController;
-  late final TextEditingController _emailController;
-  late final TextEditingController _cityController;
+  late final TextEditingController _fatherNameController;
+  late final TextEditingController _addressController;
 
   @override
   void initState() {
@@ -32,16 +32,18 @@ class _ResumePersonalDetailsState extends State<ResumePersonalDetails> {
     // Initialize controllers with existing data if available
     _nameController = TextEditingController(text: widget.resumeData.name);
     _phoneController = TextEditingController(text: widget.resumeData.phone);
-    _emailController = TextEditingController(text: widget.resumeData.email);
-    _cityController = TextEditingController(text: widget.resumeData.city);
+    _fatherNameController =
+        TextEditingController(text: widget.resumeData.fatherName);
+    _addressController = TextEditingController(text: widget.resumeData.address);
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _phoneController.dispose();
-    _emailController.dispose();
-    _cityController.dispose();
+    _fatherNameController.dispose();
+    _addressController.dispose();
+
     super.dispose();
   }
 
@@ -50,14 +52,16 @@ class _ResumePersonalDetailsState extends State<ResumePersonalDetails> {
       // Update resume data with personal details
       widget.resumeData.name = _nameController.text;
       widget.resumeData.phone = _phoneController.text;
-      widget.resumeData.email = _emailController.text;
-      widget.resumeData.city = _cityController.text;
+      widget.resumeData.fatherName = _fatherNameController.text;
+      widget.resumeData.address = _addressController.text;
 
+      print(widget.resumeData.name);
       // Navigate to work history page
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ResumeWorkHistory(resumeData: widget.resumeData),
+          builder: (context) =>
+              (ResumeEducation(resumeData: widget.resumeData)),
         ),
       );
     }
@@ -102,67 +106,69 @@ class _ResumePersonalDetailsState extends State<ResumePersonalDetails> {
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Personal Details',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                _buildInputField(
-                  label: 'Full name',
-                  controller: _nameController,
-                  hint: 'Enter your full name (e.g., Ram Sagar)',
-                ),
-                const SizedBox(height: 16),
-                _buildInputField(
-                  label: 'Phone',
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                  hint: 'Enter your phone number',
-                ),
-                const SizedBox(height: 16),
-                _buildInputField(
-                  label: 'Email',
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  hint: 'Enter your email address',
-                ),
-                const SizedBox(height: 16),
-                _buildInputField(
-                  label: 'City',
-                  controller: _cityController,
-                  hint: 'Enter your current city',
-                ),
-                const Spacer(),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: _continueToWorkHistory,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFFD833),
-                      foregroundColor: Colors.black,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+            child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Personal Details',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                const SizedBox(height: 24),
-              ],
+                  const SizedBox(height: 24),
+                  _buildInputField(
+                    label: 'Full name',
+                    controller: _nameController,
+                    hint: 'Enter your full name (e.g., Ram Sagar)',
+                  ),
+                  const SizedBox(height: 16),
+                  _buildInputField(
+                    label: 'Father\'s Name',
+                    controller: _fatherNameController,
+                    hint: 'Enter your father\'s full name',
+                  ),
+                  const SizedBox(height: 16),
+                  _buildInputField(
+                    label: 'Phone',
+                    controller: _phoneController,
+                    keyboardType: TextInputType.phone,
+                    hint: 'Enter your phone number',
+                  ),
+                  const SizedBox(height: 16),
+                  _buildInputField(
+                    label: 'Address',
+                    controller: _addressController,
+                    hint: 'Enter your full address',
+                  ),
+                  const SizedBox(height: 170),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: _continueToWorkHistory,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFFD833),
+                        foregroundColor: Colors.black,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
           ),
         ),
