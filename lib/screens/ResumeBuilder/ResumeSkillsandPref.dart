@@ -22,7 +22,7 @@ class _ResumeSkillsAndPreferenceState extends State<ResumeSkillsAndPreference> {
     'Part-time',
     'Full-time',
   ];
-  final List<String> _documentOptions = ['Aadhar Card', 'PAN Card'];
+  final List<String> _documentOptions = ['Aadhar Card', 'PAN Card '];
 
   List<String> _selectedWorkPreferences = [];
   List<String> _selectedDocuments = [];

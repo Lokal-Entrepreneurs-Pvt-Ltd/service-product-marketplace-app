@@ -254,6 +254,7 @@ class HttpScreenClient {
 
       var bodyParams = args ?? <String, dynamic>{};
       var header = NetworkUtils.getRequestHeaders();
+      print("💀____AUth key ${header["Authorization"]}");
       final response = await getHttp()
           .post(
             Uri.parse(Environment().config.BASE_URL + pageRoute),
